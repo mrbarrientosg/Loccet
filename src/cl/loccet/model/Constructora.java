@@ -6,9 +6,11 @@ import java.util.HashMap;
 public class Constructora {
 
     private String rut;
+
     private String nombre;
+
     private ArrayList<Proyecto> listaProyecto;
-    //TODO:permisos
+
     private HashMap<Integer, Proyecto> mapProyecto;
 
     public Constructora(String rut, String nombre) {
