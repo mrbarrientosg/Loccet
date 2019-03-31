@@ -1,5 +1,6 @@
 package cl.loccet.model;
 
+import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -76,13 +77,14 @@ public class Proyecto {
         }
     }
 
-    public Trabajador buscarTrabajador(String busqueda) {
+    public ArrayList<Trabajador> buscarTrabajador(String busqueda) {
+        ArrayList<Trabajador> encontrados = new ArrayList<>();
 
         for (Trabajador trabajador: listaTrabajadores) {
             if (trabajador.getNombre().toLowerCase().contains(busqueda))
-                return trabajador;
+                encontrados.add(trabajador);
         }
 
-        return null;
+        return encontrados;
     }
 }
