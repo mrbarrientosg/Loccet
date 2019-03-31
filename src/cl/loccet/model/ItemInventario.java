@@ -1,7 +1,5 @@
 package src.cl.loccet.model;
 
-import java.util.HashMap;
-
 public class ItemInventario {
 
     private String categoria;
