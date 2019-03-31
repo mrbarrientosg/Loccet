@@ -52,6 +52,12 @@ public class Constructora {
         return true;
     }
 
+    public ArrayList<Trabajador> buscarTrabajador(int idProyecto, String busqueda) {
+        if(mapProyecto.get(idProyecto) == null) return null;
+        Proyecto aux = mapProyecto.get(idProyecto);
+        return aux.buscarTrabajador(busqueda.toLowerCase());
+    }
+
     /**
      * Busca a todos los trabajadores en todas las obras
      * @param busqueda Forma de como se quiere buscar
@@ -60,14 +66,14 @@ public class Constructora {
     public ArrayList<Trabajador> buscarTrabajador(String busqueda) {
         ArrayList<Trabajador> encontrados = new ArrayList<>();
 
-        Trabajador aux;
+        ArrayList<Trabajador> aux;
 
         for (Proyecto proyecto: listaProyecto) {
 
             aux = proyecto.buscarTrabajador(busqueda.toLowerCase());
 
-            if (aux != null)
-                encontrados.add(aux);
+            if (aux.size() != 0)
+                encontrados.addAll(aux);
         }
 
         return encontrados;
