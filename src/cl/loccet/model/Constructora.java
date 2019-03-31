@@ -1,11 +1,17 @@
 package cl.loccet.model;
 
 public class Constructora {
-    String rut;
-    String nombre;
 
-    public Constructora(String rut, String nombre){
+    private String rut;
+
+    private String nombre;
+
+    public Constructora(String rut, String nombre) {
+        this.rut = rut;
         this.nombre = nombre;
+    }
+
+    public void setRut(String rut) {
         this.rut = rut;
     }
 
@@ -13,7 +19,11 @@ public class Constructora {
         this.nombre = nombre;
     }
 
-    public void setRut(String rut) {
-        this.rut = rut;
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getRut() {
+        return rut;
     }
 }
