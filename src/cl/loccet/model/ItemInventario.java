@@ -1,4 +1,4 @@
-package src.cl.loccet.model;
+package cl.loccet.model;
 
 public class ItemInventario {
 
