@@ -18,6 +18,8 @@ public class Proyecto {
 
     public Proyecto(int id,double estimacion,double costoReal) {
         this.id = id;
+        this.estimacion = estimacion;
+        this.costoReal = costoReal;
         listaTrabajadores = new ArrayList<>();
         mapTrabajadores = new HashMap<>();
     }
@@ -47,6 +49,4 @@ public class Proyecto {
             //Mostrar por pantalla.****
         }
     }
-
-
 }

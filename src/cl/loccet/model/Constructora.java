@@ -39,7 +39,7 @@ public class Constructora {
 
     //Metodos
 
-    public void agregarObra(Proyecto proyecto){
+    public void agregarObra(cl.loccet.model.Proyecto proyecto){
         listaObras.add(proyecto);
         mapObra.put(proyecto.getId(),proyecto);
     }
