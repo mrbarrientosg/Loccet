@@ -3,14 +3,14 @@ package cl.loccet.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Obra {
+public class proyecto {
     private Integer id;
     private String direccion;
     private ArrayList<cl.loccet.model.Trabajador> listaEmpleados;
     private HashMap<String, cl.loccet.model.Trabajador> mapEmpleados;
     //TODO: Fecha inicio y fin.
 
-    public Obra(int id, String ubicacion){
+    public proyecto(int id, String ubicacion){
         this.id = new Integer(id);
         this.direccion = ubicacion;
         listaEmpleados = new ArrayList<>();
