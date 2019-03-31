@@ -19,6 +19,7 @@ public class Constructora {
         listaProyecto = new ArrayList<>();
         mapProyecto = new HashMap<>();
     }
+
     //Setter
 
     public void setRut(String rut) {
@@ -46,12 +47,28 @@ public class Constructora {
         mapProyecto.put(proyecto.getId(),proyecto);
     }
 
-    public boolean agregarTrabajador(int id, Trabajador trabajador){
-        if(mapProyecto.get(id) == null) return false;
-        mapProyecto.get(id).agregarTrabajador(trabajador);
+    /**
+     * Agregar un trabajador a un proyecto
+     * @param idProyecto id del proyecto
+     * @param trabajador Trabajador a guardar
+     * @return false si no se pudo agregar y true lo contrario
+     *
+     * @author Matias Barrientos
+     */
+    public boolean agregarTrabajador(int idProyecto, Trabajador trabajador){
+        if(mapProyecto.get(idProyecto) == null) return false;
+        mapProyecto.get(idProyecto).agregarTrabajador(trabajador);
         return true;
     }
 
+    /**
+     * Buscar los trabajadores especificos en un proyecto
+     * @param idProyecto id del proyecto
+     * @param busqueda consulta de busqueda
+     * @return Lista de trabajadores encontrados
+     *
+     * @author Matias Barrientos
+     */
     public ArrayList<Trabajador> buscarTrabajador(int idProyecto, String busqueda) {
         if(mapProyecto.get(idProyecto) == null) return null;
         Proyecto aux = mapProyecto.get(idProyecto);
@@ -62,6 +79,8 @@ public class Constructora {
      * Busca a todos los trabajadores en todas las obras
      * @param busqueda Forma de como se quiere buscar
      * @return Lista de trabajadores encontrados
+     *
+     * @author Matias Barrientos
      */
     public ArrayList<Trabajador> buscarTrabajador(String busqueda) {
         ArrayList<Trabajador> encontrados = new ArrayList<>();
@@ -77,6 +96,19 @@ public class Constructora {
         }
 
         return encontrados;
+    }
+
+    /**
+     * Eliminar un trabajador de un proyecto
+     * @param idProyecto id del proyecto
+     * @param RUT rut del trabajador
+     * @return retorna el trabajador eliminado, si es null es porque no existe.
+     *
+     * @author Matias Barrientos
+     */
+    public Trabajador eliminarTrabajador(int idProyecto, String RUT) {
+        if(mapProyecto.get(idProyecto) == null) return null;
+        return mapProyecto.get(idProyecto).eliminarTrabajador(RUT);
     }
 }
 
