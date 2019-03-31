@@ -1,5 +1,7 @@
 package cl.loccet;
 
+import cl.loccet.base.Router;
+import cl.loccet.base.RouterView;
 import cl.loccet.view.LoginView;
 import javafx.application.Application;
 import javafx.scene.Parent;
@@ -14,13 +16,23 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        LoginView loginView = new LoginView();
+        initRouter(primaryStage);
+
+        LoginView loginView = Router.getIntance().getView(RouterView.LOGIN);
 
         Parent view = loginView.loadFXML();
 
         Scene scene = new Scene(view);
 
+        Router.getIntance().setRoot(scene);
+
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    private void initRouter(Stage primaryStage) {
+        Router r = Router.getIntance();
+        r.setCurrentStage(primaryStage);
+        r.addView(RouterView.LOGIN, new LoginView());
     }
 }

@@ -1,10 +1,13 @@
 package cl.loccet.view;
 
+import cl.loccet.base.Router;
 import cl.loccet.base.View;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
+import javafx.stage.StageStyle;
 
 public class LoginView extends View {
 
@@ -22,7 +25,7 @@ public class LoginView extends View {
 
     @Override
     protected void init() {
-        getLOGGER().info("Init");
+        getLOGGER().info(this.toString());
 
         exitButton.setCancelButton(true);
         exitButton.setOnAction(this::exit);
@@ -38,5 +41,11 @@ public class LoginView extends View {
 
     private void exit(ActionEvent actionEvent) {
         // TODO: Salir del login
+        try {
+            Router.getIntance().showModal(new LoginView(), StageStyle.DECORATED, Modality.APPLICATION_MODAL, false, true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
