@@ -10,7 +10,7 @@ public class Constructora {
     private String nombre;
 
     private ArrayList<Proyecto> listaProyecto;
-
+  
     private HashMap<Integer, Proyecto> mapProyecto;
 
     public Constructora(String rut, String nombre) {
