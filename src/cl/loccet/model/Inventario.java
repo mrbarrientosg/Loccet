@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public class Inventario {
     private ArrayList<ItemInventario> listaInventarios;
-    private HashMap<> mapInventarios;
+    private HashMap<Integer, ItemInventario> mapInventarios;
 
     public Inventario(){
         listaInventarios = new ArrayList<>();
