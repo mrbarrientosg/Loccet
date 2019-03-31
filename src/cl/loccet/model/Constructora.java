@@ -49,5 +49,26 @@ public class Constructora {
         // mapObra.get(idObra).agregarTrabajador(trabajador);
         return true;
     }
+
+    /**
+     * Busca a todos los trabajadores en todas las obras
+     * @param busqueda Forma de como se quiere buscar
+     * @return Lista de trabajadores encontrados
+     */
+    public ArrayList<Trabajador> buscarTrabajador(String busqueda) {
+        ArrayList<Trabajador> encontrados = new ArrayList<>();
+
+        Trabajador aux;
+
+        for (Proyecto proyecto: listaObras) {
+
+            aux = proyecto.buscarTrabajador(busqueda.toLowerCase());
+
+            if (aux != null)
+                encontrados.add(aux);
+        }
+
+        return encontrados;
+    }
 }
 

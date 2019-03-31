@@ -44,9 +44,20 @@ public class Proyecto {
         }
         return false;
     }
+
     public void mostrarTrabajadores(){
         for (int i = 0; i < listaTrabajadores.size(); i++){
             //Mostrar por pantalla.****
         }
+    }
+
+    public Trabajador buscarTrabajador(String busqueda) {
+
+        for (Trabajador trabajador: listaTrabajadores) {
+            if (trabajador.getNombre().toLowerCase().contains(busqueda))
+                return trabajador;
+        }
+
+        return null;
     }
 }
