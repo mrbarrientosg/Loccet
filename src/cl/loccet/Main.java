@@ -20,11 +20,7 @@ public class Main extends Application {
 
         LoginView loginView = Router.getIntance().getView(RouterView.LOGIN);
 
-        Parent view = loginView.loadFXML();
-
-        Scene scene = new Scene(view);
-
-        Router.getIntance().setRoot(scene);
+        Scene scene = new Scene(loginView.getRoot());
 
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -32,7 +28,6 @@ public class Main extends Application {
 
     private void initRouter(Stage primaryStage) {
         Router r = Router.getIntance();
-        r.setCurrentStage(primaryStage);
         r.addView(RouterView.LOGIN, new LoginView());
     }
 }

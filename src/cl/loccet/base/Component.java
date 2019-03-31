@@ -1,6 +1,8 @@
 package cl.loccet.base;
 
 import cl.loccet.resource.ResourceUtil;
+import javafx.stage.Stage;
+
 import java.util.logging.Logger;
 
 public abstract class Component {
@@ -9,7 +11,15 @@ public abstract class Component {
 
     private ResourceUtil resources;
 
-    public Component() { }
+    private Stage primaryStage;
+
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
 
     protected Logger getLOGGER() {
         if (LOGGER == null)

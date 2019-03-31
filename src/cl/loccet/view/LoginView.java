@@ -6,8 +6,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
+
+import java.io.IOException;
 
 public class LoginView extends View {
 
@@ -24,6 +27,13 @@ public class LoginView extends View {
     private Button exitButton;
 
     @Override
+    public VBox getRoot() throws IOException {
+        if (root == null)
+            root = loadFXML();
+        return (VBox) root;
+    }
+
+    @Override
     protected void init() {
         getLOGGER().info(this.toString());
 
@@ -37,15 +47,16 @@ public class LoginView extends View {
     private void login(ActionEvent actionEvent) {
         System.out.println(rutField.getText());
         System.out.println(passwordField.getText());
+        close();
     }
 
     private void exit(ActionEvent actionEvent) {
         // TODO: Salir del login
+        LoginView l = new LoginView();
         try {
-            Router.getIntance().showModal(new LoginView(), StageStyle.DECORATED, Modality.APPLICATION_MODAL, false, true);
-        } catch (Exception e) {
+            l.showModal(StageStyle.DECORATED, Modality.APPLICATION_MODAL, false, false);
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }
