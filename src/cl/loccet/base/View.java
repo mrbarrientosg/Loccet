@@ -23,7 +23,8 @@ public abstract class View extends Component implements Initializable {
     public <T extends Node> T loadFXML(String ruta, boolean atributoControlador, Object raiz) throws IOException {
         URL fxmlUrl = locFXML(ruta);
 
-        fxmlLoader = new FXMLLoader(fxmlUrl);
+        fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(fxmlUrl);
 
         if (raiz != null) fxmlLoader.setRoot(raiz);
 
@@ -46,7 +47,7 @@ public abstract class View extends Component implements Initializable {
         String loc;
 
         if (ruta == null)
-            loc = this.getClass().getSimpleName() + ".fxml";
+            loc = "../resource/fxml/" + this.getClass().getSimpleName().replaceAll("View", "").toLowerCase() + ".fxml";
         else
             loc = ruta;
 
