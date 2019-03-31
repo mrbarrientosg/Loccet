@@ -16,7 +16,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         LoginView loginView = new LoginView();
 
-        Parent view = loginView.loadFXML("../resource/fxml/login.fxml");
+        Parent view = loginView.loadFXML();
 
         Scene scene = new Scene(view);
 
