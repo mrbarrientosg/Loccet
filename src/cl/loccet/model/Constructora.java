@@ -7,15 +7,15 @@ public class Constructora {
 
     private String rut;
     private String nombre;
-    private ArrayList<Proyecto> listaObras;
+    private ArrayList<Proyecto> listaProyecto;
     //TODO:permisos
-    private HashMap<Integer, Proyecto> mapObra;
+    private HashMap<Integer, Proyecto> mapProyecto;
 
     public Constructora(String rut, String nombre) {
         this.rut = rut;
         this.nombre = nombre;
-        listaObras = new ArrayList<>();
-        mapObra = new HashMap<>();
+        listaProyecto = new ArrayList<>();
+        mapProyecto = new HashMap<>();
     }
     //Setter
 
@@ -39,14 +39,14 @@ public class Constructora {
 
     //Metodos
 
-    public void agregarObra(cl.loccet.model.Proyecto proyecto){
-        listaObras.add(proyecto);
-        mapObra.put(proyecto.getId(),proyecto);
+    public void agregarProyecto(Proyecto proyecto){
+        listaProyecto.add(proyecto);
+        mapProyecto.put(proyecto.getId(),proyecto);
     }
 
-    public boolean agregarTrabajador(int idObra, Proyecto trabajador){
-        if(mapObra.get(idObra) == null) return false;
-        // mapObra.get(idObra).agregarTrabajador(trabajador);
+    public boolean agregarTrabajador(int id, Proyecto trabajador){
+        if(mapProyecto.get(id) == null) return false;
+        mapProyecto.get(id).agregarTrabajador(trabajador);
         return true;
     }
 }
