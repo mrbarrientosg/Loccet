@@ -3,42 +3,50 @@ package cl.loccet.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class proyecto {
-    private Integer id;
-    private String direccion;
-    private ArrayList<cl.loccet.model.Trabajador> listaEmpleados;
-    private HashMap<String, cl.loccet.model.Trabajador> mapEmpleados;
-    //TODO: Fecha inicio y fin.
+public class Proyecto {
 
-    public proyecto(int id, String ubicacion){
-        this.id = new Integer(id);
-        this.direccion = ubicacion;
-        listaEmpleados = new ArrayList<>();
-        mapEmpleados = new HashMap<>();
-    }
+    private int id;
 
-    //Setter
-    public void setId(int id){
+    private double estimacion;
+
+    private double costoReal;
+
+    private ArrayList<Trabajador> listaTrabajadores;
+
+    private HashMap<String, Trabajador> mapTrabajadores;
+    //Implementar inventario.
+
+    public Proyecto(int id,double estimacion,double costoReal) {
         this.id = id;
+        this.estimacion = estimacion;
+        this.costoReal = costoReal;
+        listaTrabajadores = new ArrayList<>();
+        mapTrabajadores = new HashMap<>();
     }
 
-    public void setUbicacion(String ubicacion) {
-        this.direccion = ubicacion;
-    }
-
-    //Getter
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public String getUbicacion() {
-        return direccion;
+    public double getEstimacion() {
+        return estimacion;
     }
 
-    //Metodos
+    public double getCostoReal() {
+        return costoReal;
+    }
 
-    public void agregarTrabajador(cl.loccet.model.Trabajador trabajador){
-        listaEmpleados.add(trabajador);
-        mapEmpleados.put(trabajador.getRut(), trabajador); //TODO: Validar el put
+    public boolean agregarTrabajador(Trabajador trabajador){
+        if (mapTrabajadores.get(trabajador.getRut()) == null){
+            mapTrabajadores.put(trabajador.getRut(),trabajador);
+            listaTrabajadores.add(trabajador);
+            return true;
+        }
+        return false;
+    }
+    public void mostrarTrabajadores(){
+        for (int i = 0; i < listaTrabajadores.size(); i++){
+            //Mostrar por pantalla.****
+        }
     }
 }
