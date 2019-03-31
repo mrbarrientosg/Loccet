@@ -7,9 +7,9 @@ import java.util.HashMap;
 public class Proyecto {
 
     private int id;
-    private Date fechaInicioProyecto;
+    private Date fechaInicio;
 
-    private Date fechaTerminoProyecto;
+    private Date fechaTermino;
 
     private Date fechaTerminoReal;
 
@@ -22,11 +22,11 @@ public class Proyecto {
     private HashMap<String, Trabajador> mapTrabajadores;
     //Implementar inventario.
 
-    public Proyecto(int id,double estimacion,double costoReal, Date fechaInicioProyecto, Date fechaTerminoProyecto, Date fechaTerminoReal) {
+    public Proyecto(int id,double estimacion,double costoReal, Date fechaInicio, Date fechaTermino, Date fechaTerminoReal) {
         this.id = id;
         this.fechaTerminoReal = fechaTerminoReal;
-        this.fechaInicioProyecto = fechaInicioProyecto;
-        this.fechaTerminoProyecto = fechaTerminoProyecto;
+        this.fechaInicio = fechaInicio;
+        this.fechaTermino = fechaTermino;
         this.estimacion = estimacion;
         this.costoReal = costoReal;
         listaTrabajadores = new ArrayList<>();
@@ -41,12 +41,12 @@ public class Proyecto {
         return fechaTerminoReal;
     }
 
-    public Date getFechaInicioProyecto() {
-        return fechaInicioProyecto;
+    public Date getFechaInicio() {
+        return fechaInicio;
     }
 
-    public Date getFechaTerminoProyecto() {
-        return fechaTerminoProyecto;
+    public Date getFechaTermino() {
+        return fechaTermino;
     }
 
     public int getId() {
