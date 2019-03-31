@@ -6,10 +6,14 @@ import java.util.HashMap;
 public class Proyecto {
 
     private int id;
+
     private double estimacion;
+
     private double costoReal;
+
     private ArrayList<Trabajador> listaTrabajadores;
-    private HashMap<String, Proyecto> mapTrabajadores;
+
+    private HashMap<String, Trabajador> mapTrabajadores;
     //Implementar inventario.
 
     public Proyecto(int id,double estimacion,double costoReal) {
@@ -29,6 +33,7 @@ public class Proyecto {
     public double getCostoReal() {
         return costoReal;
     }
+
     public boolean agregarTrabajador(Trabajador trabajador){
         if (mapTrabajadores.get(trabajador.getRut()) == null){
             mapTrabajadores.put(trabajador.getRut(),trabajador);
