@@ -11,6 +11,8 @@ public class Proyecto {
 
     private Date fechaTerminoProyecto;
 
+    private Date fechaTerminoReal;
+
     private double estimacion;
 
     private double costoReal;
@@ -20,8 +22,9 @@ public class Proyecto {
     private HashMap<String, Trabajador> mapTrabajadores;
     //Implementar inventario.
 
-    public Proyecto(int id,double estimacion,double costoReal, Date fechaInicioProyecto, Date fechaTerminoProyecto) {
+    public Proyecto(int id,double estimacion,double costoReal, Date fechaInicioProyecto, Date fechaTerminoProyecto, Date fechaTerminoReal) {
         this.id = id;
+        this.fechaTerminoReal = fechaTerminoReal;
         this.fechaInicioProyecto = fechaInicioProyecto;
         this.fechaTerminoProyecto = fechaTerminoProyecto;
         this.estimacion = estimacion;
@@ -30,12 +33,12 @@ public class Proyecto {
         mapTrabajadores = new HashMap<>();
     }
 
-    public void setFechaInicioProyecto(Date fechaInicioProyecto) {
-        this.fechaInicioProyecto = fechaInicioProyecto;
+    public void setFechaTerminoReal(Date fechaTerminoReal){
+        this.fechaTerminoReal = fechaTerminoReal;
     }
 
-    public void setFechaTerminoProyecto(Date fechaTerminoProyecto) {
-        this.fechaTerminoProyecto = fechaTerminoProyecto;
+    public Date getFechaTerminoReal() {
+        return fechaTerminoReal;
     }
 
     public Date getFechaInicioProyecto() {
