@@ -31,7 +31,7 @@ public class LoginView extends View {
     }
 
     @Override
-    protected void init() {
+    public void viewDidLoad() {
         LOGGER.info(this.toString());
 
         exitButton.setCancelButton(true);

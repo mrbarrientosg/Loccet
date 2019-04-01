@@ -12,7 +12,7 @@ public class MenuBarView extends View {
     private MenuBar menuBar;
 
     @Override
-    protected void init() {
+    public void viewDidLoad() {
         System.out.println(menuBar.getMenus().get(0).getId());
     }
 

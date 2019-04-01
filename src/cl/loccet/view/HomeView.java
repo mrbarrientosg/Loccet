@@ -5,7 +5,6 @@ import cl.loccet.base.RouterView;
 import cl.loccet.base.View;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.MenuBar;
 import javafx.scene.layout.BorderPane;
 
 public class HomeView extends View {
@@ -19,19 +18,21 @@ public class HomeView extends View {
     private Button backButton;
 
     @Override
-    protected void init() {
+    public void viewDidLoad() {
         backButton.setOnAction(event -> {
             Router.getIntance().getView(RouterView.LOGIN).openModal();
             close();
         });
 
-        borderPane.setTop(menuBarView.getRoot());
+
+        getRoot().setTop(menuBarView.getRoot());
     }
 
     @Override
     public BorderPane getRoot()  {
         if (root == null)
             root = loadFXML();
+
         return (BorderPane) root;
     }
 }
