@@ -1,10 +1,13 @@
 package cl.loccet.view;
 
+import cl.loccet.base.Router;
+import cl.loccet.base.RouterView;
 import cl.loccet.base.View;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 
 public class LoginView extends View {
 
@@ -21,19 +24,30 @@ public class LoginView extends View {
     private Button exitButton;
 
     @Override
-    protected void init() {
-        getLOGGER().info("Init");
+    public VBox getRoot() {
+        if (root == null)
+            root = loadFXML();
+        return (VBox) root;
+    }
+
+    @Override
+    public void viewDidLoad() {
+        LOGGER.info(this.toString());
 
         exitButton.setCancelButton(true);
         exitButton.setOnAction(this::exit);
 
         loginButton.setDefaultButton(true);
         loginButton.setOnAction(this::login);
+
     }
 
     private void login(ActionEvent actionEvent) {
-        System.out.println(rutField.getText());
-        System.out.println(passwordField.getText());
+        LOGGER.info("USUARIO: " + rutField.getText());
+        LOGGER.info("CONSTRASEÑA: " + passwordField.getText());
+
+        Router.getIntance().getView(RouterView.HOME).openModal();
+        close();
     }
 
     private void exit(ActionEvent actionEvent) {
