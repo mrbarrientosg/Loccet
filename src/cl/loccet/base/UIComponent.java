@@ -1,6 +1,5 @@
 package cl.loccet.base;
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -16,6 +15,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.logging.Level;
 
+
+/**
+ * Subclase de Component, en donde contiene las acciones para poder cargar los fxml,
+ * ademas contiene las transiciones de las vistas.
+ *
+ * @author Matias Barrientos
+ */
 public abstract class UIComponent extends Component {
 
     private FXMLLoader fxmlLoader;
@@ -116,7 +122,6 @@ public abstract class UIComponent extends Component {
 
             modalStage.setOnHidden(event -> {
                 modalStage = null;
-                System.gc();
             });
 
             if (block)
@@ -140,6 +145,7 @@ public abstract class UIComponent extends Component {
             modalStage = null;
             return;
         }
+
         getCurrentStage().close();
     }
 }

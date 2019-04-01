@@ -1,10 +1,6 @@
 package cl.loccet.base;
 
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 

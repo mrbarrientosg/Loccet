@@ -4,11 +4,8 @@ import cl.loccet.base.Router;
 import cl.loccet.base.RouterView;
 import cl.loccet.base.View;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
-
-import java.io.IOException;
 
 public class HomeView extends View {
 

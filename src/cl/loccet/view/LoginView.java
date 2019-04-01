@@ -8,10 +8,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.StageStyle;
-
-import java.io.IOException;
 
 public class LoginView extends View {
 
