@@ -22,6 +22,8 @@ public class Main extends Application {
 
         Scene scene = new Scene(loginView.getRoot());
 
+        loginView.viewDidLoad();
+
         primaryStage.setScene(scene);
         primaryStage.show();
     }

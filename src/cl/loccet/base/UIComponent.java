@@ -1,5 +1,6 @@
 package cl.loccet.base;
 
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -45,6 +46,10 @@ public abstract class UIComponent extends Component {
     }
 
     public abstract Parent getRoot();
+
+    public abstract void viewDidLoad();
+
+    public void viewDidClose() {}
 
     public <T extends Node> T loadFXML() {
         return loadFXML(null, false, null);
@@ -124,6 +129,8 @@ public abstract class UIComponent extends Component {
                 modalStage = null;
             });
 
+            viewDidLoad();
+
             if (block)
                 modalStage.showAndWait();
             else
@@ -140,6 +147,8 @@ public abstract class UIComponent extends Component {
     }
 
     public void close() {
+        viewDidClose();
+
         if (modalStage != null) {
             modalStage.close();
             modalStage = null;
