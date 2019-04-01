@@ -39,6 +39,7 @@ public class LoginView extends View {
 
         loginButton.setDefaultButton(true);
         loginButton.setOnAction(this::login);
+
     }
 
     private void login(ActionEvent actionEvent) {

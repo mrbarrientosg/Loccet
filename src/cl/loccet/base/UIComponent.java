@@ -36,7 +36,7 @@ public abstract class UIComponent extends Component {
         else if (getRoot().getScene().getWindow() != null) {
             return getRoot().getScene().getWindow();
         }
-
+        
         return getPrimaryStage();
     }
 
