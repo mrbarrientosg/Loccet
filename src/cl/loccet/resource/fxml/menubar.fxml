@@ -7,26 +7,62 @@
 
 <MenuBar fx:id="menuBar" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <menus>
-    <Menu fx:id="menu1" mnemonicParsing="false" text="File">
-      <items>
-        <MenuItem mnemonicParsing="false" text="Close" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <Menu mnemonicParsing="false" text="Unspecified Menu">
+      <Menu mnemonicParsing="false" text="RRHH">
+        <items>
+            <Menu mnemonicParsing="false" text="Lista de trabajadores">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
+                  <MenuItem mnemonicParsing="false" text="Proyecto" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                <MenuItem mnemonicParsing="false" text="Constructora" />
               </items>
             </Menu>
-      </items>
-    </Menu>
-    <Menu mnemonicParsing="false" text="Edit">
+            <SeparatorMenuItem mnemonicParsing="false" />
+          <MenuItem mnemonicParsing="false" text="Agregar trabajador" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Modificar trabajador" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+          <Menu fx:id="menuArchivo" mnemonicParsing="false" text="Eliminar Trabajador">
+            <items>
+                  <MenuItem mnemonicParsing="false" text="Proyecto" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+              <MenuItem mnemonicParsing="false" text="Constructora" />
+            </items>
+          </Menu>
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Buscar trabajador" />
+        </items>
+      </Menu>
+    <Menu fx:id="menuEditar" mnemonicParsing="false" text="Proyecto">
       <items>
-        <MenuItem mnemonicParsing="false" text="Delete" />
+        <MenuItem mnemonicParsing="false" text="Modificar fecha final" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Avance" />
       </items>
     </Menu>
-    <Menu mnemonicParsing="false" text="Help">
+    <Menu fx:id="menuAyuda" mnemonicParsing="false" text="Inventario">
       <items>
-        <MenuItem mnemonicParsing="false" text="About" />
+            <Menu fx:id="menuArchivo1" mnemonicParsing="false" text="Materiales">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Ingreso" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Salida" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Compra" />
+               </items>
+            </Menu>
+        <MenuItem mnemonicParsing="false" text="Reporte" />
       </items>
     </Menu>
+      <Menu fx:id="menuAyuda1" mnemonicParsing="false" text="Analisis de costos">
+         <items>
+            <MenuItem mnemonicParsing="false" text="Reporte" />
+            <Menu mnemonicParsing="false" text="Pagos">
+              <items>
+                  <MenuItem mnemonicParsing="false" text="Realizar pago" />
+                <MenuItem mnemonicParsing="false" text="Registros" />
+              </items>
+            </Menu>
+         </items>
+      </Menu>
   </menus>
 </MenuBar>
