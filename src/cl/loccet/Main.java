@@ -2,10 +2,12 @@ package cl.loccet;
 
 import cl.loccet.base.Router;
 import cl.loccet.base.RouterView;
+import cl.loccet.view.HomeView;
 import cl.loccet.view.LoginView;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -29,5 +31,6 @@ public class Main extends Application {
     private void initRouter(Stage primaryStage) {
         Router r = Router.getIntance();
         r.addView(RouterView.LOGIN, new LoginView());
+        r.addView(RouterView.HOME, new HomeView());
     }
 }

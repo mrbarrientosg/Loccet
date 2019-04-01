@@ -29,6 +29,7 @@ public class Router {
     public static Router getIntance() {
         if (instance == null)
             instance = new Router();
+
         return instance;
     }
 }

@@ -1,9 +1,12 @@
 package cl.loccet.base;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -11,6 +14,7 @@ import javafx.stage.Window;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.logging.Level;
 
 public abstract class UIComponent extends Component {
 
@@ -23,15 +27,8 @@ public abstract class UIComponent extends Component {
     protected Window getCurrentWindow() {
         if (modalStage != null)
             return modalStage;
-        else {
-            try {
-                if (getRoot().getScene().getWindow() != null) {
-                    return getRoot().getScene().getWindow();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-
-            }
+        else if (getRoot().getScene().getWindow() != null) {
+            return getRoot().getScene().getWindow();
         }
 
         return getPrimaryStage();
@@ -41,18 +38,21 @@ public abstract class UIComponent extends Component {
         return (Stage) getCurrentWindow();
     }
 
-    public abstract Parent getRoot() throws IOException;
+    public abstract Parent getRoot();
 
-    public <T extends Node> T loadFXML() throws IOException {
+    public <T extends Node> T loadFXML() {
         return loadFXML(null, false, null);
     }
 
-    public <T extends Node> T loadFXML(String ruta) throws IOException {
+    public <T extends Node> T loadFXML(String ruta) {
         return loadFXML(ruta, false, null);
     }
 
-    public <T extends Node> T loadFXML(String ruta, boolean atributoControlador, Object raiz) throws IOException {
+    public <T extends Node> T loadFXML(String ruta, boolean atributoControlador, Object raiz) {
         URL fxmlUrl = locateFXML(ruta);
+
+        if (fxmlUrl == null)
+            LOGGER.log(Level.SEVERE, "URL fxml nulo");
 
         fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(fxmlUrl);
@@ -64,7 +64,13 @@ public abstract class UIComponent extends Component {
         else
             fxmlLoader.setController(this);
 
-        return fxmlLoader.load();
+        try {
+            return fxmlLoader.load();
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "Error cargar fxml", e);
+        }
+
+        return null;
     }
 
     private URL locateFXML(String ruta) {
@@ -78,13 +84,24 @@ public abstract class UIComponent extends Component {
         return getResources().url(loc);
     }
 
-    public Stage showModal(StageStyle stageStyle, Modality modality, boolean resizable, boolean block) throws IOException {
+    public Stage openModal() {
+        return openModal(StageStyle.DECORATED, Modality.APPLICATION_MODAL, false, false);
+    }
+
+    public Stage openModal(StageStyle stageStyle, Modality modality, boolean resizable, boolean block) {
         if (modalStage == null) {
             modalStage = new Stage(stageStyle);
 
             modalStage.initModality(modality);
             modalStage.setResizable(resizable);
             //modalStage.initOwner(getCurrentWindow());
+
+            modalStage.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+                if (event.getCode() == KeyCode.ESCAPE) {
+                    close();
+                    LOGGER.info("Aqui");
+                }
+            });
 
             if (getRoot().getScene() != null) {
                 modalStage.setScene(getRoot().getScene());
@@ -118,8 +135,10 @@ public abstract class UIComponent extends Component {
     }
 
     public void close() {
-        if (modalStage != null || getCurrentStage() != null) {
+        if (modalStage != null) {
+            modalStage.close();
             modalStage = null;
+            return;
         }
         getCurrentStage().close();
     }

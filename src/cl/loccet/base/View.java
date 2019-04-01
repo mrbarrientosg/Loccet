@@ -10,6 +10,8 @@ import java.util.ResourceBundle;
 
 public abstract class View extends UIComponent implements Initializable {
 
+    // TODO: Implementar funcion para poder saber cuando se cierra una vista o se abre.
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         init();
