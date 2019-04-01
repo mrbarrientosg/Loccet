@@ -4,8 +4,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -33,14 +31,20 @@ public abstract class UIComponent extends Component {
     protected Window getCurrentWindow() {
         if (modalStage != null)
             return modalStage;
-        else if (getRoot().getScene().getWindow() != null) {
-            return getRoot().getScene().getWindow();
-        }
 
-        return getPrimaryStage();
+        if (getRoot().getScene() != null && getRoot().getScene().getWindow() != null)
+            return getRoot().getScene().getWindow();
+
+        if (Router.getIntance().getPrimaryStage() != null)
+            return Router.getIntance().getPrimaryStage();
+
+        return null;
     }
 
     public Stage getCurrentStage() {
+        if (getCurrentWindow() == null)
+            return null;
+
         return (Stage) getCurrentWindow();
     }
 
@@ -90,24 +94,28 @@ public abstract class UIComponent extends Component {
         return getResources().url(loc);
     }
 
-    public Stage openModal() {
-        return openModal(StageStyle.DECORATED, Modality.APPLICATION_MODAL, false, false);
+    public Stage openWindow() {
+        return openModal(StageStyle.DECORATED, Modality.NONE, getCurrentWindow(), false, false);
     }
 
-    public Stage openModal(StageStyle stageStyle, Modality modality, boolean resizable, boolean block) {
+    public Stage openModal() {
+        return openModal(StageStyle.DECORATED, Modality.APPLICATION_MODAL, getCurrentWindow(), false, false);
+    }
+
+    public Stage openModal(StageStyle stageStyle, Modality modality, Window owner, boolean resizable, boolean block) {
         if (modalStage == null) {
             modalStage = new Stage(stageStyle);
 
             modalStage.initModality(modality);
             modalStage.setResizable(resizable);
-            //modalStage.initOwner(getCurrentWindow());
+            //if (owner != null) modalStage.initOwner(owner);
 
-            modalStage.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-                if (event.getCode() == KeyCode.ESCAPE) {
-                    close();
-                    LOGGER.info("Aqui");
-                }
-            });
+//            modalStage.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+//                if (event.getCode() == KeyCode.ESCAPE) {
+//                    close();
+//                    LOGGER.info("Aqui");
+//                }
+//            });
 
             if (getRoot().getScene() != null) {
                 modalStage.setScene(getRoot().getScene());
@@ -146,6 +154,8 @@ public abstract class UIComponent extends Component {
             return;
         }
 
-        getCurrentStage().close();
+        if (getCurrentStage() != null) {
+            getCurrentStage().close();
+        }
     }
 }

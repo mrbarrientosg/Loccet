@@ -45,7 +45,7 @@ public class LoginView extends View {
         LOGGER.info("USUARIO: " + rutField.getText());
         LOGGER.info("CONSTRASEÑA: " + passwordField.getText());
 
-        Router.getIntance().getView(RouterView.HOME).openModal();
+        Router.getIntance().getView(RouterView.HOME).openWindow();
         close();
     }
 

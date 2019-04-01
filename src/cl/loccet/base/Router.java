@@ -1,5 +1,7 @@
 package cl.loccet.base;
 
+import javafx.stage.Stage;
+
 import java.util.HashMap;
 
 /**
@@ -18,6 +20,8 @@ public class Router {
 
     private final HashMap<RouterView, View> vistas;
 
+    private Stage primaryStage;
+
     private Router() {
         vistas = new HashMap<>();
     }
@@ -28,6 +32,14 @@ public class Router {
 
     public <T extends View> T getView(RouterView view) {
         return (T) vistas.get(view);
+    }
+
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
     }
 
     public static Router getIntance() {
