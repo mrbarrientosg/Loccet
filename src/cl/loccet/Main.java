@@ -30,6 +30,7 @@ public class Main extends Application {
 
     private void initRouter(Stage primaryStage) {
         Router r = Router.getIntance();
+        r.setPrimaryStage(primaryStage);
         r.addView(RouterView.LOGIN, new LoginView());
         r.addView(RouterView.HOME, new HomeView());
     }

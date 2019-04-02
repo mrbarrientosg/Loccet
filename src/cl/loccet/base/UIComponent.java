@@ -1,6 +1,5 @@
 package cl.loccet.base;
 
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -34,14 +33,20 @@ public abstract class UIComponent extends Component {
     protected Window getCurrentWindow() {
         if (modalStage != null)
             return modalStage;
-        else if (getRoot().getScene().getWindow() != null) {
+
+        if (getRoot().getScene() != null && getRoot().getScene().getWindow() != null)
             return getRoot().getScene().getWindow();
-        }
-        
-        return getPrimaryStage();
+
+        if (Router.getIntance().getPrimaryStage() != null)
+            return Router.getIntance().getPrimaryStage();
+
+        return null;
     }
 
     public Stage getCurrentStage() {
+        if (getCurrentWindow() == null)
+            return null;
+
         return (Stage) getCurrentWindow();
     }
 
@@ -95,6 +100,10 @@ public abstract class UIComponent extends Component {
         return getResources().url(loc);
     }
 
+    public Stage openWindow() {
+        return openModal(StageStyle.DECORATED, Modality.NONE, getCurrentWindow(), false, false);
+    }
+
     public Stage openModal() {
         return openModal(StageStyle.DECORATED, Modality.APPLICATION_MODAL, false, false);
     }
@@ -107,12 +116,12 @@ public abstract class UIComponent extends Component {
             modalStage.setResizable(resizable);
             //modalStage.initOwner(getCurrentWindow());
 
-            modalStage.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-                if (event.getCode() == KeyCode.ESCAPE) {
-                    close();
-                    LOGGER.info("Aqui");
-                }
-            });
+//            modalStage.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+//                if (event.getCode() == KeyCode.ESCAPE) {
+//                    close();
+//                    LOGGER.info("Aqui");
+//                }
+//            });
 
             if (getRoot().getScene() != null) {
                 modalStage.setScene(getRoot().getScene());
@@ -155,6 +164,8 @@ public abstract class UIComponent extends Component {
             return;
         }
 
-        getCurrentStage().close();
+        if (getCurrentStage() != null) {
+            getCurrentStage().close();
+        }
     }
 }
