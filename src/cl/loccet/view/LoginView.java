@@ -2,6 +2,8 @@ package cl.loccet.view;
 
 import cl.loccet.base.Injectable;
 import cl.loccet.base.View;
+import cl.loccet.model.Constructora;
+import cl.loccet.router.HomeRouter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -52,8 +54,10 @@ public class LoginView extends View {
         LOGGER.info("USUARIO: " + rutField.getText());
         LOGGER.info("CONSTRASEÑA: " + passwordField.getText());
 
+        // TODO: implementar el controlador para poder gestionar la constructora
+        Constructora c = new Constructora("RUT","NOMBRE");
+        HomeRouter.create(c).openWindow();
         close();
-        Injectable.getIntance().find(HomeView.class).openWindow();
     }
 
     private void exit(ActionEvent actionEvent) {
