@@ -15,22 +15,15 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        initRouter(primaryStage);
+    public void start(Stage primaryStage) {
+        Router.getIntance().setPrimaryStage(primaryStage);
 
-        LoginView loginView = Router.getIntance().getView(RouterView.LOGIN);
+        LoginView loginView = Router.getIntance().find(LoginView.class);
 
         Scene scene = new Scene(loginView.getRoot());
 
-        loginView.viewDidLoad();
-
+        primaryStage.titleProperty().bind(loginView.getTitleProperty());
         primaryStage.setScene(scene);
         primaryStage.show();
-    }
-
-    private void initRouter(Stage primaryStage) {
-        Router r = Router.getIntance();
-        r.addView(RouterView.LOGIN, new LoginView());
-        r.addView(RouterView.HOME, new HomeView());
     }
 }

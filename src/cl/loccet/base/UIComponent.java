@@ -1,6 +1,7 @@
 package cl.loccet.base;
 
-import javafx.fxml.FXML;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -31,21 +32,39 @@ public abstract class UIComponent extends Component {
 
     private Stage modalStage;
 
+    private StringProperty titleProperty;
+
+    public UIComponent(String title) {
+        titleProperty = new SimpleStringProperty(title);
+    }
+
+    public StringProperty getTitleProperty() {
+        return titleProperty;
+    }
+
     protected Window getCurrentWindow() {
         if (modalStage != null)
             return modalStage;
-        else if (getRoot().getScene().getWindow() != null) {
+
+        if (getRoot().getScene() != null && getRoot().getScene().getWindow() != null)
             return getRoot().getScene().getWindow();
-        }
-        
-        return getPrimaryStage();
+
+        if (Router.getIntance().getPrimaryStage() != null)
+            return Router.getIntance().getPrimaryStage();
+
+        return null;
     }
 
     public Stage getCurrentStage() {
+        if (getCurrentWindow() == null)
+            return null;
+
         return (Stage) getCurrentWindow();
     }
 
-    public abstract Parent getRoot();
+    public Parent getRoot() {
+        return root;
+    }
 
     public abstract void viewDidLoad();
 
@@ -76,7 +95,8 @@ public abstract class UIComponent extends Component {
             fxmlLoader.setController(this);
 
         try {
-            return fxmlLoader.load();
+            root = fxmlLoader.load();
+            return (T) root;
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Error cargar fxml", e);
         }
@@ -95,6 +115,10 @@ public abstract class UIComponent extends Component {
         return getResources().url(loc);
     }
 
+    public Stage openWindow() {
+        return openModal(StageStyle.DECORATED, Modality.NONE, false, false);
+    }
+
     public Stage openModal() {
         return openModal(StageStyle.DECORATED, Modality.APPLICATION_MODAL, false, false);
     }
@@ -105,14 +129,15 @@ public abstract class UIComponent extends Component {
 
             modalStage.initModality(modality);
             modalStage.setResizable(resizable);
+            modalStage.titleProperty().bind(titleProperty);
             //modalStage.initOwner(getCurrentWindow());
 
-            modalStage.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-                if (event.getCode() == KeyCode.ESCAPE) {
-                    close();
-                    LOGGER.info("Aqui");
-                }
-            });
+//            modalStage.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+//                if (event.getCode() == KeyCode.ESCAPE) {
+//                    close();
+//                    LOGGER.info("Aqui");
+//                }
+//            });
 
             if (getRoot().getScene() != null) {
                 modalStage.setScene(getRoot().getScene());
@@ -155,6 +180,8 @@ public abstract class UIComponent extends Component {
             return;
         }
 
-        getCurrentStage().close();
+        if (getCurrentStage() != null) {
+            getCurrentStage().close();
+        }
     }
 }

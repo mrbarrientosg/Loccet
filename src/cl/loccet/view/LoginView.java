@@ -25,9 +25,11 @@ public class LoginView extends View {
 
     @Override
     public VBox getRoot() {
-        if (root == null)
-            root = loadFXML();
         return (VBox) root;
+    }
+
+    public LoginView() {
+        super("Inicio sesion");
     }
 
     @Override
@@ -42,12 +44,18 @@ public class LoginView extends View {
 
     }
 
+    @Override
+    public void viewDidClose() {
+        rutField.setText("");
+        passwordField.setText("");
+    }
+
     private void login(ActionEvent actionEvent) {
         LOGGER.info("USUARIO: " + rutField.getText());
         LOGGER.info("CONSTRASEÑA: " + passwordField.getText());
 
-        Router.getIntance().getView(RouterView.HOME).openModal();
         close();
+        Router.getIntance().find(HomeView.class).openWindow();
     }
 
     private void exit(ActionEvent actionEvent) {

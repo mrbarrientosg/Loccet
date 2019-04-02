@@ -1,5 +1,8 @@
 package cl.loccet.base;
 
+import javafx.stage.Stage;
+import javafx.util.Pair;
+
 import java.util.HashMap;
 
 /**
@@ -16,18 +19,62 @@ public class Router {
 
     private static Router instance;
 
-    private final HashMap<RouterView, View> vistas;
+    private final HashMap<Class, Component> vistas;
+
+    private Stage primaryStage;
 
     private Router() {
         vistas = new HashMap<>();
     }
 
-    public void addView(RouterView view, View instance) {
-        vistas.put(view, instance);
+    public <T extends Component> T find(Class<T> type) {
+        return find(type, null);
     }
 
-    public <T extends View> T getView(RouterView view) {
-        return (T) vistas.get(view);
+    public <T extends Component> T find(Class<T> type, String path) {
+        if (vistas.containsKey(type))
+            return (T) vistas.get(type);
+
+        Component result = getOrCreate(type, path);
+
+        if (UIComponent.class.isAssignableFrom(result.getClass()))
+            ((UIComponent)result).viewDidLoad();
+
+        return (T) result;
+    }
+
+    private Component getOrCreate(Class<? extends Component> type, String path) {
+        Component injectable;
+        Boolean constructed;
+
+        if (vistas.containsKey(type)) {
+            injectable = vistas.get(type);
+            constructed = false;
+        } else {
+            try {
+                injectable = type.newInstance();
+                vistas.put(type, injectable);
+                constructed = true;
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+
+        if (constructed && UIComponent.class.isAssignableFrom(injectable.getClass())) {
+            UIComponent component = (UIComponent) injectable;
+
+            component.loadFXML(path);
+        }
+
+        return injectable;
+    }
+
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
     }
 
     public static Router getIntance() {
