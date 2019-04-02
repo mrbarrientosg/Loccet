@@ -1,7 +1,6 @@
 package cl.loccet.view;
 
-import cl.loccet.base.Router;
-import cl.loccet.base.RouterView;
+import cl.loccet.base.Injectable;
 import cl.loccet.base.View;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,7 +8,7 @@ import javafx.scene.layout.BorderPane;
 
 public class HomeView extends View {
 
-    private MenuBarView menuBarView = Router.getIntance().find(MenuBarView.class);
+    private MenuBarView menuBarView = Injectable.getIntance().find(MenuBarView.class);
 
     @FXML
     private BorderPane borderPane;
@@ -25,7 +24,7 @@ public class HomeView extends View {
     public void viewDidLoad() {
         backButton.setOnAction(event -> {
             close();
-            Router.getIntance().find(LoginView.class).openWindow();
+            Injectable.getIntance().find(LoginView.class).openWindow();
         });
 
 

@@ -6,8 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -49,8 +47,8 @@ public abstract class UIComponent extends Component {
         if (getRoot().getScene() != null && getRoot().getScene().getWindow() != null)
             return getRoot().getScene().getWindow();
 
-        if (Router.getIntance().getPrimaryStage() != null)
-            return Router.getIntance().getPrimaryStage();
+        if (getPrimaryStage() != null)
+            return getPrimaryStage();
 
         return null;
     }

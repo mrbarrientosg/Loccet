@@ -1,7 +1,6 @@
 package cl.loccet.view;
 
-import cl.loccet.base.Router;
-import cl.loccet.base.RouterView;
+import cl.loccet.base.Injectable;
 import cl.loccet.base.View;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -55,7 +54,7 @@ public class LoginView extends View {
         LOGGER.info("CONSTRASEÑA: " + passwordField.getText());
 
         close();
-        Router.getIntance().find(HomeView.class).openWindow();
+        Injectable.getIntance().find(HomeView.class).openWindow();
     }
 
     private void exit(ActionEvent actionEvent) {

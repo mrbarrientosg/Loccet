@@ -1,8 +1,6 @@
 package cl.loccet;
 
-import cl.loccet.base.Router;
-import cl.loccet.base.RouterView;
-import cl.loccet.view.HomeView;
+import cl.loccet.base.Injectable;
 import cl.loccet.view.LoginView;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -16,9 +14,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Router.getIntance().setPrimaryStage(primaryStage);
+        Injectable.getIntance().setPrimaryStage(primaryStage);
 
-        LoginView loginView = Router.getIntance().find(LoginView.class);
+        LoginView loginView = Injectable.getIntance().find(LoginView.class);
 
         Scene scene = new Scene(loginView.getRoot());
 
