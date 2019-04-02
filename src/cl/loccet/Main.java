@@ -20,6 +20,7 @@ public class Main extends Application {
 
         Scene scene = new Scene(loginView.getRoot());
 
+        primaryStage.setResizable(false);
         primaryStage.titleProperty().bind(loginView.getTitleProperty());
         primaryStage.setScene(scene);
         primaryStage.show();
