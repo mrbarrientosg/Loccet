@@ -50,7 +50,7 @@ public abstract class UIComponent extends Component {
             return getRoot().getScene().getWindow();
 
         if (Router.getIntance().getPrimaryStage() != null)
-            return Router.getIntance().getPrimaryStage();
+            return getPrimaryStage();
 
         return null;
     }
