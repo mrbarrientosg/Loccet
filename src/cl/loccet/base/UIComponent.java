@@ -1,5 +1,7 @@
 package cl.loccet.base;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -30,6 +32,16 @@ public abstract class UIComponent extends Component {
 
     private Stage modalStage;
 
+    private StringProperty titleProperty;
+
+    public UIComponent(String title) {
+        titleProperty = new SimpleStringProperty(title);
+    }
+
+    public StringProperty getTitleProperty() {
+        return titleProperty;
+    }
+
     protected Window getCurrentWindow() {
         if (modalStage != null)
             return modalStage;
@@ -50,7 +62,9 @@ public abstract class UIComponent extends Component {
         return (Stage) getCurrentWindow();
     }
 
-    public abstract Parent getRoot();
+    public Parent getRoot() {
+        return root;
+    }
 
     public abstract void viewDidLoad();
 
@@ -81,7 +95,8 @@ public abstract class UIComponent extends Component {
             fxmlLoader.setController(this);
 
         try {
-            return fxmlLoader.load();
+            root = fxmlLoader.load();
+            return (T) root;
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Error cargar fxml", e);
         }
@@ -114,6 +129,7 @@ public abstract class UIComponent extends Component {
 
             modalStage.initModality(modality);
             modalStage.setResizable(resizable);
+            modalStage.titleProperty().bind(titleProperty);
             //modalStage.initOwner(getCurrentWindow());
 
 //            modalStage.addEventFilter(KeyEvent.KEY_PRESSED, event -> {

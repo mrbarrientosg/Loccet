@@ -9,7 +9,7 @@ import javafx.scene.layout.BorderPane;
 
 public class HomeView extends View {
 
-    private MenuBarView menuBarView = new MenuBarView();
+    private MenuBarView menuBarView = Router.getIntance().find(MenuBarView.class);
 
     @FXML
     private BorderPane borderPane;
@@ -17,11 +17,15 @@ public class HomeView extends View {
     @FXML
     private Button backButton;
 
+    public HomeView() {
+        super("General");
+    }
+
     @Override
     public void viewDidLoad() {
         backButton.setOnAction(event -> {
-            Router.getIntance().getView(RouterView.LOGIN).openModal();
             close();
+            Router.getIntance().find(LoginView.class).openWindow();
         });
 
 
@@ -30,9 +34,6 @@ public class HomeView extends View {
 
     @Override
     public BorderPane getRoot()  {
-        if (root == null)
-            root = loadFXML();
-
         return (BorderPane) root;
     }
 }
