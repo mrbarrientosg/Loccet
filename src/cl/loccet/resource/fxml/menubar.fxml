@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 
-<MenuBar fx:id="menuBar" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<MenuBar fx:id="menuBar" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <menus>
       <Menu fx:id="RRHH" mnemonicParsing="false" text="RRHH">
         <items>
@@ -23,6 +25,7 @@
             </items>
           </Menu>
             <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Reporte" />
         </items>
       </Menu>
     <Menu fx:id="menuProyecto" mnemonicParsing="false" text="Proyecto">
@@ -39,8 +42,6 @@
                   <MenuItem fx:id="ingresoMateriales" mnemonicParsing="false" text="Ingreso" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem fx:id="salidaMateriales" mnemonicParsing="false" text="Salida" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="registroCompra" mnemonicParsing="false" text="Registro compra" />
                </items>
             </Menu>
             <SeparatorMenuItem mnemonicParsing="false" />
@@ -49,6 +50,15 @@
         <MenuItem fx:id="reporteMateriales" mnemonicParsing="false" text="Reporte" />
       </items>
     </Menu>
+      <Menu mnemonicParsing="false" text="Ingresos/Gastos">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Facturas Compras" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Facturas Ventas" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Reporte" />
+        </items>
+      </Menu>
       <Menu fx:id="menuCostos" mnemonicParsing="false" text="Analisis de costos">
          <items>
             <MenuItem fx:id="reporteCostos" mnemonicParsing="false" text="Reporte" />
