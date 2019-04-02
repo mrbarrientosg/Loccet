@@ -27,6 +27,7 @@ public class LoginView extends View {
     public VBox getRoot() {
         if (root == null)
             root = loadFXML();
+
         return (VBox) root;
     }
 

@@ -18,7 +18,7 @@ public class Router {
 
     private static Router instance;
 
-    private final HashMap<RouterView, View> vistas;
+    private final HashMap<Class, Injectable> vistas;
 
     private Stage primaryStage;
 
@@ -26,8 +26,22 @@ public class Router {
         vistas = new HashMap<>();
     }
 
-    public void addView(RouterView view, View instance) {
-        vistas.put(view, instance);
+    public <T extends Component> T find(Class<T> type) {
+        if (!vistas.containsKey(type)) {
+            Object cmp;
+
+            try {
+                cmp = type.newInstance();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+
+            ((UIComponent)cmp).viewDidLoad();
+
+            vistas.put(type, (Injectable) cmp);
+        }
+
+        return (T) vistas.get(type);
     }
 
     public <T extends View> T getView(RouterView view) {

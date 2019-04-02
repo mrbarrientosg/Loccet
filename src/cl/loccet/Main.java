@@ -18,7 +18,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         initRouter(primaryStage);
 
-        LoginView loginView = Router.getIntance().getView(RouterView.LOGIN);
+        LoginView loginView = Router.getIntance().find(LoginView.class);
 
         Scene scene = new Scene(loginView.getRoot());
 
@@ -31,7 +31,5 @@ public class Main extends Application {
     private void initRouter(Stage primaryStage) {
         Router r = Router.getIntance();
         r.setPrimaryStage(primaryStage);
-        r.addView(RouterView.LOGIN, new LoginView());
-        r.addView(RouterView.HOME, new HomeView());
     }
 }

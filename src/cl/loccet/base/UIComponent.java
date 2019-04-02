@@ -101,7 +101,7 @@ public abstract class UIComponent extends Component {
     }
 
     public Stage openWindow() {
-        return openModal(StageStyle.DECORATED, Modality.NONE, getCurrentWindow(), false, false);
+        return openModal(StageStyle.DECORATED, Modality.NONE, false, false);
     }
 
     public Stage openModal() {
