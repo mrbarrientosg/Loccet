@@ -13,12 +13,6 @@ public class HomeView extends View {
 
     private HomeController controller;
 
-    @FXML
-    private BorderPane borderPane;
-
-    @FXML
-    private Button backButton;
-
     public void setController(HomeController controller) {
         this.controller = controller;
     }
@@ -29,13 +23,8 @@ public class HomeView extends View {
 
     @Override
     public void viewDidLoad() {
-        backButton.setOnAction(event -> {
-            close();
-            Injectable.getIntance().find(LoginView.class).openWindow();
-        });
-
-
         getRoot().setTop(menuBarView.getRoot());
+        getRoot().setCenter(Injectable.getIntance().find(AgregarTrabajadorView.class).getRoot());
     }
 
     @Override
