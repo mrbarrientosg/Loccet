@@ -17,14 +17,8 @@ public abstract class Component {
 
     private ResourceUtil resources;
 
-    private Stage primaryStage;
-
-    public void setPrimaryStage(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-    }
-
     public Stage getPrimaryStage() {
-        return primaryStage;
+        return Router.getIntance().getPrimaryStage();
     }
 
     protected ResourceUtil getResources() {
