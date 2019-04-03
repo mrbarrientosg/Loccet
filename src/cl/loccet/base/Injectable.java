@@ -36,8 +36,8 @@ public class Injectable {
 
         Component result = getOrCreate(type, path);
 
-        if (UIComponent.class.isAssignableFrom(result.getClass()))
-            ((UIComponent)result).viewDidLoad();
+//        if (UIComponent.class.isAssignableFrom(result.getClass()))
+//            ((UIComponent)result).viewDidLoad();
 
         return (T) result;
     }
@@ -63,6 +63,7 @@ public class Injectable {
             UIComponent component = (UIComponent) injectable;
 
             component.loadFXML(path);
+            component.init();
         }
 
         return injectable;

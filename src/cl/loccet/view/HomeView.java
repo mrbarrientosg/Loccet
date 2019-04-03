@@ -3,9 +3,8 @@ package cl.loccet.view;
 import cl.loccet.base.Injectable;
 import cl.loccet.base.View;
 import cl.loccet.controller.HomeController;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 
 public class HomeView extends View {
 
@@ -24,11 +23,22 @@ public class HomeView extends View {
     @Override
     public void viewDidLoad() {
         getRoot().setTop(menuBarView.getRoot());
-        getRoot().setCenter(Injectable.getIntance().find(AgregarTrabajadorView.class).getRoot());
+        setCenter(Injectable.getIntance().find(AgregarTrabajadorView.class).getRoot());
     }
+
+    @Override
+    public void viewDidClose() {
+
+    }
+
 
     @Override
     public BorderPane getRoot()  {
         return (BorderPane) root;
+    }
+
+    private void setCenter(Pane node) {
+        getRoot().setCenter(node);
+
     }
 }

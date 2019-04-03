@@ -49,6 +49,7 @@ public class LoginView extends View {
 
     @Override
     public void viewDidClose() {
+        System.out.println("Aqui");
         rutField.setText("");
         passwordField.setText("");
     }

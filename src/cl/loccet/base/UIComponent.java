@@ -1,7 +1,11 @@
 package cl.loccet.base;
 
+import javafx.beans.property.ReadOnlyBooleanProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -13,6 +17,8 @@ import javafx.stage.Window;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
 import java.util.logging.Level;
 
 
@@ -31,6 +37,10 @@ public abstract class UIComponent extends Component {
     private Stage modalStage;
 
     private StringProperty titleProperty;
+
+    private boolean isDocked;
+
+    private boolean isInitialized = false;
 
     public UIComponent(String title) {
         titleProperty = new SimpleStringProperty(title);
@@ -64,9 +74,38 @@ public abstract class UIComponent extends Component {
         return root;
     }
 
+    public final void init() {
+        if (isInitialized) return;
+
+        root.parentProperty().addListener((observable, oldParent, newParent) -> {
+            if (modalStage != null) return;
+            if (newParent == null && oldParent != null && isDocked) callOnUndock();
+            if (newParent != null && newParent != oldParent && !isDocked) callOnDock();
+        });
+
+        root.sceneProperty().addListener((observable, oldParent, newParent) -> {
+            if (modalStage != null || root.getParent() != null) return;
+            if (newParent == null && oldParent != null && isDocked) callOnUndock();
+            if (newParent != null && newParent != oldParent && !isDocked) {
+                // Calls dock or undock when window opens or closes
+
+                onChangeOnce(newParent.windowProperty(), value -> {
+                    onChange(value.showingProperty(), it -> {
+                        if (!it && isDocked) callOnUndock();
+                        if (it && !isDocked) callOnDock();
+                    });
+                });
+
+                callOnDock();
+            }
+        });
+
+        isInitialized = true;
+    }
+
     public abstract void viewDidLoad();
 
-    public void viewDidClose() {}
+    public abstract void viewDidClose();
 
     public <T extends Node> T loadFXML() {
         return loadFXML(null, false, null);
@@ -148,11 +187,14 @@ public abstract class UIComponent extends Component {
                 modalStage.setY(getCurrentWindow().getY() + (getCurrentWindow().getWidth() / 2) - (getCurrentWindow().getWidth() / 2));
             });
 
-            modalStage.setOnHidden(event -> {
-                modalStage = null;
+            modalStage.setOnShowing(event -> {
+                callOnDock();
             });
 
-            viewDidLoad();
+            modalStage.setOnHidden(event -> {
+                modalStage = null;
+                callOnUndock();
+            });
 
             if (block)
                 modalStage.showAndWait();
@@ -169,9 +211,18 @@ public abstract class UIComponent extends Component {
         return modalStage;
     }
 
-    public void close() {
-        viewDidClose();
+    private void callOnDock() {
+        if (!isInitialized) init();
+        isDocked = true;
+        viewDidLoad();
+    }
 
+    private void callOnUndock() {
+        isDocked = false;
+        viewDidClose();
+    }
+
+    public void close() {
         if (modalStage != null) {
             modalStage.close();
             modalStage = null;
@@ -181,5 +232,30 @@ public abstract class UIComponent extends Component {
         if (getCurrentStage() != null) {
             getCurrentStage().close();
         }
+    }
+
+    private <T> void onChangeOnce(ReadOnlyObjectProperty<T> object, Consumer<T> op) {
+        AtomicInteger counter = new AtomicInteger(0);
+
+        ChangeListener<T> listener = new ChangeListener<T>() {
+            @Override
+            public void changed(ObservableValue<? extends T> observable, T oldValue, T newValue) {
+                if (counter.incrementAndGet() == 1) {
+                    object.removeListener(this);
+                }
+                op.accept(newValue);
+            }
+        };
+
+        object.addListener(listener);
+    }
+
+    private <T> void onChange(ReadOnlyBooleanProperty object, Consumer<Boolean> op) {
+        object.addListener((observable, oldValue, newValue) -> {
+            if (newValue != null)
+                op.accept(newValue);
+            else
+                op.accept(false);
+        });
     }
 }
