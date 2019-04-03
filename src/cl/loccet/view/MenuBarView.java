@@ -21,6 +21,11 @@ public class MenuBarView extends View {
     }
 
     @Override
+    public void viewDidClose() {
+
+    }
+
+    @Override
     public MenuBar getRoot() {
         return (MenuBar)root;
     }
