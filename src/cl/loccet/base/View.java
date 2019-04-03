@@ -6,6 +6,8 @@ import java.util.ResourceBundle;
 
 public abstract class View extends UIComponent {
 
+    public View() { super(null); }
+
     public View(String title) {
         super(title);
     }

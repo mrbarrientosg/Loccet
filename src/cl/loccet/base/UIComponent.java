@@ -64,10 +64,12 @@ public abstract class UIComponent extends Component {
     }
 
     public Stage getCurrentStage() {
-        if (getCurrentWindow() == null)
-            return null;
+        Stage value = (Stage) getCurrentWindow();
 
-        return (Stage) getCurrentWindow();
+        if (value == null)
+            LOGGER.warning("Error");
+
+        return value;
     }
 
     public Parent getRoot() {
@@ -87,7 +89,6 @@ public abstract class UIComponent extends Component {
             if (modalStage != null || root.getParent() != null) return;
             if (newParent == null && oldParent != null && isDocked) callOnUndock();
             if (newParent != null && newParent != oldParent && !isDocked) {
-                // Calls dock or undock when window opens or closes
 
                 onChangeOnce(newParent.windowProperty(), value -> {
                     onChange(value.showingProperty(), it -> {
@@ -108,14 +109,10 @@ public abstract class UIComponent extends Component {
     public abstract void viewDidClose();
 
     public <T extends Node> T loadFXML() {
-        return loadFXML(null, false, null);
+        return loadFXML(null);
     }
 
     public <T extends Node> T loadFXML(String ruta) {
-        return loadFXML(ruta, false, null);
-    }
-
-    public <T extends Node> T loadFXML(String ruta, boolean atributoControlador, Object raiz) {
         URL fxmlUrl = locateFXML(ruta);
 
         if (fxmlUrl == null)
@@ -124,12 +121,14 @@ public abstract class UIComponent extends Component {
         fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(fxmlUrl);
 
-        if (raiz != null) fxmlLoader.setRoot(raiz);
+       // if (raiz != null) fxmlLoader.setRoot(raiz);
 
-        if (atributoControlador)
+        fxmlLoader.setController(this);
+
+        /*if (atributoControlador)
             fxmlLoader.setControllerFactory(param -> {  return this; });
         else
-            fxmlLoader.setController(this);
+            fxmlLoader.setController(this);*/
 
         try {
             root = fxmlLoader.load();
@@ -152,64 +151,107 @@ public abstract class UIComponent extends Component {
         return getResources().url(loc);
     }
 
-    public Stage openWindow() {
-        return openModal(StageStyle.DECORATED, Modality.NONE, false, false);
-    }
+    public class ShowBuilder {
 
-    public Stage openModal() {
-        return openModal(StageStyle.DECORATED, Modality.APPLICATION_MODAL, false, false);
-    }
+        private StageStyle stageStyle;
+        private Modality modality;
+        private Window owner;
+        private boolean resizable;
+        private boolean block;
 
-    public Stage openModal(StageStyle stageStyle, Modality modality, boolean resizable, boolean block) {
-        if (modalStage == null) {
-            modalStage = new Stage(stageStyle);
+        public ShowBuilder() {
+            owner = getCurrentWindow();
+        }
 
-            modalStage.initModality(modality);
-            modalStage.setResizable(resizable);
-            modalStage.titleProperty().bind(titleProperty);
-            //modalStage.initOwner(getCurrentWindow());
+        public ShowBuilder withStyle(StageStyle stageStyle) {
+            this.stageStyle = stageStyle;
+            return this;
+        }
 
-//            modalStage.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-//                if (event.getCode() == KeyCode.ESCAPE) {
-//                    close();
-//                    LOGGER.info("Aqui");
-//                }
-//            });
+        public ShowBuilder withModality(Modality modality) {
+            this.modality = modality;
+            return this;
+        }
 
-            if (getRoot().getScene() != null) {
-                modalStage.setScene(getRoot().getScene());
-            } else {
-                modalStage.setScene(new Scene(getRoot()));
-            }
+        public ShowBuilder withResizable(boolean resizable) {
+            this.resizable = resizable;
+            return this;
+        }
 
-            modalStage.setOnShown(event -> {
-                modalStage.setX(getCurrentWindow().getX() + (getCurrentWindow().getWidth() / 2) - (getCurrentWindow().getWidth() / 2));
-                modalStage.setY(getCurrentWindow().getY() + (getCurrentWindow().getWidth() / 2) - (getCurrentWindow().getWidth() / 2));
-            });
+        public ShowBuilder withBlock(boolean block) {
+            this.block = block;
+            return this;
+        }
 
-            modalStage.setOnShowing(event -> {
-                callOnDock();
-            });
+        public Stage show() {
+            if (modalStage == null) {
+                modalStage = new Stage();
 
-            modalStage.setOnHidden(event -> {
-                modalStage = null;
-                callOnUndock();
-            });
+                if (stageStyle != null) modalStage.initStyle(stageStyle);
+                if (modality != null)  modalStage.initModality(modality);
+                if (owner != null) modalStage.initOwner(owner);
+                modalStage.setResizable(resizable);
+                modalStage.titleProperty().bind(titleProperty);
 
-            if (block)
-                modalStage.showAndWait();
-            else
-                modalStage.show();
-        } else {
-            if (!modalStage.isShowing())
+                if (getRoot().getScene() != null) {
+                    modalStage.setScene(getRoot().getScene());
+                } else {
+                    modalStage.setScene(new Scene(getRoot()));
+                }
+
+                modalStage.setOnShown(event -> {
+                    modalStage.setX(getCurrentWindow().getX() + (getCurrentWindow().getWidth() / 2) - (getCurrentWindow().getWidth() / 2));
+                    modalStage.setY(getCurrentWindow().getY() + (getCurrentWindow().getWidth() / 2) - (getCurrentWindow().getWidth() / 2));
+                });
+
+                modalStage.setOnShowing(event -> {
+                    callOnDock();
+                });
+
+                modalStage.setOnHidden(event -> {
+                    modalStage = null;
+                    callOnUndock();
+                });
+
                 if (block)
                     modalStage.showAndWait();
                 else
                     modalStage.show();
-        }
 
-        return modalStage;
+                return modalStage;
+            } else {
+                if (!modalStage.isShowing()) {
+                    if (block)
+                        modalStage.showAndWait();
+                    else
+                        modalStage.show();
+                }
+            }
+
+            return modalStage;
+        }
     }
+
+    public ShowBuilder openShowBuilder() {
+        return new ShowBuilder();
+    }
+
+    public ShowBuilder openWindow() {
+        return new ShowBuilder()
+                .withStyle(StageStyle.DECORATED)
+                .withModality(Modality.NONE)
+                .withResizable(false)
+                .withBlock(false);
+    }
+
+    public ShowBuilder openModal() {
+        return new ShowBuilder()
+                .withStyle(StageStyle.DECORATED)
+                .withModality(Modality.APPLICATION_MODAL)
+                .withResizable(false)
+                .withBlock(false);
+    }
+
 
     private void callOnDock() {
         if (!isInitialized) init();
@@ -225,13 +267,12 @@ public abstract class UIComponent extends Component {
     public void close() {
         if (modalStage != null) {
             modalStage.close();
-            modalStage = null;
-            return;
-        }
-
-        if (getCurrentStage() != null) {
+        } else if (getCurrentStage() != null) {
             getCurrentStage().close();
         }
+
+        modalStage = null;
+
     }
 
     private <T> void onChangeOnce(ReadOnlyObjectProperty<T> object, Consumer<T> op) {

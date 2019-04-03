@@ -27,11 +27,6 @@ public class LoginView extends View {
     @FXML
     private Button exitButton;
 
-    @Override
-    public VBox getRoot() {
-        return (VBox) root;
-    }
-
     public LoginView() {
         super("Inicio sesion");
     }
@@ -60,8 +55,14 @@ public class LoginView extends View {
 
         // TODO: implementar el controlador para poder gestionar la constructora
         Constructora c = new Constructora("RUT","NOMBRE");
-        HomeRouter.create(c).openModal(StageStyle.DECORATED, Modality.NONE, true, false);
+
         close();
+        HomeRouter.create(c)
+                .openWindow()
+                .withResizable(true)
+                .show();
+        System.gc();
+
     }
 
     private void exit(ActionEvent actionEvent) {
