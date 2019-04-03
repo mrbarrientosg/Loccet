@@ -27,11 +27,6 @@ public class LoginView extends View {
     @FXML
     private Button exitButton;
 
-    @Override
-    public VBox getRoot() {
-        return (VBox) root;
-    }
-
     public LoginView() {
         super("Inicio sesion");
     }

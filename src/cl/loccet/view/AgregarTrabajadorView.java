@@ -15,10 +15,6 @@ public class AgregarTrabajadorView extends View {
     @FXML
     private Button exitButton;
 
-    public AgregarTrabajadorView() {
-        super("");
-    }
-
     @Override
     public void viewDidLoad() {
         exitButton.setOnAction(event -> {
@@ -30,11 +26,6 @@ public class AgregarTrabajadorView extends View {
     @Override
     public void viewDidClose() {
 
-    }
-
-    @Override
-    public VBox getRoot() {
-        return (VBox)root;
     }
 
 }

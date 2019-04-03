@@ -11,10 +11,6 @@ public class MenuBarView extends View {
     @FXML
     private MenuBar menuBar;
 
-    public MenuBarView() {
-        super(null);
-    }
-
     @Override
     public void viewDidLoad() {
         System.out.println(menuBar.getMenus().get(0).getId());
@@ -23,10 +19,5 @@ public class MenuBarView extends View {
     @Override
     public void viewDidClose() {
 
-    }
-
-    @Override
-    public MenuBar getRoot() {
-        return (MenuBar)root;
     }
 }

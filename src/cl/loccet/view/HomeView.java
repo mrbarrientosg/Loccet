@@ -3,8 +3,8 @@ package cl.loccet.view;
 import cl.loccet.base.Injectable;
 import cl.loccet.base.View;
 import cl.loccet.controller.HomeController;
+import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 
 public class HomeView extends View {
 
@@ -31,14 +31,12 @@ public class HomeView extends View {
 
     }
 
-
     @Override
     public BorderPane getRoot()  {
         return (BorderPane) root;
     }
 
-    private void setCenter(Pane node) {
+    private void setCenter(Parent node) {
         getRoot().setCenter(node);
-
     }
 }
