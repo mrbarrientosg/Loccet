@@ -9,6 +9,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class LoginView extends View {
 
@@ -46,6 +49,7 @@ public class LoginView extends View {
 
     @Override
     public void viewDidClose() {
+        System.out.println("Aqui");
         rutField.setText("");
         passwordField.setText("");
     }
@@ -56,7 +60,7 @@ public class LoginView extends View {
 
         // TODO: implementar el controlador para poder gestionar la constructora
         Constructora c = new Constructora("RUT","NOMBRE");
-        HomeRouter.create(c).openWindow();
+        HomeRouter.create(c).openModal(StageStyle.DECORATED, Modality.NONE, true, false);
         close();
     }
 
