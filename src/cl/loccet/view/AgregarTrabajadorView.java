@@ -3,9 +3,7 @@ package cl.loccet.view;
 import cl.loccet.base.Injectable;
 import cl.loccet.base.View;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.Separator;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
@@ -25,7 +23,7 @@ public class AgregarTrabajadorView extends View {
     public void viewDidLoad() {
         exitButton.setOnAction(event -> {
             close();
-            Injectable.getIntance().find(LoginView.class).openWindow();
+            Injectable.getIntance().find(LoginView.class).openWindow().show();
         });
     }
 

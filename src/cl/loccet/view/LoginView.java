@@ -60,8 +60,14 @@ public class LoginView extends View {
 
         // TODO: implementar el controlador para poder gestionar la constructora
         Constructora c = new Constructora("RUT","NOMBRE");
-        HomeRouter.create(c).openModal(StageStyle.DECORATED, Modality.NONE, true, false);
+
         close();
+        HomeRouter.create(c)
+                .openWindow()
+                .withResizable(true)
+                .show();
+        System.gc();
+
     }
 
     private void exit(ActionEvent actionEvent) {
