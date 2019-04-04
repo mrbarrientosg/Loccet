@@ -4,6 +4,7 @@ import cl.loccet.base.Injectable;
 import cl.loccet.controller.HomeController;
 import cl.loccet.model.Constructora;
 import cl.loccet.view.HomeView;
+import javafx.scene.Parent;
 
 public class HomeRouter {
 
@@ -16,4 +17,5 @@ public class HomeRouter {
 
         return view;
     }
+
 }

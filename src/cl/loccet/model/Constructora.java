@@ -2,6 +2,8 @@ package cl.loccet.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Constructora {
 
@@ -13,11 +15,14 @@ public class Constructora {
   
     private HashMap<Integer, Proyecto> mapProyecto;
 
+    private Set<Trabajador> conjuntoTrabajadores;
+
     public Constructora(String rut, String nombre) {
         this.rut = rut;
         this.nombre = nombre;
         listaProyecto = new ArrayList<>();
         mapProyecto = new HashMap<>();
+        conjuntoTrabajadores = new HashSet<>();
     }
 
     //Setter
@@ -45,6 +50,13 @@ public class Constructora {
     public void agregarProyecto(Proyecto proyecto){
         listaProyecto.add(proyecto);
         mapProyecto.put(proyecto.getId(),proyecto);
+    }
+
+
+    public boolean agregarTrabajador(Trabajador trabajador){
+        if (conjuntoTrabajadores.contains(trabajador)) return false;
+        conjuntoTrabajadores.add(trabajador);
+        return true;
     }
 
     /**
@@ -85,14 +97,10 @@ public class Constructora {
     public ArrayList<Trabajador> buscarTrabajador(String busqueda) {
         ArrayList<Trabajador> encontrados = new ArrayList<>();
 
-        ArrayList<Trabajador> aux;
-
-        for (Proyecto proyecto: listaProyecto) {
-
-            aux = proyecto.buscarTrabajador(busqueda.toLowerCase());
-
-            if (aux.size() != 0)
-                encontrados.addAll(aux);
+        for (Object ob:  conjuntoTrabajadores.toArray()) {
+            Trabajador trabajador = (Trabajador) ob;
+            if (trabajador.getNombre().toLowerCase().contains(busqueda.toLowerCase()))
+                encontrados.add(trabajador);
         }
 
         return encontrados;

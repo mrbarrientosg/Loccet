@@ -5,6 +5,7 @@ import cl.loccet.view.LoginView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageBuilder;
 
 public class Main extends Application {
 
