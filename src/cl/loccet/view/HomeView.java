@@ -8,7 +8,7 @@ import javafx.scene.layout.BorderPane;
 
 public class HomeView extends View {
 
-    private MenuBarView menuBarView = Injectable.getIntance().find(MenuBarView.class);
+    private MenuBarView menuBarView = Injectable.find(MenuBarView.class);
 
     private HomeController controller;
 
@@ -23,7 +23,7 @@ public class HomeView extends View {
     @Override
     public void viewDidLoad() {
         getRoot().setTop(menuBarView.getRoot());
-        setCenter(Injectable.getIntance().find(AgregarTrabajadorView.class).getRoot());
+        setCenter(Injectable.find(AgregarTrabajadorView.class).getRoot());
     }
 
     @Override

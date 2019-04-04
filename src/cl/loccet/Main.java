@@ -14,9 +14,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Injectable.getIntance().setPrimaryStage(primaryStage);
+        Injectable.setPrimaryStage(primaryStage);
 
-        LoginView loginView = Injectable.getIntance().find(LoginView.class);
+        LoginView loginView = Injectable.find(LoginView.class);
 
         Scene scene = new Scene(loginView.getRoot());
 

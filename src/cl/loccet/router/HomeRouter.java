@@ -8,7 +8,7 @@ import cl.loccet.view.HomeView;
 public class HomeRouter {
 
     public static HomeView create(Constructora model) {
-        HomeView view = Injectable.getIntance().find(HomeView.class);
+        HomeView view = Injectable.find(HomeView.class);
         HomeRouter router = new HomeRouter();
         HomeController controller = new HomeController(view, model, router);
 

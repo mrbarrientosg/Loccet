@@ -18,7 +18,7 @@ public abstract class Component {
     private ResourceUtil resources;
 
     public Stage getPrimaryStage() {
-        return Injectable.getIntance().getPrimaryStage();
+        return Injectable.getPrimaryStage();
     }
 
     protected ResourceUtil getResources() {

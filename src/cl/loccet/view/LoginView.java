@@ -61,8 +61,6 @@ public class LoginView extends View {
                 .openWindow()
                 .withResizable(true)
                 .show();
-        System.gc();
-
     }
 
     private void exit(ActionEvent actionEvent) {

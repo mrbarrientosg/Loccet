@@ -14,23 +14,17 @@ import java.util.HashMap;
  *
  * @author Matias Barrientos
  */
-public class Injectable {
+public final class Injectable {
 
-    private static Injectable instance;
+    private static final HashMap<Class, Component> vistas = new HashMap<>();
 
-    private final HashMap<Class, Component> vistas;
+    private static Stage primaryStage;
 
-    private Stage primaryStage;
-
-    private Injectable() {
-        vistas = new HashMap<>();
-    }
-
-    public <T extends Component> T find(Class<T> type) {
+    public static <T extends Component> T find(Class<T> type) {
         return find(type, null);
     }
 
-    public <T extends Component> T find(Class<T> type, String path) {
+    public static <T extends Component> T find(Class<T> type, String path) {
         if (vistas.containsKey(type))
             return (T) vistas.get(type);
 
@@ -42,7 +36,7 @@ public class Injectable {
         return (T) result;
     }
 
-    private Component getOrCreate(Class<? extends Component> type, String path) {
+    private static Component getOrCreate(Class<? extends Component> type, String path) {
         Component injectable;
         Boolean constructed;
 
@@ -69,18 +63,12 @@ public class Injectable {
         return injectable;
     }
 
-    public void setPrimaryStage(Stage primaryStage) {
-        this.primaryStage = primaryStage;
+    public static void setPrimaryStage(Stage primaryStage) {
+        Injectable.primaryStage = primaryStage;
     }
 
-    public Stage getPrimaryStage() {
+    public static Stage getPrimaryStage() {
         return primaryStage;
     }
 
-    public static Injectable getIntance() {
-        if (instance == null)
-            instance = new Injectable();
-
-        return instance;
-    }
 }
