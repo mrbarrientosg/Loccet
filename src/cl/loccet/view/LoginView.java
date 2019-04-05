@@ -4,6 +4,7 @@ import cl.loccet.base.Injectable;
 import cl.loccet.base.View;
 import cl.loccet.model.Constructora;
 import cl.loccet.router.HomeRouter;
+import cl.loccet.util.Validator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -50,6 +51,10 @@ public class LoginView extends View {
     }
 
     private void login(ActionEvent actionEvent) {
+        System.out.println(Validator.of(rutField.getText(), passwordField.getText())
+                .on(name -> !name.isEmpty(), "ambos son vacios")
+                .isValid());
+
         LOGGER.info("USUARIO: " + rutField.getText());
         LOGGER.info("CONSTRASEÑA: " + passwordField.getText());
 
