@@ -52,7 +52,7 @@ public class LoginView extends View {
 
     private void login(ActionEvent actionEvent) {
         System.out.println(Validator.of(rutField.getText(), passwordField.getText())
-                .on(name -> !name.isEmpty(), "ambos son vacios")
+                .validate(name -> !name.isEmpty(), "ambos son vacios")
                 .isValid());
 
         LOGGER.info("USUARIO: " + rutField.getText());

@@ -4,27 +4,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
-import java.util.function.Predicate;
 
 public final class Validator<T> {
 
     private final List<T> objects;
 
-    private final List<String> messages;
-
-    private Boolean valid;
+    private final ValidationResult result;
 
     private Validator(final T data) {
         objects = new ArrayList<>();
-        valid = false;
-        messages = new ArrayList<>();
+        result = new ValidationResult();
         objects.add(data);
     }
 
     private Validator(T... data) {
         objects = new ArrayList<>(Arrays.asList(data));
-        valid = false;
-        messages = new ArrayList<>();
+        result = new ValidationResult();
     }
 
     public static <T> Validator<T> of(T data) {
@@ -37,28 +32,28 @@ public final class Validator<T> {
 
     private void check(Boolean validationCase, String errorMessage) {
         if (!validationCase) {
-            this.valid = false;
-            messages.add(errorMessage);
-        } else {
-            this.valid = true;
+            result.setValid(false);
+            result.addMessage(errorMessage);
+            return;
         }
+
+        result.setValid(true);
     }
 
-    public Validator<T> on(Predicate<T> validation, String message) {
+    public Validator<T> validate(ValidatorContext<T> validation, String message) {
         objects.forEach(object -> {
-            check(validation.test(object), message);
+            check(validation.validate(object), message);
         });
         return this;
     }
 
-    public <U> Validator<T> on(Function<T, U> projection, Predicate<U> validation, String message) {
-        return on(projection.andThen(validation::test)::apply, message);
+    public <U> Validator<T> validate(Function<T, U> projection, ValidatorContext<U> validation, String message) {
+        return validate(projection.andThen(validation::validate)::apply, message);
     }
 
 
-    public Boolean isValid() {
-        return valid;
+    public final ValidationResult isValid() {
+        return result;
     }
-
 
 }
