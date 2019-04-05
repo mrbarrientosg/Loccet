@@ -52,7 +52,7 @@ public final class Validator<T> {
     }
 
 
-    public final ValidationResult isValid() {
+    public final ValidationResult result() {
         return result;
     }
 
