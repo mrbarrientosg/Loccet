@@ -24,6 +24,7 @@ public class Especialidades {
         esp.put(new Especialidad("Jefe de obras", 0.0, 0.0));
         esp.put(new Especialidad("Obrero", 0.0, 0.0));
         esp.put(new Especialidad("Pintor", 0.0, 0.0));
+        esp.put(new Especialidad("Sin asignar", 0.0, 0.0));
     }
 
     private Especialidades() {
