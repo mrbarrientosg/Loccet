@@ -4,27 +4,36 @@ import java.time.LocalDate;
 
 public class TrabajadorBuilder {
 
-    private final String rut;
+    private String rut;
 
-    private final String nombre;
+    private String nombre;
 
-    private final String apellido;
+    private String apellido;
 
-    private String especialidad;
+    private Especialidad especialidad;
 
     private LocalDate fechaNacimiento;
 
-    public TrabajadorBuilder(String rut, String nombre, String apellido) {
+    public static TrabajadorBuilder create() {
+        return new TrabajadorBuilder();
+    }
+
+    public TrabajadorBuilder withRut(String rut) {
         this.rut = rut;
+        return this;
+    }
+
+    public TrabajadorBuilder withNomre(String nombre) {
         this.nombre = nombre;
+        return this;
+    }
+
+    public TrabajadorBuilder withApellido(String apellido) {
         this.apellido = apellido;
+        return this;
     }
 
-    public static TrabajadorBuilder create(String rut, String nombre, String apellido) {
-        return new TrabajadorBuilder(rut, nombre, apellido);
-    }
-
-    public TrabajadorBuilder withEspecialidad(String especialidad) {
+    public TrabajadorBuilder withEspecialidad(Especialidad especialidad) {
         this.especialidad = especialidad;
         return this;
     }
@@ -35,6 +44,6 @@ public class TrabajadorBuilder {
     }
 
     public Trabajador build() {
-        return new Trabajador(rut, nombre, apellido, especialidad, fechaNacimiento);
+        return new Trabajador(rut, nombre, apellido, fechaNacimiento);
     }
 }

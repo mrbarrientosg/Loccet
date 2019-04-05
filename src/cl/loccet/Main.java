@@ -1,11 +1,11 @@
 package cl.loccet;
 
 import cl.loccet.base.Injectable;
+import cl.loccet.model.Especialidades;
 import cl.loccet.view.LoginView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageBuilder;
 
 public class Main extends Application {
 
@@ -15,6 +15,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        Especialidades.createFakeData();
         Injectable.setPrimaryStage(primaryStage);
 
         LoginView loginView = Injectable.find(LoginView.class);
@@ -26,4 +27,5 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
 }

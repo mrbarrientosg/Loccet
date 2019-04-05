@@ -11,17 +11,16 @@ public class Trabajador {
 
     private String apellido;
 
-    private String especialidad;
-
     private LocalDate fechaNacimiento;
+
+    private Especialidad especialidad;
 
     private ArrayList<Horario> horarios;
 
-    public Trabajador(String rut, String nombre, String apellido, String especialidad, LocalDate fechaNacimiento) {
+    public Trabajador(String rut, String nombre, String apellido, LocalDate fechaNacimiento) {
         this.rut = rut;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.especialidad = especialidad;
         this.fechaNacimiento = fechaNacimiento;
     }
 
@@ -49,11 +48,11 @@ public class Trabajador {
         this.apellido = apellido;
     }
 
-    public String getEspecialidad() {
+    public Especialidad getEspecialidad() {
         return especialidad;
     }
 
-    public void setEspecialidad(String especialidad) {
+    public void setEspecialidad(Especialidad especialidad) {
         this.especialidad = especialidad;
     }
 
@@ -65,25 +64,4 @@ public class Trabajador {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + rut.hashCode();
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-
-        Trabajador rh = (Trabajador) obj;
-
-        return getRut().equals(rh.getRut());
-    }
 }

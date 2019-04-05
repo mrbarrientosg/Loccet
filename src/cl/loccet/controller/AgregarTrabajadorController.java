@@ -24,12 +24,18 @@ public class AgregarTrabajadorController extends Controller {
         this.router = router;
     }
 
-    public boolean guardarTrabajador(Trabajador t) {
+    public void guardarTrabajador(Trabajador t) {
         LOGGER.info(t.toString());
-        return model.agregarTrabajador(t);
+
+        // Validar
+
+        boolean result = model.agregarTrabajador(t);
+
+        if (result) {
+            // Agregado exitosamente
+        } else {
+            // Error no se pudo agregar (Mostrar alerta)
+        }
     }
 
-    public ArrayList<Trabajador> buscarTrabajador(String busqueda) {
-        return model.buscarTrabajador(busqueda);
-    }
 }

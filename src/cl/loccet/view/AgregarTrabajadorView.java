@@ -2,6 +2,7 @@ package cl.loccet.view;
 
 import cl.loccet.base.View;
 import cl.loccet.controller.AgregarTrabajadorController;
+import cl.loccet.model.Especialidades;
 import cl.loccet.model.Trabajador;
 import cl.loccet.model.TrabajadorBuilder;
 import javafx.event.ActionEvent;
@@ -18,6 +19,9 @@ public class AgregarTrabajadorView extends View {
     private HomeView master;
 
     private AgregarTrabajadorController controller;
+
+    @FXML
+    private TextField rutTextField;
 
     @FXML
     private TextField nameTextField;
@@ -37,8 +41,8 @@ public class AgregarTrabajadorView extends View {
     @Override
     public void viewDidLoad() {
         birthdayDateField.setValue(LocalDate.now());
-        specialityList.getItems().addAll("1", "2", "3", "4");
-        specialityList.setValue("1");
+        specialityList.getItems().addAll(Especialidades.getInstance().getAll());
+        specialityList.getSelectionModel().selectFirst();
         saveButton.setOnAction(this::saveHandler);
     }
 
@@ -48,21 +52,15 @@ public class AgregarTrabajadorView extends View {
     }
 
     private void saveHandler(ActionEvent event) {
-        TrabajadorBuilder nuevo = TrabajadorBuilder.create(nameTextField.getText(), nameTextField.getText(), lastNameTextField.getText())
-                .withEspecialidad(specialityList.getValue())
-                .withFechaNacimiento(birthdayDateField.getValue());
+        Trabajador nuevo = TrabajadorBuilder.create()
+                .withRut(rutTextField.getText())
+                .withNomre(nameTextField.getText())
+                .withApellido(lastNameTextField.getText())
+                .withEspecialidad(Especialidades.getInstance().get(specialityList.getValue()))
+                .withFechaNacimiento(birthdayDateField.getValue())
+                .build();
 
-
-        System.out.println(controller.guardarTrabajador(nuevo.build()));
-
-        /*controller.buscarTrabajador("Matias").forEach(trabajador -> {
-            System.out.println(nuevo.getNombre());
-            System.out.println(nuevo.getApellido());
-        });*/
-
-        /*LOGGER.info(nuevo.getRut());
-        LOGGER.info(nuevo.getNombre());
-        LOGGER.info(nuevo.getApellido());*/
+        controller.guardarTrabajador(nuevo);
     }
 
     @FXML
