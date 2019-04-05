@@ -29,6 +29,9 @@ public final class ValidationResult {
     }
 
     public List<String> getMessages() {
+        if (messages == null)
+            return null;
+
         return Collections.unmodifiableList(messages);
     }
 }
