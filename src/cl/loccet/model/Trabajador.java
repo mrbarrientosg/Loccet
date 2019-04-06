@@ -17,11 +17,12 @@ public class Trabajador {
 
     private ArrayList<Horario> horarios;
 
-    public Trabajador(String rut, String nombre, String apellido, LocalDate fechaNacimiento) {
-        this.rut = rut;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.fechaNacimiento = fechaNacimiento;
+    private Trabajador(Builder builder) {
+        this.rut = builder.rut;
+        this.nombre = builder.nombre;
+        this.apellido = builder.apellido;
+        this.fechaNacimiento = builder.fechaNacimiento;
+        this.especialidad = builder.especialidad;
     }
 
     public String getRut() {
@@ -62,6 +63,48 @@ public class Trabajador {
 
     public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public static class Builder {
+
+        private String rut;
+
+        private String nombre;
+
+        private String apellido;
+
+        private Especialidad especialidad;
+
+        private LocalDate fechaNacimiento;
+
+        public Builder rut(String rut) {
+            this.rut = rut;
+            return this;
+        }
+
+        public Builder nombre(String nombre) {
+            this.nombre = nombre;
+            return this;
+        }
+
+        public Builder apellido(String apellido) {
+            this.apellido = apellido;
+            return this;
+        }
+
+        public Builder especialidad(Especialidad especialidad) {
+            this.especialidad = especialidad;
+            return this;
+        }
+
+        public Builder fechaNaciemiento(LocalDate fechaNacimiento) {
+            this.fechaNacimiento = fechaNacimiento;
+            return this;
+        }
+
+        public Trabajador build() {
+            return new Trabajador(this);
+        }
     }
 
 }

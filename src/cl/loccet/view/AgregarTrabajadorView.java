@@ -4,7 +4,6 @@ import cl.loccet.base.View;
 import cl.loccet.controller.AgregarTrabajadorController;
 import cl.loccet.model.Especialidades;
 import cl.loccet.model.Trabajador;
-import cl.loccet.model.TrabajadorBuilder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -52,12 +51,12 @@ public class AgregarTrabajadorView extends View {
     }
 
     private void saveHandler(ActionEvent event) {
-        Trabajador nuevo = TrabajadorBuilder.create()
-                .withRut(rutTextField.getText())
-                .withNomre(nameTextField.getText())
-                .withApellido(lastNameTextField.getText())
-                .withEspecialidad(Especialidades.getInstance().get(specialityList.getValue()))
-                .withFechaNacimiento(birthdayDateField.getValue())
+        Trabajador nuevo = new Trabajador.Builder()
+                .rut(rutTextField.getText())
+                .nombre(nameTextField.getText())
+                .apellido(lastNameTextField.getText())
+                .especialidad(Especialidades.getInstance().get(specialityList.getValue()))
+                .fechaNaciemiento(birthdayDateField.getValue())
                 .build();
 
         controller.guardarTrabajador(nuevo);
