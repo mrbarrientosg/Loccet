@@ -1,38 +1,42 @@
 package cl.loccet.view;
 
-import cl.loccet.base.Router;
-import cl.loccet.base.RouterView;
+import cl.loccet.base.Injectable;
 import cl.loccet.base.View;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import cl.loccet.controller.HomeController;
+import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 
 public class HomeView extends View {
 
-    private MenuBarView menuBarView = new MenuBarView();
+    private MenuBarView menuBarView = Injectable.find(MenuBarView.class);
 
-    @FXML
-    private BorderPane borderPane;
+    private HomeController controller;
 
-    @FXML
-    private Button backButton;
+    public void setController(HomeController controller) {
+        this.controller = controller;
+    }
+
+    public HomeView() {
+        super("General");
+    }
 
     @Override
     public void viewDidLoad() {
-        backButton.setOnAction(event -> {
-            Router.getIntance().getView(RouterView.LOGIN).openModal();
-            close();
-        });
-
-
         getRoot().setTop(menuBarView.getRoot());
+        setCenter(Injectable.find(AgregarTrabajadorView.class).getRoot());
+    }
+
+    @Override
+    public void viewDidClose() {
+
     }
 
     @Override
     public BorderPane getRoot()  {
-        if (root == null)
-            root = loadFXML();
-
         return (BorderPane) root;
+    }
+
+    private void setCenter(Parent node) {
+        getRoot().setCenter(node);
     }
 }

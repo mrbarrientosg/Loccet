@@ -17,10 +17,7 @@ public class MenuBarView extends View {
     }
 
     @Override
-    public MenuBar getRoot() {
-        if(root == null){
-            root = loadFXML();
-        }
-        return (MenuBar)root;
+    public void viewDidClose() {
+
     }
 }
