@@ -20,13 +20,13 @@ public class Inventario {
     }
 
     public void AgregarItem(ItemInventario item){
-        if (mapInventarios.get(item.getId()) == null){
+        ItemInventario itemInventario;
+        if (itemInventario = mapInventarios.get(item.getId()) == null){
             mapInventarios.put(item.getId(),item);
             listaInventarios.add(item);
         }
         else{
-
+            itemInventario.setCantidad(itemInventario.getCantidad() + item.getCantidad());
         }
     }
-
 }
