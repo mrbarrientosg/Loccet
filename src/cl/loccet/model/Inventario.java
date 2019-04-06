@@ -20,8 +20,8 @@ public class Inventario {
     }
 
     public void AgregarItem(ItemInventario item){
-        ItemInventario itemInventario;
-        if (itemInventario = mapInventarios.get(item.getId()) == null){
+        ItemInventario itemInventario= mapInventarios.get(item.getId());
+        if (itemInventario == null){
             mapInventarios.put(item.getId(),item);
             listaInventarios.add(item);
         }
