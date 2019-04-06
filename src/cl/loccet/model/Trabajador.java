@@ -15,6 +15,12 @@ public class Trabajador {
 
     private Especialidad especialidad;
 
+    private Localizacion localizacion;
+
+    private String telefono;
+
+    private String correoElectronico;
+
     private ArrayList<Horario> horarios;
 
     private Trabajador(Builder builder) {
@@ -23,6 +29,7 @@ public class Trabajador {
         this.apellido = builder.apellido;
         this.fechaNacimiento = builder.fechaNacimiento;
         this.especialidad = builder.especialidad;
+        this.localizacion = builder.localizacion;
     }
 
     public String getRut() {
@@ -65,6 +72,10 @@ public class Trabajador {
         this.fechaNacimiento = fechaNacimiento;
     }
 
+    public Localizacion getLocalizacion() {
+        return localizacion;
+    }
+
     public static class Builder {
 
         private String rut;
@@ -76,6 +87,12 @@ public class Trabajador {
         private Especialidad especialidad;
 
         private LocalDate fechaNacimiento;
+
+        private Localizacion localizacion;
+
+        private String telefono;
+
+        private String correoElectronico;
 
         public Builder rut(String rut) {
             this.rut = rut;
@@ -97,8 +114,23 @@ public class Trabajador {
             return this;
         }
 
-        public Builder fechaNaciemiento(LocalDate fechaNacimiento) {
+        public Builder fechaNacimiento(LocalDate fechaNacimiento) {
             this.fechaNacimiento = fechaNacimiento;
+            return this;
+        }
+
+        public Builder localizacion(Localizacion localizacion) {
+            this.localizacion = localizacion;
+            return this;
+        }
+
+        public Builder telefono(String telefono) {
+            this.telefono = telefono;
+            return this;
+        }
+
+        public Builder correoElectronico(String correoElectronico) {
+            this.correoElectronico = correoElectronico;
             return this;
         }
 

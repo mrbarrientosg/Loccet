@@ -53,13 +53,13 @@
             <Label text="Dirección" GridPane.rowIndex="5" />
             <Label text="ZIP/Código Postal" GridPane.rowIndex="6" />
             <Label text="Estado/Provincia" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-            <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField GridPane.columnIndex="3" GridPane.rowIndex="6" />
+            <TextArea fx:id="addressText" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="postalCodeField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="stateField" GridPane.columnIndex="3" GridPane.rowIndex="6" />
             <Label text="País" GridPane.rowIndex="7" />
             <Label text="Ciudad" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField GridPane.columnIndex="3" GridPane.rowIndex="7" />
+            <TextField fx:id="countryField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="cityField" GridPane.columnIndex="3" GridPane.rowIndex="7" />
             <Label text="Contacto" GridPane.rowIndex="8">
                <font>
                   <Font name="System Bold" size="14.0" />
@@ -67,8 +67,8 @@
             </Label>
             <Label text="Teléfono" GridPane.rowIndex="9" />
             <Label text="Correo electrónico" GridPane.columnIndex="2" GridPane.rowIndex="9" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="9" />
-            <TextField GridPane.columnIndex="3" GridPane.rowIndex="9" />
+            <TextField fx:id="telephoneField" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <TextField fx:id="emailField" GridPane.columnIndex="3" GridPane.rowIndex="9" />
             <Label text="Información personal">
                <font>
                   <Font name="System Bold" size="14.0" />

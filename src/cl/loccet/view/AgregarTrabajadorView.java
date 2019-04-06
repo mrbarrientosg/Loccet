@@ -6,10 +6,7 @@ import cl.loccet.model.Especialidades;
 import cl.loccet.model.Trabajador;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.time.LocalDate;
 
@@ -35,6 +32,27 @@ public class AgregarTrabajadorView extends View {
     private DatePicker birthdayDateField;
 
     @FXML
+    private TextArea addressText;
+
+    @FXML
+    private TextField postalCodeField;
+
+    @FXML
+    private TextField stateField;
+
+    @FXML
+    private TextField countryField;
+
+    @FXML
+    private TextField cityField;
+
+    @FXML
+    private TextField telephoneField;
+
+    @FXML
+    private TextField emailField;
+
+    @FXML
     private Button saveButton;
 
     @Override
@@ -43,28 +61,56 @@ public class AgregarTrabajadorView extends View {
         specialityList.getItems().addAll(Especialidades.getInstance().getAll());
         specialityList.getSelectionModel().selectFirst();
         saveButton.setOnAction(this::saveHandler);
+
+        bindController();
     }
 
     @Override
     public void viewDidClose() {
-
+        clearBind();
     }
 
     private void saveHandler(ActionEvent event) {
-        Trabajador nuevo = new Trabajador.Builder()
-                .rut(rutTextField.getText())
-                .nombre(nameTextField.getText())
-                .apellido(lastNameTextField.getText())
-                .especialidad(Especialidades.getInstance().get(specialityList.getValue()))
-                .fechaNaciemiento(birthdayDateField.getValue())
-                .build();
-
-        controller.guardarTrabajador(nuevo);
+        controller.guardarTrabajador();
     }
 
     @FXML
     private void cancelHandler(ActionEvent event) {
         master.setCenter(null);
+    }
+
+    private void bindController() {
+        controller.rutProperty().bind(rutTextField.textProperty());
+        controller.nameProperty().bind(nameTextField.textProperty());
+        controller.lastNameProperty().bind(lastNameTextField.textProperty());
+        controller.specialityProperty().bind(specialityList.valueProperty());
+        controller.birthdayProperty().bind(birthdayDateField.valueProperty());
+
+        controller.addressProperty().bind(addressText.textProperty());
+        controller.zipProperty().bind(postalCodeField.textProperty());
+        controller.countryProperty().bind(countryField.textProperty());
+        controller.cityProperty().bind(cityField.textProperty());
+        controller.stateProperty().bind(stateField.textProperty());
+
+        controller.telephoneProperty().bind(telephoneField.textProperty());
+        controller.emailProperty().bind(emailField.textProperty());
+    }
+
+    private void clearBind() {
+        controller.rutProperty().unbind();
+        controller.nameProperty().unbind();
+        controller.lastNameProperty().unbind();
+        controller.specialityProperty().unbind();
+        controller.birthdayProperty().unbind();
+
+        controller.addressProperty().unbind();
+        controller.zipProperty().unbind();
+        controller.countryProperty().unbind();
+        controller.cityProperty().unbind();
+        controller.stateProperty().unbind();
+
+        controller.telephoneProperty().unbind();
+        controller.emailProperty().unbind();
     }
 
     public void setController(AgregarTrabajadorController controller) {
