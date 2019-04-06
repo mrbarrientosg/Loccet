@@ -86,6 +86,8 @@ public class AgregarTrabajadorController extends Controller {
      * Valida solo la informacion personal del trabajador, y si
      * lo son lo agrega al builder.
      * @return false si un dato es incorreto, lo contrario true
+     *
+     * @author Matias Barrientos
      */
     private boolean validarInformacionPersonal() {
         // 1 validar RUT
@@ -110,6 +112,13 @@ public class AgregarTrabajadorController extends Controller {
         return true;
     }
 
+    /**
+     * Valida la seccion de localizacion
+     *
+     *  @return true si los campos son validos, en caso contrario false
+     *
+     * @author Matias Barrientos
+     */
     private boolean validarLocalizacion() {
         // 1 validar la dirrecion
         if (!validacionIsEmpty(address, "Debe ingresar la dirreción"))
@@ -138,6 +147,13 @@ public class AgregarTrabajadorController extends Controller {
         return true;
     }
 
+    /**
+     * Valida la seccion de contacto
+     *
+     *  @return true si los campos son validos, en caso contrario false
+     *
+     * @author Matias Barrientos
+     */
     private boolean validarContacto() {
         // 1 validar telefono
         if (!validacionIsEmpty(telephone, "Debe ingresar el telefono"))
@@ -155,6 +171,13 @@ public class AgregarTrabajadorController extends Controller {
         return true;
     }
 
+    /**
+     * Valida que el campo no sea vacio
+     *
+     *  @return true si el campo es valido, en caso contrario false
+     *
+     * @author Matias Barrientos
+     */
     private boolean validacionIsEmpty(StringProperty property, String errorMessage) {
         if (property.isEmpty().get() || property.isNull().get()) {
             router.showError(errorMessage);
