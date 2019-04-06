@@ -19,7 +19,7 @@ public class AgregarTrabajadorView extends View {
     public void viewDidLoad() {
         exitButton.setOnAction(event -> {
             close();
-            Injectable.find(LoginView.class).openWindow().show();
+            Injectable.find(LoginView.class).window().show();
         });
     }
 

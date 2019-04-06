@@ -5,7 +5,6 @@ import cl.loccet.base.View;
 import cl.loccet.model.Constructora;
 import cl.loccet.router.HomeRouter;
 import cl.loccet.util.Validator;
-import com.oracle.javafx.jmx.json.JSONReader;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -64,7 +63,7 @@ public class LoginView extends View {
 
         close();
         HomeRouter.create(c)
-                .openWindow()
+                .window()
                 .withResizable(true)
                 .show();
     }
