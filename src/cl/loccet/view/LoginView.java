@@ -1,6 +1,5 @@
 package cl.loccet.view;
 
-import cl.loccet.base.Injectable;
 import cl.loccet.base.View;
 import cl.loccet.model.Constructora;
 import cl.loccet.router.HomeRouter;
@@ -9,10 +8,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class LoginView extends View {
 
