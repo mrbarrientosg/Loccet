@@ -6,6 +6,7 @@ import cl.loccet.model.Constructora;
 import cl.loccet.model.Trabajador;
 import cl.loccet.state.AddTrabajadorStrategy;
 import cl.loccet.state.EditTrabajadorStategy;
+import cl.loccet.view.ListaTrabajadorView;
 import cl.loccet.view.TrabajadorView;
 import cl.loccet.view.HomeView;
 import javafx.application.Platform;
@@ -28,6 +29,14 @@ public class HomeRouter {
 
     public void agregarEspecialidad() {
 
+    }
+
+    public void listaTrabajadores(Constructora model) {
+        ListaTrabajadorView view = ListaTrabajadorRouter.create(model);
+
+        view.setMaster(master);
+
+        master.setCenter(view.getRoot());
     }
 
     public void agregarTrabajador(Constructora model) {

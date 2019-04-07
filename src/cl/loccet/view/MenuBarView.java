@@ -19,6 +19,9 @@ public class MenuBarView extends View {
     public void viewDidClose() { }
 
     @FXML
+    private void listaTrabajadores(ActionEvent event) { controller.listaTrabajadores(); }
+
+    @FXML
     private void agregarEspecialidad(ActionEvent event) {
         controller.agregarEspecialidad();
     }

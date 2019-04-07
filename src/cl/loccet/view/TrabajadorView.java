@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 
 import java.time.LocalDate;
 
@@ -86,7 +87,7 @@ public class TrabajadorView extends View {
 
     @FXML
     private void cancelHandler(ActionEvent event) {
-        master.setCenter(null);
+        closeView();
     }
 
     private void bindController() {
@@ -141,7 +142,8 @@ public class TrabajadorView extends View {
     }
 
     public void closeView() {
-        master.setCenter(null);
+        ((BorderPane)getRoot().getParent()).getChildren().remove(getRoot());
+        //master.setCenter(null);
     }
 
     public void setController(TrabajadorController controller) {

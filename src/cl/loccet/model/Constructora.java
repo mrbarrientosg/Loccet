@@ -1,9 +1,7 @@
 package cl.loccet.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Constructora {
 
@@ -44,6 +42,10 @@ public class Constructora {
     public String getNombre() {
         return nombre;
     }
+
+    public List<Trabajador> getConjuntoTrabajadores() {
+        return Collections.unmodifiableList(conjuntoTrabajadores.values().stream().collect(Collectors.toList()));
+}
 
     //Metodos
 

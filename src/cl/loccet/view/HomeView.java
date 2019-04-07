@@ -38,6 +38,11 @@ public class HomeView extends View {
         getCurrentStage().sizeToScene();
     }
 
+    public void setRight(Parent node) {
+        getRoot().setRight(node);
+        getCurrentStage().sizeToScene();
+    }
+
     public void setTop(Parent node) {
         getRoot().setTop(node);
     }

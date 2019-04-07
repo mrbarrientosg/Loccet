@@ -5,7 +5,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 
-<MenuBar xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<MenuBar xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
     <menus>
       <Menu mnemonicParsing="false" text="Inicio">
         <items>
@@ -14,7 +14,7 @@
       </Menu>
         <Menu mnemonicParsing="false" text="RRHH">
             <items>
-                <MenuItem mnemonicParsing="false" text="Lista trabajadores" />
+                <MenuItem mnemonicParsing="false" onAction="#listaTrabajadores" text="Lista trabajadores" />
                 <SeparatorMenuItem mnemonicParsing="false" />
                 <MenuItem mnemonicParsing="false" onAction="#agregarTrabajador" text="Agregar trabajador" />
                 <SeparatorMenuItem mnemonicParsing="false" />
