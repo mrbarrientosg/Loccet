@@ -34,7 +34,7 @@ public class HomeController extends Controller {
     }
 
     public void agregarTrabajador() {
-
+        router.agregarTrabajador(model);
     }
 
     public void avanceProyecto() {
