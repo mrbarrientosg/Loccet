@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane>
@@ -43,13 +42,14 @@
             </Label>
             <Label text="Nombre del Proyecto" translateX="20.0" GridPane.rowIndex="1" />
             <Label text="Jefe de proyecto" translateX="20.0" GridPane.rowIndex="2" />
-            <Label text="Cliente" translateX="20.0" GridPane.rowIndex="3" />
-            <Label text="Monto Contractual" translateX="20.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Cliente" translateX="20.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label text="Monto Contractual" translateX="20.0" GridPane.rowIndex="3" />
+            <TextField fx:id="No" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField prefHeight="25.0" prefWidth="144.0" translateX="-20.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" text="Seleccionar trabajadores" translateX="65.0" translateY="20.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <TextField translateX="-20.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <TextField translateX="-20.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
             <Label text="Ubicación" translateX="20.0" GridPane.rowIndex="5">
                <font>
                   <Font name="System Bold" size="14.0" />
@@ -74,10 +74,13 @@
                </font>
             </Label>
             <Separator prefWidth="200.0" GridPane.columnSpan="4" GridPane.rowIndex="8" />
+            <Label text="Telefono Cliente" translateX="20.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Label text="E-Mail Cliente" translateX="20.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <ButtonBar prefHeight="40.0" prefWidth="200.0">
         <buttons>
+            <Button mnemonicParsing="false" text="Seleccionar trabajadores" translateX="-120.0" translateY="-10.0" />
           <Button mnemonicParsing="false" text="Aceptar" translateX="-20.0" translateY="-10.0" />
             <Button layoutX="535.0" layoutY="10.0" mnemonicParsing="false" text="Cancelar" translateX="-20.0" translateY="-10.0" />
         </buttons>
