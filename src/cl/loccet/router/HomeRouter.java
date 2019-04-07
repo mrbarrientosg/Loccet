@@ -3,11 +3,12 @@ package cl.loccet.router;
 import cl.loccet.base.Injectable;
 import cl.loccet.controller.HomeController;
 import cl.loccet.model.Constructora;
-import cl.loccet.view.AgregarTrabajadorView;
+import cl.loccet.model.Trabajador;
+import cl.loccet.state.AddTrabajadorStrategy;
+import cl.loccet.state.EditTrabajadorStategy;
+import cl.loccet.view.TrabajadorView;
 import cl.loccet.view.HomeView;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 
 public class HomeRouter {
 
@@ -30,9 +31,15 @@ public class HomeRouter {
     }
 
     public void agregarTrabajador(Constructora model) {
-        AgregarTrabajadorView agregarTrabajadorView = AgregarTrabajadorRouter.create(model);
-        agregarTrabajadorView.setMaster(master);
-        master.setCenter(agregarTrabajadorView.getRoot());
+        TrabajadorView trabajadorView = TrabajadorRouter.create(model);
+
+        AddTrabajadorStrategy strategy = new AddTrabajadorStrategy(model);
+
+        trabajadorView.getController().changeStategy(strategy);
+
+        trabajadorView.setMaster(master);
+
+        master.setCenter(trabajadorView.getRoot());
     }
 
     public void avanceProyecto() {
@@ -79,8 +86,16 @@ public class HomeRouter {
 
     }
 
-    public void modificarTrabajador() {
+    public void modificarTrabajador(Constructora model, Trabajador old) {
+        TrabajadorView trabajadorView = TrabajadorRouter.create(model, old);
 
+        EditTrabajadorStategy strategy = new EditTrabajadorStategy(model, old);
+
+        trabajadorView.getController().changeStategy(strategy);
+
+        trabajadorView.setMaster(master);
+
+        master.setCenter(trabajadorView.getRoot());
     }
 
     public void nuevoProyecto() {

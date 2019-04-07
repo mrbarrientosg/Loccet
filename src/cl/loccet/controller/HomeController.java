@@ -2,10 +2,13 @@ package cl.loccet.controller;
 
 import cl.loccet.base.Controller;
 import cl.loccet.model.Constructora;
+import cl.loccet.model.Trabajador;
 import cl.loccet.router.HomeRouter;
 import cl.loccet.router.MenuBarRouter;
 import cl.loccet.view.HomeView;
 import cl.loccet.view.MenuBarView;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
 
 public class HomeController extends Controller {
 
@@ -82,7 +85,8 @@ public class HomeController extends Controller {
     }
 
     public void modificarTrabajador() {
-
+        // TODO : Buscar al trabajador que quiere modificar
+        router.modificarTrabajador(model, null);
     }
 
     public void nuevoProyecto() {

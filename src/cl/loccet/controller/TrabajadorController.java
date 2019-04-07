@@ -5,21 +5,24 @@ import cl.loccet.model.Constructora;
 import cl.loccet.model.Especialidades;
 import cl.loccet.model.Localizacion;
 import cl.loccet.model.Trabajador;
-import cl.loccet.router.AgregarTrabajadorRouter;
-import cl.loccet.view.AgregarTrabajadorView;
+import cl.loccet.router.TrabajadorRouter;
+import cl.loccet.state.AddTrabajadorStrategy;
+import cl.loccet.state.EditTrabajadorStategy;
+import cl.loccet.state.SaveStrategy;
+import cl.loccet.view.TrabajadorView;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import java.time.LocalDate;
 
-public class AgregarTrabajadorController extends Controller {
+public class TrabajadorController extends Controller {
 
-    private final AgregarTrabajadorView view;
+    private final TrabajadorView view;
 
     private final Constructora model;
 
-    private final AgregarTrabajadorRouter router;
+    private final TrabajadorRouter router;
 
     private Trabajador.Builder trabajadorBuilder = new Trabajador.Builder();
 
@@ -49,28 +52,33 @@ public class AgregarTrabajadorController extends Controller {
 
     private StringProperty email = new SimpleStringProperty();
 
-    public AgregarTrabajadorController(AgregarTrabajadorView view, Constructora model, AgregarTrabajadorRouter router) {
+    private SaveStrategy<Trabajador> saveStrategy;
+
+    public TrabajadorController(TrabajadorView view, Constructora model, TrabajadorRouter router, SaveStrategy<Trabajador> saveStrategy) {
         this.view = view;
         this.model = model;
         this.router = router;
+        this.saveStrategy = saveStrategy;
     }
 
     public void guardarTrabajador() {
-        if (validarInformacionPersonal() && validarLocalizacion() && validarContacto()) { // Son validos los datos
+        if (!validarTrabajador()) return;
 
-            trabajadorBuilder
-                    .localizacion(localizacionBuilder.build())
-                    .especialidad(Especialidades.getInstance().get(speciality.get()))
-                    .fechaNacimiento(birthday.get());
+        localizacionBuilder
+                .codigoPostal(zip.get());
 
-            boolean result = model.agregarTrabajador(trabajadorBuilder.build());
+        trabajadorBuilder
+                .localizacion(localizacionBuilder.build())
+                .especialidad(Especialidades.getInstance().get(speciality.get()))
+                .fechaNacimiento(birthday.get());
 
-            if (result) {
-                view.getMaster().setCenter(null);
-            } else {
-                router.showError("No se puedo agregar el trabajador, intente más tarde");
-            }
-        }
+        saveStrategy.save(trabajadorBuilder.build());
+        view.closeView();
+    }
+
+
+    private boolean validarTrabajador() {
+        return validarInformacionPersonal() && validarLocalizacion() && validarContacto();
     }
 
     /**
@@ -175,6 +183,34 @@ public class AgregarTrabajadorController extends Controller {
             return false;
         }
         return true;
+    }
+
+    public void bindEditProperty() {
+        if (!(saveStrategy instanceof EditTrabajadorStategy)) return;
+
+        EditTrabajadorStategy editState = (EditTrabajadorStategy) saveStrategy;
+
+        if (editState == null || editState.getOld() == null) return;
+
+        rut.set(editState.getOld().getRut());
+        name.set(editState.getOld().getNombre());
+        lastName.set(editState.getOld().getApellido());
+        speciality.set(editState.getOld().getEspecialidad().getNombre());
+        birthday.setValue(editState.getOld().getFechaNacimiento());
+
+        address.set(editState.getOld().getLocalizacion().getDireccion());
+        zip.set(editState.getOld().getLocalizacion().getCodigoPostal());
+        country.set(editState.getOld().getLocalizacion().getPais());
+        city.set(editState.getOld().getLocalizacion().getCiudad());
+        state.set(editState.getOld().getLocalizacion().getEstado());
+
+        telephone.setValue(editState.getOld().getTelefono());
+        email.setValue(editState.getOld().getCorreoElectronico());
+    }
+
+    public void changeStategy(SaveStrategy<Trabajador> strategy) {
+        this.saveStrategy = strategy;
+        view.loadView();
     }
 
     public StringProperty rutProperty() {

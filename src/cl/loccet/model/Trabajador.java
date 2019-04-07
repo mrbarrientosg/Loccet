@@ -30,6 +30,8 @@ public class Trabajador {
         this.fechaNacimiento = builder.fechaNacimiento;
         this.especialidad = builder.especialidad;
         this.localizacion = builder.localizacion;
+        this.telefono = builder.telefono;
+        this.correoElectronico = builder.correoElectronico;
     }
 
     public String getRut() {
@@ -74,6 +76,22 @@ public class Trabajador {
 
     public Localizacion getLocalizacion() {
         return localizacion;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getCorreoElectronico() {
+        return correoElectronico;
+    }
+
+    public void setCorreoElectronico(String correoElectronico) {
+        this.correoElectronico = correoElectronico;
     }
 
     public static class Builder {
