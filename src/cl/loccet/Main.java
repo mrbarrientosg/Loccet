@@ -3,6 +3,7 @@ package cl.loccet;
 import cl.loccet.base.Injectable;
 import cl.loccet.model.Especialidades;
 import cl.loccet.router.LoginRouter;
+import cl.loccet.view.ListaTrabajadorView;
 import cl.loccet.view.LoginView;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -19,11 +20,11 @@ public class Main extends Application {
         Especialidades.createFakeData();
         Injectable.setPrimaryStage(primaryStage);
 
-        LoginView loginView = LoginRouter.create();
+        ListaTrabajadorView loginView = Injectable.find(ListaTrabajadorView.class);
 
         Scene scene = new Scene(loginView.getRoot());
 
-        primaryStage.setResizable(false);
+        primaryStage.setResizable(true);
         primaryStage.titleProperty().bind(loginView.getTitleProperty());
         primaryStage.setScene(scene);
         primaryStage.show();

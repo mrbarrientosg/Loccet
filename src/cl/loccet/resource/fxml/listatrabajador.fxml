@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+
+<TableView fx:id="tableView" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <columns>
+      <TableColumn fx:id="rutColumn" editable="false" prefWidth="75.0" text="RUT" />
+      <TableColumn fx:id="nameColumn" editable="false" prefWidth="75.0" text="Nombre" />
+      <TableColumn fx:id="lastNameColumn" editable="false" prefWidth="75.0" text="Apellido" />
+      <TableColumn fx:id="proyectColumn" editable="false" prefWidth="75.0" text="Proyecto" />
+      <TableColumn fx:id="specialityColumn" editable="false" prefWidth="84.0" text="Especialidad" />
+   </columns>
+   <contextMenu>
+      <ContextMenu>
+         <items>
+            <MenuItem mnemonicParsing="false" onAction="#editTrabajador" text="Editar" />
+         </items>
+      </ContextMenu>
+   </contextMenu>
+</TableView>
