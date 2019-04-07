@@ -71,13 +71,12 @@ public class AgregarTrabajadorController extends Controller {
                     .especialidad(Especialidades.getInstance().get(speciality.get()))
                     .fechaNacimiento(birthday.get());
 
-            boolean result = true; // resultado del modelo
-            //model.agregarTrabajador(t);
+            boolean result = model.agregarTrabajador(trabajadorBuilder.build());
 
             if (result) {
-                // Agregado exitosamente
+                view.getMaster().setCenter(null);
             } else {
-                // Error no se pudo agregar (Mostrar alerta)
+                router.showError("No se puedo agregar el trabajador, intente más tarde");
             }
         }
     }

@@ -120,4 +120,8 @@ public class AgregarTrabajadorView extends View {
     public void setMaster(HomeView master) {
         this.master = master;
     }
+
+    public HomeView getMaster() {
+        return master;
+    }
 }
