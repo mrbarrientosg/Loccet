@@ -15,14 +15,14 @@ public class Constructora {
 
     private HashMap<Integer, Proyecto> mapProyecto;
 
-    private Set<Trabajador> conjuntoTrabajadores;
+    private HashMap<String, Trabajador> conjuntoTrabajadores;
 
     public Constructora(String rut, String nombre) {
         this.rut = rut;
         this.nombre = nombre;
         listaProyecto = new ArrayList<>();
         mapProyecto = new HashMap<>();
-        conjuntoTrabajadores = new HashSet<>();
+        conjuntoTrabajadores = new HashMap<>();
     }
 
     //Setter
@@ -54,8 +54,8 @@ public class Constructora {
 
 
     public boolean agregarTrabajador(Trabajador trabajador){
-        if (conjuntoTrabajadores.contains(trabajador)) return false;
-        conjuntoTrabajadores.add(trabajador);
+        if (conjuntoTrabajadores.get(trabajador.getRut()) != null) return false;
+        conjuntoTrabajadores.put(trabajador.getRut(), trabajador);
         return true;
     }
 
@@ -97,7 +97,7 @@ public class Constructora {
     public ArrayList<Trabajador> buscarTrabajador(String busqueda) {
         ArrayList<Trabajador> encontrados = new ArrayList<>();
 
-        for (Object ob:  conjuntoTrabajadores.toArray()) {
+        for (Object ob:  conjuntoTrabajadores.values()) {
             Trabajador trabajador = (Trabajador) ob;
             if (trabajador.getNombre().toLowerCase().contains(busqueda.toLowerCase()))
                 encontrados.add(trabajador);
