@@ -14,8 +14,6 @@ import java.time.LocalDate;
 
 public class TrabajadorView extends View {
 
-    private HomeView master;
-
     private TrabajadorController controller;
 
     @FXML
@@ -142,8 +140,7 @@ public class TrabajadorView extends View {
     }
 
     public void closeView() {
-        ((BorderPane)getRoot().getParent()).getChildren().remove(getRoot());
-        //master.setCenter(null);
+        ((BorderPane) getRoot().getParent()).getChildren().remove(getRoot());
     }
 
     public void setController(TrabajadorController controller) {
@@ -152,10 +149,6 @@ public class TrabajadorView extends View {
 
     public TrabajadorController getController() {
         return controller;
-    }
-
-    public void setMaster(HomeView master) {
-        this.master = master;
     }
 
 }

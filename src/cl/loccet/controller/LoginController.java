@@ -3,6 +3,7 @@ package cl.loccet.controller;
 import cl.loccet.base.Controller;
 import cl.loccet.model.Constructora;
 import cl.loccet.model.Especialidades;
+import cl.loccet.model.Localizacion;
 import cl.loccet.model.Trabajador;
 import cl.loccet.router.LoginRouter;
 import cl.loccet.util.ValidationResult;
@@ -34,7 +35,12 @@ public class LoginController extends Controller {
 
         // TODO: implementar el controlador para poder gestionar la constructora
         Constructora c = new Constructora("RUT","NOMBRE");
-        c.agregarTrabajador(new Trabajador.Builder().rut("19").nombre("Matias").especialidad(Especialidades.getInstance().get("Pintor")).build());
+        c.agregarTrabajador(new Trabajador.Builder()
+                .rut("19")
+                .nombre("Matias")
+                .especialidad(Especialidades.getInstance().get("Pintor"))
+                .localizacion(new Localizacion.Builder().build())
+                .build());
 
         router.showHome(c);
     }

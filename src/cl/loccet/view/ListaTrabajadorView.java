@@ -10,6 +10,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -46,22 +47,34 @@ public class ListaTrabajadorView extends View {
 
         rutColumn.setCellValueFactory(new PropertyValueFactory<>("rut"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("apellido"));
 
         tableView.setItems(controller.trabajadorCells());
 
         selectedTrabajador.bind(tableView.getSelectionModel().selectedItemProperty());
-
     }
 
     @Override
     public void viewDidClose() {
-
+        selectedTrabajador.unbind();
     }
 
     @FXML
     private void editTrabajador() {
         System.out.println(selectedTrabajador.get());
-        master.setRight(controller.mostrarEditar(selectedTrabajador.get()).getRoot());
+        getRoot().setRight(controller.mostrarEditar(selectedTrabajador.get()).getRoot());
+        getCurrentStage().sizeToScene();
+    }
+
+    @FXML
+    private void salir() {
+        getRoot().setRight(null);
+        master.removeNode(getRoot());
+    }
+
+    @Override
+    public BorderPane getRoot() {
+        return (BorderPane) root;
     }
 
     public void setController(ListaTrabajadorController controller) {
@@ -71,4 +84,5 @@ public class ListaTrabajadorView extends View {
     public void setMaster(HomeView master) {
         this.master = master;
     }
+
 }

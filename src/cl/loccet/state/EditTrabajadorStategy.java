@@ -20,6 +20,7 @@ public class EditTrabajadorStategy implements SaveStrategy<Trabajador> {
 
     @Override
     public Trabajador save(Trabajador newObject) {
+        model.actualizarTrabajador(old.getRut(), newObject);
         return null;
     }
 }

@@ -6,11 +6,11 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.BorderPane?>
 
 
-<VBox alignment="CENTER_RIGHT" spacing="8.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
       <TableView fx:id="tableView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0">
          <columns>
             <TableColumn fx:id="rutColumn" editable="false" prefWidth="75.0" text="RUT" />
@@ -27,9 +27,15 @@
             </ContextMenu>
          </contextMenu>
       </TableView>
-      <Button mnemonicParsing="false" text="Salir" />
-   </children>
+   </center>
+   <bottom>
+      <Button mnemonicParsing="false" onAction="#salir" text="Salir" BorderPane.alignment="BOTTOM_RIGHT">
+         <BorderPane.margin>
+            <Insets top="8.0" />
+         </BorderPane.margin>
+      </Button>
+   </bottom>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
-</VBox>
+</BorderPane>

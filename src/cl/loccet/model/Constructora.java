@@ -44,7 +44,7 @@ public class Constructora {
     }
 
     public List<Trabajador> getConjuntoTrabajadores() {
-        return Collections.unmodifiableList(conjuntoTrabajadores.values().stream().collect(Collectors.toList()));
+        return Collections.unmodifiableList(new ArrayList<>(conjuntoTrabajadores.values()));
 }
 
     //Metodos
@@ -52,6 +52,10 @@ public class Constructora {
     public void agregarProyecto(Proyecto proyecto){
         listaProyecto.add(proyecto);
         mapProyecto.put(proyecto.getId(),proyecto);
+    }
+
+    public void actualizarTrabajador(String RUT, Trabajador trabajador) {
+        conjuntoTrabajadores.put(RUT, trabajador);
     }
 
 

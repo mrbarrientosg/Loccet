@@ -46,8 +46,6 @@ public class HomeRouter {
 
         trabajadorView.getController().changeStategy(strategy);
 
-        trabajadorView.setMaster(master);
-
         master.setCenter(trabajadorView.getRoot());
     }
 
@@ -101,8 +99,6 @@ public class HomeRouter {
         EditTrabajadorStategy strategy = new EditTrabajadorStategy(model, old);
 
         trabajadorView.getController().changeStategy(strategy);
-
-        trabajadorView.setMaster(master);
 
         master.setCenter(trabajadorView.getRoot());
     }
