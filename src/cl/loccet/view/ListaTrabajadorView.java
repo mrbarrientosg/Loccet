@@ -1,8 +1,6 @@
 package cl.loccet.view;
 
 import cl.loccet.base.View;
-import cl.loccet.cell.TrabajadorCell;
-import cl.loccet.model.Especialidades;
 import cl.loccet.model.Trabajador;
 import cl.loccet.router.AgregarTrabajadorRouter;
 import javafx.collections.FXCollections;
@@ -16,37 +14,30 @@ import javafx.scene.layout.BorderPane;
 public class ListaTrabajadorView extends View {
 
     @FXML
-    private TableView<TrabajadorCell> tableView;
+    private TableView<Trabajador> tableView;
 
     @FXML
-    private TableColumn<TrabajadorCell, String> rutColumn;
+    private TableColumn<Trabajador, String> rutColumn;
 
     @FXML
-    private TableColumn<TrabajadorCell, String> nameColumn;
+    private TableColumn<Trabajador, String> nameColumn;
 
     @FXML
-    private TableColumn<TrabajadorCell, String> lastNameColumn;
+    private TableColumn<Trabajador, String> lastNameColumn;
 
     @FXML
-    private TableColumn<TrabajadorCell, String> proyectColumn;
+    private TableColumn<Trabajador, String> proyectColumn;
 
     @FXML
-    private TableColumn<TrabajadorCell, String> specialityColumn;
+    private TableColumn<Trabajador, String> specialityColumn;
 
     @Override
     public void viewDidLoad() {
 
         rutColumn.setCellValueFactory(new PropertyValueFactory<>("rut"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("apellido"));
-        specialityColumn.setCellValueFactory(new PropertyValueFactory<>("nombreEspecialidad"));
 
-        tableView.getItems()
-                .add(new TrabajadorCell(new Trabajador.Builder()
-                .rut("19")
-                .nombre("Matias")
-                .especialidad(Especialidades.getInstance().get("Pintor"))
-                .build()));
+        tableView.getItems().add(new Trabajador.Builder().rut("19").nombre("Matias").build());
     }
 
     @Override
