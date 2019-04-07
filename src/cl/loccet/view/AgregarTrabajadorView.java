@@ -3,7 +3,7 @@ package cl.loccet.view;
 import cl.loccet.base.View;
 import cl.loccet.controller.AgregarTrabajadorController;
 import cl.loccet.model.Especialidades;
-import cl.loccet.model.Trabajador;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -58,7 +58,7 @@ public class AgregarTrabajadorView extends View {
     @Override
     public void viewDidLoad() {
         birthdayDateField.setValue(LocalDate.now());
-        specialityList.getItems().addAll(Especialidades.getInstance().getAll());
+        specialityList.setItems(FXCollections.observableList(Especialidades.getInstance().getAll()));
         specialityList.getSelectionModel().selectFirst();
         saveButton.setOnAction(this::saveHandler);
 
@@ -67,6 +67,7 @@ public class AgregarTrabajadorView extends View {
 
     @Override
     public void viewDidClose() {
+        clearFields();
         clearBind();
     }
 
@@ -111,6 +112,21 @@ public class AgregarTrabajadorView extends View {
 
         controller.telephoneProperty().unbind();
         controller.emailProperty().unbind();
+    }
+
+    private void clearFields() {
+        rutTextField.setText("");
+        nameTextField.setText("");
+        lastNameTextField.setText("");
+
+        addressText.setText("");
+        postalCodeField.setText("");
+        countryField.setText("");
+        cityField.setText("");
+        stateField.setText("");
+
+        telephoneField.setText("");
+        emailField.setText("");
     }
 
     public void setController(AgregarTrabajadorController controller) {

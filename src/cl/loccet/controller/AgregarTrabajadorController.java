@@ -6,20 +6,12 @@ import cl.loccet.model.Especialidades;
 import cl.loccet.model.Localizacion;
 import cl.loccet.model.Trabajador;
 import cl.loccet.router.AgregarTrabajadorRouter;
-import cl.loccet.router.HomeRouter;
-import cl.loccet.util.ValidationResult;
-import cl.loccet.util.Validator;
 import cl.loccet.view.AgregarTrabajadorView;
-import cl.loccet.view.HomeView;
-import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 public class AgregarTrabajadorController extends Controller {
 
