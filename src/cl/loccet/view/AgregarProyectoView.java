@@ -7,6 +7,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
+/**
+ * @author Matias Zuñiga
+ * Establece la vista de agregar proyecto al momento de presionarlo en el menuBar
+ */
+
 public class AgregarProyectoView extends View {
 
     private AgregarProyectoController controller;

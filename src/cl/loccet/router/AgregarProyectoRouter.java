@@ -5,6 +5,11 @@ import cl.loccet.controller.AgregarProyectoController;
 import cl.loccet.model.Proyecto;
 import cl.loccet.view.AgregarProyectoView;
 
+/**
+ * @author Matias Zuñiga
+ * Se encarga de pasar entre diferentes vistas de AgregarTrabajador
+ */
+
 public class AgregarProyectoRouter {
 
     public static AgregarProyectoView create(Proyecto model){

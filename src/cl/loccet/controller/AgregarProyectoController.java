@@ -5,6 +5,11 @@ import cl.loccet.model.Proyecto;
 import cl.loccet.router.AgregarProyectoRouter;
 import cl.loccet.view.AgregarProyectoView;
 
+/**
+ * @author Matias Zuñiga
+ * Se encarga de mostrar la información ingresada por el usuario en la vista AgregarProyecto
+ */
+
 public class AgregarProyectoController extends Controller {
 
     private AgregarProyectoView view;
