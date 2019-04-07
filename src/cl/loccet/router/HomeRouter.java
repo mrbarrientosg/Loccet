@@ -3,12 +3,15 @@ package cl.loccet.router;
 import cl.loccet.base.Injectable;
 import cl.loccet.controller.HomeController;
 import cl.loccet.model.Constructora;
+import cl.loccet.view.AgregarTrabajadorView;
 import cl.loccet.view.HomeView;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 public class HomeRouter {
+
+    private static HomeView master;
 
     public static HomeView create(Constructora model) {
         HomeView view = Injectable.find(HomeView.class);
@@ -17,6 +20,8 @@ public class HomeRouter {
 
         view.setController(controller);
 
+        master = view;
+
         return view;
     }
 
@@ -24,8 +29,10 @@ public class HomeRouter {
 
     }
 
-    public void agregarTrabajador() {
-
+    public void agregarTrabajador(Constructora model) {
+        AgregarTrabajadorView agregarTrabajadorView = AgregarTrabajadorRouter.create(model);
+        agregarTrabajadorView.setMaster(master);
+        master.setCenter(agregarTrabajadorView.getRoot());
     }
 
     public void avanceProyecto() {
