@@ -3,13 +3,10 @@ package cl.loccet.view;
 import cl.loccet.base.Injectable;
 import cl.loccet.base.View;
 import cl.loccet.controller.HomeController;
-import cl.loccet.router.AgregarTrabajadorRouter;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 
 public class HomeView extends View {
-
-    private MenuBarView menuBarView = Injectable.find(MenuBarView.class);
 
     private HomeController controller;
 
@@ -23,7 +20,7 @@ public class HomeView extends View {
 
     @Override
     public void viewDidLoad() {
-        getRoot().setTop(menuBarView.getRoot());
+
     }
 
     @Override
@@ -39,4 +36,9 @@ public class HomeView extends View {
     public void setCenter(Parent node) {
         getRoot().setCenter(node);
     }
+
+    public void setTop(Parent node) {
+        getRoot().setTop(node);
+    }
+
 }
