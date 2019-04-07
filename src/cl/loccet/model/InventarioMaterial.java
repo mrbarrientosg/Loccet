@@ -8,19 +8,21 @@ import java.util.HashMap;
  *
  * @author Sebastian Fuenzalida
  */
-public class Inventario {
+public class InventarioMaterial {
 
-    private ArrayList<ItemInventario> listaInventarios;
+    private ArrayList<Material> listaInventarios;
 
-    private HashMap<Integer, ItemInventario> mapInventarios;
+    private HashMap<Integer, Material> mapInventarios;
 
-    public Inventario() {
+    public InventarioMaterial() {
         listaInventarios = new ArrayList<>();
         mapInventarios = new HashMap<>();
     }
 
-    public void AgregarItem(ItemInventario item){
-        ItemInventario itemInventario= mapInventarios.get(item.getId());
+
+
+    public void AgregarItem(Material item){
+        Material itemInventario= mapInventarios.get(item.getId());
         if (itemInventario == null){
             mapInventarios.put(item.getId(),item);
             listaInventarios.add(item);

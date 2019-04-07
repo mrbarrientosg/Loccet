@@ -1,13 +1,13 @@
 package cl.loccet.model;
 
-public class ItemInventario {
+public class Material {
 
     private String categoria;
     private int id;
     private String descripcion;
     private int cantidad;
 
-    public ItemInventario(String categoria, int id, String descripcion, int cantidad) {
+    public Material(String categoria, int id, String descripcion, int cantidad) {
         this.categoria = categoria;
         this.id = id;
         this.descripcion = descripcion;
