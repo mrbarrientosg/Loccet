@@ -19,11 +19,11 @@ import java.time.LocalDate;
 
 public class TrabajadorController extends Controller {
 
-    private final TrabajadorView view;
+    private TrabajadorView view;
 
-    private final Constructora model;
+    private Constructora model;
 
-    private final TrabajadorRouter router;
+    private TrabajadorRouter router;
 
     private Trabajador.Builder trabajadorBuilder = new Trabajador.Builder();
 
@@ -57,11 +57,6 @@ public class TrabajadorController extends Controller {
 
     private EditTrabajadorDelegate delegate;
 
-    public TrabajadorController(TrabajadorView view, Constructora model, TrabajadorRouter router) {
-        this.view = view;
-        this.model = model;
-        this.router = router;
-    }
 
     public void guardarTrabajador() {
         if (!validarTrabajador()) return;
@@ -220,6 +215,18 @@ public class TrabajadorController extends Controller {
     public void changeStategy(SaveStrategy<Trabajador> strategy) {
         this.saveStrategy = strategy;
         view.loadView();
+    }
+
+    public void setModel(Constructora model) {
+        this.model = model;
+    }
+
+    public void setView(TrabajadorView view) {
+        this.view = view;
+    }
+
+    public void setRouter(TrabajadorRouter router) {
+        this.router = router;
     }
 
     public void setDelegate(EditTrabajadorDelegate delegate) {

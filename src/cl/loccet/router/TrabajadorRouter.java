@@ -28,7 +28,11 @@ public class TrabajadorRouter {
 
         EditTrabajadorStategy stategy = new EditTrabajadorStategy(model, old);
 
-        TrabajadorController controller = new TrabajadorController(view, model, router);
+        TrabajadorController controller = Injectable.find(TrabajadorController.class);
+
+        controller.setView(view);
+        controller.setModel(model);
+        controller.setRouter(router);
 
         view.setController(controller);
 
@@ -49,7 +53,11 @@ public class TrabajadorRouter {
 
         AddTrabajadorStrategy stategy = new AddTrabajadorStrategy(model);
 
-        TrabajadorController controller = new TrabajadorController(view, model, router);
+        TrabajadorController controller = Injectable.find(TrabajadorController.class);
+
+        controller.setView(view);
+        controller.setModel(model);
+        controller.setRouter(router);
 
         view.setController(controller);
 
