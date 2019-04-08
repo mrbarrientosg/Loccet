@@ -88,7 +88,8 @@ public class HomeController extends Controller {
 
     public void modificarTrabajador() {
         // TODO : Buscar al trabajador que quiere modificar
-        router.modificarTrabajador(model, null);
+        Trabajador t = model.buscarTrabajador("19").get(0);
+        router.modificarTrabajador(model, t);
     }
 
     public void nuevoProyecto() {

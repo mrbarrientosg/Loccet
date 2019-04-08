@@ -42,9 +42,6 @@ public class HomeRouter {
     public void agregarTrabajador(Constructora model) {
         TrabajadorView trabajadorView = TrabajadorRouter.create(model);
 
-        AddTrabajadorStrategy strategy = new AddTrabajadorStrategy(model);
-
-        trabajadorView.getController().changeStategy(strategy);
 
         master.setCenter(trabajadorView.getRoot());
     }
@@ -96,9 +93,6 @@ public class HomeRouter {
     public void modificarTrabajador(Constructora model, Trabajador old) {
         TrabajadorView trabajadorView = TrabajadorRouter.create(model, old);
 
-        EditTrabajadorStategy strategy = new EditTrabajadorStategy(model, old);
-
-        trabajadorView.getController().changeStategy(strategy);
 
         master.setCenter(trabajadorView.getRoot());
     }

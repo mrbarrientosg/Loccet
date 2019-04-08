@@ -24,15 +24,15 @@ public class TrabajadorRouter {
     public static TrabajadorView create(Constructora model, Trabajador old) {
         TrabajadorView view = Injectable.find(TrabajadorView.class);
 
-        if (view.getController() != null) return view;
-
         TrabajadorRouter router = new TrabajadorRouter();
 
         EditTrabajadorStategy stategy = new EditTrabajadorStategy(model, old);
 
-        TrabajadorController controller = new TrabajadorController(view, model, router, stategy);
+        TrabajadorController controller = new TrabajadorController(view, model, router);
 
         view.setController(controller);
+
+        controller.changeStategy(stategy);
 
         return view;
     }
@@ -45,15 +45,15 @@ public class TrabajadorRouter {
     public static TrabajadorView create(Constructora model) {
         TrabajadorView view = Injectable.find(TrabajadorView.class);
 
-        if (view.getController() != null) return view;
-
         TrabajadorRouter router = new TrabajadorRouter();
 
         AddTrabajadorStrategy stategy = new AddTrabajadorStrategy(model);
 
-        TrabajadorController controller = new TrabajadorController(view, model, router, stategy);
+        TrabajadorController controller = new TrabajadorController(view, model, router);
 
         view.setController(controller);
+
+        controller.changeStategy(stategy);
 
         return view;
     }

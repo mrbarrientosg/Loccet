@@ -7,6 +7,7 @@ import cl.loccet.model.Localizacion;
 import cl.loccet.model.Trabajador;
 import cl.loccet.router.TrabajadorRouter;
 import cl.loccet.state.AddTrabajadorStrategy;
+import cl.loccet.state.EditTrabajadorDelegate;
 import cl.loccet.state.EditTrabajadorStategy;
 import cl.loccet.state.SaveStrategy;
 import cl.loccet.view.TrabajadorView;
@@ -54,11 +55,12 @@ public class TrabajadorController extends Controller {
 
     private SaveStrategy<Trabajador> saveStrategy;
 
-    public TrabajadorController(TrabajadorView view, Constructora model, TrabajadorRouter router, SaveStrategy<Trabajador> saveStrategy) {
+    private EditTrabajadorDelegate delegate;
+
+    public TrabajadorController(TrabajadorView view, Constructora model, TrabajadorRouter router) {
         this.view = view;
         this.model = model;
         this.router = router;
-        this.saveStrategy = saveStrategy;
     }
 
     public void guardarTrabajador() {
@@ -72,7 +74,14 @@ public class TrabajadorController extends Controller {
                 .especialidad(Especialidades.getInstance().get(speciality.get()))
                 .fechaNacimiento(birthday.get());
 
-        saveStrategy.save(trabajadorBuilder.build());
+        Trabajador newT = trabajadorBuilder.build();
+
+        Trabajador old = saveStrategy.save(newT);
+
+        if (delegate != null && saveStrategy instanceof EditTrabajadorStategy) {
+            delegate.didEdit(old, newT);
+        }
+
         view.closeView();
     }
 
@@ -211,6 +220,10 @@ public class TrabajadorController extends Controller {
     public void changeStategy(SaveStrategy<Trabajador> strategy) {
         this.saveStrategy = strategy;
         view.loadView();
+    }
+
+    public void setDelegate(EditTrabajadorDelegate delegate) {
+        this.delegate = delegate;
     }
 
     public StringProperty rutProperty() {

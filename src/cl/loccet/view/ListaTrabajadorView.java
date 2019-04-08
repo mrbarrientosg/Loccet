@@ -22,8 +22,6 @@ public class ListaTrabajadorView extends View {
 
     private ListaTrabajadorController controller;
 
-    private ObjectProperty<TrabajadorCell> selectedTrabajador = new SimpleObjectProperty<>();
-
     @FXML
     private TableView<TrabajadorCell> tableView;
 
@@ -49,20 +47,23 @@ public class ListaTrabajadorView extends View {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("apellido"));
 
-        tableView.setItems(controller.trabajadorCells());
+        tableView.setItems(controller.getTrabajadorCells());
 
-        selectedTrabajador.bind(tableView.getSelectionModel().selectedItemProperty());
+        controller.selectedTrabajadorProperty().bind(tableView.getSelectionModel().selectedItemProperty());
     }
 
     @Override
     public void viewDidClose() {
-        selectedTrabajador.unbind();
+        controller.selectedTrabajadorProperty().unbind();
     }
 
     @FXML
     private void editTrabajador() {
-        System.out.println(selectedTrabajador.get());
-        getRoot().setRight(controller.mostrarEditar(selectedTrabajador.get()).getRoot());
+        TrabajadorView editView = controller.mostrarEditar();
+
+        if (editView == null) return;
+
+        getRoot().setRight(editView.getRoot());
         getCurrentStage().sizeToScene();
     }
 
@@ -70,6 +71,10 @@ public class ListaTrabajadorView extends View {
     private void salir() {
         getRoot().setRight(null);
         master.removeNode(getRoot());
+    }
+
+    public void refresh() {
+        tableView.refresh();
     }
 
     @Override

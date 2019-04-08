@@ -1,6 +1,9 @@
 package cl.loccet.model;
 
+import cl.loccet.util.StringUtils;
+
 import java.util.*;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class Constructora {
@@ -45,7 +48,7 @@ public class Constructora {
 
     public List<Trabajador> getConjuntoTrabajadores() {
         return Collections.unmodifiableList(new ArrayList<>(conjuntoTrabajadores.values()));
-}
+    }
 
     //Metodos
 
@@ -54,8 +57,10 @@ public class Constructora {
         mapProyecto.put(proyecto.getId(),proyecto);
     }
 
-    public void actualizarTrabajador(String RUT, Trabajador trabajador) {
-        conjuntoTrabajadores.put(RUT, trabajador);
+    public Trabajador actualizarTrabajador(String RUT, Trabajador trabajador) {
+        Trabajador old = conjuntoTrabajadores.remove(RUT);
+        conjuntoTrabajadores.put(trabajador.getRut(), trabajador);
+        return old;
     }
 
 
@@ -105,7 +110,9 @@ public class Constructora {
 
         for (Object ob:  conjuntoTrabajadores.values()) {
             Trabajador trabajador = (Trabajador) ob;
-            if (trabajador.getNombre().toLowerCase().contains(busqueda.toLowerCase()))
+
+            if (StringUtils.containsIgnoreCase(trabajador.getNombre(), busqueda) ||
+                    StringUtils.containsIgnoreCase(trabajador.getRut(), busqueda))
                 encontrados.add(trabajador);
         }
 

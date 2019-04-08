@@ -62,8 +62,8 @@ public class TrabajadorView extends View {
 
     @Override
     public void viewDidClose() {
-        clearFields();
         clearBind();
+        clearFields();
     }
 
     public void loadView() {
