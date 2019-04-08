@@ -4,7 +4,7 @@ import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public abstract class View extends UIComponent {
+public abstract class View extends UIComponent implements Instance {
 
     public View() { super(null); }
 
