@@ -51,12 +51,13 @@ public class AgregarProyectoController extends Controller {
      * @return un string basandose en el nombre del proyecto
      * @author Matías Zúñiga
      */
-    public  final String generarId() {
+    public  final int generarId() {
         String result = java.util.UUID.randomUUID().toString();
         result = result.replaceAll("-", "");
         result = result.replaceAll("[A-Za-z]","");
-        result = result.substring(0, 10);
-        return result;
+        result = result.substring(0, 7);
+        int id = Integer.parseInt(result);
+        return id;
     }
 
 

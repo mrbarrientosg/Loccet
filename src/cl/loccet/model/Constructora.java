@@ -44,7 +44,7 @@ public class Constructora {
 
     public void agregarProyecto(Proyecto proyecto){
         listaProyecto.add(proyecto);
-        mapProyecto.put(Integer.parseInt(proyecto.getId()) ,proyecto);
+        mapProyecto.put(proyecto.getId() ,proyecto);
     }
 
     /**

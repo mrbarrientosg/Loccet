@@ -7,7 +7,7 @@ import java.util.HashMap;
 public class Proyecto {
 
     // MARK: - Variables
-    private String id;
+    private int id;
     private String nombreProyecto;
     private String jefeProyecto;
     private String mailCliente;
@@ -32,7 +32,7 @@ public class Proyecto {
     // MARK: - Constructor
 
 
-    public Proyecto(String id, String nombreProyecto, String jefeProyecto, String mailCliente, String telefonoCliente, String direccion, String pais, String ciudad, String estado, String fechaInicio, String fechaTermino, double estimacion) {
+    public Proyecto(int id, String nombreProyecto, String jefeProyecto, String mailCliente, String telefonoCliente, String direccion, String pais, String ciudad, String estado, String fechaInicio, String fechaTermino, double estimacion) {
         this.id = id;
         this.nombreProyecto = nombreProyecto;
         this.jefeProyecto = jefeProyecto;
@@ -49,7 +49,7 @@ public class Proyecto {
         mapTrabajadores = new HashMap<>();
     }
 
-    public Proyecto(String id, double estimacion, double costoReal, String fechaInicio, String fechaTermino, String fechaTerminoReal) {
+    public Proyecto(int id, double estimacion, double costoReal, String fechaInicio, String fechaTermino, String fechaTerminoReal) {
         this.id = id;
         this.fechaTerminoReal = fechaTerminoReal;
         this.fechaInicio = fechaInicio;
@@ -116,7 +116,7 @@ public class Proyecto {
         return estado;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
