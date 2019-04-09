@@ -4,6 +4,7 @@ import cl.loccet.base.Controller;
 import cl.loccet.model.Proyecto;
 import cl.loccet.router.AgregarProyectoRouter;
 import cl.loccet.view.AgregarProyectoView;
+import java.util.UUID;
 
 /**
  * @author Matias Zuñiga
@@ -21,5 +22,42 @@ public class AgregarProyectoController extends Controller {
         this.model = model;
         this.router = router;
     }
+
+    public AgregarProyectoView getView() {
+        return view;
+    }
+
+    public void setView(AgregarProyectoView view) {
+        this.view = view;
+    }
+
+    public AgregarProyectoRouter getRouter() {
+        return router;
+    }
+
+    public void setRouter(AgregarProyectoRouter router) {
+        this.router = router;
+    }
+
+    public Proyecto getModel() {
+        return model;
+    }
+
+    public void setModel(Proyecto model) {
+        this.model = model;
+    }
+
+    /**
+     * @return un string basandose en el nombre del proyecto
+     * @author Matías Zúñiga
+     */
+    public  final String generarId() {
+        String result = java.util.UUID.randomUUID().toString();
+        result = result.replaceAll("-", "");
+        result = result.replaceAll("[A-Za-z]","");
+        result = result.substring(0, 10);
+        return result;
+    }
+
 
 }

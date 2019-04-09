@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane>
         <columnConstraints>
@@ -44,12 +44,12 @@
             <Label text="Jefe de proyecto" translateX="20.0" GridPane.rowIndex="2" />
             <Label text="Cliente" translateX="20.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Label text="Monto Contractual" translateX="20.0" GridPane.rowIndex="3" />
-            <TextField fx:id="No" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField prefHeight="25.0" prefWidth="144.0" translateX="-20.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <TextField translateX="-20.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <TextField translateX="-20.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <TextField fx:id="nombreP" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="jefeP" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="montoC" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="cliente" prefHeight="25.0" prefWidth="144.0" translateX="-20.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <TextField fx:id="telefonoC" translateX="-20.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <TextField fx:id="mailC" translateX="-20.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
             <Label text="Ubicación" translateX="20.0" GridPane.rowIndex="5">
                <font>
                   <Font name="System Bold" size="14.0" />
@@ -59,14 +59,14 @@
             <Label text="Estado/Provincia" translateX="20.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
             <Label text="País" translateX="20.0" GridPane.rowIndex="7" />
             <Label text="Ciudad" translateX="20.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField translateX="-20.0" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-            <TextField translateX="-20.0" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+            <TextField fx:id="direccion" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="pais" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="estado" translateX="-20.0" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+            <TextField fx:id="ciudad" translateX="-20.0" GridPane.columnIndex="3" GridPane.rowIndex="7" />
             <Label text="Fecha Firma" translateX="20.0" translateY="-20.0" GridPane.rowIndex="10" />
-            <DatePicker translateY="-20.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <DatePicker fx:id="fechaF" editable="false" translateY="-20.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
             <Label text="Fecha Termino" translateX="20.0" translateY="-20.0" GridPane.columnIndex="2" GridPane.rowIndex="10" />
-            <DatePicker prefHeight="25.0" prefWidth="151.0" translateX="-20.0" translateY="-20.0" GridPane.columnIndex="3" GridPane.rowIndex="10" />
+            <DatePicker fx:id="fechaT" editable="false" prefHeight="25.0" prefWidth="151.0" translateX="-20.0" translateY="-20.0" GridPane.columnIndex="3" GridPane.rowIndex="10" />
             <Separator prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="4" />
             <Label text="Plazo" translateX="20.0" translateY="-15.0" GridPane.rowIndex="9">
                <font>
@@ -80,9 +80,9 @@
       </GridPane>
       <ButtonBar prefHeight="40.0" prefWidth="200.0">
         <buttons>
-            <Button mnemonicParsing="false" text="Seleccionar trabajadores" translateX="-120.0" translateY="-10.0" />
-          <Button mnemonicParsing="false" text="Aceptar" translateX="-20.0" translateY="-10.0" />
-            <Button layoutX="535.0" layoutY="10.0" mnemonicParsing="false" text="Cancelar" translateX="-20.0" translateY="-10.0" />
+            <Button fx:id="sTrabajadores" mnemonicParsing="false" text="Seleccionar trabajadores" translateX="-120.0" translateY="-10.0" />
+          <Button fx:id="aceptar" mnemonicParsing="false" onAction="#apretarAceptar" text="Aceptar" translateX="-20.0" translateY="-10.0" />
+            <Button fx:id="cancelar" layoutX="535.0" layoutY="10.0" mnemonicParsing="false" onAction="#apretarCancelar" text="Cancelar" translateX="-20.0" translateY="-10.0" />
         </buttons>
       </ButtonBar>
    </children>

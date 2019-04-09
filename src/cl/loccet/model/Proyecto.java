@@ -7,20 +7,21 @@ import java.util.HashMap;
 public class Proyecto {
 
     // MARK: - Variables
-    private int id;
-
-    private Date fechaInicio;
-
-    private Date fechaTermino;
-
-    private Date fechaTerminoReal;
-
+    private String id;
+    private String nombreProyecto;
+    private String jefeProyecto;
+    private String mailCliente;
+    private String telefonoCliente;
+    private String direccion;
+    private String pais;
+    private String ciudad;
+    private String estado;
+    private String fechaInicio;
+    private String fechaTermino;
+    private String fechaTerminoReal;
     private double estimacion;
-
     private double costoReal;
-
     private ArrayList<Trabajador> listaTrabajadores;
-
     private HashMap<String, Trabajador> mapTrabajadores;
 
     // TODO: Implementar inventario materiales.
@@ -30,7 +31,25 @@ public class Proyecto {
 
     // MARK: - Constructor
 
-    public Proyecto(int id, double estimacion, double costoReal, Date fechaInicio, Date fechaTermino, Date fechaTerminoReal) {
+
+    public Proyecto(String id, String nombreProyecto, String jefeProyecto, String mailCliente, String telefonoCliente, String direccion, String pais, String ciudad, String estado, String fechaInicio, String fechaTermino, double estimacion) {
+        this.id = id;
+        this.nombreProyecto = nombreProyecto;
+        this.jefeProyecto = jefeProyecto;
+        this.mailCliente = mailCliente;
+        this.telefonoCliente = telefonoCliente;
+        this.direccion = direccion;
+        this.pais = pais;
+        this.ciudad = ciudad;
+        this.estado = estado;
+        this.fechaInicio = fechaInicio;
+        this.fechaTermino = fechaTermino;
+        this.estimacion = estimacion;
+        listaTrabajadores = new ArrayList<>();
+        mapTrabajadores = new HashMap<>();
+    }
+
+    public Proyecto(String id, double estimacion, double costoReal, String fechaInicio, String fechaTermino, String fechaTerminoReal) {
         this.id = id;
         this.fechaTerminoReal = fechaTerminoReal;
         this.fechaInicio = fechaInicio;
@@ -43,25 +62,61 @@ public class Proyecto {
 
     // MARK: - Setter
 
-    public void setFechaTerminoReal(Date fechaTerminoReal){
+    public void setFechaTerminoReal(String fechaTerminoReal){
         this.fechaTerminoReal = fechaTerminoReal;
+    }
+
+    public void setCostoReal(double costoReal) {
+        this.costoReal = costoReal;
     }
 
     // MARK: - Getter
 
-    public Date getFechaTerminoReal() {
+    public String getFechaTerminoReal() {
         return fechaTerminoReal;
     }
 
-    public Date getFechaInicio() {
+    public String getFechaInicio() {
         return fechaInicio;
     }
 
-    public Date getFechaTermino() {
+    public String getFechaTermino() {
         return fechaTermino;
     }
 
-    public int getId() {
+    public String getNombreProyecto() {
+        return nombreProyecto;
+    }
+
+    public String getJefeProyecto() {
+        return jefeProyecto;
+    }
+
+    public String getMailCliente() {
+        return mailCliente;
+    }
+
+    public String getTelefonoCliente() {
+        return telefonoCliente;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public String getId() {
         return id;
     }
 
@@ -90,8 +145,6 @@ public class Proyecto {
         }
         return false;
     }
-
-
     /**
      * Muestra los trabajadores que estan asociado al proyecto
      *
@@ -102,8 +155,6 @@ public class Proyecto {
             //TODO: Mostrar por pantalla.****
         }
     }
-
-
     /**
      * Busca todos los trabajadores que coincidan con la busqueda
      * @param busqueda Texto de Busqueda

@@ -4,6 +4,10 @@ import cl.loccet.base.Injectable;
 import cl.loccet.controller.AgregarProyectoController;
 import cl.loccet.model.Proyecto;
 import cl.loccet.view.AgregarProyectoView;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.stage.StageStyle;
 
 /**
  * @author Matias Zuñiga
@@ -20,4 +24,17 @@ public class AgregarProyectoRouter {
 
         return agregarProyectoView;
     }
+    public Alert showWarning(String mensaje){
+        Alert alert = new Alert(Alert.AlertType.WARNING, mensaje, ButtonType.OK, ButtonType.CANCEL);
+        alert.initStyle(StageStyle.UTILITY);
+        return alert;
+    }
+    public Alert showAlert(String mensaje){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setHeaderText(mensaje);
+        alert.initStyle(StageStyle.UTILITY);
+        return alert;
+    }
+
+
 }
