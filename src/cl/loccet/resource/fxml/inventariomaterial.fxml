@@ -17,9 +17,10 @@
                <children>
                   <TableView fx:id="tablaInventario" layoutX="-6.0" prefHeight="398.0" prefWidth="421.0">
                     <columns>
-                      <TableColumn fx:id="idMaterialCL" prefWidth="112.0" text="Id material" />
-                      <TableColumn fx:id="descripcionCL" prefWidth="209.0" text="Descripcion" />
-                        <TableColumn fx:id="cantidadCL" prefWidth="99.0" text="Cantidad" />
+                      <TableColumn fx:id="idMaterialCL" prefWidth="72.0" text="Id material" />
+                      <TableColumn fx:id="descripcionCL" prefWidth="207.0" text="Descripcion" />
+                        <TableColumn fx:id="cantidadCL" prefWidth="58.0" text="Cantidad" />
+                        <TableColumn fx:id="fechaRetiroCL" prefWidth="83.0" text="Fecha retiro" />
                     </columns>
                   </TableView>
                </children>
@@ -42,7 +43,7 @@
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Label>
-      <Button fx:id="agregarBT" layoutX="424.0" layoutY="248.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="169.0" text="AGREGAR">
+      <Button fx:id="agregarBT" layoutX="424.0" layoutY="248.0" mnemonicParsing="false" onAction="#nuevoMaterial" prefHeight="25.0" prefWidth="169.0" text="AGREGAR">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -59,6 +60,6 @@
       </Button>
       <TextField fx:id="idFD" layoutX="438.0" layoutY="55.0" />
       <TextField fx:id="descripcionFD" layoutX="438.0" layoutY="124.0" />
-      <TextField fx:id="cantidadFD" layoutX="434.0" layoutY="188.0" />
+      <TextField fx:id="cantidadFD" layoutX="438.0" layoutY="188.0" />
    </children>
 </AnchorPane>

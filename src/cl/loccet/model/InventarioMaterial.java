@@ -1,7 +1,9 @@
 package cl.loccet.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Clase Inventario
@@ -19,7 +21,9 @@ public class InventarioMaterial {
         mapInventarios = new HashMap<>();
     }
 
-
+    public List<Material> obtenerMateriales() {
+        return Collections.unmodifiableList(listaInventarios);
+    }
 
     public void AgregarItem(Material item){
         Material itemInventario= mapInventarios.get(item.getId());
