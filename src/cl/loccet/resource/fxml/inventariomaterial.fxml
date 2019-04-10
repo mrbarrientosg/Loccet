@@ -15,7 +15,7 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="424.0">
                <children>
-                  <TableView fx:id="tablaInventario" layoutX="-6.0" prefHeight="398.0" prefWidth="421.0">
+                  <TableView fx:id="tablaInventario" prefHeight="398.0" prefWidth="421.0">
                     <columns>
                       <TableColumn fx:id="idMaterialCL" prefWidth="72.0" text="Id material" />
                       <TableColumn fx:id="descripcionCL" prefWidth="207.0" text="Descripcion" />
@@ -48,7 +48,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="obtenerBT" layoutX="424.0" layoutY="287.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="169.0" text="OBTENER">
+      <Button fx:id="obtenerBT" layoutX="424.0" layoutY="287.0" mnemonicParsing="false" onAction="#obtenerMaterial" prefHeight="25.0" prefWidth="92.0" text="OBTENER">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -61,5 +61,6 @@
       <TextField fx:id="idFD" layoutX="438.0" layoutY="55.0" />
       <TextField fx:id="descripcionFD" layoutX="438.0" layoutY="124.0" />
       <TextField fx:id="cantidadFD" layoutX="438.0" layoutY="188.0" />
+      <TextField fx:id="obtenerFD" layoutX="519.0" layoutY="287.0" prefHeight="25.0" prefWidth="77.0" />
    </children>
 </AnchorPane>

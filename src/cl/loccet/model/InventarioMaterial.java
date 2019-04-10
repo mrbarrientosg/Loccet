@@ -32,7 +32,16 @@ public class InventarioMaterial {
             listaInventarios.add(item);
         }
         else{
-            itemInventario.setCantidad(itemInventario.getCantidad() + item.getCantidad());
+            itemInventario.setCantidad(122);
         }
+    }
+    public void retirarItem(Material material){
+       Material aux = mapInventarios.get(material.getId());
+        System.out.println(aux.getCantidad());
+       if (aux.getCantidad() >= material.getCantidad()){
+           int cantidad = aux.getCantidad()-material.getCantidad();
+           aux.setCantidad(cantidad);
+
+       }
     }
 }

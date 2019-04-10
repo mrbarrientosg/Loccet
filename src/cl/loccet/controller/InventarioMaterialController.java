@@ -39,6 +39,10 @@ public class InventarioMaterialController {
     public ObservableList<Material> obtenerDatos() {
         return materials;
     }
+    public void retiraMaterial(Material material){
+        model.retirarItem(material);
+        cargarDatos();
+    }
     public void agregarMaterial(Material material){
         model.AgregarItem(material);
         cargarDatos();
