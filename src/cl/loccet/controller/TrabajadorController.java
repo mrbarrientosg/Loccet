@@ -25,37 +25,57 @@ public class TrabajadorController extends Controller {
 
     private TrabajadorRouter router;
 
-    private Trabajador.Builder trabajadorBuilder = new Trabajador.Builder();
+    private Trabajador.Builder trabajadorBuilder;
 
-    private Localizacion.Builder localizacionBuilder = new Localizacion.Builder();
+    private Localizacion.Builder localizacionBuilder;
 
-    private StringProperty rut = new SimpleStringProperty();
+    private StringProperty rut;
 
-    private StringProperty name = new SimpleStringProperty();
+    private StringProperty name;
 
-    private StringProperty lastName = new SimpleStringProperty();
+    private StringProperty lastName;
 
-    private StringProperty speciality = new SimpleStringProperty();
+    private StringProperty speciality;
 
-    private ObjectProperty<LocalDate> birthday = new SimpleObjectProperty<>();
+    private ObjectProperty<LocalDate> birthday;
 
-    private StringProperty address = new SimpleStringProperty();
+    private StringProperty address;
 
-    private StringProperty zip = new SimpleStringProperty();
+    private StringProperty zip;
 
-    private StringProperty country = new SimpleStringProperty();
+    private StringProperty country;
 
-    private StringProperty city = new SimpleStringProperty();
+    private StringProperty city;
 
-    private StringProperty state = new SimpleStringProperty();
+    private StringProperty state;
 
-    private StringProperty telephone = new SimpleStringProperty();
+    private StringProperty telephone;
 
-    private StringProperty email = new SimpleStringProperty();
+    private StringProperty email;
 
     private SaveStrategy<Trabajador> saveStrategy;
 
     private EditTrabajadorDelegate delegate;
+
+    public TrabajadorController() {
+        trabajadorBuilder = new Trabajador.Builder();
+        localizacionBuilder = new Localizacion.Builder();
+
+        rut = new SimpleStringProperty(null);
+        name = new SimpleStringProperty(null);
+        lastName = new SimpleStringProperty(null);
+        speciality = new SimpleStringProperty(null);
+        birthday = new SimpleObjectProperty<>(null);
+
+        address = new SimpleStringProperty(null);
+        zip = new SimpleStringProperty(null);
+        country = new SimpleStringProperty(null);
+        city = new SimpleStringProperty(null);
+        state = new SimpleStringProperty(null);
+
+        telephone = new SimpleStringProperty(null);
+        email = new SimpleStringProperty(null);
+    }
 
 
     public void guardarTrabajador() {
