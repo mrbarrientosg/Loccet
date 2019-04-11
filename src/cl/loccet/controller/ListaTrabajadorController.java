@@ -13,6 +13,8 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 import java.util.ListIterator;
 import java.util.stream.Collectors;
@@ -48,6 +50,18 @@ public class ListaTrabajadorController extends Controller implements EditTrabaja
         return trabajadorView;
     }
 
+    public void eliminarTrabajador() {
+        if (selectedTrabajadorProperty().get() == null) return;
+        Alert warning = router.showWarning("¿Está seguro de querer eliminar el trabajador?");
+        warning.showAndWait().ifPresent(buttonType -> {
+            if (buttonType == ButtonType.YES) {
+                trabajadorCells.remove(selectedTrabajador.get());
+                view.refresh();
+                System.out.println(selectedTrabajadorProperty().get());
+            }
+        });
+    }
+
     @Override
     public void didEdit(Trabajador old, Trabajador newT) {
         System.out.println(old);
@@ -59,8 +73,6 @@ public class ListaTrabajadorController extends Controller implements EditTrabaja
                 break;
             }
         }
-
-        view.refresh();
     }
 
     public ObjectProperty<TrabajadorCell> selectedTrabajadorProperty() {

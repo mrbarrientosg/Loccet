@@ -9,6 +9,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.TableColumn;
@@ -58,13 +59,19 @@ public class ListaTrabajadorView extends View {
     }
 
     @FXML
-    private void editTrabajador() {
+    private void editTrabajador(ActionEvent event) {
         TrabajadorView editView = controller.mostrarEditar();
 
         if (editView == null) return;
 
         getRoot().setRight(editView.getRoot());
         getCurrentStage().sizeToScene();
+        getCurrentStage().centerOnScreen();
+    }
+
+    @FXML
+    void eliminarTrabajador(ActionEvent event) {
+        controller.eliminarTrabajador();
     }
 
     @FXML
@@ -73,8 +80,16 @@ public class ListaTrabajadorView extends View {
         master.removeNode(getRoot());
     }
 
+    @FXML
+    void actualizarTabla(ActionEvent event) {
+        tableView.refresh();
+    }
+
     public void refresh() {
         tableView.refresh();
+        getRoot().setRight(null);
+        getCurrentStage().sizeToScene();
+        getCurrentStage().centerOnScreen();
     }
 
     @Override

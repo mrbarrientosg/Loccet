@@ -4,6 +4,8 @@ import cl.loccet.base.Injectable;
 import cl.loccet.controller.ListaTrabajadorController;
 import cl.loccet.model.Constructora;
 import cl.loccet.view.ListaTrabajadorView;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 public class ListaTrabajadorRouter {
 
@@ -15,5 +17,11 @@ public class ListaTrabajadorRouter {
         view.setController(controller);
 
         return view;
+    }
+
+    public Alert showWarning(String message) {
+        Alert warning = new Alert(Alert.AlertType.WARNING, message, ButtonType.YES, ButtonType.CANCEL);
+        warning.setTitle("Alerta");
+        return warning;
     }
 }

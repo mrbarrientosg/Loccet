@@ -41,11 +41,13 @@ public class HomeView extends View {
     public void setCenter(Parent node) {
         getRoot().setCenter(node);
         getCurrentStage().sizeToScene();
+        getCurrentStage().centerOnScreen();
     }
 
     public void setRight(Parent node) {
         getRoot().setRight(node);
         getCurrentStage().sizeToScene();
+        getCurrentStage().centerOnScreen();
     }
 
     public void setTop(Parent node) {
