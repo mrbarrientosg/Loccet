@@ -12,24 +12,20 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <SplitPane dividerPositions="0.996078431372549" layoutY="68.0" prefHeight="533.0" prefWidth="800.0">
+      <SplitPane dividerPositions="0.9962453066332916" layoutY="68.0" prefHeight="533.0" prefWidth="801.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="531.0" prefWidth="800.0">
                <children>
-                  <TableView prefHeight="531.0" prefWidth="800.0">
+                  <TableView fx:id="tablaInventario" prefHeight="531.0" prefWidth="800.0">
                     <columns>
-                        <TableColumn prefWidth="85.0" text="Fecha ingreso" />
-                      <TableColumn prefWidth="57.0" text="ID" />
-                        <TableColumn prefWidth="65.0" text="Nombre" />
-                      <TableColumn prefWidth="307.0" text="Descripcion" />
-                        <TableColumn minWidth="0.0" text="Cantidad" />
-                        <TableColumn prefWidth="43.0" text="UDS" />
-                        <TableColumn minWidth="13.0" prefWidth="191.0" text="Material">
-                           <columns>
-                              <TableColumn minWidth="0.0" prefWidth="69.0" text="Retiro" />
-                              <TableColumn prefWidth="86.0" text="Fecha retiro" />
-                           </columns>
-                        </TableColumn>
+                        <TableColumn fx:id="fechaIngresoCL" prefWidth="85.0" text="Fecha ingreso" />
+                      <TableColumn fx:id="idMaterialCL" prefWidth="57.0" text="ID" />
+                        <TableColumn fx:id="nombreMaterialCL" prefWidth="65.0" text="Nombre" />
+                      <TableColumn fx:id="descripcionCL" prefWidth="307.0" text="Descripcion" />
+                        <TableColumn fx:id="cantidadCL" minWidth="0.0" text="Cantidad" />
+                        <TableColumn fx:id="udsCL" prefWidth="43.0" text="UDS" />
+                        <TableColumn fx:id="retiroCL" prefWidth="75.0" text="Retiro" />
+                        <TableColumn fx:id="fechaRetiroCL" prefWidth="75.0" text="Fecha retiro" />
                     </columns>
                   </TableView>
                </children>
@@ -41,7 +37,7 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="66.0" prefWidth="788.0" SplitPane.resizableWithParent="false">
                <children>
-                  <Button layoutX="21.0" layoutY="-6.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="113.0" text="Agregar Material" translateY="15.0">
+                  <Button fx:id="nuevoMaterialBT" layoutX="21.0" layoutY="-6.0" mnemonicParsing="false" onAction="#nuevoMaterial" prefHeight="38.0" prefWidth="113.0" text="Nuevo Material" translateY="15.0">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
@@ -56,7 +52,7 @@
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
                   </Button>
-                  <Button layoutX="689.0" layoutY="9.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="70.0" text="Salir">
+                  <Button fx:id="salirBT" layoutX="689.0" layoutY="9.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="70.0" text="Salir">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>

@@ -14,7 +14,7 @@ public class InventarioMaterial {
 
     private ArrayList<Material> listaInventarios;
 
-    private HashMap<Integer, Material> mapInventarios;
+    private HashMap<String, Material> mapInventarios;
 
     public InventarioMaterial() {
         listaInventarios = new ArrayList<>();
@@ -25,22 +25,14 @@ public class InventarioMaterial {
         return Collections.unmodifiableList(listaInventarios);
     }
 
-        public void AgregarItem(Material item){
-            Material itemInventario= mapInventarios.get(item.getId());
-            if (itemInventario == null){
-                mapInventarios.put(item.getId(),item);
-                listaInventarios.add(item);
-            }
-            else{
-                itemInventario.setCantidad(item.getCantidad()+itemInventario.getCantidad());
-            }
-    }
-    public void retirarItem(Material material,int sacar){
-       Material aux = mapInventarios.get(material.getId());
-        System.out.println(aux.getCantidad());
-       if (aux.getCantidad() >= sacar){
-            aux.setCantidad(aux.getCantidad()-sacar);
+    public void AgregarItem(Material item){
+        Material itemInventario= mapInventarios.get(item.getNombre());
+        if (itemInventario == null){
+            mapInventarios.put(item.getNombre(),item);
+            listaInventarios.add(item);
+        }
 
-       }
     }
+
+
 }
