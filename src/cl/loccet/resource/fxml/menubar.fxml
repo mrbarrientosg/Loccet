@@ -5,28 +5,76 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 
-<MenuBar fx:id="menuBar" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-  <menus>
-    <Menu fx:id="menu1" mnemonicParsing="false" text="File">
-      <items>
-        <MenuItem mnemonicParsing="false" text="Close" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <Menu mnemonicParsing="false" text="Unspecified Menu">
+<MenuBar xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+    <menus>
+      <Menu mnemonicParsing="false" text="Inicio">
+        <items>
+          <MenuItem mnemonicParsing="false" onAction="#salir" text="Salir" />
+        </items>
+      </Menu>
+        <Menu mnemonicParsing="false" text="RRHH">
+            <items>
+                <MenuItem mnemonicParsing="false" text="Lista trabajadores" />
+                <SeparatorMenuItem mnemonicParsing="false" />
+                <MenuItem mnemonicParsing="false" onAction="#agregarTrabajador" text="Agregar trabajador" />
+                <SeparatorMenuItem mnemonicParsing="false" />
+                <MenuItem mnemonicParsing="false" onAction="#modificarTrabajador" text="Modificar trabajador" />
+                <SeparatorMenuItem mnemonicParsing="false" />
+                <Menu mnemonicParsing="false" text="Eliminar trabajador">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#eliminarTrabajadorProyecto" text="Proyecto" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" onAction="#eliminarTrabajadorConstructora" text="Constructora" />
+                    </items>
+                </Menu>
+                <SeparatorMenuItem mnemonicParsing="false" />
+            <Menu mnemonicParsing="false" text="Especialidad">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem mnemonicParsing="false" onAction="#agregarEspecialidad" text="Agregar" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#editarEspecialidad" text="Editar" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#eliminarEspecialidad" text="Eliminar" />
               </items>
             </Menu>
-      </items>
-    </Menu>
-    <Menu mnemonicParsing="false" text="Edit">
-      <items>
-        <MenuItem mnemonicParsing="false" text="Delete" />
-      </items>
-    </Menu>
-    <Menu mnemonicParsing="false" text="Help">
-      <items>
-        <MenuItem mnemonicParsing="false" text="About" />
-      </items>
-    </Menu>
-  </menus>
+            <SeparatorMenuItem mnemonicParsing="false" />
+                <MenuItem mnemonicParsing="false" onAction="#reporteRRHH" text="Reporte" />
+            </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Proyecto">
+            <items>
+            <MenuItem mnemonicParsing="false" onAction="#nuevoProyecto" text="Nuevo proyecto" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+                <MenuItem mnemonicParsing="false" onAction="#modificarProyecto" text="Modificar proyecto" />
+                <SeparatorMenuItem mnemonicParsing="false" />
+                <MenuItem mnemonicParsing="false" onAction="#avanceProyecto" text="Avance" />
+            </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Inventario">
+            <items>
+                <Menu mnemonicParsing="false" text="Materiales">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#ingresoMateriales" text="Ingreso" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" onAction="#salidaMateriales" text="Salida" />
+                    </items>
+                </Menu>
+                <SeparatorMenuItem mnemonicParsing="false" />
+                <MenuItem mnemonicParsing="false" onAction="#equipoMaquinaria" text="Equipo y maquinaria" />
+                <SeparatorMenuItem mnemonicParsing="false" />
+                <MenuItem mnemonicParsing="false" onAction="#reporteMateriales" text="Reporte" />
+            </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Ingresos/Gastos">
+            <items>
+                <MenuItem mnemonicParsing="false" onAction="#facturasCompras" text="Facturas Compras" />
+                <SeparatorMenuItem mnemonicParsing="false" />
+                <MenuItem mnemonicParsing="false" onAction="#facturaVentas" text="Facturas Ventas" />
+                <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" onAction="#boletaTrabajador" text="Boleta trabajador" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+                <MenuItem mnemonicParsing="false" onAction="#reporteIngresoGasto" text="Reporte" />
+            </items>
+        </Menu>
+    </menus>
 </MenuBar>

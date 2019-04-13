@@ -232,11 +232,11 @@ public abstract class UIComponent extends Component {
         }
     }
 
-    public ShowBuilder openShowBuilder() {
+    public ShowBuilder showBuilder() {
         return new ShowBuilder();
     }
 
-    public ShowBuilder openWindow() {
+    public ShowBuilder window() {
         return new ShowBuilder()
                 .withStyle(StageStyle.DECORATED)
                 .withModality(Modality.NONE)
@@ -244,7 +244,7 @@ public abstract class UIComponent extends Component {
                 .withBlock(false);
     }
 
-    public ShowBuilder openModal() {
+    public ShowBuilder modal() {
         return new ShowBuilder()
                 .withStyle(StageStyle.DECORATED)
                 .withModality(Modality.APPLICATION_MODAL)
