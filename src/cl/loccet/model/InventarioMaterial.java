@@ -25,22 +25,21 @@ public class InventarioMaterial {
         return Collections.unmodifiableList(listaInventarios);
     }
 
-    public void AgregarItem(Material item){
-        Material itemInventario= mapInventarios.get(item.getId());
-        if (itemInventario == null){
-            mapInventarios.put(item.getId(),item);
-            listaInventarios.add(item);
-        }
-        else{
-            itemInventario.setCantidad(122);
-        }
+        public void AgregarItem(Material item){
+            Material itemInventario= mapInventarios.get(item.getId());
+            if (itemInventario == null){
+                mapInventarios.put(item.getId(),item);
+                listaInventarios.add(item);
+            }
+            else{
+                itemInventario.setCantidad(item.getCantidad()+itemInventario.getCantidad());
+            }
     }
-    public void retirarItem(Material material){
+    public void retirarItem(Material material,int sacar){
        Material aux = mapInventarios.get(material.getId());
         System.out.println(aux.getCantidad());
-       if (aux.getCantidad() >= material.getCantidad()){
-           int cantidad = aux.getCantidad()-material.getCantidad();
-           aux.setCantidad(cantidad);
+       if (aux.getCantidad() >= sacar){
+            aux.setCantidad(aux.getCantidad()-sacar);
 
        }
     }

@@ -5,24 +5,32 @@ import java.time.LocalDate;
 public class Material {
 
 
-    private int id;
+    private String id;
+    private String nombre;
     private String descripcion;
     private int cantidad;
     private LocalDate fechaRetiro;
+    private LocalDate fechaIngreso;
 
 
-    public Material(int id, String descripcion, int cantidad){
+    public Material(String nombre, String descripcion, int cantidad){
         this.descripcion = descripcion;
         this.cantidad = cantidad;
-        this.id = id;
+        this.nombre = nombre;
         fechaRetiro = null;
+    }
+    public Material(){
+        descripcion = null;
+        fechaRetiro = null;
+        cantidad = 0;
+        id = null;
     }
 
 
 
 
-    public int getId() {
-        return id;
+    public int getNombre() {
+        return nombre;
     }
 
     public String getDescripcion() {
@@ -35,8 +43,8 @@ public class Material {
 
 
 
-    public void setId(int id) {
-        this.id = id;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public void setDescripcion(String descripcion) {

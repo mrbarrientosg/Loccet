@@ -1,4 +1,5 @@
 package cl.loccet.controller;
+import cl.loccet.base.Controller;
 import cl.loccet.model.InventarioMaterial;
 import cl.loccet.model.Material;
 import cl.loccet.router.InventarioMaterialRouter;
@@ -14,7 +15,7 @@ import javafx.collections.ObservableList;
  */
 
 
-public class InventarioMaterialController {
+public class InventarioMaterialController extends Controller {
 
     private InventarioMaterialView view;
 
@@ -39,8 +40,9 @@ public class InventarioMaterialController {
     public ObservableList<Material> obtenerDatos() {
         return materials;
     }
-    public void retiraMaterial(Material material){
-        model.retirarItem(material);
+    public void retiraMaterial(Material material,int sacar){
+
+        model.retirarItem(material,sacar);
         cargarDatos();
     }
     public void agregarMaterial(Material material){
