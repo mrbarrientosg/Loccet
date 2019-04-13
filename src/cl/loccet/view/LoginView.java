@@ -8,12 +8,33 @@ import cl.loccet.util.Validator;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
 
 public class LoginView extends View {
 
     private LoginController controller;
+
+    @FXML
+    private GridPane gridPane;
+
+    @FXML
+    private RowConstraints separatorRow;
+
+    @FXML
+    private RowConstraints proyectoRow;
+
+    @FXML
+    private RadioButton radioConstructora;
+
+    @FXML
+    private RadioButton radioContratista;
+
+    @FXML
+    private ChoiceBox<String> listProyecto;
 
     @FXML
     private TextField rutField;
@@ -27,12 +48,31 @@ public class LoginView extends View {
     @FXML
     private Button exitButton;
 
+    @FXML
+    private ToggleGroup userToggleGroup;
+
+    @FXML
+    private HBox proyectoHbox;
+
     public LoginView() {
         super("Inicio sesion");
     }
 
     @Override
     public void viewDidLoad() {
+        proyectoRow.setMaxHeight(0);
+        proyectoHbox.setVisible(false);
+
+        userToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == radioContratista) {
+                proyectoRow.setMaxHeight(-1);
+                proyectoHbox.setVisible(true);
+            } else {
+                proyectoRow.setMaxHeight(0);
+                proyectoHbox.setVisible(false);
+            }
+        });
+
         rutField.requestFocus();
 
         exitButton.setOnAction(this::exit);

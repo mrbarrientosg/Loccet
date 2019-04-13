@@ -2,38 +2,71 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox spacing="8.0">
+      <VBox spacing="8.0" VBox.vgrow="ALWAYS">
          <children>
             <Label text="Inicio Sesión">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <GridPane hgap="8.0" vgap="5.0">
+            <GridPane fx:id="gridPane" hgap="8.0" vgap="5.0" VBox.vgrow="ALWAYS">
               <columnConstraints>
                 <ColumnConstraints halignment="LEFT" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                  <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                  <RowConstraints fx:id="separatorRow" valignment="CENTER" vgrow="SOMETIMES" />
+                  <RowConstraints fx:id="proyectoRow" valignment="CENTER" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <Label text="RUT" />
                   <TextField fx:id="rutField" GridPane.columnIndex="1" />
                   <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text="Contraseña" GridPane.rowIndex="1" />
+                  <RadioButton fx:id="radioConstructora" mnemonicParsing="false" selected="true" text="Constructora" GridPane.rowIndex="2">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="userToggleGroup" />
+                     </toggleGroup>
+                     <GridPane.margin>
+                        <Insets bottom="2.0" top="3.0" />
+                     </GridPane.margin>
+                  </RadioButton>
+                  <RadioButton fx:id="radioContratista" mnemonicParsing="false" text="Contratista" toggleGroup="$userToggleGroup" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets bottom="2.0" top="3.0" />
+                     </GridPane.margin>
+                  </RadioButton>
+                  <Separator GridPane.columnSpan="2" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets top="4.0" />
+                     </GridPane.margin>
+                  </Separator>
+                  <HBox fx:id="proyectoHbox" alignment="CENTER_LEFT" GridPane.columnSpan="2" GridPane.rowIndex="4">
+                     <children>
+                        <Label text="Proyecto" />
+                        <Separator maxWidth="1.7976931348623157E308" visible="false" HBox.hgrow="ALWAYS" />
+                        <ChoiceBox fx:id="listProyecto" prefWidth="150.0" />
+                     </children>
+                  </HBox>
                </children>
                <VBox.margin>
                   <Insets bottom="5.0" top="5.0" />
