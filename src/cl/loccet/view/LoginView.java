@@ -22,9 +22,6 @@ public class LoginView extends View {
     private GridPane gridPane;
 
     @FXML
-    private RowConstraints separatorRow;
-
-    @FXML
     private RowConstraints proyectoRow;
 
     @FXML
@@ -67,9 +64,19 @@ public class LoginView extends View {
             if (newValue == radioContratista) {
                 proyectoRow.setMaxHeight(-1);
                 proyectoHbox.setVisible(true);
+                controller.contratistaProperty().set(true);
             } else {
                 proyectoRow.setMaxHeight(0);
                 proyectoHbox.setVisible(false);
+                controller.contratistaProperty().set(false);
+            }
+        });
+
+        controller.contratistaProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                listProyecto.setItems(controller.fetchProyectos());
+            } else {
+                listProyecto.getSelectionModel().clearSelection();
             }
         });
 

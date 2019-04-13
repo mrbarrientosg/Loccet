@@ -34,7 +34,7 @@
                 <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
                 <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
                   <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
-                  <RowConstraints fx:id="separatorRow" valignment="CENTER" vgrow="SOMETIMES" />
+                  <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
                   <RowConstraints fx:id="proyectoRow" valignment="CENTER" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
