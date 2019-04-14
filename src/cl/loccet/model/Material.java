@@ -23,15 +23,18 @@ public class Material {
         this.cantidad = cantidad;
         this.nombre = nombre;
         this.uds = uds;
-        this.id = nombre;
+        id = generarId();
         fechaRetiro = null;
         fechaIngreso = new Date();
     }
-    public Material(){
-        descripcion = null;
+    public Material(String nombre, String descripcion, int cantidad,String uds,String id){
+        this.descripcion = descripcion;
+        this.cantidad = cantidad;
+        this.nombre = nombre;
+        this.uds = uds;
+        this.id = id;
         fechaRetiro = null;
-        cantidad = 0;
-        id = null;
+        fechaIngreso = new Date();
     }
 
 
@@ -44,6 +47,18 @@ public class Material {
 
     public String getDescripcion() {
         return descripcion;
+    }
+
+    public String getUds() {
+        return uds;
+    }
+
+    public Date getFechaRetiro() {
+        return fechaRetiro;
+    }
+
+    public int getRetiro() {
+        return retiro;
     }
 
     public int getCantidad() {
@@ -62,9 +77,27 @@ public class Material {
         this.descripcion = descripcion;
     }
 
+    public void setRetiro(int retiro) {
+        this.retiro = retiro;
+    }
+
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
 
+    public void setFechaIngreso(Date fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
+    }
+
+    public void setFechaRetiro(Date fechaRetiro) {
+        this.fechaRetiro = fechaRetiro;
+    }
+
+
+    private final String generarId(){
+        String result = java.util.UUID.randomUUID().toString();
+        result = result.substring(0,6);
+        return result;
+    }
 
 }

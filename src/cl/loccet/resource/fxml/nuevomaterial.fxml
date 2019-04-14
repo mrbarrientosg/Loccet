@@ -16,8 +16,8 @@
    <children>
       <Pane prefHeight="337.0" prefWidth="400.0">
          <children>
-            <TextField fx:id="nombreTF" layoutX="222.0" layoutY="56.0" translateX="-100.0" />
-            <Label layoutX="229.0" layoutY="28.0" prefHeight="17.0" prefWidth="142.0" text="NOMBRE DEL MATERIAL" translateX="-100.0">
+            <TextField fx:id="nombreTF" layoutX="160.0" layoutY="57.0" translateX="-100.0" />
+            <Label layoutX="163.0" layoutY="28.0" prefHeight="17.0" prefWidth="142.0" text="NOMBRE DEL MATERIAL" translateX="-100.0">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font>
@@ -37,6 +37,12 @@
             <ComboBox fx:id="unidadCB" layoutX="234.0" layoutY="235.0" prefHeight="25.0" prefWidth="81.0" />
             <Button fx:id="agregarBT" layoutY="281.0" mnemonicParsing="false" onAction="#nuevoMaterial" text="AGREGAR" translateX="100.0" />
             <Button fx:id="cancelarBT" layoutX="325.0" layoutY="281.0" mnemonicParsing="false" onAction="#salir" text="CANCELAR" translateX="-100.0" />
+            <Label layoutX="259.0" layoutY="28.0" prefHeight="17.0" prefWidth="81.0" text="ID MATERIAL">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="idMaterialTF" layoutX="242.0" layoutY="57.0" prefHeight="25.0" prefWidth="115.0" />
          </children>
          <effect>
             <Lighting>

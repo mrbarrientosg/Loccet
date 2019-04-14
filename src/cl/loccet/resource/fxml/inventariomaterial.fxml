@@ -10,13 +10,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="590.0" prefWidth="790.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <SplitPane dividerPositions="0.9962453066332916" layoutY="68.0" prefHeight="533.0" prefWidth="801.0">
+      <SplitPane dividerPositions="0.9962453066332916" layoutY="68.0" prefHeight="533.0" prefWidth="800.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="531.0" prefWidth="800.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="531.0" prefWidth="831.0">
                <children>
-                  <TableView fx:id="tablaInventario" prefHeight="531.0" prefWidth="800.0">
+                  <TableView fx:id="tablaInventario" prefHeight="600.0" prefWidth="792.0">
                     <columns>
                         <TableColumn fx:id="fechaIngresoCL" prefWidth="85.0" text="Fecha ingreso" />
                       <TableColumn fx:id="idMaterialCL" prefWidth="57.0" text="ID" />
@@ -47,7 +47,7 @@
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
                   </Button>
-                  <Button layoutX="421.0" layoutY="-6.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="113.0" text="Eliminar" translateY="15.0">
+                  <Button fx:id="eliminarBT" layoutX="421.0" layoutY="-6.0" mnemonicParsing="false" onAction="#eliminar" prefHeight="38.0" prefWidth="113.0" text="Eliminar" translateY="15.0">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
@@ -57,7 +57,7 @@
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
                   </Button>
-                  <Button layoutX="274.0" layoutY="9.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="59.0" text="Retirar">
+                  <Button fx:id="retirarBT" layoutX="274.0" layoutY="9.0" mnemonicParsing="false" onAction="#retirarMaterial" prefHeight="38.0" prefWidth="59.0" text="Retirar">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>

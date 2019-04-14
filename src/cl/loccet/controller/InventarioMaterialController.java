@@ -41,9 +41,21 @@ public class InventarioMaterialController extends Controller {
         return materials;
     }
 
-    public void agregarMaterial(Material material){
-        model.AgregarItem(material);
+    public void nuevoMaterial(Material material){
+        model.nuevoItem(material);
         cargarDatos();
+    }
+    public void agregarMaterial(Material material,int cantidad){
+        model.agregarMaterial(material,cantidad);
+        cargarDatos();
+    }
+    public void retirarMaterial(Material material,int cantidad){
+        model.retirarMaterial(material,cantidad);
+        cargarDatos();
+    }
+
+    public void eliminarMaterial(Material material){
+        model.eliminarItem(material);
     }
 
 }

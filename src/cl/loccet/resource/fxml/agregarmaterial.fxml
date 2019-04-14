@@ -3,24 +3,36 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-
 
 <AnchorPane prefHeight="150.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane prefHeight="168.0" prefWidth="300.0">
          <children>
-            <TextField layoutX="79.0" layoutY="84.0" />
+            <TextField fx:id="agregarTF" layoutX="79.0" layoutY="84.0" />
             <Label layoutX="105.0" layoutY="48.0" text="Agregar Material">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Label>
             <Button fx:id="agregarBT" layoutX="42.0" layoutY="123.0" mnemonicParsing="false" onAction="#cantidadItem" prefHeight="25.0" prefWidth="97.0" text="Agregar" />
-            <Button layoutX="164.0" layoutY="123.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Cancelar" />
+            <Button fx:id="cancelarBT" layoutX="164.0" layoutY="123.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="25.0" prefWidth="97.0" text="Cancelar" />
          </children>
+         <effect>
+            <Lighting>
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect>
       </Pane>
    </children>
 </AnchorPane>

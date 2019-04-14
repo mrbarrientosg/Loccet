@@ -1,9 +1,6 @@
 package cl.loccet.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Clase Inventario
@@ -25,13 +22,27 @@ public class InventarioMaterial {
         return Collections.unmodifiableList(listaInventarios);
     }
 
-    public void AgregarItem(Material item){
-        Material itemInventario= mapInventarios.get(item.getNombre());
+    public void nuevoItem(Material item){
+        Material itemInventario= mapInventarios.get(item.getId());
         if (itemInventario == null){
-            mapInventarios.put(item.getNombre(),item);
+            mapInventarios.put(item.getId(),item);
             listaInventarios.add(item);
         }
 
+    }
+    public void agregarMaterial(Material material,int cantidad){
+        material.setCantidad(material.getCantidad()+cantidad);
+        material.setFechaIngreso(new Date());
+    }
+    public void retirarMaterial(Material material,int cantidad){
+        material.setCantidad(material.getCantidad()-cantidad);
+        material.setFechaRetiro(new Date());
+        material.setRetiro(cantidad);
+    }
+
+    public void eliminarItem(Material material){
+     listaInventarios.remove(material);
+     mapInventarios.remove(material.getId());
     }
 
 

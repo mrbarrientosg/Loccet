@@ -14,14 +14,14 @@
    <children>
       <Pane prefHeight="150.0" prefWidth="300.0">
          <children>
-            <Button layoutY="108.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text="Retirar" translateX="25.0" />
-            <TextField layoutX="76.0" layoutY="61.0" />
+            <Button fx:id="retirarBT" layoutY="108.0" mnemonicParsing="false" onAction="#cantidadItem" prefHeight="25.0" prefWidth="96.0" text="Retirar" translateX="25.0" />
+            <TextField fx:id="retirarTF" layoutX="76.0" layoutY="61.0" />
             <Label layoutX="87.0" layoutY="23.0" text="CANTIDAD A RETIRAR">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Label>
-            <Button layoutX="204.0" layoutY="108.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text="Cancelar" translateX="-25.0" />
+            <Button fx:id="cancelarBT" layoutX="204.0" layoutY="108.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="25.0" prefWidth="96.0" text="Cancelar" translateX="-25.0" />
          </children>
          <effect>
             <Lighting>
