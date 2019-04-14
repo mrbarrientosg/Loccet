@@ -36,7 +36,7 @@
             </Label>
             <ComboBox fx:id="unidadCB" layoutX="234.0" layoutY="235.0" prefHeight="25.0" prefWidth="81.0" />
             <Button fx:id="agregarBT" layoutY="281.0" mnemonicParsing="false" onAction="#nuevoMaterial" text="AGREGAR" translateX="100.0" />
-            <Button fx:id="cancelarBT" layoutX="325.0" layoutY="281.0" mnemonicParsing="false" text="CANCELAR" translateX="-100.0" />
+            <Button fx:id="cancelarBT" layoutX="325.0" layoutY="281.0" mnemonicParsing="false" onAction="#salir" text="CANCELAR" translateX="-100.0" />
          </children>
          <effect>
             <Lighting>

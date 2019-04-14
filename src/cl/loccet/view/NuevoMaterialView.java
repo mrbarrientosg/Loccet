@@ -13,6 +13,9 @@ import javafx.scene.control.TextField;
 public class NuevoMaterialView extends View {
 
     private InventarioMaterialController controller;
+    public void setController(InventarioMaterialController controller) {
+        this.controller = controller;
+    }
 
 
     @FXML
@@ -45,9 +48,15 @@ public class NuevoMaterialView extends View {
     public void nuevoMaterial(ActionEvent event) {
         Material material = new Material(nombreTF.getText(), descripcionTF.getText(), Integer.parseInt(cantidadTF.getText()), "hola");
         controller.agregarMaterial(material);
-        // tablaInventario.setItems(controller.obtenerDatos());
-        //clearFields();
-
+        close();
     }
+
+    public void salir(ActionEvent event){
+        nombreTF.setText("");
+        descripcionTF.setText("");
+        cantidadTF.setText("");
+        close();
+    }
+
 }
 

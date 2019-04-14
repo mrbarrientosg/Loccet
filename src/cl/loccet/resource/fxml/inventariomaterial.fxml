@@ -62,7 +62,7 @@
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
                   </Button>
-                  <Button layoutX="340.0" layoutY="9.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="70.0" text="Agregar">
+                  <Button fx:id="agregarBT" layoutX="340.0" layoutY="9.0" mnemonicParsing="false" onAction="#agregarMaterial" prefHeight="38.0" prefWidth="70.0" text="Agregar">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>

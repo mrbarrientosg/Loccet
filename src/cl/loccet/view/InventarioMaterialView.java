@@ -10,7 +10,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 
 
 /**
@@ -26,6 +28,8 @@ public class InventarioMaterialView extends View {
     private InventarioMaterialController controller;
 
     //Botones.
+    @FXML
+    private Button agregarBT;
     @FXML
     private Button nuevoMaterialBT;
     @FXML
@@ -43,9 +47,9 @@ public class InventarioMaterialView extends View {
     @FXML
     private TableColumn<Material,Integer> cantidadCL;
     @FXML
-    private TableColumn<Material, LocalDate> fechaIngresoCL;
+    private TableColumn<Material, Date> fechaIngresoCL;
     @FXML
-    private TableColumn<Material, LocalDate> fechaRetiroCL;
+    private TableColumn<Material, Date> fechaRetiroCL;
     @FXML
     private TableColumn<Material,String> udsCL;
     @FXML
@@ -70,10 +74,18 @@ public class InventarioMaterialView extends View {
     }
 
     @FXML public void nuevoMaterial(ActionEvent event){
-        Injectable.find(NuevoMaterialView.class).window().show();
+        NuevoMaterialView view = Injectable.find(NuevoMaterialView.class);
+        view.setController(controller);
+        view.modal().withBlock(true).show();
+        tablaInventario.refresh();
     }
 
-
+    @FXML public void agregarMaterial(ActionEvent event){
+        AgregarMaterialView view = Injectable.find(AgregarMaterialView.class);
+        view.setController(controller);
+        view.modal().withBlock(true).show();
+        tablaInventario.refresh();
+    }
 
 
 
@@ -83,6 +95,24 @@ public class InventarioMaterialView extends View {
         udsCL.setCellValueFactory(new PropertyValueFactory<>("uds"));
         fechaRetiroCL.setCellValueFactory(new PropertyValueFactory<>("fechaRetiro"));
         fechaIngresoCL.setCellValueFactory(new PropertyValueFactory<>("fechaIngreso"));
+        fechaIngresoCL.setCellFactory(column -> {
+            TableCell<Material, Date> cell = new TableCell<Material, Date>() {
+                private SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+
+                @Override
+                protected void updateItem(Date item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if(empty) {
+                        setText(null);
+                    }
+                    else {
+                        setText(format.format(item));
+                    }
+                }
+            };
+
+            return cell;
+        });
         nombreMaterialCL.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         idMaterialCL.setCellValueFactory(new PropertyValueFactory<>("id"));
         cantidadCL.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
@@ -90,6 +120,8 @@ public class InventarioMaterialView extends View {
         tablaInventario.setItems(controller.obtenerDatos());
         tablaInventario.setEditable(true);
     }
+
+
 
 
 
