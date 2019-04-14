@@ -1,9 +1,6 @@
 package cl.loccet.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Constructora {
 
@@ -97,13 +94,24 @@ public class Constructora {
     public ArrayList<Trabajador> buscarTrabajador(String busqueda) {
         ArrayList<Trabajador> encontrados = new ArrayList<>();
 
-        for (Object ob:  conjuntoTrabajadores.values()) {
+        for (Object ob: conjuntoTrabajadores.values()) {
             Trabajador trabajador = (Trabajador) ob;
             if (trabajador.getNombre().toLowerCase().contains(busqueda.toLowerCase()))
                 encontrados.add(trabajador);
         }
 
         return encontrados;
+    }
+
+    public Trabajador eliminarTrabajador(String rut) {
+        if (!conjuntoTrabajadores.containsKey(rut)) return null;
+
+        for (Proyecto proyecto: listaProyecto) {
+            Trabajador t = proyecto.eliminarTrabajador(rut);
+            if (t != null) break;
+        }
+
+        return  conjuntoTrabajadores.remove(rut);
     }
 
     /**
@@ -117,6 +125,14 @@ public class Constructora {
     public Trabajador eliminarTrabajador(int idProyecto, String RUT) {
         if(mapProyecto.get(idProyecto) == null) return null;
         return mapProyecto.get(idProyecto).eliminarTrabajador(RUT);
+    }
+
+    public Proyecto buscarProyecto(int idProyecto) {
+        return mapProyecto.get(idProyecto);
+    }
+
+    public List<Proyecto> getListaProyecto() {
+        return Collections.unmodifiableList(listaProyecto);
     }
 }
 

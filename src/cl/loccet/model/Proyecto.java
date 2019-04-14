@@ -9,6 +9,8 @@ public class Proyecto {
     // MARK: - Variables
     private int id;
 
+    private String nombreProyecto;
+
     private Date fechaInicio;
 
     private Date fechaTermino;
@@ -71,6 +73,10 @@ public class Proyecto {
 
     public double getCostoReal() {
         return costoReal;
+    }
+
+    public String getNombreProyecto() {
+        return nombreProyecto;
     }
 
     // MARK: - Metodos

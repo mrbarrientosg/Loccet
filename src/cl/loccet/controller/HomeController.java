@@ -2,6 +2,7 @@ package cl.loccet.controller;
 
 import cl.loccet.base.Controller;
 import cl.loccet.model.Constructora;
+import cl.loccet.model.Proyecto;
 import cl.loccet.model.Trabajador;
 import cl.loccet.router.HomeRouter;
 import cl.loccet.router.MenuBarRouter;
@@ -9,6 +10,11 @@ import cl.loccet.view.HomeView;
 import cl.loccet.view.MenuBarView;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class HomeController extends Controller {
 
@@ -57,11 +63,55 @@ public class HomeController extends Controller {
     }
 
     public void eliminarTrabajadorConstructora() {
+        BufferedReader reader;
+        String rut;
+        Trabajador t;
+        try {
+            reader = new BufferedReader(new InputStreamReader(System.in));
 
+            do {
+                System.out.println("Ingrese el rut del trabajador:");
+                rut = reader.readLine();
+                t = model.eliminarTrabajador(rut);
+                System.out.println(t);
+            } while (t == null);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public void eliminarTrabajadorProyecto() {
+        BufferedReader reader;
+        String rut;
+        Trabajador t = null;
 
+        for (Proyecto p: model.getListaProyecto()) {
+            System.out.println(String.valueOf(p.getId()) + "/t" + p.getNombreProyecto());
+        }
+
+        String id;
+
+        Proyecto p;
+
+        try {
+            reader = new BufferedReader(new InputStreamReader(System.in));
+
+            do {
+                System.out.println("Ingrese el id del proyecto:");
+                id = reader.readLine();
+                p = model.buscarProyecto(Integer.parseInt(id));
+
+
+                if (p != null) {
+                    System.out.println("Ingrese el rut del trabajador:");
+                    rut = reader.readLine();
+                    t = p.eliminarTrabajador(rut);
+                }
+
+            } while (t == null || p == null);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public void equipoMaquinaria() {
