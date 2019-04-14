@@ -105,6 +105,11 @@ public class TrabajadorView extends View {
         controller.emailProperty().bindBidirectional(emailField.textProperty());
 
         controller.bindEditProperty();
+
+        if (!rutTextField.getText().isEmpty())
+            rutTextField.setDisable(true);
+        else
+            rutTextField.setDisable(false);
     }
 
     private void clearBind() {
@@ -145,10 +150,6 @@ public class TrabajadorView extends View {
 
     public void setController(TrabajadorController controller) {
         this.controller = controller;
-    }
-
-    public TrabajadorController getController() {
-        return controller;
     }
 
 }

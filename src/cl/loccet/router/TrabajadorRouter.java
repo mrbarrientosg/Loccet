@@ -4,8 +4,7 @@ import cl.loccet.base.Injectable;
 import cl.loccet.controller.TrabajadorController;
 import cl.loccet.model.Constructora;
 import cl.loccet.model.Trabajador;
-import cl.loccet.state.AddTrabajadorStrategy;
-import cl.loccet.state.EditTrabajadorStategy;
+import cl.loccet.state.EditTrabajadorDelegate;
 import cl.loccet.view.TrabajadorView;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -21,12 +20,30 @@ public class TrabajadorRouter {
      * @param old Caso en que se quiera editar el trabajador
      * @return Vista del trabajador
      */
-    public static TrabajadorView create(Constructora model, Trabajador old) {
+    public static TrabajadorView create(Constructora model, Trabajador old, EditTrabajadorDelegate delegate) {
         TrabajadorView view = Injectable.find(TrabajadorView.class);
 
         TrabajadorRouter router = new TrabajadorRouter();
 
-        EditTrabajadorStategy stategy = new EditTrabajadorStategy(model, old);
+        TrabajadorController controller = Injectable.find(TrabajadorController.class);
+
+        controller.setView(view);
+        controller.setModel(model);
+        controller.setRouter(router);
+        controller.setDelegate(delegate);
+
+        view.setController(controller);
+
+        controller.setOldTrabajador(old);
+        controller.setIsEditing(true);
+
+        return view;
+    }
+
+    public static TrabajadorView create(Constructora model, Trabajador old) {
+        TrabajadorView view = Injectable.find(TrabajadorView.class);
+
+        TrabajadorRouter router = new TrabajadorRouter();
 
         TrabajadorController controller = Injectable.find(TrabajadorController.class);
 
@@ -36,7 +53,8 @@ public class TrabajadorRouter {
 
         view.setController(controller);
 
-        controller.changeStategy(stategy);
+        controller.setOldTrabajador(old);
+        controller.setIsEditing(true);
 
         return view;
     }
@@ -51,8 +69,6 @@ public class TrabajadorRouter {
 
         TrabajadorRouter router = new TrabajadorRouter();
 
-        AddTrabajadorStrategy stategy = new AddTrabajadorStrategy(model);
-
         TrabajadorController controller = Injectable.find(TrabajadorController.class);
 
         controller.setView(view);
@@ -61,7 +77,7 @@ public class TrabajadorRouter {
 
         view.setController(controller);
 
-        controller.changeStategy(stategy);
+        controller.setIsEditing(false);
 
         return view;
     }
