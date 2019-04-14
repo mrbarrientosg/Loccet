@@ -91,7 +91,7 @@ public class HomeController extends Controller {
 
         String id;
 
-        Proyecto p;
+        Proyecto p = null;
 
         try {
             reader = new BufferedReader(new InputStreamReader(System.in));
@@ -108,7 +108,8 @@ public class HomeController extends Controller {
                     t = p.eliminarTrabajador(rut);
                 }
 
-            } while (t == null || p == null);
+            } while (t != null || p != null);
+
         } catch (IOException ex) {
             ex.printStackTrace();
         }
