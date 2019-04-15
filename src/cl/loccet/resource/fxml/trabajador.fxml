@@ -17,7 +17,7 @@
 
 <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="670.0" spacing="8.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <GridPane fx:id="gridPane" hgap="8.0" vgap="5.0">
+      <GridPane hgap="8.0" vgap="5.0">
         <columnConstraints>
           <ColumnConstraints hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" />
           <ColumnConstraints hgrow="ALWAYS" minWidth="-Infinity" />
@@ -25,6 +25,7 @@
             <ColumnConstraints hgrow="ALWAYS" minWidth="-Infinity" />
         </columnConstraints>
         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -36,45 +37,47 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Nombre" GridPane.rowIndex="1" />
-            <Label text="Apellido" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Label text="Especialidad" GridPane.rowIndex="2" />
-            <Label text="Fecha de nacimiento" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <DatePicker editable="false" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label text="Localización" GridPane.rowIndex="3">
+            <Label text="Nombre" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label text="Apellido" GridPane.rowIndex="2" />
+            <Label text="Especialidad" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Label text="Fecha de nacimiento" GridPane.rowIndex="3" />
+            <TextField fx:id="nameTextField" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <TextField fx:id="lastNameTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <DatePicker fx:id="birthdayDateField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <ComboBox fx:id="specialityList" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <Label text="Localización" GridPane.rowIndex="4">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label text="Dirección" GridPane.rowIndex="4" />
-            <Label text="ZIP/Código Postal" GridPane.rowIndex="5" />
-            <Label text="Estado/Provincia" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-            <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField GridPane.columnIndex="3" GridPane.rowIndex="5" />
-            <Label text="País" GridPane.rowIndex="6" />
-            <Label text="Ciudad" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField GridPane.columnIndex="3" GridPane.rowIndex="6" />
-            <Label text="Contacto" GridPane.rowIndex="7">
+            <Label text="Dirección" GridPane.rowIndex="5" />
+            <Label text="ZIP/Código Postal" GridPane.rowIndex="6" />
+            <Label text="Estado/Provincia" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <TextArea fx:id="addressText" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="postalCodeField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="stateField" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+            <Label text="País" GridPane.rowIndex="7" />
+            <Label text="Ciudad" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+            <TextField fx:id="countryField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="cityField" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+            <Label text="Contacto" GridPane.rowIndex="8">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label text="Teléfono" GridPane.rowIndex="8" />
-            <Label text="Correo electrónico" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <TextField GridPane.columnIndex="3" GridPane.rowIndex="8" />
+            <Label text="Teléfono" GridPane.rowIndex="9" />
+            <Label text="Correo electrónico" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+            <TextField fx:id="telephoneField" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <TextField fx:id="emailField" GridPane.columnIndex="3" GridPane.rowIndex="9" />
             <Label text="Información personal">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Separator GridPane.columnSpan="4" GridPane.rowIndex="3" GridPane.valignment="TOP" />
-            <Separator GridPane.columnSpan="4" GridPane.rowIndex="7" GridPane.valignment="TOP" />
+            <Separator GridPane.columnSpan="4" GridPane.rowIndex="4" GridPane.valignment="TOP" />
+            <Separator GridPane.columnSpan="4" GridPane.rowIndex="8" GridPane.valignment="TOP" />
+            <Label text="RUT" GridPane.rowIndex="1" />
+            <TextField fx:id="rutTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
          <VBox.margin>
             <Insets />
@@ -82,8 +85,8 @@
       </GridPane>
       <ButtonBar>
         <buttons>
-          <Button defaultButton="true" mnemonicParsing="false" text="Guardar" />
-            <Button fx:id="exitButton" mnemonicParsing="false" text="Salir" />
+          <Button fx:id="saveButton" defaultButton="true" mnemonicParsing="false" text="Guardar" />
+            <Button mnemonicParsing="false" onAction="#cancelHandler" text="Cancelar" />
         </buttons>
       </ButtonBar>
    </children>

@@ -1,6 +1,7 @@
 package cl.loccet.model;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class Proyecto {
@@ -20,8 +21,11 @@ public class Proyecto {
     private LocalDate fechaTermino;
     private LocalDate fechaTerminoReal;
     private double estimacion;
+
     private double costoReal;
+
     private ArrayList<Trabajador> listaTrabajadores;
+
     private HashMap<String, Trabajador> mapTrabajadores;
 
 
@@ -144,6 +148,8 @@ public class Proyecto {
         }
         return false;
     }
+
+
     /**
      * Muestra los trabajadores que estan asociado al proyecto
      *
@@ -154,6 +160,8 @@ public class Proyecto {
             //TODO: Mostrar por pantalla.****
         }
     }
+
+
     /**
      * Busca todos los trabajadores que coincidan con la busqueda
      * @param busqueda Texto de Busqueda
