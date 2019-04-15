@@ -3,6 +3,7 @@ package cl.loccet.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.function.DoubleBinaryOperator;
 
 public class Proyecto {
 
@@ -23,6 +24,10 @@ public class Proyecto {
 
     private HashMap<String, Trabajador> mapTrabajadores;
 
+    private HashMap<String, RegistroAvance> mapaRegistros;
+
+    private ArrayList<RegistroAvance> listaRegistros;
+
     // TODO: Implementar inventario materiales.
 
     // TODO: Implementar equipo y maquinarias.
@@ -39,6 +44,9 @@ public class Proyecto {
         this.costoReal = costoReal;
         listaTrabajadores = new ArrayList<>();
         mapTrabajadores = new HashMap<>();
+
+        mapaRegistros = new HashMap<>();
+        listaRegistros = new ArrayList<>();
     }
 
     // MARK: - Setter
@@ -103,6 +111,15 @@ public class Proyecto {
         }
     }
 
+    public void generarReporteDeAvance() {
+        double totalHoras = listaRegistros.stream().mapToDouble(RegistroAvance::getTotalHorasTrabajadas).reduce(0, (left, right) -> left + right);
+        System.out.println(totalHoras);
+    }
+
+    public void agregarRegistroAvance(RegistroAvance registroAvance) {
+        mapaRegistros.put(registroAvance.getId(), registroAvance);
+        listaRegistros.add(registroAvance);
+    }
 
     /**
      * Busca todos los trabajadores que coincidan con la busqueda

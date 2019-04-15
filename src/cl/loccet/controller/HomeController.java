@@ -41,7 +41,7 @@ public class HomeController extends Controller {
     }
 
     public void avanceProyecto() {
-
+        model.buscarProyecto(0).generarReporteDeAvance();
     }
 
     public void boletaTrabajador() {

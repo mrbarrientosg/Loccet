@@ -118,5 +118,9 @@ public class Constructora {
         if(mapProyecto.get(idProyecto) == null) return null;
         return mapProyecto.get(idProyecto).eliminarTrabajador(RUT);
     }
+
+    public Proyecto buscarProyecto(int idProyecto) {
+        return mapProyecto.get(idProyecto);
+    }
 }
 

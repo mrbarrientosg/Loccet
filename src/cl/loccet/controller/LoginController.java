@@ -2,6 +2,9 @@ package cl.loccet.controller;
 
 import cl.loccet.base.Controller;
 import cl.loccet.model.Constructora;
+import cl.loccet.model.ItemRegistro;
+import cl.loccet.model.Proyecto;
+import cl.loccet.model.RegistroAvance;
 import cl.loccet.router.LoginRouter;
 import cl.loccet.util.ValidationResult;
 import cl.loccet.view.LoginView;
@@ -32,6 +35,19 @@ public class LoginController extends Controller {
 
         // TODO: implementar el controlador para poder gestionar la constructora
         Constructora c = new Constructora("RUT","NOMBRE");
+
+        Proyecto p = new Proyecto(0, 0.0, 0.0, null, null, null);
+
+        RegistroAvance r = new RegistroAvance();
+
+        r.agregarRegistro(new ItemRegistro("", 0, 10));
+        r.agregarRegistro(new ItemRegistro("", 0, 25));
+        r.agregarRegistro(new ItemRegistro("", 0, 42));
+        r.agregarRegistro(new ItemRegistro("", 0, 67.2));
+
+        p.agregarRegistroAvance(r);
+
+        c.agregarProyecto(p);
 
         router.showHome(c);
     }
