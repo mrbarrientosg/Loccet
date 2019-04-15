@@ -7,10 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 public class NuevoMaterialView extends View {
 
@@ -49,6 +46,11 @@ public class NuevoMaterialView extends View {
         unidadesDeMedida.add("M3");
         unidadesDeMedida.add("L");
         unidadCB.setItems(unidadesDeMedida);
+        cantidadTF.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                cantidadTF.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
     }
 
     @Override
@@ -60,11 +62,23 @@ public class NuevoMaterialView extends View {
     public void nuevoMaterial(ActionEvent event) {
         String lector = idMaterialTF.getText();
         Material material;
-        if (lector.isEmpty())  material = new Material(nombreTF.getText(), descripcionTF.getText(), Integer.parseInt(cantidadTF.getText()),unidadCB.getSelectionModel().getSelectedItem().toString());
-        else   material = new Material(nombreTF.getText(), descripcionTF.getText(), Integer.parseInt(cantidadTF.getText()), unidadCB.getSelectionModel().getSelectedItem().toString(),lector);
-        controller.nuevoMaterial(material);
-        clear();
-        close();
+        try {
+            if (lector.isEmpty())
+                material = new Material(nombreTF.getText(), descripcionTF.getText(), Integer.parseInt(cantidadTF.getText()), unidadCB.getSelectionModel().getSelectedItem().toString());
+            else
+                material = new Material(nombreTF.getText(), descripcionTF.getText(), Integer.parseInt(cantidadTF.getText()), unidadCB.getSelectionModel().getSelectedItem().toString(), lector);
+
+            controller.nuevoMaterial(material);
+            clear();
+            close();
+        }catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Ingreso de datos invalido");
+            alert.setContentText("Por favor ingresar los caampos requeridos");
+            alert.showAndWait();
+        }
+
     }
     private void clear(){
         nombreTF.setText("");

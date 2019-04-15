@@ -45,17 +45,26 @@ public class InventarioMaterialController extends Controller {
         model.nuevoItem(material);
         cargarDatos();
     }
-    public void agregarMaterial(Material material,int cantidad){
-        model.agregarMaterial(material,cantidad);
+    public void agregarMaterial(String idMaterial,int cantidad){
+        model.agregarMaterial(idMaterial,cantidad);
         cargarDatos();
     }
-    public void retirarMaterial(Material material,int cantidad){
-        model.retirarMaterial(material,cantidad);
+    public void retirarMaterial(String idMaterial,int cantidad){
+        model.retirarMaterial(idMaterial,cantidad);
         cargarDatos();
     }
 
-    public void eliminarMaterial(Material material){
-        model.eliminarItem(material);
+    public void modificarNombre(String idMaterial, String nombre){
+        model.modificarNombre( idMaterial,nombre);
+    }
+
+    public void modificarDescripcion(String idMaterial,String descripcion){
+        model.modificarDescripcion( idMaterial,descripcion);
+    }
+
+
+    public void eliminarMaterial(String idMaterial){
+        model.eliminarItem(idMaterial);
     }
 
 }
