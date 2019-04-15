@@ -1,22 +1,12 @@
 package cl.loccet.view;
-
 import cl.loccet.base.Injectable;
 import cl.loccet.base.View;
 import cl.loccet.controller.AgregarProyectoController;
-import cl.loccet.model.Constructora;
-import cl.loccet.model.Proyecto;
-import cl.loccet.router.AgregarProyectoRouter;
-import com.sun.media.jfxmedia.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
-
 import java.util.Optional;
-
-import static jdk.nashorn.internal.runtime.JSType.isNumber;
 
 /**
  * @author Matias Zuñiga
