@@ -64,6 +64,13 @@ public final class Injectable {
 
         try {
             injectable = type.newInstance();
+
+            if (UIComponent.class.isAssignableFrom(injectable.getClass())) {
+                UIComponent component = (UIComponent) injectable;
+
+                component.loadFXML(path);
+                component.init();
+            }
             // Fragment
         } catch (Exception ex) {
             throw new RuntimeException(ex);

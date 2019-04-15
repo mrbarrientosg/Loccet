@@ -5,6 +5,8 @@ import cl.loccet.util.StringUtils;
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Constructora {
 
@@ -14,7 +16,7 @@ public class Constructora {
 
     private ArrayList<Proyecto> listaProyecto;
 
-    private HashMap<Integer, Proyecto> mapProyecto;
+    private HashMap<String, Proyecto> mapProyecto;
 
     private HashMap<String, Trabajador> conjuntoTrabajadores;
 
@@ -54,7 +56,11 @@ public class Constructora {
 
     public void agregarProyecto(Proyecto proyecto){
         listaProyecto.add(proyecto);
-        mapProyecto.put(proyecto.getId(),proyecto);
+        mapProyecto.put(proyecto.getId() ,proyecto);
+    }
+
+    public Proyecto eliminarProyecto(String id){
+        return mapProyecto.remove(id);
     }
 
     public Trabajador actualizarTrabajador(String RUT, Trabajador trabajador) {
@@ -78,7 +84,7 @@ public class Constructora {
      *
      * @author Matias Barrientos
      */
-    public boolean agregarTrabajador(int idProyecto, Trabajador trabajador){
+    public boolean agregarTrabajador(String idProyecto, Trabajador trabajador){
         if(mapProyecto.get(idProyecto) == null) return false;
         mapProyecto.get(idProyecto).agregarTrabajador(trabajador);
         return true;
@@ -92,7 +98,7 @@ public class Constructora {
      *
      * @author Matias Barrientos
      */
-    public ArrayList<Trabajador> buscarTrabajador(int idProyecto, String busqueda) {
+    public ArrayList<Trabajador> buscarTrabajador(String idProyecto, String busqueda) {
         if(mapProyecto.get(idProyecto) == null) return null;
         Proyecto aux = mapProyecto.get(idProyecto);
         return aux.buscarTrabajador(busqueda.toLowerCase());
@@ -108,7 +114,7 @@ public class Constructora {
     public ArrayList<Trabajador> buscarTrabajador(String busqueda) {
         ArrayList<Trabajador> encontrados = new ArrayList<>();
 
-        for (Object ob:  conjuntoTrabajadores.values()) {
+        for (Object ob: conjuntoTrabajadores.values()) {
             Trabajador trabajador = (Trabajador) ob;
 
             if (StringUtils.containsIgnoreCase(trabajador.getNombre(), busqueda) ||
@@ -119,6 +125,17 @@ public class Constructora {
         return encontrados;
     }
 
+    public Trabajador eliminarTrabajador(String rut) {
+        if (!conjuntoTrabajadores.containsKey(rut)) return null;
+
+        for (Proyecto proyecto: listaProyecto) {
+            Trabajador t = proyecto.eliminarTrabajador(rut);
+            if (t != null) break;
+        }
+
+        return  conjuntoTrabajadores.remove(rut);
+    }
+
     /**
      * Eliminar un trabajador de un proyecto
      * @param idProyecto id del proyecto
@@ -127,9 +144,17 @@ public class Constructora {
      *
      * @author Matias Barrientos
      */
-    public Trabajador eliminarTrabajador(int idProyecto, String RUT) {
+    public Trabajador eliminarTrabajador(String idProyecto, String RUT) {
         if(mapProyecto.get(idProyecto) == null) return null;
         return mapProyecto.get(idProyecto).eliminarTrabajador(RUT);
+    }
+
+    public Proyecto buscarProyecto(String idProyecto) {
+        return mapProyecto.get(idProyecto);
+    }
+
+    public List<Proyecto> getListaProyecto() {
+        return Collections.unmodifiableList(listaProyecto);
     }
 }
 
