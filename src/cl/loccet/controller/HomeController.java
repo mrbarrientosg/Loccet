@@ -15,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 public class HomeController extends Controller {
 
@@ -38,9 +39,7 @@ public class HomeController extends Controller {
 
     // Metodos del MenuBar
 
-    public void agregarEspecialidad() {
-
-    }
+    public void agregarEspecialidad() { }
 
     public void listaTrabajadores() { router.listaTrabajadores(model); }
 
@@ -48,21 +47,13 @@ public class HomeController extends Controller {
         router.agregarTrabajador(model);
     }
 
-    public void avanceProyecto() {
+    public void avanceProyecto() { }
 
-    }
+    public void boletaTrabajador() { }
 
-    public void boletaTrabajador() {
+    public void editarEspecialidad() { }
 
-    }
-
-    public void editarEspecialidad() {
-
-    }
-
-    public void eliminarEspecialidad() {
-
-    }
+    public void eliminarEspecialidad() { }
 
     public void eliminarTrabajadorConstructora() {
         BufferedReader reader;
@@ -88,9 +79,16 @@ public class HomeController extends Controller {
         String rut;
         Trabajador t = null;
 
-        for (Proyecto p: model.getListaProyecto()) {
-            System.out.println(String.valueOf(p.getId()) + "\t" + p.getNombreProyecto());
+        final List<Proyecto> proyectos = model.getListaProyecto();
+
+        Integer i = 1;
+
+        for (Proyecto proyecto: proyectos) {
+            System.out.println(i.toString() + ".- ID: " + proyecto.getId() + "\t Nombre: " + proyecto.getNombreProyecto());
+            i++;
         }
+
+        System.out.println();
 
         String id;
 
@@ -122,25 +120,15 @@ public class HomeController extends Controller {
         }
     }
 
-    public void equipoMaquinaria() {
+    public void equipoMaquinaria() { }
 
-    }
+    public void facturaVentas() { }
 
-    public void facturaVentas() {
+    public void facturasCompras() { }
 
-    }
+    public void ingresoMateriales() { }
 
-    public void facturasCompras() {
-
-    }
-
-    public void ingresoMateriales() {
-
-    }
-
-    public void modificarProyecto() {
-
-    }
+    public void modificarProyecto() { }
 
     public void modificarTrabajador() {
         // TODO : Buscar al trabajador que quiere modificar
@@ -154,9 +142,22 @@ public class HomeController extends Controller {
 
     public void eliminarProyecto() {
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
+
+        final List<Proyecto> proyectos = model.getListaProyecto();
+
+        Integer i = 1;
+
+        for (Proyecto proyecto: proyectos) {
+            System.out.println(i.toString() + ".- ID: " + proyecto.getId() + "\t Nombre: " + proyecto.getNombreProyecto());
+            i++;
+        }
+
+        System.out.println();
+
         Proyecto proyecto = null;
+
         do {
-            System.out.println("Ingrese id del proyecto");
+            System.out.println("Ingrese id del proyecto:");
             try {
                 proyecto = model.eliminarProyecto(lector.readLine());
             } catch (IOException e) {
@@ -166,23 +167,29 @@ public class HomeController extends Controller {
         System.out.println("El proyecto se ha eliminado satisfactoriamente!");
     }
 
-    public void reporteIngresoGasto() {
+    public void reporteIngresoGasto() { }
 
-    }
+    public void reporteMateriales() { }
 
-    public void reporteMateriales() {
-
-    }
-
-    public void reporteRRHH() {
-
-    }
+    public void reporteRRHH() { }
 
     public void inventarioMateriales() {
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
+
+        final List<Proyecto> proyectos = model.getListaProyecto();
+
+        Integer i = 1;
+
+        for (Proyecto proyecto: proyectos) {
+            System.out.println(i.toString() + ".- ID: " + proyecto.getId() + "\t Nombre: " + proyecto.getNombreProyecto());
+            i++;
+        }
+
+        System.out.println();
+
         Proyecto proyecto = null;
         do {
-            System.out.println("Ingrese id del proyecto");
+            System.out.println("Ingrese id del proyecto:");
             try {
                 proyecto = model.buscarProyecto(lector.readLine());
             } catch (IOException e) {
