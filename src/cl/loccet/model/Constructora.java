@@ -63,10 +63,8 @@ public class Constructora {
         return mapProyecto.remove(id);
     }
 
-    public Trabajador actualizarTrabajador(String RUT, Trabajador trabajador) {
-        Trabajador old = conjuntoTrabajadores.remove(RUT);
-        conjuntoTrabajadores.put(trabajador.getRut(), trabajador);
-        return old;
+    public Trabajador actualizarTrabajador(Trabajador nuevoTrabajador) {
+        return conjuntoTrabajadores.put(nuevoTrabajador.getRut(), nuevoTrabajador);
     }
 
 

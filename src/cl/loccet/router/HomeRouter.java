@@ -4,8 +4,6 @@ import cl.loccet.base.Injectable;
 import cl.loccet.controller.HomeController;
 import cl.loccet.model.Constructora;
 import cl.loccet.model.Trabajador;
-import cl.loccet.state.AddTrabajadorStrategy;
-import cl.loccet.state.EditTrabajadorStategy;
 import cl.loccet.view.ListaTrabajadorView;
 import cl.loccet.view.TrabajadorView;
 import cl.loccet.view.HomeView;

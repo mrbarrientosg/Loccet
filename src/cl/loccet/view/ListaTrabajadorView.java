@@ -70,11 +70,6 @@ public class ListaTrabajadorView extends View {
     }
 
     @FXML
-    void eliminarTrabajador(ActionEvent event) {
-        controller.eliminarTrabajador();
-    }
-
-    @FXML
     private void salir() {
         getRoot().setRight(null);
         master.removeNode(getRoot());

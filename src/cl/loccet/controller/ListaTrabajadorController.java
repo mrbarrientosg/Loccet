@@ -13,8 +13,6 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 
 import java.util.ListIterator;
 import java.util.stream.Collectors;
@@ -45,30 +43,15 @@ public class ListaTrabajadorController extends Controller implements EditTrabaja
     public TrabajadorView mostrarEditar() {
         if (selectedTrabajadorProperty().get() == null) return null;
         Trabajador t = model.buscarTrabajador(selectedTrabajador.get().getRut()).get(0);
-        TrabajadorView trabajadorView = TrabajadorRouter.create(model, t);
-        trabajadorView.getController().setDelegate(this);
-        return trabajadorView;
-    }
-
-    public void eliminarTrabajador() {
-        if (selectedTrabajadorProperty().get() == null) return;
-        Alert warning = router.showWarning("¿Está seguro de querer eliminar el trabajador?");
-        warning.showAndWait().ifPresent(buttonType -> {
-            if (buttonType == ButtonType.YES) {
-                trabajadorCells.remove(selectedTrabajador.get());
-                view.refresh();
-                System.out.println(selectedTrabajadorProperty().get());
-            }
-        });
+        return TrabajadorRouter.create(model, t, this);
     }
 
     @Override
     public void didEdit(Trabajador old, Trabajador newT) {
-        System.out.println(old);
         ListIterator<TrabajadorCell> iterator = trabajadorCells.listIterator();
 
         while (iterator.hasNext()) {
-            if (iterator.next().getRut() == old.getRut()) {
+            if (iterator.next().getRut().equals(old.getRut())) {
                 iterator.set(new TrabajadorCell(newT));
                 break;
             }

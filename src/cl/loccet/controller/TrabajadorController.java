@@ -6,10 +6,7 @@ import cl.loccet.model.Especialidades;
 import cl.loccet.model.Localizacion;
 import cl.loccet.model.Trabajador;
 import cl.loccet.router.TrabajadorRouter;
-import cl.loccet.state.AddTrabajadorStrategy;
 import cl.loccet.state.EditTrabajadorDelegate;
-import cl.loccet.state.EditTrabajadorStategy;
-import cl.loccet.state.SaveStrategy;
 import cl.loccet.view.TrabajadorView;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -53,7 +50,9 @@ public class TrabajadorController extends Controller {
 
     private StringProperty email;
 
-    private SaveStrategy<Trabajador> saveStrategy;
+    private boolean isEditing;
+
+    private Trabajador oldTrabajador;
 
     private EditTrabajadorDelegate delegate;
 
@@ -75,6 +74,8 @@ public class TrabajadorController extends Controller {
 
         telephone = new SimpleStringProperty(null);
         email = new SimpleStringProperty(null);
+
+        isEditing = false;
     }
 
 
@@ -91,9 +92,14 @@ public class TrabajadorController extends Controller {
 
         Trabajador newT = trabajadorBuilder.build();
 
-        Trabajador old = saveStrategy.save(newT);
+        Trabajador old = null;
 
-        if (delegate != null && saveStrategy instanceof EditTrabajadorStategy) {
+        if (isEditing)
+            old = model.actualizarTrabajador(newT);
+        else
+            model.agregarTrabajador(newT);
+
+        if (delegate != null && isEditing) {
             delegate.didEdit(old, newT);
         }
 
@@ -210,31 +216,32 @@ public class TrabajadorController extends Controller {
     }
 
     public void bindEditProperty() {
-        if (!(saveStrategy instanceof EditTrabajadorStategy)) return;
+        if (!isEditing || oldTrabajador == null) return;
 
-        EditTrabajadorStategy editState = (EditTrabajadorStategy) saveStrategy;
+        rut.set(oldTrabajador.getRut());
+        name.set(oldTrabajador.getNombre());
+        lastName.set(oldTrabajador.getApellido());
+        speciality.set(oldTrabajador.getEspecialidad().getNombre());
+        birthday.setValue(oldTrabajador.getFechaNacimiento());
 
-        if (editState == null || editState.getOld() == null) return;
+        address.set(oldTrabajador.getLocalizacion().getDireccion());
+        zip.set(oldTrabajador.getLocalizacion().getCodigoPostal());
+        country.set(oldTrabajador.getLocalizacion().getPais());
+        city.set(oldTrabajador.getLocalizacion().getCiudad());
+        state.set(oldTrabajador.getLocalizacion().getEstado());
 
-        rut.set(editState.getOld().getRut());
-        name.set(editState.getOld().getNombre());
-        lastName.set(editState.getOld().getApellido());
-        speciality.set(editState.getOld().getEspecialidad().getNombre());
-        birthday.setValue(editState.getOld().getFechaNacimiento());
-
-        address.set(editState.getOld().getLocalizacion().getDireccion());
-        zip.set(editState.getOld().getLocalizacion().getCodigoPostal());
-        country.set(editState.getOld().getLocalizacion().getPais());
-        city.set(editState.getOld().getLocalizacion().getCiudad());
-        state.set(editState.getOld().getLocalizacion().getEstado());
-
-        telephone.setValue(editState.getOld().getTelefono());
-        email.setValue(editState.getOld().getCorreoElectronico());
+        telephone.setValue(oldTrabajador.getTelefono());
+        email.setValue(oldTrabajador.getCorreoElectronico());
     }
 
-    public void changeStategy(SaveStrategy<Trabajador> strategy) {
-        this.saveStrategy = strategy;
-        view.loadView();
+    public void setIsEditing(boolean value) {
+        this.isEditing = value;
+        bindEditProperty();
+    }
+
+    public void setOldTrabajador(Trabajador oldTrabajador) {
+        this.oldTrabajador = oldTrabajador;
+        bindEditProperty();
     }
 
     public void setModel(Constructora model) {

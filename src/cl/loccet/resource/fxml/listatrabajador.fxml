@@ -25,7 +25,6 @@
             <ContextMenu>
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#editTrabajador" text="Editar" />
-                  <MenuItem mnemonicParsing="false" onAction="#eliminarTrabajador" text="Eliminar" />
                   <MenuItem mnemonicParsing="false" onAction="#actualizarTabla" text="Actualizar" />
                </items>
             </ContextMenu>
@@ -42,7 +41,6 @@
             <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" spacing="20.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#editTrabajador" text="Editar" />
-                  <Button mnemonicParsing="false" onAction="#eliminarTrabajador" text="Eliminar" />
                   <Button mnemonicParsing="false" onAction="#actualizarTabla" text="Actualizar" />
                   <Separator maxWidth="1.7976931348623157E308" visible="false" HBox.hgrow="ALWAYS" />
                   <Button mnemonicParsing="false" onAction="#salir" text="Salir" />
