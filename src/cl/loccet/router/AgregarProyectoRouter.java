@@ -5,8 +5,8 @@ import cl.loccet.controller.AgregarProyectoController;
 import cl.loccet.model.Proyecto;
 import cl.loccet.view.AgregarProyectoView;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextField;
 import javafx.stage.StageStyle;
 
 /**
@@ -35,6 +35,14 @@ public class AgregarProyectoRouter {
         alert.initStyle(StageStyle.UTILITY);
         return alert;
     }
-
+    public Alert showInformation(String mensaje, TextField nombreP){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initStyle(StageStyle.UTILITY);
+        alert.setHeaderText(null);
+        alert.setTitle("proyecto " + nombreP.getText());
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+        return alert;
+    }
 
 }

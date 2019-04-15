@@ -7,12 +7,16 @@ import cl.loccet.model.Constructora;
 import cl.loccet.model.Proyecto;
 import cl.loccet.router.AgregarProyectoRouter;
 import com.sun.media.jfxmedia.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.util.Optional;
+
+import static jdk.nashorn.internal.runtime.JSType.isNumber;
 
 /**
  * @author Matias Zuñiga
@@ -41,6 +45,15 @@ public class AgregarProyectoView extends View {
     @FXML private DatePicker fechaT;
 
     @Override public void viewDidLoad() {
+        montoC.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    montoC.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
     }
 
     @Override public void viewDidClose() {
@@ -63,22 +76,15 @@ public class AgregarProyectoView extends View {
                 Optional<ButtonType> result = alert.showAndWait();
                 System.out.println("campos vacios");
         }
+        else if(fechaF.getValue().isAfter(fechaT.getValue())){
+            Alert alert = controller.getRouter().showAlert("Las fechas ingresadas no coinciden.");
+            Optional<ButtonType> result = alert.showAndWait();
+        }
         else{
-            LOGGER.info("Nombre proyecto: " + nombreP.getText());
-            LOGGER.info("Jefe proyecto: " + jefeP.getText());
-            LOGGER.info("Cliente: " + cliente.getText());
-            LOGGER.info("Presupuesto: " + montoC.getText());
-            LOGGER.info("Mail Cliente: " + mailC.getText());
-            LOGGER.info("Telefono Cliente: " + telefonoC.getText());
-            LOGGER.info("Direccion: " + direccion.getText());
-            LOGGER.info("Pais: " + pais.getText());
-            LOGGER.info("Estado: " + estado.getText());
-            LOGGER.info("Ciudad: " + ciudad.getText());
-            System.out.println("Todos los campos estan llenos");
-            Proyecto proyecto = new Proyecto(controller.generarId(),nombreP.getText(),jefeP.getText(),mailC.getText(),telefonoC.getText(),direccion.getText(),pais.getText(),ciudad.getText(),estado.getText(),fechaF.getEditor().getText(),fechaT.getEditor().getText(),Double.parseDouble(montoC.getText()));
-            Constructora constructora = new Constructora("RUT", "NOMBRE");
-            constructora.agregarProyecto(proyecto);
-            System.out.println("nombre:" + proyecto.getNombreProyecto() + "id: " + proyecto.getId());
+            controller.presionarAceptar(nombreP,jefeP,montoC,cliente,telefonoC,mailC,direccion,ciudad,estado,pais,fechaF,fechaT);
+            close();
+            Injectable.find(HomeView.class).window().show();
+            //System.out.println("nombre:" + proyecto.getNombreProyecto() + "id: " + proyecto.getId());
             //TODO: No guarda aún trabajadores
 
         }

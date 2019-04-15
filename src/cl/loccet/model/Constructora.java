@@ -11,7 +11,7 @@ public class Constructora {
 
     private ArrayList<Proyecto> listaProyecto;
   
-    private HashMap<Integer, Proyecto> mapProyecto;
+    private HashMap<String, Proyecto> mapProyecto;
 
     public Constructora(String rut, String nombre) {
         this.rut = rut;
