@@ -10,7 +10,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-import java.awt.*;
 
 public class ModificarMaterialView extends View {
 
@@ -25,7 +24,7 @@ public class ModificarMaterialView extends View {
 
 
     private InventarioMaterialController controller;
-    private Material material;
+    private String idMaterial;
     public void setController(InventarioMaterialController controller) {
         this.controller = controller;
     }
@@ -39,8 +38,8 @@ public class ModificarMaterialView extends View {
 
     }
 
-    public void setMaterial(Material material) {
-        this.material = material;
+    public void setIdMaterial(String idMaterial) {
+        this.idMaterial = idMaterial;
     }
 
     @FXML public void modificar(ActionEvent event){
@@ -55,8 +54,8 @@ public class ModificarMaterialView extends View {
 
         }
         else {
-            if (!nombre.isEmpty()) controller.modificarNombre(material,nombre);
-            if (!descripcion.isEmpty()) controller.modificarDescripcion(material,descripcion);
+            if (!nombre.isEmpty()) controller.modificarNombre(idMaterial,nombre);
+            if (!descripcion.isEmpty()) controller.modificarDescripcion(idMaterial,descripcion);
             modificarIdTF.setText("");
             modificarDescripcionTA.setText("");
             close();

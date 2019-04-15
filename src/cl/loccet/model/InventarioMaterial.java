@@ -30,28 +30,31 @@ public class InventarioMaterial {
         }
 
     }
-    public void agregarMaterial(Material material,int cantidad){
+    public void agregarMaterial(String idMaterial,int cantidad){
+        Material material = mapInventarios.get(idMaterial);
         material.setCantidad(material.getCantidad()+cantidad);
         material.setFechaIngreso(new Date());
     }
-    public void retirarMaterial(Material material,int cantidad){
+    public void retirarMaterial(String idMaterial,int cantidad){
+        Material material = mapInventarios.get(idMaterial);
         material.setCantidad(material.getCantidad()-cantidad);
         material.setFechaRetiro(new Date());
         material.setRetiro(cantidad);
     }
 
-    public void modificarNombre(Material material,String nombre){
-
+    public void modificarNombre(String idMaterial,String nombre){
+        Material material = mapInventarios.get(idMaterial);
         material.setNombre(nombre);
-
     }
-    public void modificarDescripcion(Material material,String descripcion){
+    public void modificarDescripcion(String idMaterial,String descripcion){
+        Material material = mapInventarios.get(idMaterial);
         material.setDescripcion(descripcion);
     }
 
-    public void eliminarItem(Material material){
-     listaInventarios.remove(material);
-     mapInventarios.remove(material.getId());
+    public void eliminarItem(String idMaterial){
+        Material material = mapInventarios.get(idMaterial);
+        mapInventarios.remove(idMaterial);
+        listaInventarios.remove(material);
     }
 
 

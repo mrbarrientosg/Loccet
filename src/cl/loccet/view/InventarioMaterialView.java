@@ -100,7 +100,7 @@ public class InventarioMaterialView extends View {
         Material material = seleccion();
         if(material!=null) {
             ModificarMaterialView view = Injectable.find(ModificarMaterialView.class);
-            view.setMaterial(material);
+            view.setIdMaterial(material.getId());
             view.setController(controller);
             view.modal().withBlock(true).show();
             tablaInventario.setItems(controller.obtenerDatos());
@@ -121,7 +121,7 @@ public class InventarioMaterialView extends View {
         Material material = seleccion();
         if(material!=null) {
             AgregarMaterialView view = Injectable.find(AgregarMaterialView.class);
-            view.setMaterial(material);
+            view.setIdMaterial(material.getId());
             view.setController(controller);
             view.modal().withBlock(true).show();
             tablaInventario.refresh();
@@ -167,7 +167,7 @@ public class InventarioMaterialView extends View {
             alert.setContentText("¿Esta seguro de que desea continuar?");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK){
-                controller.eliminarMaterial(material);
+                controller.eliminarMaterial(material.getId());
                 tablaInventario.refresh();
             }
 

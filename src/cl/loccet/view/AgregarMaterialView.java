@@ -1,5 +1,4 @@
 package cl.loccet.view;
-
 import cl.loccet.base.View;
 import cl.loccet.controller.InventarioMaterialController;
 import cl.loccet.model.Material;
@@ -15,7 +14,7 @@ import javafx.scene.control.TextField;
 public class AgregarMaterialView extends View {
 
     private InventarioMaterialController controller;
-    private Material material;
+    private String idMaterial;
     public void setController(InventarioMaterialController controller) {
         this.controller = controller;
     }
@@ -44,14 +43,14 @@ public class AgregarMaterialView extends View {
     }
 
 
-    public void setMaterial(Material material){
-        this.material = material;
+    public void setIdMaterial(String idMaterial){
+        this.idMaterial = idMaterial;
     }
 
     @FXML
     public void cantidadItem(ActionEvent event){
         try {
-            controller.agregarMaterial(material, Integer.parseInt(agregarTF.getText()));
+            controller.agregarMaterial(idMaterial, Integer.parseInt(agregarTF.getText()));
             agregarTF.setText("");
             close();
         }catch (Exception e){

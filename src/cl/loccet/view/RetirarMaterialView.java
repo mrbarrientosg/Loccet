@@ -57,7 +57,7 @@ public class RetirarMaterialView extends View {
                alert.setContentText("La cantidad de material a retirar es mayor al que se tiene");
                alert.showAndWait();
            } else {
-               controller.retirarMaterial(material, aux);
+               controller.retirarMaterial(material.getId(), aux);
                retirarTF.setText("");
                close();
            }
