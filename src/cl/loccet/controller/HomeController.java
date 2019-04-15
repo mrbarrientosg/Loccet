@@ -143,6 +143,16 @@ public class HomeController extends Controller {
     public void nuevoProyecto() {
 
     }
+    public void eliminarProyecto() throws IOException {
+        BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
+        Proyecto proyecto;
+        do{
+            System.out.println("Ingrese id del proyecto");
+            int aux = Integer.parseInt(lector.readLine());
+            proyecto = model.eliminarProyecto(aux);
+        }while(proyecto == null);
+        System.out.println("El proyecto se ha eliminado satisfactoriamente!");
+    }
 
     public void reporteIngresoGasto() {
 
