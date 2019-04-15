@@ -15,28 +15,30 @@ import java.util.regex.Pattern;
 public class NuevoMaterialView extends View {
 
     private InventarioMaterialController controller;
-    public void setController(InventarioMaterialController controller) {
-        this.controller = controller;
-    }
-    private ObservableList unidadesDeMedida;
+
+    private ObservableList<String> unidadesDeMedida;
 
     @FXML
     private Button agregarBT;
+
     @FXML
     private Button cancelarTB;
 
     @FXML
     private TextField idMaterialTF;
+
     @FXML
     private TextField nombreTF;
+
     @FXML
     private TextArea descripcionTF;
+
     @FXML
     private TextField cantidadTF;
 
 
     @FXML
-    private ComboBox unidadCB;
+    private ComboBox<String> unidadCB;
 
     @Override
     public void viewDidLoad() {
@@ -56,7 +58,6 @@ public class NuevoMaterialView extends View {
         });
 
         cantidadTF.setTextFormatter(formatter);
-
     }
 
     @Override
@@ -90,8 +91,14 @@ public class NuevoMaterialView extends View {
         descripcionTF.setText("");
         cantidadTF.setText("");
     }
+
+    @FXML
     public void salir(ActionEvent event){
         close();
+    }
+
+    public void setController(InventarioMaterialController controller) {
+        this.controller = controller;
     }
 
 }

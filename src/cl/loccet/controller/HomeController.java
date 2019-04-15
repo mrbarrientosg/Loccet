@@ -7,14 +7,9 @@ import cl.loccet.model.Trabajador;
 import cl.loccet.router.HomeRouter;
 import cl.loccet.router.MenuBarRouter;
 import cl.loccet.view.HomeView;
-import cl.loccet.view.MenuBarView;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 
 public class HomeController extends Controller {

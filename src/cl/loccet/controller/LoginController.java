@@ -3,7 +3,6 @@ package cl.loccet.controller;
 import cl.loccet.base.Controller;
 import cl.loccet.model.*;
 import cl.loccet.router.LoginRouter;
-import cl.loccet.util.ValidationResult;
 import cl.loccet.view.LoginView;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -43,8 +42,6 @@ public class LoginController extends Controller {
                 .especialidad(Especialidades.getInstance().get("Pintor"))
                 .localizacion(new Localizacion.Builder().build())
                 .build());
-
-
 
         router.showHome(c);
     }
