@@ -30,12 +30,12 @@ public class InventarioMaterial {
         }
 
     }
-    public void agregarMaterial(String idMaterial,int cantidad){
+    public void agregarMaterial(String idMaterial,double cantidad){
         Material material = mapInventarios.get(idMaterial);
         material.setCantidad(material.getCantidad()+cantidad);
         material.setFechaIngreso(new Date());
     }
-    public void retirarMaterial(String idMaterial,int cantidad){
+    public void retirarMaterial(String idMaterial,double cantidad){
         Material material = mapInventarios.get(idMaterial);
         material.setCantidad(material.getCantidad()-cantidad);
         material.setFechaRetiro(new Date());

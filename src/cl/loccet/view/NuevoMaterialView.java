@@ -9,6 +9,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import java.util.function.UnaryOperator;
+import java.util.regex.Pattern;
+
 public class NuevoMaterialView extends View {
 
     private InventarioMaterialController controller;
@@ -46,11 +49,14 @@ public class NuevoMaterialView extends View {
         unidadesDeMedida.add("M3");
         unidadesDeMedida.add("L");
         unidadCB.setItems(unidadesDeMedida);
-        cantidadTF.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                cantidadTF.setText(newValue.replaceAll("[^\\d]", ""));
-            }
+        Pattern pattern = Pattern.compile("\\d*|\\d+\\.\\d*");
+
+        TextFormatter formatter =  new TextFormatter<UnaryOperator>(change -> {
+            return pattern.matcher(change.getControlNewText()).matches() ? change : null;
         });
+
+        cantidadTF.setTextFormatter(formatter);
+
     }
 
     @Override
@@ -64,9 +70,9 @@ public class NuevoMaterialView extends View {
         Material material;
         try {
             if (lector.isEmpty())
-                material = new Material(nombreTF.getText(), descripcionTF.getText(), Integer.parseInt(cantidadTF.getText()), unidadCB.getSelectionModel().getSelectedItem().toString());
+                material = new Material(nombreTF.getText(), descripcionTF.getText(), Double.parseDouble(cantidadTF.getText()), unidadCB.getSelectionModel().getSelectedItem().toString());
             else
-                material = new Material(nombreTF.getText(), descripcionTF.getText(), Integer.parseInt(cantidadTF.getText()), unidadCB.getSelectionModel().getSelectedItem().toString(), lector);
+                material = new Material(nombreTF.getText(), descripcionTF.getText(), Double.parseDouble(cantidadTF.getText()), unidadCB.getSelectionModel().getSelectedItem().toString(), lector);
 
             controller.nuevoMaterial(material);
             clear();

@@ -5,11 +5,14 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox spacing="10.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<VBox spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox alignment="CENTER_LEFT" spacing="20.0">
          <children>
@@ -18,7 +21,7 @@
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="40.0" text="Modificar Material">
+            <Button fx:id="modificarMaterialBT" mnemonicParsing="false" onAction="#modificarMaterial" prefHeight="40.0" text="Modificar Material">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font>
@@ -45,6 +48,16 @@
                </font>
             </Button>
          </children>
+         <effect>
+            <Lighting>
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect>
       </HBox>
       <TableView fx:id="tablaInventario" prefHeight="600.0" prefWidth="792.0">
         <columns>
@@ -57,6 +70,16 @@
             <TableColumn fx:id="retiroCL" prefWidth="75.0" text="Retiro" />
             <TableColumn fx:id="fechaRetiroCL" prefWidth="75.0" text="Fecha retiro" />
         </columns>
+         <effect>
+            <Lighting>
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect>
       </TableView>
    </children>
    <padding>

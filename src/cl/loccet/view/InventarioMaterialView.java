@@ -5,12 +5,17 @@ import cl.loccet.base.View;
 import cl.loccet.controller.InventarioMaterialController;
 import cl.loccet.model.InventarioMaterial;
 import cl.loccet.model.Material;
+import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.StringConverter;
+
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
@@ -52,7 +57,7 @@ public class InventarioMaterialView extends View {
     @FXML
     private TableColumn<Material,String> descripcionCL;
     @FXML
-    private TableColumn<Material,Integer> cantidadCL;
+    private TableColumn<Material,Double> cantidadCL;
     @FXML
     private TableColumn<Material, Date> fechaIngresoCL;
     @FXML
@@ -62,7 +67,7 @@ public class InventarioMaterialView extends View {
     @FXML
     private TableColumn<Material, String> nombreMaterialCL;
     @FXML
-    private TableColumn<Material,Integer> retiroCL;
+    private TableColumn<Material,Double> retiroCL;
 
     ObservableList<InventarioMaterial> inventarios;
 

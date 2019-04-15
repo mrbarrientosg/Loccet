@@ -1,8 +1,4 @@
 package cl.loccet.model;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.Date;
 
 public class Material {
@@ -11,14 +7,14 @@ public class Material {
     private String id;
     private String nombre;
     private String descripcion;
-    private int cantidad;
-    private  int retiro;
+    private double cantidad;
+    private double retiro;
     private Date fechaRetiro;//Se define como string debido a que la funcion para cambiar el formato retorna un String.
     private Date  fechaIngreso;
     private String uds;
 
 
-    public Material(String nombre, String descripcion, int cantidad,String uds){
+    public Material(String nombre, String descripcion, double cantidad,String uds){
         this.descripcion = descripcion;
         this.cantidad = cantidad;
         this.nombre = nombre;
@@ -27,7 +23,7 @@ public class Material {
         fechaRetiro = null;
         fechaIngreso = new Date();
     }
-    public Material(String nombre, String descripcion, int cantidad,String uds,String id){
+    public Material(String nombre, String descripcion, double cantidad,String uds,String id){
         this.descripcion = descripcion;
         this.cantidad = cantidad;
         this.nombre = nombre;
@@ -57,11 +53,11 @@ public class Material {
         return fechaRetiro;
     }
 
-    public int getRetiro() {
+    public double getRetiro() {
         return retiro;
     }
 
-    public int getCantidad() {
+    public double getCantidad() {
         return cantidad;
     }
 
@@ -77,11 +73,11 @@ public class Material {
         this.descripcion = descripcion;
     }
 
-    public void setRetiro(int retiro) {
+    public void setRetiro(double retiro) {
         this.retiro = retiro;
     }
 
-    public void setCantidad(int cantidad) {
+    public void setCantidad(double cantidad) {
         this.cantidad = cantidad;
     }
 

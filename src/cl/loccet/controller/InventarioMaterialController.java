@@ -45,11 +45,11 @@ public class InventarioMaterialController extends Controller {
         model.nuevoItem(material);
         cargarDatos();
     }
-    public void agregarMaterial(String idMaterial,int cantidad){
+    public void agregarMaterial(String idMaterial,double cantidad){
         model.agregarMaterial(idMaterial,cantidad);
         cargarDatos();
     }
-    public void retirarMaterial(String idMaterial,int cantidad){
+    public void retirarMaterial(String idMaterial,double cantidad){
         model.retirarMaterial(idMaterial,cantidad);
         cargarDatos();
     }

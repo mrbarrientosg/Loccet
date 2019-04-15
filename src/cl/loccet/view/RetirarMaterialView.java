@@ -7,8 +7,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 
-
+import java.util.function.UnaryOperator;
+import java.util.regex.Pattern;
 
 
 public class RetirarMaterialView extends View {
@@ -30,11 +32,13 @@ public class RetirarMaterialView extends View {
 
     @Override
     public void viewDidLoad() {
-        retirarTF.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                retirarTF.setText(newValue.replaceAll("[^\\d]", ""));
-            }
+        Pattern pattern = Pattern.compile("\\d*|\\d+\\.\\d*");
+
+        TextFormatter formatter =  new TextFormatter<UnaryOperator>(change -> {
+            return pattern.matcher(change.getControlNewText()).matches() ? change : null;
         });
+
+        retirarTF.setTextFormatter(formatter);
     }
 
     @Override
@@ -49,8 +53,8 @@ public class RetirarMaterialView extends View {
     public void cantidadItem(ActionEvent event){
        try {
            String lector = retirarTF.getText();
-           int aux = Integer.parseInt(lector);
-           if (aux > material.getCantidad()) {
+           double aux = Double.parseDouble(lector);
+           if (Double.compare(aux,material.getCantidad())>0) {
                Alert alert = new Alert(Alert.AlertType.ERROR);
                alert.setTitle("Error");
                alert.setHeaderText("No hay suficiente material");

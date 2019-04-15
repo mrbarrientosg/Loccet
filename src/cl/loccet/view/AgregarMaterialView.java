@@ -7,8 +7,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 
-
+import java.util.function.UnaryOperator;
+import java.util.regex.Pattern;
 
 
 public class AgregarMaterialView extends View {
@@ -30,11 +32,13 @@ public class AgregarMaterialView extends View {
 
     @Override
     public void viewDidLoad() {
-        agregarTF.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                agregarTF.setText(newValue.replaceAll("[^\\d]", ""));
-            }
+        Pattern pattern = Pattern.compile("\\d*|\\d+\\.\\d*");
+
+        TextFormatter formatter =  new TextFormatter<UnaryOperator>(change -> {
+            return pattern.matcher(change.getControlNewText()).matches() ? change : null;
         });
+
+        agregarTF.setTextFormatter(formatter);
     }
 
     @Override
@@ -50,7 +54,7 @@ public class AgregarMaterialView extends View {
     @FXML
     public void cantidadItem(ActionEvent event){
         try {
-            controller.agregarMaterial(idMaterial, Integer.parseInt(agregarTF.getText()));
+            controller.agregarMaterial(idMaterial, Double.parseDouble(agregarTF.getText()));
             agregarTF.setText("");
             close();
         }catch (Exception e){
