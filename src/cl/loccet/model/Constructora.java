@@ -85,6 +85,7 @@ public class Constructora {
     public boolean agregarTrabajador(String idProyecto, Trabajador trabajador){
         if(mapProyecto.get(idProyecto) == null) return false;
         mapProyecto.get(idProyecto).agregarTrabajador(trabajador);
+        conjuntoTrabajadores.put(trabajador.getRut(), trabajador);
         return true;
     }
 
@@ -131,21 +132,13 @@ public class Constructora {
             if (t != null) break;
         }
 
-        return  conjuntoTrabajadores.remove(rut);
+        return conjuntoTrabajadores.remove(rut);
     }
 
-    /**
-     * Eliminar un trabajador de un proyecto
-     * @param idProyecto id del proyecto
-     * @param RUT rut del trabajador
-     * @return retorna el trabajador eliminado, si es null es porque no existe.
-     *
-     * @author Matias Barrientos
-     */
-    public Trabajador eliminarTrabajador(String idProyecto, String RUT) {
+    /*public Trabajador eliminarTrabajador(String idProyecto, String RUT) {
         if(mapProyecto.get(idProyecto) == null) return null;
         return mapProyecto.get(idProyecto).eliminarTrabajador(RUT);
-    }
+    }*/
 
     public Proyecto buscarProyecto(String idProyecto) {
         return mapProyecto.get(idProyecto);

@@ -47,18 +47,14 @@
             <SeparatorMenuItem mnemonicParsing="false" />
                 <MenuItem mnemonicParsing="false" onAction="#modificarProyecto" text="Modificar proyecto" />
                 <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" onAction="#eliminarProyecto" text="Eliminar Proyecto" />
+            <SeparatorMenuItem mnemonicParsing="false" />
                 <MenuItem mnemonicParsing="false" onAction="#avanceProyecto" text="Avance" />
             </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Inventario">
             <items>
-                <Menu mnemonicParsing="false" text="Materiales">
-                    <items>
-                        <MenuItem mnemonicParsing="false" onAction="#ingresoMateriales" text="Ingreso" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" onAction="#salidaMateriales" text="Salida" />
-                    </items>
-                </Menu>
+            <MenuItem mnemonicParsing="false" onAction="#inventarioMateriales" text="Materiales" />
                 <SeparatorMenuItem mnemonicParsing="false" />
                 <MenuItem mnemonicParsing="false" onAction="#equipoMaquinaria" text="Equipo y maquinaria" />
                 <SeparatorMenuItem mnemonicParsing="false" />

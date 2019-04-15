@@ -112,8 +112,13 @@ public class MenuBarView extends View {
     }
 
     @FXML
-    private void salidaMateriales(ActionEvent event) {
-        controller.salidaMateriales();
+    private void inventarioMateriales(ActionEvent event) {
+        controller.inventarioMateriales();
+    }
+
+    @FXML
+    private void eliminarProyecto(ActionEvent event) {
+        controller.eliminarProyecto();
     }
 
     @FXML

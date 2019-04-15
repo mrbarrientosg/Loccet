@@ -36,7 +36,7 @@ public class ListaTrabajadorController extends Controller implements EditTrabaja
         loadData();
     }
 
-    private void loadData() {
+    public void loadData() {
         trabajadorCells = FXCollections.observableList(model.getConjuntoTrabajadores().stream().map(TrabajadorCell::new).collect(Collectors.toList()));
     }
 

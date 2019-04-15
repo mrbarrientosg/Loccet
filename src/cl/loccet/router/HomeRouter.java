@@ -3,10 +3,9 @@ package cl.loccet.router;
 import cl.loccet.base.Injectable;
 import cl.loccet.controller.HomeController;
 import cl.loccet.model.Constructora;
+import cl.loccet.model.InventarioMaterial;
 import cl.loccet.model.Trabajador;
-import cl.loccet.view.ListaTrabajadorView;
-import cl.loccet.view.TrabajadorView;
-import cl.loccet.view.HomeView;
+import cl.loccet.view.*;
 import javafx.application.Platform;
 
 public class HomeRouter {
@@ -95,8 +94,10 @@ public class HomeRouter {
         master.setCenter(trabajadorView.getRoot());
     }
 
-    public void nuevoProyecto() {
+    public void nuevoProyecto(Constructora model) {
+        AgregarProyectoView view = AgregarProyectoRouter.create(model);
 
+        master.setCenter(view.getRoot());
     }
 
     public void reporteIngresoGasto() {
@@ -111,8 +112,10 @@ public class HomeRouter {
 
     }
 
-    public void salidaMateriales() {
+    public void inventarioMateriales(InventarioMaterial model) {
+        InventarioMaterialView inventarioMaterialView = InventarioMaterialRouter.create(model);
 
+        master.setCenter(inventarioMaterialView.getRoot());
     }
 
     public void salir() {

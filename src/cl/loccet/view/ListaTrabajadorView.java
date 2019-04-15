@@ -77,6 +77,8 @@ public class ListaTrabajadorView extends View {
 
     @FXML
     void actualizarTabla(ActionEvent event) {
+        controller.loadData();
+        tableView.setItems(controller.getTrabajadorCells());
         tableView.refresh();
     }
 

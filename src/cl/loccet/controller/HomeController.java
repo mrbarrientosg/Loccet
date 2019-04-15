@@ -75,8 +75,9 @@ public class HomeController extends Controller {
                 System.out.println("Ingrese el rut del trabajador:");
                 rut = reader.readLine();
                 t = model.eliminarTrabajador(rut);
-                System.out.println(t);
             } while (t == null);
+
+            System.out.println("Trabajador eliminado de la Constructora");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -88,7 +89,7 @@ public class HomeController extends Controller {
         Trabajador t = null;
 
         for (Proyecto p: model.getListaProyecto()) {
-            System.out.println(String.valueOf(p.getId()) + "/t" + p.getNombreProyecto());
+            System.out.println(String.valueOf(p.getId()) + "\t" + p.getNombreProyecto());
         }
 
         String id;
@@ -101,16 +102,20 @@ public class HomeController extends Controller {
             do {
                 System.out.println("Ingrese el id del proyecto:");
                 id = reader.readLine();
-                p = model.buscarProyecto(Integer.parseInt(id));
+                p = model.buscarProyecto(id);
 
 
                 if (p != null) {
                     System.out.println("Ingrese el rut del trabajador:");
                     rut = reader.readLine();
                     t = p.eliminarTrabajador(rut);
+                    if (t == null)
+                        System.out.println("No existe el trabajador");
+                    else
+                        System.out.println("Trabajador eliminado del proyecto");
                 }
 
-            } while (t != null || p != null);
+            } while (p == null);
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -144,16 +149,20 @@ public class HomeController extends Controller {
     }
 
     public void nuevoProyecto() {
-
+        router.nuevoProyecto(model);
     }
-    public void eliminarProyecto() throws IOException {
+
+    public void eliminarProyecto() {
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
-        Proyecto proyecto;
-        do{
+        Proyecto proyecto = null;
+        do {
             System.out.println("Ingrese id del proyecto");
-            int aux = Integer.parseInt(lector.readLine());
-            proyecto = model.eliminarProyecto(aux);
-        }while(proyecto == null);
+            try {
+                proyecto = model.eliminarProyecto(lector.readLine());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } while(proyecto == null);
         System.out.println("El proyecto se ha eliminado satisfactoriamente!");
     }
 
@@ -169,8 +178,19 @@ public class HomeController extends Controller {
 
     }
 
-    public void salidaMateriales() {
+    public void inventarioMateriales() {
+        BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
+        Proyecto proyecto = null;
+        do {
+            System.out.println("Ingrese id del proyecto");
+            try {
+                proyecto = model.buscarProyecto(lector.readLine());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } while(proyecto == null);
 
+        router.inventarioMateriales(proyecto.getInventarioMaterial());
     }
 
     public void salir() {

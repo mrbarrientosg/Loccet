@@ -28,6 +28,8 @@ public class Proyecto {
 
     private HashMap<String, Trabajador> mapTrabajadores;
 
+    private InventarioMaterial inventarioMaterial;
+
 
     // TODO: Implementar inventario materiales.
 
@@ -50,17 +52,11 @@ public class Proyecto {
         this.ciudad = builder.ciudad;
         this.fechaInicio = builder.fechaInicio;
         this.fechaTermino = builder.fechaTermino;
-    }
 
-    public Proyecto(String id, double estimacion, double costoReal, LocalDate fechaInicio, LocalDate fechaTermino, LocalDate fechaTerminoReal) {
-        this.id = id;
-        this.fechaTerminoReal = fechaTerminoReal;
-        this.fechaInicio = fechaInicio;
-        this.fechaTermino = fechaTermino;
-        this.estimacion = estimacion;
-        this.costoReal = costoReal;
         listaTrabajadores = new ArrayList<>();
         mapTrabajadores = new HashMap<>();
+
+        inventarioMaterial = new InventarioMaterial();
     }
 
     // MARK: - Setter
@@ -129,6 +125,10 @@ public class Proyecto {
 
     public double getCostoReal() {
         return costoReal;
+    }
+
+    public InventarioMaterial getInventarioMaterial() {
+        return inventarioMaterial;
     }
 
     // MARK: - Metodos

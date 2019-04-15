@@ -13,6 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.BorderPane;
 import javafx.util.StringConverter;
 
 import java.text.NumberFormat;
@@ -158,8 +159,8 @@ public class InventarioMaterialView extends View {
     }
 
     @FXML
-    public void salirInventario(ActionEvent event){
-        //SALIR DE LA VISTAAAAA.
+    public void salir(ActionEvent event){
+        ((BorderPane) getRoot().getParent()).getChildren().remove(getRoot());
     }
 
     @FXML

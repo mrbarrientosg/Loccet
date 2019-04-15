@@ -6,6 +6,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
+
 import java.util.Optional;
 
 /**
@@ -84,8 +86,7 @@ public class AgregarProyectoView extends View {
         Optional<ButtonType> result = alert.showAndWait();
         if(result.isPresent()){
             if(result.get() == ButtonType.OK){
-                close();
-                Injectable.find(HomeView.class).window().show();
+                ((BorderPane) getRoot().getParent()).getChildren().remove(getRoot());
             }
             else{
                 alert.close();
