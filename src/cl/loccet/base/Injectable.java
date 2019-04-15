@@ -16,7 +16,7 @@ import java.util.HashMap;
  */
 public final class Injectable {
 
-    private static final HashMap<Class, Component> vistas = new HashMap<>();
+    private static final HashMap<Class, Instance> vistas = new HashMap<>();
 
     private static Stage primaryStage;
 
@@ -36,28 +36,44 @@ public final class Injectable {
         return (T) result;
     }
 
-    private static Component getOrCreate(Class<? extends Component> type, String path) {
-        Component injectable;
-        Boolean constructed;
+    private static <T extends Component> T getOrCreate(Class<T> type, String path) {
+        T injectable;
 
-        if (vistas.containsKey(type)) {
-            injectable = vistas.get(type);
-            constructed = false;
-        } else {
-            try {
-                injectable = type.newInstance();
-                vistas.put(type, injectable);
-                constructed = true;
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
+        if (Instance.class.isAssignableFrom(type)) {
+            if (!vistas.containsKey(type)) {
+                try {
+                    injectable = type.newInstance();
+
+                    if (UIComponent.class.isAssignableFrom(injectable.getClass())) {
+                        UIComponent component = (UIComponent) injectable;
+
+                        component.loadFXML(path);
+                        component.init();
+                    }
+
+                    vistas.put(type, (Instance) injectable);
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
             }
+
+            injectable = (T) vistas.get(type);
+
+            return injectable;
         }
 
-        if (constructed && UIComponent.class.isAssignableFrom(injectable.getClass())) {
-            UIComponent component = (UIComponent) injectable;
+        try {
+            injectable = type.newInstance();
 
-            component.loadFXML(path);
-            component.init();
+            if (UIComponent.class.isAssignableFrom(injectable.getClass())) {
+                UIComponent component = (UIComponent) injectable;
+
+                component.loadFXML(path);
+                component.init();
+            }
+            // Fragment
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
         }
 
         return injectable;

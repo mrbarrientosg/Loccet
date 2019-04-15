@@ -1,9 +1,9 @@
 package cl.loccet;
 
 import cl.loccet.base.Injectable;
-import cl.loccet.model.InventarioMaterial;
-import cl.loccet.router.InventarioMaterialRouter;
-import cl.loccet.view.InventarioMaterialView;
+import cl.loccet.model.Especialidades;
+import cl.loccet.router.LoginRouter;
+import cl.loccet.view.LoginView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -16,16 +16,15 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        Especialidades.createFakeData();
         Injectable.setPrimaryStage(primaryStage);
 
-        InventarioMaterial inventario = new InventarioMaterial();
+        LoginView loginView = LoginRouter.create();
 
-        InventarioMaterialView inventarioView = InventarioMaterialRouter.create(inventario);
-
-        Scene scene = new Scene(inventarioView.getRoot());
+        Scene scene = new Scene(loginView.getRoot());
 
         primaryStage.setResizable(false);
-        primaryStage.titleProperty().bind(inventarioView.getTitleProperty());
+        primaryStage.titleProperty().bind(loginView.getTitleProperty());
         primaryStage.setScene(scene);
         primaryStage.show();
     }

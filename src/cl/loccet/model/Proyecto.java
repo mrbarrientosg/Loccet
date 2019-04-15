@@ -1,5 +1,5 @@
 package cl.loccet.model;
-
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -7,14 +7,19 @@ import java.util.HashMap;
 public class Proyecto {
 
     // MARK: - Variables
-    private int id;
-
-    private Date fechaInicio;
-
-    private Date fechaTermino;
-
-    private Date fechaTerminoReal;
-
+    private String id;
+    private String nombreProyecto;
+    private String jefeProyecto;
+    private String mailCliente;
+    private String cliente;
+    private String telefonoCliente;
+    private String direccion;
+    private String pais;
+    private String ciudad;
+    private String estado;
+    private LocalDate fechaInicio;
+    private LocalDate fechaTermino;
+    private LocalDate fechaTerminoReal;
     private double estimacion;
 
     private double costoReal;
@@ -23,6 +28,7 @@ public class Proyecto {
 
     private HashMap<String, Trabajador> mapTrabajadores;
 
+
     // TODO: Implementar inventario materiales.
 
     // TODO: Implementar equipo y maquinarias.
@@ -30,7 +36,23 @@ public class Proyecto {
 
     // MARK: - Constructor
 
-    public Proyecto(int id, double estimacion, double costoReal, Date fechaInicio, Date fechaTermino, Date fechaTerminoReal) {
+    private Proyecto(Builder builder){
+        this.id = builder.id;
+        this.nombreProyecto = builder.nombreProyecto;
+        this.jefeProyecto = builder.jefeProyecto;
+        this.estimacion = builder.estimacion;
+        this.cliente = builder.cliente;
+        this.telefonoCliente = builder.telefonoCliente;
+        this.mailCliente = builder.mailCliente;
+        this.direccion = builder.direccion;
+        this.pais = builder.pais;
+        this.estado = builder.estado;
+        this.ciudad = builder.ciudad;
+        this.fechaInicio = builder.fechaInicio;
+        this.fechaTermino = builder.fechaTermino;
+    }
+
+    public Proyecto(String id, double estimacion, double costoReal, LocalDate fechaInicio, LocalDate fechaTermino, LocalDate fechaTerminoReal) {
         this.id = id;
         this.fechaTerminoReal = fechaTerminoReal;
         this.fechaInicio = fechaInicio;
@@ -43,25 +65,61 @@ public class Proyecto {
 
     // MARK: - Setter
 
-    public void setFechaTerminoReal(Date fechaTerminoReal){
+    public void setFechaTerminoReal(LocalDate fechaTerminoReal){
         this.fechaTerminoReal = fechaTerminoReal;
+    }
+
+    public void setCostoReal(double costoReal) {
+        this.costoReal = costoReal;
     }
 
     // MARK: - Getter
 
-    public Date getFechaTerminoReal() {
+    public LocalDate getFechaTerminoReal() {
         return fechaTerminoReal;
     }
 
-    public Date getFechaInicio() {
+    public LocalDate getFechaInicio() {
         return fechaInicio;
     }
 
-    public Date getFechaTermino() {
+    public LocalDate getFechaTermino() {
         return fechaTermino;
     }
 
-    public int getId() {
+    public String getNombreProyecto() {
+        return nombreProyecto;
+    }
+
+    public String getJefeProyecto() {
+        return jefeProyecto;
+    }
+
+    public String getMailCliente() {
+        return mailCliente;
+    }
+
+    public String getTelefonoCliente() {
+        return telefonoCliente;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public String getId() {
         return id;
     }
 
@@ -127,4 +185,58 @@ public class Proyecto {
         listaTrabajadores.remove(mapTrabajadores.get(RUT));
         return mapTrabajadores.remove(RUT);
     }
+    public static class Builder {
+        private final String id;
+        private String nombreProyecto;
+        private String jefeProyecto;
+        private String cliente;
+        private String mailCliente;
+        private String telefonoCliente;
+        private String direccion;
+        private String pais;
+        private String ciudad;
+        private String estado;
+        private LocalDate fechaInicio;
+        private LocalDate fechaTermino;
+        private String fechaTerminoReal;
+        private double estimacion;
+        private double costoReal;
+
+        public Builder(String id, String nombreProyecto, String jefeProyecto, Double estimacion, String cliente){
+            if(id == null || nombreProyecto == null){
+                throw new IllegalArgumentException("id, nombreProyecto, jefeProyecto, estimacion, Cliente no pueden estar vacias");
+            }
+            this.id = id;
+            this.nombreProyecto = nombreProyecto;
+            this.jefeProyecto = jefeProyecto;
+            this.estimacion = estimacion;
+            this.cliente = cliente;
+        }
+
+        public Builder datosCliente(String mailCliente, String telefonoCliente) {
+            this.mailCliente = mailCliente;
+            this.telefonoCliente = telefonoCliente;
+            return this;
+        }
+
+        public Builder datosUbicacion(String direccion, String pais, String ciudad, String estado) {
+            this.direccion = direccion;
+            this.pais = pais;
+            this.ciudad = ciudad;
+            this.estado = estado;
+            return this;
+        }
+
+        public Builder fechaProyecto(LocalDate fechaInicio, LocalDate fechaTermino/*, String fechaTerminoReal*/) {
+            this.fechaInicio = fechaInicio;
+            this.fechaTermino = fechaTermino;
+            // this.fechaTerminoReal = fechaTerminoReal;
+            return this;
+        }
+        public Proyecto build(){
+            return new Proyecto(this);
+        }
+    }
+
+
 }
