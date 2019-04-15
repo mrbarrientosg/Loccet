@@ -61,7 +61,7 @@ public class NuevoMaterialView extends View {
 
     @Override
     public void viewDidClose() {
-
+        clear();
     }
 
     @FXML
@@ -75,7 +75,6 @@ public class NuevoMaterialView extends View {
                 material = new Material(nombreTF.getText(), descripcionTF.getText(), Double.parseDouble(cantidadTF.getText()), unidadCB.getSelectionModel().getSelectedItem().toString(), lector);
 
             controller.nuevoMaterial(material);
-            clear();
             close();
         }catch (Exception e){
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -92,7 +91,6 @@ public class NuevoMaterialView extends View {
         cantidadTF.setText("");
     }
     public void salir(ActionEvent event){
-        clear();
         close();
     }
 

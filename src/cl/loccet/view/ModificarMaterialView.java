@@ -35,7 +35,8 @@ public class ModificarMaterialView extends View {
 
     @Override
     public void viewDidClose() {
-
+        modificarIdTF.setText("");
+        modificarDescripcionTA.setText("");
     }
 
     public void setIdMaterial(String idMaterial) {
@@ -56,15 +57,11 @@ public class ModificarMaterialView extends View {
         else {
             if (!nombre.isEmpty()) controller.modificarNombre(idMaterial,nombre);
             if (!descripcion.isEmpty()) controller.modificarDescripcion(idMaterial,descripcion);
-            modificarIdTF.setText("");
-            modificarDescripcionTA.setText("");
             close();
         }
     }
 
    @FXML public void cancelar(ActionEvent event){
-        modificarDescripcionTA.setText("");
-        modificarIdTF.setText("");
         close();
     }
 

@@ -43,7 +43,7 @@ public class AgregarMaterialView extends View {
 
     @Override
     public void viewDidClose() {
-
+        agregarTF.setText("");
     }
 
 
@@ -55,7 +55,7 @@ public class AgregarMaterialView extends View {
     public void cantidadItem(ActionEvent event){
         try {
             controller.agregarMaterial(idMaterial, Double.parseDouble(agregarTF.getText()));
-            agregarTF.setText("");
+
             close();
         }catch (Exception e){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -67,7 +67,6 @@ public class AgregarMaterialView extends View {
     }
 
     public void cancelar(ActionEvent event){
-        agregarTF.setText("");
         close();
     }
 

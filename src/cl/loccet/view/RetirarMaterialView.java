@@ -43,7 +43,7 @@ public class RetirarMaterialView extends View {
 
     @Override
     public void viewDidClose() {
-
+        retirarTF.setText("");
     }
     public void setMaterial(Material material){
         this.material = material;
@@ -62,7 +62,6 @@ public class RetirarMaterialView extends View {
                alert.showAndWait();
            } else {
                controller.retirarMaterial(material.getId(), aux);
-               retirarTF.setText("");
                close();
            }
        }catch (Exception e){
@@ -75,7 +74,6 @@ public class RetirarMaterialView extends View {
     }
 
     public void cancelar(ActionEvent event){
-        retirarTF.setText("");
         close();
     }
 
