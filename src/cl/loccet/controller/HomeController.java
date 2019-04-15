@@ -2,6 +2,7 @@ package cl.loccet.controller;
 
 import cl.loccet.base.Controller;
 import cl.loccet.model.Constructora;
+import cl.loccet.model.Proyecto;
 import cl.loccet.model.Trabajador;
 import cl.loccet.router.HomeRouter;
 import cl.loccet.router.MenuBarRouter;
@@ -9,6 +10,11 @@ import cl.loccet.view.HomeView;
 import cl.loccet.view.MenuBarView;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class HomeController extends Controller {
 
@@ -91,6 +97,16 @@ public class HomeController extends Controller {
 
     public void nuevoProyecto() {
 
+    }
+    public void eliminarProyecto() throws IOException {
+        BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
+        Proyecto proyecto;
+        do{
+            System.out.println("Ingrese id del proyecto");
+            int aux = Integer.parseInt(lector.readLine());
+            proyecto = model.eliminarProyecto(aux);
+        }while(proyecto == null);
+        System.out.println("El proyecto se ha eliminado satisfactoriamente!");
     }
 
     public void reporteIngresoGasto() {

@@ -52,6 +52,9 @@ public class Constructora {
         mapProyecto.put(proyecto.getId(),proyecto);
     }
 
+    public Proyecto eliminarProyecto(int id){
+        return mapProyecto.remove(id);
+    }
 
     public boolean agregarTrabajador(Trabajador trabajador){
         if (conjuntoTrabajadores.get(trabajador.getRut()) != null) return false;
