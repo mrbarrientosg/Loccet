@@ -7,6 +7,7 @@ import cl.loccet.model.Proyecto;
 import cl.loccet.router.AgregarProyectoRouter;
 import cl.loccet.view.AgregarProyectoView;
 import cl.loccet.view.HomeView;
+import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
@@ -19,37 +20,14 @@ public class AgregarProyectoController extends Controller {
 
     private AgregarProyectoView view;
     private AgregarProyectoRouter router;
-    private Proyecto model;
+    private Constructora model;
 
-    public AgregarProyectoController(AgregarProyectoView view, Proyecto model, AgregarProyectoRouter router){
+    public AgregarProyectoController(AgregarProyectoView view, Constructora model, AgregarProyectoRouter router){
         this.view = view;
         this.model = model;
         this.router = router;
     }
 
-    public AgregarProyectoView getView() {
-        return view;
-    }
-
-    public void setView(AgregarProyectoView view) {
-        this.view = view;
-    }
-
-    public AgregarProyectoRouter getRouter() {
-        return router;
-    }
-
-    public void setRouter(AgregarProyectoRouter router) {
-        this.router = router;
-    }
-
-    public Proyecto getModel() {
-        return model;
-    }
-
-    public void setModel(Proyecto model) {
-        this.model = model;
-    }
 
     /**
      * @return un string basandose en el nombre del proyecto
@@ -80,9 +58,16 @@ public class AgregarProyectoController extends Controller {
                 .datosUbicacion(direccion.getText(),pais.getText(),ciudad.getText(),estado.getText())
                 .fechaProyecto(fechaF.getValue(),fechaT.getValue())
                 .build();
-        Constructora constructora = new Constructora("RUT", "NOMBRE");
-        constructora.agregarProyecto(proyecto);
+        model.agregarProyecto(proyecto);
         router.showInformation("Agregado satisfactoriamente", nombreP);
         //TODO: Aqui se cierra la vista
+    }
+
+    public Alert showAlert(String mensaje) {
+        return router.showAlert(mensaje);
+    }
+
+    public Alert showWarning(String mensaje) {
+        return router.showWarning(mensaje);
     }
 }

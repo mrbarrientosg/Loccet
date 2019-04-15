@@ -1,6 +1,10 @@
 package cl.loccet;
 
 import cl.loccet.base.Injectable;
+import cl.loccet.model.Constructora;
+import cl.loccet.router.AgregarProyectoRouter;
+import cl.loccet.view.AgregarProyectoView;
+import cl.loccet.view.AgregarTrabajadorView;
 import cl.loccet.view.LoginView;
 import javafx.application.Application;
 import javafx.scene.Scene;

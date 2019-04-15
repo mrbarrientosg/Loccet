@@ -62,12 +62,12 @@ public class AgregarProyectoView extends View {
     @FXML private void apretarAceptar(){
         if(nombreP.getText().isEmpty() || jefeP.getText().isEmpty() || montoC.getText().isEmpty()|| cliente.getText().isEmpty()|| telefonoC.getText().isEmpty() || mailC.getText().isEmpty() || direccion.getText().isEmpty() ||ciudad.getText().isEmpty()||estado.getText().isEmpty()||pais.getText().isEmpty() ||
                 fechaF.getEditor().getText().isEmpty() || fechaT.getEditor().getText().isEmpty()){
-                Alert alert = controller.getRouter().showAlert("Existen casillas sin rellenar!");
+                Alert alert = controller.showAlert("Existen casillas sin rellenar!");
                 Optional<ButtonType> result = alert.showAndWait();
                 System.out.println("campos vacios");
         }
         else if(fechaF.getValue().isAfter(fechaT.getValue())){
-            Alert alert = controller.getRouter().showAlert("Las fechas ingresadas no coinciden.");
+            Alert alert = controller.showAlert("Las fechas ingresadas no coinciden.");
             Optional<ButtonType> result = alert.showAndWait();
         }
         else{
@@ -80,7 +80,7 @@ public class AgregarProyectoView extends View {
         }
     }
     @FXML private void apretarCancelar(){
-        Alert alert = controller.getRouter().showWarning("Esta seguro que desea cancelar?");
+        Alert alert = controller.showWarning("Esta seguro que desea cancelar?");
         Optional<ButtonType> result = alert.showAndWait();
         if(result.isPresent()){
             if(result.get() == ButtonType.OK){
