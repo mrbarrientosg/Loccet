@@ -93,6 +93,9 @@ public class Material {
         this.fechaRetiro = fechaRetiro;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
 
     private final String generarId(){
         String result = java.util.UUID.randomUUID().toString();

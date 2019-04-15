@@ -31,7 +31,11 @@ public class AgregarMaterialView extends View {
 
     @Override
     public void viewDidLoad() {
-
+        agregarTF.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                agregarTF.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
     }
 
     @Override
@@ -39,19 +43,6 @@ public class AgregarMaterialView extends View {
 
     }
 
-    private static boolean isNumeric(String cadena) {
-
-        boolean resultado;
-
-        try {
-            Integer.parseInt(cadena);
-            resultado = true;
-        } catch (NumberFormatException excepcion) {
-            resultado = false;
-        }
-
-        return resultado;
-    }
 
     public void setMaterial(Material material){
         this.material = material;
@@ -59,17 +50,16 @@ public class AgregarMaterialView extends View {
 
     @FXML
     public void cantidadItem(ActionEvent event){
-        String lector = agregarTF.getText();
-        if (!isNumeric(lector)){
+        try {
+            controller.agregarMaterial(material, Integer.parseInt(agregarTF.getText()));
+            agregarTF.setText("");
+            close();
+        }catch (Exception e){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Ingreso de datos invalido");
             alert.setContentText("Por favor ingresar un numero");
             alert.showAndWait();
-        }
-        else{
-            controller.agregarMaterial(material,Integer.parseInt(lector));
-            close();
         }
     }
 

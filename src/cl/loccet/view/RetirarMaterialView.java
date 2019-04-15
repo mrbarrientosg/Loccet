@@ -30,57 +30,44 @@ public class RetirarMaterialView extends View {
 
     @Override
     public void viewDidLoad() {
-
+        retirarTF.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                retirarTF.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
     }
 
     @Override
     public void viewDidClose() {
 
     }
-
-    private static boolean isNumeric(String cadena) {
-
-        boolean resultado;
-
-        try {
-            Integer.parseInt(cadena);
-            resultado = true;
-        } catch (NumberFormatException excepcion) {
-            resultado = false;
-        }
-
-        return resultado;
-    }
-
     public void setMaterial(Material material){
         this.material = material;
     }
 
     @FXML
     public void cantidadItem(ActionEvent event){
-        String lector = retirarTF.getText();
-        if (!isNumeric(lector)){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Ingreso de datos invalido");
-            alert.setContentText("Por favor ingresar un numero");
-            alert.showAndWait();
-        }
-        else{
-            int aux = Integer.parseInt(lector);
-            if (aux > material.getCantidad()){
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("No hay suficiente material");
-                alert.setContentText("La cantidad de material a retirar es mayor al que se tiene");
-                alert.showAndWait();
-            }
-            else {
-                controller.retirarMaterial(material,aux);
-                retirarTF.setText("");
-                close();
-            }
-        }
+       try {
+           String lector = retirarTF.getText();
+           int aux = Integer.parseInt(lector);
+           if (aux > material.getCantidad()) {
+               Alert alert = new Alert(Alert.AlertType.ERROR);
+               alert.setTitle("Error");
+               alert.setHeaderText("No hay suficiente material");
+               alert.setContentText("La cantidad de material a retirar es mayor al que se tiene");
+               alert.showAndWait();
+           } else {
+               controller.retirarMaterial(material, aux);
+               retirarTF.setText("");
+               close();
+           }
+       }catch (Exception e){
+           Alert alert = new Alert(Alert.AlertType.ERROR);
+           alert.setTitle("Error");
+           alert.setHeaderText("Ingreso de datos invalido");
+           alert.setContentText("Por favor ingresar un numero");
+           alert.showAndWait();
+       }
     }
 
     public void cancelar(ActionEvent event){

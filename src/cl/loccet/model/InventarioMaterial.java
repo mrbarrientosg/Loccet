@@ -40,6 +40,15 @@ public class InventarioMaterial {
         material.setRetiro(cantidad);
     }
 
+    public void modificarNombre(Material material,String nombre){
+
+        material.setNombre(nombre);
+
+    }
+    public void modificarDescripcion(Material material,String descripcion){
+        material.setDescripcion(descripcion);
+    }
+
     public void eliminarItem(Material material){
      listaInventarios.remove(material);
      mapInventarios.remove(material.getId());

@@ -30,6 +30,8 @@ public class InventarioMaterialView extends View {
 
     //Botones.
     @FXML
+    private Button modificarMaterialBT;
+    @FXML
     private Button retirarBT;
     @FXML
     private Button eleminarBT;
@@ -94,6 +96,27 @@ public class InventarioMaterialView extends View {
         return null;
     }
 
+    @FXML public void modificarMaterial(ActionEvent event){
+        Material material = seleccion();
+        if(material!=null) {
+            ModificarMaterialView view = Injectable.find(ModificarMaterialView.class);
+            view.setMaterial(material);
+            view.setController(controller);
+            view.modal().withBlock(true).show();
+            tablaInventario.setItems(controller.obtenerDatos());
+            tablaInventario.refresh();
+
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Seliccionar material");
+            alert.setContentText("Por favor seleccione material a modificar");
+            alert.showAndWait();
+        }
+
+    }
+
     @FXML public void agregarMaterial(ActionEvent event){
         Material material = seleccion();
         if(material!=null) {
@@ -104,7 +127,11 @@ public class InventarioMaterialView extends View {
             tablaInventario.refresh();
         }
         else{
-            //VERIFICACIONESSSSSSSS****.
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Seliccionar material");
+            alert.setContentText("Por favor seleccione material a agregar");
+            alert.showAndWait();
         }
     }
     @FXML public void retirarMaterial(ActionEvent event){
@@ -117,10 +144,18 @@ public class InventarioMaterialView extends View {
             tablaInventario.refresh();
         }
         else{
-            //VERIFICACIONESSSSSSSS****.
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Seliccionar material");
+            alert.setContentText("Por favor seleccione material a retirar");
+            alert.showAndWait();
         }
     }
 
+    @FXML
+    public void salirInventario(ActionEvent event){
+        //SALIR DE LA VISTAAAAA.
+    }
 
     @FXML
     public void eliminar(ActionEvent event){
@@ -136,6 +171,13 @@ public class InventarioMaterialView extends View {
                 tablaInventario.refresh();
             }
 
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Seliccionar material");
+            alert.setContentText("Por favor seleccione material a eliminar");
+            alert.showAndWait();
         }
     }
 

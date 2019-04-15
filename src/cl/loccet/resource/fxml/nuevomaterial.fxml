@@ -37,7 +37,7 @@
             <ComboBox fx:id="unidadCB" layoutX="234.0" layoutY="235.0" prefHeight="25.0" prefWidth="81.0" />
             <Button fx:id="agregarBT" layoutY="281.0" mnemonicParsing="false" onAction="#nuevoMaterial" text="AGREGAR" translateX="100.0" />
             <Button fx:id="cancelarBT" layoutX="325.0" layoutY="281.0" mnemonicParsing="false" onAction="#salir" text="CANCELAR" translateX="-100.0" />
-            <Label layoutX="259.0" layoutY="28.0" prefHeight="17.0" prefWidth="81.0" text="ID MATERIAL">
+            <Label layoutX="248.0" layoutY="28.0" prefHeight="17.0" prefWidth="134.0" text="ID MATERIAL(opcional)">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font>
