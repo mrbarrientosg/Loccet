@@ -74,8 +74,7 @@ public class AgregarProyectoView extends View {
         }
         else{
             controller.presionarAceptar(nombreP,jefeP,montoC,cliente,telefonoC,mailC,direccion,ciudad,estado,pais,fechaF,fechaT);
-            close();
-            Injectable.find(HomeView.class).window().show();
+            ((BorderPane) getRoot().getParent()).getChildren().remove(getRoot());
             //System.out.println("nombre:" + proyecto.getNombreProyecto() + "id: " + proyecto.getId());
             //TODO: No guarda aún trabajadores
 
