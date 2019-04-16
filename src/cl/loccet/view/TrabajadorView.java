@@ -79,6 +79,7 @@ public class TrabajadorView extends View {
         rutTextField.requestFocus();
     }
 
+    @FXML
     private void saveHandler(ActionEvent event) {
         controller.guardarTrabajador();
     }

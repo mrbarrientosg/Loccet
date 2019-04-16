@@ -14,7 +14,12 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import java.time.LocalDate;
 
-public class TrabajadorController extends Controller {
+/**
+ * Controlador para la vista Trabajador
+ *
+ * @author Matias Barrientos
+ */
+public final class TrabajadorController extends Controller {
 
     private TrabajadorView view;
 
@@ -78,7 +83,11 @@ public class TrabajadorController extends Controller {
         isEditing = false;
     }
 
-
+    /**
+     * Guarda el nuevo o editado trabajador en el modelo
+     *
+     * @author Matias Barrientos
+     */
     public void guardarTrabajador() {
         if (!validarTrabajador()) return;
 
@@ -215,6 +224,12 @@ public class TrabajadorController extends Controller {
         return true;
     }
 
+    /**
+     * Si el controlador esta en modo editar, llena los campos
+     * de la vista.
+     *
+     * @author Matias Barrientos
+     */
     public void bindEditProperty() {
         if (!isEditing || oldTrabajador == null) return;
 
@@ -234,14 +249,13 @@ public class TrabajadorController extends Controller {
         email.setValue(oldTrabajador.getCorreoElectronico());
     }
 
-    public void setIsEditing(boolean value) {
-        this.isEditing = value;
-        bindEditProperty();
-    }
-
     public void setOldTrabajador(Trabajador oldTrabajador) {
         this.oldTrabajador = oldTrabajador;
-        bindEditProperty();
+
+        if (oldTrabajador != null) isEditing = true;
+        else isEditing = false;
+
+        view.loadView();
     }
 
     public void setModel(Constructora model) {

@@ -67,7 +67,6 @@ public class Constructora {
         return conjuntoTrabajadores.put(nuevoTrabajador.getRut(), nuevoTrabajador);
     }
 
-
     public boolean agregarTrabajador(Trabajador trabajador){
         if (conjuntoTrabajadores.get(trabajador.getRut()) != null) return false;
         conjuntoTrabajadores.put(trabajador.getRut(), trabajador);
@@ -83,7 +82,7 @@ public class Constructora {
      * @author Matias Barrientos
      */
     public boolean agregarTrabajador(String idProyecto, Trabajador trabajador){
-        if(mapProyecto.get(idProyecto) == null) return false;
+        if (mapProyecto.get(idProyecto) == null) return false;
         mapProyecto.get(idProyecto).agregarTrabajador(trabajador);
         conjuntoTrabajadores.put(trabajador.getRut(), trabajador);
         return true;
