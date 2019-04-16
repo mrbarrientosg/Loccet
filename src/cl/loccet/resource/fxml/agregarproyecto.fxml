@@ -13,83 +13,84 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="670.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <GridPane>
+      <GridPane hgap="8.0" vgap="5.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="187.0" minWidth="10.0" prefWidth="161.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="154.0" minWidth="10.0" prefWidth="131.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="172.0" minWidth="10.0" prefWidth="155.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="172.0" minWidth="10.0" prefWidth="119.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="97.0" minHeight="10.0" prefHeight="36.0" />
-          <RowConstraints maxHeight="59.0" minHeight="1.0" prefHeight="32.0" />
-          <RowConstraints maxHeight="59.0" minHeight="1.0" prefHeight="36.0" />
-            <RowConstraints maxHeight="53.0" minHeight="0.0" prefHeight="36.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="48.0" minHeight="6.0" prefHeight="12.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="74.0" minHeight="0.0" prefHeight="36.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="127.0" minHeight="0.0" prefHeight="36.0" />
-            <RowConstraints maxHeight="110.0" minHeight="0.0" prefHeight="36.0" />
-            <RowConstraints maxHeight="96.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="97.0" minHeight="1.0" prefHeight="36.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="142.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" />
+          <RowConstraints minHeight="1.0" prefHeight="30.0" />
+          <RowConstraints minHeight="1.0" prefHeight="30.0" />
+            <RowConstraints minHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="0.0" prefHeight="30.0" />
+            <RowConstraints minHeight="0.0" prefHeight="30.0" />
+            <RowConstraints minHeight="1.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label prefHeight="20.0" prefWidth="231.0" text="Registro de Datos Generales" translateX="20.0" GridPane.columnSpan="2">
+            <Label prefHeight="20.0" prefWidth="231.0" text="Registro de Datos Generales" GridPane.columnSpan="2">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label text="Nombre del Proyecto" translateX="20.0" GridPane.rowIndex="1" />
-            <Label text="Jefe de proyecto" translateX="20.0" GridPane.rowIndex="2" />
-            <Label text="Cliente" translateX="20.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Label text="Monto Contractual" translateX="20.0" GridPane.rowIndex="3" />
+            <Label text="Nombre del Proyecto" GridPane.rowIndex="1" />
+            <Label text="Jefe de proyecto" GridPane.rowIndex="2" />
+            <Label text="Cliente" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label text="Monto Contractual" GridPane.rowIndex="3" />
             <TextField fx:id="nombreP" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="jefeP" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="montoC" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="cliente" prefHeight="25.0" prefWidth="144.0" translateX="-20.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <TextField fx:id="telefonoC" translateX="-20.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <TextField fx:id="mailC" translateX="-20.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-            <Label text="Ubicación" translateX="20.0" GridPane.rowIndex="5">
+            <TextField fx:id="cliente" prefHeight="25.0" prefWidth="144.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <TextField fx:id="telefonoC" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <TextField fx:id="mailC" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <Label text="Ubicación" GridPane.rowIndex="4">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label text="Dirección" translateX="20.0" GridPane.rowIndex="6" />
-            <Label text="Estado/Provincia" translateX="20.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-            <Label text="País" translateX="20.0" GridPane.rowIndex="7" />
-            <Label text="Ciudad" translateX="20.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-            <TextField fx:id="direccion" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField fx:id="pais" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField fx:id="estado" translateX="-20.0" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-            <TextField fx:id="ciudad" translateX="-20.0" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-            <Label text="Fecha Firma" translateX="20.0" translateY="-20.0" GridPane.rowIndex="10" />
-            <DatePicker fx:id="fechaF" editable="false" translateY="-20.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-            <Label text="Fecha Termino" translateX="20.0" translateY="-20.0" GridPane.columnIndex="2" GridPane.rowIndex="10" />
-            <DatePicker fx:id="fechaT" editable="false" prefHeight="25.0" prefWidth="151.0" translateX="-20.0" translateY="-20.0" GridPane.columnIndex="3" GridPane.rowIndex="10" />
-            <Separator prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="4" />
-            <Label text="Plazo" translateX="20.0" translateY="-15.0" GridPane.rowIndex="9">
+            <Label text="Dirección" GridPane.rowIndex="5" />
+            <Label text="Estado/Provincia" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <Label text="País" GridPane.rowIndex="6" />
+            <Label text="Ciudad" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <TextField fx:id="direccion" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="pais" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="estado" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+            <TextField fx:id="ciudad" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+            <Label text="Fecha Firma" GridPane.rowIndex="8" />
+            <DatePicker fx:id="fechaF" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <Label text="Fecha Termino" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+            <DatePicker fx:id="fechaT" editable="false" prefHeight="25.0" prefWidth="151.0" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+            <Separator prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="4" GridPane.valignment="TOP" />
+            <Label text="Plazo" GridPane.rowIndex="7">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Separator prefWidth="200.0" GridPane.columnSpan="4" GridPane.rowIndex="8" />
-            <Label text="Telefono Cliente" translateX="20.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Label text="E-Mail Cliente" translateX="20.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Separator prefWidth="200.0" GridPane.columnSpan="4" GridPane.rowIndex="7" GridPane.valignment="TOP" />
+            <Label text="Telefono Cliente" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Label text="E-Mail Cliente" GridPane.columnIndex="2" GridPane.rowIndex="3" />
          </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
       </GridPane>
       <ButtonBar>
         <buttons>
-          <Button fx:id="aceptar" mnemonicParsing="false" onAction="#apretarAceptar" text="Aceptar" />
+          <Button fx:id="aceptar" defaultButton="true" mnemonicParsing="false" onAction="#apretarAceptar" text="Aceptar" />
             <Button fx:id="cancelar" layoutX="535.0" layoutY="10.0" mnemonicParsing="false" onAction="#apretarCancelar" text="Cancelar" />
         </buttons>
          <VBox.margin>
-            <Insets bottom="5.0" />
+            <Insets />
          </VBox.margin>
       </ButtonBar>
    </children>
    <padding>
-      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+      <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
    </padding>
 </VBox>
