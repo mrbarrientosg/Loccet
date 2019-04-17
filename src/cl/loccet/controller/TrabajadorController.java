@@ -96,7 +96,7 @@ public final class TrabajadorController extends Controller {
 
         trabajadorBuilder
                 .localizacion(localizacionBuilder.build())
-                .especialidad(Especialidades.getInstance().get(speciality.get()))
+                .especialidad(Especialidades.getInstance().obtener(speciality.get()))
                 .fechaNacimiento(birthday.get());
 
         Trabajador newT = trabajadorBuilder.build();

@@ -1,8 +1,8 @@
 package cl.loccet.model;
+import cl.loccet.util.StringUtils;
+
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 
 public class Proyecto {
 
@@ -24,9 +24,9 @@ public class Proyecto {
 
     private double costoReal;
 
-    private ArrayList<Trabajador> listaTrabajadores;
+    private List<Trabajador> listaTrabajadores;
 
-    private HashMap<String, Trabajador> mapTrabajadores;
+    private Map<String, Trabajador> mapTrabajadores;
 
     private InventarioMaterial inventarioMaterial;
 
@@ -141,26 +141,19 @@ public class Proyecto {
      * @author Matias Zuñiga
      */
     public boolean agregarTrabajador(Trabajador trabajador){
-        if (mapTrabajadores.get(trabajador.getRut()) == null){
-            mapTrabajadores.put(trabajador.getRut(), trabajador);
-            listaTrabajadores.add(trabajador);
-            return true;
-        }
-        return false;
+        if (mapTrabajadores.containsKey(trabajador.getRut())) return false;
+        mapTrabajadores.put(trabajador.getRut(), trabajador);
+        listaTrabajadores.add(trabajador);
+        return true;
     }
 
 
-    /**
-     * Muestra los trabajadores que estan asociado al proyecto
-     *
-     * @author Sebastian Fuenzalida
-     */
-    public void mostrarTrabajadores(){
-        for (int i = 0; i < listaTrabajadores.size(); i++){
-            //TODO: Mostrar por pantalla.****
-        }
+    public Trabajador actualizarTrabajador(Trabajador nuevoTrabajador) {
+        if (!mapTrabajadores.containsKey(nuevoTrabajador.getRut())) return null;
+        int idx = listaTrabajadores.indexOf(mapTrabajadores.get(nuevoTrabajador.getRut()));
+        listaTrabajadores.set(idx, nuevoTrabajador);
+        return mapTrabajadores.put(nuevoTrabajador.getRut(), nuevoTrabajador);
     }
-
 
     /**
      * Busca todos los trabajadores que coincidan con la busqueda
@@ -169,22 +162,24 @@ public class Proyecto {
      *
      * @author Matias Barrientos
      */
-    public ArrayList<Trabajador> buscarTrabajador(String busqueda) {
+    public List<Trabajador> buscarTrabajador(String busqueda) {
         ArrayList<Trabajador> encontrados = new ArrayList<>();
 
         for (Trabajador trabajador: listaTrabajadores) {
-            if (trabajador.getNombre().toLowerCase().contains(busqueda))
+            if (StringUtils.containsIgnoreCase(trabajador.getNombre(), busqueda) ||
+                    StringUtils.containsIgnoreCase(trabajador.getRut(), busqueda))
                 encontrados.add(trabajador);
         }
 
         return encontrados;
     }
 
-    public Trabajador eliminarTrabajador(String RUT) {
-        if (mapTrabajadores.get(RUT) == null) return null;
-        listaTrabajadores.remove(mapTrabajadores.get(RUT));
-        return mapTrabajadores.remove(RUT);
+    public Trabajador eliminarTrabajador(String rut) {
+        if (!mapTrabajadores.containsKey(rut)) return null;
+        listaTrabajadores.remove(mapTrabajadores.get(rut));
+        return mapTrabajadores.remove(rut);
     }
+
     public static class Builder {
         private final String id;
         private String nombreProyecto;
@@ -203,9 +198,9 @@ public class Proyecto {
         private double costoReal;
 
         public Builder(String id, String nombreProyecto, String jefeProyecto, Double estimacion, String cliente){
-            if(id == null || nombreProyecto == null){
-                throw new IllegalArgumentException("id, nombreProyecto, jefeProyecto, estimacion, Cliente no pueden estar vacias");
-            }
+//            if(id == null || nombreProyecto == null){
+//                throw new IllegalArgumentException("id, nombreProyecto, jefeProyecto, estimacion, Cliente no pueden estar vacias");
+//            }
             this.id = id;
             this.nombreProyecto = nombreProyecto;
             this.jefeProyecto = jefeProyecto;
@@ -233,6 +228,7 @@ public class Proyecto {
             // this.fechaTerminoReal = fechaTerminoReal;
             return this;
         }
+
         public Proyecto build(){
             return new Proyecto(this);
         }

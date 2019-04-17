@@ -39,7 +39,7 @@ public class LoginController extends Controller {
         c.agregarTrabajador(p.getId(), new Trabajador.Builder()
                 .rut("19")
                 .nombre("Matias")
-                .especialidad(Especialidades.getInstance().get("Pintor"))
+                .especialidad(Especialidades.getInstance().obtener("Pintor"))
                 .localizacion(new Localizacion.Builder().build())
                 .build());
 

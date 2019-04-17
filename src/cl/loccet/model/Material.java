@@ -9,7 +9,7 @@ public class Material {
     private String descripcion;
     private double cantidad;
     private double retiro;
-    private Date fechaRetiro;//Se define como string debido a que la funcion para cambiar el formato retorna un String.
+    private Date fechaRetiro;
     private Date  fechaIngreso;
     private String uds;
 
@@ -23,7 +23,7 @@ public class Material {
         fechaRetiro = null;
         fechaIngreso = new Date();
     }
-    public Material(String nombre, String descripcion, double cantidad,String uds,String id){
+    public Material(String id, String nombre, String descripcion, double cantidad,String uds){
         this.descripcion = descripcion;
         this.cantidad = cantidad;
         this.nombre = nombre;
