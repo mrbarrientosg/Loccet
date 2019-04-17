@@ -193,6 +193,10 @@ public class HomeController extends Controller {
         router.inventarioMateriales(proyecto.getInventarioMaterial());
     }
 
+    public void agregarHorario() {
+        router.agregarHorario();
+    }
+
     public void salir() {
         router.salir();
     }

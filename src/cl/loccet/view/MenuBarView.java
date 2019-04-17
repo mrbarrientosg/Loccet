@@ -122,6 +122,11 @@ public class MenuBarView extends View {
     }
 
     @FXML
+    private void agregarHorario(ActionEvent event) {
+        controller.agregarHorario();
+    }
+
+    @FXML
     private void salir(ActionEvent event) {
         controller.salir();
     }

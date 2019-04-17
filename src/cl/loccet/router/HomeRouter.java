@@ -118,6 +118,12 @@ public class HomeRouter {
         master.setCenter(inventarioMaterialView.getRoot());
     }
 
+    public void agregarHorario() {
+        HorarioView horarioView = Injectable.find(HorarioView.class);
+
+        master.setCenter(horarioView.getRoot());
+    }
+
     public void salir() {
         Platform.exit();
         System.exit(0);
