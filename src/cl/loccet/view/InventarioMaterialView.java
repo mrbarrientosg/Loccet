@@ -5,25 +5,20 @@ import cl.loccet.base.View;
 import cl.loccet.controller.InventarioMaterialController;
 import cl.loccet.model.InventarioMaterial;
 import cl.loccet.model.Material;
-import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
-import javafx.util.StringConverter;
-
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
 
 
 /**
- * Clase que mostrara las vistas.
+ * Vista principal del inventario.
  *
  * @author  Sebastian Fuenzalida.
  */
@@ -86,6 +81,13 @@ public class InventarioMaterialView extends View {
 
     }
 
+    /**
+     * Funcion que mostrara la vista de nuevo material.
+     *
+     * @author Sebastian Fuenzalida.
+     *
+     * @param event
+     */
     @FXML public void nuevoMaterial(ActionEvent event){
         NuevoMaterialView view = Injectable.find(NuevoMaterialView.class);
         view.setController(controller);
@@ -93,6 +95,14 @@ public class InventarioMaterialView extends View {
         tablaInventario.setItems(controller.obtenerDatos());
         tablaInventario.refresh();
     }
+
+    /**
+     * Funcion que retorna el item seleccionado de la tabla inventario.
+     *
+     * @author Sebastian Fuenzalida.
+     *
+     * @return
+     */
     public Material seleccion(){
         int seleccion = tablaInventario.getSelectionModel().getSelectedIndex();
         if(seleccion>=0){
@@ -102,6 +112,13 @@ public class InventarioMaterialView extends View {
         return null;
     }
 
+    /**
+     * Funcion que mostrara la vista modificar material.
+     *
+     * @author Sebastian Fuenzalida.
+     *
+     * @param event
+     */
     @FXML public void modificarMaterial(ActionEvent event){
         Material material = seleccion();
         if(material!=null) {
@@ -123,6 +140,13 @@ public class InventarioMaterialView extends View {
 
     }
 
+    /**
+     * Funcion que mostrara la vista agregar material.
+     *
+     * @author Sebastian Fuenzalida.
+     *
+     * @param event
+     */
     @FXML public void agregarMaterial(ActionEvent event){
         Material material = seleccion();
         if(material!=null) {
@@ -140,6 +164,14 @@ public class InventarioMaterialView extends View {
             alert.showAndWait();
         }
     }
+
+    /**
+     * Funcion que mostrara la vista retirar material.
+     *
+     * @author Sebastian Fuenzalida.
+     *
+     * @param event
+     */
     @FXML public void retirarMaterial(ActionEvent event){
         Material material = seleccion();
         if(material!=null) {
@@ -163,6 +195,13 @@ public class InventarioMaterialView extends View {
         ((BorderPane) getRoot().getParent()).getChildren().remove(getRoot());
     }
 
+    /**
+     * Funcion que conectara la vista con el controlador para eliminar un item seleccionado.
+     *
+     * @author Sebastian Fuenzalida.
+     *
+     * @param event
+     */
     @FXML
     public void eliminar(ActionEvent event){
         Material material = seleccion();
@@ -188,7 +227,11 @@ public class InventarioMaterialView extends View {
     }
 
 
-
+    /**
+     * Funcion privada que inicializa la tabla de materiales.
+     *
+     * @author Sebastian Fuenzalida.
+     */
     private void inicializarTablaMateriales() {
 
 

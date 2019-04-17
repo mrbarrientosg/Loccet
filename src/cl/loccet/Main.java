@@ -1,5 +1,4 @@
 package cl.loccet;
-
 import cl.loccet.base.Injectable;
 import cl.loccet.model.Especialidades;
 import cl.loccet.router.LoginRouter;

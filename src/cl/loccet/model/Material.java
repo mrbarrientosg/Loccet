@@ -1,6 +1,14 @@
 package cl.loccet.model;
 import java.util.Date;
 
+/**
+ *
+ * Clase modelo usada para el objeto material;
+ *
+ * @author Sebastian Fuenzalida
+ *
+ */
+
 public class Material {
 
 
@@ -12,6 +20,7 @@ public class Material {
     private Date fechaRetiro;//Se define como string debido a que la funcion para cambiar el formato retorna un String.
     private Date  fechaIngreso;
     private String uds;
+    private double costo;
 
 
     public Material(String nombre, String descripcion, double cantidad,String uds){
@@ -92,6 +101,12 @@ public class Material {
     public void setId(String id) {
         this.id = id;
     }
+
+    /**
+     * Funcion que genera una id aleatorea.
+     *
+     * @author Sebastian Fuenzalida , Matias Zuñiga.
+     */
 
     private final String generarId(){
         String result = java.util.UUID.randomUUID().toString();

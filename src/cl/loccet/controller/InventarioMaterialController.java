@@ -33,10 +33,22 @@ public class InventarioMaterialController extends Controller {
         cargarDatos();
     }
 
+    /**
+     * Se obtienen los datos cargados del modelo.
+     *
+     * @author Sebastian Fuenzalida.
+     */
     private void cargarDatos() {
         materials = FXCollections.observableList(model.obtenerMateriales());
     }
 
+    /**
+     * Se retornan los datos obtenidos previamente.
+     *
+     * @author Sebastian Fuenzalida.
+     *
+     * @return
+     */
     public ObservableList<Material> obtenerDatos() {
         return materials;
     }

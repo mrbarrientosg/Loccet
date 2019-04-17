@@ -11,6 +11,12 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 
+/**
+ * Vista de modificar material.
+ *
+ * @author Sebastian Fuenzalida.
+ */
+
 public class ModificarMaterialView extends View {
 
     @FXML

@@ -12,6 +12,11 @@ import javafx.scene.control.TextFormatter;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
+/**
+ * Vista de agregar material.
+ *
+ * @author Sebastian Fuenzalida.
+ */
 
 public class AgregarMaterialView extends View {
 

@@ -13,6 +13,11 @@ import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
 
+/**
+ * Vista de Retirar material.
+ *
+ * @author Sebastian Fuenzalida.
+ */
 public class RetirarMaterialView extends View {
 
     private InventarioMaterialController controller;
