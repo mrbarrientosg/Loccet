@@ -33,7 +33,7 @@ public class LoginController extends Controller {
         // TODO: implementar el controlador para poder gestionar la constructora
         Constructora c = new Constructora("RUT","NOMBRE");
 
-        Proyecto p = new Proyecto.Builder("1", "","",0.0,"").build();
+        Proyecto p = new Proyecto.Builder("1", "TEST","",0.0,"").build();
 
         c.agregarProyecto(p);
 

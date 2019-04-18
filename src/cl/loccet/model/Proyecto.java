@@ -142,6 +142,7 @@ public class Proyecto {
      */
     public boolean agregarTrabajador(Trabajador trabajador){
         if (mapTrabajadores.get(trabajador.getRut()) == null){
+            trabajador.asociarProyecto(id);
             mapTrabajadores.put(trabajador.getRut(), trabajador);
             listaTrabajadores.add(trabajador);
             return true;
@@ -178,6 +179,10 @@ public class Proyecto {
         }
 
         return encontrados;
+    }
+
+    public Trabajador obtenerTrabajador(String rut) {
+        return mapTrabajadores.get(rut);
     }
 
     public Trabajador eliminarTrabajador(String RUT) {

@@ -1,7 +1,7 @@
 package cl.loccet.model;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.*;
 
 public class Trabajador {
 
@@ -21,7 +21,14 @@ public class Trabajador {
 
     private String correoElectronico;
 
-    private ArrayList<Horario> horarios;
+    private Map<String, ArrayList<Horario>> mapProyectohorario;
+
+    /**
+     * Guarda el id de todos los proyecto al cual esta asociado el trabajador
+     */
+    private Map<String, String> mapProyectos;
+
+    private Map<Integer, ArrayList<Horario>> mapDiaHorario;
 
     private Trabajador(Builder builder) {
         this.rut = builder.rut;
@@ -32,66 +39,32 @@ public class Trabajador {
         this.localizacion = builder.localizacion;
         this.telefono = builder.telefono;
         this.correoElectronico = builder.correoElectronico;
+
+        mapProyectohorario = new HashMap<>();
+        mapProyectos = new HashMap<>();
+        mapDiaHorario = new HashMap<>();
     }
 
-    public String getRut() {
-        return rut;
+    public boolean asociarProyecto(String idProyecto) {
+        if (mapProyectos.containsKey(idProyecto)) return false;
+        return mapProyectos.put(idProyecto, idProyecto) == null;
     }
 
-    public void setRut(String rut) {
-        this.rut = rut;
+    public void agregarHorario(Horario horario) {
+        if (!mapDiaHorario.containsKey(horario.getDia()))
+            mapDiaHorario.put(horario.getDia(), new ArrayList<>());
+
+        mapDiaHorario.get(horario.getDia()).add(horario);
+
+        if (!mapProyectohorario.containsKey(horario.getIdProyecto()))
+            mapProyectohorario.put(horario.getIdProyecto(), new ArrayList<>());
+
+        mapProyectohorario.get(horario.getIdProyecto()).add(horario);
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public Especialidad getEspecialidad() {
-        return especialidad;
-    }
-
-    public void setEspecialidad(Especialidad especialidad) {
-        this.especialidad = especialidad;
-    }
-
-    public LocalDate getFechaNacimiento() {
-        return fechaNacimiento;
-    }
-
-    public void setFechaNacimiento(LocalDate fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
-
-    public Localizacion getLocalizacion() {
-        return localizacion;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public String getCorreoElectronico() {
-        return correoElectronico;
-    }
-
-    public void setCorreoElectronico(String correoElectronico) {
-        this.correoElectronico = correoElectronico;
+    public List<Horario> obtenerListaHorario(String idProyecto) {
+        if (!mapProyectohorario.containsKey(idProyecto)) return null;
+        return Collections.unmodifiableList(mapProyectohorario.get(idProyecto));
     }
 
     public static class Builder {
@@ -155,6 +128,66 @@ public class Trabajador {
         public Trabajador build() {
             return new Trabajador(this);
         }
+    }
+
+    public String getRut() {
+        return rut;
+    }
+
+    public void setRut(String rut) {
+        this.rut = rut;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public Especialidad getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(Especialidad especialidad) {
+        this.especialidad = especialidad;
+    }
+
+    public LocalDate getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public Localizacion getLocalizacion() {
+        return localizacion;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getCorreoElectronico() {
+        return correoElectronico;
+    }
+
+    public void setCorreoElectronico(String correoElectronico) {
+        this.correoElectronico = correoElectronico;
     }
 
 }

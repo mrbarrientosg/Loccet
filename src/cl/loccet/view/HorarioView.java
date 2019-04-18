@@ -6,7 +6,6 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.util.StringConverter;
 
 public class HorarioView extends View {
 
@@ -14,6 +13,9 @@ public class HorarioView extends View {
 
     @FXML
     private Label nombreTrabajador;
+
+    @FXML
+    private Label nombreProyecto;
 
     @FXML
     private ToggleGroup diasToggle;
@@ -31,10 +33,13 @@ public class HorarioView extends View {
     private Spinner<Integer> minutoSalida;
 
     @FXML
-    private TextArea horarioArea;
+    private ListView<String> horarioList;
 
     @Override
     public void viewDidLoad() {
+        nombreTrabajador.setText(controller.getNombreTrabajador());
+        nombreProyecto.setText(controller.getNombreProyecto());
+
         horaEntrada.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23));
         minutoEntrada.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59));
         limitTimeField(horaEntrada.getEditor(), 23);
@@ -44,6 +49,9 @@ public class HorarioView extends View {
         minutoSalida.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59));
         limitTimeField(horaSalida.getEditor(), 23);
         limitTimeField(minutoSalida.getEditor(), 59);
+
+        horarioList.setItems(controller.getHorarioList());
+        horarioList.refresh();
     }
 
     @Override
