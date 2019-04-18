@@ -194,7 +194,43 @@ public class HomeController extends Controller {
     }
 
     public void agregarHorario() {
-        router.agregarHorario();
+        BufferedReader reader;
+        String rut;
+        Trabajador t = null;
+
+        for (Proyecto p: model.getListaProyecto()) {
+            System.out.println(String.valueOf(p.getId()) + "\t" + p.getNombreProyecto());
+        }
+
+        String id;
+
+        Proyecto p = null;
+
+        try {
+            reader = new BufferedReader(new InputStreamReader(System.in));
+
+            do {
+                System.out.println("Ingrese el id del proyecto:");
+                id = reader.readLine();
+                p = model.buscarProyecto(id);
+
+
+                if (p != null) {
+                    System.out.println("Ingrese el rut del trabajador:");
+                    rut = reader.readLine();
+                    t = p.obtenerTrabajador(rut);
+                    if (t == null)
+                        System.out.println("No existe el trabajador");
+                    else
+                        router.agregarHorario(p, t);
+                }
+
+            } while (p == null);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
     }
 
     public void salir() {

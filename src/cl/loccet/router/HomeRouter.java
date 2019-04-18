@@ -2,9 +2,7 @@ package cl.loccet.router;
 
 import cl.loccet.base.Injectable;
 import cl.loccet.controller.HomeController;
-import cl.loccet.model.Constructora;
-import cl.loccet.model.InventarioMaterial;
-import cl.loccet.model.Trabajador;
+import cl.loccet.model.*;
 import cl.loccet.view.*;
 import javafx.application.Platform;
 
@@ -118,8 +116,8 @@ public class HomeRouter {
         master.setCenter(inventarioMaterialView.getRoot());
     }
 
-    public void agregarHorario() {
-        HorarioView horarioView = Injectable.find(HorarioView.class);
+    public void agregarHorario(Proyecto proyecto, Trabajador trabajador) {
+        HorarioView horarioView = HorarioRouter.create(proyecto, trabajador);
 
         master.setCenter(horarioView.getRoot());
     }

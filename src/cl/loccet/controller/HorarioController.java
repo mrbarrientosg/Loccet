@@ -1,24 +1,57 @@
 package cl.loccet.controller;
 
 import cl.loccet.base.Controller;
+import cl.loccet.model.Dias;
+import cl.loccet.model.Horario;
+import cl.loccet.model.Proyecto;
+import cl.loccet.model.Trabajador;
+import cl.loccet.view.HorarioView;
+import javafx.beans.binding.ObjectBinding;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.stream.Collectors;
 
 public class HorarioController extends Controller {
 
-    private static class Dia {
-        public static final int LUNES = 0;
-        public static final int MARTES = 1;
-        public static final int MIERCOLES = 2;
-        public static final int JUEVES = 3;
-        public static final int VIERNES = 4;
-        public static final int SABADO = 5;
-        public static final int DOMINGO = 6;
+    private HorarioView view;
+
+    private Proyecto proyecto;
+
+    private Trabajador trabajador;
+
+    private ObservableList<String> horarioList;
+    
+    public HorarioController(HorarioView view, Proyecto proyecto, Trabajador trabajador) {
+        this.view = view;
+        this.proyecto = proyecto;
+        this.trabajador = trabajador;
+    }
+
+    private void loadData() {
+        horarioList = FXCollections.observableList(trabajador.obtenerListaHorario(proyecto.getId()).stream().map(Horario::toString).collect(Collectors.toList()));
     }
 
     public void agregarHorario(int dia) {
         switch (dia) {
-            case Dia.LUNES:
+            case Dias.LUNES:
                 System.out.println("Lunes");
                 break;
         }
+    }
+
+    public ObservableList<String> getHorarioList() {
+        return horarioList;
+    }
+
+
+    public String getNombreTrabajador() {
+        return trabajador.getNombre();
+    }
+
+    public String getNombreProyecto() {
+        return proyecto.getNombreProyecto();
     }
 }
