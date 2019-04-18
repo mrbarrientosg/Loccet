@@ -33,7 +33,7 @@ public class HorarioView extends View {
     private Spinner<Integer> minutoSalida;
 
     @FXML
-    private ListView<String> horarioList;
+    private TableView<?> tableHorario;
 
     @Override
     public void viewDidLoad() {
@@ -50,8 +50,7 @@ public class HorarioView extends View {
         limitTimeField(horaSalida.getEditor(), 23);
         limitTimeField(minutoSalida.getEditor(), 59);
 
-        horarioList.setItems(controller.getHorarioList());
-        horarioList.refresh();
+        tableHorario.refresh();
     }
 
     @Override

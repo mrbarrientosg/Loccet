@@ -1,8 +1,12 @@
 package cl.loccet.model;
 
 import java.time.LocalTime;
+import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Horario {
+
+    private String id;
 
     private Integer dia;
 
@@ -15,11 +19,16 @@ public class Horario {
     private LocalTime fechaTermino;
 
     private Horario(Builder builder) {
+        id = UUID.randomUUID().toString();
         this.dia = builder.dia;
         this.idProyecto = builder.idProyecto;
         this.nombreProyecto = builder.nombreProyecto;
         this.fechaInicio = builder.fechaInicio;
         this.fechaTermino = builder.fechaTermino;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public Integer getDia() {
