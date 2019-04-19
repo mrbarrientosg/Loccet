@@ -57,6 +57,10 @@ public class HorarioController extends Controller {
             delegate.didAddHorario(horario);
     }
 
+    public void addListView() {
+        view.addListView(trabajador);
+    }
+
     public String getNombreTrabajador() {
         return trabajador.getNombre();
     }
@@ -71,5 +75,9 @@ public class HorarioController extends Controller {
 
     public ObjectProperty<LocalTime> salidaProperty() {
         return salida;
+    }
+
+    public void setDelegate(AddHorarioDelegate delegate) {
+        this.delegate = delegate;
     }
 }

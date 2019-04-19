@@ -124,6 +124,10 @@ public class Constructora {
         return encontrados;
     }
 
+    public Trabajador obtenerTrabajador(String rut) {
+        return conjuntoTrabajadores.get(rut);
+    }
+
     public Trabajador eliminarTrabajador(String rut) {
         if (!conjuntoTrabajadores.containsKey(rut)) return null;
 

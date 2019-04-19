@@ -5,6 +5,7 @@ import cl.loccet.controller.HorarioController;
 import cl.loccet.controller.LoginController;
 import cl.loccet.model.Proyecto;
 import cl.loccet.model.Trabajador;
+import cl.loccet.state.AddHorarioDelegate;
 import cl.loccet.view.HorarioView;
 import cl.loccet.view.LoginView;
 

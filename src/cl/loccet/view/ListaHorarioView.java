@@ -5,12 +5,12 @@ import cl.loccet.cell.HorarioCell;
 import cl.loccet.controller.ListaHorarioController;
 import cl.loccet.model.Dias;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 
 import java.time.LocalTime;
 
@@ -36,8 +36,13 @@ public class ListaHorarioView extends View {
     @FXML
     private TableColumn<HorarioCell, LocalTime> salidaColumn;
 
+    @FXML
+    private VBox bottomVbox;
+
     @Override
     public void viewDidLoad() {
+        if (!controller.isAdd())
+            nombreTrabajador.setText(controller.getNombreTrabajador());
 
         diaColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().dia()));
         proyectoColumn.setCellValueFactory(new PropertyValueFactory<>("nombreProyecto"));
@@ -50,19 +55,35 @@ public class ListaHorarioView extends View {
         diaColumn.setComparator((value1, value2) -> {
             int d1 = Dias.getDay(value1);
             int d2 = Dias.getDay(value2);
-            return d1 - d2;
+            return d2 - d1;
         });
     }
 
     @Override
     public void viewDidClose() {
+        bottomVbox.setVisible(true);
+        nombreTrabajador.setVisible(true);
+    }
 
+    @FXML
+    private void salir(ActionEvent event) {
+        ((BorderPane) getRoot().getParent()).getChildren().remove(getRoot());
+    }
+
+    @FXML
+    private void eliminar(ActionEvent event) {
+        controller.eliminarHorario(tableHorario.getSelectionModel().getSelectedItem());
     }
 
     public void refreshTable() {
         if (tableHorario.getItems().isEmpty())
             tableHorario.setItems(controller.getHorarioList());
         tableHorario.refresh();
+    }
+
+    public void hideComponents() {
+        bottomVbox.setVisible(false);
+        nombreTrabajador.setVisible(false);
     }
 
     private void setupTimeColumn(TableColumn<HorarioCell, LocalTime> timeColumn) {

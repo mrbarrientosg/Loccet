@@ -25,11 +25,7 @@ public class ListaHorarioController extends Controller implements AddHorarioDele
 
     private ObservableList<HorarioCell> horarioList;
 
-    public ListaHorarioController(ListaHorarioView view, Trabajador trabajador) {
-        this.view = view;
-        this.trabajador = trabajador;
-        loadData();
-    }
+    private boolean add;
 
     private void loadData() {
         if (horarioList != null) return;
@@ -51,6 +47,13 @@ public class ListaHorarioController extends Controller implements AddHorarioDele
         view.refreshTable();
     }
 
+    public void eliminarHorario(HorarioCell cell) {
+        if (cell == null) return;
+        trabajador.eliminarHorario(cell.getId());
+        horarioList.remove(cell);
+        view.refreshTable();
+    }
+
     public ObservableList<HorarioCell> getHorarioList() {
         return horarioList;
     }
@@ -59,4 +62,22 @@ public class ListaHorarioController extends Controller implements AddHorarioDele
         return trabajador.getNombre();
     }
 
+    public void setView(ListaHorarioView view) {
+        this.view = view;
+    }
+
+    public void setTrabajador(Trabajador trabajador) {
+        this.trabajador = trabajador;
+        loadData();
+    }
+
+    public void setAdd(boolean add) {
+        this.add = add;
+        if (add)
+            view.hideComponents();
+    }
+
+    public boolean isAdd() {
+        return add;
+    }
 }

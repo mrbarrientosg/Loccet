@@ -122,7 +122,13 @@ public class HomeRouter {
         master.setCenter(horarioView.getRoot());
     }
 
-    public void salir() {
+    public void mostrarHorario(Trabajador trabajador) {
+        ListaHorarioView view = ListaHorarioRouter.create(trabajador);
+
+        master.setCenter(view.getRoot());
+    }
+
+        public void salir() {
         Platform.exit();
         System.exit(0);
     }

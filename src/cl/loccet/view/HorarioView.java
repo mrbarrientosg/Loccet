@@ -1,10 +1,14 @@
 package cl.loccet.view;
 
+import cl.loccet.base.Injectable;
 import cl.loccet.base.View;
 import cl.loccet.cell.HorarioCell;
 import cl.loccet.controller.HorarioController;
+import cl.loccet.controller.ListaHorarioController;
 import cl.loccet.model.Dias;
 import cl.loccet.model.Material;
+import cl.loccet.model.Trabajador;
+import cl.loccet.router.ListaHorarioRouter;
 import javafx.application.Platform;
 import javafx.beans.binding.IntegerBinding;
 import javafx.beans.binding.ObjectBinding;
@@ -12,8 +16,11 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 
@@ -93,11 +100,14 @@ public class HorarioView extends View {
 
         controller.entradaProperty().bind(entradaBinding);
         controller.salidaProperty().bind(salidaBinding);
+
+        controller.addListView();
     }
 
     @Override
     public void viewDidClose() {
-
+        getRoot().getChildren().removeIf(node -> node instanceof TableView);
+        controller.setDelegate(null);
     }
 
     @FXML
@@ -105,9 +115,26 @@ public class HorarioView extends View {
         controller.agregarHorario(diasToggle.getToggles().indexOf(diasToggle.getSelectedToggle()) + 1);
     }
 
+    @FXML
+    private void salir(ActionEvent event) {
+        ((BorderPane) getRoot().getParent()).getChildren().remove(getRoot());
+    }
+
+    public void addListView(Trabajador model) {
+        ListaHorarioView view = ListaHorarioRouter.create(model);
+        ListaHorarioController controller = Injectable.find(ListaHorarioController.class);
+        this.controller.setDelegate(controller);
+        controller.setAdd(true);
+        getRoot().getChildren().add(view.getRoot());
+    }
 
     public void setController(HorarioController controller) {
         this.controller = controller;
+    }
+
+    @Override
+    public VBox getRoot() {
+        return (VBox) super.getRoot();
     }
 
     private void setupSpinner(Spinner<Integer> spinner, int max) {

@@ -82,12 +82,12 @@ public class ListaTrabajadorView extends View {
         tableView.refresh();
     }
 
-    public void refresh() {
-        tableView.refresh();
-        getRoot().setRight(null);
-        getCurrentStage().sizeToScene();
-        getCurrentStage().centerOnScreen();
-    }
+//    public void refresh() {
+//        tableView.refresh();
+//        getRoot().setRight(null);
+//        getCurrentStage().sizeToScene();
+//        getCurrentStage().centerOnScreen();
+//    }
 
     @Override
     public BorderPane getRoot() {

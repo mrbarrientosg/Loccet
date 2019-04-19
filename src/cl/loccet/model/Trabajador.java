@@ -62,6 +62,32 @@ public class Trabajador {
         mapProyectohorario.get(horario.getIdProyecto()).add(horario);
     }
 
+    public Horario eliminarHorario(String id) {
+        Horario h = null;
+
+        for (ArrayList<Horario> horarios: mapProyectohorario.values()) {
+            h = eliminarHorario(horarios, id);
+            if (h == null) {
+                return null;
+            }
+        }
+
+        mapDiaHorario.get(h.getDia()).remove(h);
+
+        return h;
+    }
+
+    private Horario eliminarHorario(ArrayList<Horario> horarios, String id) {
+        for (Horario horario: horarios) {
+            if (horario.getId().equals(id)) {
+                horarios.remove(horario);
+                return horario;
+            }
+        }
+
+        return null;
+    }
+
     public List<Horario> obtenerListaHorario(String idProyecto) {
         if (!mapProyectohorario.containsKey(idProyecto)) return null;
         return Collections.unmodifiableList(mapProyectohorario.get(idProyecto));
