@@ -67,6 +67,12 @@ public class Trabajador {
         return Collections.unmodifiableList(mapProyectohorario.get(idProyecto));
     }
 
+    public List<Horario> obtenerListaHorario() {
+        List<Horario> aux = new ArrayList<>();
+        mapDiaHorario.values().forEach(aux::addAll);
+        return Collections.unmodifiableList(aux);
+    }
+
     public static class Builder {
 
         private String rut;

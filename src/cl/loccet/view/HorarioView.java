@@ -1,11 +1,29 @@
 package cl.loccet.view;
 
 import cl.loccet.base.View;
+import cl.loccet.cell.HorarioCell;
 import cl.loccet.controller.HorarioController;
+import cl.loccet.model.Dias;
+import cl.loccet.model.Material;
 import javafx.application.Platform;
+import javafx.beans.binding.IntegerBinding;
+import javafx.beans.binding.ObjectBinding;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
+import javafx.util.StringConverter;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalTime;
+import java.util.Calendar;
+import java.util.Comparator;
+import java.util.Date;
 
 public class HorarioView extends View {
 
@@ -32,25 +50,49 @@ public class HorarioView extends View {
     @FXML
     private Spinner<Integer> minutoSalida;
 
-    @FXML
-    private TableView<?> tableHorario;
+    private ObjectBinding<LocalTime> entradaBinding;
+
+    private ObjectBinding<LocalTime> salidaBinding;
 
     @Override
     public void viewDidLoad() {
+        entradaBinding = new ObjectBinding<LocalTime>() {
+            {
+                super.bind(horaEntrada.valueProperty(), minutoEntrada.valueProperty());
+            }
+
+            @Override
+            protected LocalTime computeValue() {
+                return LocalTime.of(horaEntrada.getValue(), minutoEntrada.getValue());
+            }
+        };
+
+        salidaBinding = new ObjectBinding<LocalTime>() {
+            {
+                super.bind(horaSalida.valueProperty(), minutoSalida.valueProperty());
+            }
+
+            @Override
+            protected LocalTime computeValue() {
+                return LocalTime.of(horaSalida.getValue(), minutoSalida.getValue());
+            }
+        };
+
         nombreTrabajador.setText(controller.getNombreTrabajador());
         nombreProyecto.setText(controller.getNombreProyecto());
 
-        horaEntrada.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23));
-        minutoEntrada.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59));
+        setupSpinner(horaEntrada,23);
+        setupSpinner(minutoEntrada,59);
         limitTimeField(horaEntrada.getEditor(), 23);
         limitTimeField(minutoEntrada.getEditor(), 59);
 
-        horaSalida.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23));
-        minutoSalida.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59));
+        setupSpinner(horaSalida,23);
+        setupSpinner(minutoSalida,59);
         limitTimeField(horaSalida.getEditor(), 23);
         limitTimeField(minutoSalida.getEditor(), 59);
 
-        tableHorario.refresh();
+        controller.entradaProperty().bind(entradaBinding);
+        controller.salidaProperty().bind(salidaBinding);
     }
 
     @Override
@@ -60,11 +102,21 @@ public class HorarioView extends View {
 
     @FXML
     private void agregarHorario(ActionEvent event) {
-        System.out.println(((RadioButton) diasToggle.getSelectedToggle()).getText());
+        controller.agregarHorario(diasToggle.getToggles().indexOf(diasToggle.getSelectedToggle()) + 1);
     }
+
 
     public void setController(HorarioController controller) {
         this.controller = controller;
+    }
+
+    private void setupSpinner(Spinner<Integer> spinner, int max) {
+        SpinnerValueFactory factory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, max, 0);
+        spinner.setValueFactory(factory);
+        spinner.setEditable(true);
+        TextFormatter formatter = new TextFormatter(factory.getConverter(), factory.getValue());
+        spinner.getEditor().setTextFormatter(formatter);
+        factory.valueProperty().bindBidirectional(formatter.valueProperty());
     }
 
     private void limitTimeField(TextField textField, int maxValue) {
@@ -103,5 +155,4 @@ public class HorarioView extends View {
             }
         });
     }
-
 }

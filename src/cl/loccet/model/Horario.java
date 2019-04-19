@@ -55,6 +55,10 @@ public class Horario {
         this.fechaTermino = fechaTermino;
     }
 
+    public String getNombreProyecto() {
+        return nombreProyecto;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
@@ -92,7 +96,7 @@ public class Horario {
         }
 
         public Builder fechaTermino(LocalTime fechaTermino) {
-            this.fechaInicio = fechaInicio;
+            this.fechaTermino = fechaTermino;
             return this;
         }
 

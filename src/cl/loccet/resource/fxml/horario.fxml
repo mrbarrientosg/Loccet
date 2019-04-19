@@ -111,14 +111,14 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <TableView fx:id="tableHorario">
+      <TableView fx:id="tableHorario" VBox.vgrow="ALWAYS">
         <columns>
-          <TableColumn prefWidth="75.0" text="Día" />
-          <TableColumn prefWidth="75.0" text="Proyecto" />
+          <TableColumn fx:id="diaColumn" prefWidth="75.0" text="Día" />
+          <TableColumn fx:id="proyectoColumn" prefWidth="75.0" text="Proyecto" />
             <TableColumn prefWidth="75.0" text="Hora">
                <columns>
-                  <TableColumn prefWidth="75.0" text="Entrada" />
-                  <TableColumn prefWidth="75.0" text="Salida" />
+                  <TableColumn fx:id="entradaColumn" prefWidth="75.0" text="Entrada" />
+                  <TableColumn fx:id="salidaColumn" prefWidth="75.0" text="Salida" />
                </columns>
             </TableColumn>
         </columns>

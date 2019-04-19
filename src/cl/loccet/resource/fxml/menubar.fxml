@@ -30,6 +30,8 @@
                 <SeparatorMenuItem mnemonicParsing="false" />
             <Menu mnemonicParsing="false" text="Horario">
               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#mostrarHorario" text="Ver" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
                 <MenuItem mnemonicParsing="false" onAction="#agregarHorario" text="Agregar" />
               </items>
             </Menu>
