@@ -8,7 +8,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
@@ -33,6 +32,8 @@ public class NuevoMaterialView extends View {
     private TextArea descripcionTF;
     @FXML
     private TextField cantidadTF;
+    @FXML
+    private TextField precioTF;
 
 
     @FXML
@@ -50,18 +51,22 @@ public class NuevoMaterialView extends View {
         unidadesDeMedida.add("L");
         unidadCB.setItems(unidadesDeMedida);
         Pattern pattern = Pattern.compile("\\d*|\\d+\\.\\d*");
-
-        TextFormatter formatter =  new TextFormatter<UnaryOperator>(change -> {
+        TextFormatter formatter =  new TextFormatter<UnaryOperator>(change -> {            //Permite agregar solo numeros y un punto.
             return pattern.matcher(change.getControlNewText()).matches() ? change : null;
         });
-
         cantidadTF.setTextFormatter(formatter);
+
+        Pattern patern = Pattern.compile("\\d*|\\d+\\.\\d*");
+        TextFormatter formater =  new TextFormatter<UnaryOperator>(change -> {
+            return pattern.matcher(change.getControlNewText()).matches() ? change : null;
+        });
+        precioTF.setTextFormatter(formater);
 
     }
 
     @Override
     public void viewDidClose() {
-        clear();
+        clear();//Limpia los TextField.
     }
 
     @FXML
@@ -70,13 +75,18 @@ public class NuevoMaterialView extends View {
         Material material;
         try {
             if (lector.isEmpty())
-                material = new Material(nombreTF.getText(), descripcionTF.getText(), Double.parseDouble(cantidadTF.getText()), unidadCB.getSelectionModel().getSelectedItem().toString());
+                material = new Material(nombreTF.getText(), descripcionTF.getText(), Double.parseDouble(cantidadTF.getText()), //Si el usuario no ingresa el id
+                        unidadCB.getSelectionModel().getSelectedItem().toString(),                                             //se utiliza este constructor.
+                        Double.parseDouble(precioTF.getText()));
+
             else
-                material = new Material(nombreTF.getText(), descripcionTF.getText(), Double.parseDouble(cantidadTF.getText()), unidadCB.getSelectionModel().getSelectedItem().toString(), lector);
+                material = new Material(nombreTF.getText(), descripcionTF.getText(), Double.parseDouble(cantidadTF.getText()), //Si el usuario si ingresa id
+                        unidadCB.getSelectionModel().getSelectedItem().toString(), lector,                                     //Se utiliza este constructor.
+                        Double.parseDouble(precioTF.getText()));
 
             controller.nuevoMaterial(material);
             close();
-        }catch (Exception e){
+        }catch (Exception e){//En caso de que el usuario deje un campo vacio salta una excepcion.
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");
             alert.setHeaderText("Ingreso de datos invalido");
@@ -89,6 +99,7 @@ public class NuevoMaterialView extends View {
         nombreTF.setText("");
         descripcionTF.setText("");
         cantidadTF.setText("");
+        precioTF.setText("");
     }
     public void salir(ActionEvent event){
         close();

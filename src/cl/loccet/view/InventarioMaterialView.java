@@ -64,6 +64,8 @@ public class InventarioMaterialView extends View {
     private TableColumn<Material, String> nombreMaterialCL;
     @FXML
     private TableColumn<Material,Double> retiroCL;
+    @FXML
+    private TableColumn<Material,Double> precioCL;
 
     ObservableList<InventarioMaterial> inventarios;
 
@@ -104,6 +106,7 @@ public class InventarioMaterialView extends View {
      * @return
      */
     public Material seleccion(){
+
         int seleccion = tablaInventario.getSelectionModel().getSelectedIndex();
         if(seleccion>=0){
             Material material =tablaInventario.getItems().get(seleccion);
@@ -280,6 +283,7 @@ public class InventarioMaterialView extends View {
         idMaterialCL.setCellValueFactory(new PropertyValueFactory<>("id"));
         cantidadCL.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
         descripcionCL.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
+        precioCL.setCellValueFactory(new PropertyValueFactory<>("precio"));
         tablaInventario.setItems(controller.obtenerDatos());
         tablaInventario.setEditable(true);
 

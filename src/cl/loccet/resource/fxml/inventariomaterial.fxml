@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox spacing="10.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<VBox spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox alignment="CENTER_LEFT" spacing="20.0">
          <children>
@@ -64,11 +64,12 @@
             <TableColumn fx:id="fechaIngresoCL" prefWidth="85.0" text="Fecha ingreso" />
           <TableColumn fx:id="idMaterialCL" prefWidth="57.0" text="ID" />
             <TableColumn fx:id="nombreMaterialCL" prefWidth="65.0" text="Nombre" />
-          <TableColumn fx:id="descripcionCL" prefWidth="307.0" text="Descripcion" />
-            <TableColumn fx:id="cantidadCL" minWidth="0.0" text="Cantidad" />
-            <TableColumn fx:id="udsCL" prefWidth="43.0" text="UDS" />
-            <TableColumn fx:id="retiroCL" prefWidth="75.0" text="Retiro" />
-            <TableColumn fx:id="fechaRetiroCL" prefWidth="75.0" text="Fecha retiro" />
+          <TableColumn fx:id="descripcionCL" prefWidth="201.0" text="Descripcion" />
+            <TableColumn fx:id="cantidadCL" minWidth="0.0" prefWidth="59.0" text="Cantidad" />
+            <TableColumn fx:id="udsCL" minWidth="0.0" prefWidth="77.0" text="UDS" />
+            <TableColumn fx:id="retiroCL" minWidth="0.0" prefWidth="62.0" text="Retiro" />
+            <TableColumn fx:id="fechaRetiroCL" minWidth="0.0" prefWidth="85.0" text="Fecha retiro" />
+            <TableColumn fx:id="precioCL" minWidth="0.0" prefWidth="100.0" text="Precio" />
         </columns>
       </TableView>
    </children>

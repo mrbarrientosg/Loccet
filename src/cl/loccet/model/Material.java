@@ -20,24 +20,26 @@ public class Material {
     private Date fechaRetiro;//Se define como string debido a que la funcion para cambiar el formato retorna un String.
     private Date  fechaIngreso;
     private String uds;
-    private double costo;
+    private double precio;
 
 
-    public Material(String nombre, String descripcion, double cantidad,String uds){
+    public Material(String nombre, String descripcion, double cantidad,String uds,double precio){
         this.descripcion = descripcion;
         this.cantidad = cantidad;
         this.nombre = nombre;
         this.uds = uds;
         id = generarId();
         fechaRetiro = null;
+        this.precio = precio;
         fechaIngreso = new Date();
     }
-    public Material(String nombre, String descripcion, double cantidad,String uds,String id){
+    public Material(String nombre, String descripcion, double cantidad,String uds,String id,double precio){
         this.descripcion = descripcion;
         this.cantidad = cantidad;
         this.nombre = nombre;
         this.uds = uds;
         this.id = id;
+        this.precio = precio;
         fechaRetiro = null;
         fechaIngreso = new Date();
     }
@@ -52,6 +54,10 @@ public class Material {
 
     public String getDescripcion() {
         return descripcion;
+    }
+
+    public double getPrecio() {
+        return precio;
     }
 
     public String getUds() {
