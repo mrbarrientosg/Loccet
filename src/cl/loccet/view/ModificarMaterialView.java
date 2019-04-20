@@ -1,8 +1,7 @@
 package cl.loccet.view;
 
-import cl.loccet.base.View;
+import cl.loccet.base.Fragment;
 import cl.loccet.controller.InventarioMaterialController;
-import cl.loccet.model.Material;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -10,24 +9,24 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-
-public class ModificarMaterialView extends View {
+public class ModificarMaterialView extends Fragment {
 
     @FXML
     private TextField modificarIdTF;
+
     @FXML
     private TextArea modificarDescripcionTA;
+
     @FXML
     private Button aceptarTB;
+
     @FXML
     private Button cancelarBT;
 
-
     private InventarioMaterialController controller;
+
     private String idMaterial;
-    public void setController(InventarioMaterialController controller) {
-        this.controller = controller;
-    }
+
     @Override
     public void viewDidLoad() {
 
@@ -52,7 +51,6 @@ public class ModificarMaterialView extends View {
             alert.setHeaderText("Ingreso de datos invalido");
             alert.setContentText("Por favor ingresar al menos un campo");
             alert.showAndWait();
-
         }
         else {
             if (!nombre.isEmpty()) controller.modificarNombre(idMaterial,nombre);
@@ -61,8 +59,13 @@ public class ModificarMaterialView extends View {
         }
     }
 
-   @FXML public void cancelar(ActionEvent event){
+   @FXML
+   public void cancelar(ActionEvent event){
         close();
+    }
+
+    public void setController(InventarioMaterialController controller) {
+        this.controller = controller;
     }
 
 }

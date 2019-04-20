@@ -1,12 +1,10 @@
 package cl.loccet.controller;
 
 import cl.loccet.base.Controller;
-import cl.loccet.base.Injectable;
 import cl.loccet.model.Constructora;
 import cl.loccet.model.Proyecto;
 import cl.loccet.router.AgregarProyectoRouter;
 import cl.loccet.view.AgregarProyectoView;
-import cl.loccet.view.HomeView;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -28,12 +26,11 @@ public class AgregarProyectoController extends Controller {
         this.router = router;
     }
 
-
     /**
      * @return un string basandose en el nombre del proyecto
      * @author Matías Zúñiga
      */
-    public  final String generarId() {
+    public final String generarId() {
         String result = java.util.UUID.randomUUID().toString();
         //result = result.replaceAll("-", "");
         //result = result.replaceAll("[A-Za-z]","");

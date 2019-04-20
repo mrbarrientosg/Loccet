@@ -14,11 +14,11 @@ public class Constructora {
 
     private String nombre;
 
-    private ArrayList<Proyecto> listaProyecto;
+    private List<Proyecto> listaProyecto;
 
-    private HashMap<String, Proyecto> mapProyecto;
+    private Map<String, Proyecto> mapProyecto;
 
-    private HashMap<String, Trabajador> conjuntoTrabajadores;
+    private Map<String, Trabajador> conjuntoTrabajadores;
 
     public Constructora(String rut, String nombre) {
         this.rut = rut;
@@ -28,48 +28,33 @@ public class Constructora {
         conjuntoTrabajadores = new HashMap<>();
     }
 
-    //Setter
-
-    public void setRut(String rut) {
-        this.rut = rut;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    //Getter
-
-    public String getRut() {
-        return rut;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public List<Trabajador> getConjuntoTrabajadores() {
-        return Collections.unmodifiableList(new ArrayList<>(conjuntoTrabajadores.values()));
-    }
-
     //Metodos
 
-    public void agregarProyecto(Proyecto proyecto){
+    public boolean agregarProyecto(Proyecto proyecto){
+        if (listaProyecto.contains(proyecto) || mapProyecto.containsKey(proyecto.getId()))
+            return false;
+
         listaProyecto.add(proyecto);
-        mapProyecto.put(proyecto.getId() ,proyecto);
+        mapProyecto.put(proyecto.getId(), proyecto);
+
+        return true;
     }
 
-    public Proyecto eliminarProyecto(String id){
+    public Proyecto eliminarProyecto(String id) {
+        if (!mapProyecto.containsKey(id)) return null;
+        listaProyecto.remove(mapProyecto.get(id));
         return mapProyecto.remove(id);
     }
 
     public Trabajador actualizarTrabajador(Trabajador nuevoTrabajador) {
+        for (Proyecto proyecto: listaProyecto) {
+            proyecto.actualizarTrabajador(nuevoTrabajador);
+        }
         return conjuntoTrabajadores.put(nuevoTrabajador.getRut(), nuevoTrabajador);
     }
 
-
     public boolean agregarTrabajador(Trabajador trabajador){
-        if (conjuntoTrabajadores.get(trabajador.getRut()) != null) return false;
+        if (conjuntoTrabajadores.containsKey(trabajador.getRut())) return false;
         conjuntoTrabajadores.put(trabajador.getRut(), trabajador);
         return true;
     }
@@ -83,7 +68,7 @@ public class Constructora {
      * @author Matias Barrientos
      */
     public boolean agregarTrabajador(String idProyecto, Trabajador trabajador){
-        if(mapProyecto.get(idProyecto) == null) return false;
+        if (!mapProyecto.containsKey(idProyecto)) return false;
         mapProyecto.get(idProyecto).agregarTrabajador(trabajador);
         conjuntoTrabajadores.put(trabajador.getRut(), trabajador);
         return true;
@@ -97,8 +82,8 @@ public class Constructora {
      *
      * @author Matias Barrientos
      */
-    public ArrayList<Trabajador> buscarTrabajador(String idProyecto, String busqueda) {
-        if(mapProyecto.get(idProyecto) == null) return null;
+    public List<Trabajador> buscarTrabajador(String idProyecto, String busqueda) {
+        if (!mapProyecto.containsKey(idProyecto)) return Collections.EMPTY_LIST;
         Proyecto aux = mapProyecto.get(idProyecto);
         return aux.buscarTrabajador(busqueda.toLowerCase());
     }
@@ -110,7 +95,7 @@ public class Constructora {
      *
      * @author Matias Barrientos
      */
-    public ArrayList<Trabajador> buscarTrabajador(String busqueda) {
+    public List<Trabajador> buscarTrabajador(String busqueda) {
         ArrayList<Trabajador> encontrados = new ArrayList<>();
 
         for (Object ob: conjuntoTrabajadores.values()) {
@@ -128,8 +113,7 @@ public class Constructora {
         if (!conjuntoTrabajadores.containsKey(rut)) return null;
 
         for (Proyecto proyecto: listaProyecto) {
-            Trabajador t = proyecto.eliminarTrabajador(rut);
-            if (t != null) break;
+            proyecto.eliminarTrabajador(rut);
         }
 
         return conjuntoTrabajadores.remove(rut);
@@ -142,6 +126,20 @@ public class Constructora {
 
     public Proyecto buscarProyecto(String idProyecto) {
         return mapProyecto.get(idProyecto);
+    }
+
+    //Getter
+
+    public String getRut() {
+        return rut;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public List<Trabajador> getConjuntoTrabajadores() {
+        return Collections.unmodifiableList(new ArrayList<>(conjuntoTrabajadores.values()));
     }
 
     public List<Proyecto> getListaProyecto() {

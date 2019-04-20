@@ -1,5 +1,5 @@
 package cl.loccet.view;
-import cl.loccet.base.Injectable;
+
 import cl.loccet.base.View;
 import cl.loccet.controller.AgregarProyectoController;
 import javafx.beans.value.ChangeListener;
@@ -7,14 +7,12 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
-
 import java.util.Optional;
 
 /**
  * @author Matias Zuñiga
  * Establece la vista de agregar proyecto al momento de presionarlo en el menuBar
  */
-
 public class AgregarProyectoView extends View {
 
     private AgregarProyectoController controller;
@@ -36,7 +34,8 @@ public class AgregarProyectoView extends View {
     @FXML private DatePicker fechaF;
     @FXML private DatePicker fechaT;
 
-    @Override public void viewDidLoad() {
+    @Override
+    public void viewDidLoad() {
         montoC.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
@@ -48,7 +47,8 @@ public class AgregarProyectoView extends View {
         });
     }
 
-    @Override public void viewDidClose() {
+    @Override
+    public void viewDidClose() {
         System.out.println("viewDidClose");
         nombreP.setText("");
         jefeP.setText("");
@@ -61,7 +61,9 @@ public class AgregarProyectoView extends View {
         pais.setText("");
         direccion.setText("");
     }
-    @FXML private void apretarAceptar(){
+
+    @FXML
+    private void apretarAceptar(){
         if(nombreP.getText().isEmpty() || jefeP.getText().isEmpty() || montoC.getText().isEmpty()|| cliente.getText().isEmpty()|| telefonoC.getText().isEmpty() || mailC.getText().isEmpty() || direccion.getText().isEmpty() ||ciudad.getText().isEmpty()||estado.getText().isEmpty()||pais.getText().isEmpty() ||
                 fechaF.getEditor().getText().isEmpty() || fechaT.getEditor().getText().isEmpty()){
                 Alert alert = controller.showAlert("Existen casillas sin rellenar!");
@@ -80,7 +82,9 @@ public class AgregarProyectoView extends View {
 
         }
     }
-    @FXML private void apretarCancelar(){
+
+    @FXML
+    private void apretarCancelar(){
         Alert alert = controller.showWarning("Esta seguro que desea cancelar?");
         Optional<ButtonType> result = alert.showAndWait();
         if(result.isPresent()){
@@ -92,10 +96,13 @@ public class AgregarProyectoView extends View {
             }
         }
     }
+
+    @FXML
+    private void seleccionarTrabajadores() {
+
+    }
+
     public void setController(AgregarProyectoController controller) {
         this.controller = controller;
-    }
-    @FXML private void seleccionarTrabajadores(){
-
     }
 }
