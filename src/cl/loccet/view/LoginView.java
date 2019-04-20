@@ -2,9 +2,6 @@ package cl.loccet.view;
 
 import cl.loccet.base.View;
 import cl.loccet.controller.LoginController;
-import cl.loccet.model.Constructora;
-import cl.loccet.router.HomeRouter;
-import cl.loccet.util.Validator;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

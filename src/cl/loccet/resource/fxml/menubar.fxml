@@ -36,7 +36,7 @@
               </items>
             </Menu>
             <SeparatorMenuItem mnemonicParsing="false" />
-            <Menu mnemonicParsing="false" text="Especialidad">
+            <Menu mnemonicParsing="false" text="Especialidad" visible="false">
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#agregarEspecialidad" text="Agregar" />
                   <SeparatorMenuItem mnemonicParsing="false" />
@@ -45,7 +45,7 @@
                   <MenuItem mnemonicParsing="false" onAction="#eliminarEspecialidad" text="Eliminar" />
               </items>
             </Menu>
-            <SeparatorMenuItem mnemonicParsing="false" />
+            <SeparatorMenuItem mnemonicParsing="false" visible="false" />
                 <MenuItem mnemonicParsing="false" onAction="#reporteRRHH" text="Reporte" />
             </items>
         </Menu>
@@ -53,8 +53,8 @@
             <items>
             <MenuItem mnemonicParsing="false" onAction="#nuevoProyecto" text="Nuevo proyecto" />
             <SeparatorMenuItem mnemonicParsing="false" />
-                <MenuItem mnemonicParsing="false" onAction="#modificarProyecto" text="Modificar proyecto" />
-                <SeparatorMenuItem mnemonicParsing="false" />
+                <MenuItem mnemonicParsing="false" onAction="#modificarProyecto" text="Modificar proyecto" visible="false" />
+                <SeparatorMenuItem mnemonicParsing="false" visible="false" />
             <MenuItem mnemonicParsing="false" onAction="#eliminarProyecto" text="Eliminar Proyecto" />
             <SeparatorMenuItem mnemonicParsing="false" />
                 <MenuItem mnemonicParsing="false" onAction="#avanceProyecto" text="Avance" />
@@ -63,13 +63,13 @@
         <Menu mnemonicParsing="false" text="Inventario">
             <items>
             <MenuItem mnemonicParsing="false" onAction="#inventarioMateriales" text="Materiales" />
-                <SeparatorMenuItem mnemonicParsing="false" />
-                <MenuItem mnemonicParsing="false" onAction="#equipoMaquinaria" text="Equipo y maquinaria" />
-                <SeparatorMenuItem mnemonicParsing="false" />
-                <MenuItem mnemonicParsing="false" onAction="#reporteMateriales" text="Reporte" />
+                <SeparatorMenuItem mnemonicParsing="false" visible="false" />
+                <MenuItem mnemonicParsing="false" onAction="#equipoMaquinaria" text="Equipo y maquinaria" visible="false" />
+                <SeparatorMenuItem mnemonicParsing="false" visible="false" />
+                <MenuItem mnemonicParsing="false" onAction="#reporteMateriales" text="Reporte" visible="false" />
             </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Ingresos/Gastos">
+        <Menu mnemonicParsing="false" text="Ingresos/Gastos" visible="false">
             <items>
                 <MenuItem mnemonicParsing="false" onAction="#facturasCompras" text="Facturas Compras" />
                 <SeparatorMenuItem mnemonicParsing="false" />
