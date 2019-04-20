@@ -21,21 +21,21 @@ public class Especialidades {
 
     public static void createFakeData() {
         Especialidades esp = getInstance();
-        esp.put(new Especialidad("Jefe de obras", 0.0, 0.0));
-        esp.put(new Especialidad("Obrero", 0.0, 0.0));
-        esp.put(new Especialidad("Pintor", 0.0, 0.0));
-        esp.put(new Especialidad("Sin asignar", 0.0, 0.0));
+        esp.agregar(new Especialidad("Jefe de obras", 0.0, 0.0));
+        esp.agregar(new Especialidad("Obrero", 0.0, 0.0));
+        esp.agregar(new Especialidad("Pintor", 0.0, 0.0));
+        esp.agregar(new Especialidad("Sin asignar", 0.0, 0.0));
     }
 
     private Especialidades() {
         especialidades = new HashMap<>();
     }
 
-    public void put(Especialidad especialidad) {
+    public void agregar(Especialidad especialidad) {
         especialidades.put(especialidad.getNombre(), especialidad);
     }
 
-    public Especialidad get(String nombre) {
+    public Especialidad obtener(String nombre) {
         return especialidades.get(nombre);
     }
 

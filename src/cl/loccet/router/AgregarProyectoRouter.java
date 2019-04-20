@@ -3,7 +3,6 @@ package cl.loccet.router;
 import cl.loccet.base.Injectable;
 import cl.loccet.controller.AgregarProyectoController;
 import cl.loccet.model.Constructora;
-import cl.loccet.model.Proyecto;
 import cl.loccet.view.AgregarProyectoView;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -14,7 +13,6 @@ import javafx.stage.StageStyle;
  * @author Matias Zuñiga
  * Se encarga de pasar entre diferentes vistas de AgregarTrabajador
  */
-
 public class AgregarProyectoRouter {
 
     public static AgregarProyectoView create(Constructora model){
@@ -30,12 +28,14 @@ public class AgregarProyectoRouter {
         alert.initStyle(StageStyle.UTILITY);
         return alert;
     }
+
     public Alert showAlert(String mensaje){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setHeaderText(mensaje);
         alert.initStyle(StageStyle.UTILITY);
         return alert;
     }
+
     public Alert showInformation(String mensaje, TextField nombreP){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.initStyle(StageStyle.UTILITY);

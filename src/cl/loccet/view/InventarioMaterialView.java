@@ -5,20 +5,25 @@ import cl.loccet.base.View;
 import cl.loccet.controller.InventarioMaterialController;
 import cl.loccet.model.InventarioMaterial;
 import cl.loccet.model.Material;
+import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
+import javafx.util.StringConverter;
+
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
 
 
 /**
- * Vista principal del inventario.
+ * Clase que mostrara las vistas.
  *
  * @author  Sebastian Fuenzalida.
  */
@@ -70,14 +75,11 @@ public class InventarioMaterialView extends View {
     ObservableList<InventarioMaterial> inventarios;
 
 
-    public void setController(InventarioMaterialController controller) {
-        this.controller = controller;
-    }
-
     @Override
     public void viewDidLoad() {
         inicializarTablaMateriales();
     }
+
     @Override
     public void viewDidClose() {
 
@@ -90,7 +92,8 @@ public class InventarioMaterialView extends View {
      *
      * @param event
      */
-    @FXML public void nuevoMaterial(ActionEvent event){
+    @FXML
+    public void nuevoMaterial(ActionEvent event){
         NuevoMaterialView view = Injectable.find(NuevoMaterialView.class);
         view.setController(controller);
         view.modal().withBlock(true).show();
@@ -106,7 +109,6 @@ public class InventarioMaterialView extends View {
      * @return
      */
     public Material seleccion(){
-
         int seleccion = tablaInventario.getSelectionModel().getSelectedIndex();
         if(seleccion>=0){
             Material material =tablaInventario.getItems().get(seleccion);
@@ -122,7 +124,8 @@ public class InventarioMaterialView extends View {
      *
      * @param event
      */
-    @FXML public void modificarMaterial(ActionEvent event){
+    @FXML
+    public void modificarMaterial(ActionEvent event){
         Material material = seleccion();
         if(material!=null) {
             ModificarMaterialView view = Injectable.find(ModificarMaterialView.class);
@@ -150,7 +153,8 @@ public class InventarioMaterialView extends View {
      *
      * @param event
      */
-    @FXML public void agregarMaterial(ActionEvent event){
+    @FXML
+    public void agregarMaterial(ActionEvent event){
         Material material = seleccion();
         if(material!=null) {
             AgregarMaterialView view = Injectable.find(AgregarMaterialView.class);
@@ -175,7 +179,8 @@ public class InventarioMaterialView extends View {
      *
      * @param event
      */
-    @FXML public void retirarMaterial(ActionEvent event){
+    @FXML
+    public void retirarMaterial(ActionEvent event){
         Material material = seleccion();
         if(material!=null) {
             RetirarMaterialView view = Injectable.find(RetirarMaterialView.class);
@@ -236,8 +241,6 @@ public class InventarioMaterialView extends View {
      * @author Sebastian Fuenzalida.
      */
     private void inicializarTablaMateriales() {
-
-
         retiroCL.setCellValueFactory(new PropertyValueFactory<>("retiro"));
         udsCL.setCellValueFactory(new PropertyValueFactory<>("uds"));
         fechaRetiroCL.setCellValueFactory(new PropertyValueFactory<>("fechaRetiro"));
@@ -286,11 +289,10 @@ public class InventarioMaterialView extends View {
         precioCL.setCellValueFactory(new PropertyValueFactory<>("precio"));
         tablaInventario.setItems(controller.obtenerDatos());
         tablaInventario.setEditable(true);
-
     }
 
-
-
-
+    public void setController(InventarioMaterialController controller) {
+        this.controller = controller;
+    }
 
 }

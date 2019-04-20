@@ -3,7 +3,6 @@ package cl.loccet.controller;
 import cl.loccet.base.Controller;
 import cl.loccet.model.*;
 import cl.loccet.router.LoginRouter;
-import cl.loccet.util.ValidationResult;
 import cl.loccet.view.LoginView;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -33,18 +32,16 @@ public class LoginController extends Controller {
         // TODO: implementar el controlador para poder gestionar la constructora
         Constructora c = new Constructora("RUT","NOMBRE");
 
-        Proyecto p = new Proyecto.Builder("1", "","",0.0,"").build();
+        Proyecto p = new Proyecto.Builder("1", "TEST","",0.0,"").build();
 
         c.agregarProyecto(p);
 
         c.agregarTrabajador(p.getId(), new Trabajador.Builder()
                 .rut("19")
                 .nombre("Matias")
-                .especialidad(Especialidades.getInstance().get("Pintor"))
+                .especialidad(Especialidades.getInstance().obtener("Pintor"))
                 .localizacion(new Localizacion.Builder().build())
                 .build());
-
-
 
         router.showHome(c);
     }

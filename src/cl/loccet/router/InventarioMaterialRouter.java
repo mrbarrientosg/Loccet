@@ -23,7 +23,6 @@ public class InventarioMaterialRouter {
     }
 
 
-
    /* public InventarioView showHome(Inventario model) {
         HomeView home = HomeRouter.create(model);
         home.window().show();

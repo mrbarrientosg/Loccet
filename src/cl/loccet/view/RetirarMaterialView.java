@@ -1,4 +1,5 @@
 package cl.loccet.view;
+
 import cl.loccet.base.View;
 import cl.loccet.controller.InventarioMaterialController;
 import cl.loccet.model.Material;
@@ -8,7 +9,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
@@ -21,14 +21,12 @@ import java.util.regex.Pattern;
 public class RetirarMaterialView extends View {
 
     private InventarioMaterialController controller;
-    private Material material;
-    public void setController(InventarioMaterialController controller) {
-        this.controller = controller;
-    }
 
+    private Material material;
 
     @FXML
     private Button retirarBT;
+
     @FXML
     private Button cancelarBT;
 
@@ -50,6 +48,7 @@ public class RetirarMaterialView extends View {
     public void viewDidClose() {
         retirarTF.setText("");
     }
+
     public void setMaterial(Material material){
         this.material = material;
     }
@@ -78,9 +77,13 @@ public class RetirarMaterialView extends View {
        }
     }
 
+    @FXML
     public void cancelar(ActionEvent event){
         close();
     }
 
+    public void setController(InventarioMaterialController controller) {
+        this.controller = controller;
+    }
 
 }

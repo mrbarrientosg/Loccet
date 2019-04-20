@@ -1,4 +1,5 @@
 package cl.loccet.controller;
+
 import cl.loccet.base.Controller;
 import cl.loccet.model.InventarioMaterial;
 import cl.loccet.model.Material;
@@ -7,14 +8,11 @@ import cl.loccet.view.InventarioMaterialView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-
 /**
  *Clase manejadora de las funciones de la vista inventario.
  *
  * @author Sebastian Fuenzalida.
  */
-
-
 public class InventarioMaterialController extends Controller {
 
     private InventarioMaterialView view;
@@ -24,7 +22,6 @@ public class InventarioMaterialController extends Controller {
     private InventarioMaterial model;
 
     private ObservableList<Material> materials;
-
 
     public InventarioMaterialController(InventarioMaterialView view, InventarioMaterial model, InventarioMaterialRouter router) {
         this.view = view;
@@ -57,26 +54,26 @@ public class InventarioMaterialController extends Controller {
         model.nuevoItem(material);
         cargarDatos();
     }
-    public void agregarMaterial(String idMaterial,double cantidad){
-        model.agregarMaterial(idMaterial,cantidad);
+
+    public void agregarMaterial(String idMaterial, double cantidad){
+        model.agregarMaterial(idMaterial, cantidad);
         cargarDatos();
     }
-    public void retirarMaterial(String idMaterial,double cantidad){
-        model.retirarMaterial(idMaterial,cantidad);
+
+    public void retirarMaterial(String idMaterial, double cantidad){
+        model.retirarMaterial(idMaterial, cantidad);
         cargarDatos();
     }
 
     public void modificarNombre(String idMaterial, String nombre){
-        model.modificarNombre( idMaterial,nombre);
+        model.modificarNombre(idMaterial, nombre);
     }
 
-    public void modificarDescripcion(String idMaterial,String descripcion){
-        model.modificarDescripcion( idMaterial,descripcion);
+    public void modificarDescripcion(String idMaterial, String descripcion){
+        model.modificarDescripcion(idMaterial, descripcion);
     }
-
 
     public void eliminarMaterial(String idMaterial){
         model.eliminarItem(idMaterial);
     }
-
 }

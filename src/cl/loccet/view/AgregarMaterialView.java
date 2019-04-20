@@ -1,4 +1,6 @@
 package cl.loccet.view;
+
+import cl.loccet.base.Fragment;
 import cl.loccet.base.View;
 import cl.loccet.controller.InventarioMaterialController;
 import cl.loccet.model.Material;
@@ -18,17 +20,15 @@ import java.util.regex.Pattern;
  * @author Sebastian Fuenzalida.
  */
 
-public class AgregarMaterialView extends View {
+public class AgregarMaterialView extends Fragment {
 
     private InventarioMaterialController controller;
-    private String idMaterial;
-    public void setController(InventarioMaterialController controller) {
-        this.controller = controller;
-    }
 
+    private String idMaterial;
 
     @FXML
     private Button agregarBT;
+
     @FXML
     private Button cancelarBT;
 
@@ -51,7 +51,6 @@ public class AgregarMaterialView extends View {
         agregarTF.setText("");
     }
 
-
     public void setIdMaterial(String idMaterial){
         this.idMaterial = idMaterial;
     }
@@ -71,9 +70,13 @@ public class AgregarMaterialView extends View {
         }
     }
 
+    @FXML
     public void cancelar(ActionEvent event){
         close();
     }
 
+    public void setController(InventarioMaterialController controller) {
+        this.controller = controller;
+    }
 
 }

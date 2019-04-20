@@ -14,30 +14,32 @@ import java.util.regex.Pattern;
 public class NuevoMaterialView extends View {
 
     private InventarioMaterialController controller;
-    public void setController(InventarioMaterialController controller) {
-        this.controller = controller;
-    }
-    private ObservableList unidadesDeMedida;
+
+    private ObservableList<String> unidadesDeMedida;
 
     @FXML
     private Button agregarBT;
+
     @FXML
     private Button cancelarTB;
 
     @FXML
     private TextField idMaterialTF;
+
     @FXML
     private TextField nombreTF;
+
     @FXML
     private TextArea descripcionTF;
+
     @FXML
     private TextField cantidadTF;
+
     @FXML
     private TextField precioTF;
 
-
     @FXML
-    private ComboBox unidadCB;
+    private ComboBox<String> unidadCB;
 
     @Override
     public void viewDidLoad() {
@@ -86,7 +88,7 @@ public class NuevoMaterialView extends View {
 
             controller.nuevoMaterial(material);
             close();
-        }catch (Exception e){//En caso de que el usuario deje un campo vacio salta una excepcion.
+        } catch (Exception e){//En caso de que el usuario deje un campo vacio salta una excepcion.
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");
             alert.setHeaderText("Ingreso de datos invalido");
@@ -101,8 +103,14 @@ public class NuevoMaterialView extends View {
         cantidadTF.setText("");
         precioTF.setText("");
     }
+
+    @FXML
     public void salir(ActionEvent event){
         close();
+    }
+
+    public void setController(InventarioMaterialController controller) {
+        this.controller = controller;
     }
 
 }
