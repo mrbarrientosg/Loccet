@@ -57,6 +57,7 @@ public class NuevoMaterialView extends View {
         unidadesDeMedida.add("GR");
         unidadesDeMedida.add("UN");
         unidadCB.setItems(unidadesDeMedida);
+        unidadCB.getSelectionModel().selectFirst();
         Pattern pattern = Pattern.compile("\\d*|\\d+\\.\\d*");
         TextFormatter formatter =  new TextFormatter<UnaryOperator>(change -> {            //Permite agregar solo numeros y un punto.
             return pattern.matcher(change.getControlNewText()).matches() ? change : null;

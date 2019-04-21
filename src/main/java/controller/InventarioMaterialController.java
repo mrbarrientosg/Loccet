@@ -16,6 +16,9 @@ import model.InventarioMaterial;
 import model.Material;
 import model.Proyecto;
 import router.InventarioMaterialRouter;
+import util.ExportFile;
+import util.InventarioExport.ExportInventarioPDF;
+import util.InventarioExport.ExportInventarioXLSX;
 import util.PDFBuilder;
 import view.InventarioMaterialView;
 
@@ -46,11 +49,14 @@ public class InventarioMaterialController extends Controller {
 
     private ObservableList<MaterialCell> listMateriales;
 
+    private ExportFile exportFile;
+
     public InventarioMaterialController(InventarioMaterialView view, InventarioMaterial model, InventarioMaterialRouter router) {
         this.view = view;
         this.model = model;
         this.router = router;
         cargarDatos();
+        exportFile = new ExportFile();
     }
 
     /**
@@ -113,101 +119,41 @@ public class InventarioMaterialController extends Controller {
     }
 
     public void exportarInventario() {
-        PDFBuilder pdfBuilder = PDFBuilder.create("Test");
-
-        pdfBuilder.start(document -> {
-            //anchor.setName("Table export to PDF (Exportamos la tabla a PDF)");
-            Anchor anchor = new Anchor(proyecto.getNombreProyecto(), FontFactory.getFont(FontFactory.TIMES, 30));
-            Paragraph title = new Paragraph(anchor);
-            title.setAlignment(Element.ALIGN_CENTER);
-            addEmptyLine(title, 1);
-
-            document.add(title);
-
-            // We create the table (Creamos la tabla).
-            PdfPTable table = new PdfPTable(9);
-            // Now we fill the PDF table
-            // Ahora llenamos la tabla del PDF
-
-            table.addCell(createHeader("Fecha Ingreso"));
-            table.addCell(createHeader("ID"));
-            table.addCell(createHeader("Nombre"));
-            table.addCell(createHeader("Descripción"));
-            table.addCell(createHeader("Cantidad"));
-            table.addCell(createHeader("UDS"));
-            table.addCell(createHeader("Retiro"));
-            table.addCell(createHeader("Fecha Retiro"));
-            table.addCell(createHeader("Precio"));
-
-            table.setHeaderRows(1);
-            // Fill table rows (rellenamos las filas de la tabla).
-
-            table.setHorizontalAlignment(Element.ALIGN_CENTER);
-            table.setWidths(new float[]{30, 20, 30, 40, 30, 30, 30, 30, 30});
-            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-
-            Font fontCell = FontFactory.getFont(FontFactory.TIMES, 12);
-
-            listMateriales.forEach(materialCell -> {
-                for (int column = 0; column < 9; column++) {
-                    switch (column) {
-                        case 0:
-                            table.addCell(new Phrase(format.format(materialCell.getFechaIngreso()), fontCell));
-                            break;
-                        case 1:
-                            table.addCell(new Phrase(materialCell.getId(), fontCell));
-                            break;
-                        case 2:
-                            table.addCell(new Phrase(materialCell.getNombre(), fontCell));
-                            break;
-                        case 3:
-                            table.addCell(new Phrase(materialCell.getDescripcion(), fontCell));
-                            break;
-                        case 4:
-                            table.addCell(new Phrase(String.valueOf(materialCell.getCantidad()), fontCell));
-                            break;
-                        case 5:
-                            table.addCell(new Phrase(materialCell.getUds(), fontCell));
-                            break;
-                        case 6:
-                            table.addCell(new Phrase(String.valueOf(materialCell.getRetiro()), fontCell));
-                            break;
-                        case 7:
-                            if (materialCell.getFechaRetiro() == null) table.addCell("-");
-                            else table.addCell(new Phrase(format.format(materialCell.getFechaRetiro()), fontCell));
-                            break;
-                        case 8:
-                            table.addCell(new Phrase(String.valueOf(materialCell.getPrecio()), fontCell));
-                            break;
-                    }
-                }
-            });
-
-            // We add the table (Añadimos la tabla)
-            document.add(table);
-        });
-
-        guardarPDF(pdfBuilder.buildPDF());
-
-    }
-
-    private void guardarPDF(File file) {
         FileChooser fileChooser = new FileChooser();
 
         //Set extension filter for text files
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF files (*.pdf)", "*.pdf");
-        fileChooser.getExtensionFilters().add(extFilter);
+        FileChooser.ExtensionFilter pdfFilter = new FileChooser.ExtensionFilter("PDF files (*.pdf)", "*.pdf");
+        FileChooser.ExtensionFilter xlsxFilter = new FileChooser.ExtensionFilter("Excel files (*.xlsx)", "*.xlsx");
+
+        fileChooser.getExtensionFilters().addAll(pdfFilter, xlsxFilter);
 
         //Show save file dialog
         File dest = fileChooser.showSaveDialog(getPrimaryStage());
+
         if (dest != null) {
             try {
-                Files.copy(file.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                guardarArchivoInventario(fileChooser.selectedExtensionFilterProperty().get().getExtensions().get(0), dest);
             } catch (IOException ex) {
-                // handle exception...
                 ex.printStackTrace();
             }
         }
+    }
+
+    private void guardarArchivoInventario(String extension, File dest) throws IOException {
+        if (extension.equals("*.pdf")) {
+            exportFile.changeStrategy(new ExportInventarioPDF(proyecto.getNombreProyecto(), listMateriales));
+        } else {
+            exportFile.changeStrategy(new ExportInventarioXLSX(proyecto.getNombreProyecto(), listMateriales));
+        }
+
+        File file = exportFile.export();
+
+        if (file == null) {
+            router.showWarning("Error", "La exportación no se pudo guardar");
+            return;
+        }
+
+        Files.copy(file.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
     }
 
     private void changeMaterial(Material newValue) {
@@ -218,20 +164,6 @@ public class InventarioMaterialController extends Controller {
                 iterator.set(new MaterialCell(newValue));
                 break;
             }
-        }
-    }
-
-    private PdfPCell createHeader(String title) {
-        Font fontCell = FontFactory.getFont(FontFactory.TIMES, 14);
-        PdfPCell columnHeader = new PdfPCell(new Phrase(title, fontCell));
-        columnHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
-        columnHeader.setVerticalAlignment(Element.ALIGN_CENTER);
-        return columnHeader;
-    }
-
-    private static void addEmptyLine(Paragraph paragraph, int number) {
-        for (int i = 0; i < number; i++) {
-            paragraph.add(new Paragraph(" "));
         }
     }
 
