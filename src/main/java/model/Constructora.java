@@ -1,7 +1,5 @@
 package model;
-
 import util.StringUtils;
-
 import java.util.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,10 +23,9 @@ public class Constructora {
         mapProyecto = new HashMap<>();
         conjuntoTrabajadores = new HashMap<>();
     }
+    //MARK - Metodos
 
-    //Metodos
-
-    public boolean agregarProyecto(Proyecto proyecto){
+    public boolean agregarProyecto(Proyecto proyecto) {
         if (listaProyecto.contains(proyecto) || mapProyecto.containsKey(proyecto.getId()))
             return false;
 
@@ -45,13 +42,13 @@ public class Constructora {
     }
 
     public Trabajador actualizarTrabajador(Trabajador nuevoTrabajador) {
-        for (Proyecto proyecto: listaProyecto) {
+        for (Proyecto proyecto : listaProyecto) {
             proyecto.actualizarTrabajador(nuevoTrabajador);
         }
         return conjuntoTrabajadores.put(nuevoTrabajador.getRut(), nuevoTrabajador);
     }
 
-    public boolean agregarTrabajador(Trabajador trabajador){
+    public boolean agregarTrabajador(Trabajador trabajador) {
         if (conjuntoTrabajadores.containsKey(trabajador.getRut())) return false;
         conjuntoTrabajadores.put(trabajador.getRut(), trabajador);
         return true;
@@ -59,13 +56,13 @@ public class Constructora {
 
     /**
      * Agregar un trabajador a un proyecto
+     *
      * @param idProyecto id del proyecto
      * @param trabajador Trabajador a guardar
      * @return false si no se pudo agregar y true lo contrario
-     *
      * @author Matias Barrientos
      */
-    public boolean agregarTrabajador(String idProyecto, Trabajador trabajador){
+    public boolean agregarTrabajador(String idProyecto, Trabajador trabajador) {
         if (!mapProyecto.containsKey(idProyecto)) return false;
         mapProyecto.get(idProyecto).agregarTrabajador(trabajador);
         conjuntoTrabajadores.put(trabajador.getRut(), trabajador);
@@ -74,10 +71,10 @@ public class Constructora {
 
     /**
      * Buscar los trabajadores especificos en un proyecto
-     * @param idProyecto id del proyecto
-     * @param busqueda consulta de busqueda
-     * @return Lista de trabajadores encontrados
      *
+     * @param idProyecto id del proyecto
+     * @param busqueda   consulta de busqueda
+     * @return Lista de trabajadores encontrados
      * @author Matias Barrientos
      */
     public List<Trabajador> buscarTrabajador(String idProyecto, String busqueda) {
@@ -88,15 +85,15 @@ public class Constructora {
 
     /**
      * Busca a todos los trabajadores en todas las obras
+     *
      * @param busqueda Forma de como se quiere buscar
      * @return Lista de trabajadores encontrados
-     *
      * @author Matias Barrientos
      */
     public List<Trabajador> buscarTrabajador(String busqueda) {
         ArrayList<Trabajador> encontrados = new ArrayList<>();
 
-        for (Object ob: conjuntoTrabajadores.values()) {
+        for (Object ob : conjuntoTrabajadores.values()) {
             Trabajador trabajador = (Trabajador) ob;
 
             if (StringUtils.containsIgnoreCase(trabajador.getNombre(), busqueda) ||
@@ -114,7 +111,7 @@ public class Constructora {
     public Trabajador eliminarTrabajador(String rut) {
         if (!conjuntoTrabajadores.containsKey(rut)) return null;
 
-        for (Proyecto proyecto: listaProyecto) {
+        for (Proyecto proyecto : listaProyecto) {
             proyecto.eliminarTrabajador(rut);
         }
 
@@ -134,6 +131,24 @@ public class Constructora {
         if (!mapProyecto.containsKey(idProyecto)) return;
         mapProyecto.get(idProyecto).estimacionGasto();
     }
+    /**
+     * Revisa si existe un proyecto basandose en el nombre
+     *
+     * @param proyecto el cual va a ser ingresado a constructora
+     * @return boolean dependiendo de si el proyecto fue ingresado con anterioridad
+     * @author Matias Zúñiga
+     */
+    public boolean existeProyecto(Proyecto proyecto){
+        List<Proyecto> lista = getListaProyecto();
+        for(int i = 0; i< lista.size(); i++){
+            if(!lista.isEmpty()){
+                if(proyecto.getNombreProyecto().toUpperCase().equals(lista.get(i).getNombreProyecto().toUpperCase())){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     //Getter
 
@@ -152,5 +167,7 @@ public class Constructora {
     public List<Proyecto> getListaProyecto() {
         return Collections.unmodifiableList(listaProyecto);
     }
+
+
 }
 

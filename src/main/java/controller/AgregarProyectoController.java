@@ -25,33 +25,41 @@ public class AgregarProyectoController extends Controller {
         this.model = model;
         this.router = router;
     }
+    /**
+     * Función que permite ingresar un proyecto a la constructora.
+     * @author Matías Zúñiga
+     */
 
     public void presionarAceptar(TextField nombreP,TextField jefeP, TextField montoC,TextField cliente,TextField telefonoC,TextField mailC,TextField direccion,TextField ciudad,TextField estado,TextField pais,DatePicker fechaF,DatePicker fechaT){
-        LOGGER.info("Nombre proyecto: " + nombreP.getText());
-        LOGGER.info("Jefe proyecto: " + jefeP.getText());
-        LOGGER.info("Cliente: " + cliente.getText());
-        LOGGER.info("Presupuesto: " + montoC.getText());
-        LOGGER.info("Mail Cliente: " + mailC.getText());
-        LOGGER.info("Telefono Cliente: " + telefonoC.getText());
-        LOGGER.info("Direccion: " + direccion.getText());
-        LOGGER.info("Pais: " + pais.getText());
-        LOGGER.info("Estado: " + estado.getText());
-        LOGGER.info("Ciudad: " + ciudad.getText());
         System.out.println("Todos los campos estan llenos");
         Proyecto proyecto = new Proyecto.Builder(nombreP.getText(),jefeP.getText(),Double.parseDouble(montoC.getText()),cliente.getText())
                 .datosCliente(mailC.getText(),telefonoC.getText())
                 .datosUbicacion(direccion.getText(),pais.getText(),ciudad.getText(),estado.getText())
                 .fechaProyecto(fechaF.getValue(),fechaT.getValue())
                 .build();
-        model.agregarProyecto(proyecto);
-        router.showInformation("Agregado satisfactoriamente", nombreP);
+        if(!model.existeProyecto(proyecto)){
+            model.agregarProyecto(proyecto);
+            router.showInformation("Agregado satisfactoriamente", nombreP);
+
+        }
+        else {
+            router.showAlert("Proyecto ingresado previamente").showAndWait();
+        }
         //TODO: Aqui se cierra la vista
     }
-
+    /**
+     * @param mensaje texto expuesto en la alerta.
+     * @return una ventana de tipo alerta
+     * @author Matías Zúñiga
+     */
     public Alert showAlert(String mensaje) {
         return router.showAlert(mensaje);
     }
-
+    /**
+     * @param mensaje texto que se expondra en la alerta.
+     * @return una ventana de tipo Warning.
+     * @author Matías Zúñiga
+     */
     public Alert showWarning(String mensaje) {
         return router.showWarning(mensaje);
     }
