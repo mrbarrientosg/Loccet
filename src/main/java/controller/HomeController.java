@@ -222,7 +222,7 @@ public class HomeController extends Controller {
             }
         } while(proyecto == null);
 
-        router.inventarioMateriales(proyecto.getInventarioMaterial());
+        router.inventarioMateriales(proyecto.getInventarioMaterial(), proyecto);
     }
 
     public void agregarHorario() {

@@ -23,9 +23,8 @@
     <dependencies>
         <dependency>
             <groupId>com.itextpdf</groupId>
-            <artifactId>itext7-core</artifactId>
-            <version>7.1.5</version>
-            <type>pom</type>
+            <artifactId>itextpdf</artifactId>
+            <version>5.5.13</version>
         </dependency>
     </dependencies>
 

@@ -113,8 +113,8 @@ public class HomeRouter {
 
     }
 
-    public void inventarioMateriales(InventarioMaterial model) {
-        InventarioMaterialView inventarioMaterialView = InventarioMaterialRouter.create(model);
+    public void inventarioMateriales(InventarioMaterial model, Proyecto proyecto) {
+        InventarioMaterialView inventarioMaterialView = InventarioMaterialRouter.create(model, proyecto);
 
         master.setCenter(inventarioMaterialView.getRoot());
     }

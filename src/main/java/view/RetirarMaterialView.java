@@ -2,6 +2,7 @@ package view;
 
 
 import base.View;
+import cell.MaterialCell;
 import controller.InventarioMaterialController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,7 +25,7 @@ public class RetirarMaterialView extends View {
 
     private InventarioMaterialController controller;
 
-    private Material material;
+    private MaterialCell material;
 
     @FXML
     private Button retirarBT;
@@ -51,7 +52,7 @@ public class RetirarMaterialView extends View {
         retirarTF.setText("");
     }
 
-    public void setMaterial(Material material){
+    public void setMaterial(MaterialCell material){
         this.material = material;
     }
 

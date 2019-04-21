@@ -94,6 +94,7 @@ public class NuevoMaterialView extends View {
             controller.nuevoMaterial(material);
             close();
         } catch (Exception e){//En caso de que el usuario deje un campo vacio salta una excepcion.
+            e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");
             alert.setHeaderText("Ingreso de datos invalido");

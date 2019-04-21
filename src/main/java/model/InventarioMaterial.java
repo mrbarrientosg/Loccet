@@ -41,10 +41,11 @@ public class InventarioMaterial {
      * @param idMaterial
      * @param cantidad
      */
-    public void agregarMaterial(String idMaterial,double cantidad){
+    public Material agregarMaterial(String idMaterial,double cantidad){
         Material material = mapInventarios.get(idMaterial);
         material.setCantidad(material.getCantidad()+cantidad);
         material.setFechaIngreso(new Date());
+        return material;
     }
 
     /**
@@ -56,11 +57,12 @@ public class InventarioMaterial {
      * @param idMaterial
      * @param cantidad
      */
-    public void retirarMaterial(String idMaterial,double cantidad){
+    public Material retirarMaterial(String idMaterial,double cantidad){
         Material material = mapInventarios.get(idMaterial);
         material.setCantidad(material.getCantidad()-cantidad);
         material.setFechaRetiro(new Date());
         material.setRetiro(cantidad);
+        return material;
     }
 
     /**
@@ -71,9 +73,10 @@ public class InventarioMaterial {
      * @param idMaterial
      * @param nombre
      */
-    public void modificarNombre(String idMaterial,String nombre){
+    public Material modificarNombre(String idMaterial,String nombre){
         Material material = mapInventarios.get(idMaterial);
         material.setNombre(nombre);
+        return material;
     }
 
     /**
@@ -84,9 +87,10 @@ public class InventarioMaterial {
      * @param idMaterial
      * @param descripcion
      */
-    public void modificarDescripcion(String idMaterial,String descripcion){
+    public Material modificarDescripcion(String idMaterial,String descripcion){
         Material material = mapInventarios.get(idMaterial);
         material.setDescripcion(descripcion);
+        return material;
     }
 
     /**
@@ -96,10 +100,10 @@ public class InventarioMaterial {
      *
      * @param idMaterial
      */
-    public void eliminarItem(String idMaterial){
-        Material material = mapInventarios.get(idMaterial);
-        mapInventarios.remove(idMaterial);
+    public Material eliminarItem(String idMaterial){
+        Material material = mapInventarios.remove(idMaterial);
         listaInventarios.remove(material);
+        return material;
     }
 
 

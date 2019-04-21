@@ -2,21 +2,16 @@ package view;
 
 import base.Injectable;
 import base.View;
+import cell.MaterialCell;
 import controller.InventarioMaterialController;
-import javafx.beans.binding.Bindings;
-import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
-import javafx.util.StringConverter;
-import model.InventarioMaterial;
-import model.Material;
 
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
@@ -30,6 +25,9 @@ import java.util.Optional;
 public class InventarioMaterialView extends View {
 
     private InventarioMaterialController controller;
+
+    @FXML
+    private TextField searchText;
 
     //Botones.
     @FXML
@@ -46,35 +44,39 @@ public class InventarioMaterialView extends View {
     private Button salirBT;
 
 
-
     //Tabla inventario.
     @FXML
-    private TableView<Material> tablaInventario;
+    private TableView<MaterialCell> tablaInventario;
     @FXML
-    private TableColumn<Material,String> idMaterialCL;
+    private TableColumn<MaterialCell,String> idMaterialCL;
     @FXML
-    private TableColumn<Material,String> descripcionCL;
+    private TableColumn<MaterialCell,String> descripcionCL;
     @FXML
-    private TableColumn<Material,Double> cantidadCL;
+    private TableColumn<MaterialCell,Double> cantidadCL;
     @FXML
-    private TableColumn<Material, Date> fechaIngresoCL;
+    private TableColumn<MaterialCell, Date> fechaIngresoCL;
     @FXML
-    private TableColumn<Material, Date> fechaRetiroCL;
+    private TableColumn<MaterialCell, Date> fechaRetiroCL;
     @FXML
-    private TableColumn<Material,String> udsCL;
+    private TableColumn<MaterialCell,String> udsCL;
     @FXML
-    private TableColumn<Material, String> nombreMaterialCL;
+    private TableColumn<MaterialCell, String> nombreMaterialCL;
     @FXML
-    private TableColumn<Material,Double> retiroCL;
+    private TableColumn<MaterialCell,Double> retiroCL;
     @FXML
-    private TableColumn<Material,Double> precioCL;
-
-    ObservableList<InventarioMaterial> inventarios;
+    private TableColumn<MaterialCell,Double> precioCL;
 
     @Override
     public void viewDidLoad() {
         inicializarTablaMateriales();
-    }
+        searchText.setOnKeyReleased(event -> {
+            searchText.textProperty().addListener((observable, oldValue, newValue) -> {
+                controller.didSearch(newValue);
+            });
+            refreshTable();
+        });
+
+   }
 
     @Override
     public void viewDidClose() {
@@ -93,8 +95,7 @@ public class InventarioMaterialView extends View {
         NuevoMaterialView view = Injectable.find(NuevoMaterialView.class);
         view.setController(controller);
         view.modal().withBlock(true).show();
-        tablaInventario.setItems(controller.obtenerDatos());
-        tablaInventario.refresh();
+        refreshTable();
     }
 
     /**
@@ -104,10 +105,10 @@ public class InventarioMaterialView extends View {
      *
      * @return
      */
-    public Material seleccion(){
+    public MaterialCell seleccion(){
         int seleccion = tablaInventario.getSelectionModel().getSelectedIndex();
         if(seleccion>=0){
-            Material material =tablaInventario.getItems().get(seleccion);
+            MaterialCell material = tablaInventario.getItems().get(seleccion);
             return material;
         }
         return null;
@@ -122,22 +123,16 @@ public class InventarioMaterialView extends View {
      */
     @FXML
     public void modificarMaterial(ActionEvent event){
-        Material material = seleccion();
+        MaterialCell material = seleccion();
         if(material!=null) {
             ModificarMaterialView view = Injectable.find(ModificarMaterialView.class);
             view.setIdMaterial(material.getId());
             view.setController(controller);
             view.modal().withBlock(true).show();
-            tablaInventario.setItems(controller.obtenerDatos());
-            tablaInventario.refresh();
-
+            refreshTable();
         }
         else{
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText("Seliccionar material");
-            alert.setContentText("Por favor seleccione material a modificar");
-            alert.showAndWait();
+            controller.showWarning("Seleccionar material", "Por favor seleccione material a eliminar").showAndWait();;
         }
 
     }
@@ -151,7 +146,7 @@ public class InventarioMaterialView extends View {
      */
     @FXML
     public void agregarMaterial(ActionEvent event){
-        Material material = seleccion();
+        MaterialCell material = seleccion();
         if(material!=null) {
             AgregarMaterialView view = Injectable.find(AgregarMaterialView.class);
             view.setIdMaterial(material.getId());
@@ -160,11 +155,7 @@ public class InventarioMaterialView extends View {
             tablaInventario.refresh();
         }
         else{
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText("Seliccionar material");
-            alert.setContentText("Por favor seleccione material a agregar");
-            alert.showAndWait();
+            controller.showWarning("Seleccionar material", "Por favor seleccione material a eliminar").showAndWait();;
         }
     }
 
@@ -177,7 +168,7 @@ public class InventarioMaterialView extends View {
      */
     @FXML
     public void retirarMaterial(ActionEvent event){
-        Material material = seleccion();
+        MaterialCell material = seleccion();
         if(material!=null) {
             RetirarMaterialView view = Injectable.find(RetirarMaterialView.class);
             view.setMaterial(material);
@@ -186,11 +177,7 @@ public class InventarioMaterialView extends View {
             tablaInventario.refresh();
         }
         else{
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText("Seliccionar material");
-            alert.setContentText("Por favor seleccione material a retirar");
-            alert.showAndWait();
+            controller.showWarning("Seleccionar material", "Por favor seleccione material a eliminar").showAndWait();;
         }
     }
 
@@ -208,7 +195,7 @@ public class InventarioMaterialView extends View {
      */
     @FXML
     public void eliminar(ActionEvent event){
-        Material material = seleccion();
+        MaterialCell material = seleccion();
         if (material != null){
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Alerta");
@@ -222,12 +209,13 @@ public class InventarioMaterialView extends View {
 
         }
         else{
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText("Seliccionar material");
-            alert.setContentText("Por favor seleccione material a eliminar");
-            alert.showAndWait();
+            controller.showWarning("Seleccionar material", "Por favor seleccione material a eliminar").showAndWait();;
         }
+    }
+
+    @FXML
+    private void exportarInventario(ActionEvent event) {
+        controller.exportarInventario();
     }
 
 
@@ -241,7 +229,7 @@ public class InventarioMaterialView extends View {
         udsCL.setCellValueFactory(new PropertyValueFactory<>("uds"));
         fechaRetiroCL.setCellValueFactory(new PropertyValueFactory<>("fechaRetiro"));
         fechaRetiroCL.setCellFactory(column -> {
-            TableCell<Material, Date> cell = new TableCell<Material, Date>() {
+            TableCell<MaterialCell, Date> cell = new TableCell<MaterialCell, Date>() {
                 private SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 
                 @Override
@@ -261,7 +249,7 @@ public class InventarioMaterialView extends View {
         });
         fechaIngresoCL.setCellValueFactory(new PropertyValueFactory<>("fechaIngreso"));
         fechaIngresoCL.setCellFactory(column -> {
-            TableCell<Material, Date> cell = new TableCell<Material, Date>() {
+            TableCell<MaterialCell, Date> cell = new TableCell<MaterialCell, Date>() {
                 private SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 
                 @Override
@@ -283,12 +271,18 @@ public class InventarioMaterialView extends View {
         cantidadCL.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
         descripcionCL.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
         precioCL.setCellValueFactory(new PropertyValueFactory<>("precio"));
-        tablaInventario.setItems(controller.obtenerDatos());
-        tablaInventario.setEditable(true);
+        SortedList sortedList = controller.sortedList();
+        tablaInventario.setItems(sortedList);
+        sortedList.comparatorProperty().bind(tablaInventario.comparatorProperty());
+    }
+
+    private void refreshTable() {
+        SortedList sortedList = controller.sortedList();
+        tablaInventario.setItems(sortedList);
+        sortedList.comparatorProperty().bind(tablaInventario.comparatorProperty());
     }
 
     public void setController(InventarioMaterialController controller) {
         this.controller = controller;
     }
-
 }
