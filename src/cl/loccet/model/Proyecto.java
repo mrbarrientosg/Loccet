@@ -4,6 +4,11 @@ import cl.loccet.util.StringUtils;
 import java.time.LocalDate;
 import java.util.*;
 
+/**
+ * Clase modelo usada para el modelo material
+ * @author Matias Zuñiga
+ */
+
 public class Proyecto {
 
     // MARK: - Variables
@@ -19,10 +24,7 @@ public class Proyecto {
     private String estado;
     private LocalDate fechaInicio;
     private LocalDate fechaTermino;
-    private LocalDate fechaTerminoReal;
     private double estimacion;
-
-    private double costoReal;
 
     private List<Trabajador> listaTrabajadores;
 
@@ -59,21 +61,7 @@ public class Proyecto {
         inventarioMaterial = new InventarioMaterial();
     }
 
-    // MARK: - Setter
-
-    public void setFechaTerminoReal(LocalDate fechaTerminoReal){
-        this.fechaTerminoReal = fechaTerminoReal;
-    }
-
-    public void setCostoReal(double costoReal) {
-        this.costoReal = costoReal;
-    }
-
     // MARK: - Getter
-
-    public LocalDate getFechaTerminoReal() {
-        return fechaTerminoReal;
-    }
 
     public LocalDate getFechaInicio() {
         return fechaInicio;
@@ -123,10 +111,6 @@ public class Proyecto {
         return estimacion;
     }
 
-    public double getCostoReal() {
-        return costoReal;
-    }
-
     public InventarioMaterial getInventarioMaterial() {
         return inventarioMaterial;
     }
@@ -147,6 +131,13 @@ public class Proyecto {
         return true;
     }
 
+    /**
+     * Modifica un trabajador previamente ingresado
+     * @param nuevoTrabajador Texto de Busqueda
+     *
+     * @author Matias Barrientos
+     */
+
 
     public Trabajador actualizarTrabajador(Trabajador nuevoTrabajador) {
         if (!mapTrabajadores.containsKey(nuevoTrabajador.getRut())) return null;
@@ -154,7 +145,6 @@ public class Proyecto {
         listaTrabajadores.set(idx, nuevoTrabajador);
         return mapTrabajadores.put(nuevoTrabajador.getRut(), nuevoTrabajador);
     }
-
 
     /**
      * Busca todos los trabajadores que coincidan con la busqueda
@@ -175,9 +165,24 @@ public class Proyecto {
         return encontrados;
     }
 
+    /**
+     * Obtiene al trabajador el cual coincida con el rut.
+     * @param rut del trabajador.
+     * @return Trabajador encontrado.
+     *
+     * @author Matias Barrientos
+     */
+
     public Trabajador obtenerTrabajador(String rut) {
         return mapTrabajadores.get(rut);
     }
+    /**
+     * Elimina al trabajador que coincida con el rut.
+     * @param rut del trabajador.
+     * @return El trabajador eliminado
+     *
+     * @author Matias Barrientos
+     */
 
     public Trabajador eliminarTrabajador(String rut) {
         if (!mapTrabajadores.containsKey(rut)) return null;
@@ -198,14 +203,10 @@ public class Proyecto {
         private String estado;
         private LocalDate fechaInicio;
         private LocalDate fechaTermino;
-        private String fechaTerminoReal;
         private double estimacion;
         private double costoReal;
 
         public Builder(String id, String nombreProyecto, String jefeProyecto, Double estimacion, String cliente){
-//            if(id == null || nombreProyecto == null){
-//                throw new IllegalArgumentException("id, nombreProyecto, jefeProyecto, estimacion, Cliente no pueden estar vacias");
-//            }
             this.id = id;
             this.nombreProyecto = nombreProyecto;
             this.jefeProyecto = jefeProyecto;
@@ -227,10 +228,9 @@ public class Proyecto {
             return this;
         }
 
-        public Builder fechaProyecto(LocalDate fechaInicio, LocalDate fechaTermino/*, String fechaTerminoReal*/) {
+        public Builder fechaProyecto(LocalDate fechaInicio, LocalDate fechaTermino) {
             this.fechaInicio = fechaInicio;
             this.fechaTermino = fechaTermino;
-            // this.fechaTerminoReal = fechaTerminoReal;
             return this;
         }
 

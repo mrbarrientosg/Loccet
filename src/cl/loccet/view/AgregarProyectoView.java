@@ -7,12 +7,15 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+
+import java.awt.event.ActionEvent;
 import java.util.Optional;
 
 /**
  * @author Matias Zuñiga
  * Establece la vista de agregar proyecto al momento de presionarlo en el menuBar
  */
+
 public class AgregarProyectoView extends View {
 
     private AgregarProyectoController controller;
@@ -61,7 +64,10 @@ public class AgregarProyectoView extends View {
         pais.setText("");
         direccion.setText("");
     }
-
+    /**
+     * Función que permite ingresar un proyecto a la constructora.
+     * @author Matías Zúñiga
+     */
     @FXML
     private void apretarAceptar(){
         if(nombreP.getText().isEmpty() || jefeP.getText().isEmpty() || montoC.getText().isEmpty()|| cliente.getText().isEmpty()|| telefonoC.getText().isEmpty() || mailC.getText().isEmpty() || direccion.getText().isEmpty() ||ciudad.getText().isEmpty()||estado.getText().isEmpty()||pais.getText().isEmpty() ||
@@ -82,7 +88,10 @@ public class AgregarProyectoView extends View {
 
         }
     }
-
+    /**
+     * Función que cancela el ingreso del nuevo proyecto.
+     * @author Matías Zúñiga
+     */
     @FXML
     private void apretarCancelar(){
         Alert alert = controller.showWarning("Esta seguro que desea cancelar?");
@@ -95,11 +104,6 @@ public class AgregarProyectoView extends View {
                 alert.close();
             }
         }
-    }
-
-    @FXML
-    private void seleccionarTrabajadores() {
-
     }
 
     public void setController(AgregarProyectoController controller) {

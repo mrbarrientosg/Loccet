@@ -27,7 +27,7 @@ public class AgregarProyectoController extends Controller {
     }
 
     /**
-     * @return un string basandose en el nombre del proyecto
+     * @return un string generando un Id unico para el proyecto.
      * @author Matías Zúñiga
      */
     public final String generarId() {
@@ -37,6 +37,11 @@ public class AgregarProyectoController extends Controller {
         //result = result.substring(0, 32);
         return result;
     }
+
+    /**
+     * Función que permite ingresar un proyecto a la constructora.
+     * @author Matías Zúñiga
+     */
 
     public void presionarAceptar(TextField nombreP,TextField jefeP, TextField montoC,TextField cliente,TextField telefonoC,TextField mailC,TextField direccion,TextField ciudad,TextField estado,TextField pais,DatePicker fechaF,DatePicker fechaT){
         LOGGER.info("Nombre proyecto: " + nombreP.getText());
@@ -55,15 +60,25 @@ public class AgregarProyectoController extends Controller {
                 .datosUbicacion(direccion.getText(),pais.getText(),ciudad.getText(),estado.getText())
                 .fechaProyecto(fechaF.getValue(),fechaT.getValue())
                 .build();
-        model.agregarProyecto(proyecto);
-        router.showInformation("Agregado satisfactoriamente", nombreP);
-        //TODO: Aqui se cierra la vista
+        if(model.buscarProyecto(proyecto.getId()) == null){
+            model.agregarProyecto(proyecto);
+            router.showInformation("Agregado satisfactoriamente", nombreP);
+        }
     }
 
+    /**
+     * @param mensaje texto expuesto en la alerta.
+     * @return una ventana de tipo alerta
+     * @author Matías Zúñiga
+     */
     public Alert showAlert(String mensaje) {
         return router.showAlert(mensaje);
     }
-
+    /**
+     * @param mensaje texto que se expondra en la alerta.
+     * @return una ventana de tipo Warning.
+     * @author Matías Zúñiga
+     */
     public Alert showWarning(String mensaje) {
         return router.showWarning(mensaje);
     }
