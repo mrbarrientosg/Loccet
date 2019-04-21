@@ -60,9 +60,11 @@ public class AgregarProyectoController extends Controller {
                 .datosUbicacion(direccion.getText(),pais.getText(),ciudad.getText(),estado.getText())
                 .fechaProyecto(fechaF.getValue(),fechaT.getValue())
                 .build();
-        if(model.buscarProyecto(proyecto.getId()) == null){
-            model.agregarProyecto(proyecto);
+        if(model.agregarProyecto(proyecto)){
             router.showInformation("Agregado satisfactoriamente", nombreP);
+        }
+        else{
+            router.showInformation("Proyecto"+nombreP+"agregado anteriormente", null);
         }
     }
 

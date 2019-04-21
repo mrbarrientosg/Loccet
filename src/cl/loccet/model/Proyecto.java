@@ -164,7 +164,6 @@ public class Proyecto {
 
         return encontrados;
     }
-
     /**
      * Obtiene al trabajador el cual coincida con el rut.
      * @param rut del trabajador.
