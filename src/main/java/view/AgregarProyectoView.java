@@ -7,6 +7,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+
+import java.time.LocalDate;
 import java.util.Optional;
 
 /**
@@ -17,7 +19,7 @@ public class AgregarProyectoView extends View {
 
     private AgregarProyectoController controller;
 
-    //Botones
+    //MARK - Botones
     @FXML private Button cancelar;
     @FXML private Button sTrabajadores;
     @FXML private Button aceptar;
@@ -36,6 +38,8 @@ public class AgregarProyectoView extends View {
 
     @Override
     public void viewDidLoad() {
+        fechaF.setValue(LocalDate.now());
+        fechaT.setValue(LocalDate.now());
         montoC.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
@@ -60,29 +64,33 @@ public class AgregarProyectoView extends View {
         estado.setText("");
         pais.setText("");
         direccion.setText("");
+        fechaF.setValue(LocalDate.now());
+        fechaT.setValue(LocalDate.now());
     }
 
+    /**
+     * Función que permite ingresar un proyecto a la constructora.
+     * @author Matías Zúñiga
+     */
     @FXML
     private void apretarAceptar(){
         if(nombreP.getText().isEmpty() || jefeP.getText().isEmpty() || montoC.getText().isEmpty()|| cliente.getText().isEmpty()|| telefonoC.getText().isEmpty() || mailC.getText().isEmpty() || direccion.getText().isEmpty() ||ciudad.getText().isEmpty()||estado.getText().isEmpty()||pais.getText().isEmpty() ||
                 fechaF.getEditor().getText().isEmpty() || fechaT.getEditor().getText().isEmpty()){
-                Alert alert = controller.showAlert("Existen casillas sin rellenar!");
-                Optional<ButtonType> result = alert.showAndWait();
+                controller.showAlert("Existen casillas sin rellenar!").showAndWait();
                 System.out.println("campos vacios");
         }
         else if(fechaF.getValue().isAfter(fechaT.getValue())){
-            Alert alert = controller.showAlert("Las fechas ingresadas no coinciden.");
-            Optional<ButtonType> result = alert.showAndWait();
+            controller.showAlert("Las fechas ingresadas no coinciden.").showAndWait();
         }
         else{
             controller.presionarAceptar(nombreP,jefeP,montoC,cliente,telefonoC,mailC,direccion,ciudad,estado,pais,fechaF,fechaT);
             ((BorderPane) getRoot().getParent()).getChildren().remove(getRoot());
-            //System.out.println("nombre:" + proyecto.getNombreProyecto() + "id: " + proyecto.getId());
-            //TODO: No guarda aún trabajadores
-
         }
     }
-
+    /**
+     * Función que cancela el ingreso del nuevo proyecto.
+     * @author Matías Zúñiga
+     */
     @FXML
     private void apretarCancelar(){
         Alert alert = controller.showWarning("Esta seguro que desea cancelar?");
@@ -95,11 +103,6 @@ public class AgregarProyectoView extends View {
                 alert.close();
             }
         }
-    }
-
-    @FXML
-    private void seleccionarTrabajadores() {
-
     }
 
     public void setController(AgregarProyectoController controller) {
