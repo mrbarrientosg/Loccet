@@ -31,6 +31,7 @@ public class ExportInventarioXLSX implements ExportFileStrategy {
     }
 
     private void makeXLSX() {
+        CreationHelper createHelper = workbook.getCreationHelper();
         Font headerFont = workbook.createFont();
         headerFont.setBold(true);
         headerFont.setFontHeightInPoints((short) 14);
@@ -39,6 +40,9 @@ public class ExportInventarioXLSX implements ExportFileStrategy {
         headerCellStyle.setFont(headerFont);
 
         Row headerRow = sheet.createRow(0);
+
+        CellStyle cellStyle = workbook.createCellStyle();
+        cellStyle.setDataFormat(createHelper.createDataFormat().getFormat("dd/mm/yyyy"));
 
         createHeaderCell(headerRow,"Fecha Ingreso", 0);
         createHeaderCell(headerRow,"ID", 1);
@@ -54,14 +58,19 @@ public class ExportInventarioXLSX implements ExportFileStrategy {
 
         for (MaterialCell materialCell : materialCells) {
             Row row = sheet.createRow(rowNum++);
-            row.createCell(0).setCellValue(materialCell.getFechaIngreso());
+            Cell cell;
+            cell = row.createCell(0);
+            cell.setCellStyle(cellStyle);
+            cell.setCellValue(materialCell.getFechaIngreso());
             row.createCell(1).setCellValue(materialCell.getId());
             row.createCell(2).setCellValue(materialCell.getNombre());
             row.createCell(3).setCellValue(materialCell.getDescripcion());
             row.createCell(4).setCellValue(materialCell.getCantidad());
             row.createCell(5).setCellValue(materialCell.getUds());
             row.createCell(6).setCellValue(materialCell.getRetiro());
-            row.createCell(7).setCellValue(materialCell.getFechaRetiro());
+            cell = row.createCell(7);
+            cell.setCellStyle(cellStyle);
+            cell.setCellValue(materialCell.getFechaRetiro());
             row.createCell(8).setCellValue(materialCell.getPrecio());
         }
 
