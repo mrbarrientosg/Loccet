@@ -2,10 +2,6 @@ package controller;
 
 import base.Controller;
 import cell.MaterialCell;
-import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.sun.javafx.collections.SortableList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -16,26 +12,24 @@ import model.InventarioMaterial;
 import model.Material;
 import model.Proyecto;
 import router.InventarioMaterialRouter;
-import util.ExportFile;
+import util.ExportFile.ExportFile;
 import util.InventarioExport.ExportInventarioPDF;
 import util.InventarioExport.ExportInventarioXLSX;
-import util.PDFBuilder;
 import view.InventarioMaterialView;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.text.SimpleDateFormat;
 import java.util.ListIterator;
 import java.util.stream.Collectors;
 
 /**
- *Clase manejadora de las funciones de la vista inventario.
+ * Clase manejadora de las funciones de la vista inventario.
  *
  * @author Sebastian Fuenzalida.
  */
-public class InventarioMaterialController extends Controller {
+public final class InventarioMaterialController extends Controller {
 
     private InventarioMaterialView view;
 
@@ -80,6 +74,10 @@ public class InventarioMaterialController extends Controller {
         return new SortedList<>(filteredMateriales);
     }
 
+    /**
+     * Agrega un nuevo material al modelo
+     * @param material nuevo material a agregar
+     */
     public void nuevoMaterial(Material material){
         model.nuevoItem(material);
         listMateriales.add(new MaterialCell(material));
@@ -101,11 +99,19 @@ public class InventarioMaterialController extends Controller {
         changeMaterial(model.modificarDescripcion(idMaterial, descripcion));
     }
 
+    /**
+     * Elimina un material del modelo
+     * @param idMaterial id del material a eliminar
+     */
     public void eliminarMaterial(String idMaterial){
         Material eliminado = model.eliminarItem(idMaterial);
         listMateriales.removeIf(materialCell -> materialCell.getId().equals(eliminado.getId()));
     }
 
+    /**
+     * Filtra la busqueda de la vista
+     * @param query String que contiene la busqueda de la vista
+     */
     public void didSearch(String query) {
         filteredMateriales.setPredicate(materialCell ->
                 materialCell.getNombre().toLowerCase().contains(query.toLowerCase()) ||
@@ -119,6 +125,9 @@ public class InventarioMaterialController extends Controller {
         return router.showWarning(header, message);
     }
 
+    /**
+     * Muestra el FileChooser para poder exportar el inventario
+     */
     public void exportarInventario() {
         FileChooser fileChooser = new FileChooser();
 
@@ -140,6 +149,12 @@ public class InventarioMaterialController extends Controller {
         }
     }
 
+    /**
+     * Guarda el archivo en la carpeta que seleccion el usuario
+     * @param extension extension que esta usando
+     * @param dest archivo de destino para guardar
+     * @throws IOException
+     */
     private void guardarArchivoInventario(String extension, File dest) throws IOException {
         if (extension.equals("*.pdf")) {
             exportFile.changeStrategy(new ExportInventarioPDF(proyecto.getNombreProyecto(), listMateriales));

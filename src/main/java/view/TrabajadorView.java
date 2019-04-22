@@ -11,7 +11,7 @@ import model.Especialidades;
 
 import java.time.LocalDate;
 
-public class TrabajadorView extends View {
+public final class TrabajadorView extends View {
 
     private TrabajadorController controller;
 

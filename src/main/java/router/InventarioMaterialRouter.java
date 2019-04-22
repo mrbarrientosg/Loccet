@@ -14,7 +14,7 @@ import view.InventarioMaterialView;
  * @author Sebastian Fuenzalida.
  */
 
-public class InventarioMaterialRouter {
+public final class InventarioMaterialRouter {
 
     public static InventarioMaterialView create(InventarioMaterial model, Proyecto proyecto) {
         InventarioMaterialView inventarioView = Injectable.find(InventarioMaterialView.class);
@@ -34,9 +34,4 @@ public class InventarioMaterialRouter {
         return alert;
     }
 
-   /* public InventarioView showHome(Inventario model) {
-        HomeView home = HomeRouter.create(model);
-        home.window().show();
-        return home;
-    }*/
 }

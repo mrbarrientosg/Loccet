@@ -7,7 +7,7 @@ import javafx.scene.control.ButtonType;
 import model.Constructora;
 import view.ListaTrabajadorView;
 
-public class ListaTrabajadorRouter {
+public final class ListaTrabajadorRouter {
 
     public static ListaTrabajadorView create(Constructora model) {
         ListaTrabajadorView view = Injectable.find(ListaTrabajadorView.class);

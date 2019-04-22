@@ -4,7 +4,7 @@ import model.Material;
 
 import java.util.Date;
 
-public class MaterialCell {
+public final class MaterialCell {
 
     private String id;
 

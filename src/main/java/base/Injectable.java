@@ -20,22 +20,39 @@ public final class Injectable {
 
     private static Stage primaryStage;
 
+    /**
+     * Busca si existe una clase en el hashmap.
+     * @param type Clase que se quiere buscar
+     * @param <T> Valor generic que valida que la clase extienda de Component
+     * @return Retorna la clase encontrada
+     */
     public static <T extends Component> T find(Class<T> type) {
         return find(type, null);
     }
 
+    /**
+     * Busca si existe una clase en el hashmap.
+     * @param type Clase que se quiere buscar
+     * @param path Ruta por si requiere abrir un archivo .fxml
+     * @param <T> Valor generic que valida que la clase extienda de Component
+     * @return Retorna la clase encontrada
+     */
     public static <T extends Component> T find(Class<T> type, String path) {
         if (vistas.containsKey(type))
             return (T) vistas.get(type);
 
         Component result = getOrCreate(type, path);
 
-//        if (UIComponent.class.isAssignableFrom(result.getClass()))
-//            ((UIComponent)result).viewDidLoad();
-
         return (T) result;
     }
 
+    /**
+     * Obtiene una clase del hashmap y si no existe la crea guardando su instancia.
+     * @param type Clase que se quiere buscar
+     * @param path Ruta por si requiere abrir un archivo .fxml
+     * @param <T> Valor generic que valida que la clase extienda de Component
+     * @return Retorna la clase encontrada o creada
+     */
     private static <T extends Component> T getOrCreate(Class<T> type, String path) {
         T injectable;
 

@@ -6,35 +6,40 @@ import javafx.beans.property.SimpleObjectProperty;
 import model.Horario;
 import model.Proyecto;
 import model.Trabajador;
+import router.HorarioRouter;
 import state.AddHorarioDelegate;
 import view.HorarioView;
 import java.time.LocalTime;
 
-public class HorarioController extends Controller {
+/**
+ * Controlador de la vista HorarioView
+ */
+public final class HorarioController extends Controller {
 
     private HorarioView view;
+
+    private HorarioRouter router;
 
     private Proyecto proyecto;
 
     private Trabajador trabajador;
 
-    private ObjectProperty<LocalTime> entrada;
+    private final ObjectProperty<LocalTime> entrada = new SimpleObjectProperty<>();
 
-    private ObjectProperty<LocalTime> salida;
+    private final ObjectProperty<LocalTime> salida = new SimpleObjectProperty<>();
 
     private AddHorarioDelegate delegate;
 
-    public HorarioController(HorarioView view, Proyecto proyecto, Trabajador trabajador) {
-        this.view = view;
-        this.proyecto = proyecto;
-        this.trabajador = trabajador;
 
-        entrada = new SimpleObjectProperty<>();
-        salida = new SimpleObjectProperty<>();
-    }
-
+    /**
+     * Agregar un Horario al modelo Trabajador
+     * @param dia
+     */
     public void agregarHorario(int dia) {
-        if (entrada.get().compareTo(salida.get()) > 0) return;
+        if (entrada.get().compareTo(salida.get()) > 0) {
+            router.showWarning("La hora de entrada no puede superar la hora de salida").show();
+            return;
+        }
 
         Horario horario = new Horario.Builder(dia, proyecto.getId(), proyecto.getNombreProyecto())
                 .fechaInicio(entrada.get())
@@ -69,5 +74,22 @@ public class HorarioController extends Controller {
 
     public void setDelegate(AddHorarioDelegate delegate) {
         this.delegate = delegate;
+    }
+
+    public void setView(HorarioView view) {
+        this.view = view;
+        view.refreshView();
+    }
+
+    public void setProyecto(Proyecto proyecto) {
+        this.proyecto = proyecto;
+    }
+
+    public void setRouter(HorarioRouter router) {
+        this.router = router;
+    }
+
+    public void setTrabajador(Trabajador trabajador) {
+        this.trabajador = trabajador;
     }
 }

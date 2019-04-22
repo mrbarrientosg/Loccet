@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-public class LoginView extends View {
+public final class LoginView extends View {
 
     private LoginController controller;
 

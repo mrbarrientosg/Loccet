@@ -17,7 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 
-public class ListaTrabajadorView extends View {
+public final class ListaTrabajadorView extends View {
 
     private HomeView master;
 

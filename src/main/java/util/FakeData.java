@@ -6,13 +6,22 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FakeData {
+/**
+ * Clase que crea la informacion falsa
+ */
+public final class FakeData {
 
     public static Constructora createFakeData() {
         Especialidades.createFakeData();
         Constructora c = new Constructora("72.364.712-5", "Loccet SPA");
         createFakeProyectos().forEach(c::agregarProyecto);
-        createFakeTrabajadores().forEach(c::agregarTrabajador);
+        List<Trabajador> list = createFakeTrabajadores();
+        c.getListaProyecto().forEach(proyecto -> {
+
+            list.forEach(t -> {
+                c.agregarTrabajador(proyecto.getId(), t);
+            });
+        });
         return c;
     }
 
@@ -24,7 +33,6 @@ public class FakeData {
                 .fechaProyecto(LocalDate.of(2018, 7, 13), LocalDate.now())
                 .build();
 
-        createFakeTrabajadores().forEach(p::agregarTrabajador);
         createFakeMateriales().forEach(p.getInventarioMaterial()::nuevoItem);
 
         proyectos.add(p);
@@ -33,7 +41,6 @@ public class FakeData {
                 .fechaProyecto(LocalDate.of(2015, 7, 13), LocalDate.now())
                 .build();
 
-        createFakeTrabajadores().forEach(p::agregarTrabajador);
         createFakeMateriales().forEach(p.getInventarioMaterial()::nuevoItem);
 
         proyectos.add(p);
@@ -42,7 +49,6 @@ public class FakeData {
                 .fechaProyecto(LocalDate.of(2010, 7, 13), LocalDate.now())
                 .build();
 
-        createFakeTrabajadores().forEach(p::agregarTrabajador);
         createFakeMateriales().forEach(p.getInventarioMaterial()::nuevoItem);
 
         proyectos.add(p);
@@ -51,7 +57,6 @@ public class FakeData {
                 .fechaProyecto(LocalDate.of(2014, 7, 13), LocalDate.now())
                 .build();
 
-        createFakeTrabajadores().forEach(p::agregarTrabajador);
         createFakeMateriales().forEach(p.getInventarioMaterial()::nuevoItem);
 
         proyectos.add(p);

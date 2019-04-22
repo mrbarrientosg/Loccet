@@ -1,6 +1,6 @@
 package view;
 
-import base.View;
+import base.Fragment;
 import cell.HorarioCell;
 import controller.ListaHorarioController;
 import javafx.beans.property.SimpleStringProperty;
@@ -14,7 +14,7 @@ import model.Dias;
 
 import java.time.LocalTime;
 
-public class ListaHorarioView extends View {
+public final class ListaHorarioView extends Fragment {
 
     private ListaHorarioController controller;
 
@@ -41,9 +41,6 @@ public class ListaHorarioView extends View {
 
     @Override
     public void viewDidLoad() {
-        if (!controller.isAdd())
-            nombreTrabajador.setText(controller.getNombreTrabajador());
-
         diaColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().dia()));
         proyectoColumn.setCellValueFactory(new PropertyValueFactory<>("nombreProyecto"));
         entradaColumn.setCellValueFactory(new PropertyValueFactory<>("fechaInicio"));
@@ -57,12 +54,13 @@ public class ListaHorarioView extends View {
             int d2 = Dias.getDay(value2);
             return d2 - d1;
         });
+
+        tableHorario.setItems(controller.getHorarioList());
     }
 
     @Override
     public void viewDidClose() {
-        bottomVbox.setVisible(true);
-        nombreTrabajador.setVisible(true);
+
     }
 
     @FXML
@@ -75,15 +73,15 @@ public class ListaHorarioView extends View {
         controller.eliminarHorario(tableHorario.getSelectionModel().getSelectedItem());
     }
 
-    public void refreshTable() {
-        if (tableHorario.getItems().isEmpty())
-            tableHorario.setItems(controller.getHorarioList());
-        tableHorario.refresh();
-    }
-
     public void hideComponents() {
         bottomVbox.setVisible(false);
         nombreTrabajador.setVisible(false);
+    }
+
+    public void showComponents() {
+        nombreTrabajador.setText(controller.getNombreTrabajador());
+        bottomVbox.setVisible(true);
+        nombreTrabajador.setVisible(true);
     }
 
     private void setupTimeColumn(TableColumn<HorarioCell, LocalTime> timeColumn) {
@@ -107,5 +105,9 @@ public class ListaHorarioView extends View {
 
     public void setController(ListaHorarioController controller) {
         this.controller = controller;
+    }
+
+    public ListaHorarioController getController() {
+        return controller;
     }
 }

@@ -22,7 +22,7 @@ import java.util.Optional;
  *
  * @author  Sebastian Fuenzalida.
  */
-public class InventarioMaterialView extends View {
+public final class InventarioMaterialView extends View {
 
     private InventarioMaterialController controller;
 

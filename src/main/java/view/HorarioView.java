@@ -1,35 +1,19 @@
 package view;
 
-import base.Injectable;
 import base.View;
 import controller.HorarioController;
-import controller.ListaHorarioController;
 import javafx.application.Platform;
-import javafx.beans.binding.IntegerBinding;
 import javafx.beans.binding.ObjectBinding;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.util.Callback;
-import javafx.util.StringConverter;
 import model.Trabajador;
 import router.ListaHorarioRouter;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
 import java.time.LocalTime;
-import java.util.Calendar;
-import java.util.Comparator;
-import java.util.Date;
 
-public class HorarioView extends View {
+public final class HorarioView extends View {
 
     private HorarioController controller;
 
@@ -82,29 +66,13 @@ public class HorarioView extends View {
             }
         };
 
-        nombreTrabajador.setText(controller.getNombreTrabajador());
-        nombreProyecto.setText(controller.getNombreProyecto());
-
-        setupSpinner(horaEntrada,23);
-        setupSpinner(minutoEntrada,59);
-        limitTimeField(horaEntrada.getEditor(), 23);
-        limitTimeField(minutoEntrada.getEditor(), 59);
-
-        setupSpinner(horaSalida,23);
-        setupSpinner(minutoSalida,59);
-        limitTimeField(horaSalida.getEditor(), 23);
-        limitTimeField(minutoSalida.getEditor(), 59);
-
-        controller.entradaProperty().bind(entradaBinding);
-        controller.salidaProperty().bind(salidaBinding);
-
-        controller.addListView();
+        loadView();
     }
 
     @Override
     public void viewDidClose() {
-        getRoot().getChildren().removeIf(node -> node instanceof TableView);
         controller.setDelegate(null);
+        refreshView();
     }
 
     @FXML
@@ -118,11 +86,41 @@ public class HorarioView extends View {
     }
 
     public void addListView(Trabajador model) {
-        ListaHorarioView view = ListaHorarioRouter.create(model);
-        ListaHorarioController controller = Injectable.find(ListaHorarioController.class);
-        this.controller.setDelegate(controller);
-        controller.setAdd(true);
+        ListaHorarioView view = ListaHorarioRouter.create(model, true);
+        this.controller.setDelegate(view.getController());
         getRoot().getChildren().add(view.getRoot());
+    }
+
+    private void loadView() {
+        refreshView();
+
+        setupSpinner(horaEntrada,23);
+        setupSpinner(minutoEntrada,59);
+        limitTimeField(horaEntrada.getEditor(), 23);
+        limitTimeField(minutoEntrada.getEditor(), 59);
+
+        setupSpinner(horaSalida,23);
+        setupSpinner(minutoSalida,59);
+        limitTimeField(horaSalida.getEditor(), 23);
+        limitTimeField(minutoSalida.getEditor(), 59);
+
+        controller.entradaProperty().bind(entradaBinding);
+        controller.salidaProperty().bind(salidaBinding);
+    }
+
+    public void refreshView() {
+        getRoot().getChildren().removeIf(node -> node instanceof BorderPane);
+
+        nombreTrabajador.setText(controller.getNombreTrabajador());
+        nombreProyecto.setText(controller.getNombreProyecto());
+
+        horaEntrada.getEditor().setText("00");
+        minutoEntrada.getEditor().setText("00");
+
+        horaSalida.getEditor().setText("00");
+        minutoSalida.getEditor().setText("00");
+
+        controller.addListView();
     }
 
     public void setController(HorarioController controller) {

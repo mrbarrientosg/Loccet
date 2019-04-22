@@ -1,6 +1,6 @@
 package util;
 
-public class StringUtils {
+public final class StringUtils {
 
     /**
      * Algoritmo obtenido del siguiente link https://stackoverflow.com/a/25379180

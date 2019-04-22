@@ -136,6 +136,7 @@ public class Proyecto {
      */
     public boolean agregarTrabajador(Trabajador trabajador){
         if (mapTrabajadores.containsKey(trabajador.getRut())) return false;
+        trabajador.asociarProyecto(id);
         mapTrabajadores.put(trabajador.getRut(), trabajador);
         listaTrabajadores.add(trabajador);
         return true;

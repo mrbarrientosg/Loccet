@@ -6,7 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 
-public class HomeView extends View {
+public final class HomeView extends View {
 
     private HomeController controller;
 

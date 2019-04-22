@@ -3,14 +3,17 @@ package util;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfWriter;
+import util.ExportFile.DocumentCallBack;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.function.Consumer;
 
-public class PDFBuilder {
+/**
+ * Clase que permite crear de mejor forma un PDF
+ */
+public final class PDFBuilder {
 
     private Document document;
 

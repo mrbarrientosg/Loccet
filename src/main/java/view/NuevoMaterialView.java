@@ -12,7 +12,7 @@ import model.Material;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
-public class NuevoMaterialView extends View {
+public final class NuevoMaterialView extends View {
 
     private InventarioMaterialController controller;
 

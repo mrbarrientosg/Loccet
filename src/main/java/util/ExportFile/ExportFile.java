@@ -1,8 +1,11 @@
-package util;
+package util.ExportFile;
 
 import java.io.File;
 
-public class ExportFile {
+/**
+ * Clas que maneja de la forma que se exporta un archivo
+ */
+public final class ExportFile {
 
     private ExportFileStrategy fileStrategy;
 

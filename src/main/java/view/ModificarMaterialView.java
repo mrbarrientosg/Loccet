@@ -14,7 +14,7 @@ import javafx.scene.control.TextField;
  *
  * @author Sebastian Fuenzalida.
  */
-public class ModificarMaterialView extends Fragment {
+public final class ModificarMaterialView extends Fragment {
 
     @FXML
     private TextField modificarIdTF;

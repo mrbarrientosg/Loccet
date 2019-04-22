@@ -15,7 +15,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;
 
-public class HomeController extends Controller {
+public final class HomeController extends Controller {
 
     private final HomeView view;
 
@@ -170,7 +170,7 @@ public class HomeController extends Controller {
     public void reporteMateriales() { }
 
     public void reporteRRHH() {
-        clearConsole();
+        /*clearConsole();
 
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
 
@@ -195,7 +195,7 @@ public class HomeController extends Controller {
             }
         } while(proyecto == null);
 
-        model.estimacionGasto(proyecto.getId());
+        model.estimacionGasto(proyecto.getId());*/
     }
 
     public void inventarioMateriales() {
@@ -226,38 +226,39 @@ public class HomeController extends Controller {
     }
 
     public void agregarHorario() {
-        BufferedReader reader;
-        String rut;
-        Trabajador t = null;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        for (Proyecto p: model.getListaProyecto()) {
-            System.out.println(String.valueOf(p.getId()) + "\t" + p.getNombreProyecto());
+        final List<Proyecto> proyectos = model.getListaProyecto();
+
+        Integer i = 1;
+
+        for (Proyecto proyecto: proyectos) {
+            System.out.println(i.toString() + ".- ID: " + proyecto.getId() + "\t Nombre: " + proyecto.getNombreProyecto());
+            i++;
         }
 
-        String id;
+        System.out.println();
 
-        Proyecto p = null;
+        Proyecto proyecto = null;
+
+        Trabajador t = null;
 
         try {
-            reader = new BufferedReader(new InputStreamReader(System.in));
-
             do {
                 System.out.println("Ingrese el id del proyecto:");
-                id = reader.readLine();
-                p = model.buscarProyecto(id);
+                proyecto = model.buscarProyecto(reader.readLine());
 
 
-                if (p != null) {
+                if (proyecto != null) {
                     System.out.println("Ingrese el rut del trabajador:");
-                    rut = reader.readLine();
-                    t = p.obtenerTrabajador(rut);
+                    t = proyecto.obtenerTrabajador(reader.readLine());
                     if (t == null)
                         System.out.println("No existe el trabajador");
                     else
-                        router.agregarHorario(p, t);
+                        router.agregarHorario(proyecto, t);
                 }
 
-            } while (p == null);
+            } while (proyecto == null);
 
         } catch (IOException ex) {
             ex.printStackTrace();

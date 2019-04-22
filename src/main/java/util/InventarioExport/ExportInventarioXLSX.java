@@ -3,7 +3,7 @@ package util.InventarioExport;
 import cell.MaterialCell;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import util.ExportFileStrategy;
+import util.ExportFile.ExportFileStrategy;
 
 import java.io.File;
 import java.io.FileOutputStream;

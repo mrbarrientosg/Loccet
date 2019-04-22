@@ -20,7 +20,7 @@ import view.TrabajadorView;
 import java.util.ListIterator;
 import java.util.stream.Collectors;
 
-public class ListaTrabajadorController extends Controller implements EditTrabajadorDelegate {
+public final class ListaTrabajadorController extends Controller implements EditTrabajadorDelegate {
 
     private final ListaTrabajadorView view;
 
@@ -41,21 +41,36 @@ public class ListaTrabajadorController extends Controller implements EditTrabaja
         loadData();
     }
 
+    /**
+     * Carga la informacion del modelo en la lista
+     */
     public void loadData() {
         trabajadorCells = FXCollections.observableList(model.getConjuntoTrabajadores().stream().map(TrabajadorCell::new).collect(Collectors.toList()));
         filteredMateriales = new FilteredList<>(trabajadorCells, e -> true);
     }
 
+    /**
+     * @return Lista ordenada para la vista
+     */
     public SortedList<TrabajadorCell> sortedList() {
         return new SortedList<>(filteredMateriales);
     }
 
+    /**
+     * Muestra la vista para poder editar un Trabajador
+     * @return retorna la vista para poder mostrarla
+     */
     public TrabajadorView mostrarEditar() {
         if (selectedTrabajadorProperty().get() == null) return null;
         Trabajador t = model.obtenerTrabajador(selectedTrabajador.get().getRut());
         return TrabajadorRouter.create(model, t, this);
     }
 
+    /**
+     * Funcion que se llama cuando se edita un trabajador
+     * @param old Trabajador antiguo
+     * @param newT Nuevo Trabajador
+     */
     @Override
     public void didEdit(Trabajador old, Trabajador newT) {
         ListIterator<TrabajadorCell> iterator = trabajadorCells.listIterator();
@@ -68,6 +83,10 @@ public class ListaTrabajadorController extends Controller implements EditTrabaja
         }
     }
 
+    /**
+     * Filtra la busqueda de la vista
+     * @param query String que contiene la busqueda de la vista
+     */
     public void didSearch(String query) {
         filteredMateriales.setPredicate(materialCell ->
                 materialCell.getNombre().toLowerCase().contains(query.toLowerCase()) ||
@@ -80,7 +99,4 @@ public class ListaTrabajadorController extends Controller implements EditTrabaja
         return selectedTrabajador;
     }
 
-    public ObservableList<TrabajadorCell> getTrabajadorCells() {
-        return trabajadorCells;
-    }
 }

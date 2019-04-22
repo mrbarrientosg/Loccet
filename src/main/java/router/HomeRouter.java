@@ -9,7 +9,7 @@ import model.Proyecto;
 import model.Trabajador;
 import view.*;
 
-public class HomeRouter {
+public final class HomeRouter {
 
     private static HomeView master;
 

@@ -8,7 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 
-public class MenuBarView extends View {
+public final class MenuBarView extends View {
 
     private HomeController controller;
 

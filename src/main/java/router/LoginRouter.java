@@ -8,7 +8,7 @@ import model.Constructora;
 import view.HomeView;
 import view.LoginView;
 
-public class LoginRouter {
+public final class LoginRouter {
 
     public static LoginView create() {
         LoginView view = Injectable.find(LoginView.class);
@@ -23,7 +23,6 @@ public class LoginRouter {
     public Alert showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
         alert.setTitle("Error");
-        alert.showAndWait();
         return alert;
     }
 

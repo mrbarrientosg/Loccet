@@ -12,10 +12,11 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 /**
- * @author Matias Zuñiga
  * Establece la vista de agregar proyecto al momento de presionarlo en el menuBar
+ *
+ * @author Matias Zuñiga
  */
-public class AgregarProyectoView extends View {
+public final class AgregarProyectoView extends View {
 
     private AgregarProyectoController controller;
 

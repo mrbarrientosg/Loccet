@@ -14,7 +14,7 @@ import view.AgregarProyectoView;
  * Se encarga de mostrar la información ingresada por el usuario en la vista AgregarProyecto
  */
 
-public class AgregarProyectoController extends Controller {
+public final class AgregarProyectoController extends Controller {
 
     private AgregarProyectoView view;
     private AgregarProyectoRouter router;
@@ -25,11 +25,11 @@ public class AgregarProyectoController extends Controller {
         this.model = model;
         this.router = router;
     }
+
     /**
      * Función que permite ingresar un proyecto a la constructora.
      * @author Matías Zúñiga
      */
-
     public void presionarAceptar(TextField nombreP,TextField jefeP, TextField montoC,TextField cliente,TextField telefonoC,TextField mailC,TextField direccion,TextField ciudad,TextField estado,TextField pais,DatePicker fechaF,DatePicker fechaT){
         System.out.println("Todos los campos estan llenos");
         Proyecto proyecto = new Proyecto.Builder(nombreP.getText(),jefeP.getText(),Double.parseDouble(montoC.getText()),cliente.getText())
@@ -47,6 +47,7 @@ public class AgregarProyectoController extends Controller {
         }
         //TODO: Aqui se cierra la vista
     }
+
     /**
      * @param mensaje texto expuesto en la alerta.
      * @return una ventana de tipo alerta

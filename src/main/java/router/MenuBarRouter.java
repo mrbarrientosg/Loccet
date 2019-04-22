@@ -5,7 +5,7 @@ import base.Injectable;
 import controller.HomeController;
 import view.MenuBarView;
 
-public class MenuBarRouter {
+public final class MenuBarRouter {
 
     public static MenuBarView create(HomeController controller) {
         MenuBarView view = Injectable.find(MenuBarView.class);

@@ -5,7 +5,7 @@ import model.Horario;
 
 import java.time.LocalTime;
 
-public class HorarioCell {
+public final class HorarioCell {
 
     private String id;
 

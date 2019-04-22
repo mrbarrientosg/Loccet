@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
  *
  * @author Sebastian Fuenzalida.
  */
-public class RetirarMaterialView extends View {
+public final class RetirarMaterialView extends View {
 
     private InventarioMaterialController controller;
 

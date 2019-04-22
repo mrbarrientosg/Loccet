@@ -7,7 +7,7 @@ import router.LoginRouter;
 import util.FakeData;
 import view.LoginView;
 
-public class LoginController extends Controller {
+public final class LoginController extends Controller {
 
     private final LoginView view;
 
@@ -22,8 +22,19 @@ public class LoginController extends Controller {
         this.router = router;
     }
 
+    /**
+     * Inicia sesion
+     */
     public void loginUser() {
         // TODO: Validar el RUT y la contraseña
+        if (rutProperty.isEmpty().get() || passwordProperty.isEmpty().get()) {
+            router.showError("Complete todos los campos").showAndWait();
+            return;
+        } else if (!rutProperty.get().equals("123") || !passwordProperty.get().equals("123")) {
+            router.showError("Usuario o Contraseña incorrecta").showAndWait();
+            return;
+        }
+
         System.out.println(rutProperty.get());
         System.out.println(passwordProperty.get());
 

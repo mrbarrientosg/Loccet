@@ -36,18 +36,22 @@ public abstract class UIComponent extends Component {
 
     private Stage modalStage;
 
-    private StringProperty titleProperty;
+    private StringProperty title;
 
     private boolean isDocked;
 
     private boolean isInitialized = false;
 
     public UIComponent(String title) {
-        titleProperty = new SimpleStringProperty(title);
+        this.title = new SimpleStringProperty(title);
     }
 
     public StringProperty getTitleProperty() {
-        return titleProperty;
+        return title;
+    }
+
+    public String getTitle() {
+        return title.get();
     }
 
     protected Window getCurrentWindow() {
@@ -76,6 +80,9 @@ public abstract class UIComponent extends Component {
         return root;
     }
 
+    /**
+     * Inicializa la vista
+     */
     public final void init() {
         if (isInitialized) return;
 
@@ -113,14 +120,25 @@ public abstract class UIComponent extends Component {
         isInitialized = true;
     }
 
-    public abstract void viewDidLoad();
+    public void viewDidLoad() { };
 
-    public abstract void viewDidClose();
+    public void viewDidClose() { };
 
+    /**
+     * Carga el .fxml de la vista
+     * @param <T> Generico para especificar lo que retorna
+     * @return retorna el root del .fxml
+     */
     public <T extends Node> T loadFXML() {
         return loadFXML(null);
     }
 
+    /**
+     * Carga el .fxml de la vista
+     * @param ruta Ruta del archivo .fxml
+     * @param <T> Generico para especificar lo que retorna
+     * @return retorna el root del .fxml
+     */
     public <T extends Node> T loadFXML(String ruta) {
         URL fxmlUrl = locateFXML(ruta);
 
@@ -149,6 +167,11 @@ public abstract class UIComponent extends Component {
         return null;
     }
 
+    /**
+     * Busca la ruta de un archivo .fxml
+     * @param ruta Ruta ya especificada
+     * @return retorna la ruta del archivo
+     */
     private URL locateFXML(String ruta) {
         String loc;
 
@@ -160,6 +183,9 @@ public abstract class UIComponent extends Component {
         return getResources().url(loc);
     }
 
+    /**
+     * Builder para poder mostrar una ventana
+     */
     public class ShowBuilder {
 
         private StageStyle stageStyle;
@@ -200,7 +226,7 @@ public abstract class UIComponent extends Component {
                 if (modality != null)  modalStage.initModality(modality);
                 if (owner != null) modalStage.initOwner(owner);
                 modalStage.setResizable(resizable);
-                modalStage.titleProperty().bind(titleProperty);
+                modalStage.titleProperty().bind(title);
 
                 if (getRoot().getScene() != null) {
                     modalStage.setScene(getRoot().getScene());
@@ -245,6 +271,10 @@ public abstract class UIComponent extends Component {
         return new ShowBuilder();
     }
 
+    /**
+     * Muestra la ventana en formato Window
+     * @return retorna el Builder
+     */
     public ShowBuilder window() {
         return new ShowBuilder()
                 .withStyle(StageStyle.DECORATED)
@@ -253,6 +283,10 @@ public abstract class UIComponent extends Component {
                 .withBlock(false);
     }
 
+    /**
+     * Muestra la ventana en formato Modal
+     * @return retorna el Builder
+     */
     public ShowBuilder modal() {
         return new ShowBuilder()
                 .withStyle(StageStyle.DECORATED)
@@ -261,18 +295,26 @@ public abstract class UIComponent extends Component {
                 .withBlock(false);
     }
 
-
+    /**
+     * Funcion auxiliar para la funcion init()
+     */
     private void callOnDock() {
         if (!isInitialized) init();
         isDocked = true;
         viewDidLoad();
     }
 
+    /**
+     * Funcion auxiliar para la funcion init()
+     */
     private void callOnUndock() {
         isDocked = false;
         viewDidClose();
     }
 
+    /**
+     * Cierra la ventana
+     */
     public void close() {
         if (modalStage != null) {
             modalStage.close();
@@ -284,6 +326,12 @@ public abstract class UIComponent extends Component {
 
     }
 
+    /**
+     * Llama solo una vez un listener
+     * @param object Objecto que se quiere observar
+     * @param op Funcion de retorno
+     * @param <T> Valor generico
+     */
     private <T> void onChangeOnce(ReadOnlyObjectProperty<T> object, Consumer<T> op) {
         AtomicInteger counter = new AtomicInteger(0);
 
@@ -300,7 +348,12 @@ public abstract class UIComponent extends Component {
         object.addListener(listener);
     }
 
-    private <T> void onChange(ReadOnlyBooleanProperty object, Consumer<Boolean> op) {
+    /**
+     * Retorna si ha cambiado un objecto en la funcion Consumer
+     * @param object Objecto que se quiere observar de tipo Boolean
+     * @param op Funcion de retorno de tipo Boolean
+     */
+    private void onChange(ReadOnlyBooleanProperty object, Consumer<Boolean> op) {
         object.addListener((observable, oldValue, newValue) -> {
             if (newValue != null)
                 op.accept(newValue);

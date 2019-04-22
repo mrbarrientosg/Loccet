@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
  * @author Sebastian Fuenzalida.
  */
 
-public class AgregarMaterialView extends Fragment {
+public final class AgregarMaterialView extends Fragment {
 
     private InventarioMaterialController controller;
 
@@ -44,20 +44,18 @@ public class AgregarMaterialView extends Fragment {
         agregarTF.setTextFormatter(formatter);
     }
 
-    @Override
-    public void viewDidClose() {
-        agregarTF.setText("");
-    }
-
     public void setIdMaterial(String idMaterial){
         this.idMaterial = idMaterial;
     }
 
+    /**
+     * Evento del boton para agregar mas cantidad al material
+     * @param event
+     */
     @FXML
     public void cantidadItem(ActionEvent event){
         try {
             controller.agregarMaterial(idMaterial, Double.parseDouble(agregarTF.getText()));
-
             close();
         }catch (Exception e){
             Alert alert = new Alert(Alert.AlertType.ERROR);

@@ -2,7 +2,10 @@ package base;
 
 import java.net.URL;
 
-public class ResourceUtil {
+/**
+ * Clase que simplifica la obtencion de recursos
+ */
+public final class ResourceUtil {
 
     private Object component;
 

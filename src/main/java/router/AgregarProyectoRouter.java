@@ -13,7 +13,7 @@ import view.AgregarProyectoView;
  * @author Matias Zuñiga
  * Se encarga de pasar entre diferentes vistas de AgregarTrabajador
  */
-public class AgregarProyectoRouter {
+public final class AgregarProyectoRouter {
 
     /**
      * Funcion que crea la vista para agregar el proyecto.
@@ -30,6 +30,7 @@ public class AgregarProyectoRouter {
 
         return agregarProyectoView;
     }
+
     /**
      * @param mensaje texto que se expondra en la alerta.
      * @return una ventana de tipo Warning.
@@ -40,6 +41,7 @@ public class AgregarProyectoRouter {
         alert.initStyle(StageStyle.UTILITY);
         return alert;
     }
+
     /**
      * @param mensaje texto que se expondra en la alerta.
      * @return una ventana de tipo alerta.
@@ -51,6 +53,7 @@ public class AgregarProyectoRouter {
         alert.initStyle(StageStyle.UTILITY);
         return alert;
     }
+
     /**
      * @param mensaje texto que se expondra en la alerta.
      * @return una ventana de tipo información.
