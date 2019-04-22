@@ -54,10 +54,10 @@ public final class AgregarMaterialView extends Fragment {
      */
     @FXML
     public void cantidadItem(ActionEvent event){
-        try {
+        if(!agregarTF.getText().isEmpty()) {
             controller.agregarMaterial(idMaterial, Double.parseDouble(agregarTF.getText()));
             close();
-        }catch (Exception e){
+        }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Ingreso de datos invalido");
