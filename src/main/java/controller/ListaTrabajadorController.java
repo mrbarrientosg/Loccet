@@ -1,11 +1,14 @@
 package controller;
 
 import base.Controller;
+import cell.MaterialCell;
 import cell.TrabajadorCell;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import model.Constructora;
 import model.Trabajador;
 import router.ListaTrabajadorRouter;
@@ -29,6 +32,8 @@ public class ListaTrabajadorController extends Controller implements EditTrabaja
 
     private ObservableList<TrabajadorCell> trabajadorCells;
 
+    private FilteredList<TrabajadorCell> filteredMateriales;
+
     public ListaTrabajadorController(ListaTrabajadorView view, Constructora model, ListaTrabajadorRouter router) {
         this.view = view;
         this.model = model;
@@ -38,6 +43,11 @@ public class ListaTrabajadorController extends Controller implements EditTrabaja
 
     public void loadData() {
         trabajadorCells = FXCollections.observableList(model.getConjuntoTrabajadores().stream().map(TrabajadorCell::new).collect(Collectors.toList()));
+        filteredMateriales = new FilteredList<>(trabajadorCells, e -> true);
+    }
+
+    public SortedList<TrabajadorCell> sortedList() {
+        return new SortedList<>(filteredMateriales);
     }
 
     public TrabajadorView mostrarEditar() {
@@ -56,6 +66,14 @@ public class ListaTrabajadorController extends Controller implements EditTrabaja
                 break;
             }
         }
+    }
+
+    public void didSearch(String query) {
+        filteredMateriales.setPredicate(materialCell ->
+                materialCell.getNombre().toLowerCase().contains(query.toLowerCase()) ||
+                        materialCell.getRut().toLowerCase().contains(query.toLowerCase()) ||
+                        materialCell.getApellido().toLowerCase().contains(query.toLowerCase())
+        );
     }
 
     public ObjectProperty<TrabajadorCell> selectedTrabajadorProperty() {

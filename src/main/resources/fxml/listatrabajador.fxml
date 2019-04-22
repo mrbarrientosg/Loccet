@@ -7,19 +7,25 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <TableView fx:id="tableView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0">
+      <TableView fx:id="tableView" minHeight="-Infinity" minWidth="-Infinity">
          <columns>
             <TableColumn fx:id="rutColumn" editable="false" prefWidth="75.0" style="-fx-alignment: CENTER;" text="RUT" />
             <TableColumn fx:id="nameColumn" editable="false" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Nombre" />
             <TableColumn fx:id="lastNameColumn" editable="false" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Apellido" />
-            <TableColumn fx:id="proyectColumn" editable="false" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Proyecto" />
+            <TableColumn fx:id="fechaNaciemientoColumn" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Fecha Nacimiento" />
             <TableColumn fx:id="specialityColumn" editable="false" prefWidth="84.0" style="-fx-alignment: CENTER;" text="Especialidad" />
+            <TableColumn fx:id="horasTrabajoColumn" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Horas de Trabajo" />
+            <TableColumn fx:id="sueldoHoraColumn" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Sueldo por Hora" />
+            <TableColumn fx:id="proyectColumn" editable="false" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Proyecto" visible="false" />
+            <TableColumn fx:id="telefonoColumn" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Telefono" />
+            <TableColumn fx:id="emailColumn" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Correo electronico" />
          </columns>
          <contextMenu>
             <ContextMenu>
@@ -40,6 +46,7 @@
             <Separator prefWidth="200.0" valignment="TOP" VBox.vgrow="ALWAYS" />
             <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" spacing="20.0">
                <children>
+                  <TextField fx:id="searchTextField" promptText="Buscar trabajador" />
                   <Button mnemonicParsing="false" onAction="#editTrabajador" text="Editar" />
                   <Button mnemonicParsing="false" onAction="#actualizarTabla" text="Actualizar" />
                   <Separator maxWidth="1.7976931348623157E308" visible="false" HBox.hgrow="ALWAYS" />

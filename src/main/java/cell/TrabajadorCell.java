@@ -2,6 +2,7 @@ package cell;
 
 import model.Trabajador;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 public class TrabajadorCell {
@@ -12,7 +13,7 @@ public class TrabajadorCell {
 
     private String apellido;
 
-    private LocalDate fechaNacimiento;
+    private String fechaNacimiento;
 
     private String nombreEspecialidad;
 
@@ -28,7 +29,7 @@ public class TrabajadorCell {
         this.rut = t.getRut();
         this.nombre = t.getNombre();
         this.apellido = t.getApellido();
-        this.fechaNacimiento = t.getFechaNacimiento();
+        this.fechaNacimiento = t.getFechaNacimiento().toString();
         this.nombreEspecialidad = t.getEspecialidad().getNombre();
         this.cantidadDeHoras = t.getEspecialidad().getCantidadDeHoras();
         this.sueldoPorHora = t.getEspecialidad().getSueldoPorHora();
@@ -46,7 +47,7 @@ public class TrabajadorCell {
         return apellido;
     }
 
-    public LocalDate getFechaNacimiento() {
+    public String getFechaNacimiento() {
         return fechaNacimiento;
     }
 

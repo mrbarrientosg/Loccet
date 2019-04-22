@@ -63,16 +63,77 @@ public class FakeData {
     private static List<Trabajador> createFakeTrabajadores() {
         List<Trabajador> trabajadors = new ArrayList<>();
 
-        trabajadors.add(new Trabajador.Builder().rut("14.234.123-0").nombre("Matias").especialidad(Especialidades.getInstance().obtener("Jefe de obras")).build());
-        trabajadors.add(new Trabajador.Builder().rut("13.234.254-0").nombre("Javier").especialidad(Especialidades.getInstance().obtener("Jefe de obras")).build());
-        trabajadors.add(new Trabajador.Builder().rut("12.234.223-0").nombre("Lorena").especialidad(Especialidades.getInstance().obtener("Jefe de obras")).build());
-        trabajadors.add(new Trabajador.Builder().rut("11.234.271-0").nombre("Alen").especialidad(Especialidades.getInstance().obtener("Jefe de obras")).build());
+        trabajadors.add(new Trabajador.Builder()
+                .rut("14.234.123-0")
+                .nombre("Matias")
+                .apellido("")
+                .especialidad(Especialidades.getInstance().obtener("Jefe de obras"))
+                .fechaNacimiento(LocalDate.now())
+                .localizacion(new Localizacion.Builder().build())
+                .build());
 
-        trabajadors.add(new Trabajador.Builder().rut("14.344.280-0").nombre("Felipe").especialidad(Especialidades.getInstance().obtener("Pintor")).build());
-        trabajadors.add(new Trabajador.Builder().rut("13.235.280-0").nombre("Bastian").especialidad(Especialidades.getInstance().obtener("Pintor")).build());
+        trabajadors.add(new Trabajador.Builder()
+                .rut("13.234.254-0")
+                .nombre("Javier")
+                .apellido("")
+                .especialidad(Especialidades.getInstance().obtener("Jefe de obras"))
+                .fechaNacimiento(LocalDate.now())
+                .localizacion(new Localizacion.Builder().build())
+                .build());
 
-        trabajadors.add(new Trabajador.Builder().rut("12.212.280-0").nombre("Marcelo").especialidad(Especialidades.getInstance().obtener("Obrero")).build());
-        trabajadors.add(new Trabajador.Builder().rut("17.234.280-0").nombre("Jose").especialidad(Especialidades.getInstance().obtener("Obrero")).build());
+        trabajadors.add(new Trabajador.Builder()
+                .rut("12.234.223-0")
+                .nombre("Lorena")
+                .apellido("")
+                .especialidad(Especialidades.getInstance().obtener("Jefe de obras"))
+                .fechaNacimiento(LocalDate.now())
+                .localizacion(new Localizacion.Builder().build())
+                .build());
+
+        trabajadors.add(new Trabajador.Builder()
+                .rut("11.234.271-0")
+                .nombre("Alen")
+                .apellido("")
+                .especialidad(Especialidades.getInstance().obtener("Jefe de obras"))
+                .fechaNacimiento(LocalDate.now())
+                .localizacion(new Localizacion.Builder().build())
+                .build());
+
+        trabajadors.add(new Trabajador.Builder()
+                .rut("14.344.280-0")
+                .nombre("Felipe")
+                .apellido("")
+                .especialidad(Especialidades.getInstance().obtener("Pintor"))
+                .fechaNacimiento(LocalDate.now())
+                .localizacion(new Localizacion.Builder().build())
+                .build());
+
+        trabajadors.add(new Trabajador.Builder()
+                .rut("13.235.280-0")
+                .nombre("Bastian")
+                .apellido("")
+                .especialidad(Especialidades.getInstance().obtener("Pintor"))
+                .fechaNacimiento(LocalDate.now())
+                .localizacion(new Localizacion.Builder().build())
+                .build());
+
+        trabajadors.add(new Trabajador.Builder()
+                .rut("12.212.280-0")
+                .nombre("Marcelo")
+                .apellido("")
+                .especialidad(Especialidades.getInstance().obtener("Obrero"))
+                .fechaNacimiento(LocalDate.now())
+                .localizacion(new Localizacion.Builder().build())
+                .build());
+
+        trabajadors.add(new Trabajador.Builder()
+                .rut("17.234.280-0")
+                .nombre("Jose")
+                .apellido("")
+                .especialidad(Especialidades.getInstance().obtener("Obrero"))
+                .fechaNacimiento(LocalDate.now())
+                .localizacion(new Localizacion.Builder().build())
+                .build());
 
         return trabajadors;
     }

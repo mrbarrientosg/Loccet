@@ -80,10 +80,6 @@ public class InventarioMaterialController extends Controller {
         return new SortedList<>(filteredMateriales);
     }
 
-    public FilteredList<MaterialCell> getFilteredMateriales() {
-        return filteredMateriales;
-    }
-
     public void nuevoMaterial(Material material){
         model.nuevoItem(material);
         listMateriales.add(new MaterialCell(material));
