@@ -107,7 +107,12 @@ public class InventarioMaterialController extends Controller {
     }
 
     public void didSearch(String query) {
-        filteredMateriales.setPredicate(materialCell -> materialCell.getNombre().toLowerCase().startsWith(query.toLowerCase()));
+        filteredMateriales.setPredicate(materialCell ->
+                materialCell.getNombre().toLowerCase().contains(query.toLowerCase()) ||
+                        materialCell.getId().toLowerCase().contains(query.toLowerCase()) ||
+                        materialCell.getDescripcion().toLowerCase().contains(query.toLowerCase()) ||
+                        materialCell.getUds().toLowerCase().contains(query.toLowerCase())
+        );
     }
 
     public Alert showWarning(String header, String message) {
