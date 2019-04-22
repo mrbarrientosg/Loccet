@@ -54,34 +54,34 @@ public class Constructora {
         return true;
     }
 
-    /**
-     * Agregar un trabajador a un proyecto
-     *
-     * @param idProyecto id del proyecto
-     * @param trabajador Trabajador a guardar
-     * @return false si no se pudo agregar y true lo contrario
-     * @author Matias Barrientos
-     */
-    public boolean agregarTrabajador(String idProyecto, Trabajador trabajador) {
-        if (!mapProyecto.containsKey(idProyecto)) return false;
-        mapProyecto.get(idProyecto).agregarTrabajador(trabajador);
-        conjuntoTrabajadores.put(trabajador.getRut(), trabajador);
-        return true;
-    }
-
-    /**
-     * Buscar los trabajadores especificos en un proyecto
-     *
-     * @param idProyecto id del proyecto
-     * @param busqueda   consulta de busqueda
-     * @return Lista de trabajadores encontrados
-     * @author Matias Barrientos
-     */
-    public List<Trabajador> buscarTrabajador(String idProyecto, String busqueda) {
-        if (!mapProyecto.containsKey(idProyecto)) return Collections.EMPTY_LIST;
-        Proyecto aux = mapProyecto.get(idProyecto);
-        return aux.buscarTrabajador(busqueda.toLowerCase());
-    }
+//    /**
+//     * Agregar un trabajador a un proyecto
+//     *
+//     * @param idProyecto id del proyecto
+//     * @param trabajador Trabajador a guardar
+//     * @return false si no se pudo agregar y true lo contrario
+//     * @author Matias Barrientos
+//     */
+//    public boolean agregarTrabajador(String idProyecto, Trabajador trabajador) {
+//        if (!mapProyecto.containsKey(idProyecto)) return false;
+//        mapProyecto.get(idProyecto).agregarTrabajador(trabajador);
+//        conjuntoTrabajadores.put(trabajador.getRut(), trabajador);
+//        return true;
+//    }
+//
+//    /**
+//     * Buscar los trabajadores especificos en un proyecto
+//     *
+//     * @param idProyecto id del proyecto
+//     * @param busqueda   consulta de busqueda
+//     * @return Lista de trabajadores encontrados
+//     * @author Matias Barrientos
+//     */
+//    public List<Trabajador> buscarTrabajador(String idProyecto, String busqueda) {
+//        if (!mapProyecto.containsKey(idProyecto)) return Collections.EMPTY_LIST;
+//        Proyecto aux = mapProyecto.get(idProyecto);
+//        return aux.buscarTrabajador(busqueda.toLowerCase());
+//    }
 
     /**
      * Busca a todos los trabajadores en todas las obras

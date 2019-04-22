@@ -150,24 +150,25 @@ public class Proyecto {
     }
 
 
-    /**
-     * Busca todos los trabajadores que coincidan con la busqueda
-     * @param busqueda Texto de Busqueda
-     * @return Lista de Trabajadores encontrados
-     *
-     * @author Matias Barrientos
-     */
-    public List<Trabajador> buscarTrabajador(String busqueda) {
-        ArrayList<Trabajador> encontrados = new ArrayList<>();
+//    /**
+//     * Busca todos los trabajadores que coincidan con la busqueda
+//     * @param busqueda Texto de Busqueda
+//     * @return Lista de Trabajadores encontrados
+//     *
+//     * @author Matias Barrientos
+//     */
+//    public List<Trabajador> buscarTrabajador(String busqueda) {
+//        ArrayList<Trabajador> encontrados = new ArrayList<>();
+//
+//        for (Trabajador trabajador: listaTrabajadores) {
+//            if (StringUtils.containsIgnoreCase(trabajador.getNombre(), busqueda) ||
+//                    StringUtils.containsIgnoreCase(trabajador.getRut(), busqueda))
+//                encontrados.add(trabajador);
+//        }
+//
+//        return encontrados;
+//    }
 
-        for (Trabajador trabajador: listaTrabajadores) {
-            if (StringUtils.containsIgnoreCase(trabajador.getNombre(), busqueda) ||
-                    StringUtils.containsIgnoreCase(trabajador.getRut(), busqueda))
-                encontrados.add(trabajador);
-        }
-
-        return encontrados;
-    }
     /**
      * Obtiene al trabajador el cual coincida con el rut.
      * @param rut del trabajador.
