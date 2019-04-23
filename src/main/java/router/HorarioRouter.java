@@ -21,6 +21,7 @@ public final class HorarioRouter {
         controller.setProyecto(proyecto);
         controller.setTrabajador(trabajador);
         controller.setView(view);
+        controller.setRouter(router);
 
         return view;
     }

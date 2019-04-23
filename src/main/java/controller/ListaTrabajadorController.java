@@ -63,6 +63,11 @@ public final class ListaTrabajadorController extends Controller implements EditT
     public TrabajadorView mostrarEditar() {
         if (selectedTrabajadorProperty().get() == null) return null;
         Trabajador t = model.obtenerTrabajador(selectedTrabajador.get().getRut());
+        if (t == null)  {
+            loadData();
+            view.refreshTable();
+            return null;
+        }
         return TrabajadorRouter.create(model, t, this);
     }
 

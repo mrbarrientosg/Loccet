@@ -54,26 +54,26 @@ public final class HomeController extends Controller {
     public void eliminarEspecialidad() { }
 
     public void eliminarTrabajadorConstructora() {
-        BufferedReader reader;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String rut;
         Trabajador t;
+
+        System.out.println("Ingrese el rut del trabajador:");
         try {
-            reader = new BufferedReader(new InputStreamReader(System.in));
-
-            do {
-                System.out.println("Ingrese el rut del trabajador:");
-                rut = reader.readLine();
-                t = model.eliminarTrabajador(rut);
-            } while (t == null);
-
-            System.out.println("Trabajador eliminado de la Constructora");
-        } catch (IOException ex) {
-            ex.printStackTrace();
+            rut = reader.readLine();
+            t = model.eliminarTrabajador(rut);
+            if (t != null) {
+                System.out.println("Trabajador eliminado de la Constructora");
+            } else {
+                System.out.println("El Trabajador no existe en la Constructora");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     public void eliminarTrabajadorProyecto() {
-        BufferedReader reader;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String rut;
         Trabajador t = null;
 
@@ -92,29 +92,23 @@ public final class HomeController extends Controller {
 
         Proyecto p = null;
 
+        System.out.println("Ingrese el id del proyecto:");
         try {
-            reader = new BufferedReader(new InputStreamReader(System.in));
-
-            do {
-                System.out.println("Ingrese el id del proyecto:");
-                id = reader.readLine();
-                p = model.buscarProyecto(id);
-
-
-                if (p != null) {
-                    System.out.println("Ingrese el rut del trabajador:");
-                    rut = reader.readLine();
-                    t = p.eliminarTrabajador(rut);
-                    if (t == null)
-                        System.out.println("No existe el trabajador");
-                    else
-                        System.out.println("Trabajador eliminado del proyecto");
-                }
-
-            } while (p == null);
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
+            id = reader.readLine();
+            p = model.buscarProyecto(id);
+            if (p != null) {
+                System.out.println("Ingrese el rut del trabajador:");
+                rut = reader.readLine();
+                t = p.eliminarTrabajador(rut);
+                if (t == null)
+                    System.out.println("No existe el trabajador");
+                else
+                    System.out.println("Trabajador eliminado del proyecto");
+            } else {
+                System.out.println("No existe el Proyecto");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -130,8 +124,36 @@ public final class HomeController extends Controller {
 
     public void modificarTrabajador() {
         // TODO : Buscar al trabajador que quiere modificar
-        Trabajador t = model.buscarTrabajador("19").get(0);
-        router.modificarTrabajador(model, t);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        final List<Trabajador> trabajadores = model.getConjuntoTrabajadores();
+
+        Integer i = 1;
+
+        for (Trabajador trabajador: trabajadores) {
+            System.out.println(i.toString() + ".- RUT: " + trabajador.getRut() + "\t Nombre: " + trabajador.getNombre() + "\t Apellido:" + trabajador.getApellido());
+            i++;
+        }
+
+        System.out.println();
+
+        String rut;
+        Trabajador t;
+
+        try {
+
+            System.out.println("Ingrese el rut del trabajador:");
+            rut = reader.readLine();
+            t = model.obtenerTrabajador(rut);
+
+            if (t != null) router.modificarTrabajador(model, t);
+            else System.out.println("No existe el trabajador");
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+
     }
 
     public void nuevoProyecto() {
@@ -154,15 +176,17 @@ public final class HomeController extends Controller {
 
         Proyecto proyecto = null;
 
-        do {
-            System.out.println("Ingrese id del proyecto:");
-            try {
-                proyecto = model.eliminarProyecto(lector.readLine());
-            } catch (IOException e) {
-                e.printStackTrace();
+        System.out.println("Ingrese id del proyecto:");
+        try {
+            proyecto = model.eliminarProyecto(lector.readLine());
+            if (proyecto != null) {
+                System.out.println("El proyecto se ha eliminado satisfactoriamente!");
+            } else {
+                System.out.println("No existe el Proyecto");
             }
-        } while(proyecto == null);
-        System.out.println("El proyecto se ha eliminado satisfactoriamente!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void reporteIngresoGasto() { }
@@ -213,16 +237,17 @@ public final class HomeController extends Controller {
         System.out.println();
 
         Proyecto proyecto = null;
-        do {
-            System.out.println("Ingrese id del proyecto:");
-            try {
-                proyecto = model.buscarProyecto(lector.readLine());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } while(proyecto == null);
 
-        router.inventarioMateriales(proyecto.getInventarioMaterial(), proyecto);
+        System.out.println("Ingrese id del proyecto:");
+        try {
+            proyecto = model.buscarProyecto(lector.readLine());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (proyecto != null)
+            router.inventarioMateriales(proyecto.getInventarioMaterial(), proyecto);
+        else System.out.println("No existe el Proyecto");
     }
 
     public void agregarHorario() {
@@ -244,21 +269,20 @@ public final class HomeController extends Controller {
         Trabajador t = null;
 
         try {
-            do {
-                System.out.println("Ingrese el id del proyecto:");
-                proyecto = model.buscarProyecto(reader.readLine());
+            System.out.println("Ingrese el id del proyecto:");
+            proyecto = model.buscarProyecto(reader.readLine());
 
 
-                if (proyecto != null) {
-                    System.out.println("Ingrese el rut del trabajador:");
-                    t = proyecto.obtenerTrabajador(reader.readLine());
-                    if (t == null)
-                        System.out.println("No existe el trabajador");
-                    else
-                        router.agregarHorario(proyecto, t);
-                }
-
-            } while (proyecto == null);
+            if (proyecto != null) {
+                System.out.println("Ingrese el rut del trabajador:");
+                t = proyecto.obtenerTrabajador(reader.readLine());
+                if (t == null)
+                    System.out.println("No existe el trabajador");
+                else
+                    router.agregarHorario(proyecto, t);
+            } else {
+                System.out.println("No existe el Proyecto");
+            }
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -267,19 +291,29 @@ public final class HomeController extends Controller {
     }
 
     public void mostrarHorario() {
-        BufferedReader reader;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        final List<Trabajador> trabajadores = model.getConjuntoTrabajadores();
+
+        Integer i = 1;
+
+        for (Trabajador trabajador: trabajadores) {
+            System.out.println(i.toString() + ".- RUT: " + trabajador.getRut() + "\t Nombre: " + trabajador.getNombre() + "\t Apellido:" + trabajador.getApellido());
+            i++;
+        }
+
+        System.out.println();
+
         String rut;
         Trabajador t;
         try {
-            reader = new BufferedReader(new InputStreamReader(System.in));
 
-            do {
-                System.out.println("Ingrese el rut del trabajador:");
-                rut = reader.readLine();
-                t = model.obtenerTrabajador(rut);
-            } while (t == null);
+            System.out.println("Ingrese el rut del trabajador:");
+            rut = reader.readLine();
+            t = model.obtenerTrabajador(rut);
 
-            router.mostrarHorario(t);
+            if (t != null) router.mostrarHorario(t);
+            else System.out.println("No existe el trabajador");
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -289,26 +323,5 @@ public final class HomeController extends Controller {
 
     public void salir() {
         router.salir();
-    }
-
-    private void clearConsole()
-    {
-        try
-        {
-            final String os = System.getProperty("os.name");
-
-            if (os.contains("Windows"))
-            {
-                Runtime.getRuntime().exec("cls");
-            }
-            else
-            {
-                Runtime.getRuntime().exec("clear");
-            }
-        }
-        catch (final Exception e)
-        {
-            e.printStackTrace();
-        }
     }
 }

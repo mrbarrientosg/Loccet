@@ -109,6 +109,7 @@ public final class ListaTrabajadorView extends View {
 
     @FXML
     void actualizarTabla(ActionEvent event) {
+        controller.loadData();
         refreshTable();
     }
 
@@ -132,7 +133,7 @@ public final class ListaTrabajadorView extends View {
         this.master = master;
     }
 
-    private void refreshTable() {
+    public void refreshTable() {
         SortedList sortedList = controller.sortedList();
         tableView.setItems(sortedList);
         sortedList.comparatorProperty().bind(tableView.comparatorProperty());

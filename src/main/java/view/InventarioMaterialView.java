@@ -1,5 +1,6 @@
 package view;
 
+import base.Fragment;
 import base.Injectable;
 import base.View;
 import cell.MaterialCell;
@@ -22,7 +23,7 @@ import java.util.Optional;
  *
  * @author  Sebastian Fuenzalida.
  */
-public final class InventarioMaterialView extends View {
+public final class InventarioMaterialView extends Fragment {
 
     private InventarioMaterialController controller;
 
@@ -271,9 +272,7 @@ public final class InventarioMaterialView extends View {
         cantidadCL.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
         descripcionCL.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
         precioCL.setCellValueFactory(new PropertyValueFactory<>("precio"));
-        SortedList sortedList = controller.sortedList();
-        tablaInventario.setItems(sortedList);
-        sortedList.comparatorProperty().bind(tablaInventario.comparatorProperty());
+        refreshTable();
     }
 
     private void refreshTable() {
