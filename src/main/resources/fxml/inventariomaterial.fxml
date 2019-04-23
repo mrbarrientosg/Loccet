@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="810.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox alignment="CENTER_LEFT" spacing="20.0">
+         <children>
+            <TextField fx:id="searchText" promptText="Buscar material" HBox.hgrow="ALWAYS" />
+            <Button fx:id="nuevoMaterialBT" mnemonicParsing="false" onAction="#nuevoMaterial" text="Nuevo Material" />
+            <Button fx:id="modificarMaterialBT" mnemonicParsing="false" onAction="#modificarMaterial" text="Modificar Material" />
+            <Button fx:id="retirarBT" mnemonicParsing="false" onAction="#retirarMaterial" text="Retirar" />
+            <Button fx:id="agregarBT" mnemonicParsing="false" onAction="#agregarMaterial" text="Agregar" />
+            <Button fx:id="eliminarBT" mnemonicParsing="false" onAction="#eliminar" text="Eliminar" />
+            <Separator visible="false" HBox.hgrow="ALWAYS" />
+            <Button fx:id="salirBT" mnemonicParsing="false" onAction="#salir" text="Salir" />
+         </children>
+      </HBox>
+      <TableView fx:id="tablaInventario" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="fechaIngresoCL" editable="false" minWidth="-1.0" prefWidth="85.0" text="Fecha ingreso" />
+          <TableColumn fx:id="idMaterialCL" editable="false" minWidth="-1.0" prefWidth="57.0" text="ID" />
+            <TableColumn fx:id="nombreMaterialCL" editable="false" minWidth="-1.0" prefWidth="65.0" text="Nombre" />
+          <TableColumn fx:id="descripcionCL" editable="false" minWidth="-1.0" prefWidth="201.0" text="Descripcion" />
+            <TableColumn fx:id="cantidadCL" editable="false" minWidth="-1.0" prefWidth="59.0" text="Cantidad" />
+            <TableColumn fx:id="udsCL" editable="false" minWidth="-1.0" prefWidth="77.0" text="UDS" />
+            <TableColumn fx:id="retiroCL" editable="false" minWidth="-1.0" prefWidth="62.0" text="Retiro" />
+            <TableColumn fx:id="fechaRetiroCL" editable="false" minWidth="-1.0" prefWidth="85.0" text="Fecha retiro" />
+            <TableColumn fx:id="precioCL" editable="false" minWidth="-1.0" prefWidth="100.0" text="Precio" />
+        </columns>
+      </TableView>
+      <ButtonBar prefHeight="40.0" prefWidth="200.0">
+        <buttons>
+          <Button mnemonicParsing="false" onAction="#exportarInventario" text="Exportar" />
+        </buttons>
+      </ButtonBar>
+   </children>
+   <padding>
+      <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+   </padding>
+</VBox>
