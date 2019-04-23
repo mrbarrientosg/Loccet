@@ -58,6 +58,8 @@ public final class HomeController extends Controller {
         String rut;
         Trabajador t;
 
+        mostrarListaTrabajadores();
+
         System.out.println("Ingrese el rut del trabajador:");
         try {
             rut = reader.readLine();
@@ -77,16 +79,7 @@ public final class HomeController extends Controller {
         String rut;
         Trabajador t = null;
 
-        final List<Proyecto> proyectos = model.getListaProyecto();
-
-        Integer i = 1;
-
-        for (Proyecto proyecto: proyectos) {
-            System.out.println(i.toString() + ".- ID: " + proyecto.getId() + "\t Nombre: " + proyecto.getNombreProyecto());
-            i++;
-        }
-
-        System.out.println();
+        mostrarListaProyecto();
 
         String id;
 
@@ -97,6 +90,7 @@ public final class HomeController extends Controller {
             id = reader.readLine();
             p = model.buscarProyecto(id);
             if (p != null) {
+                mostrarListaTrabajadores();
                 System.out.println("Ingrese el rut del trabajador:");
                 rut = reader.readLine();
                 t = p.eliminarTrabajador(rut);
@@ -126,21 +120,14 @@ public final class HomeController extends Controller {
         // TODO : Buscar al trabajador que quiere modificar
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        final List<Trabajador> trabajadores = model.getConjuntoTrabajadores();
-
-        Integer i = 1;
-
-        for (Trabajador trabajador: trabajadores) {
-            System.out.println(i.toString() + ".- RUT: " + trabajador.getRut() + "\t Nombre: " + trabajador.getNombre() + "\t Apellido:" + trabajador.getApellido());
-            i++;
-        }
-
-        System.out.println();
+        mostrarListaProyecto();
 
         String rut;
         Trabajador t;
 
         try {
+
+            mostrarListaTrabajadores();
 
             System.out.println("Ingrese el rut del trabajador:");
             rut = reader.readLine();
@@ -163,16 +150,7 @@ public final class HomeController extends Controller {
     public void eliminarProyecto() {
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
 
-        final List<Proyecto> proyectos = model.getListaProyecto();
-
-        Integer i = 1;
-
-        for (Proyecto proyecto: proyectos) {
-            System.out.println(i.toString() + ".- ID: " + proyecto.getId() + "\t Nombre: " + proyecto.getNombreProyecto());
-            i++;
-        }
-
-        System.out.println();
+        mostrarListaProyecto();
 
         Proyecto proyecto = null;
 
@@ -225,16 +203,7 @@ public final class HomeController extends Controller {
     public void inventarioMateriales() {
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
 
-        final List<Proyecto> proyectos = model.getListaProyecto();
-
-        Integer i = 1;
-
-        for (Proyecto proyecto: proyectos) {
-            System.out.println(i.toString() + ".- ID: " + proyecto.getId() + "\t Nombre: " + proyecto.getNombreProyecto());
-            i++;
-        }
-
-        System.out.println();
+        mostrarListaProyecto();
 
         Proyecto proyecto = null;
 
@@ -253,16 +222,7 @@ public final class HomeController extends Controller {
     public void agregarHorario() {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        final List<Proyecto> proyectos = model.getListaProyecto();
-
-        Integer i = 1;
-
-        for (Proyecto proyecto: proyectos) {
-            System.out.println(i.toString() + ".- ID: " + proyecto.getId() + "\t Nombre: " + proyecto.getNombreProyecto());
-            i++;
-        }
-
-        System.out.println();
+        mostrarListaProyecto();
 
         Proyecto proyecto = null;
 
@@ -274,6 +234,7 @@ public final class HomeController extends Controller {
 
 
             if (proyecto != null) {
+                mostrarListaTrabajadores();
                 System.out.println("Ingrese el rut del trabajador:");
                 t = proyecto.obtenerTrabajador(reader.readLine());
                 if (t == null)
@@ -293,19 +254,12 @@ public final class HomeController extends Controller {
     public void mostrarHorario() {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        final List<Trabajador> trabajadores = model.getConjuntoTrabajadores();
-
-        Integer i = 1;
-
-        for (Trabajador trabajador: trabajadores) {
-            System.out.println(i.toString() + ".- RUT: " + trabajador.getRut() + "\t Nombre: " + trabajador.getNombre() + "\t Apellido:" + trabajador.getApellido());
-            i++;
-        }
-
-        System.out.println();
+        mostrarListaTrabajadores();
 
         String rut;
+
         Trabajador t;
+
         try {
 
             System.out.println("Ingrese el rut del trabajador:");
@@ -323,5 +277,31 @@ public final class HomeController extends Controller {
 
     public void salir() {
         router.salir();
+    }
+
+    private void mostrarListaProyecto() {
+        final List<Proyecto> proyectos = model.getListaProyecto();
+
+        Integer i = 1;
+
+        for (Proyecto proyecto: proyectos) {
+            System.out.println(i.toString() + ".- ID: " + proyecto.getId() + "\t Nombre: " + proyecto.getNombreProyecto());
+            i++;
+        }
+
+        System.out.println();
+    }
+
+    private void mostrarListaTrabajadores() {
+        final List<Trabajador> trabajadores = model.getConjuntoTrabajadores();
+
+        Integer i = 1;
+
+        for (Trabajador trabajador: trabajadores) {
+            System.out.println(i.toString() + ".- RUT: " + trabajador.getRut() + "\t Nombre: " + trabajador.getNombre() + "\t Apellido:" + trabajador.getApellido());
+            i++;
+        }
+
+        System.out.println();
     }
 }

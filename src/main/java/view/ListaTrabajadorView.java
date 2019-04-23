@@ -1,5 +1,6 @@
 package view;
 
+import base.Fragment;
 import base.View;
 import cell.TrabajadorCell;
 import controller.ListaTrabajadorController;
@@ -17,7 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 
-public final class ListaTrabajadorView extends View {
+public final class ListaTrabajadorView extends Fragment {
 
     private HomeView master;
 
