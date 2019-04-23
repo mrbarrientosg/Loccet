@@ -35,7 +35,7 @@
                 <MenuItem mnemonicParsing="false" onAction="#agregarHorario" text="Agregar" />
               </items>
             </Menu>
-            <SeparatorMenuItem mnemonicParsing="false" />
+            <SeparatorMenuItem mnemonicParsing="false" visible = "false"/>
             <Menu mnemonicParsing="false" text="Especialidad" visible="false">
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#agregarEspecialidad" text="Agregar" />
@@ -46,7 +46,7 @@
               </items>
             </Menu>
             <SeparatorMenuItem mnemonicParsing="false" visible="false" />
-                <MenuItem mnemonicParsing="false" onAction="#reporteRRHH" text="Reporte" />
+                <MenuItem mnemonicParsing="false" onAction="#reporteRRHH" text="Reporte" visible = "false"/>
             </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Proyecto">
@@ -56,8 +56,8 @@
                 <MenuItem mnemonicParsing="false" onAction="#modificarProyecto" text="Modificar proyecto" visible="false" />
                 <SeparatorMenuItem mnemonicParsing="false" visible="false" />
             <MenuItem mnemonicParsing="false" onAction="#eliminarProyecto" text="Eliminar Proyecto" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-                <MenuItem mnemonicParsing="false" onAction="#avanceProyecto" text="Avance" />
+            <SeparatorMenuItem mnemonicParsing="false" visible = "false"/>
+                <MenuItem mnemonicParsing="false" onAction="#avanceProyecto" text="Avance" visible = "false"/>
             </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Inventario">

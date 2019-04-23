@@ -81,9 +81,10 @@ public final class NuevoMaterialView extends View {
     public void nuevoMaterial(ActionEvent event) {
         String lector = idMaterialTF.getText();
         Material material;
-        try {
+        if (!nombreTF.getText().isEmpty() && !descripcionTF.getText().isEmpty()&& !cantidadTF.getText().isEmpty()
+        && !precioTF.getText().isEmpty()){
             if (lector.isEmpty())
-                material = new Material(nombreTF.getText(), descripcionTF.getText(), Double.parseDouble(cantidadTF.getText()), //Si el usuario no ingresa el id
+                material = new Material(nombreTF.getText(),descripcionTF.getText(),Double.parseDouble(cantidadTF.getText()), //Si el usuario no ingresa el id
                         unidadCB.getSelectionModel().getSelectedItem().toString(),                                             //se utiliza este constructor.
                         Double.parseDouble(precioTF.getText()));
 
@@ -94,12 +95,11 @@ public final class NuevoMaterialView extends View {
 
             controller.nuevoMaterial(material);
             close();
-        } catch (Exception e){//En caso de que el usuario deje un campo vacio salta una excepcion.
-            e.printStackTrace();
+        } else{//En caso de que el usuario deje un campo vacio salta una excepcion.
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");
             alert.setHeaderText("Ingreso de datos invalido");
-            alert.setContentText("Por favor ingresar los caampos requeridos");
+            alert.setContentText("Por favor ingresar los campos requeridos");
             alert.showAndWait();
         }
 

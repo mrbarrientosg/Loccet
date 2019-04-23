@@ -58,7 +58,7 @@ public final class RetirarMaterialView extends View {
 
     @FXML
     public void cantidadItem(ActionEvent event){
-       try {
+       if(!retirarTF.getText().isEmpty()) {
            String lector = retirarTF.getText();
            double aux = Double.parseDouble(lector);
            if (Double.compare(aux,material.getCantidad())>0) {
@@ -71,7 +71,7 @@ public final class RetirarMaterialView extends View {
                controller.retirarMaterial(material.getId(), aux);
                close();
            }
-       }catch (Exception e){
+       }else {
            Alert alert = new Alert(Alert.AlertType.ERROR);
            alert.setTitle("Error");
            alert.setHeaderText("Ingreso de datos invalido");
