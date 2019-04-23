@@ -150,7 +150,7 @@ public final class FakeData {
         materiales.add(new Material("Clavo", "Clavo 3 cm", 1000.0, "UN", 10.0));
         materiales.add(new Material("Tornillo", "Tornillo 20 cm", 1425.0, "UN", 20.0));
         materiales.add(new Material("Plancha de Madera", "No plancha", 1000.0, "M2", 100000.0));
-        materiales.add(new Material("Pintura", null, 100.0, "L", 10000.0));
+        materiales.add(new Material("Pintura", "", 100.0, "L", 10000.0));
 
         return materiales;
     }
