@@ -3,8 +3,12 @@ package controller;
 import base.Controller;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.shape.Arc;
+import javafx.scene.shape.Rectangle;
+import router.HomeRouter;
 import router.LoginRouter;
 import util.FakeData;
+import view.HomeView;
 import view.LoginView;
 
 public final class LoginController extends Controller {
@@ -38,11 +42,15 @@ public final class LoginController extends Controller {
         System.out.println(rutProperty.get());
         System.out.println(passwordProperty.get());
 
-        view.close();
+        //view.close();
 
         // TODO: implementar el controlador para poder gestionar la constructora
 
-        router.showHome(FakeData.createFakeData());
+        HomeView homeView = HomeRouter.create(FakeData.createFakeData());
+        view.replaceWith(homeView.getClass(), true, true);
+        homeView.getCurrentStage().setResizable(true);
+
+        //router.showHome(FakeData.createFakeData());
     }
 
     public StringProperty rutProperty() {

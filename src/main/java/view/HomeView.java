@@ -2,9 +2,11 @@ package view;
 
 import base.View;
 import controller.HomeController;
+import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 
 public final class HomeView extends View {
 
@@ -16,7 +18,14 @@ public final class HomeView extends View {
 
     @Override
     public void viewDidLoad() {
-
+        getRoot().setCenter(new Pane());
+        getRoot().centerProperty().addListener(((observable, oldValue, newValue) -> {
+            if (newValue == null) getRoot().setCenter(new Pane());
+            Platform.runLater(() -> {
+                getCurrentStage().sizeToScene();
+                getCurrentStage().centerOnScreen();
+            });
+        }));
     }
 
     @Override
@@ -31,18 +40,6 @@ public final class HomeView extends View {
 
     public void removeNode(Node node) {
         getRoot().getChildren().remove(node);
-    }
-
-    public void setCenter(Parent node) {
-        getRoot().setCenter(node);
-        getCurrentStage().sizeToScene();
-        getCurrentStage().centerOnScreen();
-    }
-
-    public void setRight(Parent node) {
-        getRoot().setRight(node);
-        getCurrentStage().sizeToScene();
-        getCurrentStage().centerOnScreen();
     }
 
     public void setTop(Parent node) {

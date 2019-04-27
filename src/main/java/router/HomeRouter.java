@@ -7,6 +7,7 @@ import model.Constructora;
 import model.InventarioMaterial;
 import model.Proyecto;
 import model.Trabajador;
+import util.NodeUtils;
 import view.*;
 
 public final class HomeRouter {
@@ -32,16 +33,16 @@ public final class HomeRouter {
     public void listaTrabajadores(Constructora model) {
         ListaTrabajadorView view = ListaTrabajadorRouter.create(model);
 
-        view.setMaster(master);
+        NodeUtils.replaceWith(master.getRoot().getCenter(), view.getRoot(), true, true, null);
 
-        master.setCenter(view.getRoot());
+        view.setMaster(master);
     }
 
     public void agregarTrabajador(Constructora model) {
         TrabajadorView trabajadorView = TrabajadorRouter.create(model);
 
+        NodeUtils.replaceWith(master.getRoot().getCenter(), trabajadorView.getRoot(), true, true, null);
 
-        master.setCenter(trabajadorView.getRoot());
     }
 
     public void avanceProyecto() {
@@ -91,14 +92,15 @@ public final class HomeRouter {
     public void modificarTrabajador(Constructora model, Trabajador old) {
         TrabajadorView trabajadorView = TrabajadorRouter.create(model, old);
 
+        NodeUtils.replaceWith(master.getRoot().getCenter(), trabajadorView.getRoot(), true, true, null);
 
-        master.setCenter(trabajadorView.getRoot());
     }
 
     public void nuevoProyecto(Constructora model) {
         AgregarProyectoView view = AgregarProyectoRouter.create(model);
 
-        master.setCenter(view.getRoot());
+        NodeUtils.replaceWith(master.getRoot().getCenter(), view.getRoot(), true, true, null);
+
     }
 
     public void reporteIngresoGasto() {
@@ -116,19 +118,20 @@ public final class HomeRouter {
     public void inventarioMateriales(InventarioMaterial model, Proyecto proyecto) {
         InventarioMaterialView inventarioMaterialView = InventarioMaterialRouter.create(model, proyecto);
 
-        master.setCenter(inventarioMaterialView.getRoot());
+        NodeUtils.replaceWith(master.getRoot().getCenter(), inventarioMaterialView.getRoot(), true, true, null);
     }
 
     public void agregarHorario(Proyecto proyecto, Trabajador trabajador) {
         HorarioView horarioView = HorarioRouter.create(proyecto, trabajador);
 
-        master.setCenter(horarioView.getRoot());
+        NodeUtils.replaceWith(master.getRoot().getCenter(), horarioView.getRoot(), true, true, null);
+
     }
 
     public void mostrarHorario(Trabajador trabajador) {
         ListaHorarioView view = ListaHorarioRouter.create(trabajador);
 
-        master.setCenter(view.getRoot());
+        NodeUtils.replaceWith(master.getRoot().getCenter(), view.getRoot(), true, true, null);
     }
 
         public void salir() {

@@ -1,5 +1,6 @@
 package base;
 
+import javafx.animation.FadeTransition;
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -14,6 +15,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
+import util.NodeUtils;
 
 import java.io.IOException;
 import java.net.URL;
@@ -87,33 +89,32 @@ public abstract class UIComponent extends Component {
         if (isInitialized) return;
 
         root.parentProperty().addListener((observable, oldParent, newParent) -> {
-            // Si la vista esta en un modalStage no se hace nada porque ya se llamo la funcion viewDidLoad
-            if (modalStage != null) return;
 
-            // La vista se ha eliminado de un parent (root) entonces se llama la funcion viewDidClose
-            if (newParent == null && oldParent != null && isDocked) callOnUndock();
+            if (modalStage == null) {
+                // La vista se ha eliminado de un parent (root) entonces se llama la funcion viewDidClose
+                if (newParent == null && oldParent != null && isDocked) callOnUndock();
 
-            // La vista a cambiado de padre (root), entonces se llama a la funcion viewDidLoad
-            if (newParent != null && newParent != oldParent && !isDocked) callOnDock();
+                // La vista a cambiado de padre (root), entonces se llama a la funcion viewDidLoad
+                if (newParent != null && newParent != oldParent && !isDocked) callOnDock();
+            }
         });
 
         root.sceneProperty().addListener((observable, oldParent, newParent) -> {
-            // Si la vista esta en un modalStage no se hace nada porque ya se llamo la funcion viewDidLoad
-            if (modalStage != null || root.getParent() != null) return;
+            if (modalStage == null && root.getParent() == null) {
+                // La vista se ha cerrado de una Scene entonces se llama la funcion viewDidClose
+                if (newParent == null && oldParent != null && isDocked) callOnUndock();
 
-            // La vista se ha cerrado de una Scene entonces se llama la funcion viewDidClose
-            if (newParent == null && oldParent != null && isDocked) callOnUndock();
-
-            // La vista a cambiado de Scene, entonces se llama a la funcion viewDidLoad
-            if (newParent != null && newParent != oldParent && !isDocked) {
-                onChangeOnce(newParent.windowProperty(), window -> {
-                    onChange(window.showingProperty(), it -> {
-                        if (!it && isDocked) callOnUndock();
-                        if (it && !isDocked) callOnDock();
+                // La vista a cambiado de Scene, entonces se llama a la funcion viewDidLoad
+                if (newParent != null && newParent != oldParent && !isDocked) {
+                    onChangeOnce(newParent.windowProperty(), window -> {
+                        onChange(window.showingProperty(), it -> {
+                            if (!it && isDocked) callOnUndock();
+                            if (it && !isDocked) callOnDock();
+                        });
                     });
-                });
 
-                callOnDock();
+                    callOnDock();
+                }
             }
         });
 
@@ -294,6 +295,17 @@ public abstract class UIComponent extends Component {
                 .withResizable(false)
                 .withBlock(false);
     }
+
+    public <T extends UIComponent> void replaceWith(Class<T> component, Boolean sizeToScene, Boolean centerOnScreen) {
+        UIComponent cp = Injectable.find(component);
+        NodeUtils.replaceWith(root, cp.getRoot(), sizeToScene, centerOnScreen, null);
+    }
+
+    public <T extends UIComponent> void replaceWith(Class<T> component, Boolean sizeToScene, Boolean centerOnScreen, Runnable onTrasition) {
+        UIComponent cp = Injectable.find(component);
+        NodeUtils.replaceWith(root, cp.getRoot(), sizeToScene, centerOnScreen, onTrasition);
+    }
+
 
     /**
      * Funcion auxiliar para la funcion init()
