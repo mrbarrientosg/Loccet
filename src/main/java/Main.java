@@ -2,6 +2,7 @@ import base.Injectable;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import router.LoginRouter;
@@ -15,6 +16,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        Font.loadFont(getClass().getResourceAsStream("fonts/Heebo-Black.ttf"), 0);
+        Font.loadFont(getClass().getResourceAsStream("fonts/Heebo-Light.ttf"), 0);
+        Font.loadFont(getClass().getResourceAsStream("fonts/Heebo-Medium.ttf"), 0);
+        Font.loadFont(getClass().getResourceAsStream("fonts/Heebo-Regular.ttf"), 0);
+
         Injectable.setPrimaryStage(primaryStage);
 
         LoginView loginView = LoginRouter.create();

@@ -8,17 +8,17 @@
   -fx-background-color: #F9F9F9; }
 
 @font-face {
-  font-family: 'Heebo Light';
-  src: url("../fonts/Heebo-Light.ttf"); }
+  font-family: "Heebo";
+  src: url("../fonts/Heebo-Regular.ttf") format("truetype"); }
 @font-face {
-  font-family: 'Heebo';
-  src: url("../fonts/Heebo-Regular.ttf"); }
+  font-family: "Heebo Medium";
+  src: url("../fonts/Heebo-Medium.ttf") format("truetype"); }
 @font-face {
-  font-family: 'Heebo Medium';
-  src: url("../fonts/Heebo-Medium.ttf"); }
+  font-family: "Heebo Light";
+  src: url("../fonts/Heebo-Light.ttf") format("truetype"); }
 @font-face {
-  font-family: 'Heebo Black';
-  src: url("../fonts/Heebo-Black.ttf"); }
+  font-family: "Heebo Black";
+  src: url("../fonts/Heebo-Black.ttf") format("truetype"); }
 .largeTitle {
   -fx-font-family: "Heebo Black";
   -fx-font-size: 34px; }

@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="shadowpane" stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="shadowpane" stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" spacing="5.0">
          <children>
@@ -28,7 +28,7 @@
                   <Insets left="30.0" right="30.0" top="30.0" />
                </VBox.margin>
             </Label>
-            <TextField promptText="usuario / rut">
+            <TextField prefHeight="35.0" promptText="usuario / rut">
                <VBox.margin>
                   <Insets bottom="10.0" left="30.0" right="30.0" />
                </VBox.margin>
@@ -42,7 +42,7 @@
                   <Insets left="30.0" right="30.0" />
                </VBox.margin>
             </Label>
-            <PasswordField promptText="contraseña">
+            <PasswordField prefHeight="35.0" promptText="contraseña">
                <VBox.margin>
                   <Insets bottom="10.0" left="30.0" right="30.0" />
                </VBox.margin>
@@ -56,7 +56,7 @@
                   <Insets left="30.0" right="30.0" />
                </VBox.margin>
             </Label>
-            <TextField promptText="dns.sem.cl">
+            <TextField prefHeight="35.0" promptText="dns.sem.cl">
                <VBox.margin>
                   <Insets bottom="10.0" left="30.0" right="30.0" />
                </VBox.margin>
