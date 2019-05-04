@@ -1,0 +1,64 @@
+@font-face {
+  font-family: 'Heebo Light';
+  src: url('../fonts/Heebo-Light.ttf');
+}
+
+@font-face {
+  font-family: 'Heebo';
+  src: url('../fonts/Heebo-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Heebo Medium';
+  src: url('../fonts/Heebo-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Heebo Black';
+  src: url('../fonts/Heebo-Black.ttf');
+}
+
+.largeTitle {
+  -fx-font-family: "Heebo Black";
+  -fx-font-size: 34px;
+}
+
+.title1 {
+  -fx-font-family: "Heebo Black";
+  -fx-font-size: 24px;
+}
+
+.title2 {
+  -fx-font-family: "Heebo Black";
+  -fx-font-size: 20px;
+}
+
+.paragraph {
+  -fx-font-family: "Heebo";
+  -fx-font-size: 14px;
+}
+
+.paragraphUI {
+  -fx-font-family: "Heebo Light";
+  -fx-font-size: 14px;
+}
+
+.textField {
+  -fx-font-family: "Heebo Light";
+  -fx-font-size: 13px;
+}
+
+@mixin button {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+}
+
+@mixin button-light {
+  -fx-font-family: "Heebo Light";
+  -fx-font-size: 14px;
+}
+
+.footnote {
+  -fx-font-family: "Heebo Light";
+  -fx-font-size: 12px;
+}

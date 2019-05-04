@@ -1,62 +1,140 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="shadowpane" stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox spacing="8.0">
+      <VBox maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" spacing="5.0">
          <children>
-            <Label text="Inicio Sesión">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <GridPane hgap="8.0" vgap="5.0">
-              <columnConstraints>
-                <ColumnConstraints halignment="LEFT" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label text="RUT" />
-                  <TextField fx:id="rutField" GridPane.columnIndex="1" />
-                  <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label text="Contraseña" GridPane.rowIndex="1" />
-               </children>
+            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="title2" text="Inicio de Sesión" textAlignment="CENTER">
                <VBox.margin>
-                  <Insets bottom="5.0" top="5.0" />
+                  <Insets left="16.0" right="16.0" top="25.0" />
                </VBox.margin>
-            </GridPane>
-            <Button fx:id="loginButton" defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Iniciar Sesión" />
-            <Button fx:id="exitButton" cancelButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Salir">
+            </Label>
+            <Label styleClass="paragraphUI" text="Cuenta de Usuario">
                <VBox.margin>
-                  <Insets />
+                  <Insets left="30.0" right="30.0" top="30.0" />
+               </VBox.margin>
+            </Label>
+            <TextField promptText="usuario / rut">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="30.0" right="30.0" />
+               </VBox.margin>
+               <styleClass>
+                  <String fx:value="textFieldGrey" />
+                  <String fx:value="textField" />
+               </styleClass>
+            </TextField>
+            <Label styleClass="paragraphUI" text="Contraseña">
+               <VBox.margin>
+                  <Insets left="30.0" right="30.0" />
+               </VBox.margin>
+            </Label>
+            <PasswordField promptText="contraseña">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="30.0" right="30.0" />
+               </VBox.margin>
+               <styleClass>
+                  <String fx:value="textFieldGrey" />
+                  <String fx:value="textField" />
+               </styleClass>
+            </PasswordField>
+            <Label styleClass="paragraphUI" text="DNS Empresa">
+               <VBox.margin>
+                  <Insets left="30.0" right="30.0" />
+               </VBox.margin>
+            </Label>
+            <TextField promptText="dns.sem.cl">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="30.0" right="30.0" />
+               </VBox.margin>
+               <styleClass>
+                  <String fx:value="textFieldGrey" />
+                  <String fx:value="textField" />
+               </styleClass>
+            </TextField>
+            <Separator orientation="VERTICAL" visible="false" VBox.vgrow="ALWAYS" />
+            <StackPane>
+               <VBox.margin>
+                  <Insets left="30.0" right="30.0" top="10.0" />
+               </VBox.margin>
+               <children>
+                  <AnchorPane styleClass="buttonGreenShadow">
+                     <StackPane.margin>
+                        <Insets left="5.0" right="5.0" top="10.0" />
+                     </StackPane.margin>
+                  </AnchorPane>
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="35.0" styleClass="buttonGreen" text="Confirmar">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </StackPane>
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="35.0" styleClass="buttonLabelGrey" text="Salir">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <VBox.margin>
+                  <Insets bottom="25.0" left="30.0" right="30.0" />
                </VBox.margin>
             </Button>
-            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="versión-1.0.0">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Label>
          </children>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
+         <styleClass>
+            <String fx:value="backgroundWhite" />
+            <String fx:value="left-pane-content" />
+         </styleClass>
+      </VBox>
+      <VBox maxWidth="1.7976931348623157E308" prefWidth="450.0" styleClass="right-pane-gradient" HBox.hgrow="ALWAYS">
+         <children>
+            <HBox alignment="TOP_RIGHT" spacing="10.0">
+               <children>
+                  <Label styleClass="largeTitle" text="Bienvenido" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets left="16.0" right="16.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Separator visible="false" HBox.hgrow="ALWAYS" />
+                  <Button mnemonicParsing="false">
+                     <styleClass>
+                        <String fx:value="circle-button-13px" />
+                        <String fx:value="circle-button-13px-yellow" />
+                     </styleClass>
+                  </Button>
+                  <Button mnemonicParsing="false">
+                     <styleClass>
+                        <String fx:value="circle-button-13px" />
+                        <String fx:value="circle-button-13px-red" />
+                     </styleClass>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets right="8.0" top="8.0" />
+               </VBox.margin>
+            </HBox>
+            <TextArea disable="true" editable="false" text="Te damos la bienvenida a Loccet.&#10;Ahora podrás tener la organización perfecta que tu negocio necesita. Desde RRHH, Inventario, Logística, entre otros modulos disponibles.&#10;&#10;Esperamos que tu experiencia sea lo más grata posible, es por eso que estamos a su disposición ante cualquier duda o sugerencia.&#10;&#10;Gracias por confiar en Loccet." wrapText="true">
+               <VBox.margin>
+                  <Insets left="8.0" right="8.0" />
+               </VBox.margin>
+               <styleClass>
+                  <String fx:value="textAreaTransparent" />
+                  <String fx:value="paragraph" />
+               </styleClass>
+            </TextArea>
+            <Separator orientation="VERTICAL" visible="false" VBox.vgrow="ALWAYS" />
+         </children>
       </VBox>
    </children>
-   <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-   </padding>
-</VBox>
+</HBox>

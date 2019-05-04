@@ -1,0 +1,37 @@
+@function shadow-offset($x: 0.0, $y: 0.0) {
+  $new-list: ();
+  $new-list: append($new-list, $x);
+  $new-list: append($new-list, $y);
+  @return $new-list;
+}
+
+@function shadow-side($side: all, $x: 0.0, $y: 0.0) {
+  @if ($side == all) { @return shadow-offset(if($x != 0.0, $x, -0.06), if($y != 0.0, $y, -0.06)); }
+
+  @if ($side == top) {
+    @return shadow-offset(0.0, if($y != 0.0, -$y, -1.0));
+  } @else if($side == right) {
+    @return shadow-offset(if($x != 0.0, $x, 1.0), 0.0);
+  } @else if($side == left) {
+    @return shadow-offset(if($x != 0.0, -$x, -1.0), 1.0);
+  } @else {
+    @return shadow-offset(0.0, if($y != 0.0, $y, 1.0));
+  }
+}
+
+$all-side-shadow: shadow-side(all);
+$top-side-shadow: shadow-side(top);
+$right-side-shadow: shadow-side(right);
+$left-side-shadow: shadow-side(left);
+$bottom-side-shadow: shadow-side(bottom);
+
+@mixin make-shadow($type: two-pass-box, $color: $gray-shadow, $radius: 10.0, $spread: 0.0, $side: $all-side-shadow) {
+  -fx-effect: dropshadow($type, $color, $radius, $spread, nth($side, 1), nth($side, 2));
+}
+
+.shadowpane {
+  -fx-background-color: transparent;
+  -fx-padding: 10;
+  @include make-shadow($type: gaussian, $side: $right-side-shadow);
+}
+

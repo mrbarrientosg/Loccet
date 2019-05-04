@@ -1,0 +1,39 @@
+@import '../base/base';
+@import '../components/components';
+
+.top-bar {
+  -fx-border-width: 0 0 0.25 0;
+  -fx-border-color: rgba(0,0,0,0.5);
+  -fx-background-color: white;
+  -fx-background-radius: 0px 3px 0px 0px;
+}
+
+.content-pane {
+  -fx-background-radius: 0px 0px 3px 0px;
+}
+
+.side-menu-header {
+  -fx-background-radius: 3px 0px 0px 0px;
+  @include blue-gradient;
+}
+
+.side-menu {
+  -fx-background-color: white;
+  -fx-background-radius: 3px 0px 0px 3px;
+  @include make-shadow($side: $right-side-shadow);
+}
+
+.side-menu-button {
+  -fx-text-alignment: left;
+  @include buttonLabelBlack(true);
+}
+
+.side-menu-button:pressed {
+  -fx-text-fill: $dark-blue;
+  -fx-background-color: rgba($dark-blue, .07);
+}
+
+.side-menu-button:selected {
+  -fx-text-fill: $dark-blue;
+  -fx-background-color: rgba($dark-blue, .07);
+}

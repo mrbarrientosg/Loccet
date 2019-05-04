@@ -30,15 +30,15 @@ public final class LoginView extends View {
 
     @Override
     public void viewDidLoad() {
-        rutField.requestFocus();
-
-        exitButton.setOnAction(this::exit);
-
-        loginButton.setDefaultButton(true);
-        loginButton.setOnAction(this::login);
-
-        controller.rutProperty().bind(rutField.textProperty());
-        controller.passwordProperty().bind(passwordField.textProperty());
+//        rutField.requestFocus();
+//
+//        exitButton.setOnAction(this::exit);
+//
+//        loginButton.setDefaultButton(true);
+//        loginButton.setOnAction(this::login);
+//
+//        controller.rutProperty().bind(rutField.textProperty());
+//        controller.passwordProperty().bind(passwordField.textProperty());
     }
 
     @Override
