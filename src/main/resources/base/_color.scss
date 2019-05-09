@@ -19,15 +19,21 @@ $gray-shadow: rgba(0,0,0,0.4);
   -fx-background-color: $dark-blue, linear-gradient($side, reflect, $dark-blue, $light-blue);
 }
 
-.backgroundTransparent {
-  -fx-background-color: transparent;
+@mixin backgroundTransparent {
+  #{'.backgroundTransparent'} {
+    -fx-background-color: transparent;
+  }
 }
 
-.backgroundWhite {
-  -fx-background-color: white;
+@mixin backgroundWhite {
+  #{'.backgroundWhite'} {
+    -fx-background-color: white;
+  }
 }
 
-.backgroundLight {
-  -fx-background-color: #F9F9F9;
+@mixin backgroundLight {
+  #{'.backgroundLight'} {
+    -fx-background-color: #F9F9F9;
+  }
 }
 

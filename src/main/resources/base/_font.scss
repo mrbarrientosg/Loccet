@@ -48,34 +48,46 @@
 @include font-face("Heebo Light", "../fonts/Heebo-Light", $exts: ttf);
 @include font-face("Heebo Black", "../fonts/Heebo-Black", $exts: ttf);
 
-.largeTitle {
-  -fx-font-family: "Heebo Black";
-  -fx-font-size: 34px;
+@mixin largeTitle {
+  #{'.largeTitle'} {
+    -fx-font-family: "Heebo Black";
+    -fx-font-size: 34px;
+  }
 }
 
-.title1 {
-  -fx-font-family: "Heebo Black";
-  -fx-font-size: 24px;
+@mixin title1 {
+  #{'.title1'} {
+    -fx-font-family: "Heebo Black";
+    -fx-font-size: 24px;
+  }
 }
 
-.title2 {
-  -fx-font-family: "Heebo Black";
-  -fx-font-size: 20px;
+@mixin title2 {
+  #{'.title2'} {
+    -fx-font-family: "Heebo Black";
+    -fx-font-size: 20px;
+  }
 }
 
-.paragraph {
-  -fx-font-family: "Heebo";
-  -fx-font-size: 14px;
+@mixin paragraph {
+  #{'.paragraph'} {
+    -fx-font-family: "Heebo";
+    -fx-font-size: 14px;
+  }
 }
 
-.paragraphUI {
-  -fx-font-family: "Heebo Light";
-  -fx-font-size: 14px;
+@mixin paragraphUI {
+  #{'.paragraphUI'} {
+    -fx-font-family: "Heebo Light";
+    -fx-font-size: 14px;
+  }
 }
 
-.textField {
-  -fx-font-family: "Heebo Light";
-  -fx-font-size: 13px;
+@mixin textField {
+  #{'.textField'} {
+    -fx-font-family: "Heebo Light";
+    -fx-font-size: 13px;
+  }
 }
 
 @mixin button {
@@ -88,7 +100,9 @@
   -fx-font-size: 14px;
 }
 
-.footnote {
-  -fx-font-family: "Heebo Light";
-  -fx-font-size: 12px;
+@mixin footnote {
+  #{'.footnote'} {
+    -fx-font-family: "Heebo Light";
+    -fx-font-size: 12px;
+  }
 }

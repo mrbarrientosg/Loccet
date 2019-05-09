@@ -1,12 +1,3 @@
-.backgroundTransparent {
-  -fx-background-color: transparent; }
-
-.backgroundWhite {
-  -fx-background-color: white; }
-
-.backgroundLight {
-  -fx-background-color: #F9F9F9; }
-
 @font-face {
   font-family: "Heebo";
   src: url("../fonts/Heebo-Regular.ttf") format("truetype"); }
@@ -19,133 +10,6 @@
 @font-face {
   font-family: "Heebo Black";
   src: url("../fonts/Heebo-Black.ttf") format("truetype"); }
-.largeTitle {
-  -fx-font-family: "Heebo Black";
-  -fx-font-size: 34px; }
-
-.title1 {
-  -fx-font-family: "Heebo Black";
-  -fx-font-size: 24px; }
-
-.title2 {
-  -fx-font-family: "Heebo Black";
-  -fx-font-size: 20px; }
-
-.paragraph {
-  -fx-font-family: "Heebo";
-  -fx-font-size: 14px; }
-
-.paragraphUI {
-  -fx-font-family: "Heebo Light";
-  -fx-font-size: 14px; }
-
-.textField {
-  -fx-font-family: "Heebo Light";
-  -fx-font-size: 13px; }
-
-.footnote {
-  -fx-font-family: "Heebo Light";
-  -fx-font-size: 12px; }
-
-.shadowpane {
-  -fx-background-color: transparent;
-  -fx-padding: 10;
-  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0, 1, 0); }
-
-.circle-button-13px {
-  -fx-background-radius: 13px;
-  -fx-min-width: 13px;
-  -fx-max-width: 13px;
-  -fx-min-height: 13px;
-  -fx-max-height: 13px;
-  -fx-background-insets: 0px;
-  -fx-padding: 0px; }
-  .circle-button-13px-red {
-    -fx-background-color: #ff3b30; }
-    .circle-button-13px-red:pressed {
-      -fx-background-color: #c40a00; }
-  .circle-button-13px-green {
-    -fx-background-color: #4cd964; }
-    .circle-button-13px-green:pressed {
-      -fx-background-color: #23a93a; }
-  .circle-button-13px-yellow {
-    -fx-background-color: #ffcc00; }
-    .circle-button-13px-yellow:pressed {
-      -fx-background-color: #bf9900; }
-
-.buttonGreen {
-  -fx-font-family: "Heebo Medium";
-  -fx-font-size: 14px;
-  -fx-text-fill: white;
-  -fx-background-color: #28CE96;
-  -fx-background-radius: 3; }
-  .buttonGreen:hover {
-    -fx-text-fill: white;
-    -fx-background-color: #3DE8AF;
-    -fx-background-radius: 3; }
-  .buttonGreen:pressed {
-    -fx-text-fill: white;
-    -fx-background-color: #28CE96;
-    -fx-background-radius: 3; }
-
-.buttonGreenShadow {
-  -fx-background-color: white;
-  -fx-effect: dropshadow(two-pass-box, rgba(40, 206, 150, 0.7), 20, 0, -0.06, 2); }
-
-.buttonLabelGrey {
-  -fx-background-color: transparent;
-  -fx-background-radius: 0;
-  -fx-text-fill: #ACACAC;
-  -fx-font-family: "Heebo Medium";
-  -fx-font-size: 14px; }
-  .buttonLabelGrey:hover {
-    -fx-text-fill: #D1D1D1; }
-  .buttonLabelGrey:pressed {
-    -fx-text-fill: #ACACAC; }
-
-.buttonBlue {
-  -fx-font-family: "Heebo Medium";
-  -fx-font-size: 14px;
-  -fx-text-fill: white;
-  -fx-background-color: #007aFF;
-  -fx-background-radius: 3; }
-  .buttonBlue:hover {
-    -fx-text-fill: white;
-    -fx-background-color: #3395ff;
-    -fx-background-radius: 3; }
-  .buttonBlue:pressed {
-    -fx-text-fill: white;
-    -fx-background-color: #007aFF;
-    -fx-background-radius: 3; }
-
-.buttonBlueShadow {
-  -fx-background-color: white;
-  -fx-effect: dropshadow(two-pass-box, rgba(0, 122, 255, 0.4), 20, 0, -0.06, 2); }
-
-.buttonWhite {
-  -fx-font-family: "Heebo Medium";
-  -fx-font-size: 14px;
-  -fx-text-fill: black;
-  -fx-background-color: white;
-  -fx-background-radius: 3; }
-  .buttonWhite:hover {
-    -fx-text-fill: black;
-    -fx-background-color: #e6e6e6;
-    -fx-background-radius: 3; }
-  .buttonWhite:pressed {
-    -fx-text-fill: black;
-    -fx-background-color: white;
-    -fx-background-radius: 3; }
-
-.buttonWhiteShadow {
-  -fx-background-color: white;
-  -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.2), 20, 0, -0.06, 2); }
-
-.textFieldGrey {
-  -fx-text-fill: black;
-  -fx-prompt-text-fill: #878787;
-  -fx-background-color: #F0F0F0; }
-
 .right-pane-gradient {
   -fx-background-radius: 0px 3px 3px 0px;
   -fx-background-color: #007aFF, linear-gradient(to bottom right, reflect, #007aFF, #09c6f9); }
@@ -166,3 +30,87 @@
 
 .textAreaTransparent *.text {
   -fx-text-alignment: justify; }
+
+.buttonGreen {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: white;
+  -fx-background-color: #28CE96;
+  -fx-background-radius: 3; }
+  .buttonGreen:hover {
+    -fx-text-fill: white;
+    -fx-background-color: #3DE8AF;
+    -fx-background-radius: 3; }
+  .buttonGreen:pressed {
+    -fx-text-fill: white;
+    -fx-background-color: #28CE96;
+    -fx-background-radius: 3; }
+
+.buttonGreenShadow {
+  -fx-background-color: white;
+  -fx-effect: dropshadow(two-pass-box, rgba(40, 206, 150, 0.7), 20, 0, -0.06, 1.5); }
+
+.buttonLabelGrey {
+  -fx-background-color: transparent;
+  -fx-background-radius: 0;
+  -fx-text-fill: #ACACAC;
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px; }
+  .buttonLabelGrey:hover {
+    -fx-text-fill: #D1D1D1; }
+  .buttonLabelGrey:pressed {
+    -fx-text-fill: #ACACAC; }
+
+.circle-button {
+  -fx-background-radius: 13px;
+  -fx-min-width: 13px;
+  -fx-max-width: 13px;
+  -fx-min-height: 13px;
+  -fx-max-height: 13px;
+  -fx-background-insets: 0px;
+  -fx-padding: 0px; }
+  .circle-button-red {
+    -fx-background-color: #ff3b30; }
+    .circle-button-red:pressed {
+      -fx-background-color: #c40a00; }
+  .circle-button-green {
+    -fx-background-color: #4cd964; }
+    .circle-button-green:pressed {
+      -fx-background-color: #23a93a; }
+  .circle-button-yellow {
+    -fx-background-color: #ffcc00; }
+    .circle-button-yellow:pressed {
+      -fx-background-color: #bf9900; }
+
+.largeTitle {
+  -fx-font-family: "Heebo Black";
+  -fx-font-size: 34px; }
+
+.title2 {
+  -fx-font-family: "Heebo Black";
+  -fx-font-size: 20px; }
+
+.textField {
+  -fx-font-family: "Heebo Light";
+  -fx-font-size: 13px; }
+
+.paragraph {
+  -fx-font-family: "Heebo";
+  -fx-font-size: 14px; }
+
+.paragraphUI {
+  -fx-font-family: "Heebo Light";
+  -fx-font-size: 14px; }
+
+.backgroundWhite {
+  -fx-background-color: white; }
+
+.shadowpane {
+  -fx-background-color: transparent;
+  -fx-padding: 10;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0, 1, 0); }
+
+.textFieldGrey {
+  -fx-text-fill: black;
+  -fx-prompt-text-fill: #878787;
+  -fx-background-color: #F0F0F0; }

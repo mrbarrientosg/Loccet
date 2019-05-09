@@ -29,9 +29,11 @@ $bottom-side-shadow: shadow-side(bottom);
   -fx-effect: dropshadow($type, $color, $radius, $spread, nth($side, 1), nth($side, 2));
 }
 
-.shadowpane {
-  -fx-background-color: transparent;
-  -fx-padding: 10;
-  @include make-shadow($type: gaussian, $side: $right-side-shadow);
+@mixin shadowpane {
+  #{'.shadowpane'} {
+    -fx-background-color: transparent;
+    -fx-padding: 10;
+    @include make-shadow($type: gaussian, $side: $right-side-shadow);
+  }
 }
 

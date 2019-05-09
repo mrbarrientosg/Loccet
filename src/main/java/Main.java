@@ -16,10 +16,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Font.loadFont(getClass().getResourceAsStream("fonts/Heebo-Black.ttf"), 0);
-        Font.loadFont(getClass().getResourceAsStream("fonts/Heebo-Light.ttf"), 0);
-        Font.loadFont(getClass().getResourceAsStream("fonts/Heebo-Medium.ttf"), 0);
-        Font.loadFont(getClass().getResourceAsStream("fonts/Heebo-Regular.ttf"), 0);
+        Font.loadFont(getClass().getResourceAsStream("./fonts/Heebo-Black.ttf"), 0);
+        Font.loadFont(getClass().getResourceAsStream("./fonts/Heebo-Light.ttf"), 0);
+        Font.loadFont(getClass().getResourceAsStream("./fonts/Heebo-Medium.ttf"), 0);
+        Font.loadFont(getClass().getResourceAsStream("./fonts/Heebo-Regular.ttf"), 0);
 
         Injectable.setPrimaryStage(primaryStage);
 

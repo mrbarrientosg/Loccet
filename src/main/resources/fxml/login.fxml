@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="shadowpane" stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" styleClass="shadowpane" stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" spacing="5.0">
          <children>
@@ -109,14 +109,14 @@
                   <Separator visible="false" HBox.hgrow="ALWAYS" />
                   <Button mnemonicParsing="false">
                      <styleClass>
-                        <String fx:value="circle-button-13px" />
-                        <String fx:value="circle-button-13px-yellow" />
+                        <String fx:value="circle-button" />
+                        <String fx:value="circle-button-yellow" />
                      </styleClass>
                   </Button>
                   <Button mnemonicParsing="false">
                      <styleClass>
-                        <String fx:value="circle-button-13px" />
-                        <String fx:value="circle-button-13px-red" />
+                        <String fx:value="circle-button" />
+                        <String fx:value="circle-button-red" />
                      </styleClass>
                   </Button>
                </children>

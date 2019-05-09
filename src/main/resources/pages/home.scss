@@ -25,7 +25,6 @@
 
 .side-menu-button {
   -fx-text-alignment: left;
-  @include buttonLabelBlack(true);
 }
 
 .side-menu-button:pressed {
@@ -37,3 +36,14 @@
   -fx-text-fill: $dark-blue;
   -fx-background-color: rgba($dark-blue, .07);
 }
+
+@include buttonLabelBlack(true);
+
+@include circle-buttons();
+
+@include largeTitle;
+@include footnote;
+
+@include backgroundLight;
+
+@include shadowpane;
