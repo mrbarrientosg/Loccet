@@ -4,6 +4,7 @@ import base.Injectable;
 import controller.LoginController;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import model.Constructora;
 import view.HomeView;
@@ -38,6 +39,7 @@ public final class LoginRouter {
                 .withStyle(StageStyle.TRANSPARENT)
                 .withResizable(true)
                 .show();
+        tableroView.getCurrentStage().getScene().setFill(Color.TRANSPARENT);
         return tableroView;
     }
 }

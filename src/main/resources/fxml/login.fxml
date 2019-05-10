@@ -76,7 +76,7 @@
                         <Insets left="5.0" right="5.0" top="10.0" />
                      </StackPane.margin>
                   </AnchorPane>
-                  <Button fx:id="loginButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="35.0" styleClass="buttonGreen" text="Confirmar">
+                  <Button fx:id="loginButton" defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="35.0" styleClass="buttonGreen" text="Confirmar">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
