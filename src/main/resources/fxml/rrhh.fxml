@@ -17,7 +17,7 @@
    <children>
       <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="35.0" spacing="20.0">
          <children>
-            <TextField maxHeight="1.7976931348623157E308" promptText="Buscar trabajador" HBox.hgrow="ALWAYS">
+            <TextField fx:id="searchField" maxHeight="1.7976931348623157E308" promptText="Buscar trabajador" HBox.hgrow="ALWAYS">
                <styleClass>
                   <String fx:value="textFieldGrey" />
                   <String fx:value="textField" />
@@ -59,7 +59,7 @@
                         <Insets bottom="5.0" />
                      </padding>
                   </AnchorPane>
-                  <Button mnemonicParsing="false" prefHeight="35.0" styleClass="buttonBlue" text="Crear trabajador" textFill="WHITE" />
+                  <Button fx:id="createTrabajador" mnemonicParsing="false" prefHeight="35.0" styleClass="buttonBlue" text="Crear trabajador" textFill="WHITE" />
                </children>
             </StackPane>
          </children>
@@ -67,9 +67,9 @@
             <Insets left="16.0" right="16.0" top="16.0" />
          </VBox.margin>
       </HBox>
-      <TableView styleClass="rrhh-table" VBox.vgrow="ALWAYS">
+      <TableView fx:id="tableView" styleClass="rrhh-table" VBox.vgrow="ALWAYS">
         <columns>
-          <TableColumn prefWidth="75.0" text="Rut" />
+          <TableColumn fx:id="rutColumn" prefWidth="75.0" text="Rut" />
           <TableColumn prefWidth="75.0" text="Nombre" />
             <TableColumn prefWidth="75.0" text="Apellido" />
             <TableColumn prefWidth="90.0" text="Especialidad" />
