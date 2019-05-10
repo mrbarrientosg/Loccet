@@ -1,0 +1,161 @@
+@mixin circle-button($radius) {
+  -fx-background-radius: $radius;
+  -fx-min-width: $radius;
+  -fx-max-width: $radius;
+  -fx-min-height: $radius;
+  -fx-max-height: $radius;
+  -fx-background-insets: 0px;
+  -fx-padding: 0px;
+}
+
+@mixin buttonLabelGrey($light: false) {
+  #{'.buttonLabelGrey'} {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+    -fx-text-fill: #ACACAC;
+    @if ($light) {
+      @include button-light;
+    } @else {
+      @include button;
+    }
+
+    &:hover {
+      -fx-text-fill: #D1D1D1;
+    }
+
+    &:pressed {
+      -fx-text-fill: #ACACAC;
+    }
+  }
+}
+
+@mixin buttonLabelBlack($light: false) {
+  #{'.buttonLabelBlack'} {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+    -fx-text-fill: #595959;
+    @if ($light) {
+      @include button-light;
+    } @else {
+      @include button;
+    }
+
+    &:hover {
+      -fx-text-fill: #ACACAC;
+    }
+
+    &:pressed {
+      -fx-text-fill: #595959;
+    }
+  }
+}
+
+@mixin buttonGreen {
+  #{'.buttonGreen'} {
+    @include button;
+    -fx-text-fill: white;
+    -fx-background-color: $green-button;
+    -fx-background-radius: 3;
+
+    &:hover {
+      -fx-text-fill: white;
+      -fx-background-color: $light-green-button;
+      -fx-background-radius: 3;
+    }
+
+    &:pressed {
+      -fx-text-fill: white;
+      -fx-background-color: $green-button;
+      -fx-background-radius: 3;
+    }
+  }
+}
+
+@mixin buttonBlue {
+  #{'.buttonBlue'} {
+    @include button;
+    -fx-text-fill: white;
+    -fx-background-color: $dark-blue;
+    -fx-background-radius: 3;
+
+    &:hover {
+      -fx-text-fill: white;
+      -fx-background-color: lighten($dark-blue, 8%);
+      -fx-background-radius: 3;
+    }
+
+    &:pressed {
+      -fx-text-fill: white;
+      -fx-background-color: $dark-blue;;
+      -fx-background-radius: 3;
+    }
+  }
+}
+
+@mixin buttonWhite {
+  #{'.buttonWhite'} {
+    @include button;
+    -fx-text-fill: black;
+    -fx-background-color: white;
+    -fx-background-radius: 3;
+
+    &:hover {
+      -fx-text-fill: black;
+      -fx-background-color: darken(white, 10%);
+      -fx-background-radius: 3;
+    }
+
+    &:pressed {
+      -fx-text-fill: black;
+      -fx-background-color: white;;
+      -fx-background-radius: 3;
+    }
+  }
+}
+
+@mixin circle-color($map) {
+  @each $key, $value in $map {
+    &-#{$key} {
+      -fx-background-color: map_get($value, base);
+
+      &:pressed {
+        -fx-background-color: map_get($value, selected);
+      }
+    }
+  }
+}
+
+@mixin circle-buttons($size: 13px, $color: null) {
+  #{'.circle-button'} {
+    $colors: (
+            "red": (base: $red, selected: $dark-red),
+            "green": (base: $green, selected: $dark-green),
+            "yellow": (base: $yellow, selected: $dark-yellow)
+    );
+    @include circle-color(if($color == null, $colors, $color));
+    @include circle-button($size);
+  }
+}
+
+@mixin buttonGreenShadow {
+  #{'.buttonGreenShadow'} {
+    -fx-background-color: white;
+    @include make-shadow($color: rgba($green-button, 0.7), $radius: 20, $side: shadow-side($y: 1.5));
+  }
+}
+
+@mixin buttonBlueShadow {
+  #{'.buttonBlueShadow'} {
+    -fx-background-color: white;
+    @include make-shadow($color: rgba($dark-blue, 0.4), $radius: 20, $side: shadow-side($y: 2));
+  }
+}
+
+
+@mixin buttonWhiteShadow {
+  #{'.buttonWhiteShadow'} {
+    -fx-background-color: white;
+    @include make-shadow($color: rgba(black, 0.2), $radius: 20, $side: shadow-side($y: 2));
+  }
+}
+

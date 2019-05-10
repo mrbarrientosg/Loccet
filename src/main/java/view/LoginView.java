@@ -1,22 +1,22 @@
 package view;
 
-import base.View;
-import controller.LoginController;
-import javafx.application.Platform;
+import base.Fragment;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-public final class LoginView extends View {
-
-    private LoginController controller;
+public final class LoginView extends Fragment {
 
     @FXML
-    private TextField rutField;
+    private TextField username;
 
     @FXML
-    private TextField passwordField;
+    private TextField password;
+
+    @FXML
+    private TextField dns;
 
     @FXML
     private Button loginButton;
@@ -24,46 +24,54 @@ public final class LoginView extends View {
     @FXML
     private Button exitButton;
 
-    public LoginView() {
-        super("Inicio sesion");
-    }
+    @FXML
+    private Button minimizeButton;
+
+    @FXML
+    private Button exitRedButton;
+
+    private double xOffset = 0;
+
+    private double yOffset = 0;
 
     @Override
     public void viewDidLoad() {
-        rutField.requestFocus();
 
-        exitButton.setOnAction(this::exit);
+        root.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
 
-        loginButton.setDefaultButton(true);
-        loginButton.setOnAction(this::login);
-
-        controller.rutProperty().bind(rutField.textProperty());
-        controller.passwordProperty().bind(passwordField.textProperty());
+        root.setOnMouseDragged(event -> {
+            if (yOffset <= 50) {
+                getPrimaryStage().setX(event.getScreenX() - xOffset);
+                getPrimaryStage().setY(event.getScreenY() - yOffset);
+            }
+        });
     }
 
-    @Override
-    public void viewDidClose() {
-        clear();
+    public String getUsername() {
+        return username.getText();
     }
 
-    private void login(ActionEvent actionEvent) {
-        controller.loginUser();
+    public String getPassword() {
+        return password.getText();
     }
 
-    private void exit(ActionEvent actionEvent) {
-        Platform.exit();
-        System.exit(0);
+    public String getDNS() {
+        return dns.getText();
     }
 
-    private void clear() {
-        rutField.textProperty().set("");
-        passwordField.textProperty().set("");
-
-        controller.rutProperty().unbind();
-        controller.passwordProperty().unbind();
+    public void setLoginButtonAction(EventHandler<ActionEvent> eventHandler) {
+        loginButton.setOnAction(eventHandler);
     }
 
-    public void setController(LoginController controller) {
-        this.controller = controller;
+    public void setMinimizeButtonAction(EventHandler<ActionEvent> eventHandler) {
+        minimizeButton.setOnAction(eventHandler);
+    }
+
+    public void setExitButtonAction(EventHandler<ActionEvent> eventHandler) {
+        exitButton.setOnAction(eventHandler);
+        exitRedButton.setOnAction(eventHandler);
     }
 }

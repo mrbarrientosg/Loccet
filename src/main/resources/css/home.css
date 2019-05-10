@@ -1,0 +1,88 @@
+@font-face {
+  font-family: "Heebo";
+  src: url("../fonts/Heebo-Regular.ttf") format("truetype"); }
+@font-face {
+  font-family: "Heebo Medium";
+  src: url("../fonts/Heebo-Medium.ttf") format("truetype"); }
+@font-face {
+  font-family: "Heebo Light";
+  src: url("../fonts/Heebo-Light.ttf") format("truetype"); }
+@font-face {
+  font-family: "Heebo Black";
+  src: url("../fonts/Heebo-Black.ttf") format("truetype"); }
+.top-bar {
+  -fx-border-width: 0 0 0.25 0;
+  -fx-border-color: rgba(0, 0, 0, 0.5);
+  -fx-background-color: white;
+  -fx-background-radius: 0px 3px 0px 0px; }
+
+.content-pane {
+  -fx-background-radius: 0px 0px 3px 0px; }
+
+.side-menu-header {
+  -fx-background-radius: 3px 0px 0px 0px;
+  -fx-background-color: #007aFF, linear-gradient(to top right, reflect, #007aFF, #09c6f9); }
+
+.side-menu {
+  -fx-background-color: white;
+  -fx-background-radius: 3px 0px 0px 3px;
+  -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.4), 10, 0, 1, 0); }
+
+.side-menu-button {
+  -fx-text-alignment: left; }
+
+.side-menu-button:pressed {
+  -fx-text-fill: #007aFF;
+  -fx-background-color: rgba(0, 122, 255, 0.07); }
+
+.side-menu-button:selected {
+  -fx-text-fill: #007aFF;
+  -fx-background-color: rgba(0, 122, 255, 0.07); }
+
+.buttonLabelBlack {
+  -fx-background-color: transparent;
+  -fx-background-radius: 0;
+  -fx-text-fill: #595959;
+  -fx-font-family: "Heebo Light";
+  -fx-font-size: 14px; }
+  .buttonLabelBlack:hover {
+    -fx-text-fill: #ACACAC; }
+  .buttonLabelBlack:pressed {
+    -fx-text-fill: #595959; }
+
+.circle-button {
+  -fx-background-radius: 13px;
+  -fx-min-width: 13px;
+  -fx-max-width: 13px;
+  -fx-min-height: 13px;
+  -fx-max-height: 13px;
+  -fx-background-insets: 0px;
+  -fx-padding: 0px; }
+  .circle-button-red {
+    -fx-background-color: #ff3b30; }
+    .circle-button-red:pressed {
+      -fx-background-color: #c40a00; }
+  .circle-button-green {
+    -fx-background-color: #4cd964; }
+    .circle-button-green:pressed {
+      -fx-background-color: #23a93a; }
+  .circle-button-yellow {
+    -fx-background-color: #ffcc00; }
+    .circle-button-yellow:pressed {
+      -fx-background-color: #bf9900; }
+
+.largeTitle {
+  -fx-font-family: "Heebo Black";
+  -fx-font-size: 34px; }
+
+.footnote {
+  -fx-font-family: "Heebo Light";
+  -fx-font-size: 12px; }
+
+.backgroundLight {
+  -fx-background-color: #F9F9F9; }
+
+.shadowpane {
+  -fx-background-color: transparent;
+  -fx-padding: 10;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0, 1, 0); }

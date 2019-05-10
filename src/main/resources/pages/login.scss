@@ -1,0 +1,45 @@
+@import '../base/base';
+@import '../components/components';
+
+.right-pane-gradient {
+  -fx-background-radius: 0px 3px 3px 0px;
+  @include blue-gradient(to bottom right);
+}
+
+.left-pane-content {
+  -fx-background-radius: 3px 0px 0px 3px;
+}
+
+.textAreaTransparent {
+  -fx-background-color: transparent;
+  -fx-opacity: 1;
+  -fx-line-spacing: 1px;
+  -fx-text-fill: white;
+}
+
+.textAreaTransparent .scroll-pane,
+.textAreaTransparent .scroll-pane .viewport,
+.textAreaTransparent .scroll-pane .content {
+  -fx-background-color: transparent;
+}
+
+.textAreaTransparent *.text {
+  -fx-text-alignment: justify;
+}
+
+@include buttonGreen;
+@include buttonGreenShadow;
+@include buttonLabelGrey;
+@include circle-buttons();
+
+@include largeTitle;
+@include title2;
+@include textField;
+@include paragraph;
+@include paragraphUI;
+
+@include backgroundWhite;
+
+@include shadowpane;
+
+@include textFieldGrey;
