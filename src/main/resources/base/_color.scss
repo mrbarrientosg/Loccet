@@ -1,0 +1,39 @@
+$dark-blue: #007aFF;
+$light-blue: #09c6f9;
+
+$red: #ff3b30;
+$dark-red: #c40a00;
+
+$yellow: #ffcc00;
+$dark-yellow: #bf9900;
+
+$green: #4cd964;
+$dark-green: #23a93a;
+
+$green-button: #28CE97;
+$light-green-button: #3DE8AF;
+
+$gray-shadow: rgba(0,0,0,0.4);
+
+@mixin blue-gradient($side: to top right) {
+  -fx-background-color: $dark-blue, linear-gradient($side, reflect, $dark-blue, $light-blue);
+}
+
+@mixin backgroundTransparent {
+  #{'.backgroundTransparent'} {
+    -fx-background-color: transparent;
+  }
+}
+
+@mixin backgroundWhite {
+  #{'.backgroundWhite'} {
+    -fx-background-color: white;
+  }
+}
+
+@mixin backgroundLight {
+  #{'.backgroundLight'} {
+    -fx-background-color: #F9F9F9;
+  }
+}
+

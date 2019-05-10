@@ -88,6 +88,8 @@ public abstract class UIComponent extends Component {
     public final void init() {
         if (isInitialized) return;
 
+        viewDidLoad();
+
         root.parentProperty().addListener((observable, oldParent, newParent) -> {
 
             if (modalStage == null) {
@@ -121,7 +123,9 @@ public abstract class UIComponent extends Component {
         isInitialized = true;
     }
 
-    public void viewDidLoad() { };
+    public abstract void viewDidLoad();
+
+    public void viewDidShow() {};
 
     public void viewDidClose() { };
 
@@ -313,7 +317,7 @@ public abstract class UIComponent extends Component {
     private void callOnDock() {
         if (!isInitialized) init();
         isDocked = true;
-        viewDidLoad();
+        viewDidShow();
     }
 
     /**

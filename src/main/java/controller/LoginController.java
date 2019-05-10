@@ -1,14 +1,10 @@
 package controller;
 
 import base.Controller;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.scene.shape.Arc;
-import javafx.scene.shape.Rectangle;
-import router.HomeRouter;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import router.LoginRouter;
 import util.FakeData;
-import view.HomeView;
 import view.LoginView;
 
 public final class LoginController extends Controller {
@@ -17,51 +13,41 @@ public final class LoginController extends Controller {
 
     private final LoginRouter router;
 
-    private StringProperty rutProperty;
-
-    private StringProperty passwordProperty;
-
     public LoginController(LoginView view, LoginRouter router) {
         this.view = view;
         this.router = router;
+
+        view.setLoginButtonAction(this::loginUser);
+        view.setExitButtonAction(this::exit);
+        view.setMinimizeButtonAction(this::minimize);
     }
 
     /**
      * Inicia sesion
      */
-    public void loginUser() {
-        // TODO: Validar el RUT y la contraseña
-        if (rutProperty.isEmpty().get() || passwordProperty.isEmpty().get()) {
+    private void loginUser(ActionEvent actionEvent) {
+        // TODO: Falta implementar el modelo para que haga el proceso de login con el API
+        if (view.getUsername().isEmpty() || view.getPassword().isEmpty()) {
             router.showError("Complete todos los campos").showAndWait();
             return;
-        } else if (!rutProperty.get().equals("123") || !passwordProperty.get().equals("123")) {
+        } else if (!view.getUsername().equals("123") || !view.getPassword().equals("123")) {
             router.showError("Usuario o Contraseña incorrecta").showAndWait();
             return;
         }
 
-        System.out.println(rutProperty.get());
-        System.out.println(passwordProperty.get());
+        view.close();
 
-        //view.close();
+        // TODO: El modelo deberia retornar los datos de la constructora
 
-        // TODO: implementar el controlador para poder gestionar la constructora
-
-        HomeView homeView = HomeRouter.create(FakeData.createFakeData());
-        view.replaceWith(homeView.getClass(), true, true);
-        homeView.getCurrentStage().setResizable(true);
-
-        //router.showHome(FakeData.createFakeData());
+        router.showTablero(FakeData.createFakeData());
     }
 
-    public StringProperty rutProperty() {
-        if (rutProperty == null)
-            rutProperty = new SimpleStringProperty();
-        return rutProperty;
+    private void minimize(ActionEvent actionEvent) {
+        getPrimaryStage().setIconified(true);
     }
 
-    public StringProperty passwordProperty() {
-        if (passwordProperty == null)
-            passwordProperty = new SimpleStringProperty();
-        return passwordProperty;
+    private void exit(ActionEvent actionEvent) {
+        Platform.exit();
+        System.exit(0);
     }
 }

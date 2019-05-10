@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" styleClass="shadowpane" stylesheets="@../css/home.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox layoutX="244.0" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="90.0" styleClass="top-bar" AnchorPane.bottomAnchor="610.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER_RIGHT" spacing="10.0">
+               <VBox.margin>
+                  <Insets right="8.0" top="8.0" />
+               </VBox.margin>
+               <children>
+                  <Button mnemonicParsing="false">
+                     <styleClass>
+                        <String fx:value="circle-button" />
+                        <String fx:value="circle-button-yellow" />
+                     </styleClass>
+                  </Button>
+                  <Button mnemonicParsing="false">
+                     <styleClass>
+                        <String fx:value="circle-button" />
+                        <String fx:value="circle-button-green" />
+                     </styleClass>
+                  </Button>
+                  <Button mnemonicParsing="false">
+                     <styleClass>
+                        <String fx:value="circle-button" />
+                        <String fx:value="circle-button-red" />
+                     </styleClass>
+                  </Button>
+               </children>
+            </HBox>
+            <Separator orientation="VERTICAL" visible="false" VBox.vgrow="ALWAYS" />
+            <Label fx:id="titleBar" maxWidth="1.7976931348623157E308" styleClass="largeTitle" text="Bienvenido">
+               <font>
+                  <Font name="Montserrat ExtraBold" size="35.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="16.0" right="16.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+      <AnchorPane fx:id="contentPane" layoutX="200.0" layoutY="84.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0">
+         <styleClass>
+            <String fx:value="backgroundLight" />
+            <String fx:value="content-pane" />
+         </styleClass></AnchorPane>
+      <VBox prefWidth="200.0" styleClass="side-menu" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0" prefWidth="200.0" styleClass="side-menu-header">
+               <children>
+                  <Label alignment="BOTTOM_LEFT" styleClass="largeTitle" text="Módulos" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font name="Montserrat Black" size="24.0" />
+                     </font>
+                     <padding>
+                        <Insets left="16.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <ToggleButton fx:id="inicioButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" selected="true" text="Inicio">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets left="16.0" />
+               </padding>
+               <toggleGroup>
+                  <ToggleGroup fx:id="menuToggleGroup" />
+               </toggleGroup>
+               <styleClass>
+                  <String fx:value="side-menu-button" />
+                  <String fx:value="buttonLabelBlack" />
+               </styleClass>
+            </ToggleButton>
+            <ToggleButton fx:id="rrhhButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" text="RRHH" toggleGroup="$menuToggleGroup">
+               <padding>
+                  <Insets left="16.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+               <styleClass>
+                  <String fx:value="side-menu-button" />
+                  <String fx:value="buttonLabelBlack" />
+               </styleClass>
+            </ToggleButton>
+            <ToggleButton alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" text="Proyectos" toggleGroup="$menuToggleGroup">
+               <padding>
+                  <Insets left="16.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+               <styleClass>
+                  <String fx:value="side-menu-button" />
+                  <String fx:value="buttonLabelBlack" />
+               </styleClass>
+            </ToggleButton>
+            <ToggleButton alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" text="Facturas" toggleGroup="$menuToggleGroup">
+               <padding>
+                  <Insets left="16.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+               <styleClass>
+                  <String fx:value="side-menu-button" />
+                  <String fx:value="buttonLabelBlack" />
+               </styleClass>
+            </ToggleButton>
+            <ToggleButton alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" text="Reportes" toggleGroup="$menuToggleGroup">
+               <padding>
+                  <Insets left="16.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+               <styleClass>
+                  <String fx:value="side-menu-button" />
+                  <String fx:value="buttonLabelBlack" />
+               </styleClass>
+            </ToggleButton>
+            <Separator orientation="VERTICAL" prefHeight="200.0" visible="false" VBox.vgrow="ALWAYS" />
+            <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" styleClass="footnote" text="Copyright Loccet. v1.0.0" textAlignment="CENTER" textFill="#00000080">
+               <VBox.margin>
+                  <Insets bottom="8.0" left="8.0" right="8.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
