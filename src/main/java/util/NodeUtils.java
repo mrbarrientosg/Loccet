@@ -49,10 +49,5 @@ public class NodeUtils {
             parent.getChildren().add(index, replace);
         }
     }
-
-    private static void removeFromParent(EventTarget receiver) {
-        if (receiver instanceof UIComponent) {
-            removeFromParent(((UIComponent)receiver).getRoot());
-        }
-    }
+    
 }
