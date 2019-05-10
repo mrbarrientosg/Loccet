@@ -39,7 +39,7 @@ public final class LoginController extends Controller {
 
         // TODO: El modelo deberia retornar los datos de la constructora
 
-        router.showHome(FakeData.createFakeData());
+        router.showTablero(FakeData.createFakeData());
     }
 
     private void minimize(ActionEvent actionEvent) {
