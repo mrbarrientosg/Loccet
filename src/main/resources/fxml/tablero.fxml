@@ -71,7 +71,7 @@
                   </Label>
                </children>
             </AnchorPane>
-            <ToggleButton fx:id="homeButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" selected="true" text="Inicio">
+            <ToggleButton fx:id="inicioButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" selected="true" text="Inicio">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
