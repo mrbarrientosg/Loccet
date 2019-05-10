@@ -15,8 +15,6 @@ public final class LoginRouter {
         LoginRouter router = new LoginRouter();
         LoginController controller = new LoginController(view, router);
 
-        view.setController(controller);
-
         return view;
     }
 

@@ -28,7 +28,7 @@
                   <Insets left="30.0" right="30.0" top="30.0" />
                </VBox.margin>
             </Label>
-            <TextField prefHeight="35.0" promptText="usuario / rut">
+            <TextField fx:id="username" prefHeight="35.0" promptText="usuario / rut">
                <VBox.margin>
                   <Insets bottom="10.0" left="30.0" right="30.0" />
                </VBox.margin>
@@ -42,7 +42,7 @@
                   <Insets left="30.0" right="30.0" />
                </VBox.margin>
             </Label>
-            <PasswordField prefHeight="35.0" promptText="contraseña">
+            <PasswordField fx:id="password" prefHeight="35.0" promptText="contraseña">
                <VBox.margin>
                   <Insets bottom="10.0" left="30.0" right="30.0" />
                </VBox.margin>
@@ -56,7 +56,7 @@
                   <Insets left="30.0" right="30.0" />
                </VBox.margin>
             </Label>
-            <TextField prefHeight="35.0" promptText="dns.sem.cl">
+            <TextField fx:id="dns" prefHeight="35.0" promptText="dns.sem.cl">
                <VBox.margin>
                   <Insets bottom="10.0" left="30.0" right="30.0" />
                </VBox.margin>
@@ -76,14 +76,14 @@
                         <Insets left="5.0" right="5.0" top="10.0" />
                      </StackPane.margin>
                   </AnchorPane>
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="35.0" styleClass="buttonGreen" text="Confirmar">
+                  <Button fx:id="loginButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="35.0" styleClass="buttonGreen" text="Confirmar">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
                </children>
             </StackPane>
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="35.0" styleClass="buttonLabelGrey" text="Salir">
+            <Button fx:id="exitButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="35.0" styleClass="buttonLabelGrey" text="Salir">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -107,13 +107,13 @@
                      </HBox.margin>
                   </Label>
                   <Separator visible="false" HBox.hgrow="ALWAYS" />
-                  <Button mnemonicParsing="false">
+                  <Button fx:id="minimizeButton" mnemonicParsing="false">
                      <styleClass>
                         <String fx:value="circle-button" />
                         <String fx:value="circle-button-yellow" />
                      </styleClass>
                   </Button>
-                  <Button mnemonicParsing="false">
+                  <Button fx:id="exitRedButton" mnemonicParsing="false">
                      <styleClass>
                         <String fx:value="circle-button" />
                         <String fx:value="circle-button-red" />
