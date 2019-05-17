@@ -39,7 +39,7 @@ public final class AgregarProyectoView extends View {
 
     @Override
     public void viewDidLoad() {
-        fechaF.setValue(LocalDate.now());
+        /*fechaF.setValue(LocalDate.now());
         fechaT.setValue(LocalDate.now());
         montoC.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -49,12 +49,13 @@ public final class AgregarProyectoView extends View {
                     montoC.setText(newValue.replaceAll("[^\\d]", ""));
                 }
             }
-        });
+        });*/
+        noNumbers();
     }
 
     @Override
     public void viewDidClose() {
-        System.out.println("viewDidClose");
+       /* System.out.println("viewDidClose");
         nombreP.setText("");
         jefeP.setText("");
         mailC.setText("");
@@ -66,7 +67,8 @@ public final class AgregarProyectoView extends View {
         pais.setText("");
         direccion.setText("");
         fechaF.setValue(LocalDate.now());
-        fechaT.setValue(LocalDate.now());
+        fechaT.setValue(LocalDate.now());*/
+        isEmpty();
     }
 
     /**
@@ -108,5 +110,34 @@ public final class AgregarProyectoView extends View {
 
     public void setController(AgregarProyectoController controller) {
         this.controller = controller;
+    }
+
+    public void isEmpty(){
+        nombreP.setText("");
+        jefeP.setText("");
+        mailC.setText("");
+        montoC.setText("");
+        ciudad.setText("");
+        cliente.setText("");
+        telefonoC.setText("");
+        estado.setText("");
+        pais.setText("");
+        direccion.setText("");
+        fechaF.setValue(LocalDate.now());
+        fechaT.setValue(LocalDate.now());
+    }
+
+    public void noNumbers(){
+        fechaF.setValue(LocalDate.now());
+        fechaT.setValue(LocalDate.now());
+        montoC.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    montoC.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
     }
 }
