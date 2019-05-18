@@ -5,7 +5,9 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import router.LoginRouter;
 import util.FakeData;
+import util.NodeUtils;
 import view.LoginView;
+import view.TableroView;
 
 public final class LoginController extends Controller {
 
@@ -35,9 +37,18 @@ public final class LoginController extends Controller {
             return;
         }
 
-        view.close();
+        //view.close();
 
         // TODO: El modelo deberia retornar los datos de la constructora
+
+        TableroView tableroView = router.showTablero(FakeData.createFakeData());
+
+        //NodeUtils.replaceWith(view.getRoot(), tableroView.getRoot(), true, true, null);
+
+        //view.getCurrentStage().setScene(tableroView.getRoot().getScene());
+        //view.getRoot().getScene().setRoot(tableroView.getRoot());
+
+        view.replaceWith(tableroView, true, true);
 
         router.showTablero(FakeData.createFakeData());
     }

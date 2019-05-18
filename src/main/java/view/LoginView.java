@@ -4,6 +4,7 @@ import base.Fragment;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
@@ -37,17 +38,23 @@ public final class LoginView extends Fragment {
     @Override
     public void viewDidLoad() {
 
-        root.setOnMousePressed(event -> {
+        getRoot().setOnMousePressed(event -> {
             xOffset = event.getSceneX();
             yOffset = event.getSceneY();
         });
 
-        root.setOnMouseDragged(event -> {
+        getRoot().setOnMouseDragged(event -> {
             if (yOffset <= 50) {
                 getPrimaryStage().setX(event.getScreenX() - xOffset);
                 getPrimaryStage().setY(event.getScreenY() - yOffset);
             }
         });
+    }
+
+    @Override
+    public void viewDidClose() {
+        getRoot().onMousePressedProperty().set(null);
+        getRoot().onMouseDraggedProperty().set(null);
     }
 
     public String getUsername() {
