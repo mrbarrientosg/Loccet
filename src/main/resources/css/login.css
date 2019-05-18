@@ -12,7 +12,7 @@
   src: url("../fonts/Heebo-Black.ttf") format("truetype"); }
 .right-pane-gradient {
   -fx-background-radius: 0px 3px 3px 0px;
-  -fx-background-color: #007aFF, linear-gradient(to bottom right, reflect, #007aFF, #09c6f9); }
+  -fx-background-color: #0084ff, linear-gradient(to bottom right, reflect, #0084ff, #00c6ff); }
 
 .left-pane-content {
   -fx-background-radius: 3px 0px 0px 3px; }

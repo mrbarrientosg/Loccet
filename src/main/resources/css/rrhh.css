@@ -142,15 +142,15 @@
   -fx-font-family: "Heebo Medium";
   -fx-font-size: 14px;
   -fx-text-fill: white;
-  -fx-background-color: #007aFF;
+  -fx-background-color: #0084ff;
   -fx-background-radius: 3; }
   .buttonBlue:hover {
     -fx-text-fill: white;
-    -fx-background-color: #298fff;
+    -fx-background-color: #2998ff;
     -fx-background-radius: 3; }
   .buttonBlue:pressed {
     -fx-text-fill: white;
-    -fx-background-color: #007aFF;
+    -fx-background-color: #0084ff;
     -fx-background-radius: 3; }
 
 .buttonWhite {
