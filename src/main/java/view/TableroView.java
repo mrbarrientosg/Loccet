@@ -32,6 +32,9 @@ public class TableroView extends Fragment {
     @FXML
     private ToggleButton rrhhButton;
 
+    @FXML
+    private ToggleButton proyectoButton;
+
     private Toggle lastSelected;
 
     private double xOffset = 0;
@@ -98,6 +101,9 @@ public class TableroView extends Fragment {
         if (button == rrhhButton) {
             RRHHView rrhhView = Injectable.find(RRHHView.class);
             setCenter(rrhhView.getRoot());
+        }else if(button == proyectoButton){
+            ProyectoView proyectoView = Injectable.find(ProyectoView.class);
+            setCenter(proyectoView.getRoot());
         }
     }
 }

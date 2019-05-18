@@ -79,10 +79,6 @@ public final class InventarioMaterialView extends Fragment {
 
    }
 
-    @Override
-    public void viewDidClose() {
-
-    }
 
     /**
      * Funcion que mostrara la vista de nuevo material.
