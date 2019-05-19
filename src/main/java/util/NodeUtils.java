@@ -1,6 +1,7 @@
 package util;
 
 import base.UIComponent;
+import javafx.application.Application;
 import javafx.event.EventTarget;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -24,6 +25,8 @@ public class NodeUtils {
 
             //removeFromParent(from);
             //removeFromParent(to);
+            //from.getParent().getChildrenUnmodifiable().remove(from);
+            //to.getParent().getChildrenUnmodifiable().remove(to);
             scene.setRoot((Parent) to);
             if (sizeToScene) scene.getWindow().sizeToScene();
             if (centerOnScreen) scene.getWindow().centerOnScreen();

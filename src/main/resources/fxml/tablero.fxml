@@ -21,19 +21,19 @@
                   <Insets right="8.0" top="8.0" />
                </VBox.margin>
                <children>
-                  <Button mnemonicParsing="false">
+                  <Button fx:id="minimizeButton" mnemonicParsing="false">
                      <styleClass>
                         <String fx:value="circle-button" />
                         <String fx:value="circle-button-yellow" />
                      </styleClass>
                   </Button>
-                  <Button mnemonicParsing="false">
+                  <Button fx:id="maximizeButton" mnemonicParsing="false">
                      <styleClass>
                         <String fx:value="circle-button" />
                         <String fx:value="circle-button-green" />
                      </styleClass>
                   </Button>
-                  <Button mnemonicParsing="false">
+                  <Button fx:id="exitButton" mnemonicParsing="false">
                      <styleClass>
                         <String fx:value="circle-button" />
                         <String fx:value="circle-button-red" />

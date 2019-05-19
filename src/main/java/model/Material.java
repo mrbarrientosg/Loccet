@@ -1,5 +1,8 @@
 package model;
-import java.util.Date;
+import repository.memory.MemoryRepositoryRegistroMaterial;
+import repository.RepositoryRegistroMaterial;
+
+import java.math.BigDecimal;
 
 /**
  *
@@ -19,36 +22,30 @@ public class Material {
 
     private double cantidad;
 
-    private double retiro;
-
-    private Date fechaRetiro;
-
-    private Date fechaIngreso;
-
     private String uds;
 
-    private double precio;
+    private BigDecimal precio;
 
-    public Material(String nombre, String descripcion, double cantidad,String uds,double precio){
+    private RepositoryRegistroMaterial repositoryRegistroMaterial;
+
+    public Material(String nombre, String descripcion, double cantidad,String uds,BigDecimal precio){
         this.descripcion = descripcion;
         this.cantidad = cantidad;
         this.nombre = nombre;
         this.uds = uds;
         id = generarId();
-        fechaRetiro = null;
         this.precio = precio;
-        fechaIngreso = new Date();
+        repositoryRegistroMaterial = new MemoryRepositoryRegistroMaterial();
     }
 
-    public Material(String nombre, String descripcion, double cantidad,String uds,String id,double precio){
+    public Material(String nombre, String descripcion, double cantidad,String uds,String id,BigDecimal precio){
         this.descripcion = descripcion;
         this.cantidad = cantidad;
         this.nombre = nombre;
         this.uds = uds;
         this.id = id;
         this.precio = precio;
-        fechaRetiro = null;
-        fechaIngreso = new Date();
+        repositoryRegistroMaterial = new MemoryRepositoryRegistroMaterial();
     }
 
     public String getId(){return  id;}
@@ -61,7 +58,7 @@ public class Material {
         return descripcion;
     }
 
-    public double getPrecio() {
+    public BigDecimal getPrecio() {
         return precio;
     }
 
@@ -69,20 +66,8 @@ public class Material {
         return uds;
     }
 
-    public Date getFechaRetiro() {
-        return fechaRetiro;
-    }
-
-    public double getRetiro() {
-        return retiro;
-    }
-
     public double getCantidad() {
         return cantidad;
-    }
-
-    public Date getFechaIngreso() {
-        return fechaIngreso;
     }
 
     public void setNombre(String nombre) {
@@ -93,28 +78,20 @@ public class Material {
         this.descripcion = descripcion;
     }
 
-    public void setRetiro(double retiro) {
-        this.retiro = retiro;
-    }
-
     public void setCantidad(double cantidad) {
         this.cantidad = cantidad;
     }
 
-    public void setFechaIngreso(Date fechaIngreso) {
-        this.fechaIngreso = fechaIngreso;
-    }
-
-    public void setFechaRetiro(Date fechaRetiro) {
-        this.fechaRetiro = fechaRetiro;
-    }
-
-    public double precioTotal() {
-        return cantidad * precio;
-    }
-
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void agregarRegistro(RegistroMaterial registroMaterial) {
+        repositoryRegistroMaterial.add(registroMaterial);
+    }
+
+    public RegistroMaterial actualizarRegistro(RegistroMaterial registroMaterial) {
+        return repositoryRegistroMaterial.update(registroMaterial);
     }
 
     /**

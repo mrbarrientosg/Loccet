@@ -35,11 +35,6 @@ public final class LoginRouter {
 
     public TableroView showTablero(Constructora model) {
         TableroView tableroView = TableroRouter.create(model);
-        tableroView.window()
-                .withStyle(StageStyle.TRANSPARENT)
-                .withResizable(true)
-                .show();
-        tableroView.getCurrentStage().getScene().setFill(Color.TRANSPARENT);
         return tableroView;
     }
 }

@@ -302,12 +302,16 @@ public abstract class UIComponent extends Component {
 
     public <T extends UIComponent> void replaceWith(Class<T> component, Boolean sizeToScene, Boolean centerOnScreen) {
         UIComponent cp = Injectable.find(component);
-        NodeUtils.replaceWith(root, cp.getRoot(), sizeToScene, centerOnScreen, null);
+        replaceWith(cp, sizeToScene, centerOnScreen);
     }
 
     public <T extends UIComponent> void replaceWith(Class<T> component, Boolean sizeToScene, Boolean centerOnScreen, Runnable onTrasition) {
         UIComponent cp = Injectable.find(component);
-        NodeUtils.replaceWith(root, cp.getRoot(), sizeToScene, centerOnScreen, onTrasition);
+        NodeUtils.replaceWith(getRoot(), cp.getRoot(), sizeToScene, centerOnScreen, onTrasition);
+    }
+
+    public <T extends UIComponent> void replaceWith(T component, Boolean sizeToScene, Boolean centerOnScreen) {
+        NodeUtils.replaceWith(getRoot(), component.getRoot(), sizeToScene, centerOnScreen, null);
     }
 
 

@@ -1,12 +1,13 @@
 package model;
 
-import util.StringUtils;
+import repository.RepositoryAsistencia;
+import repository.RepositoryFase;
+import repository.memory.MemoryRepositoryAsistencia;
+import repository.memory.MemoryRepositoryFase;
+import repository.memory.MemoryRepositoryTrabajador;
+import repository.RepositoryTrabajador;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.time.Duration;
 import java.time.LocalDate;
-import java.util.*;
 
 public class Proyecto {
 
@@ -15,21 +16,7 @@ public class Proyecto {
 
     private String nombreProyecto;
 
-    private String jefeProyecto;
-
-    private String mailCliente;
-
-    private String cliente;
-
-    private String telefonoCliente;
-
-    private String direccion;
-
-    private String pais;
-
-    private String ciudad;
-
-    private String estado;
+    private Localizacion localizacion;
 
     private LocalDate fechaInicio;
 
@@ -37,38 +24,28 @@ public class Proyecto {
 
     private double estimacion;
 
-    private List<Trabajador> listaTrabajadores;
+    private RepositoryTrabajador repositoryTrabajador;
 
-    private Map<String, Trabajador> mapTrabajadores;
+    private RepositoryAsistencia repositoryAsistencia;
+
+    private RepositoryFase repositoryFase;
 
     private InventarioMaterial inventarioMaterial;
-
-    // TODO: Implementar equipo y maquinarias.
-
 
     // MARK: - Constructor
 
     private Proyecto(Builder builder){
         this.id = builder.id;
         this.nombreProyecto = builder.nombreProyecto;
-        this.jefeProyecto = builder.jefeProyecto;
         this.estimacion = builder.estimacion;
-        this.cliente = builder.cliente;
-        this.telefonoCliente = builder.telefonoCliente;
-        this.mailCliente = builder.mailCliente;
-        this.direccion = builder.direccion;
-        this.pais = builder.pais;
-        this.estado = builder.estado;
-        this.ciudad = builder.ciudad;
         this.fechaInicio = builder.fechaInicio;
         this.fechaTermino = builder.fechaTermino;
 
-        listaTrabajadores = new ArrayList<>();
-        mapTrabajadores = new HashMap<>();
-
+        repositoryAsistencia = new MemoryRepositoryAsistencia();
+        repositoryTrabajador = new MemoryRepositoryTrabajador();
+        repositoryFase = new MemoryRepositoryFase();
         inventarioMaterial = new InventarioMaterial();
     }
-
 
     // MARK: - Getter
 
@@ -84,36 +61,6 @@ public class Proyecto {
         return nombreProyecto;
     }
 
-    public String getJefeProyecto() {
-        return jefeProyecto;
-    }
-
-    public String getCliente(){ return cliente;}
-
-    public String getMailCliente() {
-        return mailCliente;
-    }
-
-    public String getTelefonoCliente() {
-        return telefonoCliente;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public String getPais() {
-        return pais;
-    }
-
-    public String getCiudad() {
-        return ciudad;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
     public String getId() {
         return id;
     }
@@ -126,10 +73,6 @@ public class Proyecto {
         return inventarioMaterial;
     }
 
-    public List<Trabajador> getListaTrabajadores() {
-        return listaTrabajadores;
-    }
-
     // MARK: - Metodos
 
     /**
@@ -139,20 +82,14 @@ public class Proyecto {
      *
      * @author Matias Zuñiga
      */
-    public boolean agregarTrabajador(Trabajador trabajador){
-        if (mapTrabajadores.containsKey(trabajador.getRut())) return false;
-        trabajador.asociarProyecto(id);
-        mapTrabajadores.put(trabajador.getRut(), trabajador);
-        listaTrabajadores.add(trabajador);
-        return true;
+    public void agregarTrabajador(Trabajador trabajador){
+        trabajador.asociarProyecto(this);
+        repositoryTrabajador.add(trabajador);
     }
 
 
     public Trabajador actualizarTrabajador(Trabajador nuevoTrabajador) {
-        if (!mapTrabajadores.containsKey(nuevoTrabajador.getRut())) return null;
-        int idx = listaTrabajadores.indexOf(mapTrabajadores.get(nuevoTrabajador.getRut()));
-        listaTrabajadores.set(idx, nuevoTrabajador);
-        return mapTrabajadores.put(nuevoTrabajador.getRut(), nuevoTrabajador);
+        return repositoryTrabajador.update(nuevoTrabajador);
     }
 
 
@@ -183,7 +120,7 @@ public class Proyecto {
      * @author Matias Barrientos
      */
     public Trabajador obtenerTrabajador(String rut) {
-        return mapTrabajadores.get(rut);
+        return repositoryTrabajador.get(rut);
     }
 
     /**
@@ -194,12 +131,10 @@ public class Proyecto {
      * @author Matias Barrientos
      */
     public Trabajador eliminarTrabajador(String rut) {
-        if (!mapTrabajadores.containsKey(rut)) return null;
-        listaTrabajadores.remove(mapTrabajadores.get(rut));
-        return mapTrabajadores.remove(rut);
+        return repositoryTrabajador.remove(repositoryTrabajador.get(rut));
     }
 
-    public void estimacionGasto() {
+    /*public void estimacionGasto() {
         double total = inventarioMaterial.gastoTotal();
 
         NumberFormat formatter = new DecimalFormat("#0.00$");
@@ -222,7 +157,7 @@ public class Proyecto {
         System.out.println("Gasto total de la estimación: " + formatter.format(total));
 
         System.out.println("Gasto propuesto menos estimación: " + formatter.format(estimacion - total));
-    }
+    }*/
 
     public static class Builder {
         private String id;
