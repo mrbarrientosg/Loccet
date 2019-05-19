@@ -1,0 +1,64 @@
+@font-face {
+  font-family: "Heebo";
+  src: url("../fonts/Heebo-Regular.ttf") format("truetype"); }
+@font-face {
+  font-family: "Heebo Medium";
+  src: url("../fonts/Heebo-Medium.ttf") format("truetype"); }
+@font-face {
+  font-family: "Heebo Light";
+  src: url("../fonts/Heebo-Light.ttf") format("truetype"); }
+@font-face {
+  font-family: "Heebo Black";
+  src: url("../fonts/Heebo-Black.ttf") format("truetype"); }
+.buttonLabelBlack {
+  -fx-background-color: transparent;
+  -fx-background-radius: 0;
+  -fx-text-fill: #595959;
+  -fx-font-family: "Heebo Light";
+  -fx-font-size: 14px; }
+  .buttonLabelBlack:hover {
+    -fx-text-fill: #ACACAC; }
+  .buttonLabelBlack:pressed {
+    -fx-text-fill: #595959; }
+
+.textFieldGrey {
+  -fx-text-fill: black;
+  -fx-prompt-text-fill: #878787;
+  -fx-background-color: #F0F0F0; }
+
+.textField {
+  -fx-font-family: "Heebo Light";
+  -fx-font-size: 13px; }
+
+.backgroundWhite {
+  -fx-background-color: white; }
+
+.buttonGreen {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: white;
+  -fx-background-color: #1DB954;
+  -fx-background-radius: 3; }
+  .buttonGreen:hover {
+    -fx-text-fill: white;
+    -fx-background-color: #21d761;
+    -fx-background-radius: 3; }
+  .buttonGreen:pressed {
+    -fx-text-fill: white;
+    -fx-background-color: #1DB954;
+    -fx-background-radius: 3; }
+
+.buttonWhite {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: black;
+  -fx-background-color: white;
+  -fx-background-radius: 3; }
+  .buttonWhite:hover {
+    -fx-text-fill: black;
+    -fx-background-color: #e6e6e6;
+    -fx-background-radius: 3; }
+  .buttonWhite:pressed {
+    -fx-text-fill: black;
+    -fx-background-color: white;
+    -fx-background-radius: 3; }

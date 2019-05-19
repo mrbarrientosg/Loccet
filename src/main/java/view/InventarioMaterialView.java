@@ -281,3 +281,4 @@ public final class InventarioMaterialView extends Fragment {
         this.controller = controller;
     }
 }
+

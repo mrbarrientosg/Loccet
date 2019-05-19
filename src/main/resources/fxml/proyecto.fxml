@@ -12,11 +12,11 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="804.0" styleClass="backgroundLight" stylesheets="@../css/proyecto.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="804.0" styleClass="backgroundLight" stylesheets="@../css/proyecto.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="35.0" spacing="20.0">
          <children>
-            <TextField fx:id="searchField" maxHeight="1.7976931348623157E308" promptText="Buscar proyecto" HBox.hgrow="ALWAYS">
+            <TextField fx:id="searchText" maxHeight="1.7976931348623157E308" promptText="Buscar proyecto" HBox.hgrow="ALWAYS">
                <styleClass>
                   <String fx:value="textFieldGrey" />
                   <String fx:value="textField" />

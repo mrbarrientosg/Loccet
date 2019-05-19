@@ -223,7 +223,7 @@ public class Proyecto {
             String result = java.util.UUID.randomUUID().toString();
             //result = result.replaceAll("-", "");
             //result = result.replaceAll("[A-Za-z]","");
-            //result = result.substring(0, 32);
+            result = result.substring(0, 12);
             return result;
         }
 
