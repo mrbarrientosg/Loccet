@@ -88,6 +88,8 @@ public class Proyecto {
         return jefeProyecto;
     }
 
+    public String getCliente(){ return cliente;}
+
     public String getMailCliente() {
         return mailCliente;
     }
@@ -120,9 +122,12 @@ public class Proyecto {
         return estimacion;
     }
 
-
     public InventarioMaterial getInventarioMaterial() {
         return inventarioMaterial;
+    }
+
+    public List<Trabajador> getListaTrabajadores() {
+        return listaTrabajadores;
     }
 
     // MARK: - Metodos

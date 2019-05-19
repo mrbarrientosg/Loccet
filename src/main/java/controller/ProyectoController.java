@@ -1,6 +1,7 @@
 package controller;
 
 import base.Controller;
+import cell.ProyectoCell;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -13,14 +14,21 @@ import java.util.stream.Collectors;
 public class ProyectoController extends Controller {
 
     private Constructora model;
-    private ObservableList<Proyecto> listProyectos;
-    private FilteredList<Constructora> filteredMateriales;
 
-    public SortedList<Constructora> sortedList() {
-        return new SortedList<>(filteredMateriales);
+    /*public ProyectoController(Constructora model, ObservableList<ProyectoCell> listProyectos, FilteredList<ProyectoCell> filteredProyect) {
+        this.model = model;
+        this.listProyectos = listProyectos;
+        this.filteredProyect = filteredProyect;
+        cargarDatos();
+    }*/
+
+    /*public SortedList<Constructora> sortedList() {
+        return new SortedList<>(filteredProyect);
+    }*/
+
+    public  ObservableList<ProyectoCell> getList(){
+        return FXCollections.observableList(model.getListaProyecto().stream().map(ProyectoCell::new).collect(Collectors.toList()));
     }
-    private void cargarDatos() {
-//        listProyectos = FXCollections.observableList(model.getListaProyecto().stream().map(Constructora::new).collect(Collectors.toList()));
-  //      filteredMateriales = new FilteredList<>(listProyectos, e -> true);
-    }
+
 }
+

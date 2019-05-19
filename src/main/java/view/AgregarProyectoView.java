@@ -22,53 +22,43 @@ public final class AgregarProyectoView extends View {
 
     //MARK - Botones
     @FXML private Button cancelar;
+
     @FXML private Button sTrabajadores;
+
     @FXML private Button aceptar;
+
     @FXML private TextField nombreP;
+
     @FXML private TextField jefeP;
+
     @FXML private TextField montoC;
+
     @FXML private TextField cliente;
+
     @FXML private TextField telefonoC;
+
     @FXML private TextField mailC;
+
     @FXML private TextField direccion;
+
     @FXML private TextField ciudad;
+
     @FXML private TextField estado;
+
     @FXML private TextField pais;
+
     @FXML private DatePicker fechaF;
+
     @FXML private DatePicker fechaT;
 
     @Override
     public void viewDidLoad() {
-        /*fechaF.setValue(LocalDate.now());
-        fechaT.setValue(LocalDate.now());
-        montoC.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    montoC.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });*/
-        noNumbers();
+        lettersOff();
     }
 
     @Override
-    public void viewDidClose() {
-       /* System.out.println("viewDidClose");
-        nombreP.setText("");
-        jefeP.setText("");
-        mailC.setText("");
-        montoC.setText("");
-        ciudad.setText("");
-        cliente.setText("");
-        telefonoC.setText("");
-        estado.setText("");
-        pais.setText("");
-        direccion.setText("");
-        fechaF.setValue(LocalDate.now());
-        fechaT.setValue(LocalDate.now());*/
-        isEmpty();
+    public void viewDidClose(){
+        setValues();
     }
 
     /**
@@ -112,7 +102,11 @@ public final class AgregarProyectoView extends View {
         this.controller = controller;
     }
 
-    public void isEmpty(){
+    /**
+     * @author: Matías Zúñiga
+     * Función que setea los valores iniciales en vacio.
+     */
+    public void setValues(){
         nombreP.setText("");
         jefeP.setText("");
         mailC.setText("");
@@ -127,7 +121,11 @@ public final class AgregarProyectoView extends View {
         fechaT.setValue(LocalDate.now());
     }
 
-    public void noNumbers(){
+    /**
+     * @author: Matías Zúñiga
+     * Función que prohibe el uso de letras en la casilla monto contractual.
+     */
+    public void lettersOff(){
         fechaF.setValue(LocalDate.now());
         fechaT.setValue(LocalDate.now());
         montoC.textProperty().addListener(new ChangeListener<String>() {
