@@ -57,6 +57,7 @@ public class ProyectoView extends View {
     @Override
     public void viewDidLoad() {
         inicializarTablaProyecto();
+        cargarDatos();
     }
 
     public void viewDidClose(){
@@ -75,10 +76,10 @@ public class ProyectoView extends View {
         endDateColumn.setCellValueFactory(new PropertyValueFactory<>("fechaInicio"));
         amountColumn.setCellValueFactory(new PropertyValueFactory<>("estimacion"));
         clientColumn.setCellValueFactory(new PropertyValueFactory<>("cliente"));
-        refreshTable();
+        //refreshTable();
     }
 
-    public SortedList<ProyectoCell> sortedList() {
+    /*public SortedList<ProyectoCell> sortedList() {
         return new SortedList<>(filteredProyect);
     }
 
@@ -86,7 +87,7 @@ public class ProyectoView extends View {
         SortedList sortedList = sortedList();
         tableView.setItems(sortedList);
         sortedList.comparatorProperty().bind(tableView.comparatorProperty());
-    }
+    }*/
 
    /* //Filtra los proyectos
     public void didSearch(String query) {
