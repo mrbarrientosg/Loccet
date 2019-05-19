@@ -5,7 +5,8 @@ import io.netty.handler.codec.http.HttpHeaders;
 import org.asynchttpclient.util.HttpConstants;
 
 public enum LoccetAPI implements URLRequestConvertible  {
-    TRABAJADORES_PROYECTO;
+    TRABAJADORES_PROYECTO,
+    LOGIN;
 
     private HttpHeaders _headers;
 
@@ -24,6 +25,8 @@ public enum LoccetAPI implements URLRequestConvertible  {
         switch (this) {
             case TRABAJADORES_PROYECTO:
                 return "trabajadoresProyecto";
+            case LOGIN:
+                return "login";
         }
 
         return null;

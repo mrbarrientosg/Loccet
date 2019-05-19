@@ -6,10 +6,12 @@ import com.google.gson.JsonParser;
 import io.netty.handler.codec.json.JsonObjectDecoder;
 import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.DefaultAsyncHttpClient;
+import org.asynchttpclient.ListenableFuture;
 import org.asynchttpclient.Response;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 public abstract class RestClient {
 
@@ -19,40 +21,27 @@ public abstract class RestClient {
         asyncHttpClient = new DefaultAsyncHttpClient();
     }
 
-    protected Result<JsonElement> request(URLRequestConvertible urlRequest, JsonObject parameters) {
+    protected JsonElement request(URLRequestConvertible urlRequest, JsonObject parameters) throws NetworkException, IOException {
 
         String URL = urlRequest.baseURL() + urlRequest.path();
 
-        CompletableFuture<Result<JsonElement>> future = asyncHttpClient
+        CompletableFuture<Response> future = asyncHttpClient
                 .prepare(urlRequest.method(), URL)
                 .setHeaders(urlRequest.headers())
                 .setBody(parameters.toString())
                 .execute()
-                .toCompletableFuture()
-                .thenApply(response -> {
-                    Result<JsonElement> result;
+                .toCompletableFuture();
 
-                    try {
-                        validateStatusCode(response);
+        Response response = future.join();
 
-                        if (response.getContentType() == null) result = Result.value(null);
-                        else result = Result.value(new JsonParser().parse(response.getResponseBody()));
-                    } catch (NetworkException e) {
-                        result = Result.error(e);
-                    }
+        JsonElement result = null;
 
-                    return result;
-                })
-                .exceptionally(Result::error)
-                .whenComplete((jsonElementResult, throwable) -> {
-                    try {
-                        asyncHttpClient.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
+        validateStatusCode(response);
 
-        return future.join();
+        if (response.getContentType() == null) result = null;
+        else result = new JsonParser().parse(response.getResponseBody());
+
+        return result;
     }
 
     private void validateStatusCode(Response response) throws NetworkException {
