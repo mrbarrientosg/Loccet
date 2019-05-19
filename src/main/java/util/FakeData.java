@@ -33,7 +33,7 @@ public final class FakeData {
                 .fechaProyecto(LocalDate.of(2018, 7, 13), LocalDate.now())
                 .build();
 
-        createFakeMateriales().forEach(p.getInventarioMaterial()::nuevoItem);
+        //createFakeMateriales().forEach(p.getInventarioMaterial()::nuevoItem);
 
         proyectos.add(p);
 
@@ -41,7 +41,7 @@ public final class FakeData {
                 .fechaProyecto(LocalDate.of(2015, 7, 13), LocalDate.now())
                 .build();
 
-        createFakeMateriales().forEach(p.getInventarioMaterial()::nuevoItem);
+        //createFakeMateriales().forEach(p.getInventarioMaterial()::nuevoItem);
 
         proyectos.add(p);
 
@@ -49,7 +49,7 @@ public final class FakeData {
                 .fechaProyecto(LocalDate.of(2010, 7, 13), LocalDate.now())
                 .build();
 
-        createFakeMateriales().forEach(p.getInventarioMaterial()::nuevoItem);
+        //createFakeMateriales().forEach(p.getInventarioMaterial()::nuevoItem);
 
         proyectos.add(p);
 
@@ -57,7 +57,7 @@ public final class FakeData {
                 .fechaProyecto(LocalDate.of(2014, 7, 13), LocalDate.now())
                 .build();
 
-        createFakeMateriales().forEach(p.getInventarioMaterial()::nuevoItem);
+        //createFakeMateriales().forEach(p.getInventarioMaterial()::nuevoItem);
 
         proyectos.add(p);
 
@@ -147,10 +147,10 @@ public final class FakeData {
         List<Material> materiales = new ArrayList<>();
 
 
-        materiales.add(new Material("Clavo", "Clavo 3 cm", 1000.0, "UN", 10.0));
-        materiales.add(new Material("Tornillo", "Tornillo 20 cm", 1425.0, "UN", 20.0));
-        materiales.add(new Material("Plancha de Madera", "No plancha", 1000.0, "M2", 100000.0));
-        materiales.add(new Material("Pintura", null, 100.0, "L", 10000.0));
+       // materiales.add(new Material("Clavo", "Clavo 3 cm", 1000.0, "UN", 10.0));
+       // materiales.add(new Material("Tornillo", "Tornillo 20 cm", 1425.0, "UN", 20.0));
+       // materiales.add(new Material("Plancha de Madera", "No plancha", 1000.0, "M2", 100000.0));
+       // materiales.add(new Material("Pintura", null, 100.0, "L", 10000.0));
 
         return materiales;
     }

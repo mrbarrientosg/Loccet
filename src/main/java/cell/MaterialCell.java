@@ -29,11 +29,11 @@ public final class MaterialCell {
         nombre = m.getNombre();
         descripcion = m.getDescripcion();
         cantidad = m.getCantidad();
-        retiro = m.getRetiro();
-        fechaRetiro = m.getFechaRetiro();
-        fechaIngreso = m.getFechaIngreso();
+        //retiro = m.getRetiro();
+        //fechaRetiro = m.getFechaRetiro();
+        //fechaIngreso = m.getFechaIngreso();
         uds = m.getUds();
-        precio = m.getPrecio();
+        //precio = m.getPrecio();
     }
 
     public String getId() {
