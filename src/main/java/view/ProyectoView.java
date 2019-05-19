@@ -65,8 +65,8 @@ public class ProyectoView extends View {
     }
 
     public void cargarDatos(){
-        listProyectos = controller.getList();
-        filteredProyect = new FilteredList<>(listProyectos, e -> true);
+        //listProyectos = controller.getList();
+        //filteredProyect = new FilteredList<>(listProyectos, e -> true);
     }
 
     private void inicializarTablaProyecto() {

@@ -22,10 +22,6 @@ public class ProyectoController extends Controller {
         cargarDatos();
     }*/
 
-    public SortedList<Constructora> sortedList() {
-        return new SortedList<>(filteredProyect);
-    }
-
     public  ObservableList<ProyectoCell> getList(){
         return FXCollections.observableList(model.getListaProyecto().stream().map(ProyectoCell::new).collect(Collectors.toList()));
     }
