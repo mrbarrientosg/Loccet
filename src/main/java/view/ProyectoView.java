@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Proyecto;
+import router.ProyectoRouter;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -20,9 +21,12 @@ public class ProyectoView extends View {
 
     private ProyectoController controller;
 
+    private ProyectoRouter router;
+
     private ObservableList<ProyectoCell> listProyectos;
 
     private FilteredList<ProyectoCell> filteredProyect;
+
 
     @FXML
     private TextField searchField;
@@ -64,9 +68,11 @@ public class ProyectoView extends View {
 
     }
 
-    public void cargarDatos(){
-        //listProyectos = controller.getList();
-        //filteredProyect = new FilteredList<>(listProyectos, e -> true);
+    private void cargarDatos(){
+        listProyectos = controller.getList();
+        System.out.println(listProyectos);
+        filteredProyect = new FilteredList<>(listProyectos, e -> true);
+        refreshTable();
     }
 
     private void inicializarTablaProyecto() {
@@ -76,10 +82,9 @@ public class ProyectoView extends View {
         endDateColumn.setCellValueFactory(new PropertyValueFactory<>("fechaInicio"));
         amountColumn.setCellValueFactory(new PropertyValueFactory<>("estimacion"));
         clientColumn.setCellValueFactory(new PropertyValueFactory<>("cliente"));
-        //refreshTable();
     }
 
-    /*public SortedList<ProyectoCell> sortedList() {
+    public SortedList<ProyectoCell> sortedList() {
         return new SortedList<>(filteredProyect);
     }
 
@@ -87,7 +92,7 @@ public class ProyectoView extends View {
         SortedList sortedList = sortedList();
         tableView.setItems(sortedList);
         sortedList.comparatorProperty().bind(tableView.comparatorProperty());
-    }*/
+    }
 
    /* //Filtra los proyectos
     public void didSearch(String query) {
@@ -100,5 +105,9 @@ public class ProyectoView extends View {
     }*/
 
     public void setController(ProyectoController controller) { this.controller = controller; }
+
+    public void setRouter(ProyectoRouter router) {
+        this.router = router;
+    }
 }
 

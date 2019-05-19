@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import router.ProyectoRouter;
 import router.RRHHRouter;
 
 import java.io.IOException;
@@ -124,7 +125,7 @@ public class TableroView extends Fragment {
             RRHHView rrhhView = RRHHRouter.create();
             setCenter(rrhhView.getRoot());
         }else if(button == proyectoButton){
-            ProyectoView proyectoView = Injectable.find(ProyectoView.class);
+            ProyectoView proyectoView = ProyectoRouter.create();
             setCenter(proyectoView.getRoot());
         }
     }

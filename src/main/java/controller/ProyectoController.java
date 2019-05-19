@@ -8,19 +8,20 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import model.Constructora;
 import model.Proyecto;
+import sun.rmi.runtime.RuntimeUtil;
+import view.ProyectoView;
 
 import java.util.stream.Collectors;
 
 public class ProyectoController extends Controller {
 
-    private Constructora model;
+    private Constructora model = Constructora.getInstance();
 
-    /*public ProyectoController(Constructora model, ObservableList<ProyectoCell> listProyectos, FilteredList<ProyectoCell> filteredProyect) {
-        this.model = model;
-        this.listProyectos = listProyectos;
-        this.filteredProyect = filteredProyect;
-        cargarDatos();
-    }*/
+    private ProyectoView view;
+
+    public void setView(ProyectoView view) {
+        this.view = view;
+    }
 
     public  ObservableList<ProyectoCell> getList(){
         return FXCollections.observableList(model.getListaProyecto().stream().map(ProyectoCell::new).collect(Collectors.toList()));

@@ -45,18 +45,10 @@ public final class ProyectoCell {
     public ProyectoCell(Proyecto m) {
             id = m.getId();
             nombreProyecto = m.getNombreProyecto();
-            jefeProyecto = m.getJefeProyecto();
-            mailCliente = m.getMailCliente();
-            cliente = m.getCliente();
-            telefonoCliente = m.getTelefonoCliente();
-            direccion = m.getDireccion();
-            pais = m.getPais();
-            ciudad = m.getCiudad();
-            estado = m.getEstado();
             fechaInicio = m.getFechaInicio();
             fechaTermino = m.getFechaTermino();
+            cliente = m.getCliente();
             estimacion = m.getEstimacion();
-            listaTrabajadores = m.getListaTrabajadores();
             inventarioMaterial = m.getInventarioMaterial();
     }
 

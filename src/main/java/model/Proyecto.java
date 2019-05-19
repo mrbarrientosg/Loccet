@@ -24,6 +24,8 @@ public class Proyecto {
 
     private double estimacion;
 
+    private String cliente;
+
     private RepositoryTrabajador repositoryTrabajador;
 
     private RepositoryAsistencia repositoryAsistencia;
@@ -40,6 +42,7 @@ public class Proyecto {
         this.estimacion = builder.estimacion;
         this.fechaInicio = builder.fechaInicio;
         this.fechaTermino = builder.fechaTermino;
+        this.cliente = builder.cliente;
 
         repositoryAsistencia = new MemoryRepositoryAsistencia();
         repositoryTrabajador = new MemoryRepositoryTrabajador();
@@ -71,6 +74,10 @@ public class Proyecto {
 
     public InventarioMaterial getInventarioMaterial() {
         return inventarioMaterial;
+    }
+
+    public String getCliente() {
+        return cliente;
     }
 
     // MARK: - Metodos
