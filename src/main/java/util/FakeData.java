@@ -13,7 +13,7 @@ public final class FakeData {
 
     public static Constructora createFakeData() {
         Especialidades.createFakeData();
-        Constructora c = new Constructora("72.364.712-5", "Loccet SPA");
+        Constructora c = Constructora.getInstance();
         createFakeProyectos().forEach(c::agregarProyecto);
         List<Trabajador> list = createFakeTrabajadores();
         c.getListaProyecto().forEach(proyecto -> {
