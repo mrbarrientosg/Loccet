@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox styleClass="backgroundWhite" stylesheets="@../css/creatematerial.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<VBox styleClass="backgroundWhite" stylesheets="@../css/addmaterial.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox spacing="10.0">
          <children>
@@ -68,7 +68,7 @@
             <Button fx:id="cancelarBT" mnemonicParsing="false" styleClass="buttonFillBlue" text="Cancelar" />
         </buttons>
          <VBox.margin>
-            <Insets bottom="8.0" left="8.0" right="8.0" />
+            <Insets right="5.0" />
          </VBox.margin>
       </ButtonBar>
    </children>

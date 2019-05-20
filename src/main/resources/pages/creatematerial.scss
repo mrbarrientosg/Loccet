@@ -1,16 +1,21 @@
 @import '../base/base';
 @import '../components/components';
+@import '../components/combobox';
+@import '../components/scrollbar';
 
 @include backgroundWhite;
 
-@include textFieldGrey;
-
-@include textField;
+@include backgroundgray;
 
 @include buttonFillBlue;
 
 @include buttonBlue;
 
+@include textFieldGrey;
+
+@include textField;
+
+@include textAreaGray;
+
 @include title3;
 
-@include paragraph;
