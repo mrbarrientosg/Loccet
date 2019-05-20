@@ -19,4 +19,12 @@ public class Asistencia {
     public Asistencia() {
 
     }
+
+    public void setProyecto(Proyecto proyecto) {
+        this.proyecto = proyecto;
+    }
+
+    public void setTrabajador(Trabajador trabajador) {
+        this.trabajador = trabajador;
+    }
 }

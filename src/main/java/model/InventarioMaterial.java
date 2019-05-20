@@ -37,4 +37,8 @@ public class InventarioMaterial {
     public Material eliminarMaterial(String id) {
         return repositoryMaterial.remove(repositoryMaterial.get(id));
     }
+
+    public void agregarRegistroMaterial(String idMaterial, RegistroMaterial registroMaterial) {
+        repositoryMaterial.get(idMaterial).agregarRegistro(registroMaterial);
+    }
 }

@@ -2,6 +2,7 @@ package model;
 
 import com.google.gson.JsonObject;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 public class RegistroMaterial {
@@ -10,11 +11,18 @@ public class RegistroMaterial {
 
     private double cantidad;
 
-    private LocalDateTime fecha;
+    private Instant fecha;
 
-    public RegistroMaterial(Material material, JsonObject json) {
-        this.material = material;
+    public RegistroMaterial(JsonObject json) {
         cantidad = json.get("cantidad").getAsDouble();
-        //fecha = LocalDateTime.parse(json.get("fecha").getAsString());
+        fecha = Instant.ofEpochSecond(json.get("fecha").getAsLong());
+    }
+
+    public Instant getFecha() {
+        return fecha;
+    }
+
+    public void setMaterial(Material material) {
+        this.material = material;
     }
 }

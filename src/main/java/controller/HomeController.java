@@ -285,7 +285,7 @@ public final class HomeController extends Controller {
         Integer i = 1;
 
         for (Proyecto proyecto: proyectos) {
-            System.out.println(i.toString() + ".- ID: " + proyecto.getId() + "\t Nombre: " + proyecto.getNombreProyecto());
+            System.out.println(i.toString() + ".- ID: " + proyecto.getId() + "\t Nombre: " + proyecto.getNombre());
             i++;
         }
 

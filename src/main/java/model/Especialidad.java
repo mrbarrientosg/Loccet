@@ -1,12 +1,16 @@
 package model;
 
+import com.google.gson.JsonObject;
+
+import java.math.BigDecimal;
+
 public class Especialidad {
 
     private final String nombre;
 
-    private final Double sueldoPorHora;
+    private final BigDecimal sueldoPorHora;
 
-    public Especialidad(String nombre, Double sueldoPorHora) {
+    public Especialidad(String nombre, BigDecimal sueldoPorHora) {
         this.nombre = nombre;
         this.sueldoPorHora = sueldoPorHora;
     }
@@ -15,7 +19,7 @@ public class Especialidad {
         return nombre;
     }
 
-    public Double getSueldoPorHora() {
+    public BigDecimal getSueldoPorHora() {
         return sueldoPorHora;
     }
 

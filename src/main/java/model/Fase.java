@@ -7,6 +7,8 @@ import java.time.Instant;
 
 public class Fase {
 
+    private int id;
+
     private String titulo;
 
     private String descripcion;
@@ -23,5 +25,17 @@ public class Fase {
 
     public Fase() {
         repositoryTarea = new MemoryRepositoryTarea();
+    }
+
+    public void agregarTarea(Tarea tarea) {
+        repositoryTarea.add(tarea);
+    }
+
+    public void setProyecto(Proyecto proyecto) {
+        this.proyecto = proyecto;
+    }
+
+    public int getId() {
+        return id;
     }
 }
