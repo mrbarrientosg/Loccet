@@ -1,93 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="670.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="850.0" spacing="10.0" styleClass="backgroundWhite" stylesheets="@../css/createproyect.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <GridPane hgap="8.0" vgap="5.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" />
-          <RowConstraints minHeight="1.0" prefHeight="30.0" />
-          <RowConstraints minHeight="1.0" prefHeight="30.0" />
-            <RowConstraints minHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="0.0" prefHeight="30.0" />
-            <RowConstraints minHeight="0.0" prefHeight="30.0" />
-            <RowConstraints minHeight="1.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+      <AnchorPane>
          <children>
-            <Label prefHeight="20.0" prefWidth="231.0" text="Registro de Datos Generales" GridPane.columnSpan="2">
+            <TextField fx:id="nombreP" layoutY="248.0" prefHeight="70.0" prefWidth="263.0" promptText="Nombre del proyecto*">
+               <styleClass>
+                  <String fx:value="textTotal" />
+                  <String fx:value="textFieldGrey" />
+               </styleClass>
+            </TextField>
+            <TextField fx:id="jefeP" layoutY="327.0" prefHeight="70.0" prefWidth="263.0" promptText="Jefe del proyecto*">
+               <styleClass>
+                  <String fx:value="textFieldGrey" />
+                  <String fx:value="textField" />
+               </styleClass>
+            </TextField>
+            <TextField fx:id="montoC" layoutY="406.0" prefHeight="70.0" prefWidth="263.0" promptText="Monto contractual*">
+               <styleClass>
+                  <String fx:value="textFieldGrey" />
+                  <String fx:value="textField" />
+               </styleClass>
+            </TextField>
+            <TextField fx:id="cliente" layoutX="275.0" layoutY="248.0" prefHeight="70.0" prefWidth="263.0" promptText="Cliente*">
+               <styleClass>
+                  <String fx:value="textFieldGrey" />
+                  <String fx:value="textField" />
+               </styleClass>
                <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-            <Label text="Nombre del Proyecto" GridPane.rowIndex="1" />
-            <Label text="Jefe de proyecto" GridPane.rowIndex="2" />
-            <Label text="Cliente" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Label text="Monto Contractual" GridPane.rowIndex="3" />
-            <TextField fx:id="nombreP" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="jefeP" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="montoC" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="cliente" prefHeight="25.0" prefWidth="144.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <TextField fx:id="telefonoC" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <TextField fx:id="mailC" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-            <Label text="Ubicación" GridPane.rowIndex="4">
+                  <Font name="Heebo-Regular" size="12.0" />
+               </font></TextField>
+            <TextField fx:id="mailC" layoutX="274.0" layoutY="327.0" prefHeight="70.0" prefWidth="263.0" promptText="e-Mail del cliente*">
+               <styleClass>
+                  <String fx:value="textField" />
+                  <String fx:value="totalField" />
+                  <String fx:value="textFieldGrey" />
+               </styleClass></TextField>
+            <TextField fx:id="telefonoC" layoutX="274.0" layoutY="406.0" prefHeight="70.0" prefWidth="263.0" promptText="Telefono del cliente*">
+               <styleClass>
+                  <String fx:value="textFieldGrey" />
+                  <String fx:value="textField" />
+               </styleClass></TextField>
+            <TextField fx:id="direccion" layoutX="550.0" layoutY="14.0" prefHeight="70.0" prefWidth="263.0" promptText="Dirección*">
+               <styleClass>
+                  <String fx:value="textField" />
+                  <String fx:value="textFieldGrey" />
+               </styleClass></TextField>
+            <TextField fx:id="ciudad" layoutX="550.0" layoutY="93.0" prefHeight="70.0" prefWidth="263.0" promptText="Ciudad*">
+               <styleClass>
+                  <String fx:value="textField" />
+                  <String fx:value="textFieldGrey" />
+               </styleClass>
+            </TextField>
+            <TextField fx:id="estado" layoutX="550.0" layoutY="170.0" prefHeight="70.0" prefWidth="263.0" promptText="Estado/Provincia*">
+               <styleClass>
+                  <String fx:value="textField" />
+                  <String fx:value="textFieldGrey" />
+               </styleClass></TextField>
+            <TextField fx:id="pais" layoutX="550.0" layoutY="248.0" prefHeight="70.0" prefWidth="263.0" promptText="País*">
+               <styleClass>
+                  <String fx:value="textField" />
+                  <String fx:value="textFieldGrey" />
+               </styleClass></TextField>
+            <DatePicker fx:id="fechaF" editable="false" layoutX="550.0" layoutY="327.0" prefHeight="70.0" prefWidth="263.0" promptText="Fecha inicio*">
+               <styleClass>
+                  <String fx:value="textField" />
+                  <String fx:value="textFieldGrey" />
+                  <String fx:value="datePickerGray" />
+               </styleClass></DatePicker>
+            <DatePicker fx:id="fechaT" editable="false" layoutX="550.0" layoutY="406.0" prefHeight="70.0" prefWidth="263.0" promptText="Fecha termino*">
+               <styleClass>
+                  <String fx:value="textField" />
+                  <String fx:value="textFieldGrey" />
+               </styleClass></DatePicker>
+            <ImageView fitHeight="169.0" fitWidth="287.0" layoutX="131.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Loccet.png" />
+               </image>
+            </ImageView>
+            <Text fill="#0084ff" layoutX="132.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title3" text="Ingrese los datos correspondientes">
                <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font name="Heebo-Medium" size="18.0" />
                </font>
-            </Label>
-            <Label text="Dirección" GridPane.rowIndex="5" />
-            <Label text="Estado/Provincia" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-            <Label text="País" GridPane.rowIndex="6" />
-            <Label text="Ciudad" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-            <TextField fx:id="direccion" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField fx:id="pais" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField fx:id="estado" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-            <TextField fx:id="ciudad" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-            <Label text="Fecha Firma" GridPane.rowIndex="8" />
-            <DatePicker fx:id="fechaF" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <Label text="Fecha Termino" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-            <DatePicker fx:id="fechaT" editable="false" prefHeight="25.0" prefWidth="151.0" GridPane.columnIndex="3" GridPane.rowIndex="8" />
-            <Separator prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="4" GridPane.valignment="TOP" />
-            <Label text="Plazo" GridPane.rowIndex="7">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-            <Separator prefWidth="200.0" GridPane.columnSpan="4" GridPane.rowIndex="7" GridPane.valignment="TOP" />
-            <Label text="Telefono Cliente" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Label text="E-Mail Cliente" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            </Text>
          </children>
          <VBox.margin>
-            <Insets />
+            <Insets left="10.0" right="10.0" />
          </VBox.margin>
-      </GridPane>
+      </AnchorPane>
       <ButtonBar>
         <buttons>
-          <Button fx:id="aceptar" defaultButton="true" mnemonicParsing="false" onAction="#apretarAceptar" text="Aceptar" />
-            <Button fx:id="cancelar" layoutX="535.0" layoutY="10.0" mnemonicParsing="false" onAction="#apretarCancelar" text="Cancelar" />
+          <Button fx:id="aceptar" defaultButton="true" mnemonicParsing="false" onAction="#apretarAceptar" styleClass="buttonBlue" text="Aceptar" />
+            <Button fx:id="cancelar" layoutX="535.0" layoutY="10.0" mnemonicParsing="false" onAction="#apretarCancelar" styleClass="buttonFillBlue" text="Cancelar" />
         </buttons>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
       </ButtonBar>
    </children>
    <padding>

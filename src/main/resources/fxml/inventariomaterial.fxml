@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
@@ -10,21 +11,61 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="810.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" styleClass="backgroundWhite" stylesheets="@../css/inventary.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox alignment="CENTER_LEFT" spacing="20.0">
          <children>
-            <TextField fx:id="searchText" promptText="Buscar material" HBox.hgrow="ALWAYS" />
-            <Button fx:id="nuevoMaterialBT" mnemonicParsing="false" onAction="#nuevoMaterial" text="Nuevo Material" />
-            <Button fx:id="modificarMaterialBT" mnemonicParsing="false" onAction="#modificarMaterial" text="Modificar Material" />
-            <Button fx:id="retirarBT" mnemonicParsing="false" onAction="#retirarMaterial" text="Retirar" />
-            <Button fx:id="agregarBT" mnemonicParsing="false" onAction="#agregarMaterial" text="Agregar" />
-            <Button fx:id="eliminarBT" mnemonicParsing="false" onAction="#eliminar" text="Eliminar" />
-            <Separator visible="false" HBox.hgrow="ALWAYS" />
-            <Button fx:id="salirBT" mnemonicParsing="false" onAction="#salir" text="Salir" />
+            <TextField fx:id="searchText" prefHeight="31.0" prefWidth="200.0" promptText="Buscar material" HBox.hgrow="ALWAYS">
+               <styleClass>
+                  <String fx:value="textField" />
+                  <String fx:value="textFieldGrey" />
+               </styleClass>
+            </TextField>
+            <ButtonBar prefHeight="40.0" prefWidth="200.0">
+              <buttons>
+                  <Button fx:id="nuevoMaterialBT" mnemonicParsing="false" onAction="#nuevoMaterial" styleClass="buttonWhite" text="Nuevo ">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Button>
+                  <Button fx:id="modificarMaterialBT" mnemonicParsing="false" onAction="#modificarMaterial" styleClass="buttonWhite" text="Editar">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Button>
+                  <Button fx:id="retirarBT" mnemonicParsing="false" onAction="#retirarMaterial" styleClass="buttonWhite" text="Retirar">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Button>
+                  <Button fx:id="agregarBT" mnemonicParsing="false" onAction="#agregarMaterial" styleClass="buttonWhite" text="Agregar">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Button>
+                  <Button fx:id="eliminarBT" mnemonicParsing="false" onAction="#eliminar" styleClass="buttonFillRed" text="Eliminar">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Button>
+                  <Separator visible="false">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Separator>
+                  <Button fx:id="salirBT" mnemonicParsing="false" onAction="#salir" styleClass="buttonFillBlue" text="Salir">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Button>
+              </buttons>
+            </ButtonBar>
          </children>
+         <VBox.margin>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+         </VBox.margin>
       </HBox>
-      <TableView fx:id="tablaInventario" VBox.vgrow="ALWAYS">
+      <TableView fx:id="tablaInventario" styleClass="rrhh-table" VBox.vgrow="ALWAYS">
         <columns>
             <TableColumn fx:id="fechaIngresoCL" editable="false" minWidth="-1.0" prefWidth="85.0" text="Fecha ingreso" />
           <TableColumn fx:id="idMaterialCL" editable="false" minWidth="-1.0" prefWidth="57.0" text="ID" />
@@ -36,10 +77,13 @@
             <TableColumn fx:id="fechaRetiroCL" editable="false" minWidth="-1.0" prefWidth="85.0" text="Fecha retiro" />
             <TableColumn fx:id="precioCL" editable="false" minWidth="-1.0" prefWidth="100.0" text="Precio" />
         </columns>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
       </TableView>
       <ButtonBar prefHeight="40.0" prefWidth="200.0">
         <buttons>
-          <Button mnemonicParsing="false" onAction="#exportarInventario" text="Exportar" />
+          <Button mnemonicParsing="false" onAction="#exportarInventario" styleClass="buttonBlue" text="Exportar" />
         </buttons>
       </ButtonBar>
    </children>

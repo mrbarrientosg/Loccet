@@ -13,7 +13,10 @@ $dark-green: #23a93a;
 $green-button: #28CE97;
 $light-green-button: #3DE8AF;
 
+$gray: #F0F0F0;
 $gray-shadow: rgba(0,0,0,0.4);
+
+$ghost-white: #F9F9F9;
 
 @mixin blue-gradient($side: to top right) {
   -fx-background-color: $dark-blue, linear-gradient($side, reflect, $dark-blue, $light-blue);
@@ -33,7 +36,7 @@ $gray-shadow: rgba(0,0,0,0.4);
 
 @mixin backgroundLight {
   #{'.backgroundLight'} {
-    -fx-background-color: #F9F9F9;
+    -fx-background-color: $ghost-white; //TODO: cambio
   }
 }
 

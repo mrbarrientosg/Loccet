@@ -113,6 +113,48 @@
   }
 }
 
+@mixin buttonFillBlue {
+  #{'.buttonFillBlue'} {
+    @include button;
+    -fx-text-fill: $dark-blue;
+    -fx-background-color: white;
+    -fx-background-radius: 3;
+
+    &:hover {
+      -fx-text-fill: $dark-blue;
+      -fx-background-color: darken(white, 10%);
+      -fx-background-radius: 3;
+    }
+
+    &:pressed {
+      -fx-text-fill: $dark-blue;
+      -fx-background-color: white;
+      -fx-background-radius: 3;
+    }
+  }
+}
+
+@mixin buttonFillRed {
+  #{'.buttonFillRed'} {
+    @include button;
+    -fx-text-fill: Red;
+    -fx-background-color: white;
+    -fx-background-radius: 3;
+
+    &:hover {
+      -fx-text-fill: Red;
+      -fx-background-color: darken(white, 10%);
+      -fx-background-radius: 3;
+    }
+
+    &:pressed {
+      -fx-text-fill: Red;
+      -fx-background-color: white;
+      -fx-background-radius: 3;
+    }
+  }
+}
+
 @mixin circle-color($map) {
   @each $key, $value in $map {
     &-#{$key} {

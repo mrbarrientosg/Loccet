@@ -69,6 +69,14 @@
   }
 }
 
+@mixin title3 {
+  #{'.title3'} {
+    -fx-font-family: "Heebo Black";
+    -fx-font-size: 16px;
+  }
+}
+
+
 @mixin paragraph {
   #{'.paragraph'} {
     -fx-font-family: "Heebo";

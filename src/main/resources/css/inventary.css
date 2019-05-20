@@ -1,0 +1,120 @@
+@font-face {
+  font-family: "Heebo";
+  src: url("../fonts/Heebo-Regular.ttf") format("truetype"); }
+@font-face {
+  font-family: "Heebo Medium";
+  src: url("../fonts/Heebo-Medium.ttf") format("truetype"); }
+@font-face {
+  font-family: "Heebo Light";
+  src: url("../fonts/Heebo-Light.ttf") format("truetype"); }
+@font-face {
+  font-family: "Heebo Black";
+  src: url("../fonts/Heebo-Black.ttf") format("truetype"); }
+.rrhh-table {
+  -fx-background-color: white;
+  -fx-font-family: "Heebo Light";
+  -fx-font-size: 12px; }
+
+.rrhh-table .column-header,
+.rrhh-table .column-header-background .filler {
+  -fx-background-color: white; }
+
+.rrhh-table .column-header .arrow {
+  -fx-background-color: gray; }
+
+.rrhh-table .column-header .label {
+  -fx-padding: 0px 0px 0px 8px;
+  -fx-text-fill: gray;
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 12px;
+  -fx-alignment: CENTER_LEFT; }
+
+.rrhh-table .cell {
+  -fx-padding: 0px 0px 0px 8px;
+  -fx-text-fill: #595959;
+  -fx-alignment: CENTER_LEFT; }
+
+/*.table-row-cell:selected {
+  -fx-background-color: whitesmoke;
+  -fx-text-background-color:  #6622CC;
+}*/
+/* scroll bar starts here */
+/* The increment and decrement button CSS class of scrollbar */
+.rrhh-table .increment-button, .table-view .decrement-button {
+  -fx-background-color: transparent;
+  -fx-background-radius: 2em; }
+
+.buttonBlue {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: white;
+  -fx-background-color: #0084ff;
+  -fx-background-radius: 3; }
+  .buttonBlue:hover {
+    -fx-text-fill: white;
+    -fx-background-color: #2998ff;
+    -fx-background-radius: 3; }
+  .buttonBlue:pressed {
+    -fx-text-fill: white;
+    -fx-background-color: #0084ff;
+    -fx-background-radius: 3; }
+
+.buttonFillBlue {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: #0084ff;
+  -fx-background-color: white;
+  -fx-background-radius: 3; }
+  .buttonFillBlue:hover {
+    -fx-text-fill: #0084ff;
+    -fx-background-color: #e6e6e6;
+    -fx-background-radius: 3; }
+  .buttonFillBlue:pressed {
+    -fx-text-fill: #0084ff;
+    -fx-background-color: white;
+    -fx-background-radius: 3; }
+
+.buttonWhite {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: black;
+  -fx-background-color: white;
+  -fx-background-radius: 3; }
+  .buttonWhite:hover {
+    -fx-text-fill: black;
+    -fx-background-color: #e6e6e6;
+    -fx-background-radius: 3; }
+  .buttonWhite:pressed {
+    -fx-text-fill: black;
+    -fx-background-color: white;
+    -fx-background-radius: 3; }
+
+.buttonFillRed {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: Red;
+  -fx-background-color: white;
+  -fx-background-radius: 3; }
+  .buttonFillRed:hover {
+    -fx-text-fill: Red;
+    -fx-background-color: #e6e6e6;
+    -fx-background-radius: 3; }
+  .buttonFillRed:pressed {
+    -fx-text-fill: Red;
+    -fx-background-color: white;
+    -fx-background-radius: 3; }
+
+.backgroundWhite {
+  -fx-background-color: white; }
+
+.backgroundLight {
+  -fx-background-color: #F9F9F9; }
+
+.textField {
+  -fx-font-family: "Heebo Light";
+  -fx-font-size: 13px; }
+
+.textFieldGrey {
+  -fx-text-fill: black;
+  -fx-prompt-text-fill: #878787;
+  -fx-background-color: #F0F0F0; }
