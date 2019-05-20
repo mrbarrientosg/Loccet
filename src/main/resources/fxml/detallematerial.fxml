@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+         <content>
+            <VBox>
+               <children>
+                  <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="10.0">
+                     <children>
+                        <Label text="Datos del Material">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Separator maxWidth="1.7976931348623157E308" visible="false" HBox.hgrow="ALWAYS" />
+                        <Button mnemonicParsing="false" text="Editar" />
+                        <Button mnemonicParsing="false" text="Salir" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <GridPane hgap="16.0" vgap="16.0" VBox.vgrow="ALWAYS">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <VBox spacing="5.0">
+                           <children>
+                              <Label text="ID" />
+                              <TextField />
+                           </children>
+                        </VBox>
+                        <VBox spacing="5.0" GridPane.columnIndex="1">
+                           <children>
+                              <Label text="Nombre" />
+                              <TextField />
+                           </children>
+                        </VBox>
+                        <Label GridPane.columnIndex="2" />
+                        <VBox GridPane.columnIndex="2">
+                           <children>
+                              <Label text="Cantidad" />
+                              <TextField>
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </TextField>
+                           </children>
+                        </VBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="16.0" left="16.0" right="16.0" />
+                     </VBox.margin>
+                  </GridPane>
+                  <VBox>
+                     <children>
+                        <Label text="Descripcion ">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="16.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TextArea prefHeight="115.0">
+                           <VBox.margin>
+                              <Insets left="16.0" right="16.0" />
+                           </VBox.margin>
+                        </TextArea>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" spacing="10.0">
+                     <VBox.margin>
+                        <Insets left="16.0" right="16.0" top="8.0" />
+                     </VBox.margin>
+                     <children>
+                        <HBox alignment="CENTER" spacing="10.0">
+                           <children>
+                              <Label text="Registro Material">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Separator visible="false" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <TableView VBox.vgrow="ALWAYS">
+                    <columns>
+                      <TableColumn prefWidth="98.0" text="Fecha de Ingreso" />
+                      <TableColumn prefWidth="119.0" text="Ultimo Retiro" />
+                        <TableColumn prefWidth="129.0" text="Cantidad de Ingreso" />
+                        <TableColumn prefWidth="126.0" text="Cantidad de Retiro" />
+                    </columns>
+                     <VBox.margin>
+                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                     </VBox.margin>
+                  </TableView>
+               </children>
+            </VBox>
+         </content>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </ScrollPane>
+   </children>
+</VBox>
