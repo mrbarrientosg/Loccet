@@ -5,8 +5,17 @@ import io.netty.handler.codec.http.HttpHeaders;
 import org.asynchttpclient.util.HttpConstants;
 
 public enum LoccetAPI implements URLRequestConvertible  {
-    TRABAJADORES_PROYECTO,
-    LOGIN;
+    LOGIN,
+    GET_CONSTRUCTORA,
+    GET_PROYECTOS,
+    GET_TRABAJADORES_PROYECTOS,
+    GET_TRABAJADORES_CONSTRUCTORA,
+    GET_HORARIOS_TRABAJADORES,
+    GET_ASISTENCIAS_TRABAJADORES,
+    GET_FASES_PROYECTOS,
+    GET_TAREAS_FASES,
+    GET_MATERIALES_PROYECTOS,
+    GET_REGISTRO_MATERIALES;
 
     private HttpHeaders _headers;
 
@@ -23,10 +32,28 @@ public enum LoccetAPI implements URLRequestConvertible  {
 
     public String path() {
         switch (this) {
-            case TRABAJADORES_PROYECTO:
-                return "trabajadoresProyecto";
             case LOGIN:
                 return "login";
+            case GET_CONSTRUCTORA:
+                return "loccet-getconstructora";
+            case GET_PROYECTOS:
+                return "loccet-getproyectos";
+            case GET_TRABAJADORES_PROYECTOS:
+                return "loccet-gettrabajadoresproyectos";
+            case GET_TRABAJADORES_CONSTRUCTORA:
+                return "loccet-gettrabajadores";
+            case GET_HORARIOS_TRABAJADORES:
+                return "loccet-gethorariostrabajadores";
+            case GET_ASISTENCIAS_TRABAJADORES:
+                return "loccet-getasistenciastrabajadores";
+            case GET_FASES_PROYECTOS:
+                return "loccet-getfasesproyectos";
+            case GET_TAREAS_FASES:
+                return "loccet-gettareasfases";
+            case GET_MATERIALES_PROYECTOS:
+                return "loccet-getmaterialesproyectos";
+            case GET_REGISTRO_MATERIALES:
+                return "loccet-getregistrosmateriales";
         }
 
         return null;

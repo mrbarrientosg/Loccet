@@ -32,7 +32,7 @@ public final class TrabajadorCell {
         this.fechaNacimiento = t.getFechaNacimiento().toString();
         this.nombreEspecialidad = t.getEspecialidad().getNombre();
         //this.cantidadDeHoras = t.getEspecialidad().getCantidadDeHoras();
-        this.sueldoPorHora = t.getEspecialidad().getSueldoPorHora();
+        //this.sueldoPorHora = t.getEspecialidad().getSueldoPorHora();
     }
 
     public String getRut() {

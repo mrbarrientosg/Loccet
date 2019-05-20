@@ -1,11 +1,15 @@
 package model;
 
+import com.google.gson.*;
+import json.LocalDateTypeConverter;
 import repository.memory.MemoryRepositoryHorario;
 import repository.memory.MemoryRepositoryProyecto;
 import repository.RepositoryHorario;
 import repository.RepositoryProyecto;
 
+import java.lang.reflect.Type;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 
 public class Trabajador {
@@ -46,11 +50,18 @@ public class Trabajador {
         repositoryProyecto = new MemoryRepositoryProyecto();
     }
 
+    public Trabajador() {
+        repositoryHorario = new MemoryRepositoryHorario();
+        repositoryProyecto = new MemoryRepositoryProyecto();
+    }
+
     public void asociarProyecto(Proyecto proyecto) {
         repositoryProyecto.add(proyecto);
     }
 
-    public void agregarHorario(Horario horario) {
+    public void agregarHorario(String idProyecto, Horario horario) {
+        horario.setProyecto(repositoryProyecto.get(idProyecto));
+        horario.setTrabajador(this);
         repositoryHorario.add(horario);
     }
 
@@ -185,6 +196,38 @@ public class Trabajador {
 
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
+    }
+
+    public void setLocalizacion(Localizacion localizacion) {
+        this.localizacion = localizacion;
+    }
+
+    public static class TrabajadorDeserializer implements JsonDeserializer<Trabajador> {
+
+        @Override
+        public Trabajador deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+            Trabajador t = new Trabajador();
+            JsonObject json = jsonElement.getAsJsonObject();
+            Gson gson = new GsonBuilder()
+                    .registerTypeAdapter(LocalDate.class, new LocalDateTypeConverter())
+                    .create();
+
+            t.setRut(json.get("rut").getAsString());
+            t.setNombre(json.get("nombre").getAsString());
+            t.setApellido(json.get("apellido").getAsString());
+
+            t.setEspecialidad(gson.fromJson(json.get("especialidad").getAsString(), Especialidad.class));
+            t.setLocalizacion(gson.fromJson(json.get("localizacion").getAsString(), Localizacion.class));
+            //fechaNacimiento
+
+            t.setTelefono(json.get("telefono").getAsString());
+            t.setCorreoElectronico(json.get("correo_electronico").getAsString());
+            t.setFechaNacimiento(gson.fromJson(json.get("fecha_nacimiento"), LocalDate.class));
+
+            //cantidadHoraTrabajada = json.get("cantidad_hora_trabajada").getAsInt();
+
+            return t;
+        }
     }
 
 }

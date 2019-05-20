@@ -157,9 +157,9 @@ public final class InventarioMaterialController extends Controller {
      */
     private void guardarArchivoInventario(String extension, File dest) throws IOException {
         if (extension.equals("*.pdf")) {
-            exportFile.changeStrategy(new ExportInventarioPDF(proyecto.getNombreProyecto(), listMateriales));
+            exportFile.changeStrategy(new ExportInventarioPDF(proyecto.getNombre(), listMateriales));
         } else {
-            exportFile.changeStrategy(new ExportInventarioXLSX(proyecto.getNombreProyecto(), listMateriales));
+            exportFile.changeStrategy(new ExportInventarioXLSX(proyecto.getNombre(), listMateriales));
         }
 
         File file = exportFile.export();

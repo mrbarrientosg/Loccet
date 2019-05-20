@@ -3,15 +3,13 @@ package network;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import io.netty.handler.codec.json.JsonObjectDecoder;
+import io.reactivex.schedulers.Schedulers;
 import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.DefaultAsyncHttpClient;
-import org.asynchttpclient.ListenableFuture;
 import org.asynchttpclient.Response;
-
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionException;
+import io.reactivex.*;
 
 public abstract class RestClient {
 
@@ -21,27 +19,24 @@ public abstract class RestClient {
         asyncHttpClient = new DefaultAsyncHttpClient();
     }
 
-    protected JsonElement request(URLRequestConvertible urlRequest, JsonObject parameters) throws NetworkException, IOException {
+    protected Maybe<JsonElement> request(URLRequestConvertible urlRequest, JsonObject parameters) {
+        return Maybe.create(maybe -> {
+            String URL = urlRequest.baseURL() + urlRequest.path();
 
-        String URL = urlRequest.baseURL() + urlRequest.path();
+            CompletableFuture<Response> future = asyncHttpClient
+                    .prepare(urlRequest.method(), URL)
+                    .setHeaders(urlRequest.headers())
+                    .setBody(parameters.toString())
+                    .execute()
+                    .toCompletableFuture();
 
-        CompletableFuture<Response> future = asyncHttpClient
-                .prepare(urlRequest.method(), URL)
-                .setHeaders(urlRequest.headers())
-                .setBody(parameters.toString())
-                .execute()
-                .toCompletableFuture();
+            Response response = future.join();
 
-        Response response = future.join();
+            validateStatusCode(response);
 
-        JsonElement result = null;
-
-        validateStatusCode(response);
-
-        if (response.getContentType() == null) result = null;
-        else result = new JsonParser().parse(response.getResponseBody());
-
-        return result;
+            if (response.getContentType() == null) maybe.onSuccess(null);
+            else maybe.onSuccess(new JsonParser().parse(response.getResponseBody()));
+        });
     }
 
     private void validateStatusCode(Response response) throws NetworkException {

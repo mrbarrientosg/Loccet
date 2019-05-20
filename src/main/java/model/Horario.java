@@ -1,8 +1,6 @@
 package model;
 
 import java.time.LocalTime;
-import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class Horario {
 
@@ -20,6 +18,9 @@ public class Horario {
         this.dia = builder.dia;
         this.horaIncio = builder.fechaInicio;
         this.horaFin = builder.fechaTermino;
+    }
+
+    public Horario() {
     }
 
     public Integer getDia() {
@@ -42,15 +43,12 @@ public class Horario {
         this.horaIncio = fechaTermino;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append(dia.toString());
-        builder.append(" - ");
-        builder.append(horaIncio.toString());
-        builder.append(" - ");
-        builder.append(horaFin.toString());
-        return builder.toString();
+    public void setProyecto(Proyecto proyecto) {
+        this.proyecto = proyecto;
+    }
+
+    public void setTrabajador(Trabajador trabajador) {
+        this.trabajador = trabajador;
     }
 
     public static class Builder {

@@ -1,4 +1,5 @@
 package model;
+import com.google.gson.JsonObject;
 import repository.memory.MemoryRepositoryRegistroMaterial;
 import repository.RepositoryRegistroMaterial;
 
@@ -48,6 +49,10 @@ public class Material {
         repositoryRegistroMaterial = new MemoryRepositoryRegistroMaterial();
     }
 
+    public Material() {
+        repositoryRegistroMaterial = new MemoryRepositoryRegistroMaterial();
+    }
+
     public String getId(){return  id;}
 
     public String getNombre() {
@@ -87,6 +92,7 @@ public class Material {
     }
 
     public void agregarRegistro(RegistroMaterial registroMaterial) {
+        registroMaterial.setMaterial(this);
         repositoryRegistroMaterial.add(registroMaterial);
     }
 

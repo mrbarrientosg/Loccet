@@ -29,7 +29,7 @@ public class Constructora {
         repositoryTrabajador = new MemoryRepositoryTrabajador();
     }
 
-    public static Constructora getInstance() {
+    public static synchronized Constructora getInstance() {
         if (instance == null)
             instance = new Constructora();
         return instance;
@@ -75,6 +75,7 @@ public class Constructora {
         Proyecto proyecto = repositoryProyecto.get(idProyecto);
         if (proyecto == null) return;
         proyecto.agregarTrabajador(trabajador);
+        repositoryTrabajador.add(trabajador);
     }
 
 //    /**

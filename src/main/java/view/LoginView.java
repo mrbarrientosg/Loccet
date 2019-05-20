@@ -3,19 +3,14 @@ package view;
 import base.Fragment;
 import controller.LoginController;
 import exceptions.EmptyFieldsException;
+import exceptions.InvalidUserException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import network.DispatchQueue;
-import network.NetworkException;
 import router.LoginRouter;
 import util.FakeData;
-
-import java.io.IOException;
 
 public final class LoginView extends Fragment {
 
@@ -73,38 +68,40 @@ public final class LoginView extends Fragment {
 
     @Override
     public void viewDidClose() {
-
+        controller.clear();
     }
 
     private void login(ActionEvent actionEvent) {
-        new DispatchQueue<>(dispatchQueue -> {
-            try {
-                return controller.loginUser();
-            } catch (EmptyFieldsException e) {
-                onError(e.getMessage());
-            } catch (IOException e) {
-                onError("Opss ha ocurrido un error, vuelve a intentar");
-            } catch (NetworkException e) {
-                onError(e.getMessage());
-            }
-
-            return false;
-        }).success(login -> {
-            if (login) {
-                didLogin();
-            } else {
-                //onError("Verifique el usuario o contraseña son correctos. Valide que su DNS sea el correcto");
-            }
-        });
+        try {
+            controller.loginUser();
+        } catch (EmptyFieldsException e) {
+            onError(e);
+        }
     }
 
     public void didLogin() {
+        controller.loadData();
+    }
+
+    public void showLoading() {
+        LOGGER.info("Cargando");
+    }
+
+    public void hideLoading() {
+        LOGGER.info("Listo");
+    }
+
+    public void gotoHome() {
         TableroView tableroView = router.showTablero(FakeData.createFakeData());
         replaceWith(tableroView, true, true);
     }
 
-    public void onError(String message){
-        router.showError(message);
+    public void onError(Throwable e){
+        if (e instanceof EmptyFieldsException || e instanceof InvalidUserException) {
+            router.showError(e.getMessage());
+        } else {
+            router.showError("Opps ha ocurrido un error, intenta de nuevo.");
+        }
     }
 
     private void minimize(ActionEvent actionEvent) {
