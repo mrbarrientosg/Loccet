@@ -60,6 +60,7 @@ public final class LoginController extends Controller {
                     else
                         view.onError(new InvalidUserException());
                 }, throwable -> {
+                    view.hideLoading();
                     view.onError(throwable);
                 });
 
@@ -174,6 +175,7 @@ public final class LoginController extends Controller {
                     view.hideLoading();
                     view.gotoHome();
                 }, throwable -> {
+                    view.hideLoading();
                     view.onError(throwable);
                 });
 
