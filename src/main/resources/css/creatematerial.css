@@ -1,3 +1,22 @@
+/*
+@mixin backgroundTransparent {
+  .backgroundTransparent {
+    -fx-background-color: transparent;
+  }
+}
+
+@mixin backgroundWhite {
+  .backgroundWhite {
+    -fx-background-color: white;
+  }
+}
+
+@mixin backgroundLight {
+  .backgroundLight {
+    -fx-background-color: $ghost-white; //TODO: cambio
+  }
+}
+*/
 @font-face {
   font-family: "Heebo";
   src: url("../fonts/Heebo-Regular.ttf") format("truetype"); }
@@ -10,17 +29,107 @@
 @font-face {
   font-family: "Heebo Black";
   src: url("../fonts/Heebo-Black.ttf") format("truetype"); }
+.custom-combo-box .list-cell {
+  -fx-background: white;
+  -fx-background-color: transparent;
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 13px;
+  -fx-border-radius: 3px; }
+
+.custom-combo-box .combo-box-popup .list-view {
+  -fx-background-color: white, white;
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 13px; }
+
+.custom-combo-box .combo-box-popup .list-view .list-cell {
+  /* No alternate highlighting */
+  -fx-background-color: white;
+  -fx-border-width: 0 0 .25 0;
+  -fx-border-color: rgba(0, 0, 0, 0.3);
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 13px; }
+
+.custom-combo-box .combo-box-popup .list-view .list-cell:filled:selected,
+.custom-combo-box .combo-box-popup .list-view .list-cell:filled:selected:hover {
+  -fx-background: white;
+  -fx-background-color: white; }
+
+.custom-combo-box .combo-box-popup .list-view .list-cell:filled:hover {
+  -fx-background-color: white;
+  -fx-text-fill: -fx-text-inner-color; }
+
+.custom-combo-box .combo-box-base {
+  -fx-background-color: white, white, white, white; }
+
+.custom-combo-box .combo-box-base:hover {
+  -fx-color: white; }
+
+.custom-combo-box .combo-box-base:showing {
+  -fx-color: white; }
+
+.custom-combo-box .combo-box-base:focused {
+  -fx-background-color: white; }
+
+.custom-combo-box .combo-box-base:disabled {
+  -fx-opacity: .4; }
+
+.custom-scroll .scroll-pane {
+  -fx-background-color: transparent; }
+
+.custom-scroll .scroll-bar:vertical {
+  -fx-pref-width: 8px; }
+
+.custom-scroll .scroll-bar:horizontal {
+  -fx-pref-height: 8px; }
+
+.custom-scroll .scroll-bar:horizontal .track,
+.custom-scroll .scroll-bar:vertical .track {
+  -fx-background-color: white;
+  -fx-border-color: white;
+  -fx-background-radius: 0.0em;
+  -fx-border-radius: 2.0em; }
+
+.custom-scroll .scroll-bar:horizontal .increment-button,
+.custom-scroll .scroll-bar:horizontal .decrement-button {
+  -fx-background-color: white;
+  -fx-background-radius: 0.0em;
+  -fx-padding: 0 0 10px 0; }
+
+.custom-scroll .scroll-bar:vertical .increment-button,
+.custom-scroll .scroll-bar:vertical .decrement-button {
+  -fx-background-color: white;
+  -fx-background-radius: 0.0em;
+  -fx-padding: 0 10px 0 0; }
+
+.custom-scroll .scroll-bar .increment-arrow,
+.custom-scroll .scroll-bar .decrement-arrow {
+  -fx-shape: null;
+  -fx-padding: 0.15em 0.0; }
+
+.custom-scroll .scroll-bar:vertical .increment-arrow,
+.custom-scroll .scroll-bar:vertical .decrement-arrow {
+  -fx-shape: null;
+  -fx-padding: 0.0 0.15em; }
+
+.custom-scroll .scroll-bar:horizontal .thumb,
+.custom-scroll .scroll-bar:vertical .thumb {
+  -fx-background-color: #D1D1D1;
+  -fx-background-insets: 1.0, 0.0, 0.0;
+  -fx-background-radius: 2.0em; }
+
+.custom-scroll .scroll-bar:horizontal .thumb:hover,
+.custom-scroll .scroll-bar:vertical .thumb:hover {
+  -fx-background-color: #ACACAC;
+  -fx-background-insets: 1.0, 0.0, 0.0;
+  -fx-background-radius: 2.0em; }
+
 .backgroundWhite {
   -fx-background-color: white; }
 
-.textFieldGrey {
+.backgroundgray {
   -fx-text-fill: black;
   -fx-prompt-text-fill: #878787;
   -fx-background-color: #F0F0F0; }
-
-.textField {
-  -fx-font-family: "Heebo Light";
-  -fx-font-size: 13px; }
 
 .buttonFillBlue {
   -fx-font-family: "Heebo Medium";
@@ -52,10 +161,28 @@
     -fx-background-color: #0084ff;
     -fx-background-radius: 3; }
 
+.textFieldGrey {
+  -fx-text-fill: black;
+  -fx-prompt-text-fill: #878787;
+  -fx-background-color: #F0F0F0; }
+
+.textField {
+  -fx-font-family: "Heebo Light";
+  -fx-font-size: 13px; }
+
+.textAreaGray {
+  -fx-text-fill: black;
+  -fx-prompt-text-fill: #878787;
+  -fx-background-color: #F0F0F0; }
+
+.text-area .content {
+  /*the is 1px less top and bottom than TextInput because of scrollpane border */
+  -fx-padding: 0.25em 0.583em 0.25em 0.583em;
+  /* 3 7 3 7 */
+  -fx-cursor: text;
+  -fx-background-color: #F0F0F0;
+  -fx-background-radius: 2; }
+
 .title3 {
   -fx-font-family: "Heebo Black";
   -fx-font-size: 16px; }
-
-.paragraph {
-  -fx-font-family: "Heebo";
-  -fx-font-size: 14px; }

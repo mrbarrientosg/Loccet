@@ -21,7 +21,7 @@ $ghost-white: #F9F9F9;
 @mixin blue-gradient($side: to top right) {
   -fx-background-color: $dark-blue, linear-gradient($side, reflect, $dark-blue, $light-blue);
 }
-
+/*
 @mixin backgroundTransparent {
   #{'.backgroundTransparent'} {
     -fx-background-color: transparent;
@@ -39,4 +39,4 @@ $ghost-white: #F9F9F9;
     -fx-background-color: $ghost-white; //TODO: cambio
   }
 }
-
+*/

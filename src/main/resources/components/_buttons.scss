@@ -92,6 +92,27 @@
   }
 }
 
+@mixin buttonRed {
+  #{'.buttonRed'} {
+    @include button;
+    -fx-text-fill: white;
+    -fx-background-color: red;
+    -fx-background-radius: 3;
+
+    &:hover {
+      -fx-text-fill: white;
+      -fx-background-color: lighten(red, 8%);
+      -fx-background-radius: 3;
+    }
+
+    &:pressed {
+      -fx-text-fill: white;
+      -fx-background-color: red;
+      -fx-background-radius: 3;
+    }
+  }
+}
+
 @mixin buttonWhite {
   #{'.buttonWhite'} {
     @include button;
