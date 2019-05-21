@@ -7,8 +7,14 @@ import exceptions.InvalidUserException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import router.LoginRouter;
 import util.FakeData;
 
@@ -85,10 +91,12 @@ public final class LoginView extends Fragment {
 
     public void showLoading() {
         LOGGER.info("Cargando");
+        loadingOverlay();
     }
 
     public void hideLoading() {
         LOGGER.info("Listo");
+        getRoot().getChildren().remove(1);
     }
 
     public void gotoHome() {
@@ -112,6 +120,20 @@ public final class LoginView extends Fragment {
         Platform.exit();
         System.exit(0);
     }
+
+    @Override
+    public StackPane getRoot() {
+        return (StackPane) root;
+    }
+
+    private void loadingOverlay() {
+        ProgressIndicator pi = new ProgressIndicator();
+        VBox box = new VBox(pi);
+        box.setStyle("-fx-background-color: rgba(250, 250, 250, 0.8);");
+        box.setAlignment(Pos.CENTER);
+        getRoot().getChildren().add(box);
+    }
+
 
     public void setController(LoginController controller) {
         this.controller = controller;
