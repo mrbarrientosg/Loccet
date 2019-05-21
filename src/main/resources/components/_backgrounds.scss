@@ -1,0 +1,25 @@
+@mixin backgroundTransparent {
+  #{'.backgroundTransparent'} {
+    -fx-background-color: transparent;
+  }
+}
+
+@mixin backgroundWhite {
+  #{'.backgroundWhite'} {
+    -fx-background-color: white;
+  }
+}
+
+@mixin backgroundLight {
+  #{'.backgroundLight'} {
+    -fx-background-color: $ghost-white; //TODO: cambio
+  }
+}
+
+@mixin backgroundgray{
+  #{'.backgroundgray'}{
+    -fx-text-fill: black;
+    -fx-prompt-text-fill: darken(lightGray, 30%);
+    -fx-background-color: $gray; ;
+  }
+}

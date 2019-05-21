@@ -1,0 +1,16 @@
+@mixin textAreaGray{
+  #{'.textAreaGray'}{
+    -fx-text-fill: black;
+    -fx-prompt-text-fill: darken(lightGray, 30%);
+    -fx-background-color: $gray;
+
+  }
+  .text-area .content {
+    /*the is 1px less top and bottom than TextInput because of scrollpane border */
+    -fx-padding: 0.25em 0.583em 0.25em 0.583em; /* 3 7 3 7 */
+    -fx-cursor: text;
+    -fx-background-color: $gray;
+    -fx-background-radius: 2;
+  }
+}
+
