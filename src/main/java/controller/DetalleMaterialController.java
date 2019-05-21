@@ -2,6 +2,7 @@ package controller;
 
 import base.Controller;
 import model.Material;
+import model.RegistroMaterial;
 import view.DetalleMaterialView;
 
 /**
@@ -64,12 +65,24 @@ public class DetalleMaterialController extends Controller {
 
     public void ModificarNombre(String nombre){model.setNombre(nombre);}
 
+    public boolean retirarMaterial(double cantidad){
+        if (model.getCantidad() > cantidad) return false;
+        else{
+            model.setCantidad(model.getCantidad()-cantidad);
+            RegistroMaterial registroMaterial = new RegistroMaterial(cantidad);
+            model.agregarRegistro(registroMaterial);
+            return true;
+        }
+    }
     /**
      * @param view detalleMaterial
      */
 
     public void setView(DetalleMaterialView view) {
         this.view = view;
+    }
+    public void setModel(Material model){
+        this.model = model;
     }
 
 

@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="600.0" styleClass="backgroundWhite" stylesheets="@../css/detailmaterial.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="600.0" prefWidth="600.0" styleClass="backgroundWhite" stylesheets="@../css/detailmaterial.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
          <content>
@@ -34,10 +34,10 @@
                         <Separator maxWidth="1.7976931348623157E308" visible="false" HBox.hgrow="ALWAYS" />
                         <ButtonBar HBox.hgrow="ALWAYS">
                           <buttons>
-                              <Button mnemonicParsing="false" styleClass="buttonBlue" text="Editar" />
-                              <Button mnemonicParsing="false" styleClass="buttonBorderBlue" text="Ingresar" />
-                              <Button mnemonicParsing="false" styleClass="buttonBorderBlue" text="Retirar" />
-                              <Button mnemonicParsing="false" styleClass="buttonFillBlue" text="Salir" />
+                              <Button fx:id="editarBT" mnemonicParsing="false" onAction="#editar" styleClass="buttonBlue" text="Editar" />
+                              <Button fx:id="ingresarBT" mnemonicParsing="false" onAction="#agregarMaterial" styleClass="buttonBorderBlue" text="Ingresar" />
+                              <Button fx:id="retirarBT" mnemonicParsing="false" onAction="#retirarMaterial" styleClass="buttonBorderBlue" text="Retirar" />
+                              <Button fx:id="salirBT" mnemonicParsing="false" onAction="#salir" styleClass="buttonFillBlue" text="Salir" />
                           </buttons>
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -56,7 +56,7 @@
                                  <VBox.margin>
                                     <Insets left="5.0" />
                                  </VBox.margin></Label>
-                              <TextField>
+                              <TextField fx:id="nombreTF">
                                  <styleClass>
                                     <String fx:value="textField" />
                                     <String fx:value="textFieldGrey" />
@@ -75,7 +75,7 @@
                                  <VBox.margin>
                                     <Insets left="5.0" />
                                  </VBox.margin></Label>
-                              <TextField>
+                              <TextField fx:id="idTF">
                                  <styleClass>
                                     <String fx:value="textField" />
                                     <String fx:value="textFieldGrey" />
@@ -94,7 +94,7 @@
                                  <VBox.margin>
                                     <Insets left="5.0" />
                                  </VBox.margin></Label>
-                              <TextField>
+                              <TextField fx:id="cantidadTF">
                                  <VBox.margin>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </VBox.margin>
@@ -120,7 +120,7 @@
                               <Insets left="5.0" />
                            </VBox.margin>
                         </Label>
-                        <TextArea prefHeight="115.0">
+                        <TextArea fx:id="descripcionTA" prefHeight="115.0">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>

@@ -29,6 +29,9 @@ public class InventarioMaterial {
     public void agregarMaterial(Material material) {
         repositoryMaterial.add(material);
     }
+    public Material obtenerMaterial(String id){
+       return repositoryMaterial.get(id);
+    }
 
     public Material actualizarMaterial(Material material) {
         return repositoryMaterial.update(material);
@@ -37,10 +40,6 @@ public class InventarioMaterial {
     public Material eliminarMaterial(String id) {
         return repositoryMaterial.remove(repositoryMaterial.get(id));
     }
-
-
-
-
 
     public void agregarRegistroMaterial(String idMaterial, RegistroMaterial registroMaterial) {
         repositoryMaterial.get(idMaterial).agregarRegistro(registroMaterial);

@@ -1,5 +1,6 @@
 package view;
 import base.Fragment;
+import base.Injectable;
 import controller.DetalleMaterialController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,7 +40,10 @@ public class DetalleMaterialView extends Fragment {
     private Button editarBT;
     @FXML
     private Button salirBT;
-
+    @FXML
+    private Button ingresarBT;
+    @FXML
+    private Button retirarBT;
 
     @Override
     public void viewDidLoad() {
@@ -72,6 +76,7 @@ public class DetalleMaterialView extends Fragment {
      *
      * @author Sebastian Fuenzalida.
      */
+    @FXML
     public void editar(ActionEvent event){
 
         if (!editando) { // Si la variable es falsa significa que aun no es presionado el boton editar.
@@ -86,9 +91,11 @@ public class DetalleMaterialView extends Fragment {
             editarBT.setText("Editar");//Se regresa el boton a editar.
         }
     }
-
+    @FXML
+    public void salir(ActionEvent event){
+        //close();
+    }
     /**
-     *
      * Funcion que carga los datos en la tabla.
      *
      * @author Sebastian Fuenzalida.
@@ -98,13 +105,24 @@ public class DetalleMaterialView extends Fragment {
         cantidadCL.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
     }
 
+    @FXML
+    public void retirar(ActionEvent event){
+        RetirarMaterialView view = Injectable.find(RetirarMaterialView.class);
+        view.setController(controller);
+        view.modal().withBlock(true).show();
+    }
+    public void agregar(ActionEvent event){
+        AgregarMaterialView view = Injectable.find(AgregarMaterialView.class);
+       // view.setController(controller);
+        view.modal().withBlock(true).show();
+    }
+
     /**
      * @param controller detalleMaterial
      */
     public void setController(DetalleMaterialController controller) {
         this.controller = controller;
     }
-
     /**
      * @param router  detalleMaterial
      */

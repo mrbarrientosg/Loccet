@@ -3,6 +3,7 @@ package view;
 
 import base.View;
 import cell.MaterialCell;
+import controller.DetalleMaterialController;
 import controller.InventarioMaterialController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,7 +24,7 @@ import java.util.regex.Pattern;
  */
 public final class RetirarMaterialView extends View {
 
-    private InventarioMaterialController controller;
+    private DetalleMaterialController controller;
 
     private MaterialCell material;
 
@@ -61,15 +62,12 @@ public final class RetirarMaterialView extends View {
        if(!retirarTF.getText().isEmpty()) {
            String lector = retirarTF.getText();
            double aux = Double.parseDouble(lector);
-           if (Double.compare(aux,material.getCantidad())>0) {
+           if (!controller.retirarMaterial(aux)){
                Alert alert = new Alert(Alert.AlertType.ERROR);
                alert.setTitle("Error");
                alert.setHeaderText("No hay suficiente material");
                alert.setContentText("La cantidad de material a retirar es mayor al que se tiene");
                alert.showAndWait();
-           } else {
-               controller.retirarMaterial(material.getId(), aux);
-               close();
            }
        }else {
            Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -85,7 +83,7 @@ public final class RetirarMaterialView extends View {
         close();
     }
 
-    public void setController(InventarioMaterialController controller) {
+    public void setController(DetalleMaterialController controller) {
         this.controller = controller;
     }
 
