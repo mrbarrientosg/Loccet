@@ -73,7 +73,7 @@
 .rrhh-table .increment-button,
 .rrhh-table .decrement-button {
   -fx-background-color: transparent;
-  -fx-background-radius: 10em; }
+  -fx-background-radius: 2em; }
 
 .buttonBlue {
   -fx-font-family: "Heebo Medium";

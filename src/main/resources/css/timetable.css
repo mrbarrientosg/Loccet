@@ -29,6 +29,52 @@
 @font-face {
   font-family: "Heebo Black";
   src: url("../fonts/Heebo-Black.ttf") format("truetype"); }
+.rrhh-table {
+  -fx-border-color: white;
+  -fx-font-family: "Heebo Light";
+  -fx-font-size: 12px;
+  -fx-table-cell-border-color: #F0F0F0;
+  -fx-control-inner-background-alt: -fx-control-inner-background; }
+
+.rrhh-table .column-header,
+.rrhh-table .filler,
+.rrhh-table > .column-header-background > .show-hide-columns-button {
+  -fx-background-color: #F0F0F0, white, white;
+  -fx-background-insets: 0, 0 1 1 0, 1 1 1 1;
+  -fx-size: 45px; }
+
+.rrhh-table .filler {
+  -fx-padding: 5; }
+
+.rrhh-table .column-header .arrow {
+  -fx-background-color: gray; }
+
+.rrhh-table .column-header .label {
+  -fx-text-fill: gray;
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 12px;
+  -fx-alignment: CENTER; }
+
+.rrhh-table .cell {
+  -fx-text-fill: #595959;
+  -fx-alignment: CENTER;
+  -fx-border-width: 0;
+  -fx-cell-size: 40px; }
+
+.rrhh-table .table-row-cell {
+  -fx-border-width: 0; }
+
+.rrhh-table .table-row-cell:selected {
+  -fx-background-color: #F0F0F0;
+  -fx-border-width: 0; }
+
+/* scroll bar starts here */
+/* The increment and decrement button CSS class of scrollbar */
+.rrhh-table .increment-button,
+.rrhh-table .decrement-button {
+  -fx-background-color: transparent;
+  -fx-background-radius: 2em; }
+
 .custom-scroll {
   -fx-background-color: white; }
 
@@ -78,52 +124,6 @@
   -fx-background-insets: 1.0, 0.0, 0.0;
   -fx-background-radius: 2.0em; }
 
-.rrhh-table {
-  -fx-border-color: white;
-  -fx-font-family: "Heebo Light";
-  -fx-font-size: 12px;
-  -fx-table-cell-border-color: #F0F0F0;
-  -fx-control-inner-background-alt: -fx-control-inner-background; }
-
-.rrhh-table .column-header,
-.rrhh-table .filler,
-.rrhh-table > .column-header-background > .show-hide-columns-button {
-  -fx-background-color: #F0F0F0, white, white;
-  -fx-background-insets: 0, 0 1 1 0, 1 1 1 1;
-  -fx-size: 45px; }
-
-.rrhh-table .filler {
-  -fx-padding: 5; }
-
-.rrhh-table .column-header .arrow {
-  -fx-background-color: gray; }
-
-.rrhh-table .column-header .label {
-  -fx-text-fill: gray;
-  -fx-font-family: "Heebo Medium";
-  -fx-font-size: 12px;
-  -fx-alignment: CENTER; }
-
-.rrhh-table .cell {
-  -fx-text-fill: #595959;
-  -fx-alignment: CENTER;
-  -fx-border-width: 0;
-  -fx-cell-size: 40px; }
-
-.rrhh-table .table-row-cell {
-  -fx-border-width: 0; }
-
-.rrhh-table .table-row-cell:selected {
-  -fx-background-color: #F0F0F0;
-  -fx-border-width: 0; }
-
-/* scroll bar starts here */
-/* The increment and decrement button CSS class of scrollbar */
-.rrhh-table .increment-button,
-.rrhh-table .decrement-button {
-  -fx-background-color: transparent;
-  -fx-background-radius: 2em; }
-
 .backgroundWhite {
   -fx-background-color: white; }
 
@@ -131,21 +131,6 @@
   -fx-text-fill: black;
   -fx-prompt-text-fill: #878787;
   -fx-background-color: #F0F0F0; }
-
-.buttonFillBlue {
-  -fx-font-family: "Heebo Medium";
-  -fx-font-size: 14px;
-  -fx-text-fill: #0084ff;
-  -fx-background-color: white;
-  -fx-background-radius: 3; }
-  .buttonFillBlue:hover {
-    -fx-text-fill: #0084ff;
-    -fx-background-color: #e6e6e6;
-    -fx-background-radius: 3; }
-  .buttonFillBlue:pressed {
-    -fx-text-fill: #0084ff;
-    -fx-background-color: white;
-    -fx-background-radius: 3; }
 
 .buttonBlue {
   -fx-font-family: "Heebo Medium";
@@ -162,54 +147,6 @@
     -fx-background-color: #0084ff;
     -fx-background-radius: 3; }
 
-.buttonBorderBlue {
-  -fx-font-family: "Heebo Medium";
-  -fx-font-size: 14px;
-  -fx-text-fill: #0084ff;
-  -fx-background-color: white;
-  -fx-border-radius: 3;
-  -fx-border-color: #0084ff; }
-  .buttonBorderBlue:hover {
-    -fx-text-fill: #0084ff;
-    -fx-background-color: #f2f2f2;
-    -fx-border-radius: 3;
-    -fx-border-color: #0084ff; }
-  .buttonBorderBlue:pressed {
-    -fx-text-fill: #0084ff;
-    -fx-background-color: white;
-    -fx-border-radius: 3;
-    -fx-border-color: #0084ff; }
-
 .title1 {
   -fx-font-family: "Heebo Black";
   -fx-font-size: 24px; }
-
-.title2 {
-  -fx-font-family: "Heebo Black";
-  -fx-font-size: 20px; }
-
-.paragraph {
-  -fx-font-family: "Heebo";
-  -fx-font-size: 14px; }
-
-.textFieldGrey {
-  -fx-text-fill: black;
-  -fx-prompt-text-fill: #878787;
-  -fx-background-color: #F0F0F0; }
-
-.textField {
-  -fx-font-family: "Heebo Light";
-  -fx-font-size: 13px; }
-
-.textAreaGray {
-  -fx-text-fill: black;
-  -fx-prompt-text-fill: #878787;
-  -fx-background-color: #F0F0F0; }
-
-.text-area .content {
-  /*the is 1px less top and bottom than TextInput because of scrollpane border */
-  -fx-padding: 0.25em 0.583em 0.25em 0.583em;
-  /* 3 7 3 7 */
-  -fx-cursor: text;
-  -fx-background-color: #F0F0F0;
-  -fx-background-radius: 2; }
