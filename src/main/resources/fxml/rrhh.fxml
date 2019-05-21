@@ -67,7 +67,7 @@
             <Insets left="16.0" right="16.0" top="16.0" />
          </VBox.margin>
       </HBox>
-      <TableView fx:id="tableView" styleClass="rrhh-table" VBox.vgrow="ALWAYS">
+      <TableView fx:id="tableView" VBox.vgrow="ALWAYS">
         <columns>
           <TableColumn fx:id="rutColumn" prefWidth="75.0" text="Rut" />
           <TableColumn prefWidth="75.0" text="Nombre" />
@@ -79,6 +79,10 @@
          <VBox.margin>
             <Insets bottom="16.0" left="16.0" right="16.0" top="20.0" />
          </VBox.margin>
+         <styleClass>
+            <String fx:value="rrhh-table" />
+            <String fx:value="custom-scroll" />
+         </styleClass>
       </TableView>
    </children>
 </VBox>

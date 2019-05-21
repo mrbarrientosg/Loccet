@@ -15,9 +15,9 @@ public class TableroController extends Controller {
 
     private final TableroRouter router;
 
-    public TableroController(TableroView view, Constructora model, TableroRouter router) {
+    public TableroController(TableroView view, TableroRouter router) {
         this.view = view;
-        this.model = model;
+        this.model = Constructora.getInstance();
         this.router = router;
     }
 }

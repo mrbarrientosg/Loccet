@@ -66,6 +66,7 @@ public class DetalleProyectoView extends View {
         endDateField.disableProperty().bindBidirectional(disable);
 
         editButton.setOnAction(this::editAction);
+        exitButton.setOnAction(event -> close());
     }
 
     public void bind() {

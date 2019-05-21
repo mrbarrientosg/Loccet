@@ -73,8 +73,8 @@
 .custom-combo-box .combo-box-base:disabled {
   -fx-opacity: .4; }
 
-.custom-scroll .scroll-pane {
-  -fx-background-color: transparent; }
+.custom-scroll {
+  -fx-background-color: white; }
 
 .custom-scroll .scroll-bar:vertical {
   -fx-pref-width: 8px; }
@@ -86,8 +86,7 @@
 .custom-scroll .scroll-bar:vertical .track {
   -fx-background-color: white;
   -fx-border-color: white;
-  -fx-background-radius: 0.0em;
-  -fx-border-radius: 2.0em; }
+  -fx-background-radius: 0.0em; }
 
 .custom-scroll .scroll-bar:horizontal .increment-button,
 .custom-scroll .scroll-bar:horizontal .decrement-button {

@@ -4,6 +4,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
@@ -17,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="720.0" prefWidth="800.0" styleClass="backgroundWhite" stylesheets="@../css/detailproyect.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="720.0" prefWidth="800.0" styleClass="backgroundWhite" stylesheets="@../css/detailproyect.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ScrollPane fitToWidth="true">
          <content>
@@ -33,8 +34,8 @@
                         <Separator maxWidth="1.7976931348623157E308" visible="false" HBox.hgrow="ALWAYS" />
                         <ButtonBar prefHeight="40.0" prefWidth="200.0">
                            <buttons>
-                              <Button mnemonicParsing="false" styleClass="buttonBlue" text="Editar" />
-                              <Button mnemonicParsing="false" styleClass="buttonFillBlue" text="Salir" />
+                              <Button fx:id="editButton" mnemonicParsing="false" styleClass="buttonBlue" text="Editar" />
+                              <Button fx:id="exitButton" mnemonicParsing="false" styleClass="buttonFillBlue" text="Salir" />
                            </buttons>
                         </ButtonBar>
                      </children>
@@ -43,24 +44,24 @@
                      </VBox.margin>
                   </HBox>
                   <GridPane hgap="16.0" vgap="16.0" VBox.vgrow="ALWAYS">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
                      <children>
                         <VBox spacing="5.0">
                            <children>
                               <Label styleClass="paragraph" text="ID" />
-                              <TextField>
+                              <TextField fx:id="idField" disable="true">
                                  <styleClass>
                                     <String fx:value="textField" />
                                     <String fx:value="textFieldGrey" />
@@ -70,7 +71,7 @@
                         <VBox spacing="5.0" GridPane.columnIndex="1">
                            <children>
                               <Label styleClass="paragraph" text="Nombre" />
-                              <TextField>
+                              <TextField fx:id="nameField">
                                  <styleClass>
                                     <String fx:value="textFieldGrey" />
                                     <String fx:value="textField" />
@@ -80,7 +81,7 @@
                         <VBox spacing="5.0" GridPane.rowIndex="2">
                            <children>
                               <Label styleClass="paragraph" text="Direccion" />
-                              <TextField>
+                              <TextField fx:id="addressField">
                                  <styleClass>
                                     <String fx:value="textField" />
                                     <String fx:value="textFieldGrey" />
@@ -90,7 +91,7 @@
                         <VBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <children>
                               <Label styleClass="paragraph" text="Pais" />
-                              <TextField>
+                              <TextField fx:id="countryField">
                                  <styleClass>
                                     <String fx:value="textField" />
                                     <String fx:value="textFieldGrey" />
@@ -100,7 +101,7 @@
                         <VBox spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                            <children>
                               <Label styleClass="paragraph" text="Estado" />
-                              <TextField>
+                              <TextField fx:id="stateField">
                                  <styleClass>
                                     <String fx:value="textField" />
                                     <String fx:value="textFieldGrey" />
@@ -110,7 +111,7 @@
                         <VBox spacing="5.0" GridPane.rowIndex="3">
                            <children>
                               <Label styleClass="paragraph" text="Ciudad" />
-                              <TextField>
+                              <TextField fx:id="cityField">
                                  <styleClass>
                                     <String fx:value="textField" />
                                     <String fx:value="textFieldGrey" />
@@ -130,7 +131,7 @@
                         <VBox spacing="5.0" GridPane.rowIndex="5">
                            <children>
                               <Label styleClass="paragraph" text="Cliente" />
-                              <TextField>
+                              <TextField fx:id="clientField">
                                  <styleClass>
                                     <String fx:value="textField" />
                                     <String fx:value="textFieldGrey" />
@@ -140,21 +141,13 @@
                         <VBox spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
                            <children>
                               <Label styleClass="paragraph" text="Fecha termino" />
-                              <TextField>
-                                 <styleClass>
-                                    <String fx:value="textField" />
-                                    <String fx:value="textFieldGrey" />
-                                 </styleClass></TextField>
+                              <DatePicker disable="true" maxWidth="1.7976931348623157E308" styleClass="textField" />
                            </children>
                         </VBox>
                         <VBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                            <children>
                               <Label styleClass="paragraph" text="Fecha Incio" />
-                              <TextField>
-                                 <styleClass>
-                                    <String fx:value="textField" />
-                                    <String fx:value="textFieldGrey" />
-                                 </styleClass></TextField>
+                              <DatePicker disable="true" editable="false" maxWidth="1.7976931348623157E308" styleClass="textField" />
                            </children>
                         </VBox>
                      </children>
@@ -191,10 +184,10 @@
                      </children>
                   </VBox>
                   <TableView prefHeight="200.0" prefWidth="200.0">
-                    <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
-                    </columns>
+                     <columns>
+                        <TableColumn prefWidth="75.0" text="C1" />
+                        <TableColumn prefWidth="75.0" text="C2" />
+                     </columns>
                      <VBox.margin>
                         <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
                      </VBox.margin>
@@ -214,10 +207,10 @@
                               </Label>
                               <Separator visible="false" HBox.hgrow="ALWAYS" />
                               <ButtonBar HBox.hgrow="ALWAYS">
-                                <buttons>
+                                 <buttons>
                                     <Button mnemonicParsing="false" styleClass="buttonBlue" text="Agregar material" />
                                     <Button mnemonicParsing="false" styleClass="buttonFillBlue" text="Ver detalle" />
-                                </buttons>
+                                 </buttons>
                               </ButtonBar>
                            </children>
                         </HBox>

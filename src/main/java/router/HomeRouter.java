@@ -35,7 +35,6 @@ public final class HomeRouter {
 
         NodeUtils.replaceWith(master.getRoot().getCenter(), view.getRoot(), true, true, null);
 
-        view.setMaster(master);
     }
 
     public void agregarTrabajador(Constructora model) {

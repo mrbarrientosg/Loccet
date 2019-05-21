@@ -38,8 +38,8 @@ public final class LoginRouter {
         return home;
     }
 
-    public TableroView showTablero(Constructora model) {
-        TableroView tableroView = TableroRouter.create(model);
+    public TableroView showTablero() {
+        TableroView tableroView = TableroRouter.create();
         return tableroView;
     }
 }

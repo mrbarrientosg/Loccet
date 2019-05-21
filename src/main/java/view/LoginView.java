@@ -10,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import router.LoginRouter;
-import util.FakeData;
 
 public final class LoginView extends Fragment {
 
@@ -92,7 +91,7 @@ public final class LoginView extends Fragment {
     }
 
     public void gotoHome() {
-        TableroView tableroView = router.showTablero(FakeData.createFakeData());
+        TableroView tableroView = router.showTablero();
         replaceWith(tableroView, true, true);
     }
 

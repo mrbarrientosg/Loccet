@@ -51,15 +51,15 @@
   -fx-font-family: "Heebo Medium";
   -fx-font-size: 14px;
   -fx-text-fill: white;
-  -fx-background-color: #28CE97;
+  -fx-background-color: #1DB954;
   -fx-background-radius: 3; }
   .buttonGreen:hover {
     -fx-text-fill: white;
-    -fx-background-color: #3DE8AF;
+    -fx-background-color: #21d761;
     -fx-background-radius: 3; }
   .buttonGreen:pressed {
     -fx-text-fill: white;
-    -fx-background-color: #28CE97;
+    -fx-background-color: #1DB954;
     -fx-background-radius: 3; }
 
 .buttonFillBlue {
@@ -104,86 +104,6 @@
 .textField {
   -fx-font-family: "Heebo Light";
   -fx-font-size: 13px; }
-
-.datePickerGray .date-picker-popup {
-  -fx-background-color: #F0F0F0;
-  -fx-background-insets: 0, 1;
-  -fx-background-radius: 0;
-  -fx-alignment: CENTER;
-  /* VBox */
-  -fx-spacing: 0;
-  /* VBox */
-  -fx-padding: 0.083333em;
-  /* 1 1 1 1 */
-  -fx-font-family: "Heebo Light";
-  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 12, 0, 0, 8); }
-.datePickerGray .date-picker-popup > .month-year-pane {
-  -fx-padding: 0.588883em 0.5em 0.666667em 0.5em;
-  -fx-background-color: #F0F0F0;
-  /*$dark-blue, linear-gradient(to top right, reflect, $dark-blue, $light-blue);*/
-  -fx-background-insets: 0 0 0 0, 0 0 1 0;
-  -fx-text-fill: #F0F0F0; }
-.datePickerGray .date-picker-popup > * > .spinner > .button {
-  -fx-background-color: transparent;
-  -fx-background-insets: 0, 1, 2;
-  -fx-color: transparent;
-  -fx-background-radius: 0; }
-.datePickerGray .date-picker-popup > .calendar-grid {
-  -fx-background-color: #F0F0F0;
-  /*derive($dark-blue, 60%);*/
-  -fx-padding: 0;
-  -fx-text-fill: #0084ff; }
-.datePickerGray .date-picker-popup > * > .spinner > .label {
-  -fx-alignment: CENTER;
-  -fx-font-family: "Heebo Light";
-  -fx-font-size: 12px; }
-.datePickerGray .date-picker-popup > * > .day-name-cell,
-.datePickerGray .date-picker-popup > * > .week-number-cell {
-  -fx-font-size: 12px; }
-.datePickerGray .date-picker-popup > * > .spinner > .button > .left-arrow,
-.datePickerGray .date-picker-popup > * > .spinner > .button > .right-arrow {
-  -fx-background-color: #0084ff, derive(#0084ff, -45%);
-  -fx-background-insets: 1 0 -1 0, 0;
-  -fx-padding: 0.333333em 0.166667em 0.333333em 0.166667em;
-  /* 4 2 4 2 */
-  -fx-effect: dropshadow(two-pass-box, #0084ff, 1, 0, 0, 1.4); }
-.datePickerGray .date-picker-popup > * > .week-number-cell {
-  -fx-padding: 0.333333em 0.583333em 0.333333em 0.583333em;
-  /* 4 7 4 7 */
-  -fx-border-color: #F0F0F0;
-  -fx-border-width: 1px;
-  -fx-background: transparent;
-  -fx-text-fill: black; }
-.datePickerGray .date-picker-popup > * > .day-cell {
-  -fx-padding: 4 7 4 7;
-  -fx-border-width: 1px;
-  -fx-font-size: 1em;
-  -fx-background-color: #F0F0F0;
-  /* $dark-blue, linear-gradient(to top right, reflect, $dark-blue, $light-blue);*/
-  -fx-text-fill: black; }
-.datePickerGray .date-picker-popup > * > .day-cell:focused,
-.datePickerGray .date-picker-popup > * > .today:focused {
-  -fx-background-color: #0084ff;
-  -fx-background-insets: 1, 2, 3;
-  -fx-text-fill: #F0F0F0; }
-.datePickerGray .date-picker-popup > * > .today {
-  -fx-background-color: #00c6ff;
-  -fx-background-insets: 1, 2, 3;
-  -fx-text-fill: #F0F0F0; }
-.datePickerGray .date-picker-popup > * > .previous-month,
-.datePickerGray .date-picker-popup > * > .next-month {
-  -fx-background: derive(-fx-control-inner-background, -4%); }
-.datePickerGray .date-picker-popup > * > .day-cell:hover,
-.datePickerGray .date-picker-popup > * > .selected,
-.datePickerGray .date-picker-popup > * > .previous-month.selected,
-.datePickerGray .date-picker-popup > * > .next-month.selected {
-  -fx-background-color: #0084ff; }
-.datePickerGray .date-picker-popup > * > .previous-month:hover,
-.datePickerGray .date-picker-popup > * > .next-month:hover {
-  -fx-background-color: #F0F0F0; }
-.datePickerGray .date-picker-popup > * > .previous-month,
-.datePickerGray .date-picker-popup > * > .next-month {
-  -fx-text-fill: rgba(0, 0, 0, 0.4); }
 
 .separatorBlueHorizontal {
   -fx-border-color: transparent transparent transparent -fx-shadow-highlight-color, transparent transparent transparent -fx-text-box-border;

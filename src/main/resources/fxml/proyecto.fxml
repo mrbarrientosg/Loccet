@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="804.0" styleClass="backgroundLight" stylesheets="@../css/proyecto.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="804.0" styleClass="backgroundLight" stylesheets="@../css/proyecto.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="35.0" spacing="20.0">
          <children>
@@ -33,7 +33,7 @@
                         <Insets left="5.0" right="5.0" top="10.0" />
                      </StackPane.margin>
                   </AnchorPane>
-                  <Button fx:id="detailButton" mnemonicParsing="false" prefHeight="35.0" styleClass="buttonWhite" text="Ver detalle" textFill="WHITE" />
+                  <Button fx:id="detailButton" mnemonicParsing="false" onAction="#lookDetails" prefHeight="35.0" styleClass="buttonWhite" text="Ver detalle" textFill="WHITE" />
                </children>
                <HBox.margin>
                   <Insets />
@@ -60,18 +60,22 @@
             <Insets left="16.0" right="16.0" top="16.0" />
          </VBox.margin>
       </HBox>
-      <TableView fx:id="tableView" styleClass="rrhh-table" VBox.vgrow="ALWAYS">
+      <TableView fx:id="tableView" VBox.vgrow="ALWAYS">
         <columns>
-          <TableColumn fx:id="iDColumn" prefWidth="75.0" text="ID proyecto" />
-          <TableColumn fx:id="nameProyectColumn" prefWidth="57.0" text="Nombre proyecto" />
-            <TableColumn fx:id="clientColumn" prefWidth="93.0" text="Cliente" />
-            <TableColumn fx:id="amountColumn" prefWidth="90.0" text="Monto contractual" />
-            <TableColumn fx:id="startDateColumn" prefWidth="120.0" text="Fecha inicio" />
-            <TableColumn fx:id="endDateColumn" prefWidth="75.0" text="Fecha termino" />
+          <TableColumn fx:id="iDColumn" editable="false" prefWidth="75.0" text="ID proyecto" />
+          <TableColumn fx:id="nameProyectColumn" editable="false" prefWidth="57.0" text="Nombre proyecto" />
+            <TableColumn fx:id="clientColumn" editable="false" prefWidth="93.0" text="Cliente" />
+            <TableColumn fx:id="amountColumn" editable="false" prefWidth="90.0" text="Monto contractual" />
+            <TableColumn fx:id="startDateColumn" editable="false" prefWidth="120.0" text="Fecha inicio" />
+            <TableColumn fx:id="endDateColumn" editable="false" prefWidth="75.0" text="Fecha termino" />
         </columns>
          <VBox.margin>
             <Insets bottom="16.0" left="16.0" right="16.0" top="20.0" />
          </VBox.margin>
+         <styleClass>
+            <String fx:value="rrhh-table" />
+            <String fx:value="custom-scroll" />
+         </styleClass>
       </TableView>
    </children>
 </VBox>

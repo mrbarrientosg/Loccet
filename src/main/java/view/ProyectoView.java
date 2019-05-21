@@ -1,23 +1,22 @@
 package view;
 
-import base.Injectable;
 import base.View;
-import cell.MaterialCell;
 import cell.ProyectoCell;
 import controller.ProyectoController;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.StageStyle;
 import model.Proyecto;
+import router.DetalleProyectoRouter;
 import router.ProyectoRouter;
-
-import java.awt.event.ActionEvent;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class ProyectoView extends View {
 
@@ -28,7 +27,6 @@ public class ProyectoView extends View {
     private ObservableList<ProyectoCell> listProyectos;
 
     private FilteredList<ProyectoCell> filteredProyect;
-
 
     @FXML
     private TextField searchText;
@@ -62,20 +60,18 @@ public class ProyectoView extends View {
 
     @Override
     public void viewDidLoad() {
-        //inicializarTablaProyecto();
+        searchText.setOnKeyReleased(event -> {
+            searchText.textProperty().addListener((observable, oldValue, newValue) -> {
+                didSearch(newValue);
+            });
+            refreshTable();
+        });
     }
 
     @Override
     public void viewDidShow() {
         inicializarTablaProyecto();
         cargarDatos();
-
-        searchText.setOnKeyReleased(event -> {
-            searchText.textProperty().addListener((observable, oldValue, newValue) -> {
-               didSearch(newValue);
-            });
-            refreshTable();
-        });
     }
 
     public void viewDidClose(){
@@ -95,7 +91,6 @@ public class ProyectoView extends View {
         endDateColumn.setCellValueFactory(new PropertyValueFactory<>("fechaTermino"));
         amountColumn.setCellValueFactory(new PropertyValueFactory<>("estimacion"));
         clientColumn.setCellValueFactory(new PropertyValueFactory<>("cliente"));
-
     }
 
     private SortedList<ProyectoCell> sortedList() {
@@ -114,12 +109,12 @@ public class ProyectoView extends View {
                 ProyectoCell.getNombreProyecto().toLowerCase().contains(query.toLowerCase()) ||
                         ProyectoCell.getId().toLowerCase().contains(query.toLowerCase()) ||
                         ProyectoCell.getCliente().toLowerCase().contains(query.toLowerCase()) ||
-                        ProyectoCell.getFechaInicio().toString().contains(query.toLowerCase()) ||
-                        ProyectoCell.getFechaTermino().toString().contains(query.toLowerCase())
+                        ProyectoCell.getFechaInicio().toString().contains(query.toLowerCase())
+                        //ProyectoCell.getFechaTermino().toString().contains(query.toLowerCase())
         );
     }
 
-    private ProyectoCell selection(){
+    private ProyectoCell selection() {
         int selection = tableView.getSelectionModel().getSelectedIndex();
         if(selection>=0){
             ProyectoCell proyect = tableView.getItems().get(selection);
@@ -127,20 +122,19 @@ public class ProyectoView extends View {
         }
         return null;
     }
+
     @FXML
     public void lookDetails(ActionEvent event){
-        ProyectoCell proyect = selection();
-        if(proyect!=null) {
-            //ModificarMaterialView view = Injectable.find(ModificarMaterialView.class);
-            //view.setIdMaterial(material.getId());
-            //view.setController(controller);
-            //view.modal().withBlock(true).show();
-            refreshTable();
-        }
+        ProyectoCell cell = selection();
+        if (cell == null) return;
+        Proyecto p = controller.buscarProyecto(cell.getId());
+        DetalleProyectoView view = DetalleProyectoRouter.create(p);
+        //getCurrentStage().getScene().getRoot().setDisable(true);
+        view.modal()
+                .withStyle(StageStyle.TRANSPARENT)
+                .show();
     }
 
-   // @FXML
-    //createProyect
     public void setController(ProyectoController controller) { this.controller = controller; }
 
     public void setRouter(ProyectoRouter router) {

@@ -220,6 +220,10 @@ public class Proyecto {
         this.nombreCliente = nombreCliente;
     }
 
+    public String getNombreCliente() {
+        return nombreCliente;
+    }
+
     public static class Builder {
         private String id;
         private String nombreProyecto;

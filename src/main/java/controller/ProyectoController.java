@@ -23,8 +23,12 @@ public class ProyectoController extends Controller {
         this.view = view;
     }
 
-    public  ObservableList<ProyectoCell> getList(){
+    public ObservableList<ProyectoCell> getList(){
         return FXCollections.observableList(model.getListaProyecto().stream().map(ProyectoCell::new).collect(Collectors.toList()));
+    }
+
+    public Proyecto buscarProyecto(String id) {
+        return model.buscarProyecto(id);
     }
 
 }

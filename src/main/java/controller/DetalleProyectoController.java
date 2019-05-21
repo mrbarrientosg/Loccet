@@ -46,6 +46,8 @@ public class DetalleProyectoController extends Controller {
 
     public void setProyecto(Proyecto proyecto) {
         this.proyecto = proyecto;
+        name.setValue(proyecto.getNombre());
+        view.bind();
     }
 
     public StringProperty nameProperty() {
