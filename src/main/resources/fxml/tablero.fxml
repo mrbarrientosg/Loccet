@@ -7,12 +7,15 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" styleClass="shadowpane" stylesheets="@../css/home.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" styleClass="shadowpane" stylesheets="@../css/home.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox layoutX="244.0" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="90.0" styleClass="top-bar" AnchorPane.bottomAnchor="610.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -56,7 +59,19 @@
          <styleClass>
             <String fx:value="backgroundLight" />
             <String fx:value="content-pane" />
-         </styleClass></AnchorPane>
+         </styleClass>
+         <children>
+            <ImageView fitHeight="413.0" fitWidth="562.0" layoutX="121.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="174.17898559570312" AnchorPane.leftAnchor="121.0" AnchorPane.rightAnchor="121.0" AnchorPane.topAnchor="175.0">
+               <image>
+                  <Image url="@../images/loccetIcon.png" />
+               </image>
+            </ImageView>
+            <Text layoutX="329.0" layoutY="471.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="largeTitle" text="L O C C E T" textAlignment="CENTER" AnchorPane.bottomAnchor="124.689453125" AnchorPane.leftAnchor="329.0" AnchorPane.rightAnchor="305.4482421875" AnchorPane.topAnchor="435.373046875">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Text>
+         </children></AnchorPane>
       <VBox prefWidth="200.0" styleClass="side-menu" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0" prefWidth="200.0" styleClass="side-menu-header">
@@ -99,30 +114,6 @@
                </styleClass>
             </ToggleButton>
             <ToggleButton alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" text="Proyectos" toggleGroup="$menuToggleGroup">
-               <padding>
-                  <Insets left="16.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-               <styleClass>
-                  <String fx:value="side-menu-button" />
-                  <String fx:value="buttonLabelBlack" />
-               </styleClass>
-            </ToggleButton>
-            <ToggleButton alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" text="Facturas" toggleGroup="$menuToggleGroup">
-               <padding>
-                  <Insets left="16.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-               <styleClass>
-                  <String fx:value="side-menu-button" />
-                  <String fx:value="buttonLabelBlack" />
-               </styleClass>
-            </ToggleButton>
-            <ToggleButton alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" text="Reportes" toggleGroup="$menuToggleGroup">
                <padding>
                   <Insets left="16.0" />
                </padding>

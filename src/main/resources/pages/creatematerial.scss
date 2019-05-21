@@ -3,15 +3,21 @@
 @import "../components/buttons";
 @import "../components/textfields";
 @import "../components/backgrounds";
-@import '../components/tableview';
-@import "../components/scrollbar";
+@import '../components/textarea';
+
+@include backgroundWhite;
+
+@include backgroundgray;
+
+@include buttonFillBlue;
 
 @include buttonBlue;
-@include buttonWhite;
-@include buttonWhiteShadow;
+
+@include textFieldGrey;
 
 @include textField;
 
-@include backgroundLight;
+@include textAreaGray;
 
-@include textFieldGrey;
+@include title3;
+

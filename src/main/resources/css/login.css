@@ -1,3 +1,22 @@
+/*
+@mixin backgroundTransparent {
+  .backgroundTransparent {
+    -fx-background-color: transparent;
+  }
+}
+
+@mixin backgroundWhite {
+  .backgroundWhite {
+    -fx-background-color: white;
+  }
+}
+
+@mixin backgroundLight {
+  .backgroundLight {
+    -fx-background-color: $ghost-white; //TODO: cambio
+  }
+}
+*/
 @font-face {
   font-family: "Heebo";
   src: url("../fonts/Heebo-Regular.ttf") format("truetype"); }

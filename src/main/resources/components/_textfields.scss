@@ -2,6 +2,6 @@
   #{'.textFieldGrey'} {
     -fx-text-fill: black;
     -fx-prompt-text-fill: darken(lightGray, 30%);
-    -fx-background-color: #F0F0F0;
+    -fx-background-color: $gray; //TODO: cambio 1
   }
 }

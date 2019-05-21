@@ -1,0 +1,143 @@
+.date-picker > .grayDatePicker{
+
+}
+
+.grayDatePicker > .arrow-button {
+  -fx-background-color: $gray;
+  -fx-background-insets: 1 1 1 0, 1, 2;
+  -fx-background-radius: 0 3 3 0, 0 2 2 0, 0 1 1 0;
+}
+
+.grayDatePicker > .text-field {
+  -fx-background-color: $gray;
+  -fx-background-insets: 1 0 1 1;
+  -fx-background-radius: 2 0 0 2;
+}
+
+.grayDatePicker:focused {
+  -fx-background-color: $gray;
+  -fx-background-insets: -0.2;
+  -fx-background-radius: 3;
+}
+
+.grayDatePicker:focused > .text-field,
+.grayDatePicker > .text-field:focused {
+  -fx-background-color: $gray;
+  -fx-border-color: $gray;
+  -fx-background-insets: 1 0 1 1, 1 0 1 1, 3 2 3 3;
+  -fx-background-radius: 2 0 0 2, 1 0 0 1, 0;
+}
+
+.grayDatePicker:focused > .arrow-button {
+  -fx-background-color: $gray;
+  -fx-background-insets: 1, 2, 1, 2.6;
+  -fx-background-radius: 0 2 2 0, 0 1 1 0, 0 1 1 0, 0 1 1 0;
+}
+
+.date-picker-popup {
+  -fx-background-color:$gray;
+  -fx-background-insets: 0, 1;
+  -fx-background-radius: 0;
+  -fx-alignment: CENTER; /* VBox */
+  -fx-spacing: 0; /* VBox */
+  -fx-padding: 0.083333em; /* 1 1 1 1 */
+  -fx-font-family: "Heebo Light";
+  -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.2) , 12, 0.0 , 0 , 8 );
+}
+
+//color del panel que controla los meses y el año
+.date-picker-popup > .month-year-pane {
+  -fx-padding: 0.588883em 0.5em 0.666667em 0.5em;
+  -fx-background-color: $gray;/*$dark-blue, linear-gradient(to top right, reflect, $dark-blue, $light-blue);*/
+  -fx-background-insets: 0 0 0 0, 0 0 1 0;
+  -fx-text-fill: $gray;
+}
+
+.date-picker-popup > * > .spinner > .button {
+  -fx-background-color: transparent;
+  -fx-background-insets: 0, 1, 2;
+  -fx-color: transparent;
+  -fx-background-radius: 0;
+}
+
+.date-picker-popup > .calendar-grid {
+  -fx-background-color: $gray;/*derive($dark-blue, 60%);*/
+  -fx-padding: 0;
+  -fx-text-fill: $dark-blue;
+}
+
+.date-picker-popup > * > .spinner > .label {
+  -fx-alignment: CENTER;
+  -fx-font-family: "Heebo Light";
+  -fx-font-size: 12px;
+}
+.date-picker-popup > * > .day-name-cell,
+.date-picker-popup > * > .week-number-cell {
+  -fx-font-size: 12px;
+}
+//Color de las flechas
+.date-picker-popup > * > .spinner > .button > .left-arrow,
+.date-picker-popup > * > .spinner > .button > .right-arrow {
+  -fx-background-color: $dark-blue, derive($dark-blue,-45%);
+  -fx-background-insets: 1 0 -1 0, 0;
+  -fx-padding: 0.333333em 0.166667em 0.333333em 0.166667em; /* 4 2 4 2 */
+  -fx-effect: dropshadow(two-pass-box , $dark-blue, 1, 0.0 , 0, 1.4);
+}
+
+.date-picker-popup > * > .week-number-cell {
+  -fx-padding: 0.333333em 0.583333em 0.333333em 0.583333em; /* 4 7 4 7 */
+  -fx-border-color: $gray;
+  -fx-border-width: 1px;
+  -fx-background: transparent;
+  //-fx-background-color: $gray;
+  -fx-text-fill: black;
+}
+.date-picker-popup > * > .day-cell {
+  -fx-padding: /*0.333333em 0.583333em 0.333333em 0.583333em;*/  4 7 4 7 ;
+  // -fx-border-color: $gray;//derive($dark-blue, 60%);
+  -fx-border-width: 1px;
+  -fx-font-size: 1em;
+  //-fx-background: $yellow;
+  -fx-background-color: $gray;/* $dark-blue, linear-gradient(to top right, reflect, $dark-blue, $light-blue);*/
+  -fx-text-fill: black;
+}
+
+//La fecha seleccionada
+.date-picker-popup > * > .day-cell:focused,
+.date-picker-popup > * > .today:focused {
+  -fx-background-color: $dark-blue;
+  -fx-background-insets: 1, 2, 3;
+  -fx-text-fill: $gray;
+}
+//Fecha en que se encuentra el usuario
+.date-picker-popup > * > .today {
+  -fx-background-color: $light-blue;//-fx-control-inner-background, derive(-fx-selection-bar-non-focused, -20%), -fx-control-inner-background;
+  -fx-background-insets: 1, 2, 3;
+  -fx-text-fill: $gray;
+}
+.date-picker-popup > * > .previous-month,
+.date-picker-popup > * > .next-month {
+  -fx-background: derive(-fx-control-inner-background, -4%);
+}
+//Marca por donde pase el mouse
+.date-picker-popup > * > .day-cell:hover,
+.date-picker-popup > * > .selected,
+.date-picker-popup > * > .previous-month.selected,
+.date-picker-popup > * > .next-month.selected {
+  -fx-background-color: $dark-blue;
+}
+.date-picker-popup > * > .previous-month:hover,
+.date-picker-popup > * > .next-month:hover {
+  -fx-background-color: $gray;
+}
+.date-picker-popup > * > .previous-month,
+.date-picker-popup > * > .next-month {
+  -fx-text-fill: $gray-shadow;
+  //-fx-background-color:green;
+}
+@mixin datePickerGray {
+  #{'.datePickerGray'} {
+
+
+  }
+}
