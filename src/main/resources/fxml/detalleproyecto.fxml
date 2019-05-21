@@ -8,8 +8,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -22,7 +20,7 @@
    <children>
       <ScrollPane fitToWidth="true">
          <content>
-            <VBox styleClass="backgroundWhite">
+            <VBox fx:id="container" styleClass="backgroundWhite">
                <children>
                   <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="10.0">
                      <children>
@@ -141,7 +139,7 @@
                         <VBox spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
                            <children>
                               <Label styleClass="paragraph" text="Fecha termino" />
-                              <DatePicker maxWidth="1.7976931348623157E308">
+                              <DatePicker fx:id="endDateField" disable="true" maxWidth="1.7976931348623157E308">
                                  <styleClass>
                                     <String fx:value="grayDatePicker" />
                                     <String fx:value="textField" />
@@ -152,8 +150,8 @@
                         </VBox>
                         <VBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                            <children>
-                              <Label styleClass="paragraph" text="Fecha Inicio" />
-                              <DatePicker maxWidth="1.7976931348623157E308">
+                              <Label styleClass="paragraph" text="Fecha inicio" />
+                              <DatePicker fx:id="startDateField" disable="true" maxWidth="1.7976931348623157E308">
                                  <styleClass>
                                     <String fx:value="grayDatePicker" />
                                     <String fx:value="textFieldGrey" />
@@ -167,88 +165,6 @@
                         <Insets bottom="16.0" left="16.0" right="16.0" />
                      </VBox.margin>
                   </GridPane>
-                  <VBox alignment="CENTER" spacing="10.0">
-                     <VBox.margin>
-                        <Insets left="16.0" right="16.0" top="8.0" />
-                     </VBox.margin>
-                     <children>
-                        <HBox alignment="CENTER" spacing="10.0">
-                           <children>
-                              <Label styleClass="title1" text="Trabajadores">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Separator visible="false" HBox.hgrow="ALWAYS" />
-                              <ButtonBar HBox.hgrow="ALWAYS">
-                                 <buttons>
-                                    <Button mnemonicParsing="false" styleClass="buttonBlue" text="Agregar trabajador" />
-                                    <Button mnemonicParsing="false" styleClass="buttonFillBlue" text="Ver detalle" />
-                                 </buttons>
-                              </ButtonBar>
-                           </children>
-                        </HBox>
-                        <TextField promptText="Buscar trabajador">
-                           <styleClass>
-                              <String fx:value="textField" />
-                              <String fx:value="textFieldGrey" />
-                           </styleClass></TextField>
-                     </children>
-                  </VBox>
-                  <TableView prefHeight="200.0" prefWidth="200.0">
-                     <columns>
-                        <TableColumn prefWidth="75.0" text="C1" />
-                        <TableColumn prefWidth="75.0" text="C2" />
-                     </columns>
-                     <VBox.margin>
-                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                     </VBox.margin>
-                     <styleClass>
-                        <String fx:value="rrhh-table" />
-                        <String fx:value="backgroundgray" />
-                     </styleClass>
-                  </TableView>
-                  <VBox alignment="CENTER" spacing="10.0">
-                     <children>
-                        <HBox alignment="CENTER" spacing="10.0">
-                           <children>
-                              <Label styleClass="title1" text="Inventario">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Separator visible="false" HBox.hgrow="ALWAYS" />
-                              <ButtonBar HBox.hgrow="ALWAYS">
-                                 <buttons>
-                                    <Button mnemonicParsing="false" styleClass="buttonBlue" text="Agregar material" />
-                                    <Button mnemonicParsing="false" styleClass="buttonFillBlue" text="Ver detalle" />
-                                 </buttons>
-                              </ButtonBar>
-                           </children>
-                        </HBox>
-                        <TextField promptText="Buscar material">
-                           <styleClass>
-                              <String fx:value="textField" />
-                              <String fx:value="textFieldGrey" />
-                           </styleClass></TextField>
-                     </children>
-                     <VBox.margin>
-                        <Insets left="16.0" right="16.0" top="8.0" />
-                     </VBox.margin>
-                  </VBox>
-                  <TableView prefHeight="200.0" prefWidth="200.0">
-                     <columns>
-                        <TableColumn prefWidth="75.0" text="C1" />
-                        <TableColumn prefWidth="75.0" text="C2" />
-                     </columns>
-                     <VBox.margin>
-                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                     </VBox.margin>
-                     <styleClass>
-                        <String fx:value="rrhh-table" />
-                        <String fx:value="backgroundgray" />
-                     </styleClass>
-                  </TableView>
                </children>
             </VBox>
          </content>

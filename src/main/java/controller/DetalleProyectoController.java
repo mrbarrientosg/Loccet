@@ -1,10 +1,13 @@
 package controller;
 
 import base.Controller;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import model.Proyecto;
 import view.DetalleProyectoView;
+
+import java.time.LocalDate;
 
 public class DetalleProyectoController extends Controller {
 
@@ -24,9 +27,9 @@ public class DetalleProyectoController extends Controller {
 
     private StringProperty client = new SimpleStringProperty();
 
-    //private StringProperty startDate = new SimpleStringProperty();
+    //private ObjectProperty<LocalDate> startDate = new SimpleStringProperty();
 
-    //private StringProperty endDate = new SimpleStringProperty();
+    //private ObjectProperty<LocalDate> endDate = new SimpleStringProperty();
 
 
     public void actualizar() {
@@ -37,8 +40,20 @@ public class DetalleProyectoController extends Controller {
         proyecto.getLocalizacion().setCiudad(city.get());
         proyecto.setNombreCliente(client.get());
 
+
+        view.didSave();
         // falta servicio para actualizar en la bd
     }
+
+    private void loadData() {
+        name.setValue(proyecto.getNombre());
+        address.setValue(proyecto.getLocalizacion().getCodigoPostal());
+        country.setValue(proyecto.getLocalizacion().getPais());
+        state.setValue(proyecto.getLocalizacion().getEstado());
+        city.setValue(proyecto.getLocalizacion().getCiudad());
+        client.setValue(proyecto.getNombreCliente());
+    }
+
 
     public void setView(DetalleProyectoView view) {
         this.view = view;
@@ -46,7 +61,7 @@ public class DetalleProyectoController extends Controller {
 
     public void setProyecto(Proyecto proyecto) {
         this.proyecto = proyecto;
-        name.setValue(proyecto.getNombre());
+        loadData();
         view.bind();
     }
 

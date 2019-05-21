@@ -12,6 +12,8 @@ import repository.RepositoryTrabajador;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Proyecto {
 
@@ -142,6 +144,13 @@ public class Proyecto {
 
     public void agregarRegistroMaterial(String idMaterial, RegistroMaterial registroMaterial) {
         inventarioMaterial.agregarRegistroMaterial(idMaterial, registroMaterial);
+    }
+
+    public List<Trabajador> getTrabajadores() {
+        // Hay cambiarlo por un iterator
+        List<Trabajador> list = new ArrayList<>();
+        repositoryTrabajador.get().forEachRemaining(list::add);
+        return list;
     }
 
 

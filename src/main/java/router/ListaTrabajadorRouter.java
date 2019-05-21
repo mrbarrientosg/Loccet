@@ -5,14 +5,14 @@ import controller.ListaTrabajadorController;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import model.Constructora;
+import model.Proyecto;
 import view.ListaTrabajadorView;
 
 public final class ListaTrabajadorRouter {
 
-    public static ListaTrabajadorView create(Constructora model) {
+    public static ListaTrabajadorView create(Proyecto model) {
         ListaTrabajadorView view = Injectable.find(ListaTrabajadorView.class);
-        ListaTrabajadorRouter router = new ListaTrabajadorRouter();
-        ListaTrabajadorController controller = new ListaTrabajadorController(view,  model, router);
+        ListaTrabajadorController controller = new ListaTrabajadorController(view,  model);
 
         view.setController(controller);
 

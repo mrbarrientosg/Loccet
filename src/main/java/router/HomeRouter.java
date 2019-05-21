@@ -31,9 +31,9 @@ public final class HomeRouter {
     }
 
     public void listaTrabajadores(Constructora model) {
-        ListaTrabajadorView view = ListaTrabajadorRouter.create(model);
+        //ListaTrabajadorView view = ListaTrabajadorRouter.create(model);
 
-        NodeUtils.replaceWith(master.getRoot().getCenter(), view.getRoot(), true, true, null);
+        //NodeUtils.replaceWith(master.getRoot().getCenter(), view.getRoot(), true, true, null);
 
     }
 

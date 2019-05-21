@@ -69,7 +69,6 @@ public final class InventarioMaterialView extends Fragment {
 
     @Override
     public void viewDidLoad() {
-        inicializarTablaMateriales();
         searchText.setOnKeyReleased(event -> {
             searchText.textProperty().addListener((observable, oldValue, newValue) -> {
                 controller.didSearch(newValue);
@@ -78,6 +77,10 @@ public final class InventarioMaterialView extends Fragment {
         });
    }
 
+    @Override
+    public void viewDidShow() {
+        inicializarTablaMateriales();
+    }
 
     /**
      * Funcion que mostrara la vista de nuevo material.
@@ -255,7 +258,8 @@ public final class InventarioMaterialView extends Fragment {
                         setText(null);
                     }
                     else {
-                        setText(format.format(item));
+                        if (item != null) setText(format.format(item));
+                        else setText(null);
                     }
                 }
             };

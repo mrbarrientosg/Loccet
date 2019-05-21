@@ -7,11 +7,21 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import router.DetalleProyectoRouter;
+import router.ListaTrabajadorRouter;
 
 public class DetalleProyectoView extends View {
 
     private DetalleProyectoController controller;
+
+    private DetalleProyectoRouter router;
+
+    private ListaTrabajadorView listaTrabajadorView;
+
+    private InventarioMaterialView inventarioMaterialView;
 
     @FXML
     private Button editButton;
@@ -41,10 +51,13 @@ public class DetalleProyectoView extends View {
     private TextField clientField;
 
     @FXML
-    private TextField endDateField;
+    private DatePicker endDateField;
 
     @FXML
-    private TextField startDateField;
+    private DatePicker startDateField;
+
+    @FXML
+    private VBox container;
 
     private Boolean isEditing;
 
@@ -55,18 +68,30 @@ public class DetalleProyectoView extends View {
         isEditing = false;
         disable = new SimpleBooleanProperty(true);
 
-        nameField.disableProperty().bindBidirectional(disable);
-        addressField.disableProperty().bindBidirectional(disable);
-        countryField.disableProperty().bindBidirectional(disable);
-        stateField.disableProperty().bindBidirectional(disable);
-        cityField.disableProperty().bindBidirectional(disable);
-        clientField.disableProperty().bindBidirectional(disable);
+        nameField.disableProperty().bind(disable);
+        addressField.disableProperty().bind(disable);
+        countryField.disableProperty().bind(disable);
+        stateField.disableProperty().bind(disable);
+        cityField.disableProperty().bind(disable);
+        clientField.disableProperty().bind(disable);
 
-        startDateField.disableProperty().bindBidirectional(disable);
-        endDateField.disableProperty().bindBidirectional(disable);
+        //startDateField.disableProperty().bindBidirectional(disable);
+        //endDateField.disableProperty().bindBidirectional(disable);
 
         editButton.setOnAction(this::editAction);
         exitButton.setOnAction(event -> close());
+    }
+
+    @Override
+    public void viewDidShow() {
+        container.getChildren().add(listaTrabajadorView.getRoot());
+        container.getChildren().add(inventarioMaterialView.getRoot());
+    }
+
+    @Override
+    public void viewDidClose() {
+        container.getChildren().remove(listaTrabajadorView.getRoot());
+        container.getChildren().remove(inventarioMaterialView.getRoot());
     }
 
     public void bind() {
@@ -92,7 +117,23 @@ public class DetalleProyectoView extends View {
         }
     }
 
+    public void didSave() {
+        router.showSaveAlert();
+    }
+
     public void setController(DetalleProyectoController controller) {
         this.controller = controller;
+    }
+
+    public void setRouter(DetalleProyectoRouter router) {
+        this.router = router;
+    }
+
+    public void setListaTrabajadorView(ListaTrabajadorView listaTrabajadorView) {
+        this.listaTrabajadorView = listaTrabajadorView;
+    }
+
+    public void setInventarioMaterialView(InventarioMaterialView inventarioMaterialView) {
+        this.inventarioMaterialView = inventarioMaterialView;
     }
 }

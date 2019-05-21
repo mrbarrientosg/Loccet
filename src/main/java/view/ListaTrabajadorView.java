@@ -8,6 +8,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -58,6 +59,13 @@ public final class ListaTrabajadorView extends Fragment {
     @FXML
     private TableColumn<TrabajadorCell, String> emailColumn;
 
+    private ObjectProperty<TrabajadorCell> selectedTrabajador = new SimpleObjectProperty<>();
+
+    private ObservableList<TrabajadorCell> trabajadorCells;
+
+    private FilteredList<TrabajadorCell> filteredMateriales;
+
+
     @Override
     public void viewDidLoad() {
 
@@ -68,30 +76,29 @@ public final class ListaTrabajadorView extends Fragment {
         specialityColumn.setCellValueFactory(new PropertyValueFactory<>("nombreEspecialidad"));
         horasTrabajoColumn.setCellValueFactory(new PropertyValueFactory<>("cantidadDeHoras"));
         sueldoHoraColumn.setCellValueFactory(new PropertyValueFactory<>("sueldoPorHora"));
-        //proyectColumn.setCellValueFactory(new PropertyValueFactory<>("sueldoPorHora"));
         telefonoColumn.setCellValueFactory(new PropertyValueFactory<>("telefono"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("correoElectronico"));
 
         searchTextField.setOnKeyReleased(event -> {
             searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-                controller.didSearch(newValue);
+                didSearch(newValue);
             });
             refreshTable();
         });
-
 
     }
 
     @Override
     public void viewDidShow() {
+        trabajadorCells = controller.loadData();
+        filteredMateriales = new FilteredList<>(trabajadorCells, e -> true);
+        selectedTrabajador.bind(tableView.getSelectionModel().selectedItemProperty());
         refreshTable();
-
-        controller.selectedTrabajadorProperty().bind(tableView.getSelectionModel().selectedItemProperty());
     }
 
     @Override
     public void viewDidClose() {
-        controller.selectedTrabajadorProperty().unbind();
+        selectedTrabajador.unbind();
     }
 
     @FXML
@@ -99,15 +106,26 @@ public final class ListaTrabajadorView extends Fragment {
 
     }
 
-
     public void setController(ListaTrabajadorController controller) {
         this.controller = controller;
     }
 
     public void refreshTable() {
-        SortedList sortedList = controller.sortedList();
+        SortedList sortedList = new SortedList<>(filteredMateriales);
         tableView.setItems(sortedList);
         sortedList.comparatorProperty().bind(tableView.comparatorProperty());
+    }
+
+    /**
+     * Filtra la busqueda de la vista
+     * @param query String que contiene la busqueda de la vista
+     */
+    public void didSearch(String query) {
+        filteredMateriales.setPredicate(materialCell ->
+                materialCell.getNombre().toLowerCase().contains(query.toLowerCase()) ||
+                        materialCell.getRut().toLowerCase().contains(query.toLowerCase()) ||
+                        materialCell.getApellido().toLowerCase().contains(query.toLowerCase())
+        );
     }
 
 }
