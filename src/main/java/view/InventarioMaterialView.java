@@ -149,7 +149,7 @@ public final class InventarioMaterialView extends Fragment {
         if(material!=null) {
             AgregarMaterialView view = Injectable.find(AgregarMaterialView.class);
             view.setIdMaterial(material.getId());
-            view.setController(controller);
+            //view.setController(controller);
             view.modal().withBlock(true).show();
             tablaInventario.refresh();
         }
