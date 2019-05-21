@@ -38,6 +38,10 @@ public class InventarioMaterial {
         return repositoryMaterial.remove(repositoryMaterial.get(id));
     }
 
+
+
+
+
     public void agregarRegistroMaterial(String idMaterial, RegistroMaterial registroMaterial) {
         repositoryMaterial.get(idMaterial).agregarRegistro(registroMaterial);
     }

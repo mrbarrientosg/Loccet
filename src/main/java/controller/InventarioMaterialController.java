@@ -45,6 +45,11 @@ public final class InventarioMaterialController extends Controller {
 
     private ExportFile exportFile;
 
+    /**
+     * @param view  inventario material
+     * @param model  inventario material
+     * @param router inventario material
+     */
     public InventarioMaterialController(InventarioMaterialView view, InventarioMaterial model, InventarioMaterialRouter router) {
         this.view = view;
         this.model = model;
@@ -68,7 +73,7 @@ public final class InventarioMaterialController extends Controller {
      *
      * @author Sebastian Fuenzalida.
      *
-     * @return
+     * @return lista de materiales
      */
     public SortedList<MaterialCell> sortedList() {
         return new SortedList<>(filteredMateriales);
@@ -92,11 +97,12 @@ public final class InventarioMaterialController extends Controller {
     }
 
     public void modificarNombre(String idMaterial, String nombre){
-        //changeMaterial(model.modificarNombre(idMaterial, nombre));
+       // changeMaterial(model.modificarNombre(idMaterial, nombre));
     }
 
+
     public void modificarDescripcion(String idMaterial, String descripcion){
-        //changeMaterial(model.modificarDescripcion(idMaterial, descripcion));
+       // changeMaterial(model.modificarDescripcion(idMaterial, descripcion));
     }
 
     /**
@@ -172,6 +178,9 @@ public final class InventarioMaterialController extends Controller {
         Files.copy(file.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
     }
 
+    /**
+     * @param newValue material
+     */
     private void changeMaterial(Material newValue) {
         ListIterator<MaterialCell> iterator = listMateriales.listIterator();
 
@@ -182,7 +191,9 @@ public final class InventarioMaterialController extends Controller {
             }
         }
     }
-
+    /**
+     * @param proyecto proyecto
+     */
     public void setProyecto(Proyecto proyecto) {
         this.proyecto = proyecto;
     }
