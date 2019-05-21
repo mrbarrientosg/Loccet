@@ -3,6 +3,7 @@ package view;
 import base.View;
 import cell.TrabajadorCell;
 import controller.RRHHController;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -29,14 +30,17 @@ public class RRHHView extends View {
     @FXML
     private TableColumn<TrabajadorCell, String> rutColumn;
 
+    private SortedList<TrabajadorCell> trabajadorCells;
+
     @Override
     public void viewDidLoad() {
         rutColumn.setCellValueFactory(new PropertyValueFactory<>("rut"));
+        tableView.setItems(trabajadorCells);
     }
 
     @Override
     public void viewDidShow() {
-
+        trabajadorCells = controller.obtenerTrabajadores();
     }
 
     public void setController(RRHHController controller) {
