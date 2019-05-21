@@ -98,7 +98,7 @@
                   <String fx:value="buttonLabelBlack" />
                </styleClass>
             </ToggleButton>
-            <ToggleButton alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" text="Proyectos" toggleGroup="$menuToggleGroup">
+            <ToggleButton fx:id="proyectoButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" text="Proyectos" toggleGroup="$menuToggleGroup">
                <padding>
                   <Insets left="16.0" />
                </padding>

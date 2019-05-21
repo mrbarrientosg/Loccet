@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import router.ProyectoRouter;
 import router.RRHHRouter;
 
 import java.io.IOException;
@@ -39,6 +40,9 @@ public class TableroView extends Fragment {
 
     @FXML
     private Button exitButton;
+
+    @FXML
+    private ToggleButton proyectoButton;
 
     private Toggle lastSelected;
 
@@ -120,6 +124,9 @@ public class TableroView extends Fragment {
         if (button == rrhhButton) {
             RRHHView rrhhView = RRHHRouter.create();
             setCenter(rrhhView.getRoot());
+        }else if(button == proyectoButton){
+            ProyectoView proyectoView = ProyectoRouter.create();
+            setCenter(proyectoView.getRoot());
         }
     }
 }
