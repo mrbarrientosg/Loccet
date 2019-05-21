@@ -3,7 +3,15 @@ package router;
 import base.Injectable;
 import controller.DetalleMaterialController;
 import view.DetalleMaterialView;
+
+/**
+ * @author Sebastian Fuenzalida.
+ */
 public class DetalleMaterialRouter {
+    /**
+     *
+     * @return vista detalle material
+     */
     public static DetalleMaterialView create() {
         DetalleMaterialView view = Injectable.find(DetalleMaterialView.class);
         DetalleMaterialRouter router = new DetalleMaterialRouter();

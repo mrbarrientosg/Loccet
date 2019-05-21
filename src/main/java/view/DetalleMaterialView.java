@@ -9,8 +9,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import model.RegistroMaterial;
 import router.DetalleMaterialRouter;
 
-
+/**
+ * Clase vista del detalle de un material.
+ *
+ * @author Sebastian Fuenzalida.
+ */
 public class DetalleMaterialView extends Fragment {
+    //Se declaran las variables.
 
     private DetalleMaterialController controller;
     private DetalleMaterialRouter router;
@@ -35,12 +40,19 @@ public class DetalleMaterialView extends Fragment {
     @FXML
     private Button salirBT;
 
+
     @Override
     public void viewDidLoad() {
         mostrarDatos();
         inicializarTablaRegistro();
         editando = false;
     }
+
+    /**
+     * Funcion que muestra en la vista los datos del material.
+     *
+     * @author Sebastian Fuenzalida.
+     */
     private void mostrarDatos(){
         idTF.setDisable(true);
         nombreTF.setDisable(true);
@@ -53,31 +65,49 @@ public class DetalleMaterialView extends Fragment {
         descripcionTA.setText(controller.getDescripcion());
     }
 
+    /**
+     * Funcion que permite tanto comenzar un edit como guardar los cambios realizados.
+     *
+     * @param event Presionar boton editar/guardar
+     *
+     * @author Sebastian Fuenzalida.
+     */
     public void editar(ActionEvent event){
-        if (editando == false ) {
-            idTF.setDisable(false);
-            nombreTF.setDisable(false);
-            cantidadTF.setDisable(false);
+
+        if (!editando) { // Si la variable es falsa significa que aun no es presionado el boton editar.
+            nombreTF.setDisable(false);// Se activar los textField editables
             descripcionTA.setDisable(false);
-            editarBT.setText("Guardar");
-        }else {
-            controller.ModificarDescripcion(descripcionTA.getText());
-            controller.modificarNombre(nombreTF.getText());
-            idTF.setDisable(true);
-            nombreTF.setDisable(true);
-            cantidadTF.setDisable(true);
+            editarBT.setText("Guardar");//Se cambia el boton editar a guardar.
+        }else {//Si la variable es verdadera se comienza con el proceso de guardado.
+            controller.ModificarDescripcion(descripcionTA.getText());//Se modifica la descripcion.
+            controller.modificarNombre(nombreTF.getText());//Se modifca el nombre.
+            nombreTF.setDisable(true);//Se desactivan los textField
             descripcionTA.setDisable(true);
-            editarBT.setText("Editar");
+            editarBT.setText("Editar");//Se regresa el boton a editar.
         }
     }
 
+    /**
+     *
+     * Funcion que carga los datos en la tabla.
+     *
+     * @author Sebastian Fuenzalida.
+     */
     private void inicializarTablaRegistro() {
         fechaCL.setCellValueFactory(new PropertyValueFactory<>("fecha"));
         cantidadCL.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
     }
+
+    /**
+     * @param controller detalleMaterial
+     */
     public void setController(DetalleMaterialController controller) {
         this.controller = controller;
     }
+
+    /**
+     * @param router  detalleMaterial
+     */
     public void setRouter(DetalleMaterialRouter router){this.router = router;}
 }
 

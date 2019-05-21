@@ -76,7 +76,6 @@ public final class InventarioMaterialView extends Fragment {
             });
             refreshTable();
         });
-
    }
 
     @Override
@@ -89,7 +88,7 @@ public final class InventarioMaterialView extends Fragment {
      *
      * @author Sebastian Fuenzalida.
      *
-     * @param event
+     * @param event presionar el boton nuevo material
      */
     @FXML
     public void nuevoMaterial(ActionEvent event){
@@ -104,7 +103,7 @@ public final class InventarioMaterialView extends Fragment {
      *
      * @author Sebastian Fuenzalida.
      *
-     * @return
+     * @return un material en caso de haber sido seleccionado.
      */
     public MaterialCell seleccion(){
         int seleccion = tablaInventario.getSelectionModel().getSelectedIndex();
@@ -120,7 +119,7 @@ public final class InventarioMaterialView extends Fragment {
      *
      * @author Sebastian Fuenzalida.
      *
-     * @param event
+     * @param event presiona el boton modificar
      */
     @FXML
     public void modificarMaterial(ActionEvent event){
@@ -143,7 +142,7 @@ public final class InventarioMaterialView extends Fragment {
      *
      * @author Sebastian Fuenzalida.
      *
-     * @param event
+     * @param event presiona el boton agregar
      */
     @FXML
     public void agregarMaterial(ActionEvent event){
@@ -165,7 +164,7 @@ public final class InventarioMaterialView extends Fragment {
      *
      * @author Sebastian Fuenzalida.
      *
-     * @param event
+     * @param event presiona el boton retirar
      */
     @FXML
     public void retirarMaterial(ActionEvent event){
@@ -192,7 +191,7 @@ public final class InventarioMaterialView extends Fragment {
      *
      * @author Sebastian Fuenzalida.
      *
-     * @param event
+     * @param event presiona el boton eliminar
      */
     @FXML
     public void eliminar(ActionEvent event){
@@ -275,12 +274,19 @@ public final class InventarioMaterialView extends Fragment {
         refreshTable();
     }
 
+
+    /**
+     * Funcion que recarga la tabla.
+     */
     private void refreshTable() {
         SortedList sortedList = controller.sortedList();
         tablaInventario.setItems(sortedList);
         sortedList.comparatorProperty().bind(tablaInventario.comparatorProperty());
     }
 
+    /**
+     * @param controller inventario Material
+     */
     public void setController(InventarioMaterialController controller) {
         this.controller = controller;
     }
