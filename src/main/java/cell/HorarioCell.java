@@ -18,9 +18,9 @@ public final class HorarioCell {
     private LocalTime fechaTermino;
 
     public HorarioCell(Horario h) {
-        id = h.getId();
+        //id = h.getId();
         dia = h.getDia();
-        nombreProyecto = h.getNombreProyecto();
+        //nombreProyecto = h.getNombreProyecto();
         fechaInicio = h.getFechaInicio();
         fechaTermino = h.getFechaTermino();
     }

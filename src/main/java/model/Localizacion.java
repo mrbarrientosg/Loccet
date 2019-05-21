@@ -1,5 +1,7 @@
 package model;
 
+import com.google.gson.JsonObject;
+
 public class Localizacion {
 
     private String direccion;
@@ -19,6 +21,7 @@ public class Localizacion {
         this.estado = builder.estado;
         this.ciudad = builder.ciudad;
     }
+
 
     public String getDireccion() {
         return direccion;

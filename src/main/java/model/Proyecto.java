@@ -1,75 +1,77 @@
 package model;
 
-import util.StringUtils;
+import com.google.gson.*;
+import json.LocalDateTypeConverter;
+import repository.RepositoryAsistencia;
+import repository.RepositoryFase;
+import repository.memory.MemoryRepositoryAsistencia;
+import repository.memory.MemoryRepositoryFase;
+import repository.memory.MemoryRepositoryTrabajador;
+import repository.RepositoryTrabajador;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.time.Duration;
+import java.lang.reflect.Type;
+import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.*;
 
 public class Proyecto {
 
     // MARK: - Variables
     private String id;
 
-    private String nombreProyecto;
+    private String nombre;
 
-    private String jefeProyecto;
-
-    private String mailCliente;
-
-    private String cliente;
-
-    private String telefonoCliente;
-
-    private String direccion;
-
-    private String pais;
-
-    private String ciudad;
-
-    private String estado;
+    private Localizacion localizacion;
 
     private LocalDate fechaInicio;
 
     private LocalDate fechaTermino;
 
-    private double estimacion;
+    private BigDecimal estimacion;
 
-    private List<Trabajador> listaTrabajadores;
+    private String nombreCliente;
 
-    private Map<String, Trabajador> mapTrabajadores;
+    private RepositoryTrabajador repositoryTrabajador;
+
+    private RepositoryAsistencia repositoryAsistencia;
+
+    private RepositoryFase repositoryFase;
 
     private InventarioMaterial inventarioMaterial;
-
-    // TODO: Implementar equipo y maquinarias.
-
 
     // MARK: - Constructor
 
     private Proyecto(Builder builder){
         this.id = builder.id;
-        this.nombreProyecto = builder.nombreProyecto;
-        this.jefeProyecto = builder.jefeProyecto;
-        this.estimacion = builder.estimacion;
-        this.cliente = builder.cliente;
-        this.telefonoCliente = builder.telefonoCliente;
-        this.mailCliente = builder.mailCliente;
-        this.direccion = builder.direccion;
-        this.pais = builder.pais;
-        this.estado = builder.estado;
-        this.ciudad = builder.ciudad;
+        this.nombre = builder.nombreProyecto;
         this.fechaInicio = builder.fechaInicio;
         this.fechaTermino = builder.fechaTermino;
 
-        listaTrabajadores = new ArrayList<>();
-        mapTrabajadores = new HashMap<>();
-
+        repositoryAsistencia = new MemoryRepositoryAsistencia();
+        repositoryTrabajador = new MemoryRepositoryTrabajador();
+        repositoryFase = new MemoryRepositoryFase();
         inventarioMaterial = new InventarioMaterial();
     }
 
+    public Proyecto() {
+        repositoryAsistencia = new MemoryRepositoryAsistencia();
+        repositoryTrabajador = new MemoryRepositoryTrabajador();
+        repositoryFase = new MemoryRepositoryFase();
+        inventarioMaterial = new InventarioMaterial();
+    }
 
+    public Proyecto(JsonObject json) {
+        id = json.get("id").getAsString();
+        nombre = json.get("nombre").getAsString();
+        estimacion = json.get("costo_estimado").getAsBigDecimal();
+        nombreCliente = json.get("nombre_cliente").getAsString();
+        //fechaInicio = LocalDate.parse(json.get("fecha_inicio").getAsString());
+
+        //System.out.println(json.get("fecha_termino").isJsonNull());
+
+        //localizacion = new Localizacion(new JsonParser().parse(json.get("localizacion").getAsString()).getAsJsonObject());
+
+
+    }
     // MARK: - Getter
 
     public LocalDate getFechaInicio() {
@@ -80,49 +82,24 @@ public class Proyecto {
         return fechaTermino;
     }
 
-    public String getNombreProyecto() {
-        return nombreProyecto;
-    }
-
-    public String getJefeProyecto() {
-        return jefeProyecto;
-    }
-
-    public String getMailCliente() {
-        return mailCliente;
-    }
-
-    public String getTelefonoCliente() {
-        return telefonoCliente;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public String getPais() {
-        return pais;
-    }
-
-    public String getCiudad() {
-        return ciudad;
-    }
-
-    public String getEstado() {
-        return estado;
+    public String getNombre() {
+        return nombre;
     }
 
     public String getId() {
         return id;
     }
 
-    public double getEstimacion() {
+    public BigDecimal getEstimacion() {
         return estimacion;
     }
 
-
     public InventarioMaterial getInventarioMaterial() {
         return inventarioMaterial;
+    }
+
+    public Localizacion getLocalizacion() {
+        return localizacion;
     }
 
     // MARK: - Metodos
@@ -134,41 +111,39 @@ public class Proyecto {
      *
      * @author Matias Zuñiga
      */
-    public boolean agregarTrabajador(Trabajador trabajador){
-        if (mapTrabajadores.containsKey(trabajador.getRut())) return false;
-        trabajador.asociarProyecto(id);
-        mapTrabajadores.put(trabajador.getRut(), trabajador);
-        listaTrabajadores.add(trabajador);
-        return true;
+    public void agregarTrabajador(Trabajador trabajador){
+        trabajador.asociarProyecto(this);
+        repositoryTrabajador.add(trabajador);
     }
 
 
     public Trabajador actualizarTrabajador(Trabajador nuevoTrabajador) {
-        if (!mapTrabajadores.containsKey(nuevoTrabajador.getRut())) return null;
-        int idx = listaTrabajadores.indexOf(mapTrabajadores.get(nuevoTrabajador.getRut()));
-        listaTrabajadores.set(idx, nuevoTrabajador);
-        return mapTrabajadores.put(nuevoTrabajador.getRut(), nuevoTrabajador);
+        return repositoryTrabajador.update(nuevoTrabajador);
     }
 
+    public void agregarAsistencia(String rutTrabajador, Asistencia asistencia) {
+        asistencia.setProyecto(this);
+        asistencia.setTrabajador(repositoryTrabajador.get(rutTrabajador));
+        repositoryAsistencia.add(asistencia);
+    }
 
-//    /**
-//     * Busca todos los trabajadores que coincidan con la busqueda
-//     * @param busqueda Texto de Busqueda
-//     * @return Lista de Trabajadores encontrados
-//     *
-//     * @author Matias Barrientos
-//     */
-//    public List<Trabajador> buscarTrabajador(String busqueda) {
-//        ArrayList<Trabajador> encontrados = new ArrayList<>();
-//
-//        for (Trabajador trabajador: listaTrabajadores) {
-//            if (StringUtils.containsIgnoreCase(trabajador.getNombre(), busqueda) ||
-//                    StringUtils.containsIgnoreCase(trabajador.getRut(), busqueda))
-//                encontrados.add(trabajador);
-//        }
-//
-//        return encontrados;
-//    }
+    public void agregarFase(Fase fase) {
+        fase.setProyecto(this);
+        repositoryFase.add(fase);
+    }
+
+    public void agregarTarea(int idFase, Tarea tarea) {
+        repositoryFase.get(idFase).agregarTarea(tarea);
+    }
+
+    public void agregarMaterial(Material material) {
+        inventarioMaterial.agregarMaterial(material);
+    }
+
+    public void agregarRegistroMaterial(String idMaterial, RegistroMaterial registroMaterial) {
+        inventarioMaterial.agregarRegistroMaterial(idMaterial, registroMaterial);
+    }
+
 
     /**
      * Obtiene al trabajador el cual coincida con el rut.
@@ -178,7 +153,7 @@ public class Proyecto {
      * @author Matias Barrientos
      */
     public Trabajador obtenerTrabajador(String rut) {
-        return mapTrabajadores.get(rut);
+        return repositoryTrabajador.get(rut);
     }
 
     /**
@@ -189,12 +164,10 @@ public class Proyecto {
      * @author Matias Barrientos
      */
     public Trabajador eliminarTrabajador(String rut) {
-        if (!mapTrabajadores.containsKey(rut)) return null;
-        listaTrabajadores.remove(mapTrabajadores.get(rut));
-        return mapTrabajadores.remove(rut);
+        return repositoryTrabajador.remove(repositoryTrabajador.get(rut));
     }
 
-    public void estimacionGasto() {
+    /*public void estimacionGasto() {
         double total = inventarioMaterial.gastoTotal();
 
         NumberFormat formatter = new DecimalFormat("#0.00$");
@@ -217,6 +190,34 @@ public class Proyecto {
         System.out.println("Gasto total de la estimación: " + formatter.format(total));
 
         System.out.println("Gasto propuesto menos estimación: " + formatter.format(estimacion - total));
+    }*/
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setLocalizacion(Localizacion localizacion) {
+        this.localizacion = localizacion;
+    }
+
+    public void setFechaInicio(LocalDate fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public void setFechaTermino(LocalDate fechaTermino) {
+        this.fechaTermino = fechaTermino;
+    }
+
+    public void setEstimacion(BigDecimal estimacion) {
+        this.estimacion = estimacion;
+    }
+
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
     }
 
     public static class Builder {
@@ -280,7 +281,31 @@ public class Proyecto {
             return result;
         }
 
+    }
 
+    public static class ProyetoDeserializer implements JsonDeserializer<Proyecto> {
+
+        @Override
+        public Proyecto deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+            Proyecto p = new Proyecto();
+            JsonObject json = jsonElement.getAsJsonObject();
+
+            Gson gson = new GsonBuilder()
+                    .registerTypeAdapter(LocalDate.class, new LocalDateTypeConverter())
+                    .create();
+
+            p.setId(json.get("id").getAsString());
+            p.setNombre(json.get("nombre").getAsString());
+            p.setEstimacion(json.get("costo_estimado").getAsBigDecimal());
+            p.setNombreCliente(json.get("nombre_cliente").getAsString());
+
+            p.setFechaInicio(gson.fromJson(json.get("fecha_inicio"), LocalDate.class));
+            p.setFechaTermino(gson.fromJson(json.get("fecha_termino"), LocalDate.class));
+
+            p.setLocalizacion(gson.fromJson(json.get("localizacion").getAsString(), Localizacion.class));
+
+            return p;
+        }
     }
 
 

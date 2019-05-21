@@ -1,8 +1,14 @@
 package model;
-import util.StringUtils;
-import java.util.*;
+
+import com.google.gson.JsonObject;
+import repository.memory.MemoryRepositoryProyecto;
+import repository.memory.MemoryRepositoryTrabajador;
+import repository.RepositoryProyecto;
+import repository.RepositoryTrabajador;
+
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 public class Constructora {
 
@@ -10,48 +16,51 @@ public class Constructora {
 
     private String nombre;
 
-    private List<Proyecto> listaProyecto;
+    private String dns;
 
-    private Map<String, Proyecto> mapProyecto;
+    private static Constructora instance;
 
-    private Map<String, Trabajador> conjuntoTrabajadores;
+    private RepositoryProyecto repositoryProyecto;
 
-    public Constructora(String rut, String nombre) {
-        this.rut = rut;
-        this.nombre = nombre;
-        listaProyecto = new ArrayList<>();
-        mapProyecto = new HashMap<>();
-        conjuntoTrabajadores = new HashMap<>();
+    private RepositoryTrabajador repositoryTrabajador;
+
+    private Constructora() {
+        repositoryProyecto = new MemoryRepositoryProyecto();
+        repositoryTrabajador = new MemoryRepositoryTrabajador();
     }
+
+    public static synchronized Constructora getInstance() {
+        if (instance == null)
+            instance = new Constructora();
+        return instance;
+    }
+
+    public void init(JsonObject json) {
+        rut = json.get("rut").getAsString();
+        nombre = json.get("nombre").getAsString();
+        dns = json.get("dns").getAsString();
+    }
+
     //MARK - Metodos
 
-    public boolean agregarProyecto(Proyecto proyecto) {
-        if (listaProyecto.contains(proyecto) || mapProyecto.containsKey(proyecto.getId()))
-            return false;
-
-        listaProyecto.add(proyecto);
-        mapProyecto.put(proyecto.getId(), proyecto);
-
-        return true;
+    public void agregarProyecto(Proyecto proyecto) {
+        repositoryProyecto.add(proyecto);
     }
 
     public Proyecto eliminarProyecto(String id) {
-        if (!mapProyecto.containsKey(id)) return null;
-        listaProyecto.remove(mapProyecto.get(id));
-        return mapProyecto.remove(id);
+        return repositoryProyecto.remove(repositoryProyecto.get(id));
     }
 
     public Trabajador actualizarTrabajador(Trabajador nuevoTrabajador) {
-        for (Proyecto proyecto : listaProyecto) {
+        for (Iterator<Proyecto> it = repositoryProyecto.get(); it.hasNext(); ) {
+            Proyecto proyecto = it.next();
             proyecto.actualizarTrabajador(nuevoTrabajador);
         }
-        return conjuntoTrabajadores.put(nuevoTrabajador.getRut(), nuevoTrabajador);
+        return repositoryTrabajador.update(nuevoTrabajador);
     }
 
-    public boolean agregarTrabajador(Trabajador trabajador) {
-        if (conjuntoTrabajadores.containsKey(trabajador.getRut())) return false;
-        conjuntoTrabajadores.put(trabajador.getRut(), trabajador);
-        return true;
+    public void agregarTrabajador(Trabajador trabajador) {
+        repositoryTrabajador.add(trabajador);
     }
 
     /**
@@ -62,11 +71,11 @@ public class Constructora {
      * @return false si no se pudo agregar y true lo contrario
      * @author Matias Barrientos
      */
-    public boolean agregarTrabajador(String idProyecto, Trabajador trabajador) {
-        if (!mapProyecto.containsKey(idProyecto)) return false;
-        mapProyecto.get(idProyecto).agregarTrabajador(trabajador);
-        conjuntoTrabajadores.put(trabajador.getRut(), trabajador);
-        return true;
+    public void agregarTrabajador(String idProyecto, Trabajador trabajador) {
+        Proyecto proyecto = repositoryProyecto.get(idProyecto);
+        if (proyecto == null) return;
+        proyecto.agregarTrabajador(trabajador);
+        repositoryTrabajador.add(trabajador);
     }
 
 //    /**
@@ -86,11 +95,10 @@ public class Constructora {
     /**
      * Busca a todos los trabajadores en todas las obras
      *
-     * @param busqueda Forma de como se quiere buscar
      * @return Lista de trabajadores encontrados
      * @author Matias Barrientos
      */
-    public List<Trabajador> buscarTrabajador(String busqueda) {
+    /*public List<Trabajador> buscarTrabajador(String busqueda) {
         ArrayList<Trabajador> encontrados = new ArrayList<>();
 
         for (Object ob : conjuntoTrabajadores.values()) {
@@ -102,20 +110,21 @@ public class Constructora {
         }
 
         return encontrados;
-    }
+    }*/
 
     public Trabajador obtenerTrabajador(String rut) {
-        return conjuntoTrabajadores.get(rut);
+        return repositoryTrabajador.get(rut);
     }
 
     public Trabajador eliminarTrabajador(String rut) {
-        if (!conjuntoTrabajadores.containsKey(rut)) return null;
+        if (repositoryTrabajador.get(rut) == null) return null;
 
-        for (Proyecto proyecto : listaProyecto) {
+        for (Iterator<Proyecto> it = repositoryProyecto.get(); it.hasNext(); ) {
+            Proyecto proyecto = it.next();
             proyecto.eliminarTrabajador(rut);
         }
 
-        return conjuntoTrabajadores.remove(rut);
+        return repositoryTrabajador.remove(repositoryTrabajador.get(rut));
     }
 
     /*public Trabajador eliminarTrabajador(String idProyecto, String RUT) {
@@ -124,13 +133,14 @@ public class Constructora {
     }*/
 
     public Proyecto buscarProyecto(String idProyecto) {
-        return mapProyecto.get(idProyecto);
+        return repositoryProyecto.get(idProyecto);
     }
 
-    public void estimacionGasto(String idProyecto) {
+    /*public void estimacionGasto(String idProyecto) {
         if (!mapProyecto.containsKey(idProyecto)) return;
         mapProyecto.get(idProyecto).estimacionGasto();
-    }
+    }*/
+
     /**
      * Revisa si existe un proyecto basandose en el nombre
      *
@@ -139,15 +149,7 @@ public class Constructora {
      * @author Matias Zúñiga
      */
     public boolean existeProyecto(Proyecto proyecto){
-        List<Proyecto> lista = getListaProyecto();
-        for(int i = 0; i< lista.size(); i++){
-            if(!lista.isEmpty()){
-                if(proyecto.getNombreProyecto().toUpperCase().equals(lista.get(i).getNombreProyecto().toUpperCase())){
-                    return true;
-                }
-            }
-        }
-        return false;
+        return repositoryProyecto.contains(proyecto);
     }
 
     //Getter
@@ -161,11 +163,16 @@ public class Constructora {
     }
 
     public List<Trabajador> getConjuntoTrabajadores() {
-        return Collections.unmodifiableList(new ArrayList<>(conjuntoTrabajadores.values()));
+        // Hay cambiarlo por un iterator
+        List<Trabajador> list = new ArrayList<>();
+        repositoryTrabajador.get().forEachRemaining(list::add);
+        return list;
     }
 
     public List<Proyecto> getListaProyecto() {
-        return Collections.unmodifiableList(listaProyecto);
+        List<Proyecto> list = new ArrayList<>();
+        repositoryProyecto.get().forEachRemaining(list::add);
+        return list;
     }
 
 

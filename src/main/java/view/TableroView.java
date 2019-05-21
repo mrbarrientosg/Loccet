@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import router.RRHHRouter;
 
 import java.io.IOException;
 
@@ -77,7 +78,7 @@ public class TableroView extends Fragment {
 
         maximizeButton.setOnAction(event -> {
             // TODO: Verificar maximizar la vista, no funciona
-            getCurrentStage().setMaximized(true);
+            //getCurrentStage().setMaximized(true);
         });
 
         minimizeButton.setOnAction(event -> {
@@ -117,7 +118,7 @@ public class TableroView extends Fragment {
          */
 
         if (button == rrhhButton) {
-            RRHHView rrhhView = Injectable.find(RRHHView.class);
+            RRHHView rrhhView = RRHHRouter.create();
             setCenter(rrhhView.getRoot());
         }
     }
