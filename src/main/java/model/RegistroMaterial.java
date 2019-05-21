@@ -17,7 +17,13 @@ public class RegistroMaterial {
         cantidad = json.get("cantidad").getAsDouble();
         fecha = Instant.ofEpochSecond(json.get("fecha").getAsLong());
     }
+    public RegistroMaterial(int cantidad){
+        this.cantidad = cantidad;
+    }
 
+    public Double getCantidad(){
+        return cantidad;
+    }
     public Instant getFecha() {
         return fecha;
     }

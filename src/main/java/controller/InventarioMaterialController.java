@@ -92,11 +92,11 @@ public final class InventarioMaterialController extends Controller {
     }
 
     public void modificarNombre(String idMaterial, String nombre){
-        //changeMaterial(model.modificarNombre(idMaterial, nombre));
+       // changeMaterial(model.modificarNombre(idMaterial, nombre));
     }
 
     public void modificarDescripcion(String idMaterial, String descripcion){
-        //changeMaterial(model.modificarDescripcion(idMaterial, descripcion));
+       // changeMaterial(model.modificarDescripcion(idMaterial, descripcion));
     }
 
     /**

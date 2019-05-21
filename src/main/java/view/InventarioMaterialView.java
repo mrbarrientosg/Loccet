@@ -1,4 +1,4 @@
-package view;
+    package view;
 
 import base.Fragment;
 import base.Injectable;
