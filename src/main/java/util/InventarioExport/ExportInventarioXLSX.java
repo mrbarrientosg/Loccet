@@ -61,7 +61,7 @@ public class ExportInventarioXLSX implements ExportFileStrategy {
             Cell cell;
             cell = row.createCell(0);
             cell.setCellStyle(cellStyle);
-            cell.setCellValue(materialCell.getFechaIngreso());
+          //  cell.setCellValue(materialCell.getFechaIngreso());
             row.createCell(1).setCellValue(materialCell.getId());
             row.createCell(2).setCellValue(materialCell.getNombre());
             row.createCell(3).setCellValue(materialCell.getDescripcion());
@@ -70,7 +70,7 @@ public class ExportInventarioXLSX implements ExportFileStrategy {
             row.createCell(6).setCellValue(materialCell.getRetiro());
             cell = row.createCell(7);
             cell.setCellStyle(cellStyle);
-            cell.setCellValue(materialCell.getFechaRetiro());
+         //   cell.setCellValue(materialCell.getFechaRetiro());
             row.createCell(8).setCellValue(materialCell.getPrecio());
         }
 

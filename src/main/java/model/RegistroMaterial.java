@@ -27,7 +27,7 @@ public class RegistroMaterial {
     /**
      * @param cantidad material
      */
-    public RegistroMaterial(int cantidad){
+    public RegistroMaterial(double cantidad){
         this.cantidad = cantidad;
     }
 

@@ -12,6 +12,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import model.InventarioMaterial;
+import model.Material;
+import router.DetalleMaterialRouter;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,13 +35,9 @@ public final class InventarioMaterialView extends Fragment {
 
     //Botones.
     @FXML
-    private Button modificarMaterialBT;
-    @FXML
-    private Button retirarBT;
+    private Button editarBT;
     @FXML
     private Button eleminarBT;
-    @FXML
-    private Button agregarBT;
     @FXML
     private Button nuevoMaterialBT;
     @FXML
@@ -121,19 +120,20 @@ public final class InventarioMaterialView extends Fragment {
      * @param event presiona el boton modificar
      */
     @FXML
-    public void modificarMaterial(ActionEvent event){
-        MaterialCell material = seleccion();
-        if(material!=null) {
-            ModificarMaterialView view = Injectable.find(ModificarMaterialView.class);
-            view.setIdMaterial(material.getId());
-            view.setController(controller);
+    public void detalleMaterial(ActionEvent event){
+        MaterialCell materialCell = seleccion();
+        if(materialCell!=null) {
+            Material material = controller.getMaterial(materialCell.getId());
+            DetalleMaterialView view = DetalleMaterialRouter.create(material);
+            //view.setIdMaterial(material.getId());
+            //view.setController(controller);
+
             view.modal().withBlock(true).show();
             refreshTable();
         }
         else{
             controller.showWarning("Seleccionar material", "Por favor seleccione material a eliminar").showAndWait();;
         }
-
     }
 
     /**
@@ -165,7 +165,7 @@ public final class InventarioMaterialView extends Fragment {
      *
      * @param event presiona el boton retirar
      */
-    @FXML
+  /*  @FXML
     public void retirarMaterial(ActionEvent event){
         MaterialCell material = seleccion();
         if(material!=null) {
@@ -178,7 +178,7 @@ public final class InventarioMaterialView extends Fragment {
         else{
             controller.showWarning("Seleccionar material", "Por favor seleccione material a eliminar").showAndWait();;
         }
-    }
+    }*/
 
     @FXML
     public void salir(ActionEvent event){
@@ -226,46 +226,6 @@ public final class InventarioMaterialView extends Fragment {
     private void inicializarTablaMateriales() {
         retiroCL.setCellValueFactory(new PropertyValueFactory<>("retiro"));
         udsCL.setCellValueFactory(new PropertyValueFactory<>("uds"));
-        fechaRetiroCL.setCellValueFactory(new PropertyValueFactory<>("fechaRetiro"));
-        fechaRetiroCL.setCellFactory(column -> {
-            TableCell<MaterialCell, Date> cell = new TableCell<MaterialCell, Date>() {
-                private SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-
-                @Override
-                protected void updateItem(Date item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if(empty) {
-                        setText(null);
-                    }
-                    else {
-                        if (item != null) setText(format.format(item));
-                        else setText(null);
-                    }
-                }
-            };
-
-            return cell;
-        });
-        fechaIngresoCL.setCellValueFactory(new PropertyValueFactory<>("fechaIngreso"));
-        fechaIngresoCL.setCellFactory(column -> {
-            TableCell<MaterialCell, Date> cell = new TableCell<MaterialCell, Date>() {
-                private SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-
-                @Override
-                protected void updateItem(Date item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if(empty) {
-                        setText(null);
-                    }
-                    else {
-                        if (item != null) setText(format.format(item));
-                        else setText(null);
-                    }
-                }
-            };
-
-            return cell;
-        });
         nombreMaterialCL.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         idMaterialCL.setCellValueFactory(new PropertyValueFactory<>("id"));
         cantidadCL.setCellValueFactory(new PropertyValueFactory<>("cantidad"));

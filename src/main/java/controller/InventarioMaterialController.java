@@ -79,6 +79,9 @@ public final class InventarioMaterialController extends Controller {
         return new SortedList<>(filteredMateriales);
     }
 
+    public Material getMaterial(String id){
+        return model.obtenerMaterial(id);
+    }
     /**
      * Agrega un nuevo material al modelo
      * @param material nuevo material a agregar
@@ -191,6 +194,7 @@ public final class InventarioMaterialController extends Controller {
             }
         }
     }
+
     /**
      * @param proyecto proyecto
      */

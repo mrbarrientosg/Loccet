@@ -1,6 +1,7 @@
 package view;
 
 import base.Fragment;
+import controller.DetalleMaterialController;
 import controller.InventarioMaterialController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,7 +21,7 @@ import java.util.regex.Pattern;
 
 public final class AgregarMaterialView extends Fragment {
 
-    private InventarioMaterialController controller;
+    private DetalleMaterialController controller;
 
     private String idMaterial;
 
@@ -52,7 +53,7 @@ public final class AgregarMaterialView extends Fragment {
      * Evento del boton para agregar mas cantidad al material
      * @param event
      */
-    @FXML
+   /* @FXML
     public void cantidadItem(ActionEvent event){
         if(!agregarTF.getText().isEmpty()) {
             controller.agregarMaterial(idMaterial, Double.parseDouble(agregarTF.getText()));
@@ -64,14 +65,14 @@ public final class AgregarMaterialView extends Fragment {
             alert.setContentText("Por favor ingresar un numero");
             alert.showAndWait();
         }
-    }
+    }*/
 
     @FXML
     public void cancelar(ActionEvent event){
         close();
     }
 
-    public void setController(InventarioMaterialController controller) {
+    public void setController(DetalleMaterialController controller) {
         this.controller = controller;
     }
 
