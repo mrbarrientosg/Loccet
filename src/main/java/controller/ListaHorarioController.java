@@ -56,7 +56,7 @@ public final class ListaHorarioController extends Controller implements AddHorar
      */
     public void eliminarHorario(HorarioCell cell) {
         if (cell == null) return;
-        trabajador.eliminarHorario(cell.getId());
+        //trabajador.eliminarHorario(cell.getId());
         horarioList.remove(cell);
     }
 

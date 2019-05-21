@@ -20,11 +20,11 @@ public class Especialidades {
     }
 
     public static void createFakeData() {
-        Especialidades esp = getInstance();
-        esp.agregar(new Especialidad("Jefe de obras", 8.0, 10000.0));
-        esp.agregar(new Especialidad("Obrero", 8.0, 3000.0));
-        esp.agregar(new Especialidad("Pintor", 5.0, 2000.0));
-        esp.agregar(new Especialidad("Sin asignar", 0.0, 0.0));
+        /*Especialidades esp = getInstance();
+        esp.agregar(new Especialidad("Jefe de obras", ));
+        esp.agregar(new Especialidad("Obrero", 3000.0));
+        esp.agregar(new Especialidad("Pintor", 2000.0));
+        esp.agregar(new Especialidad("Sin asignar", 0.0));*/
     }
 
     private Especialidades() {

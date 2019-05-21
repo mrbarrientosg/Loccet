@@ -1,6 +1,15 @@
 package model;
 
+import com.google.gson.*;
+import json.LocalDateTypeConverter;
+import repository.memory.MemoryRepositoryHorario;
+import repository.memory.MemoryRepositoryProyecto;
+import repository.RepositoryHorario;
+import repository.RepositoryProyecto;
+
+import java.lang.reflect.Type;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 
 public class Trabajador {
@@ -21,14 +30,11 @@ public class Trabajador {
 
     private String correoElectronico;
 
-    private Map<String, ArrayList<Horario>> mapProyectohorario;
+    private int cantidadHoraTrabajada;
 
-    /**
-     * Guarda el id de todos los proyecto al cual esta asociado el trabajador
-     */
-    private Map<String, String> mapProyectos;
+    private RepositoryProyecto repositoryProyecto;
 
-    private Map<Integer, ArrayList<Horario>> mapDiaHorario;
+    private RepositoryHorario repositoryHorario;
 
     private Trabajador(Builder builder) {
         this.rut = builder.rut;
@@ -40,62 +46,32 @@ public class Trabajador {
         this.telefono = builder.telefono;
         this.correoElectronico = builder.correoElectronico;
 
-        mapProyectohorario = new HashMap<>();
-        mapProyectos = new HashMap<>();
-        mapDiaHorario = new HashMap<>();
+        repositoryHorario = new MemoryRepositoryHorario();
+        repositoryProyecto = new MemoryRepositoryProyecto();
     }
 
-    public boolean asociarProyecto(String idProyecto) {
-        if (mapProyectos.containsKey(idProyecto)) return false;
-        return mapProyectos.put(idProyecto, idProyecto) == null;
+    public Trabajador() {
+        repositoryHorario = new MemoryRepositoryHorario();
+        repositoryProyecto = new MemoryRepositoryProyecto();
     }
 
-    public void agregarHorario(Horario horario) {
-        if (!mapDiaHorario.containsKey(horario.getDia()))
-            mapDiaHorario.put(horario.getDia(), new ArrayList<>());
-
-        mapDiaHorario.get(horario.getDia()).add(horario);
-
-        if (!mapProyectohorario.containsKey(horario.getIdProyecto()))
-            mapProyectohorario.put(horario.getIdProyecto(), new ArrayList<>());
-
-        mapProyectohorario.get(horario.getIdProyecto()).add(horario);
+    public void asociarProyecto(Proyecto proyecto) {
+        repositoryProyecto.add(proyecto);
     }
 
-    public Horario eliminarHorario(String id) {
-        Horario h = null;
-
-        for (ArrayList<Horario> horarios: mapProyectohorario.values()) {
-            h = eliminarHorario(horarios, id);
-            if (h == null) {
-                return null;
-            }
-        }
-
-        mapDiaHorario.get(h.getDia()).remove(h);
-
-        return h;
+    public void agregarHorario(String idProyecto, Horario horario) {
+        horario.setProyecto(repositoryProyecto.get(idProyecto));
+        horario.setTrabajador(this);
+        repositoryHorario.add(horario);
     }
 
-    private Horario eliminarHorario(ArrayList<Horario> horarios, String id) {
-        for (Horario horario: horarios) {
-            if (horario.getId().equals(id)) {
-                horarios.remove(horario);
-                return horario;
-            }
-        }
-
-        return null;
-    }
-
-    public List<Horario> obtenerListaHorario(String idProyecto) {
-        if (!mapProyectohorario.containsKey(idProyecto)) return null;
-        return Collections.unmodifiableList(mapProyectohorario.get(idProyecto));
+    public Horario eliminarHorario(Horario horario) {
+        return repositoryHorario.remove(horario);
     }
 
     public List<Horario> obtenerListaHorario() {
         List<Horario> aux = new ArrayList<>();
-        mapDiaHorario.values().forEach(aux::addAll);
+        repositoryHorario.get().forEachRemaining(aux::add);
         return Collections.unmodifiableList(aux);
     }
 
@@ -220,6 +196,38 @@ public class Trabajador {
 
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
+    }
+
+    public void setLocalizacion(Localizacion localizacion) {
+        this.localizacion = localizacion;
+    }
+
+    public static class TrabajadorDeserializer implements JsonDeserializer<Trabajador> {
+
+        @Override
+        public Trabajador deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+            Trabajador t = new Trabajador();
+            JsonObject json = jsonElement.getAsJsonObject();
+            Gson gson = new GsonBuilder()
+                    .registerTypeAdapter(LocalDate.class, new LocalDateTypeConverter())
+                    .create();
+
+            t.setRut(json.get("rut").getAsString());
+            t.setNombre(json.get("nombre").getAsString());
+            t.setApellido(json.get("apellido").getAsString());
+
+            t.setEspecialidad(gson.fromJson(json.get("especialidad").getAsString(), Especialidad.class));
+            t.setLocalizacion(gson.fromJson(json.get("localizacion").getAsString(), Localizacion.class));
+            //fechaNacimiento
+
+            t.setTelefono(json.get("telefono").getAsString());
+            t.setCorreoElectronico(json.get("correo_electronico").getAsString());
+            t.setFechaNacimiento(gson.fromJson(json.get("fecha_nacimiento"), LocalDate.class));
+
+            //cantidadHoraTrabajada = json.get("cantidad_hora_trabajada").getAsInt();
+
+            return t;
+        }
     }
 
 }

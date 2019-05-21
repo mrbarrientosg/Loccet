@@ -1,5 +1,5 @@
-.custom-scroll .scroll-pane {
-  -fx-background-color: transparent;
+.custom-scroll {
+  -fx-background-color: white;
 }
 
 .custom-scroll .scroll-bar:vertical {
@@ -15,7 +15,6 @@
   -fx-background-color :white;
   -fx-border-color :white;
   -fx-background-radius : 0.0em;
-  -fx-border-radius :2.0em;
 }
 
 .custom-scroll .scroll-bar:horizontal .increment-button,

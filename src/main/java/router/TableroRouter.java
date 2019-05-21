@@ -8,10 +8,10 @@ import view.TableroView;
 
 public class TableroRouter {
 
-    public static TableroView create(Constructora model) {
+    public static TableroView create() {
         TableroView view = Injectable.find(TableroView.class);
         TableroRouter router = new TableroRouter();
-        TableroController controller = new TableroController(view, model, router);
+        TableroController controller = new TableroController(view, router);
 
         return view;
     }

@@ -20,8 +20,6 @@ import javafx.scene.layout.BorderPane;
 
 public final class ListaTrabajadorView extends Fragment {
 
-    private HomeView master;
-
     private ListaTrabajadorController controller;
 
     @FXML
@@ -81,6 +79,11 @@ public final class ListaTrabajadorView extends Fragment {
             refreshTable();
         });
 
+
+    }
+
+    @Override
+    public void viewDidShow() {
         refreshTable();
 
         controller.selectedTrabajadorProperty().bind(tableView.getSelectionModel().selectedItemProperty());
@@ -92,46 +95,13 @@ public final class ListaTrabajadorView extends Fragment {
     }
 
     @FXML
-    private void editTrabajador(ActionEvent event) {
-        TrabajadorView editView = controller.mostrarEditar();
+    private void verDetalleTrabajador(ActionEvent event) {
 
-        if (editView == null) return;
-
-        getRoot().setRight(editView.getRoot());
-        getCurrentStage().sizeToScene();
-        getCurrentStage().centerOnScreen();
     }
 
-    @FXML
-    private void salir() {
-        getRoot().setRight(null);
-        master.removeNode(getRoot());
-    }
-
-    @FXML
-    void actualizarTabla(ActionEvent event) {
-        controller.loadData();
-        refreshTable();
-    }
-
-//    public void refresh() {
-//        tableView.refresh();
-//        getRoot().setRight(null);
-//        getCurrentStage().sizeToScene();
-//        getCurrentStage().centerOnScreen();
-//    }
-
-    @Override
-    public BorderPane getRoot() {
-        return (BorderPane) root;
-    }
 
     public void setController(ListaTrabajadorController controller) {
         this.controller = controller;
-    }
-
-    public void setMaster(HomeView master) {
-        this.master = master;
     }
 
     public void refreshTable() {

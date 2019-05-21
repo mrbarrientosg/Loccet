@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import model.Material;
 
+import java.math.BigDecimal;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
@@ -86,12 +87,12 @@ public final class NuevoMaterialView extends View {
             if (lector.isEmpty())
                 material = new Material(nombreTF.getText(),descripcionTF.getText(),Double.parseDouble(cantidadTF.getText()), //Si el usuario no ingresa el id
                         unidadCB.getSelectionModel().getSelectedItem().toString(),                                             //se utiliza este constructor.
-                        Double.parseDouble(precioTF.getText()));
+                        BigDecimal.valueOf(Double.parseDouble(precioTF.getText())));
 
             else
                 material = new Material(nombreTF.getText(), descripcionTF.getText(), Double.parseDouble(cantidadTF.getText()), //Si el usuario si ingresa id
                         unidadCB.getSelectionModel().getSelectedItem().toString(), lector,                                     //Se utiliza este constructor.
-                        Double.parseDouble(precioTF.getText()));
+                        BigDecimal.valueOf(Double.parseDouble(precioTF.getText())));
 
             controller.nuevoMaterial(material);
             close();

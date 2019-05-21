@@ -79,24 +79,24 @@ public final class InventarioMaterialController extends Controller {
      * @param material nuevo material a agregar
      */
     public void nuevoMaterial(Material material){
-        model.nuevoItem(material);
+        model.agregarMaterial(material);
         listMateriales.add(new MaterialCell(material));
     }
 
     public void agregarMaterial(String idMaterial, double cantidad){
-        changeMaterial(model.agregarMaterial(idMaterial, cantidad));
+        //changeMaterial(model.agregarMaterial(idMaterial, cantidad));
     }
 
     public void retirarMaterial(String idMaterial, double cantidad){
-        changeMaterial(model.retirarMaterial(idMaterial, cantidad));
+        //changeMaterial(model.retirarMaterial(idMaterial, cantidad));
     }
 
     public void modificarNombre(String idMaterial, String nombre){
-        changeMaterial(model.modificarNombre(idMaterial, nombre));
+        //changeMaterial(model.modificarNombre(idMaterial, nombre));
     }
 
     public void modificarDescripcion(String idMaterial, String descripcion){
-        changeMaterial(model.modificarDescripcion(idMaterial, descripcion));
+        //changeMaterial(model.modificarDescripcion(idMaterial, descripcion));
     }
 
     /**
@@ -104,8 +104,8 @@ public final class InventarioMaterialController extends Controller {
      * @param idMaterial id del material a eliminar
      */
     public void eliminarMaterial(String idMaterial){
-        Material eliminado = model.eliminarItem(idMaterial);
-        listMateriales.removeIf(materialCell -> materialCell.getId().equals(eliminado.getId()));
+        //Material eliminado = model.eliminarItem(idMaterial);
+        //listMateriales.removeIf(materialCell -> materialCell.getId().equals(eliminado.getId()));
     }
 
     /**
@@ -157,9 +157,9 @@ public final class InventarioMaterialController extends Controller {
      */
     private void guardarArchivoInventario(String extension, File dest) throws IOException {
         if (extension.equals("*.pdf")) {
-            exportFile.changeStrategy(new ExportInventarioPDF(proyecto.getNombreProyecto(), listMateriales));
+            exportFile.changeStrategy(new ExportInventarioPDF(proyecto.getNombre(), listMateriales));
         } else {
-            exportFile.changeStrategy(new ExportInventarioXLSX(proyecto.getNombreProyecto(), listMateriales));
+            exportFile.changeStrategy(new ExportInventarioXLSX(proyecto.getNombre(), listMateriales));
         }
 
         File file = exportFile.export();

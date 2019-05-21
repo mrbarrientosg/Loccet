@@ -1,14 +1,21 @@
 package view;
 
 import base.Fragment;
+import controller.LoginController;
+import exceptions.EmptyFieldsException;
+import exceptions.InvalidUserException;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import router.LoginRouter;
 
 public final class LoginView extends Fragment {
+
+    private LoginController controller;
+
+    private LoginRouter router;
 
     @FXML
     private TextField username;
@@ -49,12 +56,68 @@ public final class LoginView extends Fragment {
                 getPrimaryStage().setY(event.getScreenY() - yOffset);
             }
         });
+
+        loginButton.setOnAction(this::login);
+
+        exitRedButton.setOnAction(this::exit);
+        exitButton.setOnAction(this::exit);
+
+        minimizeButton.setOnAction(this::minimize);
     }
 
     @Override
     public void viewDidClose() {
-        getRoot().onMousePressedProperty().set(null);
-        getRoot().onMouseDraggedProperty().set(null);
+        controller.clear();
+    }
+
+    private void login(ActionEvent actionEvent) {
+        try {
+            controller.loginUser();
+        } catch (EmptyFieldsException e) {
+            onError(e);
+        }
+    }
+
+    public void didLogin() {
+        controller.loadData();
+    }
+
+    public void showLoading() {
+        LOGGER.info("Cargando");
+    }
+
+    public void hideLoading() {
+        LOGGER.info("Listo");
+    }
+
+    public void gotoHome() {
+        TableroView tableroView = router.showTablero();
+        replaceWith(tableroView, true, true);
+    }
+
+    public void onError(Throwable e){
+        if (e instanceof EmptyFieldsException || e instanceof InvalidUserException) {
+            router.showError(e.getMessage());
+        } else {
+            router.showError("Opps ha ocurrido un error, intenta de nuevo.");
+        }
+    }
+
+    private void minimize(ActionEvent actionEvent) {
+        getPrimaryStage().setIconified(true);
+    }
+
+    private void exit(ActionEvent actionEvent) {
+        Platform.exit();
+        System.exit(0);
+    }
+
+    public void setController(LoginController controller) {
+        this.controller = controller;
+    }
+
+    public void setRouter(LoginRouter router) {
+        this.router = router;
     }
 
     public String getUsername() {
@@ -67,18 +130,5 @@ public final class LoginView extends Fragment {
 
     public String getDNS() {
         return dns.getText();
-    }
-
-    public void setLoginButtonAction(EventHandler<ActionEvent> eventHandler) {
-        loginButton.setOnAction(eventHandler);
-    }
-
-    public void setMinimizeButtonAction(EventHandler<ActionEvent> eventHandler) {
-        minimizeButton.setOnAction(eventHandler);
-    }
-
-    public void setExitButtonAction(EventHandler<ActionEvent> eventHandler) {
-        exitButton.setOnAction(eventHandler);
-        exitRedButton.setOnAction(eventHandler);
     }
 }

@@ -16,15 +16,20 @@ public final class LoginRouter {
     public static LoginView create() {
         LoginView view = Injectable.find(LoginView.class);
         LoginRouter router = new LoginRouter();
-        LoginController controller = new LoginController(view, router);
+        LoginController controller = new LoginController();
+
+        controller.setView(view);
+
+        view.setController(controller);
+        view.setRouter(router);
 
         return view;
     }
 
-    public Alert showError(String message) {
+    public void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
         alert.setTitle("Error");
-        return alert;
+        alert.showAndWait();
     }
 
     public HomeView showHome(Constructora model) {
@@ -33,8 +38,8 @@ public final class LoginRouter {
         return home;
     }
 
-    public TableroView showTablero(Constructora model) {
-        TableroView tableroView = TableroRouter.create(model);
+    public TableroView showTablero() {
+        TableroView tableroView = TableroRouter.create();
         return tableroView;
     }
 }

@@ -1,75 +1,54 @@
 package model;
 
 import java.time.LocalTime;
-import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class Horario {
 
-    private String id;
-
     private Integer dia;
 
-    private String idProyecto;
+    private Proyecto proyecto;
 
-    private String nombreProyecto;
+    private Trabajador trabajador;
 
-    private LocalTime fechaInicio;
+    private LocalTime horaIncio;
 
-    private LocalTime fechaTermino;
+    private LocalTime horaFin;
 
     private Horario(Builder builder) {
-        id = UUID.randomUUID().toString();
         this.dia = builder.dia;
-        this.idProyecto = builder.idProyecto;
-        this.nombreProyecto = builder.nombreProyecto;
-        this.fechaInicio = builder.fechaInicio;
-        this.fechaTermino = builder.fechaTermino;
+        this.horaIncio = builder.fechaInicio;
+        this.horaFin = builder.fechaTermino;
     }
 
-    public String getId() {
-        return id;
+    public Horario() {
     }
 
     public Integer getDia() {
         return dia;
     }
 
-    public String getIdProyecto() {
-        return idProyecto;
-    }
-
     public LocalTime getFechaInicio() {
-        return fechaInicio;
+        return horaFin;
     }
 
     public void setFechaInicio(LocalTime fechaInicio) {
-        this.fechaInicio = fechaInicio;
+        this.horaIncio = fechaInicio;
     }
 
     public LocalTime getFechaTermino() {
-        return fechaTermino;
+        return horaFin;
     }
 
     public void setFechaTermino(LocalTime fechaTermino) {
-        this.fechaTermino = fechaTermino;
+        this.horaIncio = fechaTermino;
     }
 
-    public String getNombreProyecto() {
-        return nombreProyecto;
+    public void setProyecto(Proyecto proyecto) {
+        this.proyecto = proyecto;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append(dia.toString());
-        builder.append(" - ");
-        builder.append(nombreProyecto);
-        builder.append(" - ");
-        builder.append(fechaInicio.toString());
-        builder.append(" - ");
-        builder.append(fechaTermino.toString());
-        return builder.toString();
+    public void setTrabajador(Trabajador trabajador) {
+        this.trabajador = trabajador;
     }
 
     public static class Builder {

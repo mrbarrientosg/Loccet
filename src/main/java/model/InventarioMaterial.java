@@ -1,5 +1,8 @@
 package model;
 
+import repository.memory.MemoryRepositoryMaterial;
+import repository.RepositoryMaterial;
+
 import java.util.*;
 
 /**
@@ -9,106 +12,33 @@ import java.util.*;
  */
 public class InventarioMaterial {
 
-    private ArrayList<Material> listaInventarios;
+    private String id;
 
-    private HashMap<String, Material> mapInventarios;
+    private RepositoryMaterial repositoryMaterial;
 
     public InventarioMaterial() {
-        listaInventarios = new ArrayList<>();
-        mapInventarios = new HashMap<>();
-    }
+        repositoryMaterial = new MemoryRepositoryMaterial();
+    };
 
     public List<Material> obtenerMateriales() {
-        return Collections.unmodifiableList(listaInventarios);
+        List<Material> list = new ArrayList<>();
+        repositoryMaterial.get().forEachRemaining(list::add);
+        return list;
     }
 
-    public void nuevoItem(Material item){
-        Material itemInventario= mapInventarios.get(item.getId());
-        if (itemInventario == null){
-            mapInventarios.put(item.getId(),item);
-            listaInventarios.add(item);
-        }
-
+    public void agregarMaterial(Material material) {
+        repositoryMaterial.add(material);
     }
 
-    /**
-     *
-     * Funcion que suma la cantidad de material ingresada por
-     * el usuario al material correspondiente.
-     *
-     * @author Sebastian Fuenzalida.
-     *
-     * @param idMaterial
-     * @param cantidad
-     */
-    public Material agregarMaterial(String idMaterial,double cantidad){
-        Material material = mapInventarios.get(idMaterial);
-        material.setCantidad(material.getCantidad()+cantidad);
-        material.setFechaIngreso(new Date());
-        return material;
+    public Material actualizarMaterial(Material material) {
+        return repositoryMaterial.update(material);
     }
 
-    /**
-     * Funcion que resta la cantidad de material ingresada por
-     * el usuario al material correspondiente.
-     *
-     * @author Sebastian Fuenzalida.
-     *
-     * @param idMaterial
-     * @param cantidad
-     */
-    public Material retirarMaterial(String idMaterial,double cantidad){
-        Material material = mapInventarios.get(idMaterial);
-        material.setCantidad(material.getCantidad()-cantidad);
-        material.setFechaRetiro(new Date());
-        material.setRetiro(cantidad);
-        return material;
+    public Material eliminarMaterial(String id) {
+        return repositoryMaterial.remove(repositoryMaterial.get(id));
     }
 
-    /**
-     * Funcion que modifica el nombre del material correspondiente.
-     *
-     * @author Sebastian Fuenzalida.
-     *
-     * @param idMaterial
-     * @param nombre
-     */
-    public Material modificarNombre(String idMaterial,String nombre){
-        Material material = mapInventarios.get(idMaterial);
-        material.setNombre(nombre);
-        return material;
+    public void agregarRegistroMaterial(String idMaterial, RegistroMaterial registroMaterial) {
+        repositoryMaterial.get(idMaterial).agregarRegistro(registroMaterial);
     }
-
-    /**
-     * Funcion que modifica la descripcion del material correspondiente.
-     *
-     * @author Sebastian Fuenzalida.
-     *
-     * @param idMaterial
-     * @param descripcion
-     */
-    public Material modificarDescripcion(String idMaterial,String descripcion){
-        Material material = mapInventarios.get(idMaterial);
-        material.setDescripcion(descripcion);
-        return material;
-    }
-
-    /**
-     * Funcion que elimina el material correspondiente.
-     *
-     * @author Sebastian Fuenzalida.
-     *
-     * @param idMaterial
-     */
-    public Material eliminarItem(String idMaterial){
-        Material material = mapInventarios.remove(idMaterial);
-        listaInventarios.remove(material);
-        return material;
-    }
-
-
-    public double gastoTotal() {
-        return listaInventarios.stream().map(Material::precioTotal).reduce(0.0, (left, right) -> left + right);
-    }
-
 }
