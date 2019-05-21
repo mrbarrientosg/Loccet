@@ -1,7 +1,6 @@
 .combo-box > .custom-combo-box {
 
 }
-
 .custom-combo-box .list-cell
 {
   -fx-background: white;
@@ -33,17 +32,19 @@
 {
   -fx-background: white;
   -fx-background-color: white;
+  -fx-prompt-text-fill: $gray;
 }
 
 .custom-combo-box .combo-box-popup .list-view .list-cell:filled:hover
 {
   -fx-background-color: white;
-  -fx-text-fill: -fx-text-inner-color;
+  -fx-prompt-text-fill: $gray;
 }
 
 .custom-combo-box .combo-box-base
 {
   -fx-background-color: white, white, white, white;
+  -fx-prompt-text-fill: $gray;
 }
 
 .custom-combo-box .combo-box-base:hover
@@ -63,3 +64,42 @@
 .custom-combo-box .combo-box-base:disabled {
   -fx-opacity: .4;
 }
+//Editado
+
+.combo-box > .gray-combo-box {
+
+}
+  .gray-combo-box .combo-box-popup .list-view {
+  -fx-background-color: white, white;
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 13px;
+    
+  }
+
+    .gray-combo-box:editable > .arrow-button {
+      -fx-background-color: $gray;
+      -fx-background-insets: 1 1 1 0, 1, 2;
+      -fx-background-radius: 0 3 3 0, 0 2 2 0, 0 1 1 0;
+    }
+    .gray-combo-box:editable >  .text-field {
+      -fx-background-color: $gray;
+      -fx-background-insets: 1 0 1 1;
+      -fx-background-radius: 2 0 0 2;
+    }
+    .gray-combo-box:editable:focused {
+      -fx-background-color: $gray;
+      -fx-background-insets: -0.2;
+      -fx-background-radius: 3;
+    }
+    .gray-combo-box:editable:focused > .text-field,
+    .gray-combo-box:editable > .text-field:focused {
+      -fx-background-color: $gray;
+      -fx-border-color: $gray;
+      -fx-background-insets: 1 0 1 1, 1 0 1 1, 3 2 3 3;
+      -fx-background-radius: 2 0 0 2, 1 0 0 1, 0;
+    }
+    .gray-combo-box:editable:focused > .arrow-button {
+      -fx-background-color: $gray;
+      -fx-background-insets: 1, 2, 1, 2.6;
+      -fx-background-radius: 0 2 2 0, 0 1 1 0, 0 1 1 0, 0 1 1 0;
+    }

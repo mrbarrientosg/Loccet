@@ -1,5 +1,9 @@
 @import '../base/base';
-@import '../components/components';
+@import "../components/datepicker";
+@import "../components/buttons";
+@import "../components/textfields";
+@import "../components/backgrounds";
+
 
 @include buttonLabelBlack(true);
 
@@ -7,6 +11,7 @@
 
 //Backgrounds
 @include backgroundWhite;
+@include backgroundgray;
 
 //Buttons
 @include buttonGreen;
@@ -23,8 +28,3 @@
 @include textField;
 
 @include datePickerGray;
-
-//Separator
-@include separatorBlueHorizontal;
-
-@include separatorBlueVertical;

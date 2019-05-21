@@ -1,23 +1,13 @@
 @import '../base/base';
-@import "../components/combobox";
 @import "../components/buttons";
 @import "../components/textfields";
 @import "../components/backgrounds";
-@import '../components/textarea';
+@import "../components/tableview";
+@import "../components/scrollbar";
 
 @include backgroundWhite;
-
 @include backgroundgray;
-
-@include buttonFillBlue;
 
 @include buttonBlue;
 
-@include textFieldGrey;
-
-@include textField;
-
-@include textAreaGray;
-
-@include title3;
-
+@include title1;

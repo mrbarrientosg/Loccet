@@ -105,3 +105,7 @@
   -fx-background-color: transparent;
   -fx-padding: 10;
   -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0, 1, 0); }
+
+.title1 {
+  -fx-font-family: "Heebo Black";
+  -fx-font-size: 24px; }

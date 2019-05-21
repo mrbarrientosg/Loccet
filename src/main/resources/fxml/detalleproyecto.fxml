@@ -4,6 +4,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
@@ -17,9 +18,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="720.0" prefWidth="800.0" styleClass="backgroundWhite" stylesheets="@../css/detailproyect.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="720.0" prefWidth="800.0" styleClass="backgroundWhite" stylesheets="@../css/detailproyect.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ScrollPane fitToWidth="true">
+      <ScrollPane fitToHeight="true" fitToWidth="true">
          <content>
             <VBox styleClass="backgroundWhite">
                <children>
@@ -140,21 +141,25 @@
                         <VBox spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
                            <children>
                               <Label styleClass="paragraph" text="Fecha termino" />
-                              <TextField>
+                              <DatePicker maxWidth="1.7976931348623157E308">
                                  <styleClass>
+                                    <String fx:value="grayDatePicker" />
                                     <String fx:value="textField" />
                                     <String fx:value="textFieldGrey" />
-                                 </styleClass></TextField>
+                                 </styleClass>
+                              </DatePicker>
                            </children>
                         </VBox>
                         <VBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                            <children>
-                              <Label styleClass="paragraph" text="Fecha Incio" />
-                              <TextField>
+                              <Label styleClass="paragraph" text="Fecha Inicio" />
+                              <DatePicker maxWidth="1.7976931348623157E308">
                                  <styleClass>
-                                    <String fx:value="textField" />
+                                    <String fx:value="grayDatePicker" />
                                     <String fx:value="textFieldGrey" />
-                                 </styleClass></TextField>
+                                    <String fx:value="textField" />
+                                 </styleClass>
+                              </DatePicker>
                            </children>
                         </VBox>
                      </children>
@@ -207,7 +212,7 @@
                      <children>
                         <HBox alignment="CENTER" spacing="10.0">
                            <children>
-                              <Label text="Inventario">
+                              <Label styleClass="title1" text="Inventario">
                                  <font>
                                     <Font size="18.0" />
                                  </font>

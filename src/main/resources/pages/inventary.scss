@@ -1,5 +1,7 @@
 @import '../base/base';
-@import '../components/components';
+@import "../components/buttons";
+@import "../components/textfields";
+@import "../components/backgrounds";
 @import '../components/tableview';
 
 //buttons
@@ -9,14 +11,20 @@
 
 @include buttonWhite;
 
-@include buttonFillRed;
+@include buttonRed;
+
+@include buttonGray;
 
 //backgrounds
 @include backgroundWhite;
 
 @include backgroundLight;
 
+@include backgroundgray;
+
 //Textfields
 @include textField;
 
 @include textFieldGrey;
+
+@include title1;

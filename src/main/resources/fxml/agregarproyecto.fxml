@@ -9,103 +9,169 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="850.0" spacing="10.0" styleClass="backgroundWhite" stylesheets="@../css/createproyect.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="850.0" spacing="10.0" styleClass="backgroundWhite" stylesheets="@../css/createproyect.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane>
+      <HBox>
          <children>
-            <TextField fx:id="nombreP" layoutY="248.0" prefHeight="70.0" prefWidth="263.0" promptText="Nombre del proyecto*">
-               <styleClass>
-                  <String fx:value="textTotal" />
-                  <String fx:value="textFieldGrey" />
-               </styleClass>
-            </TextField>
-            <TextField fx:id="jefeP" layoutY="327.0" prefHeight="70.0" prefWidth="263.0" promptText="Jefe del proyecto*">
-               <styleClass>
-                  <String fx:value="textFieldGrey" />
-                  <String fx:value="textField" />
-               </styleClass>
-            </TextField>
-            <TextField fx:id="montoC" layoutY="406.0" prefHeight="70.0" prefWidth="263.0" promptText="Monto contractual*">
-               <styleClass>
-                  <String fx:value="textFieldGrey" />
-                  <String fx:value="textField" />
-               </styleClass>
-            </TextField>
-            <TextField fx:id="cliente" layoutX="275.0" layoutY="248.0" prefHeight="70.0" prefWidth="263.0" promptText="Cliente*">
-               <styleClass>
-                  <String fx:value="textFieldGrey" />
-                  <String fx:value="textField" />
-               </styleClass>
-               <font>
-                  <Font name="Heebo-Regular" size="12.0" />
-               </font></TextField>
-            <TextField fx:id="mailC" layoutX="274.0" layoutY="327.0" prefHeight="70.0" prefWidth="263.0" promptText="e-Mail del cliente*">
-               <styleClass>
-                  <String fx:value="textField" />
-                  <String fx:value="totalField" />
-                  <String fx:value="textFieldGrey" />
-               </styleClass></TextField>
-            <TextField fx:id="telefonoC" layoutX="274.0" layoutY="406.0" prefHeight="70.0" prefWidth="263.0" promptText="Telefono del cliente*">
-               <styleClass>
-                  <String fx:value="textFieldGrey" />
-                  <String fx:value="textField" />
-               </styleClass></TextField>
-            <TextField fx:id="direccion" layoutX="550.0" layoutY="14.0" prefHeight="70.0" prefWidth="263.0" promptText="Dirección*">
-               <styleClass>
-                  <String fx:value="textField" />
-                  <String fx:value="textFieldGrey" />
-               </styleClass></TextField>
-            <TextField fx:id="ciudad" layoutX="550.0" layoutY="93.0" prefHeight="70.0" prefWidth="263.0" promptText="Ciudad*">
-               <styleClass>
-                  <String fx:value="textField" />
-                  <String fx:value="textFieldGrey" />
-               </styleClass>
-            </TextField>
-            <TextField fx:id="estado" layoutX="550.0" layoutY="170.0" prefHeight="70.0" prefWidth="263.0" promptText="Estado/Provincia*">
-               <styleClass>
-                  <String fx:value="textField" />
-                  <String fx:value="textFieldGrey" />
-               </styleClass></TextField>
-            <TextField fx:id="pais" layoutX="550.0" layoutY="248.0" prefHeight="70.0" prefWidth="263.0" promptText="País*">
-               <styleClass>
-                  <String fx:value="textField" />
-                  <String fx:value="textFieldGrey" />
-               </styleClass></TextField>
-            <DatePicker fx:id="fechaF" editable="false" layoutX="550.0" layoutY="327.0" prefHeight="70.0" prefWidth="263.0" promptText="Fecha inicio*">
-               <styleClass>
-                  <String fx:value="textField" />
-                  <String fx:value="textFieldGrey" />
-                  <String fx:value="datePickerGray" />
-               </styleClass></DatePicker>
-            <DatePicker fx:id="fechaT" editable="false" layoutX="550.0" layoutY="406.0" prefHeight="70.0" prefWidth="263.0" promptText="Fecha termino*">
-               <styleClass>
-                  <String fx:value="textField" />
-                  <String fx:value="textFieldGrey" />
-               </styleClass></DatePicker>
-            <ImageView fitHeight="169.0" fitWidth="287.0" layoutX="131.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/Loccet.png" />
-               </image>
-            </ImageView>
-            <Text fill="#0084ff" layoutX="132.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title3" text="Ingrese los datos correspondientes">
-               <font>
-                  <Font name="Heebo-Medium" size="18.0" />
-               </font>
-            </Text>
+            <VBox styleClass="backgroundWhite" stylesheets="@../css/createWorker.css">
+               <children>
+                  <HBox styleClass="backgroundWhite">
+                     <children>
+                        <VBox spacing="8.0">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <children>
+                              <AnchorPane prefHeight="217.0" prefWidth="514.0">
+                                 <children>
+                                    <ImageView fitHeight="164.0" fitWidth="167.0" layoutX="157.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/createProyectIcon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Text fill="#0084ff" layoutX="76.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title3" text="Por favor ingrese los datos correspondientes" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </AnchorPane>
+                              <VBox spacing="8.0">
+                                 <children>
+                                    <HBox spacing="8.0">
+                                       <children>
+                                          <VBox spacing="8.0">
+                                             <children>
+                                                <TextField fx:id="nombreP" prefHeight="70.0" prefWidth="263.0" promptText="Nombre del proyecto*">
+                                                   <styleClass>
+                                                      <String fx:value="textTotal" />
+                                                      <String fx:value="textFieldGrey" />
+                                                   </styleClass>
+                                                </TextField>
+                                                <TextField fx:id="jefeP" prefHeight="70.0" prefWidth="263.0" promptText="Jefe del proyecto*">
+                                                   <styleClass>
+                                                      <String fx:value="textFieldGrey" />
+                                                      <String fx:value="textField" />
+                                                   </styleClass>
+                                                </TextField>
+                                                <TextField fx:id="montoC" prefHeight="70.0" prefWidth="263.0" promptText="Monto contractual*">
+                                                   <styleClass>
+                                                      <String fx:value="textFieldGrey" />
+                                                      <String fx:value="textField" />
+                                                   </styleClass>
+                                                </TextField>
+                                             </children>
+                                          </VBox>
+                                          <VBox spacing="8.0">
+                                             <children>
+                                                <TextField fx:id="cliente" prefHeight="70.0" prefWidth="263.0" promptText="Cliente*">
+                                                   <styleClass>
+                                                      <String fx:value="textFieldGrey" />
+                                                      <String fx:value="textField" />
+                                                   </styleClass>
+                                                   <font>
+                                                      <Font name="Heebo-Regular" size="12.0" />
+                                                   </font>
+                                                </TextField>
+                                                <TextField fx:id="mailC" prefHeight="70.0" prefWidth="263.0" promptText="e-Mail del cliente*">
+                                                   <styleClass>
+                                                      <String fx:value="textField" />
+                                                      <String fx:value="totalField" />
+                                                      <String fx:value="textFieldGrey" />
+                                                   </styleClass>
+                                                </TextField>
+                                                <TextField fx:id="telefonoC" prefHeight="70.0" prefWidth="263.0" promptText="Telefono del cliente*">
+                                                   <styleClass>
+                                                      <String fx:value="textFieldGrey" />
+                                                      <String fx:value="textField" />
+                                                   </styleClass>
+                                                </TextField>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="8.0" left="16.0" right="8.0" top="8.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox spacing="8.0">
+               <children>
+                  <TextField fx:id="direccion" prefHeight="70.0" prefWidth="263.0" promptText="Dirección*">
+                     <styleClass>
+                        <String fx:value="textField" />
+                        <String fx:value="textFieldGrey" />
+                     </styleClass>
+                  </TextField>
+                  <TextField fx:id="ciudad" prefHeight="70.0" prefWidth="263.0" promptText="Ciudad*">
+                     <styleClass>
+                        <String fx:value="textField" />
+                        <String fx:value="textFieldGrey" />
+                     </styleClass>
+                  </TextField>
+                  <TextField fx:id="estado" prefHeight="70.0" prefWidth="263.0" promptText="Estado/Provincia*">
+                     <styleClass>
+                        <String fx:value="textField" />
+                        <String fx:value="textFieldGrey" />
+                     </styleClass>
+                  </TextField>
+                  <TextField fx:id="pais" prefHeight="70.0" prefWidth="263.0" promptText="País*">
+                     <styleClass>
+                        <String fx:value="textField" />
+                        <String fx:value="textFieldGrey" />
+                     </styleClass>
+                  </TextField>
+                  <DatePicker fx:id="fechaF" editable="false" prefHeight="70.0" prefWidth="263.0" promptText="Fecha inicio*">
+                     <styleClass>
+                        <String fx:value="textField" />
+                        <String fx:value="grayDatePicker" />
+                        <String fx:value="textFieldGrey" />
+                     </styleClass>
+                     <padding>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </padding>
+                  </DatePicker>
+                  <DatePicker fx:id="fechaT" editable="false" prefHeight="70.0" prefWidth="263.0" promptText="Fecha termino*">
+                     <styleClass>
+                        <String fx:value="textField" />
+                        <String fx:value="grayDatePicker" />
+                        <String fx:value="textFieldGrey" />
+                     </styleClass>
+                     <padding>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </padding>
+                  </DatePicker>
+               </children>
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
+            </VBox>
          </children>
-         <VBox.margin>
-            <Insets left="10.0" right="10.0" />
-         </VBox.margin>
-      </AnchorPane>
-      <ButtonBar>
-        <buttons>
+      </HBox>
+      <ButtonBar VBox.vgrow="ALWAYS">
+         <buttons>
           <Button fx:id="aceptar" defaultButton="true" mnemonicParsing="false" onAction="#apretarAceptar" styleClass="buttonBlue" text="Aceptar" />
-            <Button fx:id="cancelar" layoutX="535.0" layoutY="10.0" mnemonicParsing="false" onAction="#apretarCancelar" styleClass="buttonFillBlue" text="Cancelar" />
-        </buttons>
+            <Button fx:id="cancelar" mnemonicParsing="false" onAction="#apretarCancelar" styleClass="buttonFillBlue" text="Cancelar" />
+         </buttons>
+         <VBox.margin>
+            <Insets bottom="10.0" right="10.0" />
+         </VBox.margin>
       </ButtonBar>
    </children>
    <padding>

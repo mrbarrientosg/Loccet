@@ -108,19 +108,34 @@
     -fx-background-color: white;
     -fx-background-radius: 3; }
 
-.buttonFillRed {
+.buttonRed {
   -fx-font-family: "Heebo Medium";
   -fx-font-size: 14px;
-  -fx-text-fill: Red;
-  -fx-background-color: white;
+  -fx-text-fill: white;
+  -fx-background-color: red;
   -fx-background-radius: 3; }
-  .buttonFillRed:hover {
-    -fx-text-fill: Red;
-    -fx-background-color: #e6e6e6;
+  .buttonRed:hover {
+    -fx-text-fill: white;
+    -fx-background-color: #ff2929;
     -fx-background-radius: 3; }
-  .buttonFillRed:pressed {
-    -fx-text-fill: Red;
-    -fx-background-color: white;
+  .buttonRed:pressed {
+    -fx-text-fill: white;
+    -fx-background-color: red;
+    -fx-background-radius: 3; }
+
+.buttonGray {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: black;
+  -fx-background-color: #F0F0F0;
+  -fx-background-radius: 3; }
+  .buttonGray:hover {
+    -fx-text-fill: black;
+    -fx-background-color: #d7d7d7;
+    -fx-background-radius: 3; }
+  .buttonGray:pressed {
+    -fx-text-fill: black;
+    -fx-background-color: #F0F0F0;
     -fx-background-radius: 3; }
 
 .backgroundWhite {
@@ -128,6 +143,11 @@
 
 .backgroundLight {
   -fx-background-color: #F9F9F9; }
+
+.backgroundgray {
+  -fx-text-fill: black;
+  -fx-prompt-text-fill: #878787;
+  -fx-background-color: #F0F0F0; }
 
 .textField {
   -fx-font-family: "Heebo Light";
@@ -137,3 +157,7 @@
   -fx-text-fill: black;
   -fx-prompt-text-fill: #878787;
   -fx-background-color: #F0F0F0; }
+
+.title1 {
+  -fx-font-family: "Heebo Black";
+  -fx-font-size: 24px; }

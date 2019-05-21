@@ -1,8 +1,10 @@
 @import '../base/base';
-@import '../components/components';
-@import '../components/combobox';
+@import "../components/combobox";
+@import "../components/buttons";
+@import "../components/textfields";
+@import "../components/backgrounds";
 @import '../components/tableview';
-@import '../components/scrollbar';
+@import "../components/scrollbar";
 
 @include buttonBlue;
 @include buttonWhite;

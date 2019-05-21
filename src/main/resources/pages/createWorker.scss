@@ -1,23 +1,18 @@
 @import '../base/base';
 @import "../components/combobox";
+@import "../components/datepicker";
 @import "../components/buttons";
 @import "../components/textfields";
 @import "../components/backgrounds";
-@import '../components/textarea';
-
-@include backgroundWhite;
-
-@include backgroundgray;
 
 @include buttonFillBlue;
-
 @include buttonBlue;
 
 @include textFieldGrey;
-
 @include textField;
 
-@include textAreaGray;
+@include backgroundWhite;
+@include backgroundgray;
+@include datePickerGray;
 
 @include title3;
-

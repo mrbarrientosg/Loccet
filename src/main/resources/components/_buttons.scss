@@ -134,6 +134,27 @@
   }
 }
 
+@mixin buttonGray {
+  #{'.buttonGray'} {
+    @include button;
+    -fx-text-fill: black;
+    -fx-background-color: $gray;
+    -fx-background-radius: 3;
+
+    &:hover {
+      -fx-text-fill: black;
+      -fx-background-color: darken($gray, 10%);
+      -fx-background-radius: 3;
+    }
+
+    &:pressed {
+      -fx-text-fill: black;
+      -fx-background-color: $gray;;
+      -fx-background-radius: 3;
+    }
+  }
+}
+
 @mixin buttonFillBlue {
   #{'.buttonFillBlue'} {
     @include button;
@@ -151,6 +172,30 @@
       -fx-text-fill: $dark-blue;
       -fx-background-color: white;
       -fx-background-radius: 3;
+    }
+  }
+}
+
+@mixin buttonBorderBlue {
+  #{'.buttonBorderBlue'} {
+    @include button;
+    -fx-text-fill: $dark-blue;
+    -fx-background-color: white;
+    -fx-border-radius: 3;
+    -fx-border-color: $dark-blue;
+
+    &:hover {
+      -fx-text-fill: $dark-blue;
+      -fx-background-color: darken(white, 5%);
+      -fx-border-radius: 3;
+      -fx-border-color: $dark-blue;
+    }
+
+    &:pressed {
+      -fx-text-fill: $dark-blue;
+      -fx-background-color: white;
+      -fx-border-radius: 3;
+      -fx-border-color: $dark-blue;
     }
   }
 }
