@@ -45,7 +45,7 @@
   -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.2) , 12, 0.0 , 0 , 8 );
 }
 
-//color del panel que controla los meses y el año
+//color del panel que controla los meses y el ao
 .date-picker-popup > .month-year-pane {
   -fx-padding: 0.588883em 0.5em 0.666667em 0.5em;
   -fx-background-color: $gray;/*$dark-blue, linear-gradient(to top right, reflect, $dark-blue, $light-blue);*/
