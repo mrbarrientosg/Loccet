@@ -29,8 +29,6 @@ public final class TrabajadorController extends Controller {
 
     private TrabajadorRouter router;
 
-    private Trabajador.Builder trabajadorBuilder;
-
     private Localizacion.Builder localizacionBuilder;
 
     private StringProperty rut;
@@ -64,7 +62,6 @@ public final class TrabajadorController extends Controller {
     private EditTrabajadorDelegate delegate;
 
     public TrabajadorController() {
-        trabajadorBuilder = new Trabajador.Builder();
         localizacionBuilder = new Localizacion.Builder();
 
         rut = new SimpleStringProperty(null);
@@ -90,7 +87,7 @@ public final class TrabajadorController extends Controller {
      *
      * @author Matias Barrientos
      */
-    public void guardarTrabajador() {
+    /*public void guardarTrabajador() {
         if (!validarTrabajador()) return;
 
         localizacionBuilder
@@ -120,7 +117,7 @@ public final class TrabajadorController extends Controller {
 
     private boolean validarTrabajador() {
         return validarInformacionPersonal() && validarLocalizacion() && validarContacto();
-    }
+    }*/
 
     /**
      * Valida solo la informacion personal del trabajador, y si
@@ -129,7 +126,7 @@ public final class TrabajadorController extends Controller {
      *
      * @author Matias Barrientos
      */
-    private boolean validarInformacionPersonal() {
+    /*private boolean validarInformacionPersonal() {
         // 1 validar RUT
         // TODO: Validar que el rut sea correcto
         if (!validacionIsEmpty(rut, "Debe ingresar el RUT"))
@@ -150,7 +147,7 @@ public final class TrabajadorController extends Controller {
         trabajadorBuilder.apellido(lastName.get());
 
         return true;
-    }
+    }*/
 
     /**
      * Valida la seccion de localizacion
@@ -159,7 +156,7 @@ public final class TrabajadorController extends Controller {
      *
      * @author Matias Barrientos
      */
-    private boolean validarLocalizacion() {
+    /*private boolean validarLocalizacion() {
         // 1 validar la dirrecion
         if (!validacionIsEmpty(address, "Debe ingresar la dirreción"))
             return false;
@@ -185,7 +182,7 @@ public final class TrabajadorController extends Controller {
         localizacionBuilder.estado(state.get());
 
         return true;
-    }
+    }*/
 
     /**
      * Valida la seccion de contacto
@@ -194,7 +191,7 @@ public final class TrabajadorController extends Controller {
      *
      * @author Matias Barrientos
      */
-    private boolean validarContacto() {
+    /*private boolean validarContacto() {
         // 1 validar telefono
         if (!validacionIsEmpty(telephone, "Debe ingresar el telefono"))
             return false;
@@ -209,7 +206,7 @@ public final class TrabajadorController extends Controller {
         trabajadorBuilder.correoElectronico(email.get());
 
         return true;
-    }
+    }*/
 
     /**
      * Valida que el campo no sea vacio

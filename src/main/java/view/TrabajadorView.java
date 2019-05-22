@@ -80,7 +80,7 @@ public final class TrabajadorView extends View {
 
     @FXML
     private void saveHandler(ActionEvent event) {
-        controller.guardarTrabajador();
+        //controller.guardarTrabajador();
     }
 
     @FXML
