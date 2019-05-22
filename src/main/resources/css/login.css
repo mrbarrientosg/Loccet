@@ -54,7 +54,7 @@
   -fx-font-family: "Heebo Medium";
   -fx-font-size: 14px;
   -fx-text-fill: white;
-  -fx-background-color: #1DB954;
+  -fx-background-color: #4AC959;
   -fx-background-radius: 3; }
   .buttonGreen:hover {
     -fx-text-fill: white;
@@ -62,12 +62,12 @@
     -fx-background-radius: 3; }
   .buttonGreen:pressed {
     -fx-text-fill: white;
-    -fx-background-color: #1DB954;
+    -fx-background-color: #4AC959;
     -fx-background-radius: 3; }
 
 .buttonGreenShadow {
   -fx-background-color: white;
-  -fx-effect: dropshadow(two-pass-box, rgba(29, 185, 84, 0.7), 20, 0, -0.06, 1.5); }
+  -fx-effect: dropshadow(two-pass-box, rgba(74, 201, 89, 0.7), 20, 0, -0.06, 1.5); }
 
 .buttonLabelGrey {
   -fx-background-color: transparent;

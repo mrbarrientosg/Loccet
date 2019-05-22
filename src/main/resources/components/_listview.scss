@@ -1,17 +1,9 @@
 .listViewGrey {
   -fx-text-fill: black;
   -fx-prompt-text-fill: #5C5C5C;
-  -fx-background-color: #F9F9F9;
-  -fx-background-insets: 0;
+  -fx-background-color: $gray;
+  -fx-background-radius: 3;
   -jfx-vertical-gap: 10;
-}
-
-.listViewGrey .jfx-list-cell {
-  -fx-text-fill: black;
-  -fx-background-color: white;
-  -fx-border-width: 0 0 .25 0;
-  -fx-border-color: rgba(0,0,0,0.3);
-  -fx-background-insets: 0.0;
 }
 
 .listViewGrey .scroll-pane {
