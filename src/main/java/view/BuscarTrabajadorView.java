@@ -1,12 +1,14 @@
 package view;
 
 import base.Fragment;
+import cell.TrabajadorCell;
 import controller.BuscarTrabajadorController;
 import io.reactivex.Observable;
 import io.reactivex.rxjavafx.observables.JavaFxObservable;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import io.reactivex.schedulers.Schedulers;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -24,7 +26,7 @@ public class BuscarTrabajadorView extends Fragment {
     private TextField searchField;
 
     @FXML
-    private ListView<String> listView;
+    private ListView<TrabajadorCell> listView;
 
     @FXML
     private Button doneButton;
@@ -61,8 +63,12 @@ public class BuscarTrabajadorView extends Fragment {
 
     @Override
     public void viewDidShow() {
+        controller.selectedItemProperty().bind(listView.getSelectionModel().selectedItemProperty());
 
+        doneButton.setOnAction(controller::doneAction);
+        cancelButton.setOnAction(event -> close());
     }
+
 
     public void setController(BuscarTrabajadorController controller) {
         this.controller = controller;
