@@ -9,7 +9,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="backgroundWhite" stylesheets="@../css/searchworker.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label styleClass="title1" text="Buscar Trabajador" />
@@ -22,10 +21,14 @@
             <Insets top="6.0" />
          </VBox.margin>
       </TextField>
-      <ListView fx:id="listView" editable="true" styleClass="listViewGrey" VBox.vgrow="ALWAYS">
+      <ListView fx:id="listView" editable="true" VBox.vgrow="ALWAYS">
          <VBox.margin>
             <Insets top="8.0" />
          </VBox.margin>
+         <styleClass>
+            <String fx:value="listViewGrey" />
+            <String fx:value="paragraphUI" />
+         </styleClass>
       </ListView>
       <ButtonBar prefHeight="40.0" prefWidth="200.0">
         <buttons>

@@ -3,6 +3,8 @@ package controller;
 import base.Controller;
 import cell.MaterialCell;
 import cell.TrabajadorCell;
+import io.reactivex.Observable;
+import io.reactivex.Single;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -15,13 +17,14 @@ import model.Trabajador;
 import router.ListaTrabajadorRouter;
 import router.TrabajadorRouter;
 import state.EditTrabajadorDelegate;
+import util.SearchEmployeeDelegate;
 import view.ListaTrabajadorView;
 import view.TrabajadorView;
 
 import java.util.ListIterator;
 import java.util.stream.Collectors;
 
-public final class ListaTrabajadorController extends Controller {
+public final class ListaTrabajadorController extends Controller implements SearchEmployeeDelegate {
 
     private final ListaTrabajadorView view;
 
@@ -39,4 +42,18 @@ public final class ListaTrabajadorController extends Controller {
         return FXCollections.observableList(model.getTrabajadores().stream().map(TrabajadorCell::new).collect(Collectors.toList()));
     }
 
+    public Single<ObservableList<TrabajadorCell>> searchEmployee(String text) {
+        return Observable.fromIterable(model.getTrabajadores())
+                .filter(trabajador -> trabajador.getRut().contains(text))
+                .map(TrabajadorCell::new)
+                .toList()
+                .map(FXCollections::observableList);
+    }
+
+    @Override
+    public void selectedEmployee(Trabajador value) {
+        if (model.obtenerTrabajador(value.getRut()) != null) return;
+        model.agregarTrabajador(value);
+        view.addEmployee(new TrabajadorCell(value));
+    }
 }

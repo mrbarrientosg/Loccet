@@ -24,7 +24,7 @@
                      </font>
                   </Label>
                   <Separator maxWidth="1.7976931348623157E308" visible="false" HBox.hgrow="ALWAYS" />
-                  <Button mnemonicParsing="false" styleClass="buttonBlue" text="Agregar trabajador" />
+                  <Button mnemonicParsing="false" onAction="#addEmployeeAction" styleClass="buttonBlue" text="Agregar trabajador" />
                   <Button mnemonicParsing="false" onAction="#verDetalleTrabajador" styleClass="buttonFillBlue" text="Ver detalle" />
                </children>
             </HBox>

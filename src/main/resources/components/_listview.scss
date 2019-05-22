@@ -1,67 +1,20 @@
 .listViewGrey {
   -fx-text-fill: black;
-  -fx-prompt-text-fill: #5C5C5C;
   -fx-background-color: $gray;
   -fx-background-radius: 3;
-  -jfx-vertical-gap: 10;
 }
 
-.listViewGrey .scroll-pane {
-  -fx-background-color: #F9F9F9;
+.listViewGrey .list-cell {
+  -fx-text-fill: black;
+  -fx-background-color: $gray;
+  -fx-border-width: 0 0 1 0;
+  -fx-border-color: #F7F7F7;
 }
 
-.listViewGrey .scroll-bar:vertical {
-  -fx-pref-width: 8px;
+.listViewGrey .list-cell:selected {
+  -fx-background-color: $ghost-white;
 }
 
-.listViewGrey .scroll-bar:horizontal {
-  -fx-pref-height: 8px;
-}
-
-.listViewGrey .scroll-bar:horizontal .track,
-.listViewGrey .scroll-bar:vertical .track{
-  -fx-background-color :#F9F9F9;
-  -fx-border-color :#F9F9F9;
-  -fx-background-radius : 0.0em;
-  -fx-border-radius :2.0em;
-}
-
-.listViewGrey .scroll-bar:horizontal .increment-button,
-.listViewGrey .scroll-bar:horizontal .decrement-button {
-  -fx-background-color :white;
-  -fx-background-radius : 0.0em;
-  -fx-padding:0 0 10px 0;
-}
-
-.listViewGrey .scroll-bar:vertical .increment-button,
-.listViewGrey .scroll-bar:vertical .decrement-button {
-  -fx-background-color :white;
-  -fx-background-radius : 0.0em;
-  -fx-padding:0 10px 0 0;
-}
-
-.listViewGrey .scroll-bar .increment-arrow,
-.listViewGrey .scroll-bar .decrement-arrow {
-  -fx-shape : null;
-  -fx-padding :0.15em 0.0;
-}
-
-.listViewGrey .scroll-bar:vertical .increment-arrow,
-.listViewGrey .scroll-bar:vertical .decrement-arrow{
-  -fx-shape : null;
-  -fx-padding :0.0 0.15em;
-}
-
-.listViewGrey .scroll-bar:horizontal .thumb,
-.listViewGrey .scroll-bar:vertical .thumb {
-  -fx-background-color : #D1D1D1;
-  -fx-background-insets : 1.0, 0.0, 0.0;
-  -fx-background-radius : 2.0em;
-}
-
-.listViewGrey .scroll-bar:horizontal .thumb:hover,
-.listViewGrey .scroll-bar:vertical .thumb:hover {
-  -fx-background-color : #ACACAC;
-  -fx-background-insets : 1.0, 0.0, 0.0;
-  -fx-background-radius : 2.0em;
+.listViewGrey .scroll-bar {
+  -fx-background-color: transparent;
 }
