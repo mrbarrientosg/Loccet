@@ -32,19 +32,19 @@ public final class AgregarProyectoController extends Controller {
      */
     public void presionarAceptar(TextField nombreP,TextField jefeP, TextField montoC,TextField cliente,TextField telefonoC,TextField mailC,TextField direccion,TextField ciudad,TextField estado,TextField pais,DatePicker fechaF,DatePicker fechaT){
         System.out.println("Todos los campos estan llenos");
-        Proyecto proyecto = new Proyecto.Builder(nombreP.getText(),jefeP.getText(),Double.parseDouble(montoC.getText()),cliente.getText())
-                .datosCliente(mailC.getText(),telefonoC.getText())
-                .datosUbicacion(direccion.getText(),pais.getText(),ciudad.getText(),estado.getText())
-                .fechaProyecto(fechaF.getValue(),fechaT.getValue())
-                .build();
-        if(!model.existeProyecto(proyecto)){
-            model.agregarProyecto(proyecto);
-            router.showInformation("Agregado satisfactoriamente", nombreP);
-
-        }
-        else {
-            router.showAlert("Proyecto ingresado previamente").showAndWait();
-        }
+//        Proyecto proyecto = new Proyecto.Builder(nombreP.getText(),jefeP.getText(),Double.parseDouble(montoC.getText()),cliente.getText())
+//                .datosCliente(mailC.getText(),telefonoC.getText())
+//                .datosUbicacion(direccion.getText(),pais.getText(),ciudad.getText(),estado.getText())
+//                .fechaProyecto(fechaF.getValue(),fechaT.getValue())
+//                .build();
+//        if(!model.existeProyecto(proyecto)){
+//            model.agregarProyecto(proyecto);
+//            router.showInformation("Agregado satisfactoriamente", nombreP);
+//
+//        }
+//        else {
+//            router.showAlert("Proyecto ingresado previamente").showAndWait();
+//        }
         //TODO: Aqui se cierra la vista
     }
 

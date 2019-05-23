@@ -9,10 +9,11 @@ import repository.RepositoryProyecto;
 
 import java.lang.reflect.Type;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.*;
 
 public class Trabajador {
+
+    // MARK: - Atributos
 
     private String rut;
 
@@ -36,37 +37,25 @@ public class Trabajador {
 
     private RepositoryHorario repositoryHorario;
 
-    private Trabajador(Builder builder) {
-        this.rut = builder.rut;
-        this.nombre = builder.nombre;
-        this.apellido = builder.apellido;
-        this.fechaNacimiento = builder.fechaNacimiento;
-        this.especialidad = builder.especialidad;
-        this.localizacion = builder.localizacion;
-        this.telefono = builder.telefono;
-        this.correoElectronico = builder.correoElectronico;
-
-        repositoryHorario = new MemoryRepositoryHorario();
-        repositoryProyecto = new MemoryRepositoryProyecto();
-    }
+    // MARK: - Constructor
 
     public Trabajador() {
         repositoryHorario = new MemoryRepositoryHorario();
         repositoryProyecto = new MemoryRepositoryProyecto();
     }
 
+    // MARK: - Metodos Proyecto
+
     public void asociarProyecto(Proyecto proyecto) {
         repositoryProyecto.add(proyecto);
     }
+
+    // MARK: - Metodos Horario
 
     public void agregarHorario(String idProyecto, Horario horario) {
         horario.setProyecto(repositoryProyecto.get(idProyecto));
         horario.setTrabajador(this);
         repositoryHorario.add(horario);
-    }
-
-    public Horario eliminarHorario(Horario horario) {
-        return repositoryHorario.remove(horario);
     }
 
     public List<Horario> obtenerListaHorario() {
@@ -75,107 +64,26 @@ public class Trabajador {
         return Collections.unmodifiableList(aux);
     }
 
-    public static class Builder {
-
-        private String rut;
-
-        private String nombre;
-
-        private String apellido;
-
-        private Especialidad especialidad;
-
-        private LocalDate fechaNacimiento;
-
-        private Localizacion localizacion;
-
-        private String telefono;
-
-        private String correoElectronico;
-
-        public Builder rut(String rut) {
-            this.rut = rut;
-            return this;
-        }
-
-        public Builder nombre(String nombre) {
-            this.nombre = nombre;
-            return this;
-        }
-
-        public Builder apellido(String apellido) {
-            this.apellido = apellido;
-            return this;
-        }
-
-        public Builder especialidad(Especialidad especialidad) {
-            this.especialidad = especialidad;
-            return this;
-        }
-
-        public Builder fechaNacimiento(LocalDate fechaNacimiento) {
-            this.fechaNacimiento = fechaNacimiento;
-            return this;
-        }
-
-        public Builder localizacion(Localizacion localizacion) {
-            this.localizacion = localizacion;
-            return this;
-        }
-
-        public Builder telefono(String telefono) {
-            this.telefono = telefono;
-            return this;
-        }
-
-        public Builder correoElectronico(String correoElectronico) {
-            this.correoElectronico = correoElectronico;
-            return this;
-        }
-
-        public Trabajador build() {
-            return new Trabajador(this);
-        }
-    }
+    // MARK: - Getter
 
     public String getRut() {
         return rut;
-    }
-
-    public void setRut(String rut) {
-        this.rut = rut;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public String getApellido() {
         return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public Especialidad getEspecialidad() {
-        return especialidad;
-    }
-
-    public void setEspecialidad(Especialidad especialidad) {
-        this.especialidad = especialidad;
     }
 
     public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(LocalDate fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
+    public Especialidad getEspecialidad() {
+        return especialidad;
     }
 
     public Localizacion getLocalizacion() {
@@ -186,21 +94,53 @@ public class Trabajador {
         return telefono;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
     public String getCorreoElectronico() {
         return correoElectronico;
+    }
+
+    public int getCantidadHoraTrabajada() {
+        return cantidadHoraTrabajada;
+    }
+
+    // MARK: - Setter
+
+    public void setRut(String rut) {
+        this.rut = rut;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public void setEspecialidad(Especialidad especialidad) {
+        this.especialidad = especialidad;
+    }
+
+    public void setLocalizacion(Localizacion localizacion) {
+        this.localizacion = localizacion;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
     }
 
-    public void setLocalizacion(Localizacion localizacion) {
-        this.localizacion = localizacion;
+    public void setCantidadHoraTrabajada(int cantidadHoraTrabajada) {
+        this.cantidadHoraTrabajada = cantidadHoraTrabajada;
     }
+
+    // MARK: - JSON
 
     public static class TrabajadorDeserializer implements JsonDeserializer<Trabajador> {
 

@@ -4,6 +4,8 @@ import java.time.LocalTime;
 
 public class Horario {
 
+    // MARK: - Atributos
+
     private Integer dia;
 
     private Proyecto proyecto;
@@ -14,34 +16,35 @@ public class Horario {
 
     private LocalTime horaFin;
 
-    private Horario(Builder builder) {
-        this.dia = builder.dia;
-        this.horaIncio = builder.fechaInicio;
-        this.horaFin = builder.fechaTermino;
-    }
+    // MARK: - Constructor
 
     public Horario() {
+
     }
+
+    // MARK: - Getter
 
     public Integer getDia() {
         return dia;
     }
 
-    public LocalTime getFechaInicio() {
+    public Proyecto getProyecto() {
+        return proyecto;
+    }
+
+    public Trabajador getTrabajador() {
+        return trabajador;
+    }
+
+    public LocalTime getHoraIncio() {
+        return horaIncio;
+    }
+
+    public LocalTime getHoraFin() {
         return horaFin;
     }
 
-    public void setFechaInicio(LocalTime fechaInicio) {
-        this.horaIncio = fechaInicio;
-    }
-
-    public LocalTime getFechaTermino() {
-        return horaFin;
-    }
-
-    public void setFechaTermino(LocalTime fechaTermino) {
-        this.horaIncio = fechaTermino;
-    }
+    // MARK: - Setter
 
     public void setProyecto(Proyecto proyecto) {
         this.proyecto = proyecto;
@@ -50,38 +53,4 @@ public class Horario {
     public void setTrabajador(Trabajador trabajador) {
         this.trabajador = trabajador;
     }
-
-    public static class Builder {
-
-        private final Integer dia;
-
-        private final String idProyecto;
-
-        private final String nombreProyecto;
-
-        private LocalTime fechaInicio;
-
-        private LocalTime fechaTermino;
-
-        public Builder(Integer dia, String idProyecto, String nombreProyecto) {
-            this.dia = dia;
-            this.idProyecto = idProyecto;
-            this.nombreProyecto = nombreProyecto;
-        }
-
-        public Builder fechaInicio(LocalTime fechaInicio) {
-            this.fechaInicio = fechaInicio;
-            return this;
-        }
-
-        public Builder fechaTermino(LocalTime fechaTermino) {
-            this.fechaTermino = fechaTermino;
-            return this;
-        }
-
-        public Horario build() {
-            return new Horario(this);
-        }
-    }
-
 }

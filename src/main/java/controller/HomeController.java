@@ -88,7 +88,7 @@ public final class HomeController extends Controller {
         System.out.println("Ingrese el id del proyecto:");
         try {
             id = reader.readLine();
-            p = model.buscarProyecto(id);
+            //p = model.buscarProyecto(id);
             if (p != null) {
                 mostrarListaTrabajadores();
                 System.out.println("Ingrese el rut del trabajador:");
@@ -208,11 +208,11 @@ public final class HomeController extends Controller {
         Proyecto proyecto = null;
 
         System.out.println("Ingrese id del proyecto:");
-        try {
-            proyecto = model.buscarProyecto(lector.readLine());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            proyecto = model.buscarProyecto(lector.readLine());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
         if (proyecto != null)
             router.inventarioMateriales(proyecto.getInventarioMaterial(), proyecto);
@@ -230,7 +230,7 @@ public final class HomeController extends Controller {
 
         try {
             System.out.println("Ingrese el id del proyecto:");
-            proyecto = model.buscarProyecto(reader.readLine());
+            //proyecto = model.buscarProyecto(reader.readLine());
 
 
             if (proyecto != null) {

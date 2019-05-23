@@ -4,6 +4,7 @@ import com.google.gson.*;
 import json.LocalDateTypeConverter;
 import repository.RepositoryAsistencia;
 import repository.RepositoryFase;
+import repository.Specification;
 import repository.memory.MemoryRepositoryAsistencia;
 import repository.memory.MemoryRepositoryFase;
 import repository.memory.MemoryRepositoryTrabajador;
@@ -13,11 +14,14 @@ import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 public class Proyecto {
 
-    // MARK: - Variables
+    // MARK: - Atributos
+
     private String id;
 
     private String nombre;
@@ -42,18 +46,6 @@ public class Proyecto {
 
     // MARK: - Constructor
 
-    private Proyecto(Builder builder){
-        this.id = builder.id;
-        this.nombre = builder.nombreProyecto;
-        this.fechaInicio = builder.fechaInicio;
-        this.fechaTermino = builder.fechaTermino;
-
-        repositoryAsistencia = new MemoryRepositoryAsistencia();
-        repositoryTrabajador = new MemoryRepositoryTrabajador();
-        repositoryFase = new MemoryRepositoryFase();
-        inventarioMaterial = new InventarioMaterial();
-    }
-
     public Proyecto() {
         repositoryAsistencia = new MemoryRepositoryAsistencia();
         repositoryTrabajador = new MemoryRepositoryTrabajador();
@@ -61,50 +53,18 @@ public class Proyecto {
         inventarioMaterial = new InventarioMaterial();
     }
 
-    public Proyecto(JsonObject json) {
-        id = json.get("id").getAsString();
-        nombre = json.get("nombre").getAsString();
-        estimacion = json.get("costo_estimado").getAsBigDecimal();
-        nombreCliente = json.get("nombre_cliente").getAsString();
-        //fechaInicio = LocalDate.parse(json.get("fecha_inicio").getAsString());
+    // MARK: - Metodos Trabajador
 
-        //System.out.println(json.get("fecha_termino").isJsonNull());
-
-        //localizacion = new Localizacion(new JsonParser().parse(json.get("localizacion").getAsString()).getAsJsonObject());
-
-
+    /**
+     * Obtiene al trabajador el cual coincida con el rut.
+     * @param rut del trabajador.
+     * @return Trabajador encontrado.
+     *
+     * @author Matias Barrientos
+     */
+    public Trabajador obtenerTrabajador(String rut) {
+        return repositoryTrabajador.get(rut);
     }
-    // MARK: - Getter
-
-    public LocalDate getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public LocalDate getFechaTermino() {
-        return fechaTermino;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public BigDecimal getEstimacion() {
-        return estimacion;
-    }
-
-    public InventarioMaterial getInventarioMaterial() {
-        return inventarioMaterial;
-    }
-
-    public Localizacion getLocalizacion() {
-        return localizacion;
-    }
-
-    // MARK: - Metodos
 
     /**
      * Agrega un nuevo trabajador al proyecto
@@ -123,48 +83,6 @@ public class Proyecto {
         return repositoryTrabajador.update(nuevoTrabajador);
     }
 
-    public void agregarAsistencia(String rutTrabajador, Asistencia asistencia) {
-        asistencia.setProyecto(this);
-        asistencia.setTrabajador(repositoryTrabajador.get(rutTrabajador));
-        repositoryAsistencia.add(asistencia);
-    }
-
-    public void agregarFase(Fase fase) {
-        fase.setProyecto(this);
-        repositoryFase.add(fase);
-    }
-
-    public void agregarTarea(int idFase, Tarea tarea) {
-        repositoryFase.get(idFase).agregarTarea(tarea);
-    }
-
-    public void agregarMaterial(Material material) {
-        inventarioMaterial.agregarMaterial(material);
-    }
-
-    public void agregarRegistroMaterial(String idMaterial, RegistroMaterial registroMaterial) {
-        inventarioMaterial.agregarRegistroMaterial(idMaterial, registroMaterial);
-    }
-
-    public List<Trabajador> getTrabajadores() {
-        // Hay cambiarlo por un iterator
-        List<Trabajador> list = new ArrayList<>();
-        repositoryTrabajador.get().forEachRemaining(list::add);
-        return list;
-    }
-
-
-    /**
-     * Obtiene al trabajador el cual coincida con el rut.
-     * @param rut del trabajador.
-     * @return Trabajador encontrado.
-     *
-     * @author Matias Barrientos
-     */
-    public Trabajador obtenerTrabajador(String rut) {
-        return repositoryTrabajador.get(rut);
-    }
-
     /**
      * Elimina al trabajador que coincida con el rut.
      * @param rut del trabajador.
@@ -175,6 +93,53 @@ public class Proyecto {
     public Trabajador eliminarTrabajador(String rut) {
         return repositoryTrabajador.remove(repositoryTrabajador.get(rut));
     }
+
+    public Iterator<Trabajador> buscarTrabajador(Specification busqueda) {
+        return repositoryTrabajador.get(busqueda);
+    }
+
+    public List<Trabajador> getTrabajadores() {
+        // Hay cambiarlo por un iterator
+        List<Trabajador> list = new ArrayList<>();
+        repositoryTrabajador.get().forEachRemaining(list::add);
+        return list;
+    }
+
+    // MARK: - Metodos Inventario
+
+    public void agregarMaterial(Material material) {
+        inventarioMaterial.agregarMaterial(material);
+    }
+
+    // MARK: - Metodos Asistencia
+
+    public void agregarAsistencia(String rutTrabajador, Asistencia asistencia) {
+        asistencia.setProyecto(this);
+        asistencia.setTrabajador(repositoryTrabajador.get(rutTrabajador));
+        repositoryAsistencia.add(asistencia);
+    }
+
+    // MARK: - Metodos Fase
+
+    public void agregarFase(Fase fase) {
+        fase.setProyecto(this);
+        repositoryFase.add(fase);
+    }
+
+    // MARK: - Metodos Tarea
+
+    public void agregarTarea(int idFase, Tarea tarea) {
+        repositoryFase.get(idFase).agregarTarea(tarea);
+    }
+
+
+    // MARK : - Metodos Registro Material
+
+    public void agregarRegistroMaterial(String idMaterial, RegistroMaterial registroMaterial) {
+        inventarioMaterial.agregarRegistroMaterial(idMaterial, registroMaterial);
+    }
+
+
 
     /*public void estimacionGasto() {
         double total = inventarioMaterial.gastoTotal();
@@ -200,6 +165,42 @@ public class Proyecto {
 
         System.out.println("Gasto propuesto menos estimación: " + formatter.format(estimacion - total));
     }*/
+
+    // MARK: - Getter
+
+    public String getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public Localizacion getLocalizacion() {
+        return localizacion;
+    }
+
+    public LocalDate getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public LocalDate getFechaTermino() {
+        return fechaTermino;
+    }
+
+    public BigDecimal getEstimacion() {
+        return estimacion;
+    }
+
+    public String getNombreCliente() {
+        return nombreCliente;
+    }
+
+    public InventarioMaterial getInventarioMaterial() {
+        return inventarioMaterial;
+    }
+
+    // MARK: - Setter
 
     public void setId(String id) {
         this.id = id;
@@ -229,72 +230,7 @@ public class Proyecto {
         this.nombreCliente = nombreCliente;
     }
 
-    public String getNombreCliente() {
-        return nombreCliente;
-    }
-
-    public static class Builder {
-        private String id;
-        private String nombreProyecto;
-        private String jefeProyecto;
-        private String cliente;
-        private String mailCliente;
-        private String telefonoCliente;
-        private String direccion;
-        private String pais;
-        private String ciudad;
-        private String estado;
-        private LocalDate fechaInicio;
-        private LocalDate fechaTermino;
-        private String fechaTerminoReal;
-        private double estimacion;
-        private double costoReal;
-
-        public Builder(String nombreProyecto, String jefeProyecto, Double estimacion, String cliente){
-            this.id = generarId();
-            this.nombreProyecto = nombreProyecto;
-            this.jefeProyecto = jefeProyecto;
-            this.estimacion = estimacion;
-            this.cliente = cliente;
-        }
-
-        public Builder datosCliente(String mailCliente, String telefonoCliente) {
-            this.mailCliente = mailCliente;
-            this.telefonoCliente = telefonoCliente;
-            return this;
-        }
-
-        public Builder datosUbicacion(String direccion, String pais, String ciudad, String estado) {
-            this.direccion = direccion;
-            this.pais = pais;
-            this.ciudad = ciudad;
-            this.estado = estado;
-            return this;
-        }
-
-        public Builder fechaProyecto(LocalDate fechaInicio, LocalDate fechaTermino) {
-            this.fechaInicio = fechaInicio;
-            this.fechaTermino = fechaTermino;
-            return this;
-        }
-
-        public Proyecto build(){
-            return new Proyecto(this);
-        }
-
-        /**
-         * @return un string generando un Id unico para el proyecto.
-         * @author Matías Zúñiga
-         */
-        private final String generarId() {
-            String result = java.util.UUID.randomUUID().toString();
-            //result = result.replaceAll("-", "");
-            //result = result.replaceAll("[A-Za-z]","");
-            //result = result.substring(0, 32);
-            return result;
-        }
-
-    }
+    // MARK: - JSON
 
     public static class ProyetoDeserializer implements JsonDeserializer<Proyecto> {
 

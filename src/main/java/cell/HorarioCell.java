@@ -21,8 +21,8 @@ public final class HorarioCell {
         //id = h.getId();
         dia = h.getDia();
         //nombreProyecto = h.getNombreProyecto();
-        fechaInicio = h.getFechaInicio();
-        fechaTermino = h.getFechaTermino();
+        //fechaInicio = h.getFechaInicio();
+        //fechaTermino = h.getFechaTermino();
     }
 
     public final String getId() {

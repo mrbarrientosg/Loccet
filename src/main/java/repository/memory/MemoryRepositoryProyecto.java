@@ -1,7 +1,10 @@
 package repository.memory;
 
 import model.Proyecto;
+import model.Trabajador;
+import repository.MemorySpecification;
 import repository.RepositoryProyecto;
+import repository.Specification;
 
 import java.util.*;
 
@@ -54,5 +57,19 @@ public class MemoryRepositoryProyecto implements RepositoryProyecto {
     @Override
     public Iterator<Proyecto> get() {
         return listaProyecto.iterator();
+    }
+
+    @Override
+    public Iterator<Proyecto> get(Specification specification) {
+        final MemorySpecification<Proyecto> memorySpecification = (MemorySpecification<Proyecto>) specification;
+
+        final List<Proyecto> trabajadors = new ArrayList<>();
+
+        for (Proyecto proyecto: listaProyecto) {
+            if (memorySpecification.test(proyecto))
+                trabajadors.add(proyecto);
+        }
+
+        return trabajadors.iterator();
     }
 }

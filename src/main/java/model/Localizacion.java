@@ -4,6 +4,8 @@ import com.google.gson.JsonObject;
 
 public class Localizacion {
 
+    // MARK: - Atributos
+
     private String direccion;
 
     private String codigoPostal;
@@ -14,94 +16,48 @@ public class Localizacion {
 
     private String ciudad;
 
-    private Localizacion(Builder builder) {
-        this.direccion = builder.direccion;
-        this.codigoPostal = builder.codigoPostal;
-        this.pais = builder.pais;
-        this.estado = builder.estado;
-        this.ciudad = builder.ciudad;
-    }
 
+    // MARK: - Getter
 
     public String getDireccion() {
         return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
     }
 
     public String getCodigoPostal() {
         return codigoPostal;
     }
 
-    public void setCodigoPostal(String codigoPostal) {
-        this.codigoPostal = codigoPostal;
-    }
-
     public String getPais() {
         return pais;
-    }
-
-    public void setPais(String pais) {
-        this.pais = pais;
     }
 
     public String getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
     public String getCiudad() {
         return ciudad;
     }
 
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
+    // MARK: - Setter
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 
-    public static class Builder {
+    public void setCodigoPostal(String codigoPostal) {
+        this.codigoPostal = codigoPostal;
+    }
 
-        private String direccion;
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
 
-        private String codigoPostal;
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 
-        private String pais;
-
-        private String estado;
-
-        private String ciudad;
-
-        public Builder direccion(String direccion) {
-            this.direccion = direccion;
-            return this;
-        }
-
-        public Builder codigoPostal(String codigoPostal) {
-            this.codigoPostal = codigoPostal;
-            return this;
-        }
-
-        public Builder pais(String pais) {
-            this.pais = pais;
-            return this;
-        }
-
-        public Builder estado(String estado) {
-            this.estado = estado;
-            return this;
-        }
-
-        public Builder ciudad(String ciudad) {
-            this.ciudad = ciudad;
-            return this;
-        }
-
-        public Localizacion build() {
-            return new Localizacion(this);
-        }
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
     }
 }
