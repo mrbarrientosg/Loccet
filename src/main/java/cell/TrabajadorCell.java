@@ -17,10 +17,6 @@ public final class TrabajadorCell {
 
     private String nombreEspecialidad;
 
-    private Double cantidadDeHoras;
-
-    private Double sueldoPorHora;
-
     private String telefono;
 
     private String correoElectronico;
@@ -31,8 +27,8 @@ public final class TrabajadorCell {
         this.apellido = t.getApellido();
         this.fechaNacimiento = t.getFechaNacimiento().toString();
         this.nombreEspecialidad = t.getEspecialidad().getNombre();
-        //this.cantidadDeHoras = t.getEspecialidad().getCantidadDeHoras();
-        //this.sueldoPorHora = t.getEspecialidad().getSueldoPorHora();
+        this.telefono = t.getTelefono();
+        this.correoElectronico = t.getCorreoElectronico();
     }
 
     public String getRut() {
@@ -53,14 +49,6 @@ public final class TrabajadorCell {
 
     public String getNombreEspecialidad() {
         return nombreEspecialidad;
-    }
-
-    public Double getCantidadDeHoras() {
-        return cantidadDeHoras;
-    }
-
-    public Double getSueldoPorHora() {
-        return sueldoPorHora;
     }
 
     public String getTelefono() {
