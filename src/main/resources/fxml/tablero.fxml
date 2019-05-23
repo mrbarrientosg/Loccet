@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" styleClass="shadowpane" stylesheets="@../css/home.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" styleClass="shadowpane" stylesheets="@../css/home.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox layoutX="244.0" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="90.0" styleClass="top-bar" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -86,7 +86,7 @@
                   </Label>
                </children>
             </AnchorPane>
-            <ToggleButton fx:id="inicioButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" selected="true" text="Inicio">
+            <ToggleButton fx:id="inicioButton" alignment="CENTER_LEFT" graphicTextGap="7.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" selected="true" text="Inicio">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
@@ -101,14 +101,14 @@
                   <String fx:value="buttonLabelBlack" />
                </styleClass>
                <graphic>
-                  <ImageView fitHeight="45.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
+                  <ImageView fitHeight="44.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-3.0">
                      <image>
-                        <Image url="@../images/home.png" />
+                        <Image url="@../images/dashboard.png" />
                      </image>
                   </ImageView>
                </graphic>
             </ToggleButton>
-            <ToggleButton fx:id="rrhhButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" text="RRHH" toggleGroup="$menuToggleGroup">
+            <ToggleButton fx:id="rrhhButton" alignment="CENTER_LEFT" graphicTextGap="0.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" text="RRHH" toggleGroup="$menuToggleGroup">
                <padding>
                   <Insets left="16.0" />
                </padding>
@@ -120,14 +120,14 @@
                   <String fx:value="buttonLabelBlack" />
                </styleClass>
                <graphic>
-                  <ImageView fitHeight="45.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
+                  <ImageView fitHeight="44.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" translateX="-7.0">
                      <image>
                         <Image url="@../images/rrhh.png" />
                      </image>
                   </ImageView>
                </graphic>
             </ToggleButton>
-            <ToggleButton fx:id="proyectoButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" text="Proyectos" toggleGroup="$menuToggleGroup">
+            <ToggleButton fx:id="proyectoButton" alignment="CENTER_LEFT" graphicTextGap="7.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" text="Proyectos" toggleGroup="$menuToggleGroup">
                <padding>
                   <Insets left="16.0" />
                </padding>
@@ -139,12 +139,31 @@
                   <String fx:value="buttonLabelBlack" />
                </styleClass>
                <graphic>
-                  <ImageView fitHeight="45.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
+                  <ImageView fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-3.0">
                      <image>
                         <Image url="@../images/proyect.png" />
                      </image>
                   </ImageView>
                </graphic>
+            </ToggleButton>
+            <ToggleButton alignment="CENTER_LEFT" graphicTextGap="0.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" text="Reportes" toggleGroup="$menuToggleGroup">
+               <styleClass>
+                  <String fx:value="side-menu-button" />
+                  <String fx:value="buttonLabelBlack" />
+               </styleClass>
+               <padding>
+                  <Insets left="16.0" />
+               </padding>
+               <graphic>
+                  <ImageView fitHeight="44.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" translateX="-7.0">
+                     <image>
+                        <Image url="@../images/Report.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
             </ToggleButton>
             <Separator orientation="VERTICAL" prefHeight="200.0" visible="false" VBox.vgrow="ALWAYS" />
             <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" styleClass="footnote" text="Copyright Loccet. v1.0.0" textAlignment="CENTER" textFill="#00000080">
