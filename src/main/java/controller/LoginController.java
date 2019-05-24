@@ -50,9 +50,9 @@ public final class LoginController extends Controller {
         parameters.addProperty("dns", "test.loccet.cl");
 
         Disposable disposable = service.call(LoccetAPI.LOGIN, parameters)
-                .subscribeOn(Schedulers.computation())
                 .filter(Objects::nonNull)
                 .map(JsonElement::getAsJsonObject)
+                .subscribeOn(Schedulers.computation())
                 .observeOn(JavaFxScheduler.platform())
                 .subscribe(login -> {
                     if (login.get("login").getAsBoolean())
@@ -82,7 +82,6 @@ public final class LoginController extends Controller {
                 .create();
 
         Disposable disposable = service.call(LoccetAPI.GET_CONSTRUCTORA, parameters)
-                .subscribeOn(Schedulers.computation())
                 .filter(Objects::nonNull)
                 .map(JsonElement::getAsJsonObject)
                 .flatMap(jsonObject -> {
@@ -170,6 +169,7 @@ public final class LoginController extends Controller {
 
                     return Maybe.just(true);
                 })
+                .subscribeOn(Schedulers.computation())
                 .observeOn(JavaFxScheduler.platform())
                 .subscribe(empty -> {
                     view.hideLoading();

@@ -31,7 +31,7 @@ public class RRHHController extends Controller {
     }
 
     public Single<ObservableList<TrabajadorCell>> searchEmployeeProject(String idProject, String text) {
-        Proyecto p = model.buscarProyecto(idProject);
+        Proyecto p = null;//model.buscarProyecto(idProject);
 
         if (p == null) return Single.just(FXCollections.emptyObservableList());
 
@@ -43,7 +43,7 @@ public class RRHHController extends Controller {
     }
 
     public ObservableList<TrabajadorCell> getEmployeesProject(String id) {
-        Proyecto p = model.buscarProyecto(id);
+        Proyecto p = null;//model.buscarProyecto(id);
 
         if (p == null) return FXCollections.emptyObservableList();
 

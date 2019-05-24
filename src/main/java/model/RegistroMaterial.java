@@ -22,7 +22,7 @@ public class RegistroMaterial {
 
     // MARK: - Constructor
 
-    public RegistroMaterial(double cantidad){
+    public RegistroMaterial(double cantidad, Boolean retirado){
         this.cantidad = cantidad;
         this.retirado = retirado;
         fecha = Instant.now();

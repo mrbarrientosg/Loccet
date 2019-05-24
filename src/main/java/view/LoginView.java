@@ -128,7 +128,7 @@ public final class LoginView extends Fragment {
     private void loadingOverlay() {
         ProgressIndicator pi = new ProgressIndicator();
         VBox box = new VBox(pi);
-        box.setStyle("-fx-background-color: rgba(250, 250, 250, 0.8);");
+        box.setStyle("-fx-background-color: rgba(255, 255, 255, 0.8);");
         box.setAlignment(Pos.CENTER);
         getRoot().getChildren().add(box);
     }
