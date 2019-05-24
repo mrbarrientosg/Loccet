@@ -3,6 +3,8 @@ package model;
 
 public class Tarea {
 
+    // MARK: - Atributos
+
     private String titulo;
 
     private String descripcion;
@@ -13,7 +15,4 @@ public class Tarea {
 
     private Double procentajeRequerido;
 
-    public String getTitulo() {
-        return titulo;
-    }
 }

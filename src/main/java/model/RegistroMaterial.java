@@ -10,45 +10,32 @@ import java.time.LocalDateTime;
  */
 public class RegistroMaterial {
 
+    // MARK: - Atributos
+
     private Material material;
 
     private double cantidad;
 
     private Instant fecha;
 
-    /**
-     * @param json archivo
-     */
-    public RegistroMaterial(JsonObject json) {
-        cantidad = json.get("cantidad").getAsDouble();
-        fecha = Instant.ofEpochSecond(json.get("fecha").getAsLong());
-    }
+    // MARK: - Constructor
 
-    /**
-     * @param cantidad material
-     */
     public RegistroMaterial(double cantidad){
         this.cantidad = cantidad;
     }
 
-    /**
-     * @return cantidad de material
-     */
-    public Double getCantidad(){
+    // MARK: - Getter
+
+    public double getCantidad() {
         return cantidad;
     }
-
-    /**
-     * @return fecha del material.
-     */
 
     public Instant getFecha() {
         return fecha;
     }
 
-    /**
-     * @param material material
-     */
+    // MARK: - Setter
+
     public void setMaterial(Material material) {
         this.material = material;
     }

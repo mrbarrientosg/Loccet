@@ -29,8 +29,6 @@ public final class TrabajadorController extends Controller {
 
     private TrabajadorRouter router;
 
-    private Localizacion.Builder localizacionBuilder;
-
     private StringProperty rut;
 
     private StringProperty name;
@@ -62,8 +60,6 @@ public final class TrabajadorController extends Controller {
     private EditTrabajadorDelegate delegate;
 
     public TrabajadorController() {
-        localizacionBuilder = new Localizacion.Builder();
-
         rut = new SimpleStringProperty(null);
         name = new SimpleStringProperty(null);
         lastName = new SimpleStringProperty(null);
@@ -87,126 +83,126 @@ public final class TrabajadorController extends Controller {
      *
      * @author Matias Barrientos
      */
-    /*public void guardarTrabajador() {
-        if (!validarTrabajador()) return;
-
-        localizacionBuilder
-                .codigoPostal(zip.get());
-
-        trabajadorBuilder
-                .localizacion(localizacionBuilder.build())
-                .especialidad(Especialidades.getInstance().obtener(speciality.get()))
-                .fechaNacimiento(birthday.get());
-
-        Trabajador newT = trabajadorBuilder.build();
-
-        Trabajador old = null;
-
-        if (isEditing)
-            old = model.actualizarTrabajador(newT);
-        else
-            model.agregarTrabajador(newT);
-
-        if (delegate != null && isEditing) {
-            delegate.didEdit(old, newT);
-        }
-
-        view.closeView();
-    }
-
-
-    private boolean validarTrabajador() {
-        return validarInformacionPersonal() && validarLocalizacion() && validarContacto();
-    }*/
-
-    /**
-     * Valida solo la informacion personal del trabajador, y si
-     * lo son lo agrega al builder.
-     * @return false si un dato es incorreto, lo contrario true
-     *
-     * @author Matias Barrientos
-     */
-    /*private boolean validarInformacionPersonal() {
-        // 1 validar RUT
-        // TODO: Validar que el rut sea correcto
-        if (!validacionIsEmpty(rut, "Debe ingresar el RUT"))
-            return false;
-
-        trabajadorBuilder.rut(rut.get());
-
-        // 2 validar nombre
-        if (!validacionIsEmpty(name, "Debe ingresar el nombre"))
-            return false;
-
-        trabajadorBuilder.nombre(name.get());
-
-        // 3 validar apellido
-        if (!validacionIsEmpty(lastName, "Debe ingresar el apellido"))
-            return false;
-
-        trabajadorBuilder.apellido(lastName.get());
-
-        return true;
-    }*/
-
-    /**
-     * Valida la seccion de localizacion
-     *
-     *  @return true si los campos son validos, en caso contrario false
-     *
-     * @author Matias Barrientos
-     */
-    /*private boolean validarLocalizacion() {
-        // 1 validar la dirrecion
-        if (!validacionIsEmpty(address, "Debe ingresar la dirreción"))
-            return false;
-
-        localizacionBuilder.direccion(address.get());
-
-        // 2 validar pais
-        if (!validacionIsEmpty(country, "Debe ingresar el país"))
-            return false;
-
-        localizacionBuilder.pais(country.get());
-
-        // 3 validar ciudad
-        if (!validacionIsEmpty(city, "Debe ingresar la ciudad"))
-            return false;
-
-        localizacionBuilder.ciudad(city.get());
-
-        // 4 validar el estado
-        if (!validacionIsEmpty(state, "Debe ingresar el estado/provincia"))
-            return false;
-
-        localizacionBuilder.estado(state.get());
-
-        return true;
-    }*/
-
-    /**
-     * Valida la seccion de contacto
-     *
-     *  @return true si los campos son validos, en caso contrario false
-     *
-     * @author Matias Barrientos
-     */
-    /*private boolean validarContacto() {
-        // 1 validar telefono
-        if (!validacionIsEmpty(telephone, "Debe ingresar el telefono"))
-            return false;
-
-        trabajadorBuilder.telefono(telephone.get());
-
-        // 2 validar email
-        // TODO: Validar que el email sea correcto, que tenga el @
-        if (!validacionIsEmpty(email, "Debe ingresar el correo electronico"))
-            return false;
-
-        trabajadorBuilder.correoElectronico(email.get());
-
-        return true;
-    }*/
+//    public void guardarTrabajador() {
+//        if (!validarTrabajador()) return;
+//
+//        localizacionBuilder
+//                .codigoPostal(zip.get());
+//
+//        trabajadorBuilder
+//                .localizacion(localizacionBuilder.build())
+//                .especialidad(Especialidades.getInstance().obtener(speciality.get()))
+//                .fechaNacimiento(birthday.get());
+//
+//        Trabajador newT = trabajadorBuilder.build();
+//
+//        Trabajador old = null;
+//
+//        if (isEditing)
+//            old = model.actualizarTrabajador(newT);
+//        else
+//            model.agregarTrabajador(newT);
+//
+//        if (delegate != null && isEditing) {
+//            delegate.didEdit(old, newT);
+//        }
+//
+//        view.closeView();
+//    }
+//
+//
+//    private boolean validarTrabajador() {
+//        return validarInformacionPersonal() && validarLocalizacion() && validarContacto();
+//    }
+//
+//    /**
+//     * Valida solo la informacion personal del trabajador, y si
+//     * lo son lo agrega al builder.
+//     * @return false si un dato es incorreto, lo contrario true
+//     *
+//     * @author Matias Barrientos
+//     */
+//    private boolean validarInformacionPersonal() {
+//        // 1 validar RUT
+//        // TODO: Validar que el rut sea correcto
+//        if (!validacionIsEmpty(rut, "Debe ingresar el RUT"))
+//            return false;
+//
+//        trabajadorBuilder.rut(rut.get());
+//
+//        // 2 validar nombre
+//        if (!validacionIsEmpty(name, "Debe ingresar el nombre"))
+//            return false;
+//
+//        trabajadorBuilder.nombre(name.get());
+//
+//        // 3 validar apellido
+//        if (!validacionIsEmpty(lastName, "Debe ingresar el apellido"))
+//            return false;
+//
+//        trabajadorBuilder.apellido(lastName.get());
+//
+//        return true;
+//    }
+//
+//    /**
+//     * Valida la seccion de localizacion
+//     *
+//     *  @return true si los campos son validos, en caso contrario false
+//     *
+//     * @author Matias Barrientos
+//     */
+//    private boolean validarLocalizacion() {
+//        // 1 validar la dirrecion
+//        if (!validacionIsEmpty(address, "Debe ingresar la dirreción"))
+//            return false;
+//
+//        localizacionBuilder.direccion(address.get());
+//
+//        // 2 validar pais
+//        if (!validacionIsEmpty(country, "Debe ingresar el país"))
+//            return false;
+//
+//        localizacionBuilder.pais(country.get());
+//
+//        // 3 validar ciudad
+//        if (!validacionIsEmpty(city, "Debe ingresar la ciudad"))
+//            return false;
+//
+//        localizacionBuilder.ciudad(city.get());
+//
+//        // 4 validar el estado
+//        if (!validacionIsEmpty(state, "Debe ingresar el estado/provincia"))
+//            return false;
+//
+//        localizacionBuilder.estado(state.get());
+//
+//        return true;
+//    }
+//
+//    /**
+//     * Valida la seccion de contacto
+//     *
+//     *  @return true si los campos son validos, en caso contrario false
+//     *
+//     * @author Matias Barrientos
+//     */
+//    private boolean validarContacto() {
+//        // 1 validar telefono
+//        if (!validacionIsEmpty(telephone, "Debe ingresar el telefono"))
+//            return false;
+//
+//        trabajadorBuilder.telefono(telephone.get());
+//
+//        // 2 validar email
+//        // TODO: Validar que el email sea correcto, que tenga el @
+//        if (!validacionIsEmpty(email, "Debe ingresar el correo electronico"))
+//            return false;
+//
+//        trabajadorBuilder.correoElectronico(email.get());
+//
+//        return true;
+//    }
 
     /**
      * Valida que el campo no sea vacio

@@ -1,16 +1,20 @@
 package model;
 
 import com.google.gson.JsonObject;
+import repository.Specification;
 import repository.memory.MemoryRepositoryProyecto;
 import repository.memory.MemoryRepositoryTrabajador;
 import repository.RepositoryProyecto;
 import repository.RepositoryTrabajador;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
 public class Constructora {
+
+    // MARK: - Atributos
 
     private String rut;
 
@@ -18,11 +22,13 @@ public class Constructora {
 
     private String dns;
 
-    private static Constructora instance;
-
     private RepositoryProyecto repositoryProyecto;
 
     private RepositoryTrabajador repositoryTrabajador;
+
+    private static Constructora instance;
+
+    // MARK: - Constructores
 
     private Constructora() {
         repositoryProyecto = new MemoryRepositoryProyecto();
@@ -41,22 +47,28 @@ public class Constructora {
         dns = json.get("dns").getAsString();
     }
 
-    //MARK - Metodos
+    // MARK: - Metodos Proyecto
+
+    public Proyecto obtenerProyecto(String idProyecto) {
+        return repositoryProyecto.get(idProyecto);
+    }
 
     public void agregarProyecto(Proyecto proyecto) {
         repositoryProyecto.add(proyecto);
     }
 
-    public Proyecto eliminarProyecto(String id) {
-        return repositoryProyecto.remove(repositoryProyecto.get(id));
+    public Proyecto eliminarProyecto(String idProyecto) {
+        return repositoryProyecto.remove(repositoryProyecto.get(idProyecto));
     }
 
-    public Trabajador actualizarTrabajador(Trabajador nuevoTrabajador) {
-        for (Iterator<Proyecto> it = repositoryProyecto.get(); it.hasNext(); ) {
-            Proyecto proyecto = it.next();
-            proyecto.actualizarTrabajador(nuevoTrabajador);
-        }
-        return repositoryTrabajador.update(nuevoTrabajador);
+    public Iterator<Proyecto> buscarProyecto(Specification busqueda) {
+        return repositoryProyecto.get(busqueda);
+    }
+
+    // MARK: - Metodos Trabajador
+
+    public Trabajador obtenerTrabajador(String rut) {
+        return repositoryTrabajador.get(rut);
     }
 
     public void agregarTrabajador(Trabajador trabajador) {
@@ -78,42 +90,12 @@ public class Constructora {
         repositoryTrabajador.add(trabajador);
     }
 
-//    /**
-//     * Buscar los trabajadores especificos en un proyecto
-//     *
-//     * @param idProyecto id del proyecto
-//     * @param busqueda   consulta de busqueda
-//     * @return Lista de trabajadores encontrados
-//     * @author Matias Barrientos
-//     */
-//    public List<Trabajador> buscarTrabajador(String idProyecto, String busqueda) {
-//        if (!mapProyecto.containsKey(idProyecto)) return Collections.EMPTY_LIST;
-//        Proyecto aux = mapProyecto.get(idProyecto);
-//        return aux.buscarTrabajador(busqueda.toLowerCase());
-//    }
-
-    /**
-     * Busca a todos los trabajadores en todas las obras
-     *
-     * @return Lista de trabajadores encontrados
-     * @author Matias Barrientos
-     */
-    /*public List<Trabajador> buscarTrabajador(String busqueda) {
-        ArrayList<Trabajador> encontrados = new ArrayList<>();
-
-        for (Object ob : conjuntoTrabajadores.values()) {
-            Trabajador trabajador = (Trabajador) ob;
-
-            if (StringUtils.containsIgnoreCase(trabajador.getNombre(), busqueda) ||
-                    StringUtils.containsIgnoreCase(trabajador.getRut(), busqueda))
-                encontrados.add(trabajador);
+    public Trabajador actualizarTrabajador(Trabajador nuevoTrabajador) {
+        for (Iterator<Proyecto> it = repositoryProyecto.get(); it.hasNext(); ) {
+            Proyecto proyecto = it.next();
+            proyecto.actualizarTrabajador(nuevoTrabajador);
         }
-
-        return encontrados;
-    }*/
-
-    public Trabajador obtenerTrabajador(String rut) {
-        return repositoryTrabajador.get(rut);
+        return repositoryTrabajador.update(nuevoTrabajador);
     }
 
     public Trabajador eliminarTrabajador(String rut) {
@@ -127,32 +109,39 @@ public class Constructora {
         return repositoryTrabajador.remove(repositoryTrabajador.get(rut));
     }
 
-    /*public Trabajador eliminarTrabajador(String idProyecto, String RUT) {
-        if(mapProyecto.get(idProyecto) == null) return null;
-        return mapProyecto.get(idProyecto).eliminarTrabajador(RUT);
-    }*/
-
-    public Proyecto buscarProyecto(String idProyecto) {
-        return repositoryProyecto.get(idProyecto);
+    public Trabajador eliminarTrabajador(String idProyecto, String rut) {
+        Proyecto p = repositoryProyecto.get(idProyecto);
+        if (p == null) return null;
+        return p.eliminarTrabajador(rut);
     }
+
+    /**
+     * Buscar los trabajadores especificos en un proyecto
+     *
+     * @param idProyecto id del proyecto
+     * @param busqueda   consulta de busqueda
+     * @return Lista de trabajadores encontrados
+     * @author Matias Barrientos
+     */
+    public Iterator<Trabajador> buscarTrabajador(String idProyecto, Specification busqueda) {
+        Proyecto p = repositoryProyecto.get(idProyecto);
+        if (p == null) return Collections.emptyIterator();
+        return p.buscarTrabajador(busqueda);
+    }
+
+    public Iterator<Trabajador> buscarTrabajador(Specification busqueda) {
+        return repositoryTrabajador.get(busqueda);
+    }
+
+
 
     /*public void estimacionGasto(String idProyecto) {
         if (!mapProyecto.containsKey(idProyecto)) return;
         mapProyecto.get(idProyecto).estimacionGasto();
     }*/
 
-    /**
-     * Revisa si existe un proyecto basandose en el nombre
-     *
-     * @param proyecto el cual va a ser ingresado a constructora
-     * @return boolean dependiendo de si el proyecto fue ingresado con anterioridad
-     * @author Matias Zúñiga
-     */
-    public boolean existeProyecto(Proyecto proyecto){
-        return repositoryProyecto.contains(proyecto);
-    }
 
-    //Getter
+    // MARK: - Getter
 
     public String getRut() {
         return rut;
@@ -160,6 +149,10 @@ public class Constructora {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public String getDns() {
+        return dns;
     }
 
     public List<Trabajador> getConjuntoTrabajadores() {

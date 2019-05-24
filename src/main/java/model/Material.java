@@ -15,6 +15,8 @@ import java.math.BigDecimal;
 
 public class Material {
 
+    // MARK: - Atributos
+
     private String id;
 
     private String nombre;
@@ -28,6 +30,8 @@ public class Material {
     private BigDecimal precio;
 
     private RepositoryRegistroMaterial repositoryRegistroMaterial;
+
+    // MARK: - Constructores
 
     public Material(String nombre, String descripcion, double cantidad,String uds,BigDecimal precio){
         this.descripcion = descripcion;
@@ -53,43 +57,7 @@ public class Material {
         repositoryRegistroMaterial = new MemoryRepositoryRegistroMaterial();
     }
 
-    public String getId(){return  id;}
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public BigDecimal getPrecio() {
-        return precio;
-    }
-
-    public String getUds() {
-        return uds;
-    }
-
-    public double getCantidad() {
-        return cantidad;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public void setCantidad(double cantidad) {
-        this.cantidad = cantidad;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    // MARK: - Metodos Registro Material
 
     public void agregarRegistro(RegistroMaterial registroMaterial) {
         registroMaterial.setMaterial(this);
@@ -99,6 +67,8 @@ public class Material {
     public RegistroMaterial actualizarRegistro(RegistroMaterial registroMaterial) {
         return repositoryRegistroMaterial.update(registroMaterial);
     }
+
+    // MARK: - Metodos Privados
 
     /**
      * Funcion que genera una id aleatorea.
@@ -112,4 +82,51 @@ public class Material {
         return result;
     }
 
+    // MARK: - Getter
+
+    public String getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public double getCantidad() {
+        return cantidad;
+    }
+
+    public String getUds() {
+        return uds;
+    }
+
+    public BigDecimal getPrecio() {
+        return precio;
+    }
+
+    // MARK: - Setter
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setCantidad(double cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public void setUds(String uds) {
+        this.uds = uds;
+    }
+
+    public void setPrecio(BigDecimal precio) {
+        this.precio = precio;
+    }
 }

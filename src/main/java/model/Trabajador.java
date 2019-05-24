@@ -10,10 +10,11 @@ import repository.RepositoryProyecto;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.*;
 
 public abstract class Trabajador {
+
+    // MARK: - Atributos
 
     private String rut;
 
@@ -35,23 +36,25 @@ public abstract class Trabajador {
 
     private RepositoryHorario repositoryHorario;
 
+    // MARK: - Constructor
+
     public Trabajador() {
         repositoryHorario = new MemoryRepositoryHorario();
         repositoryProyecto = new MemoryRepositoryProyecto();
     }
 
+    // MARK: - Metodos Proyecto
+
     public void asociarProyecto(Proyecto proyecto) {
         repositoryProyecto.add(proyecto);
     }
+
+    // MARK: - Metodos Horario
 
     public void agregarHorario(String idProyecto, Horario horario) {
         horario.setProyecto(repositoryProyecto.get(idProyecto));
         horario.setTrabajador(this);
         repositoryHorario.add(horario);
-    }
-
-    public Horario eliminarHorario(Horario horario) {
-        return repositoryHorario.remove(horario);
     }
 
     public List<Horario> obtenerListaHorario() {
@@ -60,44 +63,26 @@ public abstract class Trabajador {
         return Collections.unmodifiableList(aux);
     }
 
+    // MARK: - Getter
+
     public String getRut() {
         return rut;
-    }
-
-    public void setRut(String rut) {
-        this.rut = rut;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public String getApellido() {
         return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public Especialidad getEspecialidad() {
-        return especialidad;
-    }
-
-    public void setEspecialidad(Especialidad especialidad) {
-        this.especialidad = especialidad;
     }
 
     public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(LocalDate fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
+    public Especialidad getEspecialidad() {
+        return especialidad;
     }
 
     public Localizacion getLocalizacion() {
@@ -108,21 +93,45 @@ public abstract class Trabajador {
         return telefono;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
     public String getCorreoElectronico() {
         return correoElectronico;
+    }
+
+    // MARK: - Setter
+
+    public void setRut(String rut) {
+        this.rut = rut;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public void setEspecialidad(Especialidad especialidad) {
+        this.especialidad = especialidad;
+    }
+
+    public void setLocalizacion(Localizacion localizacion) {
+        this.localizacion = localizacion;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
     }
 
-    public void setLocalizacion(Localizacion localizacion) {
-        this.localizacion = localizacion;
-    }
+    // MARK: - JSON
 
     public abstract BigDecimal calcularSueldo();
 

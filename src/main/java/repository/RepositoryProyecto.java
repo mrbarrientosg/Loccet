@@ -11,4 +11,6 @@ public interface RepositoryProyecto {
     public Proyecto update(Proyecto value);
     public Proyecto get(String id);
     public Iterator<Proyecto> get();
+    public Iterator<Proyecto> get(Specification specification);
+
 }

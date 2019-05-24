@@ -8,9 +8,16 @@ import java.util.stream.Collectors;
 
 public class Especialidades {
 
+    // MARK: - Atributos
     private static Especialidades instance;
 
     private final Map<String, Especialidad> especialidades;
+
+    // MARK: - Constructores
+
+    private Especialidades() {
+        especialidades = new HashMap<>();
+    }
 
     public static Especialidades getInstance() {
         if (instance == null)
@@ -19,17 +26,7 @@ public class Especialidades {
         return instance;
     }
 
-    public static void createFakeData() {
-        /*Especialidades esp = getInstance();
-        esp.agregar(new Especialidad("Jefe de obras", ));
-        esp.agregar(new Especialidad("Obrero", 3000.0));
-        esp.agregar(new Especialidad("Pintor", 2000.0));
-        esp.agregar(new Especialidad("Sin asignar", 0.0));*/
-    }
-
-    private Especialidades() {
-        especialidades = new HashMap<>();
-    }
+    // MARK: - Metodos Especialidad
 
     public void agregar(Especialidad especialidad) {
         especialidades.put(especialidad.getNombre(), especialidad);

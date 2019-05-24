@@ -41,15 +41,15 @@ public final class HorarioController extends Controller {
             return;
         }
 
-        Horario horario = new Horario.Builder(dia, proyecto.getId(), proyecto.getNombre())
-                .fechaInicio(entrada.get())
-                .fechaTermino(salida.get())
-                .build();
+//        Horario horario = new Horario.Builder(dia, proyecto.getId(), proyecto.getNombre())
+//                .fechaInicio(entrada.get())
+//                .fechaTermino(salida.get())
+//                .build();
 
         //trabajador.agregarHorario(horario);
 
-        if (delegate != null)
-            delegate.didAddHorario(horario);
+//        if (delegate != null)
+//            delegate.didAddHorario(horario);
     }
 
     public void addListView() {

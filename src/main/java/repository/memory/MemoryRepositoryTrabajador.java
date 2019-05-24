@@ -1,7 +1,9 @@
 package repository.memory;
 
 import model.Trabajador;
+import repository.MemorySpecification;
 import repository.RepositoryTrabajador;
+import repository.Specification;
 
 import java.util.*;
 
@@ -54,5 +56,19 @@ public class MemoryRepositoryTrabajador implements RepositoryTrabajador {
     @Override
     public Iterator<Trabajador> get() {
         return listaTrabajadores.iterator();
+    }
+
+    @Override
+    public Iterator<Trabajador> get(Specification specification) {
+        final MemorySpecification<Trabajador> memorySpecification = (MemorySpecification<Trabajador>) specification;
+
+        final List<Trabajador> trabajadors = new ArrayList<>();
+
+        for (Trabajador trabajador: listaTrabajadores) {
+            if (memorySpecification.test(trabajador))
+                trabajadors.add(trabajador);
+        }
+
+        return trabajadors.iterator();
     }
 }

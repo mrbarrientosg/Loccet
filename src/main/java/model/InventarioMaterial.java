@@ -12,13 +12,17 @@ import java.util.*;
  */
 public class InventarioMaterial {
 
-    private String id;
+    // MARK: - Atributos
 
     private RepositoryMaterial repositoryMaterial;
+
+    // MARK: - Constructor
 
     public InventarioMaterial() {
         repositoryMaterial = new MemoryRepositoryMaterial();
     };
+
+    // MARK: - Metodos Material
 
     public List<Material> obtenerMateriales() {
         List<Material> list = new ArrayList<>();
@@ -29,6 +33,7 @@ public class InventarioMaterial {
     public void agregarMaterial(Material material) {
         repositoryMaterial.add(material);
     }
+
     public Material obtenerMaterial(String id){
        return repositoryMaterial.get(id);
     }
@@ -40,6 +45,8 @@ public class InventarioMaterial {
     public Material eliminarMaterial(String id) {
         return repositoryMaterial.remove(repositoryMaterial.get(id));
     }
+
+    // MARK: - Metodos Registro Material
 
     public void agregarRegistroMaterial(String idMaterial, RegistroMaterial registroMaterial) {
         repositoryMaterial.get(idMaterial).agregarRegistro(registroMaterial);

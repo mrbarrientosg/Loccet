@@ -126,7 +126,7 @@ public final class LoginController extends Controller {
                     for (JsonElement jsonElement : pair.getValue()) {
                         JsonObject json = jsonElement.getAsJsonObject();
                         Asistencia a = gson.fromJson(json, Asistencia.class);
-                        Proyecto p = Constructora.getInstance().buscarProyecto(json.get("id_proyecto").getAsString());
+                        Proyecto p = Constructora.getInstance().obtenerProyecto(json.get("id_proyecto").getAsString());
                         p.agregarAsistencia(json.get("rut_trabajador").getAsString(), a);
                     }
                     LOGGER.info("horarios y asistencias listas");
@@ -137,14 +137,14 @@ public final class LoginController extends Controller {
                     for (JsonElement jsonElement : pair.getKey()) {
                         JsonObject json = jsonElement.getAsJsonObject();
                         Fase f = gson.fromJson(json, Fase.class);
-                        Proyecto p = Constructora.getInstance().buscarProyecto(json.get("id_proyecto").getAsString());
+                        Proyecto p = Constructora.getInstance().obtenerProyecto(json.get("id_proyecto").getAsString());
                         p.agregarFase(f);
                     }
 
                     for (JsonElement jsonElement : pair.getValue()) {
                         JsonObject json = jsonElement.getAsJsonObject();
                         Tarea t = gson.fromJson(json, Tarea.class);
-                        Proyecto p = Constructora.getInstance().buscarProyecto(json.get("id_proyecto").getAsString());
+                        Proyecto p = Constructora.getInstance().obtenerProyecto(json.get("id_proyecto").getAsString());
                         p.agregarTarea(json.get("id_fase").getAsInt(), t);
                     }
                     LOGGER.info("Fases y tares listas");
@@ -155,14 +155,14 @@ public final class LoginController extends Controller {
                     for (JsonElement jsonElement : pair.getKey()) {
                         JsonObject json = jsonElement.getAsJsonObject();
                         Material m = gson.fromJson(json, Material.class);
-                        Proyecto p = Constructora.getInstance().buscarProyecto(json.get("id_proyecto").getAsString());
+                        Proyecto p = Constructora.getInstance().obtenerProyecto(json.get("id_proyecto").getAsString());
                         p.agregarMaterial(m);
                     }
 
                     for (JsonElement jsonElement : pair.getValue()) {
                         JsonObject json = jsonElement.getAsJsonObject();
                         RegistroMaterial rm = gson.fromJson(json, RegistroMaterial.class);
-                        Proyecto p = Constructora.getInstance().buscarProyecto(json.get("id_proyecto").getAsString());
+                        Proyecto p = Constructora.getInstance().obtenerProyecto(json.get("id_proyecto").getAsString());
                         p.agregarRegistroMaterial(json.get("id_material").getAsString(), rm);
                     }
 

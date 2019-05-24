@@ -28,7 +28,7 @@ public class ProyectoController extends Controller {
     }
 
     public Proyecto buscarProyecto(String id) {
-        return model.buscarProyecto(id);
+        return model.obtenerProyecto(id);
     }
 
 }
