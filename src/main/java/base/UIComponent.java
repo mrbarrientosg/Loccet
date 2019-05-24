@@ -242,9 +242,7 @@ public abstract class UIComponent extends Component {
                 modalStage.setOnShown(event -> {
                     modalStage.setX(getCurrentWindow().getX() + (getCurrentWindow().getWidth() / 2) - (getCurrentWindow().getWidth() / 2));
                     modalStage.setY(getCurrentWindow().getY() + (getCurrentWindow().getWidth() / 2) - (getCurrentWindow().getWidth() / 2));
-                });
 
-                modalStage.setOnShowing(event -> {
                     callOnDock();
                 });
 

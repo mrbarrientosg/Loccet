@@ -8,9 +8,11 @@ import io.reactivex.rxjavafx.observables.JavaFxObservable;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import io.reactivex.schedulers.Schedulers;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import model.Trabajador;
@@ -36,13 +38,37 @@ public class BuscarTrabajadorView extends Fragment {
 
     @Override
     public void viewDidLoad() {
+
+        listView.setCellFactory(param -> new ListCell<TrabajadorCell>() {
+            @Override
+            protected void updateItem(TrabajadorCell item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.getRut() + " " + item.getNombre() + " " + item.getApellido());
+                }
+            }
+        });
+
+        doneButton.setDisable(true);
+
+        listView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null)
+                doneButton.setDisable(false);
+            else
+                doneButton.setDisable(true);
+        });
+    }
+
+    @Override
+    public void viewDidShow() {
         Observable<String> textInputs = JavaFxObservable.valuesOf(searchField.textProperty());
 
         textInputs
-                .defaultIfEmpty(null)
                 .debounce(300, TimeUnit.MILLISECONDS)
                 .distinctUntilChanged()
-                .filter(Objects::nonNull)
                 .flatMap(value -> controller.searchEmployee(value)
                         .onErrorReturnItem(FXCollections.emptyObservableList())
                         .toObservable())
@@ -52,17 +78,6 @@ public class BuscarTrabajadorView extends Fragment {
                     listView.setItems(list);
                 });
 
-
-        /*searchField.setOnKeyReleased(event -> {
-            searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-                controller.searchEmployee(newValue);
-            });
-            //refreshTable();
-        });*/
-    }
-
-    @Override
-    public void viewDidShow() {
         controller.selectedItemProperty().bind(listView.getSelectionModel().selectedItemProperty());
 
         doneButton.setOnAction(controller::doneAction);

@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="804.0" styleClass="backgroundLight" stylesheets="@../css/rrhh.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="804.0" styleClass="backgroundLight" stylesheets="@../css/rrhh.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="35.0" spacing="20.0">
          <children>
@@ -70,11 +70,11 @@
       <TableView fx:id="tableView" VBox.vgrow="ALWAYS">
         <columns>
           <TableColumn fx:id="rutColumn" prefWidth="75.0" text="Rut" />
-          <TableColumn prefWidth="75.0" text="Nombre" />
-            <TableColumn prefWidth="75.0" text="Apellido" />
-            <TableColumn prefWidth="90.0" text="Especialidad" />
-            <TableColumn prefWidth="120.0" text="Correo electronico" />
-            <TableColumn prefWidth="75.0" text="Telefono" />
+          <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Nombre" />
+            <TableColumn fx:id="lastNameColumn" prefWidth="75.0" text="Apellido" />
+            <TableColumn fx:id="specialityColumn" prefWidth="90.0" text="Especialidad" />
+            <TableColumn fx:id="emailColumn" prefWidth="120.0" text="Correo electronico" />
+            <TableColumn fx:id="telephoneConlumn" prefWidth="75.0" text="Telefono" />
         </columns>
          <VBox.margin>
             <Insets bottom="16.0" left="16.0" right="16.0" top="20.0" />

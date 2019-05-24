@@ -4,6 +4,10 @@ import base.Fragment;
 import base.View;
 import cell.TrabajadorCell;
 import controller.ListaTrabajadorController;
+import io.reactivex.Observable;
+import io.reactivex.rxjavafx.observables.JavaFxObservable;
+import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
+import io.reactivex.schedulers.Schedulers;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -18,6 +22,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.StageStyle;
+import router.BuscarTrabajadorRouter;
+
+import java.util.concurrent.TimeUnit;
 
 public final class ListaTrabajadorView extends Fragment {
 
@@ -59,16 +67,8 @@ public final class ListaTrabajadorView extends Fragment {
     @FXML
     private TableColumn<TrabajadorCell, String> emailColumn;
 
-    private ObjectProperty<TrabajadorCell> selectedTrabajador = new SimpleObjectProperty<>();
-
-    private ObservableList<TrabajadorCell> trabajadorCells;
-
-    private FilteredList<TrabajadorCell> filteredMateriales;
-
-
     @Override
     public void viewDidLoad() {
-
         rutColumn.setCellValueFactory(new PropertyValueFactory<>("rut"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("apellido"));
@@ -78,27 +78,33 @@ public final class ListaTrabajadorView extends Fragment {
         sueldoHoraColumn.setCellValueFactory(new PropertyValueFactory<>("sueldoPorHora"));
         telefonoColumn.setCellValueFactory(new PropertyValueFactory<>("telefono"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("correoElectronico"));
-
-        searchTextField.setOnKeyReleased(event -> {
-            searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-                didSearch(newValue);
-            });
-            refreshTable();
-        });
-
     }
 
     @Override
     public void viewDidShow() {
-        trabajadorCells = controller.loadData();
-        filteredMateriales = new FilteredList<>(trabajadorCells, e -> true);
-        selectedTrabajador.bind(tableView.getSelectionModel().selectedItemProperty());
-        refreshTable();
+        Observable<String> textInputs = JavaFxObservable.valuesOf(searchTextField.textProperty());
+
+        textInputs
+                .debounce(300, TimeUnit.MILLISECONDS)
+                .distinctUntilChanged()
+                .flatMap(value -> controller.searchEmployee(value)
+                        .onErrorReturnItem(FXCollections.emptyObservableList())
+                        .toObservable())
+                .subscribeOn(Schedulers.io())
+                .observeOn(JavaFxScheduler.platform())
+                .subscribe(list -> {
+                    tableView.setItems(list);
+                });
     }
 
     @Override
     public void viewDidClose() {
-        selectedTrabajador.unbind();
+    }
+
+    @FXML
+    private void addEmployeeAction(ActionEvent event) {
+        BuscarTrabajadorView view = BuscarTrabajadorRouter.create(controller);
+        view.modal().show();
     }
 
     @FXML
@@ -106,26 +112,13 @@ public final class ListaTrabajadorView extends Fragment {
 
     }
 
+    public void addEmployee(TrabajadorCell cell) {
+        tableView.getItems().add(cell);
+        searchTextField.setText("");
+    }
+
     public void setController(ListaTrabajadorController controller) {
         this.controller = controller;
-    }
-
-    public void refreshTable() {
-        SortedList sortedList = new SortedList<>(filteredMateriales);
-        tableView.setItems(sortedList);
-        sortedList.comparatorProperty().bind(tableView.comparatorProperty());
-    }
-
-    /**
-     * Filtra la busqueda de la vista
-     * @param query String que contiene la busqueda de la vista
-     */
-    public void didSearch(String query) {
-        filteredMateriales.setPredicate(materialCell ->
-                materialCell.getNombre().toLowerCase().contains(query.toLowerCase()) ||
-                        materialCell.getRut().toLowerCase().contains(query.toLowerCase()) ||
-                        materialCell.getApellido().toLowerCase().contains(query.toLowerCase())
-        );
     }
 
 }

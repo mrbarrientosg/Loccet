@@ -18,6 +18,7 @@ import util.SearchEmployeeDelegate;
 import view.BuscarTrabajadorView;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BuscarTrabajadorController extends Controller {
 
@@ -33,17 +34,23 @@ public class BuscarTrabajadorController extends Controller {
         model = Constructora.getInstance();
         selectedItem = new SimpleObjectProperty<>();
     }
+    public ObservableList<TrabajadorCell> loadData() {
+        return FXCollections.observableList(model.getConjuntoTrabajadores().stream().map(TrabajadorCell::new).collect(Collectors.toList()));
+    }
 
     public Single<ObservableList<TrabajadorCell>> searchEmployee(String text) {
         return Observable.fromIterable(model.getConjuntoTrabajadores())
-                .filter(trabajador -> trabajador.getRut().equals(text))
+                .filter(trabajador -> trabajador.getRut().contains(text))
                 .map(TrabajadorCell::new)
                 .toList()
                 .map(FXCollections::observableList);
     }
 
     public void doneAction(ActionEvent event) {
+        if (selectedItem.isNull().get()) return;
+
         Trabajador trabajador = model.obtenerTrabajador(selectedItem.get().getRut());
+
         if (delegate != null) {
             delegate.selectedEmployee(trabajador);
         }

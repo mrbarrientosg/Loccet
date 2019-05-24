@@ -27,12 +27,16 @@ public final class ProyectoCell {
     // MARK: - Constructor
 
     public ProyectoCell(Proyecto m) {
-            id = m.getId();
-            nombreProyecto = m.getNombre();
-            fechaInicio = m.getFechaInicio();
-            fechaTermino = m.getFechaTermino();
-            cliente = m.getNombreCliente();
-            estimacion = m.getEstimacion();
+        id = m.getId();
+        nombreProyecto = m.getNombre();
+        fechaInicio = m.getFechaInicio();
+        fechaTermino = m.getFechaTermino();
+        cliente = m.getNombreCliente();
+        estimacion = m.getEstimacion();
+    }
+
+    public ProyectoCell(String id) {
+        this.id = id;
     }
 
     // MARK: - Getter

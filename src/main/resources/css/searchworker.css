@@ -31,60 +31,20 @@
   src: url("../fonts/Heebo-Black.ttf") format("truetype"); }
 .listViewGrey {
   -fx-text-fill: black;
-  -fx-prompt-text-fill: #5C5C5C;
   -fx-background-color: #F0F0F0;
-  -fx-background-radius: 3;
-  -jfx-vertical-gap: 10; }
+  -fx-background-radius: 3; }
 
-.listViewGrey .scroll-pane {
+.listViewGrey .list-cell {
+  -fx-text-fill: black;
+  -fx-background-color: #F0F0F0;
+  -fx-border-width: 0 0 1 0;
+  -fx-border-color: #F7F7F7; }
+
+.listViewGrey .list-cell:selected {
   -fx-background-color: #F9F9F9; }
 
-.listViewGrey .scroll-bar:vertical {
-  -fx-pref-width: 8px; }
-
-.listViewGrey .scroll-bar:horizontal {
-  -fx-pref-height: 8px; }
-
-.listViewGrey .scroll-bar:horizontal .track,
-.listViewGrey .scroll-bar:vertical .track {
-  -fx-background-color: #F9F9F9;
-  -fx-border-color: #F9F9F9;
-  -fx-background-radius: 0.0em;
-  -fx-border-radius: 2.0em; }
-
-.listViewGrey .scroll-bar:horizontal .increment-button,
-.listViewGrey .scroll-bar:horizontal .decrement-button {
-  -fx-background-color: white;
-  -fx-background-radius: 0.0em;
-  -fx-padding: 0 0 10px 0; }
-
-.listViewGrey .scroll-bar:vertical .increment-button,
-.listViewGrey .scroll-bar:vertical .decrement-button {
-  -fx-background-color: white;
-  -fx-background-radius: 0.0em;
-  -fx-padding: 0 10px 0 0; }
-
-.listViewGrey .scroll-bar .increment-arrow,
-.listViewGrey .scroll-bar .decrement-arrow {
-  -fx-shape: null;
-  -fx-padding: 0.15em 0.0; }
-
-.listViewGrey .scroll-bar:vertical .increment-arrow,
-.listViewGrey .scroll-bar:vertical .decrement-arrow {
-  -fx-shape: null;
-  -fx-padding: 0.0 0.15em; }
-
-.listViewGrey .scroll-bar:horizontal .thumb,
-.listViewGrey .scroll-bar:vertical .thumb {
-  -fx-background-color: #D1D1D1;
-  -fx-background-insets: 1.0, 0.0, 0.0;
-  -fx-background-radius: 2.0em; }
-
-.listViewGrey .scroll-bar:horizontal .thumb:hover,
-.listViewGrey .scroll-bar:vertical .thumb:hover {
-  -fx-background-color: #ACACAC;
-  -fx-background-insets: 1.0, 0.0, 0.0;
-  -fx-background-radius: 2.0em; }
+.listViewGrey .scroll-bar {
+  -fx-background-color: transparent; }
 
 .custom-scroll {
   -fx-background-color: white; }
@@ -173,20 +133,12 @@
     -fx-background-color: white;
     -fx-background-radius: 3; }
 
-.title3 {
-  -fx-font-family: "Heebo Black";
-  -fx-font-size: 16px; }
-
-.title2 {
-  -fx-font-family: "Heebo Black";
-  -fx-font-size: 20px; }
-
 .title1 {
   -fx-font-family: "Heebo Black";
   -fx-font-size: 24px; }
 
-.paragraph {
-  -fx-font-family: "Heebo";
+.paragraphUI {
+  -fx-font-family: "Heebo Light";
   -fx-font-size: 14px; }
 
 .textField {
