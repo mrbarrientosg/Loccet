@@ -63,7 +63,7 @@ public final class InventarioMaterialController extends Controller {
      *
      * @author Sebastian Fuenzalida.
      */
-    private void cargarDatos() {
+    public void cargarDatos() {
         listMateriales = FXCollections.observableList(model.obtenerMateriales().stream().map(MaterialCell::new).collect(Collectors.toList()));
         filteredMateriales = new FilteredList<>(listMateriales, e -> true);
     }

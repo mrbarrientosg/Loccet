@@ -69,7 +69,7 @@
       </VBox>
       <ButtonBar prefHeight="40.0" prefWidth="200.0">
         <buttons>
-            <Button fx:id="retirarBT" mnemonicParsing="false" onAction="#cantidadItem" styleClass="buttonBlue" text="Retirar" />
+            <Button fx:id="retirarBT" defaultButton="true" mnemonicParsing="false" onAction="#cantidadItem" styleClass="buttonBlue" text="Retirar" />
             <Button fx:id="cancelarBT" mnemonicParsing="false" onAction="#cancelar" styleClass="buttonFillBlue" text="Cancelar" />
         </buttons>
          <VBox.margin>

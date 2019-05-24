@@ -4,6 +4,9 @@ import repository.memory.MemoryRepositoryRegistroMaterial;
 import repository.RepositoryRegistroMaterial;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  *
@@ -110,6 +113,12 @@ public class Material {
         String result = java.util.UUID.randomUUID().toString();
         result = result.substring(0,6);
         return result;
+    }
+
+    public List<RegistroMaterial> getListaRegistroMaterial() {
+        List<RegistroMaterial> list = new ArrayList<>();
+        repositoryRegistroMaterial.get().forEachRemaining(list::add);
+        return list;
     }
 
 }

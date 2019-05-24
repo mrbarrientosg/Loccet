@@ -8,12 +8,13 @@ import view.DetalleMaterialView;
 /**
  * @author Sebastian Fuenzalida.
  */
-public class DetalleMaterialRouter {
+public final class DetalleMaterialRouter {
     /**
      *
      * @return vista detalle material
      */
     public static DetalleMaterialView create(Material model) {
+
         DetalleMaterialView view = Injectable.find(DetalleMaterialView.class);
         DetalleMaterialRouter router = new DetalleMaterialRouter();
         DetalleMaterialController controller = Injectable.find(DetalleMaterialController.class);
@@ -24,4 +25,5 @@ public class DetalleMaterialRouter {
 
         return view;
     }
+
 }

@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="backgroundWhite" stylesheets="@../css/creatematerial.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="backgroundWhite" stylesheets="@../css/creatematerial.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox alignment="CENTER">
          <children>
@@ -85,12 +85,11 @@
             </VBox>
             <VBox>
                <children>
-                  <ComboBox fx:id="unidadCB" prefHeight="70.0" prefWidth="23.0">
+                  <ComboBox fx:id="unidadCB" prefHeight="70.0" prefWidth="85.0">
                      <styleClass>
+                        <String fx:value="gray-combo-box" />
                         <String fx:value="backgroundgray" />
-                        <String fx:value="custom-combo-box" />
-                     </styleClass>
-                  </ComboBox>
+                     </styleClass></ComboBox>
                </children>
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -135,8 +134,8 @@
       </HBox>
       <ButtonBar prefHeight="40.0" prefWidth="200.0">
         <buttons>
-          <Button mnemonicParsing="false" styleClass="buttonBlue" text="Agregar" />
-            <Button mnemonicParsing="false" styleClass="buttonFillBlue" text="Cancelar" />
+          <Button fx:id="agregarBT" mnemonicParsing="false" onAction="#agregar" styleClass="buttonBlue" text="Agregar" />
+            <Button fx:id="cancelarBT" mnemonicParsing="false" onAction="#salir" styleClass="buttonFillBlue" text="Cancelar" />
         </buttons>
          <VBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

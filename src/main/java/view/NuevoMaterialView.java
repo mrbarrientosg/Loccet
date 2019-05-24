@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import model.Material;
+import model.RegistroMaterial;
 
 import java.math.BigDecimal;
 import java.util.function.UnaryOperator;
@@ -78,21 +79,28 @@ public final class NuevoMaterialView extends View {
         clear();//Limpia los TextField.
     }
 
+    private RegistroMaterial registroMaterial(double cantidad){
+        return new RegistroMaterial(cantidad,false);
+    }
     @FXML
-    public void nuevoMaterial(ActionEvent event) {
+    public void agregar(ActionEvent event) {
         String lector = idMaterialTF.getText();
         Material material;
         if (!nombreTF.getText().isEmpty() && !descripcionTF.getText().isEmpty()&& !cantidadTF.getText().isEmpty()
         && !precioTF.getText().isEmpty()){
-            if (lector.isEmpty())
-                material = new Material(nombreTF.getText(),descripcionTF.getText(),Double.parseDouble(cantidadTF.getText()), //Si el usuario no ingresa el id
+            if (lector.isEmpty()) {
+                material = new Material(nombreTF.getText(), descripcionTF.getText(), Double.parseDouble(cantidadTF.getText()), //Si el usuario no ingresa el id
                         unidadCB.getSelectionModel().getSelectedItem().toString(),                                             //se utiliza este constructor.
                         BigDecimal.valueOf(Double.parseDouble(precioTF.getText())));
+                material.agregarRegistro(registroMaterial(material.getCantidad()));
 
-            else
+            } else{
                 material = new Material(nombreTF.getText(), descripcionTF.getText(), Double.parseDouble(cantidadTF.getText()), //Si el usuario si ingresa id
                         unidadCB.getSelectionModel().getSelectedItem().toString(), lector,                                     //Se utiliza este constructor.
                         BigDecimal.valueOf(Double.parseDouble(precioTF.getText())));
+                material.agregarRegistro(registroMaterial(material.getCantidad()));
+
+            }
 
             controller.nuevoMaterial(material);
             close();

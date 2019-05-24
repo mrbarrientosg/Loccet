@@ -16,19 +16,17 @@ public class RegistroMaterial {
 
     private Instant fecha;
 
-    /**
-     * @param json archivo
-     */
-    public RegistroMaterial(JsonObject json) {
-        cantidad = json.get("cantidad").getAsDouble();
-        fecha = Instant.ofEpochSecond(json.get("fecha").getAsLong());
-    }
+    private Boolean retirado;
+
+
 
     /**
      * @param cantidad material
      */
-    public RegistroMaterial(double cantidad){
+    public RegistroMaterial(double cantidad,boolean retirado){
         this.cantidad = cantidad;
+        this.retirado = retirado;
+        fecha = Instant.now();
     }
 
     /**

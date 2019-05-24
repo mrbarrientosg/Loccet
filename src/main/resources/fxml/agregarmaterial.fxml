@@ -64,8 +64,8 @@
       </VBox>
       <ButtonBar prefHeight="40.0" prefWidth="200.0">
         <buttons>
-          <Button fx:id="agregarBT" mnemonicParsing="false" styleClass="buttonBlue" text="Agregar" />
-            <Button fx:id="cancelarBT" mnemonicParsing="false" styleClass="buttonFillBlue" text="Cancelar" />
+          <Button fx:id="agregarBT" defaultButton="true" mnemonicParsing="false" onAction="#cantidadItem" styleClass="buttonBlue" text="Agregar" />
+            <Button fx:id="cancelarBT" mnemonicParsing="false" onAction="#salir" styleClass="buttonFillBlue" text="Cancelar" />
         </buttons>
          <VBox.margin>
             <Insets right="5.0" />

@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import model.InventarioMaterial;
 import model.Material;
@@ -37,11 +38,10 @@ public final class InventarioMaterialView extends Fragment {
     @FXML
     private Button editarBT;
     @FXML
-    private Button eleminarBT;
+    private Button eliminarBT;
     @FXML
     private Button nuevoMaterialBT;
-    @FXML
-    private Button salirBT;
+
 
 
     //Tabla inventario.
@@ -54,10 +54,6 @@ public final class InventarioMaterialView extends Fragment {
     @FXML
     private TableColumn<MaterialCell,Double> cantidadCL;
     @FXML
-    private TableColumn<MaterialCell, Date> fechaIngresoCL;
-    @FXML
-    private TableColumn<MaterialCell, Date> fechaRetiroCL;
-    @FXML
     private TableColumn<MaterialCell,String> udsCL;
     @FXML
     private TableColumn<MaterialCell, String> nombreMaterialCL;
@@ -68,17 +64,19 @@ public final class InventarioMaterialView extends Fragment {
 
     @Override
     public void viewDidLoad() {
+
+   }
+
+    @Override
+    public void viewDidShow() {
+
+        inicializarTablaMateriales();
         searchText.setOnKeyReleased(event -> {
             searchText.textProperty().addListener((observable, oldValue, newValue) -> {
                 controller.didSearch(newValue);
             });
             refreshTable();
         });
-   }
-
-    @Override
-    public void viewDidShow() {
-        inicializarTablaMateriales();
     }
 
     /**
@@ -96,6 +94,7 @@ public final class InventarioMaterialView extends Fragment {
         refreshTable();
     }
 
+
     /**
      * Funcion que retorna el item seleccionado de la tabla inventario.
      *
@@ -103,7 +102,7 @@ public final class InventarioMaterialView extends Fragment {
      *
      * @return un material en caso de haber sido seleccionado.
      */
-    public MaterialCell seleccion(){
+    private MaterialCell seleccion(){
         int seleccion = tablaInventario.getSelectionModel().getSelectedIndex();
         if(seleccion>=0){
             MaterialCell material = tablaInventario.getItems().get(seleccion);
@@ -112,13 +111,7 @@ public final class InventarioMaterialView extends Fragment {
         return null;
     }
 
-    /**
-     * Funcion que mostrara la vista modificar material.
-     *
-     * @author Sebastian Fuenzalida.
-     *
-     * @param event presiona el boton modificar
-     */
+
     @FXML
     public void detalleMaterial(ActionEvent event){
         MaterialCell materialCell = seleccion();
@@ -127,62 +120,13 @@ public final class InventarioMaterialView extends Fragment {
             DetalleMaterialView view = DetalleMaterialRouter.create(material);
             //view.setIdMaterial(material.getId());
             //view.setController(controller);
-
             view.modal().withBlock(true).show();
+            controller.cargarDatos();
             refreshTable();
         }
         else{
             controller.showWarning("Seleccionar material", "Por favor seleccione material a eliminar").showAndWait();;
         }
-    }
-
-    /**
-     * Funcion que mostrara la vista agregar material.
-     *
-     * @author Sebastian Fuenzalida.
-     *
-     * @param event presiona el boton agregar
-     */
-    @FXML
-    public void agregarMaterial(ActionEvent event){
-        MaterialCell material = seleccion();
-        if(material!=null) {
-            AgregarMaterialView view = Injectable.find(AgregarMaterialView.class);
-            view.setIdMaterial(material.getId());
-            //view.setController(controller);
-            view.modal().withBlock(true).show();
-            tablaInventario.refresh();
-        }
-        else{
-            controller.showWarning("Seleccionar material", "Por favor seleccione material a eliminar").showAndWait();;
-        }
-    }
-
-    /**
-     * Funcion que mostrara la vista retirar material.
-     *
-     * @author Sebastian Fuenzalida.
-     *
-     * @param event presiona el boton retirar
-     */
-  /*  @FXML
-    public void retirarMaterial(ActionEvent event){
-        MaterialCell material = seleccion();
-        if(material!=null) {
-            RetirarMaterialView view = Injectable.find(RetirarMaterialView.class);
-            view.setMaterial(material);
-            view.setController(controller);
-            view.modal().withBlock(true).show();
-            tablaInventario.refresh();
-        }
-        else{
-            controller.showWarning("Seleccionar material", "Por favor seleccione material a eliminar").showAndWait();;
-        }
-    }*/
-
-    @FXML
-    public void salir(ActionEvent event){
-        ((BorderPane) getRoot().getParent()).getChildren().remove(getRoot());
     }
 
     /**
