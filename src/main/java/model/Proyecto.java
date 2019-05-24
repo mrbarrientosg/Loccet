@@ -94,14 +94,14 @@ public class Proyecto {
         return repositoryTrabajador.remove(repositoryTrabajador.get(rut));
     }
 
-    public Iterator<Trabajador> buscarTrabajador(Specification busqueda) {
+    public Iterable<Trabajador> buscarTrabajador(Specification busqueda) {
         return repositoryTrabajador.get(busqueda);
     }
 
     public List<Trabajador> getTrabajadores() {
         // Hay cambiarlo por un iterator
         List<Trabajador> list = new ArrayList<>();
-        repositoryTrabajador.get().forEachRemaining(list::add);
+        repositoryTrabajador.get().forEach(list::add);
         return list;
     }
 

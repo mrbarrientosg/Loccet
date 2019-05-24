@@ -106,7 +106,7 @@ public class ProyectoView extends View {
    //Filtra los proyectos
     private void didSearch(String query) {
         filteredProyect.setPredicate(ProyectoCell ->
-                ProyectoCell.getNombreProyecto().toLowerCase().contains(query.toLowerCase()) ||
+                ProyectoCell.getNombre().toLowerCase().contains(query.toLowerCase()) ||
                         ProyectoCell.getId().toLowerCase().contains(query.toLowerCase()) ||
                         ProyectoCell.getCliente().toLowerCase().contains(query.toLowerCase()) ||
                         ProyectoCell.getFechaInicio().toString().contains(query.toLowerCase())

@@ -11,8 +11,10 @@ import javafx.collections.transformation.SortedList;
 import model.Constructora;
 import model.Proyecto;
 import model.Trabajador;
+import specification.TrabajadorByQuerySpecification;
 import view.RRHHView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,31 +25,32 @@ public class RRHHController extends Controller {
     private Constructora model = Constructora.getInstance();
 
     public Single<ObservableList<TrabajadorCell>> searchEmployee(String text) {
-        return Observable.fromIterable(model.getConjuntoTrabajadores())
-                .filter(trabajador -> trabajador.getRut().contains(text))
+        return Observable.fromIterable(model.buscarTrabajador(new TrabajadorByQuerySpecification(text)))
                 .map(TrabajadorCell::new)
                 .toList()
                 .map(FXCollections::observableList);
     }
 
     public Single<ObservableList<TrabajadorCell>> searchEmployeeProject(String idProject, String text) {
-        Proyecto p = null;//model.buscarProyecto(idProject);
+        Proyecto p = model.obtenerProyecto(idProject);
 
         if (p == null) return Single.just(FXCollections.emptyObservableList());
 
-        return Observable.fromIterable(p.getTrabajadores())
-                .filter(trabajador -> trabajador.getRut().contains(text))
+        return Observable.fromIterable(p.buscarTrabajador(new TrabajadorByQuerySpecification(text)))
                 .map(TrabajadorCell::new)
                 .toList()
                 .map(FXCollections::observableList);
     }
 
-    public ObservableList<TrabajadorCell> getEmployeesProject(String id) {
-        Proyecto p = null;//model.buscarProyecto(id);
+    public Single<ObservableList<TrabajadorCell>> getEmployeesProject(String id) {
+        return searchEmployeeProject(id, "");
+                //FXCollections.observableList(p.getTrabajadores().stream().map(TrabajadorCell::new).collect(Collectors.toList()));
+    }
 
-        if (p == null) return FXCollections.emptyObservableList();
-
-        return FXCollections.observableList(p.getTrabajadores().stream().map(TrabajadorCell::new).collect(Collectors.toList()));
+    public void deleteTrabajador(String rut) {
+        Trabajador t = model.eliminarTrabajador(rut);
+        if (t == null) return;
+        view.didDeleteTrabajador(t.getRut());
     }
 
     public List<ProyectoCell> getProyectos() {

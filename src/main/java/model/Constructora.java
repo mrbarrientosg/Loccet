@@ -123,13 +123,13 @@ public class Constructora {
      * @return Lista de trabajadores encontrados
      * @author Matias Barrientos
      */
-    public Iterator<Trabajador> buscarTrabajador(String idProyecto, Specification busqueda) {
+    public Iterable<Trabajador> buscarTrabajador(String idProyecto, Specification busqueda) {
         Proyecto p = repositoryProyecto.get(idProyecto);
-        if (p == null) return Collections.emptyIterator();
+        if (p == null) return Collections.emptyList();
         return p.buscarTrabajador(busqueda);
     }
 
-    public Iterator<Trabajador> buscarTrabajador(Specification busqueda) {
+    public Iterable<Trabajador> buscarTrabajador(Specification busqueda) {
         return repositoryTrabajador.get(busqueda);
     }
 
@@ -158,7 +158,7 @@ public class Constructora {
     public List<Trabajador> getConjuntoTrabajadores() {
         // Hay cambiarlo por un iterator
         List<Trabajador> list = new ArrayList<>();
-        repositoryTrabajador.get().forEachRemaining(list::add);
+        repositoryTrabajador.get().forEach(list::add);
         return list;
     }
 

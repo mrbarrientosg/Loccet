@@ -2,6 +2,10 @@ package view;
 
 import base.Fragment;
 import base.Injectable;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.RotateTransition;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +14,8 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.transform.Rotate;
+import javafx.util.Duration;
 import router.ProyectoRouter;
 import router.RRHHRouter;
 
@@ -70,7 +76,7 @@ public class TableroView extends Fragment {
             else {
                 if (lastSelected != null && lastSelected != newVal) {
                     if (!contentPane.getChildren().isEmpty())
-                        contentPane.getChildren().remove(0);
+                        contentPane.getChildren().remove(contentPane.getChildren().size() - 1);
                     setupCenter(newVal);
                 } else if (lastSelected == null) {
                     setupCenter(newVal);
@@ -97,10 +103,10 @@ public class TableroView extends Fragment {
 
     private void setCenter(Parent node) {
         contentPane.getChildren().add(node);
-        AnchorPane.setBottomAnchor(node, 16.0);
-        AnchorPane.setTopAnchor(node, 16.0);
-        AnchorPane.setLeftAnchor(node, 16.0);
-        AnchorPane.setRightAnchor(node, 16.0);
+        AnchorPane.setBottomAnchor(node, 0.0);
+        AnchorPane.setTopAnchor(node, 0.0);
+        AnchorPane.setLeftAnchor(node, 0.0);
+        AnchorPane.setRightAnchor(node, 0.0);
     }
 
     private void setupCenter(Toggle button) {
@@ -124,9 +130,14 @@ public class TableroView extends Fragment {
         if (button == rrhhButton) {
             RRHHView rrhhView = RRHHRouter.create();
             setCenter(rrhhView.getRoot());
-        }else if(button == proyectoButton){
+            titleBar.setText("Recursos Humanos");
+        } else if(button == proyectoButton){
             ProyectoView proyectoView = ProyectoRouter.create();
             setCenter(proyectoView.getRoot());
+            titleBar.setText("Proyectos");
+        } else {
+            titleBar.setText("Inicio");
         }
     }
+
 }
