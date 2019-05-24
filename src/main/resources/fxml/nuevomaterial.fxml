@@ -32,7 +32,7 @@
       </HBox>
       <HBox alignment="CENTER">
          <children>
-            <Label styleClass="title3" text="Por favor ingrese los datos correspondietes" textFill="#0084ff" />
+            <Label styleClass="title3" text="Por favor ingrese los datos correspondientes" textFill="#0084ff" />
          </children>
       </HBox>
       <HBox alignment="CENTER">
@@ -85,10 +85,10 @@
             </VBox>
             <VBox>
                <children>
-                  <ComboBox fx:id="unidadCB" prefHeight="70.0" prefWidth="23.0">
+                  <ComboBox fx:id="unidadCB" prefHeight="70.0" prefWidth="65.0">
                      <styleClass>
                         <String fx:value="backgroundgray" />
-                        <String fx:value="custom-combo-box" />
+                        <String fx:value="gray-combo-box" />
                      </styleClass>
                   </ComboBox>
                </children>
@@ -98,11 +98,17 @@
             </VBox>
             <VBox>
                <children>
-                  <TextField fx:id="precioTF" prefHeight="70.0" prefWidth="263.0" promptText="Precio*">
+                  <TextField fx:id="precioTF" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="263.0" promptText="Precio*">
                      <styleClass>
                         <String fx:value="textFieldGrey" />
                         <String fx:value="textField" />
                      </styleClass>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
                   </TextField>
                </children>
                <HBox.margin>
@@ -119,7 +125,7 @@
       </HBox>
       <HBox alignment="CENTER">
          <children>
-            <TextArea fx:id="descripcionTF" prefHeight="217.0" prefWidth="602.0" promptText="Descripcion">
+            <TextArea fx:id="descripcionTF" prefHeight="217.0" prefWidth="610.0" promptText="Descripcion">
                <styleClass>
                   <String fx:value="textAreaGray" />
                   <String fx:value="textField" />
@@ -128,8 +134,11 @@
                   <Insets />
                </opaqueInsets>
                <HBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" />
                </HBox.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
             </TextArea>
          </children>
       </HBox>
