@@ -54,12 +54,12 @@ public class MemoryRepositoryTrabajador implements RepositoryTrabajador {
     }
 
     @Override
-    public Iterator<Trabajador> get() {
-        return listaTrabajadores.iterator();
+    public Iterable<Trabajador> get() {
+        return listaTrabajadores;
     }
 
     @Override
-    public Iterator<Trabajador> get(Specification specification) {
+    public Iterable<Trabajador> get(Specification specification) {
         final MemorySpecification<Trabajador> memorySpecification = (MemorySpecification<Trabajador>) specification;
 
         final List<Trabajador> trabajadors = new ArrayList<>();
@@ -69,6 +69,6 @@ public class MemoryRepositoryTrabajador implements RepositoryTrabajador {
                 trabajadors.add(trabajador);
         }
 
-        return trabajadors.iterator();
+        return trabajadors;
     }
 }

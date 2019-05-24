@@ -12,6 +12,6 @@ public interface RepositoryTrabajador {
     public Trabajador remove(Trabajador value);
     public Trabajador update(Trabajador value);
     public Trabajador get(String rut);
-    public Iterator<Trabajador> get();
-    public Iterator<Trabajador> get(Specification specification);
+    public Iterable<Trabajador> get();
+    public Iterable<Trabajador> get(Specification specification);
 }
