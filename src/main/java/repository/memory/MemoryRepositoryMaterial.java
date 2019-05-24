@@ -55,4 +55,5 @@ public class MemoryRepositoryMaterial implements RepositoryMaterial {
     public Iterator<Material> get() {
         return materialList.iterator();
     }
+
 }

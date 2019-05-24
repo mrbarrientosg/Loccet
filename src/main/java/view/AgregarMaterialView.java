@@ -23,8 +23,6 @@ public final class AgregarMaterialView extends Fragment {
 
     private DetalleMaterialController controller;
 
-    private String idMaterial;
-
     @FXML
     private Button agregarBT;
 
@@ -36,6 +34,10 @@ public final class AgregarMaterialView extends Fragment {
 
     @Override
     public void viewDidLoad() {
+
+    }
+    @Override
+    public void viewDidShow(){
         Pattern pattern = Pattern.compile("\\d*|\\d+\\.\\d*");
 
         TextFormatter formatter =  new TextFormatter<UnaryOperator>(change -> {
@@ -45,18 +47,14 @@ public final class AgregarMaterialView extends Fragment {
         agregarTF.setTextFormatter(formatter);
     }
 
-    public void setIdMaterial(String idMaterial){
-        this.idMaterial = idMaterial;
-    }
-
     /**
      * Evento del boton para agregar mas cantidad al material
      * @param event
      */
-   /* @FXML
+    @FXML
     public void cantidadItem(ActionEvent event){
         if(!agregarTF.getText().isEmpty()) {
-            controller.agregarMaterial(idMaterial, Double.parseDouble(agregarTF.getText()));
+            controller.agregarMaterial(Double.parseDouble(agregarTF.getText()));
             close();
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -65,10 +63,10 @@ public final class AgregarMaterialView extends Fragment {
             alert.setContentText("Por favor ingresar un numero");
             alert.showAndWait();
         }
-    }*/
+    }
 
     @FXML
-    public void cancelar(ActionEvent event){
+    public void salir(ActionEvent event){
         close();
     }
 

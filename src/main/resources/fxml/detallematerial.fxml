@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="600.0" styleClass="backgroundWhite" stylesheets="@../css/detailmaterial.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="600.0" prefWidth="600.0" styleClass="backgroundWhite" stylesheets="@../css/detailmaterial.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
          <content>
@@ -35,8 +35,8 @@
                         <ButtonBar HBox.hgrow="ALWAYS">
                           <buttons>
                               <Button fx:id="editarBT" mnemonicParsing="false" onAction="#editar" styleClass="buttonBlue" text="Editar" />
-                              <Button fx:id="ingresarBT" mnemonicParsing="false" onAction="#agregarMaterial" styleClass="buttonBorderBlue" text="Ingresar" />
-                              <Button fx:id="retirarBT" mnemonicParsing="false" onAction="#retirarMaterial" styleClass="buttonBorderBlue" text="Retirar" />
+                              <Button fx:id="ingresarBT" mnemonicParsing="false" onAction="#agregar" styleClass="buttonBorderBlue" text="Ingresar" />
+                              <Button fx:id="retirarBT" mnemonicParsing="false" onAction="#retirar" styleClass="buttonBorderBlue" text="Retirar" />
                               <Button fx:id="salirBT" mnemonicParsing="false" onAction="#salir" styleClass="buttonFillBlue" text="Salir" />
                           </buttons>
                            <HBox.margin>
@@ -155,12 +155,11 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <TableView VBox.vgrow="ALWAYS">
+                  <TableView fx:id="tableView" VBox.vgrow="ALWAYS">
                     <columns>
-                      <TableColumn prefWidth="98.0" text="Fecha de Ingreso" />
-                      <TableColumn prefWidth="119.0" text="Ultimo Retiro" />
-                        <TableColumn prefWidth="129.0" text="Cantidad de Ingreso" />
-                        <TableColumn prefWidth="126.0" text="Cantidad de Retiro" />
+                      <TableColumn fx:id="fechaCL" minWidth="1.0" prefWidth="238.0" text="Fecha " />
+                      <TableColumn fx:id="cantidadCL" minWidth="0.0" prefWidth="222.0" text="Cantidad" />
+                        <TableColumn fx:id="retiradoCL" prefWidth="108.0" text="Agregar/Retirar" />
                     </columns>
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

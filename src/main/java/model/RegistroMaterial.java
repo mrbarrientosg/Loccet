@@ -18,10 +18,14 @@ public class RegistroMaterial {
 
     private Instant fecha;
 
+    private Boolean retirado;
+
     // MARK: - Constructor
 
     public RegistroMaterial(double cantidad){
         this.cantidad = cantidad;
+        this.retirado = retirado;
+        fecha = Instant.now();
     }
 
     // MARK: - Getter

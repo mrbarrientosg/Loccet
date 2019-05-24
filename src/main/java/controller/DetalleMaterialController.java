@@ -1,9 +1,12 @@
 package controller;
 
 import base.Controller;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import model.Material;
 import model.RegistroMaterial;
 import view.DetalleMaterialView;
+
 
 /**
  * @author Sebastian Fuenzalida
@@ -13,7 +16,6 @@ public class DetalleMaterialController extends Controller {
 
     private DetalleMaterialView view;
     private Material model;
-
 
     /**
      * @param descripcion material
@@ -66,13 +68,22 @@ public class DetalleMaterialController extends Controller {
     public void ModificarNombre(String nombre){model.setNombre(nombre);}
 
     public boolean retirarMaterial(double cantidad){
-        if (model.getCantidad() > cantidad) return false;
+        if (model.getCantidad() < cantidad) return false;
         else{
             model.setCantidad(model.getCantidad()-cantidad);
-            RegistroMaterial registroMaterial = new RegistroMaterial(cantidad);
+            RegistroMaterial registroMaterial = new RegistroMaterial(cantidad,true);
             model.agregarRegistro(registroMaterial);
             return true;
         }
+    }
+    public void agregarMaterial(double cantidad){
+        model.setCantidad(model.getCantidad()+cantidad);
+        RegistroMaterial registroMaterial = new RegistroMaterial(cantidad,false);
+        model.agregarRegistro(registroMaterial);
+    }
+
+    public ObservableList<RegistroMaterial> obtenerRegistro(){
+        return FXCollections.observableList(model.getListaRegistroMaterial());
     }
     /**
      * @param view detalleMaterial

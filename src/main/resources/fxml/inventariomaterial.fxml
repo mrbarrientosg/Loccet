@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox spacing="10.0" styleClass="backgroundWhite" stylesheets="@../css/inventary.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox spacing="10.0" styleClass="backgroundWhite" stylesheets="@../css/inventary.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox spacing="8.0">
          <VBox.margin>
@@ -28,7 +28,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Button>
-                        <Button fx:id="modificarMaterialBT" disable="true" mnemonicParsing="false" onAction="#detalleMaterial" styleClass="buttonGray" text="Ver detalle">
+                        <Button fx:id="editarBT" mnemonicParsing="false" onAction="#detalleMaterial" styleClass="buttonGray" text="Ver detalle">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -55,14 +55,12 @@
       </VBox>
       <TableView fx:id="tablaInventario" VBox.vgrow="ALWAYS">
         <columns>
-            <TableColumn fx:id="fechaIngresoCL" editable="false" minWidth="-1.0" prefWidth="85.0" text="Fecha ingreso" />
           <TableColumn fx:id="idMaterialCL" editable="false" minWidth="-1.0" prefWidth="57.0" text="ID" />
             <TableColumn fx:id="nombreMaterialCL" editable="false" minWidth="-1.0" prefWidth="65.0" text="Nombre" />
           <TableColumn fx:id="descripcionCL" editable="false" minWidth="-1.0" prefWidth="201.0" text="Descripcion" />
             <TableColumn fx:id="cantidadCL" editable="false" minWidth="-1.0" prefWidth="59.0" text="Cantidad" />
             <TableColumn fx:id="udsCL" editable="false" minWidth="-1.0" prefWidth="77.0" text="UDS" />
             <TableColumn fx:id="retiroCL" editable="false" minWidth="-1.0" prefWidth="62.0" text="Retiro" />
-            <TableColumn fx:id="fechaRetiroCL" editable="false" minWidth="-1.0" prefWidth="85.0" text="Fecha retiro" />
             <TableColumn fx:id="precioCL" editable="false" minWidth="-1.0" prefWidth="100.0" text="Precio" />
         </columns>
          <styleClass>

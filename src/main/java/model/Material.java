@@ -1,9 +1,10 @@
 package model;
-import com.google.gson.JsonObject;
 import repository.memory.MemoryRepositoryRegistroMaterial;
 import repository.RepositoryRegistroMaterial;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -129,4 +130,11 @@ public class Material {
     public void setPrecio(BigDecimal precio) {
         this.precio = precio;
     }
+
+    public List<RegistroMaterial> getListaRegistroMaterial() {
+        List<RegistroMaterial> list = new ArrayList<>();
+        repositoryRegistroMaterial.get().forEachRemaining(list::add);
+        return list;
+    }
+
 }

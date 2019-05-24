@@ -39,6 +39,10 @@ public final class RetirarMaterialView extends View {
 
     @Override
     public void viewDidLoad() {
+
+    }
+    @Override
+    public void viewDidShow(){
         Pattern pattern = Pattern.compile("\\d*|\\d+\\.\\d*");
 
         TextFormatter formatter =  new TextFormatter<UnaryOperator>(change -> {
@@ -46,6 +50,7 @@ public final class RetirarMaterialView extends View {
         });
 
         retirarTF.setTextFormatter(formatter);
+
     }
 
     @Override
@@ -69,6 +74,7 @@ public final class RetirarMaterialView extends View {
                alert.setContentText("La cantidad de material a retirar es mayor al que se tiene");
                alert.showAndWait();
            }
+           else close();
        }else {
            Alert alert = new Alert(Alert.AlertType.ERROR);
            alert.setTitle("Error");
