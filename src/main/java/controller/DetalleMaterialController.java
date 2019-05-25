@@ -73,6 +73,7 @@ public class DetalleMaterialController extends Controller {
             model.setCantidad(model.getCantidad()-cantidad);
             RegistroMaterial registroMaterial = new RegistroMaterial(cantidad,true);
             model.agregarRegistro(registroMaterial);
+            view.cargarDatos();
             return true;
         }
     }
@@ -80,6 +81,7 @@ public class DetalleMaterialController extends Controller {
         model.setCantidad(model.getCantidad()+cantidad);
         RegistroMaterial registroMaterial = new RegistroMaterial(cantidad,false);
         model.agregarRegistro(registroMaterial);
+        view.cargarDatos();
     }
 
     public ObservableList<RegistroMaterial> obtenerRegistro(){

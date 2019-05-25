@@ -28,7 +28,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Button>
-                        <Button fx:id="editarBT" mnemonicParsing="false" onAction="#detalleMaterial" styleClass="buttonGray" text="Ver detalle">
+                        <Button fx:id="editarBT" disable="true" mnemonicParsing="false" onAction="#detalleMaterial" styleClass="buttonGray" text="Ver detalle">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>

@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.StageStyle;
 import model.RegistroMaterial;
 import router.DetalleMaterialRouter;
 
@@ -59,6 +60,7 @@ public class DetalleMaterialView extends Fragment {
     @Override
     public void viewDidLoad() {
         editando = false;
+
     }
     @Override
     public void viewDidShow(){
@@ -94,7 +96,6 @@ public class DetalleMaterialView extends Fragment {
         cantidadTF.setText(Double.toString(controller.getCantidad()));
         descripcionTA.setText(controller.getDescripcion());
     }
-
     /**
      * Funcion que permite tanto comenzar un edit como guardar los cambios realizados.
      *
@@ -177,15 +178,16 @@ public class DetalleMaterialView extends Fragment {
     public void retirar(ActionEvent event){
         RetirarMaterialView view = Injectable.find(RetirarMaterialView.class);
         view.setController(controller);
-        view.modal().withBlock(true).show();
+        view.modal().withStyle(StageStyle.TRANSPARENT).show();
         mostrarDatos();
     }
     @FXML
     public void agregar(ActionEvent event){
         AgregarMaterialView view = Injectable.find(AgregarMaterialView.class);
         view.setController(controller);
-        view.modal().withBlock(true).show();
+        view.modal().withStyle(StageStyle.TRANSPARENT).show();
         mostrarDatos();
+
     }
 
     /**
