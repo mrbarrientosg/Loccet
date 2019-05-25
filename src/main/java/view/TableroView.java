@@ -12,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import router.ProyectoRouter;
 import router.RRHHRouter;
+import router.ReporteRouter;
 
 import java.io.IOException;
 
@@ -44,6 +45,9 @@ public class TableroView extends Fragment {
     @FXML
     private ToggleButton proyectoButton;
 
+    @FXML
+    private ToggleButton reporteButton;
+
     private Toggle lastSelected;
 
     private double xOffset = 0;
@@ -70,7 +74,7 @@ public class TableroView extends Fragment {
             else {
                 if (lastSelected != null && lastSelected != newVal) {
                     if (!contentPane.getChildren().isEmpty())
-                        contentPane.getChildren().remove(0);
+                        contentPane.getChildren().remove(2);
                     setupCenter(newVal);
                 } else if (lastSelected == null) {
                     setupCenter(newVal);
@@ -127,6 +131,9 @@ public class TableroView extends Fragment {
         }else if(button == proyectoButton){
             ProyectoView proyectoView = ProyectoRouter.create();
             setCenter(proyectoView.getRoot());
+        }else if(button == reporteButton){
+            ReporteView reporteView = ReporteRouter.create();
+            setCenter(reporteView.getRoot());
         }
     }
 }
