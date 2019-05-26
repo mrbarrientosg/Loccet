@@ -7,17 +7,16 @@ import view.ListaHorarioView;
 
 public final class ListaHorarioRouter {
 
-    public static ListaHorarioView create(Trabajador model, boolean adding) {
+    public static ListaHorarioView create(Trabajador model) {
         ListaHorarioView view = Injectable.find(ListaHorarioView.class);
-        //ListaHorarioRouter router = new ListaHorarioRouter();
-        ListaHorarioController controller = new ListaHorarioController(view, model);
+        ListaHorarioController controller = Injectable.find(ListaHorarioController.class);
 
         view.setController(controller);
+
+        controller.setModel(model);
+        controller.setView(view);
 
         return view;
     }
 
-    public static ListaHorarioView create(Trabajador model) {
-        return create(model, false);
-    }
 }

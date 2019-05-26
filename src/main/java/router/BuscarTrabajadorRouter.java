@@ -2,7 +2,7 @@ package router;
 
 import base.Injectable;
 import controller.BuscarTrabajadorController;
-import util.SearchEmployeeDelegate;
+import delegate.SearchEmployeeDelegate;
 import view.BuscarTrabajadorView;
 
 public class BuscarTrabajadorRouter {

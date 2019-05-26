@@ -4,6 +4,7 @@ import base.View;
 import cell.ProyectoCell;
 import cell.TrabajadorCell;
 import controller.RRHHController;
+import delegate.EditTrabajadorDelegate;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.rxjavafx.observables.JavaFxObservable;
@@ -27,7 +28,7 @@ import router.RRHHRouter;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-public class RRHHView extends View {
+public class RRHHView extends View implements EditTrabajadorDelegate {
 
     private RRHHController controller;
 
@@ -186,7 +187,7 @@ public class RRHHView extends View {
         TrabajadorCell cell = tableTrabajadores.getSelectionModel().getSelectedItem();
         if (cell == null) return;
         Trabajador t = controller.obtenerTrabajador(cell.getRut());
-        DetalleTrabajadorView view = DetalleTrabajadorRouter.create(t);
+        DetalleTrabajadorView view = DetalleTrabajadorRouter.create(t, this);
         view.modal()
                 .withStyle(StageStyle.TRANSPARENT)
                 .show();
@@ -202,5 +203,17 @@ public class RRHHView extends View {
 
     public void setRouter(RRHHRouter router) {
         this.router = router;
+    }
+
+    @Override
+    public void didEditTrabajador() {
+        ProyectoCell cell = proyectList.getSelectionModel().getSelectedItem();
+
+        if (cell.getNombre().equals("Todos"))
+            tableTrabajadores.setItems(controller.fetchTrabajadores());
+        else
+            tableTrabajadores.setItems(controller.fetchTrabajadores(cell.getId()));
+
+        searchField.setText("");
     }
 }

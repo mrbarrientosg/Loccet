@@ -4,6 +4,7 @@ import base.Fragment;
 import base.View;
 import cell.TrabajadorCell;
 import controller.ListaTrabajadorController;
+import delegate.EditTrabajadorDelegate;
 import io.reactivex.Observable;
 import io.reactivex.rxjavafx.observables.JavaFxObservable;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
@@ -24,11 +25,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
+import model.Trabajador;
 import router.BuscarTrabajadorRouter;
+import router.DetalleTrabajadorRouter;
 
 import java.util.concurrent.TimeUnit;
 
-public final class ListaTrabajadorView extends View {
+public final class ListaTrabajadorView extends View implements EditTrabajadorDelegate {
 
     private ListaTrabajadorController controller;
 
@@ -113,7 +116,13 @@ public final class ListaTrabajadorView extends View {
 
     @FXML
     private void verDetalleTrabajador(ActionEvent event) {
-
+        TrabajadorCell cell = tableView.getSelectionModel().getSelectedItem();
+        if (cell == null) return;
+        Trabajador t = controller.obtenerTrabajador(cell.getRut());
+        DetalleTrabajadorView view = DetalleTrabajadorRouter.create(t, this);
+        view.modal()
+                .withStyle(StageStyle.TRANSPARENT)
+                .show();
     }
 
     public void addEmployee(TrabajadorCell cell) {
@@ -125,4 +134,9 @@ public final class ListaTrabajadorView extends View {
         this.controller = controller;
     }
 
+    @Override
+    public void didEditTrabajador() {
+        tableView.setItems(controller.loadData());
+        searchTextField.setText("");
+    }
 }

@@ -3,6 +3,7 @@ package controller;
 import base.Controller;
 import cell.ProyectoCell;
 import cell.TrabajadorCell;
+import delegate.EditTrabajadorDelegate;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import javafx.collections.FXCollections;
@@ -23,6 +24,18 @@ public class RRHHController extends Controller {
     private RRHHView view;
 
     private Constructora model = Constructora.getInstance();
+
+    public ObservableList<TrabajadorCell> fetchTrabajadores() {
+        return FXCollections.observableList(model.getConjuntoTrabajadores().stream().map(TrabajadorCell::new).collect(Collectors.toList()));
+    }
+
+    public ObservableList<TrabajadorCell> fetchTrabajadores(String idProyecto) {
+        Proyecto p = model.obtenerProyecto(idProyecto);
+
+        if (p == null) return FXCollections.emptyObservableList();
+
+        return FXCollections.observableList(p.getTrabajadores().stream().map(TrabajadorCell::new).collect(Collectors.toList()));
+    }
 
     public Single<ObservableList<TrabajadorCell>> searchEmployee(String text) {
         return Observable.fromIterable(model.buscarTrabajador(new TrabajadorByQuerySpecification(text)))

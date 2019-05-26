@@ -1,4 +1,4 @@
-package state;
+package delegate;
 
 import model.Trabajador;
 
@@ -6,5 +6,5 @@ import model.Trabajador;
  * Delegate cuando se edita un Trabajador
  */
 public interface EditTrabajadorDelegate {
-    public void didEdit(Trabajador old, Trabajador newT);
+    public void didEditTrabajador();
 }

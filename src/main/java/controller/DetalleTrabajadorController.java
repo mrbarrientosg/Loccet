@@ -1,6 +1,7 @@
 package controller;
 
 import base.Controller;
+import delegate.EditTrabajadorDelegate;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -34,6 +35,8 @@ public class DetalleTrabajadorController extends Controller {
 
     private ObjectProperty<LocalDate> birthday = new SimpleObjectProperty<>();
 
+    private EditTrabajadorDelegate delegate;
+
     //private StringProperty telephone = new SimpleStringProperty();
 
     public void guardar() {
@@ -48,6 +51,9 @@ public class DetalleTrabajadorController extends Controller {
         model.setTelefono(telephone.get());
         model.setCorreoElectronico(email.get());
         model.setFechaNacimiento(birthday.get());
+
+        if (delegate != null)
+            delegate.didEditTrabajador();
 
         //model.setEspecialidad();
 
@@ -75,6 +81,10 @@ public class DetalleTrabajadorController extends Controller {
         this.model = model;
         loadData();
         view.bind();
+    }
+
+    public void setDelegate(EditTrabajadorDelegate delegate) {
+        this.delegate = delegate;
     }
 
     public String getRut() {

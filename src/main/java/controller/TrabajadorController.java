@@ -5,13 +5,10 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.transformation.FilteredList;
 import model.Constructora;
-import model.Especialidades;
-import model.Localizacion;
 import model.Trabajador;
 import router.TrabajadorRouter;
-import state.EditTrabajadorDelegate;
+import delegate.EditTrabajadorDelegate;
 import view.TrabajadorView;
 
 import java.time.LocalDate;

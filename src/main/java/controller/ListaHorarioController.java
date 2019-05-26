@@ -4,24 +4,14 @@ import base.Controller;
 import cell.HorarioCell;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.Horario;
 import model.Trabajador;
-import state.AddHorarioDelegate;
 import view.ListaHorarioView;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 public final class ListaHorarioController extends Controller {
 
     private ListaHorarioView view;
 
-    private Trabajador trabajador;
-
-    public ListaHorarioController(ListaHorarioView view, Trabajador trabajador) {
-        this.view = view;
-        this.trabajador = trabajador;
-    }
+    private Trabajador model;
 
     /**
      * Carga la informacion desde el modelo
@@ -29,7 +19,7 @@ public final class ListaHorarioController extends Controller {
     public ObservableList<HorarioCell> fetchHorarios() {
         ObservableList<HorarioCell> list = FXCollections.observableArrayList();
 
-        trabajador.obtenerListaHorario().forEach(horario -> list.add(new HorarioCell(horario)));
+        model.obtenerListaHorario().forEach(horario -> list.add(new HorarioCell(horario)));
 
         return list;
     }
@@ -40,8 +30,15 @@ public final class ListaHorarioController extends Controller {
      */
     public void eliminarHorario(HorarioCell cell) {
         if (cell == null) return;
-        trabajador.eliminarHorario(cell.getId());
+        model.eliminarHorario(cell.getId());
         view.didDeleteHorario(cell);
     }
 
+    public void setView(ListaHorarioView view) {
+        this.view = view;
+    }
+
+    public void setModel(Trabajador model) {
+        this.model = model;
+    }
 }

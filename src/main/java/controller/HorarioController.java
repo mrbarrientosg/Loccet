@@ -3,11 +3,10 @@ package controller;
 import base.Controller;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import model.Horario;
 import model.Proyecto;
 import model.Trabajador;
 import router.HorarioRouter;
-import state.AddHorarioDelegate;
+import delegate.AddHorarioDelegate;
 import view.HorarioView;
 import java.time.LocalTime;
 
