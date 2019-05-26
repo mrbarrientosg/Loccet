@@ -1,4 +1,4 @@
-package model;
+package util;
 
 public class Dias {
     public static final String LUNES = "LUNES";

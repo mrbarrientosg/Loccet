@@ -22,12 +22,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.StageStyle;
 import router.BuscarTrabajadorRouter;
 
 import java.util.concurrent.TimeUnit;
 
-public final class ListaTrabajadorView extends Fragment {
+public final class ListaTrabajadorView extends View {
 
     private ListaTrabajadorController controller;
 
@@ -99,12 +100,15 @@ public final class ListaTrabajadorView extends Fragment {
 
     @Override
     public void viewDidClose() {
+        tableView.getItems().clear();
     }
 
     @FXML
     private void addEmployeeAction(ActionEvent event) {
         BuscarTrabajadorView view = BuscarTrabajadorRouter.create(controller);
-        view.modal().show();
+        view.modal()
+                .withOwner(null)
+                .show();
     }
 
     @FXML

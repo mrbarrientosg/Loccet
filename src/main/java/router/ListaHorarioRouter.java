@@ -14,8 +14,6 @@ public final class ListaHorarioRouter {
 
         view.setController(controller);
 
-        controller.setAdd(adding);
-
         return view;
     }
 

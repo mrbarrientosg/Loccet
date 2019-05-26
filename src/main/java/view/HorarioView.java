@@ -86,9 +86,7 @@ public final class HorarioView extends View {
     }
 
     public void addListView(Trabajador model) {
-        ListaHorarioView view = ListaHorarioRouter.create(model, true);
-        this.controller.setDelegate(view.getController());
-        getRoot().getChildren().add(view.getRoot());
+
     }
 
     private void loadView() {

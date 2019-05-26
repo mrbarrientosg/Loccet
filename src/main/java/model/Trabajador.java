@@ -57,10 +57,12 @@ public abstract class Trabajador {
         repositoryHorario.add(horario);
     }
 
-    public List<Horario> obtenerListaHorario() {
-        List<Horario> aux = new ArrayList<>();
-        repositoryHorario.get().forEachRemaining(aux::add);
-        return Collections.unmodifiableList(aux);
+    public void eliminarHorario(Integer id) {
+        repositoryHorario.remove(repositoryHorario.get(id));
+    }
+
+    public Iterable<Horario> obtenerListaHorario() {
+        return repositoryHorario.get();
     }
 
     // MARK: - Getter

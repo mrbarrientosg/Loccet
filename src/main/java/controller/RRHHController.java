@@ -47,6 +47,10 @@ public class RRHHController extends Controller {
                 //FXCollections.observableList(p.getTrabajadores().stream().map(TrabajadorCell::new).collect(Collectors.toList()));
     }
 
+    public Trabajador obtenerTrabajador(String rut) {
+        return model.obtenerTrabajador(rut);
+    }
+
     public void deleteTrabajador(String rut) {
         Trabajador t = model.eliminarTrabajador(rut);
         if (t == null) return;

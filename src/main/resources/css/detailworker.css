@@ -312,6 +312,10 @@
     -fx-background-color: white;
     -fx-background-radius: 3; }
 
+.title1 {
+  -fx-font-family: "Heebo Black";
+  -fx-font-size: 24px; }
+
 .title2 {
   -fx-font-family: "Heebo Black";
   -fx-font-size: 20px; }

@@ -20,6 +20,8 @@
 
 @include buttonRed;
 
+@include buttonFillBlue;
+
 .gray-scroll {
   @include custom-scroll($ghost-white);
 }

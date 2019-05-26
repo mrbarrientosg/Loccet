@@ -75,6 +75,19 @@
                                           <Insets bottom="5.0" />
                                        </padding>
                                     </AnchorPane>
+                                    <Button fx:id="detailTrabajador" mnemonicParsing="false" prefHeight="35.0" styleClass="buttonFillBlue" text="Ver detalle" textFill="WHITE" />
+                                 </children>
+                              </StackPane>
+                              <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0">
+                                 <children>
+                                    <AnchorPane styleClass="buttonWhiteShadow">
+                                       <StackPane.margin>
+                                          <Insets left="5.0" right="5.0" top="10.0" />
+                                       </StackPane.margin>
+                                       <padding>
+                                          <Insets bottom="5.0" />
+                                       </padding>
+                                    </AnchorPane>
                                     <Button fx:id="deleteTrabajador" mnemonicParsing="false" prefHeight="35.0" styleClass="buttonRed" text="Eliminar" textFill="WHITE" />
                                  </children>
                               </StackPane>

@@ -3,13 +3,11 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -18,26 +16,22 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="720.0" prefWidth="800.0" stylesheets="@../css/detailworker.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="540.0" prefWidth="797.0" stylesheets="@../css/detailworker.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ScrollPane fitToWidth="true" styleClass="custom-scroll" VBox.vgrow="ALWAYS">
          <content>
-            <VBox styleClass="backgroundWhite">
+            <VBox fx:id="container" styleClass="backgroundWhite">
                <children>
                   <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="10.0">
                      <children>
-                        <Label styleClass="title2" text="Datos del Trabajador">
+                        <Label styleClass="title1" text="Datos del Trabajador">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
                         <Separator maxWidth="1.7976931348623157E308" visible="false" HBox.hgrow="ALWAYS" />
-                        <ButtonBar HBox.hgrow="ALWAYS">
-                          <buttons>
-                              <Button mnemonicParsing="false" styleClass="buttonBlue" text="Editar" />
-                              <Button mnemonicParsing="false" styleClass="buttonFillBlue" text="Salir" />
-                          </buttons>
-                        </ButtonBar>
+                        <Button fx:id="editButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="buttonBlue" text="Editar" />
+                        <Button fx:id="exitButton" mnemonicParsing="false" styleClass="buttonFillBlue" text="Salir" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
@@ -62,7 +56,7 @@
                         <VBox spacing="5.0">
                            <children>
                               <Label styleClass="paragraph" text="RUT" />
-                              <TextField>
+                              <TextField fx:id="rutField" disable="true">
                                  <styleClass>
                                     <String fx:value="textField" />
                                     <String fx:value="textFieldGrey" />
@@ -72,37 +66,7 @@
                         <VBox spacing="5.0" GridPane.columnIndex="1">
                            <children>
                               <Label styleClass="paragraph" text="Nombre" />
-                              <TextField>
-                                 <styleClass>
-                                    <String fx:value="textField" />
-                                    <String fx:value="textFieldGrey" />
-                                 </styleClass></TextField>
-                           </children>
-                        </VBox>
-                        <VBox spacing="5.0" GridPane.rowIndex="2">
-                           <children>
-                              <Label styleClass="paragraph" text="Direccion" />
-                              <TextField>
-                                 <styleClass>
-                                    <String fx:value="textField" />
-                                    <String fx:value="textFieldGrey" />
-                                 </styleClass></TextField>
-                           </children>
-                        </VBox>
-                        <VBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <children>
-                              <Label styleClass="paragraph" text="Pais" />
-                              <TextField>
-                                 <styleClass>
-                                    <String fx:value="textField" />
-                                    <String fx:value="textFieldGrey" />
-                                 </styleClass></TextField>
-                           </children>
-                        </VBox>
-                        <VBox spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                           <children>
-                              <Label styleClass="paragraph" text="Estado" />
-                              <TextField>
+                              <TextField fx:id="nameField" disable="true">
                                  <styleClass>
                                     <String fx:value="textField" />
                                     <String fx:value="textFieldGrey" />
@@ -111,38 +75,68 @@
                         </VBox>
                         <VBox spacing="5.0" GridPane.rowIndex="3">
                            <children>
-                              <Label styleClass="paragraph" text="Ciudad" />
-                              <TextField>
+                              <Label styleClass="paragraph" text="Direccion" />
+                              <TextField fx:id="addressField" disable="true">
                                  <styleClass>
                                     <String fx:value="textField" />
                                     <String fx:value="textFieldGrey" />
                                  </styleClass></TextField>
                            </children>
                         </VBox>
-                        <Label styleClass="title2" text="Localizacion" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                        <VBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <children>
+                              <Label styleClass="paragraph" text="Pais" />
+                              <TextField fx:id="countryField" disable="true">
+                                 <styleClass>
+                                    <String fx:value="textField" />
+                                    <String fx:value="textFieldGrey" />
+                                 </styleClass></TextField>
+                           </children>
+                        </VBox>
+                        <VBox spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                           <children>
+                              <Label styleClass="paragraph" text="Estado" />
+                              <TextField fx:id="stateField" disable="true">
+                                 <styleClass>
+                                    <String fx:value="textField" />
+                                    <String fx:value="textFieldGrey" />
+                                 </styleClass></TextField>
+                           </children>
+                        </VBox>
+                        <VBox spacing="5.0" GridPane.rowIndex="4">
+                           <children>
+                              <Label styleClass="paragraph" text="Ciudad" />
+                              <TextField fx:id="cityField" disable="true">
+                                 <styleClass>
+                                    <String fx:value="textField" />
+                                    <String fx:value="textFieldGrey" />
+                                 </styleClass></TextField>
+                           </children>
+                        </VBox>
+                        <Label styleClass="title2" text="Localizacion" GridPane.columnSpan="2" GridPane.rowIndex="2">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label styleClass="title2" text="Otros" GridPane.columnSpan="2" GridPane.rowIndex="4">
+                        <Label styleClass="title2" text="Otros" GridPane.columnSpan="2" GridPane.rowIndex="5">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <VBox spacing="5.0" GridPane.rowIndex="5">
+                        <VBox spacing="5.0" GridPane.rowIndex="6">
                            <children>
                               <Label styleClass="paragraph" text="Telefono" />
-                              <TextField>
+                              <TextField fx:id="telephoneField" disable="true">
                                  <styleClass>
                                     <String fx:value="textField" />
                                     <String fx:value="textFieldGrey" />
                                  </styleClass></TextField>
                            </children>
                         </VBox>
-                        <VBox spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                        <VBox spacing="5.0" GridPane.rowIndex="1">
                            <children>
                               <Label styleClass="paragraph" text="Fecha de nacimiento" />
-                              <DatePicker prefHeight="31.0" prefWidth="248.0">
+                              <DatePicker fx:id="birthdayField" disable="true" prefHeight="31.0" prefWidth="248.0">
                                  <styleClass>
                                     <String fx:value="grayDatePicker" />
                                     <String fx:value="textField" />
@@ -152,10 +146,10 @@
                               </DatePicker>
                            </children>
                         </VBox>
-                        <VBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                        <VBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                            <children>
                               <Label styleClass="paragraph" text="Corre electronico" />
-                              <TextField>
+                              <TextField fx:id="emailField" disable="true">
                                  <styleClass>
                                     <String fx:value="textField" />
                                     <String fx:value="textFieldGrey" />
@@ -165,21 +159,23 @@
                         <VBox spacing="5.0" GridPane.columnIndex="2">
                            <children>
                               <Label styleClass="paragraph" text="Apellido" />
-                              <TextField>
+                              <TextField fx:id="lastNameField" disable="true">
                                  <styleClass>
                                     <String fx:value="textFieldGrey" />
                                     <String fx:value="textField" />
                                  </styleClass></TextField>
                            </children>
                         </VBox>
-                        <VBox spacing="5.0" GridPane.rowIndex="6">
+                        <VBox spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="6">
                            <children>
                               <Label styleClass="paragraph" text="Especialidad" />
-                              <TextField>
+                              <ComboBox fx:id="specialityField" disable="true" maxWidth="1.7976931348623157E308">
                                  <styleClass>
+                                    <String fx:value="custom-combo-box" />
                                     <String fx:value="textField" />
-                                    <String fx:value="textFieldGrey" />
-                                 </styleClass></TextField>
+                                    <String fx:value="backgroundgray" />
+                                 </styleClass>
+                              </ComboBox>
                            </children>
                         </VBox>
                      </children>
@@ -187,37 +183,6 @@
                         <Insets bottom="16.0" left="16.0" right="16.0" />
                      </VBox.margin>
                   </GridPane>
-                  <VBox alignment="CENTER" spacing="10.0">
-                     <VBox.margin>
-                        <Insets left="16.0" right="16.0" top="8.0" />
-                     </VBox.margin>
-                     <children>
-                        <HBox alignment="CENTER" spacing="10.0">
-                           <children>
-                              <Label styleClass="title2" text="Horario">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Separator visible="false" HBox.hgrow="ALWAYS" />
-                              <Button mnemonicParsing="false" styleClass="buttonBlue" text="Agregar horario" />
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-                  <TableView prefHeight="200.0" prefWidth="200.0">
-                     <columns>
-                        <TableColumn prefWidth="75.0" text="C1" />
-                        <TableColumn prefWidth="75.0" text="C2" />
-                     </columns>
-                     <VBox.margin>
-                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                     </VBox.margin>
-                     <styleClass>
-                        <String fx:value="rrhh-table" />
-                        <String fx:value="backgroundgray" />
-                     </styleClass>
-                  </TableView>
                </children>
             </VBox>
          </content>

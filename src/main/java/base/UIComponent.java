@@ -218,6 +218,11 @@ public abstract class UIComponent extends Component {
             return this;
         }
 
+        public ShowBuilder withOwner(Window owner) {
+            this.owner = owner;
+            return this;
+        }
+
         public ShowBuilder withBlock(boolean block) {
             this.block = block;
             return this;

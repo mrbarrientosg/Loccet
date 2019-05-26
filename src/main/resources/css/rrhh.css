@@ -218,6 +218,21 @@
     -fx-background-color: red;
     -fx-background-radius: 3; }
 
+.buttonFillBlue {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: #0084ff;
+  -fx-background-color: white;
+  -fx-background-radius: 3; }
+  .buttonFillBlue:hover {
+    -fx-text-fill: #0084ff;
+    -fx-background-color: #e6e6e6;
+    -fx-background-radius: 3; }
+  .buttonFillBlue:pressed {
+    -fx-text-fill: #0084ff;
+    -fx-background-color: white;
+    -fx-background-radius: 3; }
+
 .gray-scroll {
   -fx-background-color: #F9F9F9; }
   .gray-scroll .scroll-bar:vertical {

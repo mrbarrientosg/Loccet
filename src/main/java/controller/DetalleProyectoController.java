@@ -47,7 +47,7 @@ public class DetalleProyectoController extends Controller {
 
     private void loadData() {
         name.setValue(proyecto.getNombre());
-        address.setValue(proyecto.getLocalizacion().getCodigoPostal());
+        address.setValue(proyecto.getLocalizacion().getDireccion());
         country.setValue(proyecto.getLocalizacion().getPais());
         state.setValue(proyecto.getLocalizacion().getEstado());
         city.setValue(proyecto.getLocalizacion().getCiudad());

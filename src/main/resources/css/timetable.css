@@ -98,6 +98,21 @@
     -fx-background-color: #0084ff;
     -fx-background-radius: 3; }
 
+.buttonRed {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: white;
+  -fx-background-color: red;
+  -fx-background-radius: 3; }
+  .buttonRed:hover {
+    -fx-text-fill: white;
+    -fx-background-color: #ff2929;
+    -fx-background-radius: 3; }
+  .buttonRed:pressed {
+    -fx-text-fill: white;
+    -fx-background-color: red;
+    -fx-background-radius: 3; }
+
 .title1 {
   -fx-font-family: "Heebo Black";
   -fx-font-size: 24px; }

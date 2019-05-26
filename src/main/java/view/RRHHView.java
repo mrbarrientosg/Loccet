@@ -16,8 +16,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import model.Proyecto;
+import model.Trabajador;
+import router.DetalleProyectoRouter;
+import router.DetalleTrabajadorRouter;
 import router.RRHHRouter;
 
 import java.util.Objects;
@@ -37,6 +41,9 @@ public class RRHHView extends View {
 
     @FXML
     private Button createTrabajador;
+
+    @FXML
+    private Button detailTrabajador;
 
     @FXML
     private Button deleteTrabajador;
@@ -102,7 +109,8 @@ public class RRHHView extends View {
         proyectList.setCellFactory(factory);
         proyectList.setButtonCell(factory.call(null));
 
-        deleteTrabajador.setOnAction(this::deleteActionTrabajador);
+        deleteTrabajador.setOnAction(this::deleteTrabajadorAction);
+        detailTrabajador.setOnAction(this::detailTrabajadorAction);
     }
 
     @Override
@@ -166,12 +174,22 @@ public class RRHHView extends View {
         tableTrabajadores.getItems().clear();
     }
 
-    private void deleteActionTrabajador(ActionEvent event) {
+    private void deleteTrabajadorAction(ActionEvent event) {
         TrabajadorCell cell = tableTrabajadores.getSelectionModel().getSelectedItem();
 
         if (cell == null) return;
 
         controller.deleteTrabajador(cell.getRut());
+    }
+
+    private void detailTrabajadorAction(ActionEvent event) {
+        TrabajadorCell cell = tableTrabajadores.getSelectionModel().getSelectedItem();
+        if (cell == null) return;
+        Trabajador t = controller.obtenerTrabajador(cell.getRut());
+        DetalleTrabajadorView view = DetalleTrabajadorRouter.create(t);
+        view.modal()
+                .withStyle(StageStyle.TRANSPARENT)
+                .show();
     }
 
     public void didDeleteTrabajador(String rut) {
