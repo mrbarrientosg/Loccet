@@ -14,7 +14,6 @@ import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -139,6 +138,15 @@ public class Proyecto {
         inventarioMaterial.agregarRegistroMaterial(idMaterial, registroMaterial);
     }
 
+    public BigDecimal costoTotalAproximado(){
+        List listaTrabajadores = getTrabajadores();
+        BigDecimal costoAproximado = new BigDecimal(0);
+        for (int i = 0; i < listaTrabajadores.size();i++) {
+            Trabajador trabajador = (Trabajador) listaTrabajadores.get(i);
+                costoAproximado.add(trabajador.calcularSueldo());
+        }
+        return costoAproximado.add(inventarioMaterial.costoInventario());
+    }
 
 
     /*public void estimacionGasto() {

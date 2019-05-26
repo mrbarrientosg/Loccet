@@ -3,6 +3,7 @@ package model;
 import repository.memory.MemoryRepositoryMaterial;
 import repository.RepositoryMaterial;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -40,6 +41,15 @@ public class InventarioMaterial {
 
     public Material actualizarMaterial(Material material) {
         return repositoryMaterial.update(material);
+    }
+
+    public BigDecimal costoInventario(){
+        List<Material> list = obtenerMateriales();
+        BigDecimal costoTotal = new BigDecimal(0);
+        for (int i = 0; i < list.size();i++){
+            costoTotal.add(list.get(i).getPrecio());
+        }
+        return costoTotal;
     }
 
     public Material eliminarMaterial(String id) {
