@@ -1,0 +1,59 @@
+/*
+@mixin backgroundTransparent {
+  .backgroundTransparent {
+    -fx-background-color: transparent;
+  }
+}
+
+@mixin backgroundWhite {
+  .backgroundWhite {
+    -fx-background-color: white;
+  }
+}
+
+@mixin backgroundLight {
+  .backgroundLight {
+    -fx-background-color: $ghost-white; //TODO: cambio
+  }
+}
+*/
+@font-face {
+  font-family: "Heebo";
+  src: url("../fonts/Heebo-Regular.ttf") format("truetype"); }
+@font-face {
+  font-family: "Heebo Medium";
+  src: url("../fonts/Heebo-Medium.ttf") format("truetype"); }
+@font-face {
+  font-family: "Heebo Light";
+  src: url("../fonts/Heebo-Light.ttf") format("truetype"); }
+@font-face {
+  font-family: "Heebo Black";
+  src: url("../fonts/Heebo-Black.ttf") format("truetype"); }
+.backgroundWhite {
+  -fx-background-color: white; }
+
+.buttonBorderBlue {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: #0084ff;
+  -fx-background-color: white;
+  -fx-border-radius: 3;
+  -fx-border-color: #0084ff; }
+  .buttonBorderBlue:hover {
+    -fx-text-fill: #0084ff;
+    -fx-background-color: #f2f2f2;
+    -fx-border-radius: 3;
+    -fx-border-color: #0084ff; }
+  .buttonBorderBlue:pressed {
+    -fx-text-fill: #0084ff;
+    -fx-background-color: white;
+    -fx-border-radius: 3;
+    -fx-border-color: #0084ff; }
+
+.paragraph {
+  -fx-font-family: "Heebo";
+  -fx-font-size: 14px; }
+
+.title3 {
+  -fx-font-family: "Heebo Black";
+  -fx-font-size: 16px; }

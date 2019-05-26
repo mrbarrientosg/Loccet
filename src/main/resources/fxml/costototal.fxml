@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="230.0" prefWidth="350.0" styleClass="backgroundWhite" stylesheets="@../css/totalcost.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="212.0" prefWidth="350.0">
+         <children>
+            <ImageView fitHeight="239.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/total.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="51.0" layoutY="43.0" styleClass="title3" text="Monto contractual :" />
+            <Label layoutX="51.0" layoutY="82.0" styleClass="title3" text="Gasto :" />
+            <Label layoutX="51.0" layoutY="128.0" styleClass="title3" text="Monto actual :" />
+            <Label layoutX="218.0" layoutY="43.0" styleClass="title3" />
+            <Label layoutX="218.0" layoutY="82.0" styleClass="title3" />
+            <Label layoutX="218.0" layoutY="128.0" styleClass="title3" />
+         </children>
+      </AnchorPane>
+      <HBox alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" prefWidth="90.0" styleClass="buttonBorderBlue" text="Salir" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+      </HBox>
+   </children>
+</VBox>
