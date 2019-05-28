@@ -114,8 +114,8 @@
   -fx-background-insets: 1, 2, 1, 2.6;
   -fx-background-radius: 0 2 2 0, 0 1 1 0, 0 1 1 0, 0 1 1 0; }
 
-.backgroundWhite {
-  -fx-background-color: white; }
+.backgroundLight {
+  -fx-background-color: #F9F9F9; }
 
 .buttonBlue {
   -fx-font-family: "Heebo Medium";

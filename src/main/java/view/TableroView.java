@@ -74,7 +74,7 @@ public class TableroView extends Fragment {
             else {
                 if (lastSelected != null && lastSelected != newVal) {
                     if (!contentPane.getChildren().isEmpty())
-                        contentPane.getChildren().remove(2);
+                        contentPane.getChildren().remove(0);
                     setupCenter(newVal);
                 } else if (lastSelected == null) {
                     setupCenter(newVal);

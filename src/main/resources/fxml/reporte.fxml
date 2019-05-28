@@ -3,7 +3,6 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
@@ -13,27 +12,19 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox styleClass="backgroundWhite" stylesheets="@../css/reports.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="620.0" prefWidth="804.0" spacing="15.0" styleClass="backgroundLight" stylesheets="@../css/reporte.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ButtonBar>
-        <buttons>
-            <ComboBox promptText="Proyectos">
-               <styleClass>
-                  <String fx:value="textFieldGrey" />
-                  <String fx:value="gray-combo-box" />
-               </styleClass></ComboBox>
-            <Separator prefWidth="200.0" visible="false" />
-          <Button mnemonicParsing="false" styleClass="buttonBorderBlue" text="Salir" />
-        </buttons>
-         <VBox.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </VBox.margin>
-      </ButtonBar>
-      <HBox>
+      <ComboBox fx:id="proyectoCB" onAction="#cargarLabel" prefWidth="130.0" promptText="Proyectos">
+         <styleClass>
+            <String fx:value="textFieldGrey" />
+            <String fx:value="gray-combo-box" />
+         </styleClass>
+      </ComboBox>
+      <HBox prefHeight="310.0">
          <children>
-            <AnchorPane prefHeight="70.0" prefWidth="263.0">
+            <AnchorPane prefHeight="275.0" prefWidth="343.0">
                <children>
-                  <ImageView fitHeight="139.0" fitWidth="130.0" layoutX="67.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="224.0" fitWidth="263.0" layoutX="70.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/moneyIcon.png" />
                      </image>
@@ -43,10 +34,11 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </HBox.margin>
             </AnchorPane>
-            <VBox spacing="5.0">
+            <Separator prefWidth="50.0" visible="false" />
+            <VBox alignment="CENTER" prefHeight="232.0" prefWidth="336.0" spacing="5.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="70.0" prefWidth="263.0" styleClass="buttonBlue" text="Costo total" />
-                  <Button mnemonicParsing="false" prefHeight="70.0" prefWidth="263.0" styleClass="buttonBlue" text="Costo proyecto" />
+                  <Button fx:id="costoTotalButton" mnemonicParsing="false" onAction="#costoContructora" prefHeight="70.0" prefWidth="263.0" styleClass="buttonBlue" text="Costo total Constructora" />
+                  <Button fx:id="costoProyectoButton" mnemonicParsing="false" prefHeight="70.0" prefWidth="263.0" styleClass="buttonBlue" text="Costo proyecto" />
                </children>
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -56,12 +48,18 @@
                </padding>
             </VBox>
          </children>
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
       </HBox>
-      <HBox>
+      <HBox alignment="CENTER" prefHeight="165.0" prefWidth="654.0">
          <children>
-            <VBox>
+            <VBox alignment="CENTER_LEFT" prefHeight="167.0" prefWidth="727.0">
                <children>
-                  <Label styleClass="title3" text="Información proyecto" />
+                  <Label styleClass="title3" text="Información proyecto">
+                     <VBox.margin>
+                        <Insets bottom="15.0" />
+                     </VBox.margin></Label>
                   <HBox>
                      <children>
                         <VBox>
@@ -69,7 +67,7 @@
                               <HBox spacing="8.0">
                                  <children>
                                     <Label styleClass="paragraph" text="Dirección:" />
-                                    <Label styleClass="paragraph" />
+                                    <Label fx:id="direccionLB" styleClass="paragraph" />
                                  </children>
                                  <padding>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -82,7 +80,7 @@
                                           <Insets right="14.0" />
                                        </padding>
                                     </Label>
-                                    <Label styleClass="paragraph" />
+                                    <Label fx:id="clienteLB" styleClass="paragraph" />
                                  </children>
                                  <padding>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -93,7 +91,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
                         </VBox>
-                        <Separator prefWidth="200.0" visible="false" />
+                        <Separator prefWidth="300.0" visible="false" />
                         <VBox>
                            <children>
                               <HBox spacing="8.0">
@@ -103,7 +101,7 @@
                                           <Insets right="16.0" />
                                        </padding>
                                     </Label>
-                                    <Label styleClass="paragraph" />
+                                    <Label fx:id="paisLB" styleClass="paragraph" />
                                  </children>
                                  <padding>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -112,7 +110,7 @@
                               <HBox spacing="8.0">
                                  <children>
                                     <Label styleClass="paragraph" text="Ciudad:" />
-                                    <Label styleClass="paragraph" />
+                                    <Label fx:id="ciudadLB" styleClass="paragraph" />
                                  </children>
                                  <padding>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -135,29 +133,31 @@
             </VBox>
          </children>
          <VBox.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            <Insets left="10.0" right="10.0" />
          </VBox.margin>
       </HBox>
-      <VBox>
+      <VBox alignment="CENTER">
          <children>
-            <HBox spacing="100.0">
+            <HBox spacing="50.0">
                <children>
                   <HBox spacing="5.0">
                      <children>
                         <Label styleClass="paragraph" text="Monto contractual:" />
-                        <Label styleClass="paragraph" />
+                        <Label fx:id="montoContractualLB" styleClass="paragraph" />
                      </children>
                   </HBox>
+                  <Separator prefWidth="80.0" visible="false" />
                   <HBox spacing="5.0">
                      <children>
                         <Label styleClass="paragraph" text="Gastos:" />
-                        <Label styleClass="paragraph" />
+                        <Label fx:id="gastoLB" styleClass="paragraph" />
                      </children>
                   </HBox>
+                  <Separator prefWidth="80.0" visible="false" />
                   <HBox spacing="5.0">
                      <children>
                         <Label styleClass="paragraph" text="Monto actual:" />
-                        <Label styleClass="paragraph" />
+                        <Label fx:id="montoActualLB" styleClass="paragraph" />
                      </children>
                   </HBox>
                </children>

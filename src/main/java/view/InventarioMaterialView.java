@@ -118,8 +118,6 @@ public final class InventarioMaterialView extends Fragment {
         if(materialCell!=null) {
             Material material = controller.getMaterial(materialCell.getId());
             DetalleMaterialView view = DetalleMaterialRouter.create(material);
-            //view.setIdMaterial(material.getId());
-            //view.setController(controller);
             view.modal().withBlock(true).show();
             controller.cargarDatos();
             refreshTable();
