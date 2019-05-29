@@ -16,10 +16,6 @@ public final class MaterialCell {
 
     private double retiro;
 
-    private Date fechaRetiro;
-
-    private Date fechaIngreso;
-
     private String uds;
 
     private double precio;
@@ -29,9 +25,6 @@ public final class MaterialCell {
         nombre = m.getNombre();
         descripcion = m.getDescripcion();
         cantidad = m.getCantidad();
-        //retiro = m.getRetiro();
-        //fechaRetiro = m.getFechaRetiro();
-        //fechaIngreso = m.getFechaIngreso();
         uds = m.getUds();
         //precio = m.getPrecio();
     }
@@ -54,14 +47,6 @@ public final class MaterialCell {
 
     public double getRetiro() {
         return retiro;
-    }
-
-    public Date getFechaRetiro() {
-        return fechaRetiro;
-    }
-
-    public Date getFechaIngreso() {
-        return fechaIngreso;
     }
 
     public String getUds() {

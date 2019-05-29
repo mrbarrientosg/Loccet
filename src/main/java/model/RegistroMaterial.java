@@ -38,6 +38,10 @@ public class RegistroMaterial {
         return fecha;
     }
 
+    public Boolean getRetirado(){
+        return retirado;
+    }
+
     // MARK: - Setter
 
     public void setMaterial(Material material) {

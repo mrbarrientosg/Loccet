@@ -6,51 +6,16 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox styleClass="backgroundWhite" stylesheets="@../css/addmaterial.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox spacing="10.0">
+      <VBox spacing="20.0">
          <children>
-            <Label styleClass="title3" text="Datos del material" textAlignment="CENTER">
+            <Label styleClass="title2" text="Agregar Material" textAlignment="CENTER">
                <VBox.margin>
-                  <Insets left="80.0" />
+                  <Insets />
                </VBox.margin></Label>
-            <HBox spacing="30.0">
-               <children>
-                  <VBox spacing="8.0">
-                     <children>
-                        <Label styleClass="paragraph" text="ID material" />
-                        <Label fx:id="idLabel" />
-                     </children>
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </HBox.margin>
-                  </VBox>
-                  <VBox spacing="8.0">
-                     <children>
-                        <Label styleClass="paragraph" text="Nombre">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin></Label>
-                        <Label fx:id="nameLabel" />
-                     </children>
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </HBox.margin>
-                  </VBox>
-                  <VBox spacing="8.0">
-                     <children>
-                        <Label styleClass="paragraph" text="Cantidad" />
-                        <Label fx:id="totalLabel" />
-                     </children>
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </HBox.margin>
-                  </VBox>
-               </children>
-            </HBox>
             <TextField fx:id="agregarTF" promptText="Cantidad a agregar">
                <styleClass>
                   <String fx:value="textFieldGrey" />
@@ -59,7 +24,7 @@
             </TextField>
          </children>
          <VBox.margin>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
          </VBox.margin>
       </VBox>
       <ButtonBar prefHeight="40.0" prefWidth="200.0">
@@ -68,11 +33,8 @@
             <Button fx:id="cancelarBT" mnemonicParsing="false" onAction="#salir" styleClass="buttonFillBlue" text="Cancelar" />
         </buttons>
          <VBox.margin>
-            <Insets right="5.0" />
+            <Insets bottom="16.0" left="16.0" right="16.0" />
          </VBox.margin>
       </ButtonBar>
    </children>
-   <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-   </padding>
 </VBox>

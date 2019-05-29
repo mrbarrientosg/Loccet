@@ -112,9 +112,13 @@ public final class InventarioMaterialController extends Controller {
      * Elimina un material del modelo
      * @param idMaterial id del material a eliminar
      */
-    public void eliminarMaterial(String idMaterial){
-        //Material eliminado = model.eliminarItem(idMaterial);
-        //listMateriales.removeIf(materialCell -> materialCell.getId().equals(eliminado.getId()));
+    public MaterialCell eliminarMaterial(String idMaterial){
+            MaterialCell materialCell =  new MaterialCell(model.eliminarMaterial(idMaterial));
+            listMateriales.remove(materialCell);
+            sortedList().remove(materialCell);
+            return materialCell;
+             // TODO: Informar a la vista que se ha eliminado un material de la table.
+             //listMateriales.removeIf(materialCell -> materialCell.getId().equals(eliminado.getId()));
     }
 
     /**

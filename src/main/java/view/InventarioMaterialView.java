@@ -1,4 +1,4 @@
-    package view;
+package view;
 
 import base.Fragment;
 import base.Injectable;
@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.StageStyle;
 import model.InventarioMaterial;
 import model.Material;
 import router.DetalleMaterialRouter;
@@ -64,7 +65,15 @@ public final class InventarioMaterialView extends Fragment {
 
     @Override
     public void viewDidLoad() {
-
+        tablaInventario.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                editarBT.setDisable(false);
+                eliminarBT.setDisable(false);
+            }else{
+                editarBT.setDisable(true);
+                eliminarBT.setDisable(true);
+            }
+        });
    }
 
     @Override
@@ -118,7 +127,7 @@ public final class InventarioMaterialView extends Fragment {
         if(materialCell!=null) {
             Material material = controller.getMaterial(materialCell.getId());
             DetalleMaterialView view = DetalleMaterialRouter.create(material);
-            view.modal().withBlock(true).show();
+            view.modal().withStyle(StageStyle.TRANSPARENT).show();
             controller.cargarDatos();
             refreshTable();
         }
@@ -137,21 +146,15 @@ public final class InventarioMaterialView extends Fragment {
     @FXML
     public void eliminar(ActionEvent event){
         MaterialCell material = seleccion();
-        if (material != null){
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Alerta");
             alert.setHeaderText("Esta accion borrara el material");
             alert.setContentText("¿Esta seguro de que desea continuar?");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK){
-                controller.eliminarMaterial(material.getId());
-                tablaInventario.refresh();
+                MaterialCell aux = controller.eliminarMaterial(material.getId());
+                controller.cargarDatos();
             }
-
-        }
-        else{
-            controller.showWarning("Seleccionar material", "Por favor seleccione material a eliminar").showAndWait();;
-        }
     }
 
     @FXML
