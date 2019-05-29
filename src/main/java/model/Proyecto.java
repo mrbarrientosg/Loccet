@@ -54,6 +54,16 @@ public class Proyecto implements Costeable{
         inventarioMaterial = new InventarioMaterial();
     }
 
+    public Proyecto(Proyecto other) {
+        this.id = other.id;
+        this.nombre = other.nombre;
+        this.localizacion = new Localizacion(other.localizacion);
+        this.fechaInicio = other.fechaInicio;
+        this.fechaTermino = other.fechaTermino;
+        this.estimacion = other.estimacion;
+        this.nombreCliente = other.nombreCliente;
+    }
+
     // MARK: - Metodos Trabajador
 
     /**
@@ -219,6 +229,22 @@ public class Proyecto implements Costeable{
         this.nombreCliente = nombreCliente;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+
+        if (!(obj instanceof Proyecto)) return false;
+
+        Proyecto p = (Proyecto) obj;
+
+        return p.id.equals(id) &&
+                p.nombre.equals(nombre) &&
+                p.localizacion.equals(localizacion) &&
+                p.nombreCliente.equals(nombreCliente);
+
+    }
+
+
     // MARK: - JSON
 
     public static class ProyetoDeserializer implements JsonDeserializer<Proyecto> {
@@ -243,6 +269,26 @@ public class Proyecto implements Costeable{
             p.setLocalizacion(gson.fromJson(json.get("localizacion").getAsString(), Localizacion.class));
 
             return p;
+        }
+    }
+
+    public static class ProyectoSerializer implements JsonSerializer<Proyecto> {
+
+        @Override
+        public JsonElement serialize(Proyecto proyecto, Type type, JsonSerializationContext jsonSerializationContext) {
+            JsonObject json = new JsonObject();
+
+            Gson gson = new GsonBuilder()
+                    .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                    .create();
+
+            json.addProperty("id", proyecto.getId());
+            json.addProperty("nombre", proyecto.getNombre());
+            json.addProperty("nombre_cliente", proyecto.getNombreCliente());
+
+            json.add("localizacion", gson.toJsonTree(proyecto.getLocalizacion()));
+
+            return json;
         }
     }
 

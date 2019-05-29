@@ -163,7 +163,11 @@ public abstract class Trabajador {
             t.setLocalizacion(gson.fromJson(json.get("localizacion").getAsString(), Localizacion.class));
 
             t.setTelefono(json.get("telefono").getAsString());
-            t.setCorreoElectronico(json.get("correo_electronico").getAsString());
+
+            if (json.get("correo_electronico") != null && !json.get("correo_electronico").isJsonNull()){
+                t.setCorreoElectronico(json.get("correo_electronico").getAsString());
+            }
+
             t.setFechaNacimiento(gson.fromJson(json.get("fecha_nacimiento"), LocalDate.class));
 
             return t;

@@ -13,18 +13,21 @@ import javafx.util.Pair;
 import json.InstantTypeConverter;
 import json.LocalTimeTypeConverter;
 import model.*;
-import network.LoccetAPI;
-import network.LoccetService;
+import network.endpoint.LoccetAPI;
+import network.service.Router;
 import view.LoginView;
+
+import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalTime;
 import java.util.Objects;
+import java.util.logging.Level;
 
 public final class LoginController extends Controller {
 
     private LoginView view;
 
-    private LoccetService service = LoccetService.getInstace();
+    private Router<LoccetAPI> service = new Router<>();
 
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
@@ -49,7 +52,7 @@ public final class LoginController extends Controller {
         parameters.addProperty("password", "123");
         parameters.addProperty("dns", "test.loccet.cl");
 
-        Disposable disposable = service.call(LoccetAPI.LOGIN, parameters)
+        Disposable disposable = service.request(LoccetAPI.LOGIN, parameters)
                 .filter(Objects::nonNull)
                 .map(JsonElement::getAsJsonObject)
                 .subscribeOn(Schedulers.computation())
@@ -81,13 +84,13 @@ public final class LoginController extends Controller {
                 .registerTypeAdapter(Proyecto.class, new Proyecto.ProyetoDeserializer())
                 .create();
 
-        Disposable disposable = service.call(LoccetAPI.GET_CONSTRUCTORA, parameters)
+        Disposable disposable = service.request(LoccetAPI.GET_CONSTRUCTORA, parameters)
                 .filter(Objects::nonNull)
                 .map(JsonElement::getAsJsonObject)
                 .flatMap(jsonObject -> {
                     Constructora.getInstance().init(jsonObject);
                     LOGGER.info("Constructora lista");
-                    return service.call(LoccetAPI.GET_PROYECTOS, parameters).map(JsonElement::getAsJsonArray);
+                    return service.request(LoccetAPI.GET_PROYECTOS, parameters).map(JsonElement::getAsJsonArray);
                 })
                 .flatMap(jsonArray -> {
                     for (JsonElement jsonElement : jsonArray) {
@@ -95,8 +98,8 @@ public final class LoginController extends Controller {
                         Constructora.getInstance().agregarProyecto(p);
                     }
                     LOGGER.info("proyectos listos");
-                    return Maybe.zip(service.call(LoccetAPI.GET_TRABAJADORES_PROYECTOS, parameters).map(JsonElement::getAsJsonArray),
-                            service.call(LoccetAPI.GET_TRABAJADORES_CONSTRUCTORA, parameters).map(JsonElement::getAsJsonArray), Pair::new);
+                    return Maybe.zip(service.request(LoccetAPI.GET_TRABAJADORES_PROYECTOS, parameters).map(JsonElement::getAsJsonArray),
+                            service.request(LoccetAPI.GET_TRABAJADORES_CONSTRUCTORA, parameters).map(JsonElement::getAsJsonArray), Pair::new);
                 })
                 .flatMap(pair -> {
                     for (JsonElement jsonElement : pair.getKey()) {
@@ -111,8 +114,8 @@ public final class LoginController extends Controller {
                         Constructora.getInstance().agregarTrabajador(t);
                     }
                     LOGGER.info("trabajadores listos");
-                    return Maybe.zip(service.call(LoccetAPI.GET_HORARIOS_TRABAJADORES, parameters).map(JsonElement::getAsJsonArray),
-                            service.call(LoccetAPI.GET_ASISTENCIAS_TRABAJADORES, parameters).map(JsonElement::getAsJsonArray), Pair::new);
+                    return Maybe.zip(service.request(LoccetAPI.GET_HORARIOS_TRABAJADORES, parameters).map(JsonElement::getAsJsonArray),
+                            service.request(LoccetAPI.GET_ASISTENCIAS_TRABAJADORES, parameters).map(JsonElement::getAsJsonArray), Pair::new);
                 })
                 .flatMap(pair -> {
                     for (JsonElement jsonElement : pair.getKey()) {
@@ -129,8 +132,8 @@ public final class LoginController extends Controller {
                         p.agregarAsistencia(json.get("rut_trabajador").getAsString(), a);
                     }
                     LOGGER.info("horarios y asistencias listas");
-                    return Maybe.zip(service.call(LoccetAPI.GET_FASES_PROYECTOS, parameters).map(JsonElement::getAsJsonArray),
-                            service.call(LoccetAPI.GET_TAREAS_FASES, parameters).map(JsonElement::getAsJsonArray), Pair::new);
+                    return Maybe.zip(service.request(LoccetAPI.GET_FASES_PROYECTOS, parameters).map(JsonElement::getAsJsonArray),
+                            service.request(LoccetAPI.GET_TAREAS_FASES, parameters).map(JsonElement::getAsJsonArray), Pair::new);
                 })
                 .flatMap(pair -> {
                     for (JsonElement jsonElement : pair.getKey()) {
@@ -147,8 +150,8 @@ public final class LoginController extends Controller {
                         p.agregarTarea(json.get("id_fase").getAsInt(), t);
                     }
                     LOGGER.info("Fases y tares listas");
-                    return Maybe.zip(service.call(LoccetAPI.GET_MATERIALES_PROYECTOS, parameters).map(JsonElement::getAsJsonArray),
-                            service.call(LoccetAPI.GET_REGISTRO_MATERIALES, parameters).map(JsonElement::getAsJsonArray), Pair::new);
+                    return Maybe.zip(service.request(LoccetAPI.GET_MATERIALES_PROYECTOS, parameters).map(JsonElement::getAsJsonArray),
+                            service.request(LoccetAPI.GET_REGISTRO_MATERIALES, parameters).map(JsonElement::getAsJsonArray), Pair::new);
                 })
                 .flatMap(pair -> {
                     for (JsonElement jsonElement : pair.getKey()) {
@@ -175,6 +178,7 @@ public final class LoginController extends Controller {
                     view.hideLoading();
                     view.gotoHome();
                 }, throwable -> {
+                    LOGGER.log(Level.SEVERE, "", throwable);
                     view.hideLoading();
                     view.onError(throwable);
                 });
@@ -185,6 +189,11 @@ public final class LoginController extends Controller {
 
     public void clear() {
         compositeDisposable.dispose();
+        try {
+            service.close();
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "", e);
+        }
     }
 
 }

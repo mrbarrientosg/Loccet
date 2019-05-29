@@ -27,7 +27,7 @@ public class DetalleProyectoRouter {
         detalleProyectoView.setController(detalleProyectoController);
 
         detalleProyectoController.setView(detalleProyectoView);
-        detalleProyectoController.setProyecto(proyecto);
+        detalleProyectoController.setModel(proyecto);
 
         return detalleProyectoView;
     }

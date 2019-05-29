@@ -3,20 +3,21 @@ package controller;
 import base.Controller;
 import cell.ProyectoCell;
 import cell.TrabajadorCell;
-import delegate.EditTrabajadorDelegate;
+import com.google.gson.JsonObject;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.SortedList;
 import model.Constructora;
 import model.Proyecto;
 import model.Trabajador;
+import network.endpoint.TrabajadorAPI;
+import network.service.Router;
 import specification.TrabajadorByQuerySpecification;
 import view.RRHHView;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 public class RRHHController extends Controller {
@@ -24,6 +25,8 @@ public class RRHHController extends Controller {
     private RRHHView view;
 
     private Constructora model = Constructora.getInstance();
+
+    private Router<TrabajadorAPI> service = new Router<>();
 
     public ObservableList<TrabajadorCell> fetchTrabajadores() {
         return FXCollections.observableList(model.getConjuntoTrabajadores().stream().map(TrabajadorCell::new).collect(Collectors.toList()));
@@ -68,6 +71,15 @@ public class RRHHController extends Controller {
         Trabajador t = model.eliminarTrabajador(rut);
         if (t == null) return;
         view.didDeleteTrabajador(t.getRut());
+
+        JsonObject json = new JsonObject();
+
+        json.addProperty("rut", rut);
+
+        service.request(TrabajadorAPI.REMOVE, json)
+                .subscribe(System.out::println, throwable -> {
+                    LOGGER.log(Level.SEVERE, "", throwable);
+                });
     }
 
     public List<ProyectoCell> getProyectos() {
