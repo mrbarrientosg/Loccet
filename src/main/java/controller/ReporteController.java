@@ -39,9 +39,16 @@ public class ReporteController extends Controller {
 
         view.mostrarCostoContructora(model);
     }
-    public BigDecimal montoActual(BigDecimal montoContractual, BigDecimal gastos){
+    public BigDecimal montoActualContructora(BigDecimal montoContractual, BigDecimal gastos){
         return montoContractual.subtract(gastos);
     }
+    public BigDecimal montoActualProyecto(BigDecimal montoContractual, BigDecimal gastos){
+        return montoContractual.subtract(gastos);
+    }
+    public BigDecimal montoContractualProyecto(String id){
+      return model.obtenerProyecto(id).getEstimacion();
+    }
+
     public String getDireccion(String id){
         return model.obtenerProyecto(id).getLocalizacion().getDireccion();
     }

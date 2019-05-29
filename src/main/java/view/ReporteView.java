@@ -12,15 +12,13 @@ import javafx.scene.control.Label;
 import javafx.stage.StageStyle;
 import model.Costeable;
 import router.ReporteRouter;
-
 import java.math.BigDecimal;
-
 
 public class ReporteView extends View {
 
     private ReporteController controller;
     private ReporteRouter router;
-
+    private String idProyecto;
     private ObservableList<ProyectoCell> nombreProyectos;
 
 
@@ -64,7 +62,7 @@ public class ReporteView extends View {
     }
 
     public void mostrarCostoProyecto(Costeable c) {
-        montoActualLB.setText(c.calcularCosto().toString());
+        gastoLB.setText(c.calcularCosto().toString());
     }
 
     public void mostrarCostoContructora(Costeable c){
@@ -72,7 +70,7 @@ public class ReporteView extends View {
         BigDecimal montoContractual = controller.montoContractualConstructora();
         CostoTotalView view = Injectable.find(CostoTotalView.class);
         view.setdatos(montoContractual.toString(), gastoContructora.toString(),
-                controller.montoActual(gastoContructora,montoContractual).toString());
+                controller.montoActualContructora(gastoContructora,montoContractual).toString());
         view.modal().withStyle(StageStyle.TRANSPARENT).show();
     }
 
@@ -83,7 +81,7 @@ public class ReporteView extends View {
 
     @FXML
     public void costoContructora(ActionEvent event){
-
+        controller.hacerCostos();
     }
 
 
@@ -91,14 +89,22 @@ public class ReporteView extends View {
     private void cargarLabel(ActionEvent event) {
 
         ProyectoCell proyecto = proyectoCB.getSelectionModel().getSelectedItem();
+        idProyecto = proyecto.getId();
         direccionLB.setText(controller.getDireccion(proyecto.getId()));
         clienteLB.setText(controller.getCliente(proyecto.getId()));
         paisLB.setText(controller.getPais(proyecto.getId()));
         ciudadLB.setText(controller.getCiudad(proyecto.getId()));
 
-        //montoContractualLB.setText(proyecto.getMontoContractual().toString());
-        // controller.hacerCostos(proyecto.getId());
+    }
 
+    @FXML
+    private void costoProyecto(ActionEvent event) {
+        if (idProyecto != null) {
+            montoContractualLB.setText(controller.montoContractualProyecto(idProyecto).toString());
+            controller.hacerCostos(idProyecto);
+            montoActualLB.setText(controller.montoActualProyecto(new BigDecimal(montoContractualLB.getText()),
+                   new BigDecimal(gastoLB.getText())).toString());
+        }
     }
 
 
