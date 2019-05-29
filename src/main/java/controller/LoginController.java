@@ -13,18 +13,19 @@ import javafx.util.Pair;
 import json.InstantTypeConverter;
 import json.LocalTimeTypeConverter;
 import model.*;
-import network.LoccetAPI;
+import network.API.LoccetAPI;
 import network.LoccetService;
 import view.LoginView;
 import java.time.Instant;
 import java.time.LocalTime;
 import java.util.Objects;
+import java.util.logging.Level;
 
 public final class LoginController extends Controller {
 
     private LoginView view;
 
-    private LoccetService service = LoccetService.getInstace();
+    private LoccetService service = LoccetService.getInstance();
 
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
@@ -175,6 +176,7 @@ public final class LoginController extends Controller {
                     view.hideLoading();
                     view.gotoHome();
                 }, throwable -> {
+                    LOGGER.log(Level.SEVERE, "", throwable);
                     view.hideLoading();
                     view.onError(throwable);
                 });

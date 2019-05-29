@@ -9,6 +9,8 @@ import org.asynchttpclient.DefaultAsyncHttpClient;
 import org.asynchttpclient.Response;
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
+
 import io.reactivex.*;
 
 public abstract class RestClient {
@@ -36,7 +38,7 @@ public abstract class RestClient {
 
             if (response.getContentType() == null) maybe.onSuccess(null);
             else maybe.onSuccess(new JsonParser().parse(response.getResponseBody()));
-        });
+        }).timeout(10, TimeUnit.SECONDS).map(object -> (JsonElement) object).subscribeOn(Schedulers.computation());
     }
 
     private void validateStatusCode(Response response) throws NetworkException {

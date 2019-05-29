@@ -1,10 +1,12 @@
-package network;
+package network.API;
 
 import io.netty.handler.codec.http.DefaultHttpHeaders;
 import io.netty.handler.codec.http.HttpHeaders;
+import network.NetworkManager;
+import network.URLRequestConvertible;
 import org.asynchttpclient.util.HttpConstants;
 
-public enum LoccetAPI implements URLRequestConvertible  {
+public enum LoccetAPI implements URLRequestConvertible {
     LOGIN,
     GET_CONSTRUCTORA,
     GET_PROYECTOS,
@@ -17,8 +19,6 @@ public enum LoccetAPI implements URLRequestConvertible  {
     GET_MATERIALES_PROYECTOS,
     GET_REGISTRO_MATERIALES;
 
-    private HttpHeaders _headers;
-
     public String baseURL() {
         switch (NetworkManager.enviroment) {
             case PRODUCTION:
@@ -27,7 +27,7 @@ public enum LoccetAPI implements URLRequestConvertible  {
                 return "https://djmte8zah9.execute-api.us-east-1.amazonaws.com/dev/";
         }
 
-        return null;
+        return "";
     }
 
     public String path() {
@@ -56,7 +56,7 @@ public enum LoccetAPI implements URLRequestConvertible  {
                 return "loccet-getregistrosmateriales";
         }
 
-        return null;
+        return "";
     }
 
     @Override
@@ -66,12 +66,10 @@ public enum LoccetAPI implements URLRequestConvertible  {
 
     @Override
     public HttpHeaders headers() {
-        if (_headers == null) {
-            _headers = new DefaultHttpHeaders();
-            _headers.add("Content-Type", "application/json");
-            _headers.add("Accept", "application/json");
-        }
-
-        return _headers;
+        HttpHeaders headers;
+        headers = new DefaultHttpHeaders();
+        headers.add("Content-Type", "application/json");
+        headers.add("Accept", "application/json");
+        return headers;
     }
 }

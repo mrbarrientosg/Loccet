@@ -1,19 +1,24 @@
 package controller;
 
 import base.Controller;
-import javafx.beans.property.ObjectProperty;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import model.Proyecto;
+import network.LoccetService;
+import network.API.ProyectoAPI;
 import view.DetalleProyectoView;
 
-import java.time.LocalDate;
+import java.util.logging.Level;
 
 public class DetalleProyectoController extends Controller {
 
     private DetalleProyectoView view;
 
     private Proyecto proyecto;
+
+    private Proyecto oldProyecto;
 
     private StringProperty name = new SimpleStringProperty();
 
@@ -39,10 +44,6 @@ public class DetalleProyectoController extends Controller {
         proyecto.getLocalizacion().setEstado(state.get());
         proyecto.getLocalizacion().setCiudad(city.get());
         proyecto.setNombreCliente(client.get());
-
-
-        view.didSave();
-        // falta servicio para actualizar en la bd
     }
 
     private void loadData() {
@@ -54,6 +55,21 @@ public class DetalleProyectoController extends Controller {
         client.setValue(proyecto.getNombreCliente());
     }
 
+    public void save() {
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Proyecto.class, new Proyecto.ProyectoSerializer())
+                .create();
+
+        LoccetService.getInstance()
+                .call(ProyectoAPI.UPDATE, gson.toJsonTree(proyecto).getAsJsonObject())
+                .subscribe(json -> {
+                    System.out.println(json);
+                }, throwable -> {
+                    LOGGER.log(Level.SEVERE, "", throwable);
+                });
+
+    }
+
 
     public void setView(DetalleProyectoView view) {
         this.view = view;
@@ -61,9 +77,12 @@ public class DetalleProyectoController extends Controller {
 
     public void setProyecto(Proyecto proyecto) {
         this.proyecto = proyecto;
+        oldProyecto = new Proyecto(proyecto);
         loadData();
         view.bind();
     }
+
+    public String getIdProyecto() { return proyecto.getId(); }
 
     public StringProperty nameProperty() {
         return name;

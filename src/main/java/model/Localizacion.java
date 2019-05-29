@@ -6,6 +6,8 @@ public class Localizacion {
 
     // MARK: - Atributos
 
+    private Integer id;
+
     private String direccion;
 
     private String codigoPostal;
@@ -16,8 +18,19 @@ public class Localizacion {
 
     private String ciudad;
 
+    public Localizacion(Localizacion other) {
+        this.direccion = other.direccion;
+        this.codigoPostal = other.codigoPostal;
+        this.pais = other.pais;
+        this.estado = other.estado;
+        this.ciudad = other.ciudad;
+    }
 
     // MARK: - Getter
+
+    public Integer getId() {
+        return id;
+    }
 
     public String getDireccion() {
         return direccion;
@@ -41,6 +54,10 @@ public class Localizacion {
 
     // MARK: - Setter
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
@@ -59,5 +76,28 @@ public class Localizacion {
 
     public void setCiudad(String ciudad) {
         this.ciudad = ciudad;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+
+        if (!(obj instanceof Localizacion)) return false;
+
+        Localizacion l = (Localizacion) obj;
+
+        Boolean postal;
+
+        if (l.codigoPostal != null && codigoPostal != null)
+            postal = l.codigoPostal.equals(codigoPostal);
+        else if (l.codigoPostal == null && codigoPostal == null)
+            postal = true;
+        else
+            postal = false;
+
+        return l.direccion.equals(direccion) &&
+                postal && l.pais.equals(pais) &&
+                l.estado.equals(estado) &&
+                l.ciudad.equals(ciudad);
     }
 }

@@ -84,6 +84,8 @@ public class DetalleProyectoView extends View {
 
     @Override
     public void viewDidShow() {
+        idField.setText(controller.getIdProyecto());
+
         container.getChildren().add(listaTrabajadorView.getRoot());
         container.getChildren().add(inventarioMaterialView.getRoot());
     }
@@ -92,6 +94,8 @@ public class DetalleProyectoView extends View {
     public void viewDidClose() {
         container.getChildren().remove(listaTrabajadorView.getRoot());
         container.getChildren().remove(inventarioMaterialView.getRoot());
+
+        controller.save();
     }
 
     public void bind() {
@@ -115,10 +119,6 @@ public class DetalleProyectoView extends View {
             disable.setValue(false);
             isEditing = true;
         }
-    }
-
-    public void didSave() {
-        router.showSaveAlert();
     }
 
     public void setController(DetalleProyectoController controller) {

@@ -8,25 +8,20 @@ import java.io.IOException;
 
 public class LoccetService extends RestClient {
 
-    private static LoccetService instace;
+    private static LoccetService instance;
 
     private LoccetService() {
         super();
     }
 
-    public static LoccetService getInstace() {
-        if (instace == null)
-            instace = new LoccetService();
-        return instace;
+    public static LoccetService getInstance() {
+        if (instance == null)
+            instance = new LoccetService();
+        return instance;
     }
 
-    /*public JsonElement jefesProyecto(JsonObject parameters) throws IOException, NetworkException {
-        return request(LoccetAPI.TRABAJADORES_PROYECTO, parameters);
-    }*/
-
-    public Maybe<JsonElement> call(LoccetAPI api, JsonObject parameters) {
+    public Maybe<JsonElement> call(URLRequestConvertible api, JsonObject parameters) {
         return request(api, parameters);
     }
-
 
 }
