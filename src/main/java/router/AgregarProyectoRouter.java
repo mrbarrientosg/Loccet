@@ -17,19 +17,23 @@ public final class AgregarProyectoRouter {
 
     /**
      * Funcion que crea la vista para agregar el proyecto.
-     * @param model El modelo de la vista.
      * @return Vista del proyecto.
      *
      * @author Matias Zúñiga
      */
-    public static AgregarProyectoView create(Constructora model){
-        AgregarProyectoView agregarProyectoView = Injectable.find(AgregarProyectoView.class);
-        AgregarProyectoRouter agregarProyectoRouter = new AgregarProyectoRouter();
-        AgregarProyectoController agregarProyectoController = new AgregarProyectoController(agregarProyectoView, model, agregarProyectoRouter);
-        agregarProyectoView.setController(agregarProyectoController);
+    public static AgregarProyectoView create() {
+        AgregarProyectoView view = Injectable.find(AgregarProyectoView.class);
+        AgregarProyectoRouter router = new AgregarProyectoRouter();
+        AgregarProyectoController controller = Injectable.find(AgregarProyectoController.class);
 
-        return agregarProyectoView;
+        view.setController(controller);
+        view.setRouter(router);
+
+        controller.setView(view);
+
+        return view;
     }
+
 
     /**
      * @param mensaje texto que se expondra en la alerta.

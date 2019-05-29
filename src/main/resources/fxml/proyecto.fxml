@@ -52,7 +52,7 @@
                         <Insets bottom="5.0" />
                      </padding>
                   </AnchorPane>
-                  <Button fx:id="createProyectButton" mnemonicParsing="false" prefHeight="35.0" styleClass="buttonBlue" text="Crear proyecto" textFill="WHITE" />
+                  <Button fx:id="createProyectButton" mnemonicParsing="false" onAction="#createProyect" prefHeight="35.0" styleClass="buttonBlue" text="Crear proyecto" textFill="WHITE" />
                </children>
             </StackPane>
          </children>

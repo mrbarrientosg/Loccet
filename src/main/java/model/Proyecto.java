@@ -47,6 +47,7 @@ public class Proyecto {
     // MARK: - Constructor
 
     public Proyecto() {
+        id = generarId();
         repositoryAsistencia = new MemoryRepositoryAsistencia();
         repositoryTrabajador = new MemoryRepositoryTrabajador();
         repositoryFase = new MemoryRepositoryFase();
@@ -256,6 +257,12 @@ public class Proyecto {
             return p;
         }
     }
-
+    private final String generarId() {
+        String result = java.util.UUID.randomUUID().toString();
+        //result = result.replaceAll("-", "");
+        //result = result.replaceAll("[A-Za-z]","");
+        result = result.substring(0, 10);
+        return result;
+    }
 
 }
