@@ -7,6 +7,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import router.AgregarProyectoRouter;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -19,37 +20,50 @@ import java.util.Optional;
 public final class AgregarProyectoView extends View {
 
     private AgregarProyectoController controller;
+    private AgregarProyectoRouter router;
 
     //MARK - Botones
-    @FXML private Button cancelar;
+    @FXML
+    private TextField jefeP;
 
-    @FXML private Button sTrabajadores;
+    @FXML
+    private TextField ciudad;
 
-    @FXML private Button aceptar;
+    @FXML
+    private TextField direccion;
 
-    @FXML private TextField nombreP;
+    @FXML
+    private TextField nombreP;
 
-    @FXML private TextField jefeP;
+    @FXML
+    private TextField montoC;
 
-    @FXML private TextField montoC;
+    @FXML
+    private TextField cliente;
 
-    @FXML private TextField cliente;
+    @FXML
+    private TextField mailC;
 
-    @FXML private TextField telefonoC;
+    @FXML
+    private TextField pais;
 
-    @FXML private TextField mailC;
+    @FXML
+    private TextField telefonoC;
 
-    @FXML private TextField direccion;
+    @FXML
+    private DatePicker fechaT;
 
-    @FXML private TextField ciudad;
+    @FXML
+    private DatePicker fechaF;
 
-    @FXML private TextField estado;
+    @FXML
+    private TextField estado;
 
-    @FXML private TextField pais;
+    @FXML
+    private Button aceptar;
 
-    @FXML private DatePicker fechaF;
-
-    @FXML private DatePicker fechaT;
+    @FXML
+    private Button cancelar;
 
     @Override
     public void viewDidLoad() {
@@ -67,17 +81,25 @@ public final class AgregarProyectoView extends View {
      */
     @FXML
     private void apretarAceptar(){
-        if(nombreP.getText().isEmpty() || jefeP.getText().isEmpty() || montoC.getText().isEmpty()|| cliente.getText().isEmpty()|| telefonoC.getText().isEmpty() || mailC.getText().isEmpty() || direccion.getText().isEmpty() ||ciudad.getText().isEmpty()||estado.getText().isEmpty()||pais.getText().isEmpty() ||
+        if(nombreP.getText().isEmpty() || jefeP.getText().isEmpty() ||
+                montoC.getText().isEmpty()||
+                cliente.getText().isEmpty()||
+                telefonoC.getText().isEmpty()||
+                mailC.getText().isEmpty()||
+                direccion.getText().isEmpty()||
+                ciudad.getText().isEmpty()||
+                estado.getText().isEmpty()||pais.getText().isEmpty() ||
+
                 fechaF.getEditor().getText().isEmpty() || fechaT.getEditor().getText().isEmpty()){
-                controller.showAlert("Existen casillas sin rellenar!").showAndWait();
+                router.showAlert("Existen casillas sin rellenar!").showAndWait();
                 System.out.println("campos vacios");
         }
         else if(fechaF.getValue().isAfter(fechaT.getValue())){
-            controller.showAlert("Las fechas ingresadas no coinciden.").showAndWait();
+            router.showAlert("Las fechas ingresadas no coinciden.").showAndWait();
         }
         else{
-            controller.presionarAceptar(nombreP,jefeP,montoC,cliente,telefonoC,mailC,direccion,ciudad,estado,pais,fechaF,fechaT);
-            ((BorderPane) getRoot().getParent()).getChildren().remove(getRoot());
+            controller.presionarAceptar(nombreP,jefeP,montoC,cliente,telefonoC,direccion,ciudad,estado,pais,fechaF,fechaT);
+            close();
         }
     }
     /**
@@ -86,11 +108,11 @@ public final class AgregarProyectoView extends View {
      */
     @FXML
     private void apretarCancelar(){
-        Alert alert = controller.showWarning("Esta seguro que desea cancelar?");
+        Alert alert = router.showWarning("Esta seguro que desea cancelar?");
         Optional<ButtonType> result = alert.showAndWait();
         if(result.isPresent()){
             if(result.get() == ButtonType.OK){
-                ((BorderPane) getRoot().getParent()).getChildren().remove(getRoot());
+               close();
             }
             else{
                 alert.close();
@@ -98,9 +120,7 @@ public final class AgregarProyectoView extends View {
         }
     }
 
-    public void setController(AgregarProyectoController controller) {
-        this.controller = controller;
-    }
+
 
     /**
      * @author: Matías Zúñiga
@@ -138,4 +158,8 @@ public final class AgregarProyectoView extends View {
             }
         });
     }
+    public void setController(AgregarProyectoController controller) {
+        this.controller = controller;
+    }
+    public void setRouter(AgregarProyectoRouter router){this.router = router;}
 }

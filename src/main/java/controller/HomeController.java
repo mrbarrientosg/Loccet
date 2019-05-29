@@ -144,7 +144,7 @@ public final class HomeController extends Controller {
     }
 
     public void nuevoProyecto() {
-        router.nuevoProyecto(model);
+        router.nuevoProyecto();
     }
 
     public void eliminarProyecto() {

@@ -12,8 +12,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Proyecto;
+import router.AgregarProyectoRouter;
 import router.DetalleProyectoRouter;
 import router.ProyectoRouter;
 import java.time.LocalDate;
@@ -133,6 +135,13 @@ public class ProyectoView extends View {
         view.modal()
                 .withStyle(StageStyle.TRANSPARENT)
                 .show();
+    }
+    @FXML
+    public void createProyect(ActionEvent event){
+        AgregarProyectoView view = AgregarProyectoRouter.create();
+        view.modal().withStyle(StageStyle.TRANSPARENT).show();
+        sortedList().clear();
+        cargarDatos();
     }
 
     public void setController(ProyectoController controller) { this.controller = controller; }

@@ -1,4 +1,5 @@
 package model;
+
 import com.google.gson.*;
 import json.LocalDateTypeConverter;
 import repository.RepositoryAsistencia;
@@ -8,19 +9,19 @@ import repository.memory.MemoryRepositoryAsistencia;
 import repository.memory.MemoryRepositoryFase;
 import repository.memory.MemoryRepositoryTrabajador;
 import repository.RepositoryTrabajador;
+
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
 
 public class Proyecto implements Costeable{
 
-
-
-    // MARK: - Variables
+    // MARK: - Atributos
 
     private String id;
 
@@ -53,16 +54,6 @@ public class Proyecto implements Costeable{
         inventarioMaterial = new InventarioMaterial();
     }
 
-    @Override
-    public BigDecimal calcularCosto(){
-        List<Trabajador> listaTrabajadores = getTrabajadores();
-        BigDecimal costoAproximado = new BigDecimal(0);
-        for (int i = 0; i < listaTrabajadores.size();i++) {
-            Trabajador trabajador =  listaTrabajadores.get(i);
-            costoAproximado.add(trabajador.calcularSueldo());
-        }
-        return costoAproximado.add(inventarioMaterial.calcularCosto());
-    }
     // MARK: - Metodos Trabajador
 
     /**
@@ -149,17 +140,18 @@ public class Proyecto implements Costeable{
         inventarioMaterial.agregarRegistroMaterial(idMaterial, registroMaterial);
     }
 
-   /* public BigDecimal costoTotalAproximado(){
+    // MARK: - Interfaz Costeable
+
+    @Override
+    public BigDecimal calcularCosto(){
         List<Trabajador> listaTrabajadores = getTrabajadores();
         BigDecimal costoAproximado = new BigDecimal(0);
         for (int i = 0; i < listaTrabajadores.size();i++) {
             Trabajador trabajador =  listaTrabajadores.get(i);
-                costoAproximado.add(trabajador.calcularSueldo());
+            costoAproximado.add(trabajador.calcularSueldo());
         }
-        return costoAproximado.add(inventarioMaterial.costoInventario());
-    }*/
-
-
+        return costoAproximado.add(inventarioMaterial.calcularCosto());
+    }
 
     // MARK: - Getter
 
@@ -251,7 +243,6 @@ public class Proyecto implements Costeable{
             return p;
         }
     }
-    public BigDecimal getMontoContractual(){
-        return estimacion;
-    }
+
+
 }

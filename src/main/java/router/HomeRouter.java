@@ -95,8 +95,8 @@ public final class HomeRouter {
 
     }
 
-    public void nuevoProyecto(Constructora model) {
-        AgregarProyectoView view = AgregarProyectoRouter.create(model);
+    public void nuevoProyecto() {
+        AgregarProyectoView view = AgregarProyectoRouter.create();
 
         NodeUtils.replaceWith(master.getRoot().getCenter(), view.getRoot(), true, true, null);
 
