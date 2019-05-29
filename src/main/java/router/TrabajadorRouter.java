@@ -6,7 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import model.Constructora;
 import model.Trabajador;
-import state.EditTrabajadorDelegate;
+import delegate.EditTrabajadorDelegate;
 import view.TrabajadorView;
 
 /**

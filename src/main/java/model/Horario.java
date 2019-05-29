@@ -6,13 +6,15 @@ public class Horario {
 
     // MARK: - Atributos
 
+    private Integer id;
+
     private Integer dia;
 
     private Proyecto proyecto;
 
     private Trabajador trabajador;
 
-    private LocalTime horaIncio;
+    private LocalTime horaInicio;
 
     private LocalTime horaFin;
 
@@ -23,6 +25,10 @@ public class Horario {
     }
 
     // MARK: - Getter
+
+    public Integer getId() {
+        return id;
+    }
 
     public Integer getDia() {
         return dia;
@@ -36,8 +42,8 @@ public class Horario {
         return trabajador;
     }
 
-    public LocalTime getHoraIncio() {
-        return horaIncio;
+    public LocalTime getHoraInicio() {
+        return horaInicio;
     }
 
     public LocalTime getHoraFin() {

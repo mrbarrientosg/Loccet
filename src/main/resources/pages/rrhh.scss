@@ -15,3 +15,13 @@
 @include backgroundLight;
 
 @include textFieldGrey;
+
+@include title1;
+
+@include buttonRed;
+
+@include buttonFillBlue;
+
+.gray-scroll {
+  @include custom-scroll($ghost-white);
+}

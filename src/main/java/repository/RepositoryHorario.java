@@ -9,5 +9,6 @@ public interface RepositoryHorario {
     public void add(Horario value);
     public Horario remove(Horario value);
     public Horario update(Horario value);
-    public Iterator<Horario> get();
+    public Horario get(Integer id);
+    public Iterable<Horario> get();
 }

@@ -4,6 +4,7 @@ import base.View;
 import cell.ProyectoCell;
 import cell.TrabajadorCell;
 import controller.RRHHController;
+import delegate.EditTrabajadorDelegate;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.rxjavafx.observables.JavaFxObservable;
@@ -12,17 +13,22 @@ import io.reactivex.schedulers.Schedulers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import model.Proyecto;
+import model.Trabajador;
+import router.DetalleProyectoRouter;
+import router.DetalleTrabajadorRouter;
 import router.RRHHRouter;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-public class RRHHView extends View {
+public class RRHHView extends View implements EditTrabajadorDelegate {
 
     private RRHHController controller;
 
@@ -38,7 +44,13 @@ public class RRHHView extends View {
     private Button createTrabajador;
 
     @FXML
-    private TableView<TrabajadorCell> tableView;
+    private Button detailTrabajador;
+
+    @FXML
+    private Button deleteTrabajador;
+
+    @FXML
+    private TableView<TrabajadorCell> tableTrabajadores;
 
     @FXML
     private TableColumn<TrabajadorCell, String> rutColumn;
@@ -58,6 +70,21 @@ public class RRHHView extends View {
     @FXML
     private TableColumn<TrabajadorCell, String> telephoneConlumn;
 
+    @FXML
+    private Button createEspecialidad;
+
+    @FXML
+    private Button deleteEspecialidad;
+
+    @FXML
+    private TableView<?> tableEspecialidades;
+
+    @FXML
+    private TableColumn<?, ?> nameEspecialidad;
+
+    @FXML
+    private TableColumn<?, ?> sueldoEspecialidad;
+
     @Override
     public void viewDidLoad() {
         rutColumn.setCellValueFactory(new PropertyValueFactory<>("rut"));
@@ -75,17 +102,26 @@ public class RRHHView extends View {
                 if (empty) {
                     setText(null);
                 } else {
-                    setText(item.getId());
+                    setText(item.getNombre());
                 }
             }
         };
 
         proyectList.setCellFactory(factory);
         proyectList.setButtonCell(factory.call(null));
+
+        deleteTrabajador.setOnAction(this::deleteTrabajadorAction);
+        detailTrabajador.setOnAction(this::detailTrabajadorAction);
     }
 
     @Override
     public void viewDidShow() {
+        ProyectoCell all = new ProyectoCell("Todos");
+        proyectList.getItems().add(0, all);
+        proyectList.getItems().addAll(controller.getProyectos());
+
+        proyectList.getSelectionModel().selectFirst();
+
         Observable<String> textInputs = JavaFxObservable.valuesOf(searchField.textProperty());
 
         textInputs
@@ -93,12 +129,12 @@ public class RRHHView extends View {
                 .distinctUntilChanged()
                 .flatMap(value -> {
                     ProyectoCell cell = proyectList.getSelectionModel().getSelectedItem();
-                    if (cell != null && cell.equals("Todos"))
+                    if (cell != null && cell.getNombre().equals("Todos"))
                         return controller.searchEmployee(value)
                             .onErrorReturnItem(FXCollections.emptyObservableList())
                             .toObservable();
 
-                    if (cell != null && !cell.equals("Todos"))
+                    if (cell != null && !cell.getNombre().equals("Todos"))
                         return controller.searchEmployeeProject(cell.getId(), value)
                                 .onErrorReturnItem(FXCollections.emptyObservableList())
                                 .toObservable();
@@ -109,37 +145,56 @@ public class RRHHView extends View {
                 .subscribeOn(Schedulers.io())
                 .observeOn(JavaFxScheduler.platform())
                 .subscribe(list -> {
-                    tableView.setItems(list);
+                    tableTrabajadores.setItems(list);
                 });
 
-        ProyectoCell all = new ProyectoCell("Todos");
-        proyectList.getItems().add(0, all);
-        proyectList.getItems().addAll(controller.getProyectos());
 
         Observable<ProyectoCell> selected = JavaFxObservable.valuesOf(proyectList.getSelectionModel().selectedItemProperty());
 
         selected
                 .filter(Objects::nonNull)
-                .map(value -> {
-                    if (value.getId().equals("Todos"))
-                        return controller.searchEmployee("");
+                .flatMap(value -> {
+                    if (value.getNombre().equals("Todos"))
+                        return controller.searchEmployee("")
+                                .toObservable();
 
-                    return controller.getEmployeesProject(value.getId());
+                    return controller.getEmployeesProject(value.getId())
+                            .toObservable();
                 })
-                .map(o -> (ObservableList<TrabajadorCell>) o)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(JavaFxScheduler.platform())
                 .subscribe(list -> {
-                   tableView.setItems(list);
+                    tableTrabajadores.setItems(list);
                 });
 
-        proyectList.getSelectionModel().selectFirst();
     }
 
     @Override
     public void viewDidClose() {
         proyectList.getItems().clear();
-        tableView.getItems().clear();
+        tableTrabajadores.getItems().clear();
+    }
+
+    private void deleteTrabajadorAction(ActionEvent event) {
+        TrabajadorCell cell = tableTrabajadores.getSelectionModel().getSelectedItem();
+
+        if (cell == null) return;
+
+        controller.deleteTrabajador(cell.getRut());
+    }
+
+    private void detailTrabajadorAction(ActionEvent event) {
+        TrabajadorCell cell = tableTrabajadores.getSelectionModel().getSelectedItem();
+        if (cell == null) return;
+        Trabajador t = controller.obtenerTrabajador(cell.getRut());
+        DetalleTrabajadorView view = DetalleTrabajadorRouter.create(t, this);
+        view.modal()
+                .withStyle(StageStyle.TRANSPARENT)
+                .show();
+    }
+
+    public void didDeleteTrabajador(String rut) {
+        tableTrabajadores.getItems().removeIf(value -> value.getRut().equals(rut));
     }
 
     public void setController(RRHHController controller) {
@@ -148,5 +203,17 @@ public class RRHHView extends View {
 
     public void setRouter(RRHHRouter router) {
         this.router = router;
+    }
+
+    @Override
+    public void didEditTrabajador() {
+        ProyectoCell cell = proyectList.getSelectionModel().getSelectedItem();
+
+        if (cell.getNombre().equals("Todos"))
+            tableTrabajadores.setItems(controller.fetchTrabajadores());
+        else
+            tableTrabajadores.setItems(controller.fetchTrabajadores(cell.getId()));
+
+        searchField.setText("");
     }
 }

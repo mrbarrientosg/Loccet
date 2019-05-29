@@ -228,55 +228,6 @@
 .date-picker-popup > * > .next-month {
   -fx-text-fill: rgba(0, 0, 0, 0.4); }
 
-.custom-scroll {
-  -fx-background-color: white; }
-
-.custom-scroll .scroll-bar:vertical {
-  -fx-pref-width: 8px; }
-
-.custom-scroll .scroll-bar:horizontal {
-  -fx-pref-height: 8px; }
-
-.custom-scroll .scroll-bar:horizontal .track,
-.custom-scroll .scroll-bar:vertical .track {
-  -fx-background-color: white;
-  -fx-border-color: white;
-  -fx-background-radius: 0.0em; }
-
-.custom-scroll .scroll-bar:horizontal .increment-button,
-.custom-scroll .scroll-bar:horizontal .decrement-button {
-  -fx-background-color: white;
-  -fx-background-radius: 0.0em;
-  -fx-padding: 0 0 10px 0; }
-
-.custom-scroll .scroll-bar:vertical .increment-button,
-.custom-scroll .scroll-bar:vertical .decrement-button {
-  -fx-background-color: white;
-  -fx-background-radius: 0.0em;
-  -fx-padding: 0 10px 0 0; }
-
-.custom-scroll .scroll-bar .increment-arrow,
-.custom-scroll .scroll-bar .decrement-arrow {
-  -fx-shape: null;
-  -fx-padding: 0.15em 0.0; }
-
-.custom-scroll .scroll-bar:vertical .increment-arrow,
-.custom-scroll .scroll-bar:vertical .decrement-arrow {
-  -fx-shape: null;
-  -fx-padding: 0.0 0.15em; }
-
-.custom-scroll .scroll-bar:horizontal .thumb,
-.custom-scroll .scroll-bar:vertical .thumb {
-  -fx-background-color: #D1D1D1;
-  -fx-background-insets: 1.0, 0.0, 0.0;
-  -fx-background-radius: 2.0em; }
-
-.custom-scroll .scroll-bar:horizontal .thumb:hover,
-.custom-scroll .scroll-bar:vertical .thumb:hover {
-  -fx-background-color: #ACACAC;
-  -fx-background-insets: 1.0, 0.0, 0.0;
-  -fx-background-radius: 2.0em; }
-
 .rrhh-table {
   -fx-border-color: white;
   -fx-font-family: "Heebo Light";
@@ -360,6 +311,10 @@
     -fx-text-fill: #0084ff;
     -fx-background-color: white;
     -fx-background-radius: 3; }
+
+.title1 {
+  -fx-font-family: "Heebo Black";
+  -fx-font-size: 24px; }
 
 .title2 {
   -fx-font-family: "Heebo Black";

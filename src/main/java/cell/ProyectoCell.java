@@ -14,7 +14,7 @@ public final class ProyectoCell {
 
     private String id;
 
-    private String nombreProyecto;
+    private String nombre;
 
     private String cliente;
 
@@ -28,15 +28,15 @@ public final class ProyectoCell {
 
     public ProyectoCell(Proyecto m) {
         id = m.getId();
-        nombreProyecto = m.getNombre();
+        nombre = m.getNombre();
         fechaInicio = m.getFechaInicio();
         fechaTermino = m.getFechaTermino();
         cliente = m.getNombreCliente();
         estimacion = m.getEstimacion();
     }
 
-    public ProyectoCell(String id) {
-        this.id = id;
+    public ProyectoCell(String nombre) {
+        this.nombre = nombre;
     }
 
     // MARK: - Getter
@@ -49,8 +49,8 @@ public final class ProyectoCell {
         return fechaTermino;
     }
 
-    public String getNombreProyecto() {
-        return nombreProyecto;
+    public String getNombre() {
+        return nombre;
     }
 
     public String getId() {
