@@ -22,13 +22,11 @@ public final class AgregarProyectoController extends Controller {
     private AgregarProyectoView view;
     private Constructora model = Constructora.getInstance();
 
-
-
     /**
      * Función que permite ingresar un proyecto a la constructora.
      * @author Matías Zúñiga
      */
-    public void presionarAceptar(TextField nombreP,TextField jefeP, TextField montoC,TextField cliente,TextField telefonoC,TextField mailC,TextField direccion,TextField ciudad,TextField estado,TextField pais,DatePicker fechaF,DatePicker fechaT){
+    public void presionarAceptar(TextField nombreP,TextField jefeP, TextField montoC,TextField cliente,TextField telefonoC,TextField direccion,TextField ciudad,TextField estado,TextField pais,DatePicker fechaF,DatePicker fechaT){
         System.out.println("Todos los campos estan llenos");
         Proyecto proyecto = new Proyecto();
 
@@ -36,7 +34,6 @@ public final class AgregarProyectoController extends Controller {
         localizacion.setCiudad(ciudad.getText());
         localizacion.setDireccion(direccion.getText());
         localizacion.setEstado(estado.getText());
-
 
         proyecto.setNombre(nombreP.getText());
         proyecto.setNombreCliente(cliente.getText());

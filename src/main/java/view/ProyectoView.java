@@ -140,6 +140,7 @@ public class ProyectoView extends View {
     public void createProyect(ActionEvent event){
         AgregarProyectoView view = AgregarProyectoRouter.create();
         view.modal().withStyle(StageStyle.TRANSPARENT).show();
+        sortedList().clear();
         cargarDatos();
     }
 

@@ -98,7 +98,7 @@ public final class AgregarProyectoView extends View {
             router.showAlert("Las fechas ingresadas no coinciden.").showAndWait();
         }
         else{
-            controller.presionarAceptar(nombreP,jefeP,montoC,cliente,telefonoC,mailC,direccion,ciudad,estado,pais,fechaF,fechaT);
+            controller.presionarAceptar(nombreP,jefeP,montoC,cliente,telefonoC,direccion,ciudad,estado,pais,fechaF,fechaT);
             close();
         }
     }
