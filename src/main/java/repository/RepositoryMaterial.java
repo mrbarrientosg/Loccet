@@ -10,5 +10,5 @@ public interface RepositoryMaterial {
     public Material remove(Material value);
     public Material update(Material value);
     public Material get(String id);
-    public Iterator<Material> get();
+    public Iterable<Material> get();
 }

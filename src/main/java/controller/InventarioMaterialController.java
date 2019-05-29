@@ -21,6 +21,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ListIterator;
 import java.util.stream.Collectors;
 
@@ -64,7 +66,11 @@ public final class InventarioMaterialController extends Controller {
      * @author Sebastian Fuenzalida.
      */
     public void cargarDatos() {
-        listMateriales = FXCollections.observableList(model.obtenerMateriales().stream().map(MaterialCell::new).collect(Collectors.toList()));
+        List<Material> list = new ArrayList<>();
+
+        model.obtenerMateriales().forEach(list::add);
+
+        listMateriales = FXCollections.observableList(list.stream().map(MaterialCell::new).collect(Collectors.toList()));
         filteredMateriales = new FilteredList<>(listMateriales, e -> true);
     }
 

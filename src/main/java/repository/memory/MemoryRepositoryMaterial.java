@@ -52,8 +52,8 @@ public class MemoryRepositoryMaterial implements RepositoryMaterial {
     }
 
     @Override
-    public Iterator<Material> get() {
-        return materialList.iterator();
+    public Iterable<Material> get() {
+        return materialList;
     }
 
 }

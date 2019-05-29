@@ -11,7 +11,7 @@ import java.util.*;
  *
  * @author Sebastian Fuenzalida
  */
-public class InventarioMaterial implements Costeable{
+public class InventarioMaterial implements Costeable {
 
     // MARK: - Atributos
 
@@ -25,12 +25,6 @@ public class InventarioMaterial implements Costeable{
 
     // MARK: - Metodos Material
 
-    public List<Material> obtenerMateriales() {
-        List<Material> list = new ArrayList<>();
-        repositoryMaterial.get().forEachRemaining(list::add);
-        return list;
-    }
-
     public void agregarMaterial(Material material) {
         repositoryMaterial.add(material);
     }
@@ -43,15 +37,6 @@ public class InventarioMaterial implements Costeable{
         return repositoryMaterial.update(material);
     }
 
-  /*  public BigDecimal costoInventario(){
-        List<Material> list = obtenerMateriales();
-        BigDecimal costoTotal = new BigDecimal(0);
-        for (int i = 0; i < list.size();i++){
-            costoTotal.add(list.get(i).getPrecio());
-        }
-        return costoTotal;
-    }*/
-
     public Material eliminarMaterial(String id) {
         return repositoryMaterial.remove(repositoryMaterial.get(id));
     }
@@ -62,13 +47,20 @@ public class InventarioMaterial implements Costeable{
         repositoryMaterial.get(idMaterial).agregarRegistro(registroMaterial);
     }
 
+    public Iterable<Material> obtenerMateriales() {
+        return repositoryMaterial.get();
+    }
+
     @Override
     public BigDecimal calcularCosto() {
-        List<Material> list = obtenerMateriales();
+        Iterable<Material> iterable = repositoryMaterial.get();
+
         BigDecimal costoTotal = new BigDecimal(0);
-        for (int i = 0; i < list.size();i++){
-            costoTotal.add(list.get(i).getPrecio());
-        }
+
+        iterable.forEach(material -> {
+            costoTotal.add(material.getPrecio());
+        });
+
         return costoTotal;
     }
 }

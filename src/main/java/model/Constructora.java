@@ -62,7 +62,7 @@ public class Constructora implements Costeable {
         return repositoryProyecto.remove(repositoryProyecto.get(idProyecto));
     }
 
-    public Iterator<Proyecto> buscarProyecto(Specification busqueda) {
+    public Iterable<Proyecto> buscarProyecto(Specification busqueda) {
         return repositoryProyecto.get(busqueda);
     }
 
@@ -92,20 +92,15 @@ public class Constructora implements Costeable {
     }
 
     public Trabajador actualizarTrabajador(Trabajador nuevoTrabajador) {
-        for (Iterator<Proyecto> it = repositoryProyecto.get(); it.hasNext(); ) {
-            Proyecto proyecto = it.next();
-            proyecto.actualizarTrabajador(nuevoTrabajador);
-        }
         return repositoryTrabajador.update(nuevoTrabajador);
     }
 
     public Trabajador eliminarTrabajador(String rut) {
         if (repositoryTrabajador.get(rut) == null) return null;
 
-        for (Iterator<Proyecto> it = repositoryProyecto.get(); it.hasNext(); ) {
-            Proyecto proyecto = it.next();
+        repositoryProyecto.get().forEach(proyecto -> {
             proyecto.eliminarTrabajador(rut);
-        }
+        });
 
         return repositoryTrabajador.remove(repositoryTrabajador.get(rut));
     }
@@ -135,13 +130,6 @@ public class Constructora implements Costeable {
     }
 
 
-
-    /*public void estimacionGasto(String idProyecto) {
-        if (!mapProyecto.containsKey(idProyecto)) return;
-        mapProyecto.get(idProyecto).estimacionGasto();
-    }*/
-
-
     // MARK: - Getter
 
     public String getRut() {
@@ -165,23 +153,20 @@ public class Constructora implements Costeable {
 
     public List<Proyecto> getListaProyecto() {
         List<Proyecto> list = new ArrayList<>();
-        repositoryProyecto.get().forEachRemaining(list::add);
+        repositoryProyecto.get().forEach(list::add);
         return list;
     }
 
 
-    private BigDecimal calcularCostoInventario(Costeable c){
-       return c.calcularCosto();
-    }
     @Override
     public BigDecimal calcularCosto() {
-        List<Proyecto> listaProyecto = getListaProyecto();
+        Iterable<Proyecto> iterable = repositoryProyecto.get();
         BigDecimal costoAproximado = new BigDecimal(0);
-        for (int i = 0; i < listaProyecto.size();i++) {
-            Proyecto proyecto =  listaProyecto.get(i);
+
+        iterable.forEach(proyecto -> {
             costoAproximado.add(proyecto.calcularCosto());
-            costoAproximado.add(calcularCostoInventario(proyecto.getInventarioMaterial()));
-        }
+        });
+
         return costoAproximado;
     }
 }

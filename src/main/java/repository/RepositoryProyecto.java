@@ -10,7 +10,7 @@ public interface RepositoryProyecto {
     public Proyecto remove(Proyecto value);
     public Proyecto update(Proyecto value);
     public Proyecto get(String id);
-    public Iterator<Proyecto> get();
-    public Iterator<Proyecto> get(Specification specification);
+    public Iterable<Proyecto> get();
+    public Iterable<Proyecto> get(Specification specification);
 
 }

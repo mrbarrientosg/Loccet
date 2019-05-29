@@ -144,12 +144,14 @@ public class Proyecto implements Costeable{
 
     @Override
     public BigDecimal calcularCosto(){
-        List<Trabajador> listaTrabajadores = getTrabajadores();
+        Iterable<Trabajador> iterable = repositoryTrabajador.get();
+
         BigDecimal costoAproximado = new BigDecimal(0);
-        for (int i = 0; i < listaTrabajadores.size();i++) {
-            Trabajador trabajador =  listaTrabajadores.get(i);
+
+        iterable.forEach(trabajador ->  {
             costoAproximado.add(trabajador.calcularSueldo());
-        }
+        });
+
         return costoAproximado.add(inventarioMaterial.calcularCosto());
     }
 
