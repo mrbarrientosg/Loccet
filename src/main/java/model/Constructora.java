@@ -7,12 +7,13 @@ import repository.memory.MemoryRepositoryTrabajador;
 import repository.RepositoryProyecto;
 import repository.RepositoryTrabajador;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-public class Constructora {
+public class Constructora implements Costeable {
 
     // MARK: - Atributos
 
@@ -169,5 +170,19 @@ public class Constructora {
     }
 
 
+    private BigDecimal calcularCostoInventario(Costeable c){
+       return c.calcularCosto();
+    }
+    @Override
+    public BigDecimal calcularCosto() {
+        List<Proyecto> listaProyecto = getListaProyecto();
+        BigDecimal costoAproximado = new BigDecimal(0);
+        for (int i = 0; i < listaProyecto.size();i++) {
+            Proyecto proyecto =  listaProyecto.get(i);
+            costoAproximado.add(proyecto.calcularCosto());
+            costoAproximado.add(calcularCostoInventario(proyecto.getInventarioMaterial()));
+        }
+        return costoAproximado;
+    }
 }
 

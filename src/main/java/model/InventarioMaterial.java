@@ -3,6 +3,7 @@ package model;
 import repository.memory.MemoryRepositoryMaterial;
 import repository.RepositoryMaterial;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -10,7 +11,7 @@ import java.util.*;
  *
  * @author Sebastian Fuenzalida
  */
-public class InventarioMaterial {
+public class InventarioMaterial implements Costeable{
 
     // MARK: - Atributos
 
@@ -42,6 +43,15 @@ public class InventarioMaterial {
         return repositoryMaterial.update(material);
     }
 
+  /*  public BigDecimal costoInventario(){
+        List<Material> list = obtenerMateriales();
+        BigDecimal costoTotal = new BigDecimal(0);
+        for (int i = 0; i < list.size();i++){
+            costoTotal.add(list.get(i).getPrecio());
+        }
+        return costoTotal;
+    }*/
+
     public Material eliminarMaterial(String id) {
         return repositoryMaterial.remove(repositoryMaterial.get(id));
     }
@@ -50,5 +60,15 @@ public class InventarioMaterial {
 
     public void agregarRegistroMaterial(String idMaterial, RegistroMaterial registroMaterial) {
         repositoryMaterial.get(idMaterial).agregarRegistro(registroMaterial);
+    }
+
+    @Override
+    public BigDecimal calcularCosto() {
+        List<Material> list = obtenerMateriales();
+        BigDecimal costoTotal = new BigDecimal(0);
+        for (int i = 0; i < list.size();i++){
+            costoTotal.add(list.get(i).getPrecio());
+        }
+        return costoTotal;
     }
 }

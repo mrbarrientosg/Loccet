@@ -2,10 +2,6 @@ package view;
 
 import base.Fragment;
 import base.Injectable;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.RotateTransition;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,10 +10,9 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.transform.Rotate;
-import javafx.util.Duration;
 import router.ProyectoRouter;
 import router.RRHHRouter;
+import router.ReporteRouter;
 
 import java.io.IOException;
 
@@ -49,6 +44,9 @@ public class TableroView extends Fragment {
 
     @FXML
     private ToggleButton proyectoButton;
+
+    @FXML
+    private ToggleButton reporteButton;
 
     private Toggle lastSelected;
 
@@ -135,9 +133,12 @@ public class TableroView extends Fragment {
             ProyectoView proyectoView = ProyectoRouter.create();
             setCenter(proyectoView.getRoot());
             titleBar.setText("Proyectos");
+        }else if(button == reporteButton){
+            ReporteView reporteView = ReporteRouter.create();
+            setCenter(reporteView.getRoot());
+            titleBar.setText("Reporte");
         } else {
             titleBar.setText("Inicio");
         }
     }
-
 }

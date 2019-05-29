@@ -114,28 +114,8 @@
   -fx-background-insets: 1, 2, 1, 2.6;
   -fx-background-radius: 0 2 2 0, 0 1 1 0, 0 1 1 0, 0 1 1 0; }
 
-.backgroundWhite {
-  -fx-background-color: white; }
-
-.backgroundgray {
-  -fx-text-fill: black;
-  -fx-prompt-text-fill: #878787;
-  -fx-background-color: #F0F0F0; }
-
-.buttonFillBlue {
-  -fx-font-family: "Heebo Medium";
-  -fx-font-size: 14px;
-  -fx-text-fill: #0084ff;
-  -fx-background-color: white;
-  -fx-background-radius: 3; }
-  .buttonFillBlue:hover {
-    -fx-text-fill: #0084ff;
-    -fx-background-color: #e6e6e6;
-    -fx-background-radius: 3; }
-  .buttonFillBlue:pressed {
-    -fx-text-fill: #0084ff;
-    -fx-background-color: white;
-    -fx-background-radius: 3; }
+.backgroundLight {
+  -fx-background-color: #F9F9F9; }
 
 .buttonBlue {
   -fx-font-family: "Heebo Medium";
@@ -152,28 +132,41 @@
     -fx-background-color: #0084ff;
     -fx-background-radius: 3; }
 
-.textFieldGrey {
-  -fx-text-fill: black;
-  -fx-prompt-text-fill: #878787;
-  -fx-background-color: #F0F0F0; }
+.buttonBorderBlue {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: #0084ff;
+  -fx-background-color: white;
+  -fx-border-radius: 3;
+  -fx-border-color: #0084ff; }
+  .buttonBorderBlue:hover {
+    -fx-text-fill: #0084ff;
+    -fx-background-color: #f2f2f2;
+    -fx-border-radius: 3;
+    -fx-border-color: #0084ff; }
+  .buttonBorderBlue:pressed {
+    -fx-text-fill: #0084ff;
+    -fx-background-color: white;
+    -fx-border-radius: 3;
+    -fx-border-color: #0084ff; }
 
-.textField {
-  -fx-font-family: "Heebo Light";
-  -fx-font-size: 13px; }
+.title1 {
+  -fx-font-family: "Heebo Black";
+  -fx-font-size: 24px; }
 
-.textAreaGray {
-  -fx-text-fill: black;
-  -fx-prompt-text-fill: #878787;
-  -fx-background-color: #F0F0F0; }
-
-.text-area .content {
-  /*the is 1px less top and bottom than TextInput because of scrollpane border */
-  -fx-padding: 0.25em 0.583em 0.25em 0.583em;
-  /* 3 7 3 7 */
-  -fx-cursor: text;
-  -fx-background-color: #F0F0F0;
-  -fx-background-radius: 2; }
+.title2 {
+  -fx-font-family: "Heebo Black";
+  -fx-font-size: 20px; }
 
 .title3 {
   -fx-font-family: "Heebo Black";
   -fx-font-size: 16px; }
+
+.paragraph {
+  -fx-font-family: "Heebo";
+  -fx-font-size: 14px; }
+
+.textFieldGrey {
+  -fx-text-fill: black;
+  -fx-prompt-text-fill: #878787;
+  -fx-background-color: #F0F0F0; }

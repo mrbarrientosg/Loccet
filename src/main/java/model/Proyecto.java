@@ -1,5 +1,4 @@
 package model;
-
 import com.google.gson.*;
 import json.LocalDateTypeConverter;
 import repository.RepositoryAsistencia;
@@ -9,18 +8,19 @@ import repository.memory.MemoryRepositoryAsistencia;
 import repository.memory.MemoryRepositoryFase;
 import repository.memory.MemoryRepositoryTrabajador;
 import repository.RepositoryTrabajador;
-
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-public class Proyecto {
 
-    // MARK: - Atributos
+public class Proyecto implements Costeable{
+
+
+
+    // MARK: - Variables
 
     private String id;
 
@@ -53,6 +53,16 @@ public class Proyecto {
         inventarioMaterial = new InventarioMaterial();
     }
 
+    @Override
+    public BigDecimal calcularCosto(){
+        List<Trabajador> listaTrabajadores = getTrabajadores();
+        BigDecimal costoAproximado = new BigDecimal(0);
+        for (int i = 0; i < listaTrabajadores.size();i++) {
+            Trabajador trabajador =  listaTrabajadores.get(i);
+            costoAproximado.add(trabajador.calcularSueldo());
+        }
+        return costoAproximado.add(inventarioMaterial.calcularCosto());
+    }
     // MARK: - Metodos Trabajador
 
     /**
@@ -139,32 +149,17 @@ public class Proyecto {
         inventarioMaterial.agregarRegistroMaterial(idMaterial, registroMaterial);
     }
 
-
-
-    /*public void estimacionGasto() {
-        double total = inventarioMaterial.gastoTotal();
-
-        NumberFormat formatter = new DecimalFormat("#0.00$");
-
-        System.out.println("Gasto inventario (estimación): " + formatter.format(total));
-
-        Duration diff = Duration.between(fechaInicio.atStartOfDay(), fechaTermino.atStartOfDay());
-        long cant = diff.toDays();
-
-        double gastoTrabajadores = listaTrabajadores.stream()
-                .map(Trabajador::getEspecialidad)
-                .map(Especialidad::sueldoTotal)
-                .map(aDouble -> aDouble * cant)
-                .reduce(0.0, (left, right) -> left + right);
-
-        System.out.println("Gasto trabajadores (estimación): " + formatter.format(gastoTrabajadores));
-
-        total += gastoTrabajadores;
-
-        System.out.println("Gasto total de la estimación: " + formatter.format(total));
-
-        System.out.println("Gasto propuesto menos estimación: " + formatter.format(estimacion - total));
+   /* public BigDecimal costoTotalAproximado(){
+        List<Trabajador> listaTrabajadores = getTrabajadores();
+        BigDecimal costoAproximado = new BigDecimal(0);
+        for (int i = 0; i < listaTrabajadores.size();i++) {
+            Trabajador trabajador =  listaTrabajadores.get(i);
+                costoAproximado.add(trabajador.calcularSueldo());
+        }
+        return costoAproximado.add(inventarioMaterial.costoInventario());
     }*/
+
+
 
     // MARK: - Getter
 
@@ -256,6 +251,7 @@ public class Proyecto {
             return p;
         }
     }
-
-
+    public BigDecimal getMontoContractual(){
+        return estimacion;
+    }
 }
