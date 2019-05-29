@@ -1,12 +1,12 @@
-package network.API;
+package network.endpoint;
 
 import io.netty.handler.codec.http.DefaultHttpHeaders;
 import io.netty.handler.codec.http.HttpHeaders;
-import network.NetworkManager;
-import network.URLRequestConvertible;
-import org.asynchttpclient.util.HttpConstants;
+import io.netty.handler.codec.http.HttpMethod;
+import network.manager.NetworkManager;
+import network.service.EndPointType;
 
-public enum TrabajadorAPI implements URLRequestConvertible {
+public enum TrabajadorAPI implements EndPointType {
     CREATE,
     UPDATE,
     REMOVE,
@@ -44,13 +44,12 @@ public enum TrabajadorAPI implements URLRequestConvertible {
     }
 
     @Override
-    public String method() {
-        return HttpConstants.Methods.POST;
+    public HttpMethod httpMethod() {
+        return HttpMethod.POST;
     }
 
-
     @Override
-    public HttpHeaders headers() {
+    public HttpHeaders httpHeaders() {
         HttpHeaders headers;
         headers = new DefaultHttpHeaders();
         headers.add("Content-Type", "application/json");

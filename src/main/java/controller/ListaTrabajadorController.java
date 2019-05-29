@@ -10,8 +10,8 @@ import javafx.collections.ObservableList;
 import model.Proyecto;
 import model.Trabajador;
 import delegate.SearchEmployeeDelegate;
-import network.LoccetService;
-import network.API.TrabajadorAPI;
+import network.endpoint.TrabajadorAPI;
+import network.service.Router;
 import view.ListaTrabajadorView;
 
 import java.time.Instant;
@@ -26,11 +26,13 @@ public final class ListaTrabajadorController extends Controller implements Searc
 
     private final Proyecto model;
 
+    private Router<TrabajadorAPI> service;
+
     public ListaTrabajadorController(ListaTrabajadorView view, Proyecto model) {
         this.view = view;
         this.model = model;
+        service = new Router<>();
     }
-
 
     public ObservableList<TrabajadorCell> loadData() {
         return FXCollections.observableList(model.getTrabajadores().stream().map(TrabajadorCell::new).collect(Collectors.toList()));
@@ -59,7 +61,7 @@ public final class ListaTrabajadorController extends Controller implements Searc
         json.addProperty("rut_trabajador", value.getRut());
         json.addProperty("id_proyecto", model.getId());
 
-        LoccetService.getInstance().call(TrabajadorAPI.ADD_TO_PROJECT, json)
+        service.request(TrabajadorAPI.ADD_TO_PROJECT, json)
                 .subscribe(System.out::println, throwable -> {
                     LOGGER.log(Level.SEVERE, "", throwable);
                 });

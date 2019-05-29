@@ -11,8 +11,8 @@ import javafx.collections.ObservableList;
 import model.Constructora;
 import model.Proyecto;
 import model.Trabajador;
-import network.LoccetService;
-import network.API.TrabajadorAPI;
+import network.endpoint.TrabajadorAPI;
+import network.service.Router;
 import specification.TrabajadorByQuerySpecification;
 import view.RRHHView;
 
@@ -25,6 +25,8 @@ public class RRHHController extends Controller {
     private RRHHView view;
 
     private Constructora model = Constructora.getInstance();
+
+    private Router<TrabajadorAPI> service = new Router<>();
 
     public ObservableList<TrabajadorCell> fetchTrabajadores() {
         return FXCollections.observableList(model.getConjuntoTrabajadores().stream().map(TrabajadorCell::new).collect(Collectors.toList()));
@@ -74,7 +76,7 @@ public class RRHHController extends Controller {
 
         json.addProperty("rut", rut);
 
-        LoccetService.getInstance().call(TrabajadorAPI.REMOVE, json)
+        service.request(TrabajadorAPI.REMOVE, json)
                 .subscribe(System.out::println, throwable -> {
                     LOGGER.log(Level.SEVERE, "", throwable);
                 });

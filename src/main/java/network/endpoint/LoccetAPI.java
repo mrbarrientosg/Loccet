@@ -1,12 +1,13 @@
-package network.API;
+package network.endpoint;
 
 import io.netty.handler.codec.http.DefaultHttpHeaders;
 import io.netty.handler.codec.http.HttpHeaders;
-import network.NetworkManager;
-import network.URLRequestConvertible;
+import io.netty.handler.codec.http.HttpMethod;
+import network.manager.NetworkManager;
+import network.service.EndPointType;
 import org.asynchttpclient.util.HttpConstants;
 
-public enum LoccetAPI implements URLRequestConvertible {
+public enum LoccetAPI implements EndPointType {
     LOGIN,
     GET_CONSTRUCTORA,
     GET_PROYECTOS,
@@ -60,12 +61,12 @@ public enum LoccetAPI implements URLRequestConvertible {
     }
 
     @Override
-    public String method() {
-        return HttpConstants.Methods.POST;
+    public HttpMethod httpMethod() {
+        return HttpMethod.POST;
     }
 
     @Override
-    public HttpHeaders headers() {
+    public HttpHeaders httpHeaders() {
         HttpHeaders headers;
         headers = new DefaultHttpHeaders();
         headers.add("Content-Type", "application/json");

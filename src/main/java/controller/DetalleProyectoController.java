@@ -6,8 +6,8 @@ import com.google.gson.GsonBuilder;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import model.Proyecto;
-import network.LoccetService;
-import network.API.ProyectoAPI;
+import network.endpoint.ProyectoAPI;
+import network.service.Router;
 import view.DetalleProyectoView;
 
 import java.util.logging.Level;
@@ -16,7 +16,7 @@ public class DetalleProyectoController extends Controller {
 
     private DetalleProyectoView view;
 
-    private Proyecto proyecto;
+    private Proyecto model;
 
     private Proyecto oldProyecto;
 
@@ -32,57 +32,58 @@ public class DetalleProyectoController extends Controller {
 
     private StringProperty client = new SimpleStringProperty();
 
+    private Router<ProyectoAPI> service = new Router<>();
+
     //private ObjectProperty<LocalDate> startDate = new SimpleStringProperty();
 
     //private ObjectProperty<LocalDate> endDate = new SimpleStringProperty();
 
 
     public void actualizar() {
-        proyecto.setNombre(name.get());
-        proyecto.getLocalizacion().setDireccion(address.get());
-        proyecto.getLocalizacion().setPais(country.get());
-        proyecto.getLocalizacion().setEstado(state.get());
-        proyecto.getLocalizacion().setCiudad(city.get());
-        proyecto.setNombreCliente(client.get());
+        model.setNombre(name.get());
+        model.getLocalizacion().setDireccion(address.get());
+        model.getLocalizacion().setPais(country.get());
+        model.getLocalizacion().setEstado(state.get());
+        model.getLocalizacion().setCiudad(city.get());
+        model.setNombreCliente(client.get());
     }
 
     private void loadData() {
-        name.setValue(proyecto.getNombre());
-        address.setValue(proyecto.getLocalizacion().getDireccion());
-        country.setValue(proyecto.getLocalizacion().getPais());
-        state.setValue(proyecto.getLocalizacion().getEstado());
-        city.setValue(proyecto.getLocalizacion().getCiudad());
-        client.setValue(proyecto.getNombreCliente());
+        name.setValue(model.getNombre());
+        address.setValue(model.getLocalizacion().getDireccion());
+        country.setValue(model.getLocalizacion().getPais());
+        state.setValue(model.getLocalizacion().getEstado());
+        city.setValue(model.getLocalizacion().getCiudad());
+        client.setValue(model.getNombreCliente());
     }
 
     public void save() {
+        if (oldProyecto.equals(model))
+            return;
+
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Proyecto.class, new Proyecto.ProyectoSerializer())
                 .create();
 
-        LoccetService.getInstance()
-                .call(ProyectoAPI.UPDATE, gson.toJsonTree(proyecto).getAsJsonObject())
-                .subscribe(json -> {
-                    System.out.println(json);
-                }, throwable -> {
+        service.request(ProyectoAPI.UPDATE, gson.toJsonTree(model).getAsJsonObject())
+                .subscribe(System.out::println, throwable -> {
                     LOGGER.log(Level.SEVERE, "", throwable);
                 });
 
     }
 
-
     public void setView(DetalleProyectoView view) {
         this.view = view;
     }
 
-    public void setProyecto(Proyecto proyecto) {
-        this.proyecto = proyecto;
-        oldProyecto = new Proyecto(proyecto);
+    public void setModel(Proyecto model) {
+        this.model = model;
+        oldProyecto = new Proyecto(model);
         loadData();
         view.bind();
     }
 
-    public String getIdProyecto() { return proyecto.getId(); }
+    public String getIdProyecto() { return model.getId(); }
 
     public StringProperty nameProperty() {
         return name;

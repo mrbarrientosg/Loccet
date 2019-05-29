@@ -1,15 +1,17 @@
-package network.API;
+package network.endpoint;
 
 import io.netty.handler.codec.http.DefaultHttpHeaders;
 import io.netty.handler.codec.http.HttpHeaders;
-import network.NetworkManager;
-import network.URLRequestConvertible;
+import io.netty.handler.codec.http.HttpMethod;
+import network.manager.NetworkManager;
+import network.service.EndPointType;
 import org.asynchttpclient.util.HttpConstants;
 
-public enum ProyectoAPI implements URLRequestConvertible {
+public enum MaterialAPI implements EndPointType {
     CREATE,
     UPDATE,
-    REMOVE;
+    REMOVE,
+    ADD_REGISTROMATERIAL;
 
     @Override
     public String baseURL() {
@@ -27,23 +29,25 @@ public enum ProyectoAPI implements URLRequestConvertible {
     public String path() {
         switch (this) {
             case CREATE:
-                return "loccet-addproyecto";
+                return "loccet-addmaterial";
             case UPDATE:
-                return "loccet-updateproyecto";
+                return "loccet-updatematerial";
             case REMOVE:
-                return "loccet-removeproyecto";
+                return "loccet-removematerial";
+            case ADD_REGISTROMATERIAL:
+                return "loccet-addregistromaterial";
         }
 
         return "";
     }
 
     @Override
-    public String method() {
-        return HttpConstants.Methods.POST;
+    public HttpMethod httpMethod() {
+        return HttpMethod.POST;
     }
 
     @Override
-    public HttpHeaders headers() {
+    public HttpHeaders httpHeaders() {
         HttpHeaders headers;
         headers = new DefaultHttpHeaders();
         headers.add("Content-Type", "application/json");
