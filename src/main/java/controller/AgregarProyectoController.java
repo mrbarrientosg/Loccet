@@ -30,18 +30,18 @@ public final class AgregarProyectoController extends Controller {
         System.out.println("Todos los campos estan llenos");
         Proyecto proyecto = new Proyecto();
 
-        Localizacion localizacion = new Localizacion();
-        localizacion.setCiudad(ciudad.getText());
-        localizacion.setDireccion(direccion.getText());
-        localizacion.setEstado(estado.getText());
-
-        proyecto.setNombre(nombreP.getText());
-        proyecto.setNombreCliente(cliente.getText());
-        proyecto.setEstimacion(new BigDecimal(montoC.getText()));
-        proyecto.setFechaInicio(fechaF.getValue());
-        proyecto.setFechaTermino(fechaF.getValue());
-        proyecto.setLocalizacion(localizacion);
-        model.agregarProyecto(proyecto);
+//        Localizacion localizacion = new Localizacion();
+//        localizacion.setCiudad(ciudad.getText());
+//        localizacion.setDireccion(direccion.getText());
+//        localizacion.setEstado(estado.getText());
+//
+//        proyecto.setNombre(nombreP.getText());
+//        proyecto.setNombreCliente(cliente.getText());
+//        proyecto.setEstimacion(new BigDecimal(montoC.getText()));
+//        proyecto.setFechaInicio(fechaF.getValue());
+//        proyecto.setFechaTermino(fechaF.getValue());
+//        proyecto.setLocalizacion(localizacion);
+//        model.agregarProyecto(proyecto);
     }
 
     /**
@@ -53,7 +53,6 @@ public final class AgregarProyectoController extends Controller {
         return router.showAlert(mensaje);
     }*/
     /**
-     * @param mensaje texto que se expondra en la alerta.
      * @return una ventana de tipo Warning.
      * @author Matías Zúñiga
      */

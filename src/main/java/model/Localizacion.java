@@ -18,6 +18,18 @@ public class Localizacion {
 
     private String ciudad;
 
+    public Localizacion(String direccion, String codigoPostal, String pais, String estado, String ciudad) {
+        this.direccion = direccion;
+        this.codigoPostal = codigoPostal;
+        this.pais = pais;
+        this.estado = estado;
+        this.ciudad = ciudad;
+    }
+
+    public Localizacion(String direccion, String pais, String estado, String ciudad) {
+        this(direccion, null, pais, estado, ciudad);
+    }
+
     public Localizacion(Localizacion other) {
         this.direccion = other.direccion;
         this.codigoPostal = other.codigoPostal;
