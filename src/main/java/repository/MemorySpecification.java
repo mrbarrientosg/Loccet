@@ -1,5 +1,5 @@
 package repository;
 
-public interface MemorySpecification<T> extends Specification {
+public interface MemorySpecification<T> {
     public boolean test(T value);
 }
