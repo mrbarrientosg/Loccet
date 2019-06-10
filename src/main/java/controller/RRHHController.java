@@ -8,6 +8,7 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import model.Constructora;
 import model.Proyecto;
 import model.Trabajador;
@@ -16,9 +17,12 @@ import network.service.Router;
 import specification.TrabajadorByQuerySpecification;
 import view.RRHHView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 public class RRHHController extends Controller {
 
@@ -28,37 +32,41 @@ public class RRHHController extends Controller {
 
     private Router<TrabajadorAPI> service = new Router<>();
 
-    public ObservableList<TrabajadorCell> fetchTrabajadores() {
-        return FXCollections.observableList(model.getConjuntoTrabajadores().stream().map(TrabajadorCell::new).collect(Collectors.toList()));
+    public FilteredList<TrabajadorCell> fetchTrabajadores() {
+        return new FilteredList<>(FXCollections.observableList(model.getConjuntoTrabajadores().stream().map(TrabajadorCell::new).collect(Collectors.toList())));
     }
 
-    public ObservableList<TrabajadorCell> fetchTrabajadores(String idProyecto) {
+    public FilteredList<TrabajadorCell> fetchTrabajadores(String idProyecto) {
         Proyecto p = model.obtenerProyecto(idProyecto);
 
-        if (p == null) return FXCollections.emptyObservableList();
+        if (p == null) return new FilteredList<>(FXCollections.emptyObservableList());
 
-        return FXCollections.observableList(p.getTrabajadores().stream().map(TrabajadorCell::new).collect(Collectors.toList()));
+        return new FilteredList<>(FXCollections.observableList(p.getTrabajadores().stream().map(TrabajadorCell::new).collect(Collectors.toList())));
     }
 
-    public Single<ObservableList<TrabajadorCell>> searchEmployee(String text) {
-        return Observable.fromIterable(model.buscarTrabajador(new TrabajadorByQuerySpecification(text)))
+    public FilteredList<TrabajadorCell> searchEmployee(String text) {
+        List<TrabajadorCell> list = StreamSupport.stream(model.buscarTrabajador(new TrabajadorByQuerySpecification(text)).spliterator(), false)
                 .map(TrabajadorCell::new)
-                .toList()
-                .map(FXCollections::observableList);
-    }
+                .collect(Collectors.toList());
 
-    public Single<ObservableList<TrabajadorCell>> searchEmployeeProject(String idProject, String text) {
+        return new FilteredList<>(FXCollections.observableList(list));
+
+}
+
+    public FilteredList<TrabajadorCell> searchEmployeeProject(String idProject, String text) {
         Proyecto p = model.obtenerProyecto(idProject);
 
-        if (p == null) return Single.just(FXCollections.emptyObservableList());
+        if (p == null) return new FilteredList<>(FXCollections.emptyObservableList());
 
-        return Observable.fromIterable(p.buscarTrabajador(new TrabajadorByQuerySpecification(text)))
+        List<TrabajadorCell> list = StreamSupport.stream(p.buscarTrabajador(new TrabajadorByQuerySpecification(text)).spliterator(), false)
                 .map(TrabajadorCell::new)
-                .toList()
-                .map(FXCollections::observableList);
+                .collect(Collectors.toList());
+
+        return new FilteredList<>(FXCollections.observableList(list));
+
     }
 
-    public Single<ObservableList<TrabajadorCell>> getEmployeesProject(String id) {
+    public FilteredList<TrabajadorCell> getEmployeesProject(String id) {
         return searchEmployeeProject(id, "");
                 //FXCollections.observableList(p.getTrabajadores().stream().map(TrabajadorCell::new).collect(Collectors.toList()));
     }
