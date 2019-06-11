@@ -9,9 +9,13 @@
 //backgrounds
 @include backgroundWhite;
 @include backgroundgray;
+@include backgroundLight;
+
 //buttons
 @include buttonBlue;
 @include buttonFillBlue;
+@include buttonFillRed;
+@include buttonWhiteShadow;
 
 //fonts
 @include title3;
@@ -24,3 +28,7 @@
 @include textFieldGrey;
 
 @include datePickerGray;
+
+.gray-scroll {
+  @include custom-scroll($ghost-white);
+}

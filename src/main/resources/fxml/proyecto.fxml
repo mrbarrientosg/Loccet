@@ -55,6 +55,19 @@
                   <Button fx:id="createProyectButton" mnemonicParsing="false" onAction="#createProyect" prefHeight="35.0" styleClass="buttonBlue" text="Crear proyecto" textFill="WHITE" />
                </children>
             </StackPane>
+            <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0">
+               <children>
+                  <AnchorPane styleClass="buttonWhiteShadow">
+                     <StackPane.margin>
+                        <Insets left="5.0" right="5.0" top="10.0" />
+                     </StackPane.margin>
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                  </AnchorPane>
+                  <Button mnemonicParsing="false" styleClass="buttonRed" text="Eliminar proyecto" />
+               </children>
+            </StackPane>
          </children>
          <VBox.margin>
             <Insets left="16.0" right="16.0" top="16.0" />

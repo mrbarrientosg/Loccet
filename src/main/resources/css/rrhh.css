@@ -191,7 +191,7 @@
     -fx-background-radius: 3; }
 
 .buttonWhiteShadow {
-  -fx-background-color: white;
+  -fx-background-color: #e8e8e8;
   -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.2), 20, 0, -0.06, 2); }
 
 .textField {

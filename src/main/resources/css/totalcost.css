@@ -50,6 +50,10 @@
     -fx-border-radius: 3;
     -fx-border-color: #0084ff; }
 
+.buttonWhiteShadow {
+  -fx-background-color: #e8e8e8;
+  -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.2), 20, 0, -0.06, 2); }
+
 .paragraph {
   -fx-font-family: "Heebo";
   -fx-font-size: 14px; }

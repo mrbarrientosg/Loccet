@@ -11,15 +11,17 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="600.0" styleClass="backgroundWhite" stylesheets="@../css/detailmaterial.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="600.0" prefWidth="600.0" styleClass="backgroundLight" stylesheets="@../css/detailmaterial.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
          <content>
-            <VBox styleClass="backgroundWhite">
+            <VBox styleClass="backgroundLight">
                <children>
                   <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="10.0">
                      <children>
@@ -34,10 +36,58 @@
                         <Separator maxWidth="1.7976931348623157E308" visible="false" HBox.hgrow="ALWAYS" />
                         <ButtonBar HBox.hgrow="ALWAYS">
                           <buttons>
-                              <Button fx:id="editarBT" mnemonicParsing="false" onAction="#editar" styleClass="buttonBlue" text="Editar" />
-                              <Button fx:id="ingresarBT" mnemonicParsing="false" onAction="#agregar" styleClass="buttonBorderBlue" text="Ingresar" />
-                              <Button fx:id="retirarBT" mnemonicParsing="false" onAction="#retirar" styleClass="buttonBorderBlue" text="Retirar" />
-                              <Button fx:id="salirBT" mnemonicParsing="false" onAction="#salir" styleClass="buttonFillBlue" text="Salir" />
+                              <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0">
+                                 <children>
+                                    <AnchorPane styleClass="buttonWhiteShadow">
+                                       <StackPane.margin>
+                                          <Insets left="5.0" right="5.0" top="10.0" />
+                                       </StackPane.margin>
+                                       <padding>
+                                          <Insets bottom="5.0" />
+                                       </padding>
+                                    </AnchorPane>
+                                    <Button fx:id="editarBT" mnemonicParsing="false" onAction="#editar" prefHeight="38.0" prefWidth="76.0" styleClass="buttonBlue" text="Editar" />
+                                 </children>
+                              </StackPane>
+                              <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0">
+                                 <children>
+                                    <AnchorPane styleClass="buttonWhiteShadow">
+                                       <StackPane.margin>
+                                          <Insets left="5.0" right="5.0" top="10.0" />
+                                       </StackPane.margin>
+                                       <padding>
+                                          <Insets bottom="5.0" />
+                                       </padding>
+                                    </AnchorPane>
+                                    <Button fx:id="ingresarBT" mnemonicParsing="false" onAction="#agregar" prefHeight="38.0" prefWidth="75.0" styleClass="buttonBorderBlue" text="Ingresar" />
+                                 </children>
+                              </StackPane>
+                              <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0">
+                                 <children>
+                                    <AnchorPane styleClass="buttonWhiteShadow">
+                                       <StackPane.margin>
+                                          <Insets left="5.0" right="5.0" top="10.0" />
+                                       </StackPane.margin>
+                                       <padding>
+                                          <Insets bottom="5.0" />
+                                       </padding>
+                                    </AnchorPane>
+                                    <Button fx:id="retirarBT" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#retirar" prefHeight="38.0" prefWidth="76.0" styleClass="buttonBorderBlue" text="Retirar" />
+                                 </children>
+                              </StackPane>
+                              <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0">
+                                 <children>
+                                    <AnchorPane prefHeight="0.0" prefWidth="66.0" styleClass="buttonWhiteShadow">
+                                       <StackPane.margin>
+                                          <Insets left="5.0" right="5.0" top="10.0" />
+                                       </StackPane.margin>
+                                       <padding>
+                                          <Insets bottom="5.0" />
+                                       </padding>
+                                    </AnchorPane>
+                                    <Button fx:id="salirBT" mnemonicParsing="false" onAction="#salir" prefHeight="38.0" prefWidth="76.0" styleClass="buttonBorderRed" text="Salir" />
+                                 </children>
+                              </StackPane>
                           </buttons>
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -155,7 +205,7 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <TableView fx:id="tableView" VBox.vgrow="ALWAYS">
+                  <TableView fx:id="tableView" styleClass="rrhh-table" VBox.vgrow="ALWAYS">
                     <columns>
                       <TableColumn fx:id="fechaCL" minWidth="1.0" prefWidth="238.0" text="Fecha " />
                       <TableColumn fx:id="cantidadCL" minWidth="0.0" prefWidth="222.0" text="Cantidad" />
@@ -164,10 +214,6 @@
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>
-                     <styleClass>
-                        <String fx:value="rrhh-table" />
-                        <String fx:value="backgroundgray" />
-                     </styleClass>
                   </TableView>
                </children>
             </VBox>
@@ -176,8 +222,8 @@
             <Insets />
          </VBox.margin>
          <styleClass>
-            <String fx:value="backgroundWhite" />
-            <String fx:value="custom-scroll" />
+            <String fx:value="backgroundLight" />
+            <String fx:value="gray-scroll" />
          </styleClass>
       </ScrollPane>
    </children>

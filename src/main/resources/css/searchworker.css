@@ -54,19 +54,22 @@
   -fx-prompt-text-fill: #878787;
   -fx-background-color: #F0F0F0; }
 
-.buttonGreen {
+.backgroundLight {
+  -fx-background-color: #F9F9F9; }
+
+.buttonBlue {
   -fx-font-family: "Heebo Medium";
   -fx-font-size: 14px;
   -fx-text-fill: white;
-  -fx-background-color: #4AC959;
+  -fx-background-color: #0084ff;
   -fx-background-radius: 3; }
-  .buttonGreen:hover {
+  .buttonBlue:hover {
     -fx-text-fill: white;
-    -fx-background-color: #21d761;
+    -fx-background-color: #2998ff;
     -fx-background-radius: 3; }
-  .buttonGreen:pressed {
+  .buttonBlue:pressed {
     -fx-text-fill: white;
-    -fx-background-color: #4AC959;
+    -fx-background-color: #0084ff;
     -fx-background-radius: 3; }
 
 .buttonFillRed {
@@ -83,6 +86,28 @@
     -fx-text-fill: red;
     -fx-background-color: white;
     -fx-background-radius: 3; }
+
+.buttonWhiteShadow {
+  -fx-background-color: #e8e8e8;
+  -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.2), 20, 0, -0.06, 2); }
+
+.buttonBorderRed {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: red;
+  -fx-background-color: white;
+  -fx-border-radius: 3;
+  -fx-border-color: red; }
+  .buttonBorderRed:hover {
+    -fx-text-fill: red;
+    -fx-background-color: #f2f2f2;
+    -fx-border-radius: 3;
+    -fx-border-color: red; }
+  .buttonBorderRed:pressed {
+    -fx-text-fill: red;
+    -fx-background-color: white;
+    -fx-border-radius: 3;
+    -fx-border-color: red; }
 
 .title1 {
   -fx-font-family: "Heebo Black";

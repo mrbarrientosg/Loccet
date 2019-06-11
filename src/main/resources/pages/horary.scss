@@ -6,7 +6,7 @@
 @import "../components/spinner";
 
 //backgrounds
-@include backgroundWhite;
+@include backgroundLight;
 
 //fonts
 @include title1;
@@ -16,5 +16,6 @@
 //button
 @include buttonBlue;
 @include buttonFillBlue;
-
+@include buttonFillRed;
+@include buttonWhiteShadow;
 

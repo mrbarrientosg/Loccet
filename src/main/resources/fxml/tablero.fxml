@@ -30,12 +30,6 @@
                         <String fx:value="circle-button-yellow" />
                      </styleClass>
                   </Button>
-                  <Button fx:id="maximizeButton" mnemonicParsing="false">
-                     <styleClass>
-                        <String fx:value="circle-button" />
-                        <String fx:value="circle-button-green" />
-                     </styleClass>
-                  </Button>
                   <Button fx:id="exitButton" mnemonicParsing="false">
                      <styleClass>
                         <String fx:value="circle-button" />

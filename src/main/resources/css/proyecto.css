@@ -190,8 +190,23 @@
     -fx-background-color: white;
     -fx-background-radius: 3; }
 
+.buttonRed {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: white;
+  -fx-background-color: red;
+  -fx-background-radius: 3; }
+  .buttonRed:hover {
+    -fx-text-fill: white;
+    -fx-background-color: #ff2929;
+    -fx-background-radius: 3; }
+  .buttonRed:pressed {
+    -fx-text-fill: white;
+    -fx-background-color: red;
+    -fx-background-radius: 3; }
+
 .buttonWhiteShadow {
-  -fx-background-color: white;
+  -fx-background-color: #e8e8e8;
   -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.2), 20, 0, -0.06, 2); }
 
 .textField {

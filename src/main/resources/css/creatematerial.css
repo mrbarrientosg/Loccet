@@ -114,8 +114,8 @@
   -fx-background-insets: 1, 2, 1, 2.6;
   -fx-background-radius: 0 2 2 0, 0 1 1 0, 0 1 1 0, 0 1 1 0; }
 
-.backgroundWhite {
-  -fx-background-color: white; }
+.backgroundLight {
+  -fx-background-color: #F9F9F9; }
 
 .backgroundgray {
   -fx-text-fill: black;
@@ -151,6 +151,10 @@
     -fx-text-fill: white;
     -fx-background-color: #0084ff;
     -fx-background-radius: 3; }
+
+.buttonWhiteShadow {
+  -fx-background-color: #e8e8e8;
+  -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.2), 20, 0, -0.06, 2); }
 
 .textFieldGrey {
   -fx-text-fill: black;

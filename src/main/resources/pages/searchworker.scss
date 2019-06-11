@@ -8,11 +8,13 @@
 //backgrounds
 @include backgroundWhite;
 @include backgroundgray;
+@include backgroundLight;
 
 //buttons
-@include buttonGreen;
+@include buttonBlue;
 @include buttonFillRed;
-
+@include buttonWhiteShadow;
+@include buttonBorderRed;
 //fonts
 @include title1;
 @include paragraphUI;

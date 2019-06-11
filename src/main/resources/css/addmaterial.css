@@ -29,8 +29,8 @@
 @font-face {
   font-family: "Heebo Black";
   src: url("../fonts/Heebo-Black.ttf") format("truetype"); }
-.backgroundWhite {
-  -fx-background-color: white; }
+.backgroundLight {
+  -fx-background-color: #F9F9F9; }
 
 .textFieldGrey {
   -fx-text-fill: black;
@@ -41,18 +41,18 @@
   -fx-font-family: "Heebo Light";
   -fx-font-size: 13px; }
 
-.buttonFillBlue {
+.buttonFillRed {
   -fx-font-family: "Heebo Medium";
   -fx-font-size: 14px;
-  -fx-text-fill: #0084ff;
+  -fx-text-fill: red;
   -fx-background-color: white;
   -fx-background-radius: 3; }
-  .buttonFillBlue:hover {
-    -fx-text-fill: #0084ff;
+  .buttonFillRed:hover {
+    -fx-text-fill: red;
     -fx-background-color: #e6e6e6;
     -fx-background-radius: 3; }
-  .buttonFillBlue:pressed {
-    -fx-text-fill: #0084ff;
+  .buttonFillRed:pressed {
+    -fx-text-fill: red;
     -fx-background-color: white;
     -fx-background-radius: 3; }
 
@@ -78,3 +78,7 @@
 .paragraph {
   -fx-font-family: "Heebo";
   -fx-font-size: 14px; }
+
+.buttonWhiteShadow {
+  -fx-background-color: #e8e8e8;
+  -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.2), 20, 0, -0.06, 2); }

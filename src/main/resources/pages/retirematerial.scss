@@ -4,12 +4,14 @@
 @import "../components/backgrounds";
 
 @include backgroundWhite;
+@include backgroundLight;
 
 @include textFieldGrey;
 
 @include textField;
 
-@include buttonFillBlue;
+@include buttonFillRed;
+@include buttonWhiteShadow;
 
 @include buttonBlue;
 

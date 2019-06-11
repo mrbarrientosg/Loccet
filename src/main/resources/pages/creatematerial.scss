@@ -5,13 +5,15 @@
 @import "../components/backgrounds";
 @import '../components/textarea';
 
-@include backgroundWhite;
+@include backgroundLight;
 
 @include backgroundgray;
 
 @include buttonFillBlue;
 
 @include buttonBlue;
+
+@include buttonWhiteShadow;
 
 @include textFieldGrey;
 
