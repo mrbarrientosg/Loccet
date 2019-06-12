@@ -15,167 +15,176 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="backgroundLight" stylesheets="@../css/creatematerial.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+
+<StackPane styleClass="shadowpane" stylesheets="@../css/creatematerial.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox alignment="CENTER">
+      <VBox styleClass="side-menu">
          <children>
-            <ImageView fitHeight="117.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/createIcon.png" />
-               </image>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </ImageView>
-         </children>
-         <VBox.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </VBox.margin>
-      </HBox>
-      <HBox alignment="CENTER">
-         <children>
-            <Label styleClass="title3" text="Por favor ingrese los datos correspondientes" textFill="#0084ff" />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER">
-         <children>
-            <VBox>
+            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="backgroundLight">
                <children>
-                  <TextField fx:id="nombreTF" prefHeight="70.0" prefWidth="263.0" promptText="Nombre del material*">
-                     <styleClass>
-                        <String fx:value="textField" />
-                        <String fx:value="textFieldGrey" />
-                     </styleClass>
-                  </TextField>
-               </children>
-               <HBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </HBox.margin>
-            </VBox>
-            <VBox>
-               <children>
-                  <TextField fx:id="idMaterialTF" prefHeight="70.0" prefWidth="263.0" promptText="ID del material ">
-                     <styleClass>
-                        <String fx:value="textFieldGrey" />
-                        <String fx:value="textField" />
-                     </styleClass>
-                  </TextField>
-               </children>
-               <HBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </HBox.margin>
-            </VBox>
-         </children>
-         <VBox.margin>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </VBox.margin>
-      </HBox>
-      <HBox>
-         <children>
-            <VBox>
-               <children>
-                  <TextField fx:id="cantidadTF" prefHeight="70.0" prefWidth="250.0" promptText="Cantidad*">
-                     <styleClass>
-                        <String fx:value="textFieldGrey" />
-                        <String fx:value="textField" />
-                     </styleClass>
-                  </TextField>
-               </children>
-               <HBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </HBox.margin>
-            </VBox>
-            <VBox>
-               <children>
-                  <ComboBox fx:id="unidadCB" prefHeight="70.0" prefWidth="85.0">
-                     <styleClass>
-                        <String fx:value="backgroundgray" />
-                        <String fx:value="gray-combo-box" />
-                     </styleClass>
-                  </ComboBox>
-               </children>
-               <HBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </HBox.margin>
-            </VBox>
-            <VBox>
-               <children>
-                  <TextField fx:id="precioTF" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="250.0" promptText="Precio*">
-                     <styleClass>
-                        <String fx:value="textFieldGrey" />
-                        <String fx:value="textField" />
-                     </styleClass>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="117.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/createIcon.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
                      <VBox.margin>
-                        <Insets />
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Label styleClass="title3" text="Por favor ingrese los datos correspondientes" textFill="#0084ff" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <VBox>
+                           <children>
+                              <TextField fx:id="nombreTF" prefHeight="70.0" prefWidth="263.0" promptText="Nombre del material*">
+                                 <styleClass>
+                                    <String fx:value="textField" />
+                                    <String fx:value="textFieldGrey" />
+                                 </styleClass>
+                              </TextField>
+                           </children>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <TextField fx:id="idMaterialTF" prefHeight="70.0" prefWidth="263.0" promptText="ID del material ">
+                                 <styleClass>
+                                    <String fx:value="textFieldGrey" />
+                                    <String fx:value="textField" />
+                                 </styleClass>
+                              </TextField>
+                           </children>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </VBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <VBox>
+                           <children>
+                              <TextField fx:id="cantidadTF" prefHeight="70.0" prefWidth="250.0" promptText="Cantidad*">
+                                 <styleClass>
+                                    <String fx:value="textFieldGrey" />
+                                    <String fx:value="textField" />
+                                 </styleClass>
+                              </TextField>
+                           </children>
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <ComboBox fx:id="unidadCB" prefHeight="70.0" prefWidth="85.0">
+                                 <styleClass>
+                                    <String fx:value="backgroundgray" />
+                                    <String fx:value="gray-combo-box" />
+                                 </styleClass>
+                              </ComboBox>
+                           </children>
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <TextField fx:id="precioTF" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="250.0" promptText="Precio*">
+                                 <styleClass>
+                                    <String fx:value="textFieldGrey" />
+                                    <String fx:value="textField" />
+                                 </styleClass>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </TextField>
+                           </children>
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </VBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
                      <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
-                  </TextField>
+                  </HBox>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <TextArea fx:id="descripcionTF" prefHeight="217.0" prefWidth="610.0" promptText="Descripcion">
+                           <styleClass>
+                              <String fx:value="textAreaGray" />
+                              <String fx:value="textField" />
+                           </styleClass>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </TextArea>
+                     </children>
+                  </HBox>
+                  <ButtonBar prefHeight="40.0" prefWidth="200.0">
+                    <buttons>
+                        <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0">
+                           <children>
+                              <AnchorPane styleClass="buttonWhiteShadow">
+                                 <StackPane.margin>
+                                    <Insets left="5.0" right="5.0" top="10.0" />
+                                 </StackPane.margin>
+                                 <padding>
+                                    <Insets bottom="5.0" />
+                                 </padding>
+                              </AnchorPane>
+                            <Button fx:id="agregarBT" mnemonicParsing="false" onAction="#agregar" styleClass="buttonBlue" text="Agregar" />
+                           </children>
+                        </StackPane>
+                        <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0">
+                           <children>
+                              <AnchorPane styleClass="buttonWhiteShadow">
+                                 <StackPane.margin>
+                                    <Insets left="5.0" right="5.0" top="10.0" />
+                                 </StackPane.margin>
+                                 <padding>
+                                    <Insets bottom="5.0" />
+                                 </padding>
+                              </AnchorPane>
+                              <Button fx:id="cancelarBT" mnemonicParsing="false" onAction="#salir" styleClass="buttonFillBlue" text="Cancelar" />
+                           </children>
+                        </StackPane>
+                    </buttons>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </ButtonBar>
                </children>
-               <HBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </HBox.margin>
             </VBox>
          </children>
-         <VBox.margin>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </VBox.margin>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </HBox>
-      <HBox alignment="CENTER">
-         <children>
-            <TextArea fx:id="descripcionTF" prefHeight="217.0" prefWidth="610.0" promptText="Descripcion">
-               <styleClass>
-                  <String fx:value="textAreaGray" />
-                  <String fx:value="textField" />
-               </styleClass>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <HBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" />
-               </HBox.margin>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </TextArea>
-         </children>
-      </HBox>
-      <ButtonBar prefHeight="40.0" prefWidth="200.0">
-        <buttons>
-            <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0">
-               <children>
-                  <AnchorPane styleClass="buttonWhiteShadow">
-                     <StackPane.margin>
-                        <Insets left="5.0" right="5.0" top="10.0" />
-                     </StackPane.margin>
-                     <padding>
-                        <Insets bottom="5.0" />
-                     </padding>
-                  </AnchorPane>
-                <Button fx:id="agregarBT" mnemonicParsing="false" onAction="#agregar" styleClass="buttonBlue" text="Agregar" />
-               </children>
-            </StackPane>
-            <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0">
-               <children>
-                  <AnchorPane styleClass="buttonWhiteShadow">
-                     <StackPane.margin>
-                        <Insets left="5.0" right="5.0" top="10.0" />
-                     </StackPane.margin>
-                     <padding>
-                        <Insets bottom="5.0" />
-                     </padding>
-                  </AnchorPane>
-                  <Button fx:id="cancelarBT" mnemonicParsing="false" onAction="#salir" styleClass="buttonFillBlue" text="Cancelar" />
-               </children>
-            </StackPane>
-        </buttons>
-         <VBox.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </VBox.margin>
-      </ButtonBar>
+      </VBox>
    </children>
-</VBox>
+</StackPane>

@@ -125,3 +125,13 @@
   -fx-text-fill: black;
   -fx-prompt-text-fill: #878787;
   -fx-background-color: #F0F0F0; }
+
+.shadowpane {
+  -fx-background-color: transparent;
+  -fx-padding: 10;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0, 1, 0); }
+
+.side-menu {
+  -fx-background-color: white;
+  -fx-background-radius: 3px 0px 0px 3px;
+  -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.4), 10, 0, 1, 0); }
