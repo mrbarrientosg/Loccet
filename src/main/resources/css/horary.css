@@ -219,8 +219,8 @@
 .customSpinner.split-arrows-horizontal:contains-focus > .text-field {
   -fx-background-insets: 1 0 1 0, 1 0 1 0, 3 2 3 2; }
 
-.backgroundWhite {
-  -fx-background-color: white; }
+.backgroundLight {
+  -fx-background-color: #F9F9F9; }
 
 .title1 {
   -fx-font-family: "Heebo Black";
@@ -263,3 +263,32 @@
     -fx-text-fill: #0084ff;
     -fx-background-color: white;
     -fx-background-radius: 3; }
+
+.buttonFillRed {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: red;
+  -fx-background-color: white;
+  -fx-background-radius: 3; }
+  .buttonFillRed:hover {
+    -fx-text-fill: red;
+    -fx-background-color: #e6e6e6;
+    -fx-background-radius: 3; }
+  .buttonFillRed:pressed {
+    -fx-text-fill: red;
+    -fx-background-color: white;
+    -fx-background-radius: 3; }
+
+.buttonWhiteShadow {
+  -fx-background-color: #e8e8e8;
+  -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.2), 20, 0, -0.06, 2); }
+
+.shadowpane {
+  -fx-background-color: transparent;
+  -fx-padding: 10;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0, 1, 0); }
+
+.side-menu {
+  -fx-background-color: white;
+  -fx-background-radius: 3px 0px 0px 3px;
+  -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.4), 10, 0, 1, 0); }

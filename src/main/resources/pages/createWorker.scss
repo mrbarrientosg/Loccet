@@ -4,6 +4,7 @@
 @import "../components/buttons";
 @import "../components/textfields";
 @import "../components/backgrounds";
+@import "../components/scrollbar";
 
 @include buttonFillBlue;
 @include buttonBlue;
@@ -16,3 +17,20 @@
 @include datePickerGray;
 
 @include title3;
+
+.gray-scroll {
+   @include custom-scroll($ghost-white);
+ }
+
+.right-pane-gradient {
+  -fx-background-radius: 0px 3px 3px 0px;
+  @include blue-gradient(to bottom right);
+}
+
+@include shadowpane;
+
+.side-menu {
+  -fx-background-color: white;
+  -fx-background-radius: 3px 0px 0px 3px;
+  @include make-shadow($side: $right-side-shadow);
+}

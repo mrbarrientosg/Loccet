@@ -9,9 +9,14 @@
 //backgrounds
 @include backgroundWhite;
 @include backgroundgray;
+@include backgroundLight;
+
 //buttons
 @include buttonBlue;
 @include buttonFillBlue;
+@include buttonFillRed;
+@include buttonWhiteShadow;
+@include buttonRed;
 
 //fonts
 @include title3;
@@ -24,3 +29,14 @@
 @include textFieldGrey;
 
 @include datePickerGray;
+
+.gray-scroll {
+  @include custom-scroll($ghost-white);
+}
+@include shadowpane;
+
+.side-menu {
+  -fx-background-color: white;
+  -fx-background-radius: 3px 0px 0px 3px;
+  @include make-shadow($side: $right-side-shadow);
+}

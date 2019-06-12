@@ -9,169 +9,207 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="720.0" prefWidth="800.0" styleClass="backgroundWhite" stylesheets="@../css/detailproyect.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+
+<StackPane styleClass="shadowpane" stylesheets="@../css/detailproyect.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ScrollPane fitToWidth="true">
-         <content>
-            <VBox fx:id="container" styleClass="backgroundWhite">
+      <VBox styleClass="side-menu">
+         <children>
+            <VBox prefHeight="720.0" prefWidth="800.0" styleClass="backgroundLight">
                <children>
-                  <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="10.0">
-                     <children>
-                        <Label styleClass="title1" text="Datos del Proyecto">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                        <Separator maxWidth="1.7976931348623157E308" visible="false" HBox.hgrow="ALWAYS" />
-                        <ButtonBar prefHeight="40.0" prefWidth="200.0">
-                           <buttons>
-                              <Button fx:id="editButton" mnemonicParsing="false" styleClass="buttonBlue" text="Editar" />
-                              <Button fx:id="exitButton" mnemonicParsing="false" styleClass="buttonFillBlue" text="Salir" />
-                           </buttons>
-                        </ButtonBar>
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <GridPane hgap="16.0" vgap="16.0" VBox.vgrow="ALWAYS">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <VBox spacing="5.0">
+                  <ScrollPane fitToWidth="true" styleClass="gray-scroll">
+                     <content>
+                        <VBox fx:id="container" styleClass="backgroundLight">
                            <children>
-                              <Label styleClass="paragraph" text="ID" />
-                              <TextField fx:id="idField" disable="true">
-                                 <styleClass>
-                                    <String fx:value="textField" />
-                                    <String fx:value="textFieldGrey" />
-                                 </styleClass></TextField>
+                              <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="10.0">
+                                 <children>
+                                    <Label styleClass="title1" text="Datos del Proyecto">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Separator maxWidth="1.7976931348623157E308" visible="false" HBox.hgrow="ALWAYS" />
+                                    <ButtonBar prefHeight="40.0" prefWidth="200.0">
+                                       <buttons>
+                                          <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0">
+                                             <children>
+                                                <AnchorPane prefHeight="0.0" styleClass="buttonWhiteShadow">
+                                                   <StackPane.margin>
+                                                      <Insets left="5.0" right="5.0" top="10.0" />
+                                                   </StackPane.margin>
+                                                   <padding>
+                                                      <Insets bottom="5.0" />
+                                                   </padding>
+                                                </AnchorPane>
+                                                <Button fx:id="editButton" mnemonicParsing="false" prefHeight="38.0" prefWidth="93.0" styleClass="buttonBlue" text="Editar" />
+                                             </children>
+                                          </StackPane>
+                                          <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0">
+                                             <children>
+                                                <AnchorPane styleClass="buttonWhiteShadow">
+                                                   <StackPane.margin>
+                                                      <Insets left="5.0" right="5.0" top="10.0" />
+                                                   </StackPane.margin>
+                                                   <padding>
+                                                      <Insets bottom="5.0" />
+                                                   </padding>
+                                                </AnchorPane>
+                                                <Button fx:id="exitButton" mnemonicParsing="false" prefHeight="46.0" prefWidth="115.0" styleClass="buttonFillRed" text="Salir" />
+                                             </children>
+                                          </StackPane>
+                                       </buttons>
+                                    </ButtonBar>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <GridPane hgap="16.0" vgap="16.0" VBox.vgrow="ALWAYS">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <VBox spacing="5.0">
+                                       <children>
+                                          <Label styleClass="paragraph" text="ID" />
+                                          <TextField fx:id="idField" disable="true">
+                                             <styleClass>
+                                                <String fx:value="textField" />
+                                                <String fx:value="textFieldGrey" />
+                                             </styleClass>
+                                          </TextField>
+                                       </children>
+                                    </VBox>
+                                    <VBox spacing="5.0" GridPane.columnIndex="1">
+                                       <children>
+                                          <Label styleClass="paragraph" text="Nombre" />
+                                          <TextField fx:id="nameField">
+                                             <styleClass>
+                                                <String fx:value="textFieldGrey" />
+                                                <String fx:value="textField" />
+                                             </styleClass>
+                                          </TextField>
+                                       </children>
+                                    </VBox>
+                                    <VBox spacing="5.0" GridPane.rowIndex="2">
+                                       <children>
+                                          <Label styleClass="paragraph" text="Direccion" />
+                                          <TextField fx:id="addressField">
+                                             <styleClass>
+                                                <String fx:value="textField" />
+                                                <String fx:value="textFieldGrey" />
+                                             </styleClass>
+                                          </TextField>
+                                       </children>
+                                    </VBox>
+                                    <VBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                       <children>
+                                          <Label styleClass="paragraph" text="Pais" />
+                                          <TextField fx:id="countryField">
+                                             <styleClass>
+                                                <String fx:value="textField" />
+                                                <String fx:value="textFieldGrey" />
+                                             </styleClass>
+                                          </TextField>
+                                       </children>
+                                    </VBox>
+                                    <VBox spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                       <children>
+                                          <Label styleClass="paragraph" text="Estado" />
+                                          <TextField fx:id="stateField">
+                                             <styleClass>
+                                                <String fx:value="textField" />
+                                                <String fx:value="textFieldGrey" />
+                                             </styleClass>
+                                          </TextField>
+                                       </children>
+                                    </VBox>
+                                    <VBox spacing="5.0" GridPane.rowIndex="3">
+                                       <children>
+                                          <Label styleClass="paragraph" text="Ciudad" />
+                                          <TextField fx:id="cityField">
+                                             <styleClass>
+                                                <String fx:value="textField" />
+                                                <String fx:value="textFieldGrey" />
+                                             </styleClass>
+                                          </TextField>
+                                       </children>
+                                    </VBox>
+                                    <Label styleClass="title3" text="Localizacion" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Label styleClass="title3" text="Otros" GridPane.columnSpan="2" GridPane.rowIndex="4">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <VBox spacing="5.0" GridPane.rowIndex="5">
+                                       <children>
+                                          <Label styleClass="paragraph" text="Cliente" />
+                                          <TextField fx:id="clientField">
+                                             <styleClass>
+                                                <String fx:value="textField" />
+                                                <String fx:value="textFieldGrey" />
+                                             </styleClass>
+                                          </TextField>
+                                       </children>
+                                    </VBox>
+                                    <VBox spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                                       <children>
+                                          <Label styleClass="paragraph" text="Fecha termino" />
+                                          <DatePicker fx:id="endDateField" disable="true" maxWidth="1.7976931348623157E308">
+                                             <styleClass>
+                                                <String fx:value="grayDatePicker" />
+                                                <String fx:value="textField" />
+                                                <String fx:value="textFieldGrey" />
+                                             </styleClass>
+                                          </DatePicker>
+                                       </children>
+                                    </VBox>
+                                    <VBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                       <children>
+                                          <Label styleClass="paragraph" text="Fecha inicio" />
+                                          <DatePicker fx:id="startDateField" disable="true" maxWidth="1.7976931348623157E308">
+                                             <styleClass>
+                                                <String fx:value="grayDatePicker" />
+                                                <String fx:value="textFieldGrey" />
+                                                <String fx:value="textField" />
+                                             </styleClass>
+                                          </DatePicker>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="16.0" left="16.0" right="16.0" />
+                                 </VBox.margin>
+                              </GridPane>
                            </children>
                         </VBox>
-                        <VBox spacing="5.0" GridPane.columnIndex="1">
-                           <children>
-                              <Label styleClass="paragraph" text="Nombre" />
-                              <TextField fx:id="nameField">
-                                 <styleClass>
-                                    <String fx:value="textFieldGrey" />
-                                    <String fx:value="textField" />
-                                 </styleClass></TextField>
-                           </children>
-                        </VBox>
-                        <VBox spacing="5.0" GridPane.rowIndex="2">
-                           <children>
-                              <Label styleClass="paragraph" text="Direccion" />
-                              <TextField fx:id="addressField">
-                                 <styleClass>
-                                    <String fx:value="textField" />
-                                    <String fx:value="textFieldGrey" />
-                                 </styleClass></TextField>
-                           </children>
-                        </VBox>
-                        <VBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <children>
-                              <Label styleClass="paragraph" text="Pais" />
-                              <TextField fx:id="countryField">
-                                 <styleClass>
-                                    <String fx:value="textField" />
-                                    <String fx:value="textFieldGrey" />
-                                 </styleClass></TextField>
-                           </children>
-                        </VBox>
-                        <VBox spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                           <children>
-                              <Label styleClass="paragraph" text="Estado" />
-                              <TextField fx:id="stateField">
-                                 <styleClass>
-                                    <String fx:value="textField" />
-                                    <String fx:value="textFieldGrey" />
-                                 </styleClass></TextField>
-                           </children>
-                        </VBox>
-                        <VBox spacing="5.0" GridPane.rowIndex="3">
-                           <children>
-                              <Label styleClass="paragraph" text="Ciudad" />
-                              <TextField fx:id="cityField">
-                                 <styleClass>
-                                    <String fx:value="textField" />
-                                    <String fx:value="textFieldGrey" />
-                                 </styleClass></TextField>
-                           </children>
-                        </VBox>
-                        <Label styleClass="title3" text="Localizacion" GridPane.columnSpan="2" GridPane.rowIndex="1">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                        <Label styleClass="title3" text="Otros" GridPane.columnSpan="2" GridPane.rowIndex="4">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                        <VBox spacing="5.0" GridPane.rowIndex="5">
-                           <children>
-                              <Label styleClass="paragraph" text="Cliente" />
-                              <TextField fx:id="clientField">
-                                 <styleClass>
-                                    <String fx:value="textField" />
-                                    <String fx:value="textFieldGrey" />
-                                 </styleClass></TextField>
-                           </children>
-                        </VBox>
-                        <VBox spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
-                           <children>
-                              <Label styleClass="paragraph" text="Fecha termino" />
-                              <DatePicker fx:id="endDateField" disable="true" maxWidth="1.7976931348623157E308">
-                                 <styleClass>
-                                    <String fx:value="grayDatePicker" />
-                                    <String fx:value="textField" />
-                                    <String fx:value="textFieldGrey" />
-                                 </styleClass>
-                              </DatePicker>
-                           </children>
-                        </VBox>
-                        <VBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                           <children>
-                              <Label styleClass="paragraph" text="Fecha inicio" />
-                              <DatePicker fx:id="startDateField" disable="true" maxWidth="1.7976931348623157E308">
-                                 <styleClass>
-                                    <String fx:value="grayDatePicker" />
-                                    <String fx:value="textFieldGrey" />
-                                    <String fx:value="textField" />
-                                 </styleClass>
-                              </DatePicker>
-                           </children>
-                        </VBox>
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="16.0" left="16.0" right="16.0" />
-                     </VBox.margin>
-                  </GridPane>
+                     </content>
+                  </ScrollPane>
                </children>
             </VBox>
-         </content>
-         <styleClass>
-            <String fx:value="scroll-bar" />
-            <String fx:value="custom-scroll" />
-         </styleClass>
-      </ScrollPane>
+         </children>
+      </VBox>
    </children>
-</VBox>
+</StackPane>

@@ -135,20 +135,27 @@
     -fx-background-color: red;
     -fx-background-radius: 3; }
 
-.buttonGray {
+.buttonBorderBlue {
   -fx-font-family: "Heebo Medium";
   -fx-font-size: 14px;
-  -fx-text-fill: black;
-  -fx-background-color: #F0F0F0;
-  -fx-background-radius: 3; }
-  .buttonGray:hover {
-    -fx-text-fill: black;
-    -fx-background-color: #d7d7d7;
-    -fx-background-radius: 3; }
-  .buttonGray:pressed {
-    -fx-text-fill: black;
-    -fx-background-color: #F0F0F0;
-    -fx-background-radius: 3; }
+  -fx-text-fill: #0084ff;
+  -fx-background-color: white;
+  -fx-border-radius: 3;
+  -fx-border-color: #0084ff; }
+  .buttonBorderBlue:hover {
+    -fx-text-fill: #0084ff;
+    -fx-background-color: #f2f2f2;
+    -fx-border-radius: 3;
+    -fx-border-color: #0084ff; }
+  .buttonBorderBlue:pressed {
+    -fx-text-fill: #0084ff;
+    -fx-background-color: white;
+    -fx-border-radius: 3;
+    -fx-border-color: #0084ff; }
+
+.buttonWhiteShadow {
+  -fx-background-color: #e8e8e8;
+  -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.2), 20, 0, -0.06, 2); }
 
 .backgroundWhite {
   -fx-background-color: white; }

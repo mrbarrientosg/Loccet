@@ -200,6 +200,30 @@
   }
 }
 
+@mixin buttonBorderRed {
+  #{'.buttonBorderRed'} {
+    @include button;
+    -fx-text-fill: red;
+    -fx-background-color: white;
+    -fx-border-radius: 3;
+    -fx-border-color: red;
+
+    &:hover {
+      -fx-text-fill: red;
+      -fx-background-color: darken(white, 5%);
+      -fx-border-radius: 3;
+      -fx-border-color: red;
+    }
+
+    &:pressed {
+      -fx-text-fill: red;
+      -fx-background-color: white;
+      -fx-border-radius: 3;
+      -fx-border-color: red;
+    }
+  }
+}
+
 @mixin buttonFillRed {
   #{'.buttonFillRed'} {
     @include button;
@@ -262,7 +286,7 @@
 
 @mixin buttonWhiteShadow {
   #{'.buttonWhiteShadow'} {
-    -fx-background-color: white;
+    -fx-background-color: darken(white,9);
     @include make-shadow($color: rgba(black, 0.2), $radius: 20, $side: shadow-side($y: 2));
   }
 }

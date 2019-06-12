@@ -8,10 +8,13 @@
 
 @include backgroundWhite;
 @include backgroundgray;
+@include backgroundLight;
 
 @include buttonFillBlue;
+@include buttonBorderRed;
 @include buttonBlue;
 @include buttonBorderBlue;
+@include buttonWhiteShadow;
 
 @include title1;
 
@@ -22,3 +25,14 @@
 @include textField;
 @include textAreaGray;
 
+.gray-scroll {
+  @include custom-scroll($ghost-white);
+}
+
+@include shadowpane;
+
+.side-menu {
+  -fx-background-color: white;
+  -fx-background-radius: 3px 0px 0px 3px;
+  @include make-shadow($side: $right-side-shadow);
+}

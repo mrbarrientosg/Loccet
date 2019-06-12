@@ -5,13 +5,15 @@
 @import "../components/backgrounds";
 @import '../components/textarea';
 
-@include backgroundWhite;
+@include backgroundLight;
 
 @include backgroundgray;
 
 @include buttonFillBlue;
 
 @include buttonBlue;
+
+@include buttonWhiteShadow;
 
 @include textFieldGrey;
 
@@ -21,3 +23,10 @@
 
 @include title3;
 
+@include shadowpane;
+
+.side-menu {
+  -fx-background-color: white;
+  -fx-background-radius: 3px 0px 0px 3px;
+  @include make-shadow($side: $right-side-shadow);
+}

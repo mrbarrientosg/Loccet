@@ -6,7 +6,7 @@
 @import "../components/spinner";
 
 //backgrounds
-@include backgroundWhite;
+@include backgroundLight;
 
 //fonts
 @include title1;
@@ -16,5 +16,13 @@
 //button
 @include buttonBlue;
 @include buttonFillBlue;
+@include buttonFillRed;
+@include buttonWhiteShadow;
 
+@include shadowpane;
 
+.side-menu {
+  -fx-background-color: white;
+  -fx-background-radius: 3px 0px 0px 3px;
+  @include make-shadow($side: $right-side-shadow);
+}

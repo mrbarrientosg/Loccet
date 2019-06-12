@@ -50,6 +50,10 @@
     -fx-border-radius: 3;
     -fx-border-color: #0084ff; }
 
+.buttonWhiteShadow {
+  -fx-background-color: #e8e8e8;
+  -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.2), 20, 0, -0.06, 2); }
+
 .paragraph {
   -fx-font-family: "Heebo";
   -fx-font-size: 14px; }
@@ -57,3 +61,13 @@
 .title3 {
   -fx-font-family: "Heebo Black";
   -fx-font-size: 16px; }
+
+.shadowpane {
+  -fx-background-color: transparent;
+  -fx-padding: 10;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0, 1, 0); }
+
+.side-menu {
+  -fx-background-color: white;
+  -fx-background-radius: 3px 0px 0px 3px;
+  -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.4), 10, 0, 1, 0); }
