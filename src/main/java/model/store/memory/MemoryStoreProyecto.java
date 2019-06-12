@@ -1,8 +1,8 @@
-package repository.memory;
+package model.store.memory;
 
 import model.Proyecto;
-import repository.AbstractStore;
-import repository.StoreProyecto;
+import model.store.AbstractStore;
+import model.store.StoreProyecto;
 
 import java.util.*;
 

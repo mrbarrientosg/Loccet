@@ -1,4 +1,4 @@
-package repository;
+package model.store;
 
 import java.util.HashSet;
 import java.util.Set;

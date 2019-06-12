@@ -1,8 +1,8 @@
-package repository.memory;
+package model.store.memory;
 
 import model.Fase;
-import repository.AbstractStore;
-import repository.StoreFase;
+import model.store.AbstractStore;
+import model.store.StoreFase;
 
 import java.util.*;
 

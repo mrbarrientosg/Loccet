@@ -1,12 +1,8 @@
-package repository.memory;
+package model.store.memory;
 
 import model.Asistencia;
-import repository.AbstractStore;
-import repository.Store;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import model.store.AbstractStore;
+import model.store.Store;
 
 public class MemoryStoreAsistencia extends AbstractStore<Asistencia> implements Store<Asistencia> {
 

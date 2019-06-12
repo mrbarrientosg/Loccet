@@ -1,8 +1,8 @@
-package repository.memory;
+package model.store.memory;
 
 import model.Tarea;
-import repository.AbstractStore;
-import repository.Store;
+import model.store.AbstractStore;
+import model.store.Store;
 
 public class MemoryStoreTarea extends AbstractStore<Tarea> implements Store<Tarea> {
 

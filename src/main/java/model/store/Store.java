@@ -1,4 +1,4 @@
-package repository;
+package model.store;
 
 public interface Store<Model> {
     public Model save(Model value);

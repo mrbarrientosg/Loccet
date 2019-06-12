@@ -1,11 +1,11 @@
 package model;
 
 import com.google.gson.JsonObject;
-import repository.MemorySpecification;
-import repository.memory.MemoryStoreProyecto;
-import repository.memory.MemoryStoreTrabajador;
-import repository.StoreProyecto;
-import repository.StoreTrabajador;
+import model.store.MemorySpecification;
+import model.store.memory.MemoryStoreProyecto;
+import model.store.memory.MemoryStoreTrabajador;
+import model.store.StoreProyecto;
+import model.store.StoreTrabajador;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
-package repository.memory;
+package model.store.memory;
 
 import model.RegistroMaterial;
-import repository.AbstractStore;
+import model.store.AbstractStore;
 
 public class MemoryStoreRegistroMaterial extends AbstractStore<RegistroMaterial> {
 

@@ -1,8 +1,8 @@
-package repository.memory;
+package model.store.memory;
 
 import model.Horario;
-import repository.AbstractStore;
-import repository.StoreHorario;
+import model.store.AbstractStore;
+import model.store.StoreHorario;
 
 import java.util.*;
 

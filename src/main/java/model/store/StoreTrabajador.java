@@ -1,8 +1,6 @@
-package repository;
+package model.store;
 
 import model.Trabajador;
-
-import java.util.Iterator;
 
 public interface StoreTrabajador extends Store<Trabajador> {
     public Trabajador findByRut(String rut);

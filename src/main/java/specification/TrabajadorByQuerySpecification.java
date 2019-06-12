@@ -1,7 +1,7 @@
 package specification;
 
 import model.Trabajador;
-import repository.MemorySpecification;
+import model.store.MemorySpecification;
 
 public class TrabajadorByQuerySpecification implements MemorySpecification<Trabajador> {
 

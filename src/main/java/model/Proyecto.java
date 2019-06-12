@@ -2,10 +2,10 @@ package model;
 
 import com.google.gson.*;
 import json.LocalDateTypeConverter;
-import repository.*;
-import repository.memory.MemoryStoreAsistencia;
-import repository.memory.MemoryStoreFase;
-import repository.memory.MemoryStoreTrabajador;
+import model.store.*;
+import model.store.memory.MemoryStoreAsistencia;
+import model.store.memory.MemoryStoreFase;
+import model.store.memory.MemoryStoreTrabajador;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;

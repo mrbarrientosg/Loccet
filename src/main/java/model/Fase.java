@@ -1,7 +1,7 @@
 package model;
 
-import repository.Store;
-import repository.memory.MemoryStoreTarea;
+import model.store.Store;
+import model.store.memory.MemoryStoreTarea;
 
 import java.time.Instant;
 

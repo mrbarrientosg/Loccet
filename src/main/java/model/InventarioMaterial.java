@@ -1,7 +1,7 @@
 package model;
 
-import repository.memory.MemoryStoreMaterial;
-import repository.StoreMaterial;
+import model.store.memory.MemoryStoreMaterial;
+import model.store.StoreMaterial;
 
 import java.math.BigDecimal;
 

@@ -1,7 +1,7 @@
 package model;
 
-import repository.Store;
-import repository.memory.MemoryStoreRegistroMaterial;
+import model.store.Store;
+import model.store.memory.MemoryStoreRegistroMaterial;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

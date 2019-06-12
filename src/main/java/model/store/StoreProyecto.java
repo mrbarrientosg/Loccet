@@ -1,8 +1,6 @@
-package repository;
+package model.store;
 
 import model.Proyecto;
-
-import java.util.Iterator;
 
 public interface StoreProyecto extends Store<Proyecto> {
     public Proyecto findById(String id);
