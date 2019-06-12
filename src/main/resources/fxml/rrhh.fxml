@@ -14,12 +14,13 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import org.controlsfx.control.tableview2.FilteredTableView?>
 
 <VBox prefHeight="720.0" prefWidth="800.0" stylesheets="@../css/rrhh.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ScrollPane fitToWidth="true" styleClass="gray-scroll">
          <content>
-            <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="804.0" styleClass="backgroundLight">
+            <VBox maxHeight="-Infinity" maxWidth="-Infinity" styleClass="backgroundLight">
                <children>
                   <VBox spacing="12.0">
                      <VBox.margin>
@@ -91,6 +92,19 @@
                                     <Button fx:id="deleteTrabajador" mnemonicParsing="false" prefHeight="35.0" styleClass="buttonRed" text="Eliminar" textFill="WHITE" />
                                  </children>
                               </StackPane>
+                              <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0">
+                                 <children>
+                                    <AnchorPane styleClass="buttonWhiteShadow">
+                                       <StackPane.margin>
+                                          <Insets left="5.0" right="5.0" top="10.0" />
+                                       </StackPane.margin>
+                                       <padding>
+                                          <Insets bottom="5.0" />
+                                       </padding>
+                                    </AnchorPane>
+                                    <Button fx:id="filterButton" mnemonicParsing="false" prefHeight="35.0" styleClass="buttonBlue" text="Filtrar" textFill="WHITE" />
+                                 </children>
+                              </StackPane>
                            </children>
                         </HBox>
                         <TextField fx:id="searchField" maxHeight="1.7976931348623157E308" promptText="Buscar trabajador">
@@ -101,23 +115,15 @@
                         </TextField>
                      </children>
                   </VBox>
-                  <TableView fx:id="tableTrabajadores" VBox.vgrow="ALWAYS">
-                    <columns>
-                      <TableColumn fx:id="rutColumn" prefWidth="75.0" text="Rut" />
-                      <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Nombre" />
-                        <TableColumn fx:id="lastNameColumn" prefWidth="75.0" text="Apellido" />
-                        <TableColumn fx:id="specialityColumn" prefWidth="90.0" text="Especialidad" />
-                        <TableColumn fx:id="emailColumn" prefWidth="120.0" text="Correo electronico" />
-                        <TableColumn fx:id="telephoneConlumn" prefWidth="75.0" text="Telefono" />
-                    </columns>
-                     <VBox.margin>
-                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                     </VBox.margin>
+                  <FilteredTableView fx:id="tableTrabajadores" columnFixingEnabled="false" rowFixingEnabled="false" southHeaderBlended="false" VBox.vgrow="ALWAYS">
                      <styleClass>
                         <String fx:value="rrhh-table" />
                         <String fx:value="custom-scroll" />
                      </styleClass>
-                  </TableView>
+                     <VBox.margin>
+                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                     </VBox.margin>
+                  </FilteredTableView>
                   <VBox alignment="CENTER" spacing="10.0">
                      <VBox.margin>
                         <Insets left="16.0" right="16.0" top="8.0" />

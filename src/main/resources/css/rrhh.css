@@ -279,3 +279,35 @@
     -fx-background-color: #ACACAC;
     -fx-background-insets: 1.0, 0.0, 0.0;
     -fx-background-radius: 2.0em; }
+
+.table-view2 .column-header > .label > .button.filter {
+  -fx-background-color: transparent;
+  -fx-background-image: null;
+  -fx-background-size: 0;
+  -fx-background-position: center center;
+  -fx-background-repeat: stretch;
+  -fx-padding: 0; }
+
+.table-view2 .column-header > .label > .button.filter:filtered {
+  -fx-background-image: null; }
+
+.table-view2 > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .tableview2-cell {
+  -fx-text-fill: #595959;
+  -fx-alignment: CENTER;
+  -fx-border-width: 0; }
+
+.table-view2:focused:row-selection > .virtual-flow > .clipped-container > .sheet > .table-row-cell:focused > .tableview2-cell {
+  -fx-background-color: #F0F0F0;
+  -fx-border-width: 0; }
+
+.table-view2:focused:row-selection > .virtual-flow > .clipped-container > .sheet > .table-row-cell:focused > .tableview2-cell:left {
+  -fx-background-color: #F0F0F0;
+  -fx-border-width: 0; }
+
+.table-view2:focused:row-selection > .virtual-flow > .clipped-container > .sheet > .table-row-cell:focused > .tableview2-cell:right {
+  -fx-background-color: #F0F0F0;
+  -fx-border-width: 0; }
+
+.table-view2:focused:row-selection > .virtual-flow > .clipped-container > .sheet > .table-row-cell:focused > .tableview2-cell:single {
+  -fx-background-color: #F0F0F0;
+  -fx-border-width: 0; }

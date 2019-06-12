@@ -1,34 +1,40 @@
 package view;
 
+import base.Injectable;
 import base.View;
+import cell.FilterCell;
 import cell.ProyectoCell;
 import cell.TrabajadorCell;
 import controller.RRHHController;
 import delegate.EditTrabajadorDelegate;
 import io.reactivex.Observable;
-import io.reactivex.Single;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.rxjavafx.observables.JavaFxObservable;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import io.reactivex.schedulers.Schedulers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.SortedList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
-import model.Proyecto;
+import javafx.util.Pair;
 import model.Trabajador;
-import router.DetalleProyectoRouter;
+import org.controlsfx.control.tableview2.FilteredTableColumn;
+import org.controlsfx.control.tableview2.FilteredTableView;
 import router.DetalleTrabajadorRouter;
 import router.RRHHRouter;
-
+import delegate.FilterDelegate;
+import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Predicate;
 
-public class RRHHView extends View implements EditTrabajadorDelegate {
+public class RRHHView extends View implements EditTrabajadorDelegate, FilterDelegate {
 
     private RRHHController controller;
 
@@ -50,31 +56,28 @@ public class RRHHView extends View implements EditTrabajadorDelegate {
     private Button deleteTrabajador;
 
     @FXML
-    private TableView<TrabajadorCell> tableTrabajadores;
+    private FilteredTableView<TrabajadorCell> tableTrabajadores;
 
-    @FXML
-    private TableColumn<TrabajadorCell, String> rutColumn;
+    private FilteredTableColumn<TrabajadorCell, String> rutColumn;
 
-    @FXML
-    private TableColumn<TrabajadorCell, String> nameColumn;
+    private FilteredTableColumn<TrabajadorCell, String> nameColumn;
 
-    @FXML
-    private TableColumn<TrabajadorCell, String> lastNameColumn;
+    private FilteredTableColumn<TrabajadorCell, String> lastNameColumn;
 
-    @FXML
-    private TableColumn<TrabajadorCell, String> specialityColumn;
+    private FilteredTableColumn<TrabajadorCell, String> specialityColumn;
 
-    @FXML
-    private TableColumn<TrabajadorCell, String> emailColumn;
+    private FilteredTableColumn<TrabajadorCell, String> emailColumn;
 
-    @FXML
-    private TableColumn<TrabajadorCell, String> telephoneConlumn;
+    private FilteredTableColumn<TrabajadorCell, String> telephoneConlumn;
 
     @FXML
     private Button createEspecialidad;
 
     @FXML
     private Button deleteEspecialidad;
+
+    @FXML
+    private Button filterButton;
 
     @FXML
     private TableView<?> tableEspecialidades;
@@ -85,14 +88,40 @@ public class RRHHView extends View implements EditTrabajadorDelegate {
     @FXML
     private TableColumn<?, ?> sueldoEspecialidad;
 
+    private ObservableList<Pair<String, Class<?>>> columnList;
+
+    private ObservableList<FilterCell> filterCells;
+
+    private CompositeDisposable disposable;
+
     @Override
     public void viewDidLoad() {
+        filterCells = FXCollections.observableArrayList();
+        columnList = FXCollections.observableArrayList();
+        disposable = new CompositeDisposable();
+
+        rutColumn = new FilteredTableColumn<>("Rut");
+        nameColumn = new FilteredTableColumn<>("Nombre");
+        lastNameColumn = new FilteredTableColumn<>("Apellido");
+        specialityColumn = new FilteredTableColumn<>("Especialidad");
+        emailColumn = new FilteredTableColumn<>("Correo Electronico");
+        telephoneConlumn = new FilteredTableColumn<>("Telefono");
+
         rutColumn.setCellValueFactory(new PropertyValueFactory<>("rut"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("apellido"));
         specialityColumn.setCellValueFactory(new PropertyValueFactory<>("nombreEspecialidad"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("correoElectronico"));
         telephoneConlumn.setCellValueFactory(new PropertyValueFactory<>("telefono"));
+
+        tableTrabajadores.getColumns().setAll(rutColumn, nameColumn, lastNameColumn, specialityColumn, emailColumn, telephoneConlumn);
+
+        tableTrabajadores.getColumns().forEach(trabajadorCellTableColumn -> {
+            columnList.add(new Pair<>(trabajadorCellTableColumn.getText(), String.class));
+        });
+
+        tableTrabajadores.fixedCellSizeProperty().setValue(40);
+
 
         Callback<ListView<ProyectoCell>, ListCell<ProyectoCell>> factory = lv -> new ListCell<ProyectoCell>() {
             @Override
@@ -112,6 +141,7 @@ public class RRHHView extends View implements EditTrabajadorDelegate {
 
         deleteTrabajador.setOnAction(this::deleteTrabajadorAction);
         detailTrabajador.setOnAction(this::detailTrabajadorAction);
+        filterButton.setOnAction(this::showFilterAction);
     }
 
     @Override
@@ -124,55 +154,59 @@ public class RRHHView extends View implements EditTrabajadorDelegate {
 
         Observable<String> textInputs = JavaFxObservable.valuesOf(searchField.textProperty());
 
-        textInputs
-                .debounce(300, TimeUnit.MILLISECONDS)
-                .distinctUntilChanged()
-                .flatMap(value -> {
-                    ProyectoCell cell = proyectList.getSelectionModel().getSelectedItem();
-                    if (cell != null && cell.getNombre().equals("Todos"))
-                        return controller.searchEmployee(value)
-                            .onErrorReturnItem(FXCollections.emptyObservableList())
-                            .toObservable();
+        Disposable search = textInputs
+                    .debounce(300, TimeUnit.MILLISECONDS)
+                    .distinctUntilChanged()
+                    .map(value -> {
+                        ProyectoCell cell = proyectList.getSelectionModel().getSelectedItem();
+                        if (cell != null && cell.getNombre().equals("Todos"))
+                            return controller.searchEmployee(value);
 
-                    if (cell != null && !cell.getNombre().equals("Todos"))
-                        return controller.searchEmployeeProject(cell.getId(), value)
-                                .onErrorReturnItem(FXCollections.emptyObservableList())
-                                .toObservable();
+                        return controller.searchEmployeeProject(cell.getId(), value);
+                    })
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(JavaFxScheduler.platform())
+                    .subscribe(list -> {
+                        tableTrabajadores.setItems(list);
+                        list.predicateProperty().bind(tableTrabajadores.predicateProperty());
+                    });
 
-                    return Observable.just(FXCollections.emptyObservableList());
-                })
-                .map(objects -> (ObservableList<TrabajadorCell>) objects)
-                .subscribeOn(Schedulers.io())
-                .observeOn(JavaFxScheduler.platform())
-                .subscribe(list -> {
-                    tableTrabajadores.setItems(list);
-                });
+        disposable.add(search);
 
 
         Observable<ProyectoCell> selected = JavaFxObservable.valuesOf(proyectList.getSelectionModel().selectedItemProperty());
 
-        selected
-                .filter(Objects::nonNull)
-                .flatMap(value -> {
-                    if (value.getNombre().equals("Todos"))
-                        return controller.searchEmployee("")
-                                .toObservable();
+        Disposable project = selected
+                    .filter(Objects::nonNull)
+                    .map(value -> {
+                        if (value.getNombre().equals("Todos"))
+                            return controller.searchEmployee("");
 
-                    return controller.getEmployeesProject(value.getId())
-                            .toObservable();
-                })
-                .subscribeOn(Schedulers.computation())
-                .observeOn(JavaFxScheduler.platform())
-                .subscribe(list -> {
-                    tableTrabajadores.setItems(list);
-                });
+                        return controller.getEmployeesProject(value.getId());
+                    })
+                    .subscribeOn(Schedulers.computation())
+                    .observeOn(JavaFxScheduler.platform())
+                    .subscribe(list -> {
+                        tableTrabajadores.setItems(list);
+                        list.predicateProperty().bind(tableTrabajadores.predicateProperty());
+                    });
 
+        disposable.add(project);
     }
 
     @Override
     public void viewDidClose() {
         proyectList.getItems().clear();
-        tableTrabajadores.getItems().clear();
+        disposable.dispose();
+        disposable.clear();
+    }
+
+    private void showFilterAction(ActionEvent event) {
+        FilterView view = Injectable.find(FilterView.class);
+        view.setFilterCells(filterCells);
+        view.setColumnList(columnList);
+        view.setDelegate(this);
+        view.modal().withResizable(true).show();
     }
 
     private void deleteTrabajadorAction(ActionEvent event) {
@@ -209,11 +243,24 @@ public class RRHHView extends View implements EditTrabajadorDelegate {
     public void didEditTrabajador() {
         ProyectoCell cell = proyectList.getSelectionModel().getSelectedItem();
 
+        FilteredList<TrabajadorCell> list;
+
         if (cell.getNombre().equals("Todos"))
-            tableTrabajadores.setItems(controller.fetchTrabajadores());
+            list = controller.fetchTrabajadores();
         else
-            tableTrabajadores.setItems(controller.fetchTrabajadores(cell.getId()));
+            list = controller.fetchTrabajadores(cell.getId());
+
+        tableTrabajadores.setItems(list);
+        list.predicateProperty().bind(tableTrabajadores.predicateProperty());
 
         searchField.setText("");
+    }
+
+    @Override
+    public void filters(Map<String, Predicate> coditions) {
+        tableTrabajadores.getColumns().forEach(column -> {
+            FilteredTableColumn filteredTableColumn = (FilteredTableColumn) column;
+            filteredTableColumn.setPredicate(coditions.get(column.getText()));
+        });
     }
 }
