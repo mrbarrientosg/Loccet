@@ -4,8 +4,9 @@ import base.Controller;
 import cell.ProyectoCell;
 import cell.TrabajadorCell;
 import com.google.gson.JsonObject;
-import io.reactivex.Observable;
 import io.reactivex.Single;
+import javafx.beans.Observable;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -32,43 +33,55 @@ public class RRHHController extends Controller {
 
     private Router<TrabajadorAPI> service = new Router<>();
 
-    public FilteredList<TrabajadorCell> fetchTrabajadores() {
-        return new FilteredList<>(FXCollections.observableList(model.getConjuntoTrabajadores().stream().map(TrabajadorCell::new).collect(Collectors.toList())));
+    public ObservableList<TrabajadorCell> fetchTrabajadores() {
+        ObservableList<TrabajadorCell> cells = FXCollections.observableArrayList(e -> new Observable[]{ new SimpleStringProperty(e.getRut())});
+
+        model.getConjuntoTrabajadores().stream().map(TrabajadorCell::new).forEach(cells::add);
+
+        return cells;
     }
 
-    public FilteredList<TrabajadorCell> fetchTrabajadores(String idProyecto) {
+    public ObservableList<TrabajadorCell> fetchTrabajadores(String idProyecto) {
         Proyecto p = model.obtenerProyecto(idProyecto);
 
-        if (p == null) return new FilteredList<>(FXCollections.emptyObservableList());
+        ObservableList<TrabajadorCell> cells = FXCollections.observableArrayList(e -> new Observable[]{ new SimpleStringProperty(e.getRut())});
 
-        return new FilteredList<>(FXCollections.observableList(p.getTrabajadores().stream().map(TrabajadorCell::new).collect(Collectors.toList())));
+        if (p == null)
+            return cells;
+
+        p.getTrabajadores().stream().map(TrabajadorCell::new).forEach(cells::add);
+
+        return cells;
     }
 
-    public FilteredList<TrabajadorCell> searchEmployee(String text) {
-        List<TrabajadorCell> list = StreamSupport.stream(model.buscarTrabajador(new TrabajadorByQuerySpecification(text)).spliterator(), false)
-                .map(TrabajadorCell::new)
-                .collect(Collectors.toList());
+    public ObservableList<TrabajadorCell> searchEmployee(String text) {
+        ObservableList<TrabajadorCell> cells = FXCollections.observableArrayList(e -> new Observable[]{ new SimpleStringProperty(e.getRut())});
 
-        return new FilteredList<>(FXCollections.observableList(list));
+        StreamSupport.stream(model.buscarTrabajador(new TrabajadorByQuerySpecification(text)).spliterator(), false)
+                .map(TrabajadorCell::new)
+                .forEach(cells::add);
+
+        return cells;
 
 }
 
-    public FilteredList<TrabajadorCell> searchEmployeeProject(String idProject, String text) {
+    public ObservableList<TrabajadorCell> searchEmployeeProject(String idProject, String text) {
         Proyecto p = model.obtenerProyecto(idProject);
 
-        if (p == null) return new FilteredList<>(FXCollections.emptyObservableList());
+        ObservableList<TrabajadorCell> cells = FXCollections.observableArrayList(e -> new Observable[]{ new SimpleStringProperty(e.getRut())});
 
-        List<TrabajadorCell> list = StreamSupport.stream(p.buscarTrabajador(new TrabajadorByQuerySpecification(text)).spliterator(), false)
+        if (p == null)
+            return cells;
+
+        StreamSupport.stream(p.buscarTrabajador(new TrabajadorByQuerySpecification(text)).spliterator(), false)
                 .map(TrabajadorCell::new)
-                .collect(Collectors.toList());
+                .forEach(cells::add);
 
-        return new FilteredList<>(FXCollections.observableList(list));
-
+        return cells;
     }
 
-    public FilteredList<TrabajadorCell> getEmployeesProject(String id) {
+    public ObservableList<TrabajadorCell> getEmployeesProject(String id) {
         return searchEmployeeProject(id, "");
-                //FXCollections.observableList(p.getTrabajadores().stream().map(TrabajadorCell::new).collect(Collectors.toList()));
     }
 
     public Trabajador obtenerTrabajador(String rut) {
@@ -84,10 +97,10 @@ public class RRHHController extends Controller {
 
         json.addProperty("rut", rut);
 
-        service.request(TrabajadorAPI.REMOVE, json)
+        /*service.request(TrabajadorAPI.REMOVE, json)
                 .subscribe(System.out::println, throwable -> {
                     LOGGER.log(Level.SEVERE, "", throwable);
-                });
+                });*/
     }
 
     public List<ProyectoCell> getProyectos() {

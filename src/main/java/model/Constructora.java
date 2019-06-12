@@ -54,6 +54,9 @@ public class Constructora implements Costeable {
     }
 
     public void agregarProyecto(Proyecto proyecto) {
+        if (storeProyecto.contains(proyecto))
+            return;
+
         storeProyecto.save(proyecto);
     }
 
@@ -79,6 +82,9 @@ public class Constructora implements Costeable {
     }
 
     public void agregarTrabajador(Trabajador trabajador) {
+        if (storeTrabajador.contains(trabajador))
+            return;
+
         storeTrabajador.save(trabajador);
     }
 
@@ -92,9 +98,12 @@ public class Constructora implements Costeable {
      */
     public void agregarTrabajador(String idProyecto, Trabajador trabajador) {
         Proyecto proyecto = storeProyecto.findById(idProyecto);
+
         if (proyecto == null) return;
+
         proyecto.agregarTrabajador(trabajador);
-        storeTrabajador.save(trabajador);
+
+        agregarTrabajador(trabajador);
     }
 
     public Trabajador eliminarTrabajador(String rut) {

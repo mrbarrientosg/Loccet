@@ -80,6 +80,9 @@ public class Proyecto implements Costeable{
      * @author Matias Zuñiga
      */
     public void agregarTrabajador(Trabajador trabajador){
+        if (storeTrabajador.contains(trabajador))
+            return;
+
         trabajador.asociarProyecto(this);
         storeTrabajador.save(trabajador);
     }

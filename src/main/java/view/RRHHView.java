@@ -20,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.util.Pair;
@@ -168,7 +169,6 @@ public class RRHHView extends View implements EditTrabajadorDelegate, FilterDele
                     .observeOn(JavaFxScheduler.platform())
                     .subscribe(list -> {
                         tableTrabajadores.setItems(list);
-                        list.predicateProperty().bind(tableTrabajadores.predicateProperty());
                     });
 
         disposable.add(search);
@@ -188,7 +188,6 @@ public class RRHHView extends View implements EditTrabajadorDelegate, FilterDele
                     .observeOn(JavaFxScheduler.platform())
                     .subscribe(list -> {
                         tableTrabajadores.setItems(list);
-                        list.predicateProperty().bind(tableTrabajadores.predicateProperty());
                     });
 
         disposable.add(project);
@@ -224,7 +223,7 @@ public class RRHHView extends View implements EditTrabajadorDelegate, FilterDele
         DetalleTrabajadorView view = DetalleTrabajadorRouter.create(t, this);
         view.modal()
                 .withStyle(StageStyle.TRANSPARENT)
-                .show();
+                .show().getScene().setFill(Color.TRANSPARENT);
     }
 
     public void didDeleteTrabajador(String rut) {
@@ -243,7 +242,7 @@ public class RRHHView extends View implements EditTrabajadorDelegate, FilterDele
     public void didEditTrabajador() {
         ProyectoCell cell = proyectList.getSelectionModel().getSelectedItem();
 
-        FilteredList<TrabajadorCell> list;
+        ObservableList<TrabajadorCell> list;
 
         if (cell.getNombre().equals("Todos"))
             list = controller.fetchTrabajadores();
@@ -251,7 +250,6 @@ public class RRHHView extends View implements EditTrabajadorDelegate, FilterDele
             list = controller.fetchTrabajadores(cell.getId());
 
         tableTrabajadores.setItems(list);
-        list.predicateProperty().bind(tableTrabajadores.predicateProperty());
 
         searchField.setText("");
     }

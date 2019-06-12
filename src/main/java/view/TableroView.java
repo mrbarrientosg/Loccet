@@ -37,9 +37,6 @@ public class TableroView extends Fragment {
     private Button minimizeButton;
 
     @FXML
-    private Button maximizeButton;
-
-    @FXML
     private Button exitButton;
 
     @FXML
@@ -84,11 +81,6 @@ public class TableroView extends Fragment {
             }
         });
 
-        maximizeButton.setOnAction(event -> {
-            // TODO: Verificar maximizar la vista, no funciona
-            //getCurrentStage().setMaximized(true);
-        });
-
         minimizeButton.setOnAction(event -> {
             getCurrentStage().setIconified(true);
         });
@@ -101,10 +93,10 @@ public class TableroView extends Fragment {
 
     private void setCenter(Parent node) {
         contentPane.getChildren().add(node);
-        AnchorPane.setBottomAnchor(node, 0.0);
-        AnchorPane.setTopAnchor(node, 0.0);
-        AnchorPane.setLeftAnchor(node, 0.0);
-        AnchorPane.setRightAnchor(node, 0.0);
+        AnchorPane.setBottomAnchor(node, 1.0);
+        AnchorPane.setTopAnchor(node, 1.0);
+        AnchorPane.setLeftAnchor(node, 1.0);
+        AnchorPane.setRightAnchor(node, 1.0);
     }
 
     private void setupCenter(Toggle button) {

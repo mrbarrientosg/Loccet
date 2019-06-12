@@ -25,6 +25,9 @@ public class InventarioMaterial implements Costeable {
     // MARK: - Metodos Material
 
     public void agregarMaterial(Material material) {
+        if (storeMaterial.contains(material))
+            return;
+
         storeMaterial.save(material);
     }
 
