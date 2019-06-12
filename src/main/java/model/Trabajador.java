@@ -2,15 +2,14 @@ package model;
 
 import com.google.gson.*;
 import json.LocalDateTypeConverter;
-import repository.memory.MemoryRepositoryHorario;
-import repository.memory.MemoryRepositoryProyecto;
-import repository.RepositoryHorario;
-import repository.RepositoryProyecto;
+import model.store.memory.MemoryStoreHorario;
+import model.store.memory.MemoryStoreProyecto;
+import model.store.StoreHorario;
+import model.store.StoreProyecto;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.*;
 
 public abstract class Trabajador {
 
@@ -32,37 +31,37 @@ public abstract class Trabajador {
 
     private String correoElectronico;
 
-    private RepositoryProyecto repositoryProyecto;
+    private StoreProyecto storeProyecto;
 
-    private RepositoryHorario repositoryHorario;
+    private StoreHorario storeHorario;
 
     // MARK: - Constructor
 
     public Trabajador() {
-        repositoryHorario = new MemoryRepositoryHorario();
-        repositoryProyecto = new MemoryRepositoryProyecto();
+        storeHorario = new MemoryStoreHorario();
+        storeProyecto = new MemoryStoreProyecto();
     }
 
     // MARK: - Metodos Proyecto
 
     public void asociarProyecto(Proyecto proyecto) {
-        repositoryProyecto.add(proyecto);
+        storeProyecto.save(proyecto);
     }
 
     // MARK: - Metodos Horario
 
     public void agregarHorario(String idProyecto, Horario horario) {
-        horario.setProyecto(repositoryProyecto.get(idProyecto));
+        horario.setProyecto(storeProyecto.findById(idProyecto));
         horario.setTrabajador(this);
-        repositoryHorario.add(horario);
+        storeHorario.save(horario);
     }
 
     public void eliminarHorario(Integer id) {
-        repositoryHorario.remove(repositoryHorario.get(id));
+        storeHorario.delete(id);
     }
 
     public Iterable<Horario> obtenerListaHorario() {
-        return repositoryHorario.get();
+        return storeHorario.findAll();
     }
 
     // MARK: - Getter

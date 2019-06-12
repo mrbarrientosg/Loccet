@@ -2,20 +2,15 @@ package model;
 
 import com.google.gson.*;
 import json.LocalDateTypeConverter;
-import repository.RepositoryAsistencia;
-import repository.RepositoryFase;
-import repository.Specification;
-import repository.memory.MemoryRepositoryAsistencia;
-import repository.memory.MemoryRepositoryFase;
-import repository.memory.MemoryRepositoryTrabajador;
-import repository.RepositoryTrabajador;
+import model.store.*;
+import model.store.memory.MemoryStoreAsistencia;
+import model.store.memory.MemoryStoreFase;
+import model.store.memory.MemoryStoreTrabajador;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 
@@ -37,20 +32,20 @@ public class Proyecto implements Costeable{
 
     private String nombreCliente;
 
-    private RepositoryTrabajador repositoryTrabajador;
+    private StoreTrabajador storeTrabajador;
 
-    private RepositoryAsistencia repositoryAsistencia;
+    private Store<Asistencia> asistenciaStore;
 
-    private RepositoryFase repositoryFase;
+    private StoreFase storeFase;
 
     private InventarioMaterial inventarioMaterial;
 
     // MARK: - Constructor
 
     public Proyecto() {
-        repositoryAsistencia = new MemoryRepositoryAsistencia();
-        repositoryTrabajador = new MemoryRepositoryTrabajador();
-        repositoryFase = new MemoryRepositoryFase();
+        asistenciaStore = new MemoryStoreAsistencia();
+        storeTrabajador = new MemoryStoreTrabajador();
+        storeFase = new MemoryStoreFase();
         inventarioMaterial = new InventarioMaterial();
     }
 
@@ -74,7 +69,7 @@ public class Proyecto implements Costeable{
      * @author Matias Barrientos
      */
     public Trabajador obtenerTrabajador(String rut) {
-        return repositoryTrabajador.get(rut);
+        return storeTrabajador.findByRut(rut);
     }
 
     /**
@@ -86,13 +81,9 @@ public class Proyecto implements Costeable{
      */
     public void agregarTrabajador(Trabajador trabajador){
         trabajador.asociarProyecto(this);
-        repositoryTrabajador.add(trabajador);
+        storeTrabajador.save(trabajador);
     }
 
-
-    public Trabajador actualizarTrabajador(Trabajador nuevoTrabajador) {
-        return repositoryTrabajador.update(nuevoTrabajador);
-    }
 
     /**
      * Elimina al trabajador que coincida con el rut.
@@ -102,17 +93,24 @@ public class Proyecto implements Costeable{
      * @author Matias Barrientos
      */
     public Trabajador eliminarTrabajador(String rut) {
-        return repositoryTrabajador.remove(repositoryTrabajador.get(rut));
+        return storeTrabajador.delete(rut);
     }
 
-    public Iterable<Trabajador> buscarTrabajador(Specification busqueda) {
-        return repositoryTrabajador.get(busqueda);
+    public Iterable<Trabajador> buscarTrabajador(MemorySpecification<Trabajador> specification) {
+        final List<Trabajador> trabajadors = new ArrayList<>();
+
+        for (Trabajador trabajador: storeTrabajador.findAll()) {
+            if (specification.test(trabajador))
+                trabajadors.add(trabajador);
+        }
+
+        return trabajadors;
     }
 
     public List<Trabajador> getTrabajadores() {
         // Hay cambiarlo por un iterator
         List<Trabajador> list = new ArrayList<>();
-        repositoryTrabajador.get().forEach(list::add);
+        storeTrabajador.findAll().forEach(list::add);
         return list;
     }
 
@@ -126,21 +124,21 @@ public class Proyecto implements Costeable{
 
     public void agregarAsistencia(String rutTrabajador, Asistencia asistencia) {
         asistencia.setProyecto(this);
-        asistencia.setTrabajador(repositoryTrabajador.get(rutTrabajador));
-        repositoryAsistencia.add(asistencia);
+        asistencia.setTrabajador(storeTrabajador.findByRut(rutTrabajador));
+        asistenciaStore.save(asistencia);
     }
 
     // MARK: - Metodos Fase
 
     public void agregarFase(Fase fase) {
         fase.setProyecto(this);
-        repositoryFase.add(fase);
+        storeFase.save(fase);
     }
 
     // MARK: - Metodos Tarea
 
     public void agregarTarea(int idFase, Tarea tarea) {
-        repositoryFase.get(idFase).agregarTarea(tarea);
+        storeFase.findById(idFase).agregarTarea(tarea);
     }
 
 
@@ -154,7 +152,7 @@ public class Proyecto implements Costeable{
 
     @Override
     public BigDecimal calcularCosto(){
-        Iterable<Trabajador> iterable = repositoryTrabajador.get();
+        Iterable<Trabajador> iterable = storeTrabajador.findAll();
 
         BigDecimal costoAproximado = new BigDecimal(0);
 

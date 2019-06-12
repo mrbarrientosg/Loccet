@@ -1,6 +1,7 @@
 package model;
-import repository.memory.MemoryRepositoryRegistroMaterial;
-import repository.RepositoryRegistroMaterial;
+
+import model.store.Store;
+import model.store.memory.MemoryStoreRegistroMaterial;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -13,7 +14,6 @@ import java.util.List;
  * @author Sebastian Fuenzalida
  *
  */
-
 public class Material {
 
     // MARK: - Atributos
@@ -30,18 +30,18 @@ public class Material {
 
     private BigDecimal precio;
 
-    private RepositoryRegistroMaterial repositoryRegistroMaterial;
+    private Store<RegistroMaterial> registroMaterialStore;
 
     // MARK: - Constructores
 
-    public Material(String nombre, String descripcion, double cantidad,String uds,BigDecimal precio){
+    public Material(String nombre, String descripcion, double cantidad,String uds,BigDecimal precio) {
         this.descripcion = descripcion;
         this.cantidad = cantidad;
         this.nombre = nombre;
         this.uds = uds;
         id = generarId();
         this.precio = precio;
-        repositoryRegistroMaterial = new MemoryRepositoryRegistroMaterial();
+        registroMaterialStore = new MemoryStoreRegistroMaterial();
     }
 
     public Material(String nombre, String descripcion, double cantidad,String uds,String id,BigDecimal precio){
@@ -51,22 +51,18 @@ public class Material {
         this.uds = uds;
         this.id = id;
         this.precio = precio;
-        repositoryRegistroMaterial = new MemoryRepositoryRegistroMaterial();
+        registroMaterialStore = new MemoryStoreRegistroMaterial();
     }
 
     public Material() {
-        repositoryRegistroMaterial = new MemoryRepositoryRegistroMaterial();
+        registroMaterialStore = new MemoryStoreRegistroMaterial();
     }
 
     // MARK: - Metodos Registro Material
 
     public void agregarRegistro(RegistroMaterial registroMaterial) {
         registroMaterial.setMaterial(this);
-        repositoryRegistroMaterial.add(registroMaterial);
-    }
-
-    public RegistroMaterial actualizarRegistro(RegistroMaterial registroMaterial) {
-        return repositoryRegistroMaterial.update(registroMaterial);
+        registroMaterialStore.save(registroMaterial);
     }
 
     // MARK: - Metodos Privados
@@ -133,7 +129,7 @@ public class Material {
 
     public List<RegistroMaterial> getListaRegistroMaterial() {
         List<RegistroMaterial> list = new ArrayList<>();
-        repositoryRegistroMaterial.get().forEachRemaining(list::add);
+        registroMaterialStore.findAll().forEach(list::add);
         return list;
     }
 

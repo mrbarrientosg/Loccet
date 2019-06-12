@@ -1,10 +1,9 @@
 package model;
 
-import repository.memory.MemoryRepositoryMaterial;
-import repository.RepositoryMaterial;
+import model.store.memory.MemoryStoreMaterial;
+import model.store.StoreMaterial;
 
 import java.math.BigDecimal;
-import java.util.*;
 
 /**
  * Clase Inventario
@@ -15,45 +14,41 @@ public class InventarioMaterial implements Costeable {
 
     // MARK: - Atributos
 
-    private RepositoryMaterial repositoryMaterial;
+    private StoreMaterial storeMaterial;
 
     // MARK: - Constructor
 
     public InventarioMaterial() {
-        repositoryMaterial = new MemoryRepositoryMaterial();
+        storeMaterial = new MemoryStoreMaterial();
     };
 
     // MARK: - Metodos Material
 
     public void agregarMaterial(Material material) {
-        repositoryMaterial.add(material);
+        storeMaterial.save(material);
     }
 
     public Material obtenerMaterial(String id){
-       return repositoryMaterial.get(id);
-    }
-
-    public Material actualizarMaterial(Material material) {
-        return repositoryMaterial.update(material);
+       return storeMaterial.findById(id);
     }
 
     public Material eliminarMaterial(String id) {
-        return repositoryMaterial.remove(repositoryMaterial.get(id));
+        return storeMaterial.delete(id);
     }
 
     // MARK: - Metodos Registro Material
 
     public void agregarRegistroMaterial(String idMaterial, RegistroMaterial registroMaterial) {
-        repositoryMaterial.get(idMaterial).agregarRegistro(registroMaterial);
+        storeMaterial.findById(idMaterial).agregarRegistro(registroMaterial);
     }
 
     public Iterable<Material> obtenerMateriales() {
-        return repositoryMaterial.get();
+        return storeMaterial.findAll();
     }
 
     @Override
     public BigDecimal calcularCosto() {
-        Iterable<Material> iterable = repositoryMaterial.get();
+        Iterable<Material> iterable = storeMaterial.findAll();
 
         BigDecimal costoTotal = new BigDecimal(0);
 

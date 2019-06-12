@@ -1,7 +1,7 @@
 package model;
 
-import repository.RepositoryTarea;
-import repository.memory.MemoryRepositoryTarea;
+import model.store.Store;
+import model.store.memory.MemoryStoreTarea;
 
 import java.time.Instant;
 
@@ -23,18 +23,18 @@ public class Fase {
 
     private Proyecto proyecto;
 
-    private RepositoryTarea repositoryTarea;
+    private Store<Tarea> tareaStore;
 
     // MARK: - Constructor
 
     public Fase() {
-        repositoryTarea = new MemoryRepositoryTarea();
+        tareaStore = new MemoryStoreTarea();
     }
 
     // MARK: - Metodos Tarea
 
     public void agregarTarea(Tarea tarea) {
-        repositoryTarea.add(tarea);
+        tareaStore.save(tarea);
     }
 
 
