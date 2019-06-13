@@ -1,79 +1,418 @@
-/*
-Error: Undefined variable: "$ghost-white".
-        on line 10 of ../components/_backgrounds.scss
-        from line 2 of horary.scss
+@font-face {
+  font-family: "Heebo";
+  src: url("../fonts/Heebo-Regular.ttf") format("truetype"); }
+@font-face {
+  font-family: "Heebo Medium";
+  src: url("../fonts/Heebo-Medium.ttf") format("truetype"); }
+@font-face {
+  font-family: "Heebo Light";
+  src: url("../fonts/Heebo-Light.ttf") format("truetype"); }
+@font-face {
+  font-family: "Heebo Black";
+  src: url("../fonts/Heebo-Black.ttf") format("truetype"); }
+.large-title {
+  -fx-font-family: "Heebo Black";
+  -fx-font-size: 34px; }
 
-5: @import "../components/radiobutton";
-6: @import "../components/spinner";
-7: 
-8: /*\//backgrounds
-9: @include backgroundLight;
-10: 
-11: //fonts
-12: @include title1;
-13: @include title3;
-14: @include paragraph;
-15: 
+.title1 {
+  -fx-font-family: "Heebo Black";
+  -fx-font-size: 24px; }
 
-Backtrace:
-../components/_backgrounds.scss:10
-horary.scss:2
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/script/tree/variable.rb:49:in `_perform'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/script/tree/node.rb:50:in `perform'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:398:in `visit_prop'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:36:in `visit'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:79:in `block in with_base'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:135:in `with_frame'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:79:in `with_base'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:158:in `visit'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:440:in `block (2 levels) in visit_rule'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:440:in `map'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:440:in `block in visit_rule'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:438:in `visit_rule'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:36:in `visit'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:79:in `block in with_base'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:135:in `with_frame'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:79:in `with_base'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:158:in `visit'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:325:in `block (2 levels) in visit_import'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:325:in `map'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:325:in `block in visit_import'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:88:in `block in with_import'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:135:in `with_frame'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:88:in `with_import'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:322:in `visit_import'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:36:in `visit'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:79:in `block in with_base'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:135:in `with_frame'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:79:in `with_base'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:158:in `visit'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:52:in `map'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:52:in `visit_children'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:167:in `block in visit_children'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:166:in `visit_children'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:36:in `block in visit'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:186:in `visit_root'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:36:in `visit'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:157:in `visit'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:10:in `visit'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/root_node.rb:36:in `css_tree'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/root_node.rb:20:in `render'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/engine.rb:290:in `render'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/exec/sass_scss.rb:396:in `run'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/exec/sass_scss.rb:63:in `process_result'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/exec/base.rb:50:in `parse'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/exec/base.rb:18:in `parse!'
-C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/bin/sass:13:in `<top (required)>'
-C:/Ruby26-x64/bin/sass:23:in `load'
-C:/Ruby26-x64/bin/sass:23:in `<main>'
-*/
-body:before {
-  white-space: pre;
-  font-family: monospace;
-  content: "Error: Undefined variable: \"$ghost-white\".\A         on line 10 of ../components/_backgrounds.scss\A         from line 2 of horary.scss\A \A 5: @import \"../components/radiobutton\";\A 6: @import \"../components/spinner\";\A 7: \A 8: /*//backgrounds\A 9: @include backgroundLight;\A 10: \A 11: //fonts\A 12: @include title1;\A 13: @include title3;\A 14: @include paragraph;\A 15: "; }
+.title2 {
+  -fx-font-family: "Heebo Black";
+  -fx-font-size: 20px; }
+
+.title3 {
+  -fx-font-family: "Heebo Black";
+  -fx-font-size: 16px; }
+
+.paragraph {
+  -fx-font-family: "Heebo";
+  -fx-font-size: 14px; }
+
+.paragraph-light {
+  -fx-font-family: "Heebo Light";
+  -fx-font-size: 14px; }
+
+.paragraph-medium {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px; }
+
+.textfield {
+  -fx-font-family: "Heebo Light";
+  -fx-font-size: 13px; }
+
+.footnote {
+  -fx-font-family: "Heebo Light";
+  -fx-font-size: 12px; }
+
+.shadow-root {
+  -fx-background-color: transparent;
+  -fx-padding: 10;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 10, 0, 1, 0); }
+
+.button-shadow-green {
+  -fx-background-color: white;
+  -fx-effect: dropshadow(two-pass-box, rgba(74, 201, 89, 0.7), 20, 0, -0.06, 1.5); }
+
+.button-shadow-blue {
+  -fx-background-color: white;
+  -fx-effect: dropshadow(two-pass-box, rgba(0, 132, 255, 0.4), 20, 0, -0.06, 2); }
+
+.button-shadow-white {
+  -fx-background-color: #e8e8e8;
+  -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.2), 20, 0, -0.06, 2); }
+
+.bg-transparent {
+  -fx-background-color: transparent; }
+
+.bg-white {
+  -fx-background-color: white; }
+
+.bg-light-gray {
+  -fx-background-color: #F9F9F9; }
+
+.bg-gray {
+  -fx-background-color: #F0F0F0; }
+
+.corner-pane {
+  -fx-background-radius: 3px; }
+
+/*@mixin backgroundgray{
+  .backgroundgray{
+    -fx-text-fill: black;
+    -fx-prompt-text-fill: darken(lightGray, 30%);
+  }
+}*/
+.textfield-gray {
+  -fx-text-fill: black;
+  -fx-prompt-text-fill: #878787;
+  -fx-background-color: #F0F0F0; }
+
+.button-label-gray {
+  -fx-background-color: transparent;
+  -fx-background-radius: 0;
+  -fx-text-fill: #ACACAC;
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px; }
+  .button-label-gray:hover {
+    -fx-text-fill: #D1D1D1; }
+  .button-label-gray:pressed {
+    -fx-text-fill: #ACACAC; }
+
+.button-label-black {
+  -fx-background-color: transparent;
+  -fx-background-radius: 0;
+  -fx-text-fill: #595959;
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px; }
+  .button-label-black:hover {
+    -fx-text-fill: #ACACAC; }
+  .button-label-black:pressed {
+    -fx-text-fill: #595959; }
+
+.button-label-light-black {
+  -fx-background-color: transparent;
+  -fx-background-radius: 0;
+  -fx-text-fill: #595959;
+  -fx-font-family: "Heebo Light";
+  -fx-font-size: 14px; }
+  .button-label-light-black:hover {
+    -fx-text-fill: #ACACAC; }
+  .button-label-light-black:pressed {
+    -fx-text-fill: #595959; }
+
+.button-label-blue {
+  -fx-background-color: transparent;
+  -fx-background-radius: 0;
+  -fx-text-fill: #0084ff;
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px; }
+  .button-label-blue:hover {
+    -fx-text-fill: #006acc; }
+  .button-label-blue:pressed {
+    -fx-text-fill: #0084ff; }
+
+.button-label-red {
+  -fx-background-color: transparent;
+  -fx-background-radius: 0;
+  -fx-text-fill: red;
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px; }
+  .button-label-red:hover {
+    -fx-text-fill: #cc0000; }
+  .button-label-red:pressed {
+    -fx-text-fill: red; }
+
+.button-fill-green {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: white;
+  -fx-background-color: #4AC959;
+  -fx-background-radius: 3; }
+  .button-fill-green:hover {
+    -fx-background-color: #21d761; }
+  .button-fill-green:pressed {
+    -fx-background-color: #4AC959; }
+
+.button-fill-blue {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: white;
+  -fx-background-color: #0084ff;
+  -fx-background-radius: 3; }
+  .button-fill-blue:hover {
+    -fx-background-color: #2998ff; }
+  .button-fill-blue:pressed {
+    -fx-background-color: #0084ff; }
+
+.button-fill-red {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: white;
+  -fx-background-color: red;
+  -fx-background-radius: 3; }
+  .button-fill-red:hover {
+    -fx-background-color: #ff2929; }
+  .button-fill-red:pressed {
+    -fx-background-color: red; }
+
+.button-fill-white {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: black;
+  -fx-background-color: white;
+  -fx-background-radius: 3; }
+  .button-fill-white:hover {
+    -fx-background-color: #e6e6e6; }
+  .button-fill-white:pressed {
+    -fx-background-color: white; }
+
+.button-fill-gray {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: black;
+  -fx-background-color: #F0F0F0;
+  -fx-background-radius: 3; }
+  .button-fill-gray:hover {
+    -fx-background-color: #d7d7d7; }
+  .button-fill-gray:pressed {
+    -fx-background-color: #F0F0F0; }
+
+.button-border-blue {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: #0084ff;
+  -fx-background-color: white;
+  -fx-background-radius: 3;
+  -fx-border-radius: 3;
+  -fx-border-color: #0084ff;
+  -fx-border-width: 0.8; }
+  .button-border-blue:hover {
+    -fx-background-color: #f2f2f2; }
+  .button-border-blue:pressed {
+    -fx-background-color: white; }
+
+.button-border-red {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: red;
+  -fx-background-color: white;
+  -fx-background-radius: 3;
+  -fx-border-radius: 3;
+  -fx-border-color: red;
+  -fx-border-width: 0.8; }
+  .button-border-red:hover {
+    -fx-background-color: #f2f2f2; }
+  .button-border-red:pressed {
+    -fx-background-color: white; }
+
+.radio-button {
+  -fx-label-padding: 0.0em 0.0em 0.0em 0.416667em;
+  /* 0 0 0 5 */
+  -fx-text-fill: #8a8a8a; }
+
+.radio-button > .radio {
+  -fx-background-color: transparent;
+  -fx-border-color: #bdbdbd;
+  -fx-border-width: 1px;
+  -fx-border-radius: 1.0em;
+  -fx-padding: 0.333333em; }
+
+.radio-button:hover > .radio {
+  -fx-background-color: #e3e3e3; }
+
+.radio-button:armed > .radio {
+  -fx-color: #66b5ff; }
+
+/*.customRadioButton:focused > .radio{
+  -fx-border-color: $gray;
+  -fx-border-width: 1px;
+  -fx-border-radius: 1.0em;
+  -fx-padding: 0.333333em;
+  -fx-background-insets: -0.2, 1, 2, -1.4, 2.6;
+  -fx-background-radius: 3, 2, 1, 4, 1;
+}*/
+.radio-button:selected > .radio > .dot {
+  -fx-background-color: #00c6ff, #0084ff;
+  -fx-background-insets: 1 0 -1 0, 0;
+  -fx-alignment: CENTER; }
+
+.spinner {
+  -fx-background-color: #F0F0F0;
+  -fx-prompt-text-fill: #878787;
+  -fx-text-fill: #F0F0F0;
+  -fx-background-insets: 0, 1;
+  -fx-background-radius: 3, 2; }
+
+.spinner:focused,
+.spinner:contains-focus {
+  -fx-background-color: -fx-focus-color, -fx-inner-border, -fx-body-color, -fx-faint-focus-color, -fx-body-color;
+  -fx-background-insets: -0.2, 1, 2, -1.4, 2.6;
+  -fx-background-radius: 3, 2, 1, 4, 1;
+  -fx-focus-color: #cacaca;
+  -fx-faint-focus-color: #cacaca; }
+
+.spinner > .text-field {
+  -fx-background-color: #F0F0F0;
+  -fx-prompt-text-fill: #878787;
+  -fx-text-fill: #F0F0F0;
+  -fx-background-insets: 0, 1 0 1 1;
+  -fx-background-radius: 3 0 0 3, 2 0 0 2; }
+
+.spinner:focused > .text-field,
+.spinner:contains-focus > .text-field {
+  -fx-background-color: #F0F0F0;
+  -fx-prompt-text-fill: #878787;
+  -fx-text-fill: #F0F0F0;
+  -fx-background-insets: 1 0 1 1, 1 0 1 1, 3 2 3 3;
+  -fx-background-radius: 2 0 0 2, 1 0 0 1, 0; }
+
+.spinner .increment-arrow-button {
+  -fx-background-color: #F0F0F0;
+  /*Change the two 0's here to -1 to get rid of the horizontal line */
+  -fx-background-insets: 0 0 -1 0, 1 1 0 1, 2 2 1 2;
+  -fx-background-radius: 0 3 0 0, 0 2 0 0, 0 1 0 0;
+  -fx-padding: 0.333335em 0.666667em 0.333335em 0.666667em;
+  /* 5 8 3 8 */ }
+
+.spinner .decrement-arrow-button {
+  -fx-background-color: #F0F0F0;
+  -fx-background-insets: 0, 1 1 1 1, 1 2 2 2;
+  -fx-background-radius: 0 0 3 0, 0 0 2 0, 0 0 1 0;
+  -fx-padding: 0.333335em 0.666667em 0.333335em 0.666667em;
+  /* 3 8 5 8 */ }
+
+.spinner:focused .increment-arrow-button,
+.spinner:contains-focus .increment-arrow-button,
+.spinner:focused .decrement-arrow-button,
+.spinner:contains-focus .decrement-arrow-button {
+  -fx-background-color: #0084ff; }
+
+.spinner:focused .increment-arrow-button .increment-arrow {
+  -fx-background-color: #c6c6c6; }
+
+.spinner:focused .decrement-arrow-button .decrement-arrow {
+  -fx-background-color: #c6c6c6; }
+
+.spinner .increment-arrow-button .increment-arrow {
+  -fx-background-color: #0084ff;
+  -fx-background-insets: 0 0 -1 0, 0;
+  -fx-padding: 0.166667em 0.333333em 0.166667em 0.333333em;
+  /* 2 4 2 4 */
+  -fx-shape: "M 0 4 h 7 l -3.5 -4 z"; }
+
+.spinner .decrement-arrow-button .decrement-arrow {
+  -fx-background-color: #0084ff;
+  -fx-background-insets: 0 0 -1 0, 0;
+  -fx-padding: 0.166667em 0.333333em 0.166667em 0.333333em;
+  /* 2 4 2 4 */
+  -fx-shape: "M 0 0 h 7 l -3.5 4 z"; }
+
+/* Spinner - Horizontal arrows */
+.spinner.split-arrows-horizontal .increment-arrow-button .increment-arrow,
+.spinner.arrows-on-right-horizontal .increment-arrow-button .increment-arrow,
+.spinner.arrows-on-left-horizontal .increment-arrow-button .increment-arrow {
+  -fx-padding: 0.333333em 0.166667em 0.333333em 0.166667em;
+  /* 4 2 4 2 */
+  -fx-shape: "M 0 0 v 7 l 3.5 -4 z"; }
+
+.spinner.split-arrows-horizontal .decrement-arrow-button .decrement-arrow,
+.spinner.arrows-on-right-horizontal .decrement-arrow-button .decrement-arrow,
+.spinner.arrows-on-left-horizontal .decrement-arrow-button .decrement-arrow {
+  -fx-padding: 0.333333em 0.166667em 0.333333em 0.166667em;
+  /* 4 2 4 2 */
+  -fx-shape: "M 4 0 v 7 l -4 -3.5 z"; }
+
+/* Spinner - STYLE_CLASS_ARROWS_ON_RIGHT_HORIZONTAL */
+.spinner.arrows-on-right-horizontal .increment-arrow-button {
+  -fx-background-radius: 0 3 3 0, 0 2 2 0, 0 1 1 0;
+  -fx-background-insets: 0 0 0 -1, 1 1 1 0, 2 2 2 1; }
+
+.spinner.arrows-on-right-horizontal .decrement-arrow-button {
+  -fx-background-radius: 0;
+  -fx-background-insets: 0, 1, 2; }
+
+/* Spinner - STYLE_CLASS_ARROWS_ON_LEFT_VERTICAL */
+.spinner.arrows-on-left-vertical > .text-field {
+  -fx-background-insets: 0, 1 1 1 0;
+  -fx-background-radius: 0 3 3 0, 0 2 2 0; }
+
+.spinner.arrows-on-left-vertical .increment-arrow-button {
+  -fx-background-radius: 3 0 0 0, 2 0 0 0, 1 0 0 0; }
+
+.spinner.arrows-on-left-vertical .decrement-arrow-button {
+  -fx-background-radius: 0 0 0 3, 0 0 0 2, 0 0 0 1; }
+
+/* Spinner - STYLE_CLASS_ARROWS_ON_LEFT_HORIZONTAL */
+.spinner.arrows-on-left-horizontal > .text-field {
+  -fx-background-insets: 0, 1 1 1 0;
+  -fx-background-radius: 0 3 3 0, 0 2 2 0; }
+
+.spinner.arrows-on-left-horizontal .increment-arrow-button {
+  -fx-background-insets: 0 0 0 -1, 1 1 1 0, 2 2 2 1;
+  -fx-background-radius: 0; }
+
+.spinner.arrows-on-left-horizontal .decrement-arrow-button {
+  -fx-background-insets: 0, 1, 2;
+  -fx-background-radius: 3 0 0 3, 2 0 0 2, 1 0 0 1; }
+
+.spinner.arrows-on-left-vertical:focused > .text-field,
+.spinner.arrows-on-left-vertical:contains-focus > .text-field,
+.spinner.arrows-on-left-horizontal:focused > .text-field,
+.spinner.arrows-on-left-horizontal:contains-focus > .text-field {
+  -fx-background-insets: 1 1 1 0, 1 1 1 0, 3 3 3 2; }
+
+/* Spinner - STYLE_CLASS_SPLIT_ARROWS_VERTICAL */
+.spinner.split-arrows-vertical > .text-field {
+  -fx-background-insets: 0, 0 1 0 1;
+  -fx-background-radius: 0, 0; }
+
+.spinner.split-arrows-vertical .increment-arrow-button {
+  -fx-background-insets: 0, 1, 2;
+  -fx-background-radius: 3 3 0 0, 2 2 0 0, 1 1 0 0; }
+
+.spinner.split-arrows-vertical .decrement-arrow-button {
+  -fx-background-insets: 0, 1, 2;
+  -fx-background-radius: 0 0 3 3, 0 0 2 2, 0 0 1 1; }
+
+.spinner.split-arrows-vertical:focused > .text-field,
+.spinner.split-arrows-vertical:contains-focus > .text-field {
+  -fx-background-insets: 0 1 0 1, 0 1 0 1, 2 3 2 3; }
+
+/* Spinner - STYLE_CLASS_SPLIT_ARROWS_HORIZONTAL */
+.spinner.split-arrows-horizontal > .text-field {
+  -fx-background-insets: 0, 1 0 1 0;
+  -fx-background-radius: 0, 0; }
+
+.spinner.split-arrows-horizontal .increment-arrow-button {
+  -fx-background-insets: 0, 1, 2;
+  -fx-background-radius: 0 3 3 0, 0 2 2 0, 0 1 1 0; }
+
+.spinner.split-arrows-horizontal .decrement-arrow-button {
+  -fx-background-insets: 0, 1, 2;
+  -fx-background-radius: 3 0 0 3, 2 0 0 2, 1 0 0 1; }
+
+.spinner.split-arrows-horizontal:focused > .text-field,
+.spinner.split-arrows-horizontal:contains-focus > .text-field {
+  -fx-background-insets: 1 0 1 0, 1 0 1 0, 3 2 3 2; }

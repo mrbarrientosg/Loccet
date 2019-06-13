@@ -1,8 +1,8 @@
-@import '../base/font';
+@import '../base/base';
 @import "../components/buttons";
 @import "../components/backgrounds";
 
-/*.top-bar {
+.top-bar {
   -fx-border-width: 0 0 0.25 0;
   -fx-border-color: rgba(0,0,0,0.5);
   -fx-background-color: white;
@@ -38,16 +38,4 @@
   -fx-background-color: rgba($dark-blue, .07);
 }
 
-@include buttonLabelBlack(true);
-
 @include circle-buttons();
-
-@include largeTitle;
-@include footnote;
-
-@include backgroundLight;
-
-@include shadowpane;
-
-@include title1;
-*/

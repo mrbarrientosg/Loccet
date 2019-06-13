@@ -1,9 +1,9 @@
-@import '../base/font';
+@import '../base/base';
 @import "../components/buttons";
 @import "../components/textfields";
 @import "../components/backgrounds";
 
-/*.right-pane-gradient {
+.right-pane-gradient {
   -fx-background-radius: 0px 3px 3px 0px;
   @include blue-gradient(to bottom right);
 }
@@ -29,20 +29,4 @@
   -fx-text-alignment: justify;
 }
 
-@include buttonGreen;
-@include buttonGreenShadow;
-@include buttonLabelGrey;
 @include circle-buttons();
-
-@include largeTitle;
-@include title2;
-@include textField;
-@include paragraph;
-@include paragraphUI;
-
-@include backgroundWhite;
-
-@include shadowpane;
-
-@include textFieldGrey;
- */

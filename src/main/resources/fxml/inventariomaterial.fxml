@@ -13,77 +13,49 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox spacing="10.0" styleClass="backgroundLight" stylesheets="@../css/inventary.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox spacing="10.0" styleClass="bg-white" stylesheets="@../css/inventary.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox spacing="8.0">
          <VBox.margin>
-            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+            <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
          </VBox.margin>
          <children>
-            <HBox alignment="CENTER" spacing="20.0">
+            <HBox alignment="CENTER" spacing="10.0">
                <children>
                   <Label styleClass="title1" text="Inventario" />
                   <ButtonBar HBox.hgrow="ALWAYS">
                     <buttons>
                         <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0">
                            <children>
-                              <AnchorPane styleClass="buttonWhiteShadow">
+                              <AnchorPane styleClass="button-shadow-white">
                                  <StackPane.margin>
-                                    <Insets left="5.0" right="5.0" top="10.0" />
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </StackPane.margin>
                                  <padding>
                                     <Insets bottom="5.0" />
                                  </padding>
                               </AnchorPane>
-                              <Button fx:id="nuevoMaterialBT" mnemonicParsing="false" onAction="#nuevoMaterial" styleClass="buttonBlue" text="Nuevo material">
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                              </Button>
+                              <Button fx:id="nuevoMaterialBT" mnemonicParsing="false" onAction="#nuevoMaterial" styleClass="button-fill-blue" text="Nuevo material" />
                            </children>
                         </StackPane>
-                        <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0">
-                           <children>
-                              <AnchorPane maxWidth="-Infinity" prefHeight="25.0" prefWidth="95.0" styleClass="buttonWhiteShadow">
-                                 <StackPane.margin>
-                                    <Insets left="5.0" right="5.0" top="10.0" />
-                                 </StackPane.margin>
-                                 <padding>
-                                    <Insets bottom="5.0" />
-                                 </padding>
-                              </AnchorPane>
-                              <Button fx:id="editarBT" disable="true" mnemonicParsing="false" onAction="#detalleMaterial" prefWidth="96.0" styleClass="buttonBorderBlue" text="Ver detalle">
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                              </Button>
-                           </children>
-                        </StackPane>
-                        <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0">
-                           <children>
-                              <AnchorPane styleClass="buttonWhiteShadow">
-                                 <StackPane.margin>
-                                    <Insets left="5.0" right="5.0" top="10.0" />
-                                 </StackPane.margin>
-                                 <padding>
-                                    <Insets bottom="5.0" />
-                                 </padding>
-                              </AnchorPane>
-                              <Button fx:id="eliminarBT" disable="true" mnemonicParsing="false" onAction="#eliminar" prefWidth="96.0" styleClass="buttonRed" text="Eliminar ">
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                              </Button>
-                           </children>
-                        </StackPane>
+                        <Button fx:id="editarBT" disable="true" mnemonicParsing="false" onAction="#detalleMaterial" prefWidth="96.0" styleClass="button-label-blue" text="Ver detalle">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </Button>
+                        <Button fx:id="eliminarBT" disable="true" mnemonicParsing="false" onAction="#eliminar" prefWidth="96.0" styleClass="button-label-red" text="Eliminar ">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </Button>
                     </buttons>
                   </ButtonBar>
                </children>
             </HBox>
             <TextField fx:id="searchText" maxWidth="1.7976931348623157E308" promptText="Buscar material">
                <styleClass>
-                  <String fx:value="textField" />
-                  <String fx:value="textFieldGrey" />
+                  <String fx:value="textfield" />
+                  <String fx:value="textfield-gray" />
                </styleClass>
                <VBox.margin>
                   <Insets />
@@ -91,7 +63,7 @@
             </TextField>
          </children>
       </VBox>
-      <TableView fx:id="tablaInventario" styleClass="rrhh-table" VBox.vgrow="ALWAYS">
+      <TableView fx:id="tablaInventario" VBox.vgrow="ALWAYS">
         <columns>
           <TableColumn fx:id="idMaterialCL" editable="false" minWidth="-1.0" prefWidth="57.0" text="ID" />
             <TableColumn fx:id="nombreMaterialCL" editable="false" minWidth="-1.0" prefWidth="65.0" text="Nombre" />
@@ -102,14 +74,18 @@
             <TableColumn fx:id="precioCL" editable="false" minWidth="-1.0" prefWidth="100.0" text="Precio" />
         </columns>
          <VBox.margin>
-            <Insets left="8.0" right="8.0" />
+            <Insets left="16.0" right="16.0" />
          </VBox.margin>
+         <styleClass>
+            <String fx:value="table" />
+            <String fx:value="bg-gray" />
+         </styleClass>
       </TableView>
       <ButtonBar>
         <buttons>
             <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0">
                <children>
-                  <AnchorPane styleClass="buttonWhiteShadow">
+                  <AnchorPane styleClass="button-shadow-white">
                      <StackPane.margin>
                         <Insets left="5.0" right="5.0" top="10.0" />
                      </StackPane.margin>
@@ -117,16 +93,13 @@
                         <Insets bottom="5.0" />
                      </padding>
                   </AnchorPane>
-                <Button mnemonicParsing="false" onAction="#exportarInventario" styleClass="buttonBlue" text="Exportar Inventario" />
+                <Button mnemonicParsing="false" onAction="#exportarInventario" styleClass="button-fill-blue" text="Exportar Inventario" />
                </children>
             </StackPane>
         </buttons>
          <VBox.margin>
-            <Insets left="8.0" right="8.0" />
+            <Insets bottom="16.0" left="16.0" right="16.0" />
          </VBox.margin>
       </ButtonBar>
    </children>
-   <padding>
-      <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-   </padding>
 </VBox>

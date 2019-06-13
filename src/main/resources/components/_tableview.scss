@@ -1,6 +1,6 @@
 @mixin make-tableview() {
   .table {
-    -fx-border-color: white;
+    -fx-border-color: transparent;
     -fx-font-family: "Heebo Light";
     -fx-font-size: 12px;
     -fx-table-cell-border-color: $gray;

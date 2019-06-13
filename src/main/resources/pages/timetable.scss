@@ -1,16 +1,8 @@
-@import '../base/font';
+@import '../base/base';
 @import "../components/buttons";
 @import "../components/textfields";
 @import "../components/backgrounds";
 @import "../components/tableview";
 @import "../components/scrollbar";
 
-/*@include backgroundWhite;
-@include backgroundgray;
-
-@include buttonBlue;
-@include buttonRed;
-@include buttonWhiteShadow;
-
-@include title1;
- */
+@include make-tableview;

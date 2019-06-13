@@ -14,6 +14,10 @@
   -fx-background-color: $gray;
 }
 
+.corner-pane {
+  -fx-background-radius: 3px;
+}
+
 /*@mixin backgroundgray{
   #{'.backgroundgray'}{
     -fx-text-fill: black;

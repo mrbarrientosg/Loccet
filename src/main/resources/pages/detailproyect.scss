@@ -13,3 +13,9 @@
 .corner-pane {
   -fx-background-radius: 3px;
 }
+
+@include make-tableview;
+
+.gray-scroll {
+  @include custom-scroll($gray);
+}

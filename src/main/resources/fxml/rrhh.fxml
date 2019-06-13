@@ -16,11 +16,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import org.controlsfx.control.tableview2.FilteredTableView?>
 
-<VBox prefHeight="720.0" prefWidth="800.0" stylesheets="@../css/rrhh.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="720.0" prefWidth="800.0" stylesheets="@../css/rrhh.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ScrollPane fitToWidth="true" styleClass="gray-scroll">
+      <ScrollPane fitToWidth="true" styleClass="light-gray-scroll">
          <content>
-            <VBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" styleClass="backgroundLight">
+            <VBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" styleClass="bg-light-gray">
                <children>
                   <VBox spacing="12.0">
                      <VBox.margin>
@@ -33,16 +33,16 @@
                               <Separator visible="false" HBox.hgrow="ALWAYS" />
                               <StackPane>
                                  <children>
-                                    <AnchorPane styleClass="buttonWhiteShadow">
+                                    <AnchorPane styleClass="button-shadow-white">
                                        <StackPane.margin>
-                                          <Insets left="5.0" right="5.0" top="10.0" />
+                                          <Insets bottom="3.0" left="5.0" right="5.0" top="10.0" />
                                        </StackPane.margin>
                                     </AnchorPane>
                                     <ComboBox fx:id="proyectList" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="150.0" promptText="Proyecto">
                                        <styleClass>
-                                          <String fx:value="buttonWhite" />
-                                          <String fx:value="custom-combo-box" />
-                                          <String fx:value="custom-scroll" />
+                                          <String fx:value="button-fill-white" />
+                                          <String fx:value="combo-box" />
+                                          <String fx:value="white-scroll" />
                                        </styleClass>
                                     </ComboBox>
                                  </children>
@@ -55,74 +55,39 @@
                                     <Insets />
                                  </HBox.margin>
                                  <children>
-                                    <AnchorPane styleClass="buttonWhiteShadow">
+                                    <AnchorPane styleClass="button-shadow-white">
                                        <StackPane.margin>
-                                          <Insets left="5.0" right="5.0" top="10.0" />
+                                          <Insets bottom="2.0" left="5.0" right="5.0" top="10.0" />
                                        </StackPane.margin>
                                        <padding>
                                           <Insets bottom="5.0" />
                                        </padding>
                                     </AnchorPane>
-                                    <Button fx:id="createTrabajador" mnemonicParsing="false" prefHeight="35.0" styleClass="buttonBlue" text="Crear trabajador" textFill="WHITE" />
+                                    <Button fx:id="createTrabajador" mnemonicParsing="false" prefHeight="35.0" styleClass="button-fill-blue" text="Crear trabajador" textFill="WHITE" />
                                  </children>
                               </StackPane>
-                              <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0">
-                                 <children>
-                                    <AnchorPane styleClass="buttonWhiteShadow">
-                                       <StackPane.margin>
-                                          <Insets left="5.0" right="5.0" top="10.0" />
-                                       </StackPane.margin>
-                                       <padding>
-                                          <Insets bottom="5.0" />
-                                       </padding>
-                                    </AnchorPane>
-                                    <Button fx:id="detailTrabajador" mnemonicParsing="false" prefHeight="35.0" styleClass="buttonFillBlue" text="Ver detalle" textFill="WHITE" />
-                                 </children>
-                              </StackPane>
-                              <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0">
-                                 <children>
-                                    <AnchorPane styleClass="buttonWhiteShadow">
-                                       <StackPane.margin>
-                                          <Insets left="5.0" right="5.0" top="10.0" />
-                                       </StackPane.margin>
-                                       <padding>
-                                          <Insets bottom="5.0" />
-                                       </padding>
-                                    </AnchorPane>
-                                    <Button fx:id="deleteTrabajador" mnemonicParsing="false" prefHeight="35.0" styleClass="buttonRed" text="Eliminar" textFill="WHITE" />
-                                 </children>
-                              </StackPane>
-                              <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0">
-                                 <children>
-                                    <AnchorPane styleClass="buttonWhiteShadow">
-                                       <StackPane.margin>
-                                          <Insets left="5.0" right="5.0" top="10.0" />
-                                       </StackPane.margin>
-                                       <padding>
-                                          <Insets bottom="5.0" />
-                                       </padding>
-                                    </AnchorPane>
-                                    <Button fx:id="filterButton" mnemonicParsing="false" prefHeight="35.0" styleClass="buttonBlue" text="Filtrar" textFill="WHITE" />
-                                 </children>
-                              </StackPane>
+                              <Button fx:id="detailTrabajador" mnemonicParsing="false" prefHeight="35.0" styleClass="button-label-blue" text="Ver detalle" textFill="WHITE" />
+                              <Button fx:id="deleteTrabajador" mnemonicParsing="false" prefHeight="35.0" styleClass="button-label-red" text="Eliminar" textFill="WHITE" />
+                              <Button fx:id="filterButton" mnemonicParsing="false" prefHeight="35.0" styleClass="button-label-gray" text="Filtrar" textFill="WHITE" />
                            </children>
                         </HBox>
                         <TextField fx:id="searchField" maxHeight="1.7976931348623157E308" promptText="Buscar trabajador">
                            <styleClass>
-                              <String fx:value="textFieldGrey" />
-                              <String fx:value="textField" />
+                              <String fx:value="textfield-gray" />
+                              <String fx:value="textfield" />
                            </styleClass>
                         </TextField>
                      </children>
                   </VBox>
                   <FilteredTableView fx:id="tableTrabajadores" columnFixingEnabled="false" rowFixingEnabled="false" southHeaderBlended="false" VBox.vgrow="ALWAYS">
-                     <styleClass>
-                        <String fx:value="rrhh-table" />
-                        <String fx:value="custom-scroll" />
-                     </styleClass>
                      <VBox.margin>
                         <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
                      </VBox.margin>
+                     <styleClass>
+                        <String fx:value="gray-scroll" />
+                        <String fx:value="light-table" />
+                        <String fx:value="table" />
+                     </styleClass>
                   </FilteredTableView>
                   <VBox alignment="CENTER" spacing="10.0">
                      <VBox.margin>
@@ -138,7 +103,7 @@
                                     <Insets />
                                  </HBox.margin>
                                  <children>
-                                    <AnchorPane styleClass="buttonWhiteShadow">
+                                    <AnchorPane styleClass="button-shadow-white">
                                        <StackPane.margin>
                                           <Insets left="5.0" right="5.0" top="10.0" />
                                        </StackPane.margin>
@@ -146,20 +111,7 @@
                                           <Insets bottom="5.0" />
                                        </padding>
                                     </AnchorPane>
-                                    <Button fx:id="createEspecialidad" mnemonicParsing="false" prefHeight="35.0" styleClass="buttonBlue" text="Crear especialidad" textFill="WHITE" />
-                                 </children>
-                              </StackPane>
-                              <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0">
-                                 <children>
-                                    <AnchorPane styleClass="buttonWhiteShadow">
-                                       <StackPane.margin>
-                                          <Insets left="5.0" right="5.0" top="10.0" />
-                                       </StackPane.margin>
-                                       <padding>
-                                          <Insets bottom="5.0" />
-                                       </padding>
-                                    </AnchorPane>
-                                    <Button fx:id="deleteEspecialidad" mnemonicParsing="false" prefHeight="35.0" styleClass="buttonRed" text="Eliminar" textFill="WHITE" />
+                                    <Button fx:id="createEspecialidad" mnemonicParsing="false" prefHeight="35.0" styleClass="button-fill-blue" text="Crear especialidad" textFill="WHITE" />
                                  </children>
                               </StackPane>
                            </children>
@@ -172,8 +124,8 @@
                         <TableColumn fx:id="sueldoEspecialidad" prefWidth="120.0" text="Sueldo por hora" />
                      </columns>
                      <styleClass>
-                        <String fx:value="rrhh-table" />
-                        <String fx:value="custom-scroll" />
+                        <String fx:value="table" />
+                        <String fx:value="gray-scroll" />
                      </styleClass>
                      <VBox.margin>
                         <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />

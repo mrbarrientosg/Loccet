@@ -12,33 +12,20 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="804.0" styleClass="backgroundLight" stylesheets="@../css/proyecto.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="804.0" styleClass="bg-light-gray" stylesheets="@../css/proyecto.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="35.0" spacing="20.0">
+      <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="35.0" spacing="10.0">
          <children>
-            <TextField fx:id="searchText" maxHeight="1.7976931348623157E308" promptText="Buscar proyecto" HBox.hgrow="ALWAYS">
+            <TextField fx:id="searchText" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Buscar proyecto" HBox.hgrow="ALWAYS">
                <styleClass>
-                  <String fx:value="textFieldGrey" />
-                  <String fx:value="textField" />
+                  <String fx:value="textfield-gray" />
+                  <String fx:value="textfield" />
                </styleClass>
                <HBox.margin>
                   <Insets />
                </HBox.margin>
             </TextField>
-            <Separator visible="false" HBox.hgrow="ALWAYS" />
-            <StackPane>
-               <children>
-                  <AnchorPane styleClass="buttonWhiteShadow">
-                     <StackPane.margin>
-                        <Insets left="5.0" right="5.0" top="10.0" />
-                     </StackPane.margin>
-                  </AnchorPane>
-                  <Button fx:id="detailButton" mnemonicParsing="false" onAction="#lookDetails" prefHeight="35.0" styleClass="buttonWhite" text="Ver detalle" textFill="WHITE" />
-               </children>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </StackPane>
+            <Separator visible="false" />
             <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0">
                <HBox.margin>
                   <Insets />
@@ -52,22 +39,11 @@
                         <Insets bottom="5.0" />
                      </padding>
                   </AnchorPane>
-                  <Button fx:id="createProyectButton" mnemonicParsing="false" onAction="#createProyect" prefHeight="35.0" styleClass="buttonBlue" text="Crear proyecto" textFill="WHITE" />
+                  <Button fx:id="createProyectButton" mnemonicParsing="false" onAction="#createProyect" prefHeight="35.0" styleClass="button-fill-blue" text="Crear proyecto" textFill="WHITE" />
                </children>
             </StackPane>
-            <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0">
-               <children>
-                  <AnchorPane styleClass="buttonWhiteShadow">
-                     <StackPane.margin>
-                        <Insets left="5.0" right="5.0" top="10.0" />
-                     </StackPane.margin>
-                     <padding>
-                        <Insets bottom="5.0" />
-                     </padding>
-                  </AnchorPane>
-                  <Button mnemonicParsing="false" styleClass="buttonRed" text="Eliminar proyecto" />
-               </children>
-            </StackPane>
+            <Button fx:id="detailButton" mnemonicParsing="false" onAction="#lookDetails" prefHeight="35.0" styleClass="button-label-blue" text="Ver detalle" textFill="WHITE" />
+            <Button mnemonicParsing="false" styleClass="button-label-red" text="Eliminar" />
          </children>
          <VBox.margin>
             <Insets left="16.0" right="16.0" top="16.0" />
@@ -86,8 +62,8 @@
             <Insets bottom="16.0" left="16.0" right="16.0" top="20.0" />
          </VBox.margin>
          <styleClass>
-            <String fx:value="rrhh-table" />
-            <String fx:value="custom-scroll" />
+            <String fx:value="table" />
+            <String fx:value="white-scroll" />
          </styleClass>
       </TableView>
    </children>

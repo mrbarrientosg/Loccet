@@ -99,12 +99,16 @@
   @include default_label_button($text_color: #595959, $text_color_hover: #ACACAC);
 }
 
+.button-label-light-black {
+  @include default_label_button($text_color: #595959, $text_color_hover: #ACACAC, $light_font: true);
+}
+
 .button-label-blue {
-  @include default_label_button($bg_color: white, $text_color: $dark-blue, $text_color_hover: darken($dark-blue, 10%))
+  @include default_label_button($text_color: $dark-blue, $text_color_hover: darken($dark-blue, 10%))
 }
 
 .button-label-red {
-  @include default_label_button($bg_color: white, $text_color: red, $text_color_hover: darken(red, 10%))
+  @include default_label_button($text_color: red, $text_color_hover: darken(red, 10%))
 }
 
 // Fill Button

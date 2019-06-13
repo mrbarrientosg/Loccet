@@ -85,8 +85,19 @@
   .button-label-black:pressed {
     -fx-text-fill: #595959; }
 
+.button-label-light-black {
+  -fx-background-color: transparent;
+  -fx-background-radius: 0;
+  -fx-text-fill: #595959;
+  -fx-font-family: "Heebo Light";
+  -fx-font-size: 14px; }
+  .button-label-light-black:hover {
+    -fx-text-fill: #ACACAC; }
+  .button-label-light-black:pressed {
+    -fx-text-fill: #595959; }
+
 .button-label-blue {
-  -fx-background-color: white;
+  -fx-background-color: transparent;
   -fx-background-radius: 0;
   -fx-text-fill: #0084ff;
   -fx-font-family: "Heebo Medium";
@@ -97,7 +108,7 @@
     -fx-text-fill: #0084ff; }
 
 .button-label-red {
-  -fx-background-color: white;
+  -fx-background-color: transparent;
   -fx-background-radius: 0;
   -fx-text-fill: red;
   -fx-font-family: "Heebo Medium";
@@ -206,6 +217,9 @@
 
 .bg-gray {
   -fx-background-color: #F0F0F0; }
+
+.corner-pane {
+  -fx-background-radius: 3px; }
 
 /*@mixin backgroundgray{
   .backgroundgray{
