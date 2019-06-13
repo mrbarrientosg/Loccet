@@ -12,3 +12,8 @@
 .white-scroll {
   @include custom-scroll;
 }
+
+.top-bar {
+  -fx-border-color: $gray;
+  -fx-border-width: 0 0 1 0;
+}

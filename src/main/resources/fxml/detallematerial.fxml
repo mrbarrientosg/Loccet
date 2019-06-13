@@ -20,46 +20,49 @@
    <children>
       <VBox prefHeight="600.0" prefWidth="700.0">
          <children>
+            <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="10.0" styleClass="top-bar">
+               <children>
+                  <Label maxWidth="1.7976931348623157E308" styleClass="title1" text="Datos del Material">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+                  <Separator maxWidth="1.7976931348623157E308" visible="false" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Separator>
+                  <StackPane maxHeight="-Infinity" minHeight="-Infinity">
+                     <children>
+                        <AnchorPane styleClass="button-shadow-white">
+                           <StackPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </StackPane.margin>
+                           <padding>
+                              <Insets bottom="5.0" />
+                           </padding>
+                        </AnchorPane>
+                        <Button fx:id="editarBT" mnemonicParsing="false" onAction="#editar" prefHeight="38.0" prefWidth="76.0" styleClass="button-fill-blue" text="Editar" />
+                     </children>
+                  </StackPane>
+                  <Button fx:id="ingresarBT" mnemonicParsing="false" onAction="#agregar" prefHeight="38.0" prefWidth="75.0" styleClass="button-label-blue" text="Ingresar" />
+                  <Button fx:id="retirarBT" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#retirar" prefHeight="38.0" prefWidth="76.0" styleClass="button-label-blue" text="Retirar" />
+                  <Button fx:id="salirBT" mnemonicParsing="false" onAction="#salir" prefHeight="38.0" prefWidth="76.0" styleClass="button-label-red" text="Salir" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="8.0" left="16.0" right="16.0" top="16.0" />
+               </padding>
+            </HBox>
             <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
                <content>
                   <VBox spacing="12.0" styleClass="bg-white">
                      <children>
-                        <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="10.0">
-                           <children>
-                              <Label maxWidth="1.7976931348623157E308" styleClass="title1" text="Datos del Material">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                              </Label>
-                              <Separator maxWidth="1.7976931348623157E308" visible="false" HBox.hgrow="ALWAYS">
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                              </Separator>
-                              <StackPane maxHeight="-Infinity" minHeight="-Infinity">
-                                 <children>
-                                    <AnchorPane styleClass="button-shadow-white">
-                                       <StackPane.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </StackPane.margin>
-                                       <padding>
-                                          <Insets bottom="5.0" />
-                                       </padding>
-                                    </AnchorPane>
-                                    <Button fx:id="editarBT" mnemonicParsing="false" onAction="#editar" prefHeight="38.0" prefWidth="76.0" styleClass="button-fill-blue" text="Editar" />
-                                 </children>
-                              </StackPane>
-                              <Button fx:id="ingresarBT" mnemonicParsing="false" onAction="#agregar" prefHeight="38.0" prefWidth="75.0" styleClass="button-label-blue" text="Ingresar" />
-                              <Button fx:id="retirarBT" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#retirar" prefHeight="38.0" prefWidth="76.0" styleClass="button-label-blue" text="Retirar" />
-                              <Button fx:id="salirBT" mnemonicParsing="false" onAction="#salir" prefHeight="38.0" prefWidth="76.0" styleClass="button-label-red" text="Salir" />
-                           </children>
-                           <VBox.margin>
-                              <Insets left="16.0" right="16.0" top="12.0" />
-                           </VBox.margin>
-                        </HBox>
                         <HBox spacing="8.0">
                            <children>
                               <VBox spacing="5.0" HBox.hgrow="ALWAYS">
@@ -127,7 +130,7 @@
                               </VBox>
                            </children>
                            <VBox.margin>
-                              <Insets left="16.0" right="16.0" />
+                              <Insets left="16.0" right="16.0" top="8.0" />
                            </VBox.margin>
                         </HBox>
                         <VBox spacing="5.0">

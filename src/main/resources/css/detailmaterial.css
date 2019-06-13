@@ -239,6 +239,10 @@
     -fx-background-color: #F0F0F0;
     -fx-background-radius: 2; }
 
+.top-bar {
+  -fx-border-color: #F0F0F0;
+  -fx-border-width: 0 0 1 0; }
+
 .corner-pane {
   -fx-background-radius: 3px; }
 

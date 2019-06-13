@@ -336,3 +336,7 @@
     -fx-background-color: #ACACAC;
     -fx-background-insets: 1.0, 0.0, 0.0;
     -fx-background-radius: 2.0em; }
+
+.top-bar {
+  -fx-border-color: #F0F0F0;
+  -fx-border-width: 0 0 1 0; }

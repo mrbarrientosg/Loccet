@@ -7,6 +7,11 @@
 @import '../components/scrollbar';
 @import "../components/tableview";
 
+.top-bar {
+  -fx-border-color: $gray;
+  -fx-border-width: 0 0 1 0;
+}
+
 .white-scroll {
   @include custom-scroll;
 }

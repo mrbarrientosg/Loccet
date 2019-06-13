@@ -348,6 +348,10 @@
     -fx-prompt-text-fill: darken(lightGray, 30%);
   }
 }*/
+.top-bar {
+  -fx-border-color: #F0F0F0;
+  -fx-border-width: 0 0 1 0; }
+
 .white-scroll {
   -fx-background-color: white; }
   .white-scroll .scroll-bar:vertical {

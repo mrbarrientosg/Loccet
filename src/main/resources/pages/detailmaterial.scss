@@ -6,6 +6,11 @@
 @import "../components/textarea";
 @import "../components/tableview";
 
+.top-bar {
+  -fx-border-color: $gray;
+  -fx-border-width: 0 0 1 0;
+}
+
 .corner-pane {
   -fx-background-radius: 3px;
 }
