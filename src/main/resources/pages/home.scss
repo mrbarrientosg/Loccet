@@ -1,8 +1,8 @@
-@import '../base/base';
+@import '../base/font';
 @import "../components/buttons";
 @import "../components/backgrounds";
 
-.top-bar {
+/*.top-bar {
   -fx-border-width: 0 0 0.25 0;
   -fx-border-color: rgba(0,0,0,0.5);
   -fx-background-color: white;
@@ -50,3 +50,4 @@
 @include shadowpane;
 
 @include title1;
+*/

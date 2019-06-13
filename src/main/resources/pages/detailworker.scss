@@ -7,31 +7,14 @@
 @import '../components/scrollbar';
 @import "../components/tableview";
 
-@include backgroundgray;
-@include backgroundWhite;
-@include backgroundLight;
-
-@include buttonBlue;
-@include buttonFillRed;
-@include buttonWhiteShadow;
-
-
-@include title1;
-@include title2;
-@include paragraph;
-
-@include textField;
-@include textFieldGrey;
-
-@include datePickerGray;
-
-.gray-scroll {
-  @include custom-scroll($ghost-white);
+.white-scroll {
+  @include custom-scroll;
 }
-@include shadowpane;
 
-.side-menu {
-  -fx-background-color: white;
-  -fx-background-radius: 3px 0px 0px 3px;
-  @include make-shadow($side: $right-side-shadow);
+.corner-pane {
+  -fx-background-radius: 3px;
+}
+
+.gray-combo-box {
+  @include make-combo-box($gray);
 }

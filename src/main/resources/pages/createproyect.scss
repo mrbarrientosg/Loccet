@@ -5,43 +5,14 @@
 @import "../components/backgrounds";
 @import "../components/scrollbar";
 
-@include buttonLabelBlack(true);
-
-@include title3;
-
-//Backgrounds
-@include backgroundWhite;
-@include backgroundgray;
-
-//Buttons
-@include buttonGreen;
-
-@include buttonFillBlue;
-
-@include buttonBlue;
-
-@include buttonBlueShadow;
-
-//TextFields
-@include textFieldGrey;
-
-@include textField;
-
-@include datePickerGray;
-
-.gray-scroll {
-  @include custom-scroll($ghost-white);
+.corner-pane {
+  -fx-background-radius: 3px;
 }
 
-.right-pane-gradient {
-  -fx-background-radius: 0px 3px 3px 0px;
-  @include blue-gradient(to bottom right);
+.white-scroll {
+  @include custom-scroll;
 }
 
-@include shadowpane;
-
-.side-menu {
-  -fx-background-color: white;
-  -fx-background-radius: 3px 0px 0px 3px;
-  @include make-shadow($side: $right-side-shadow);
+.gradient-label {
+  @include blue-gradient(to right bottom);
 }

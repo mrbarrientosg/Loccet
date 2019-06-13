@@ -14,29 +14,10 @@ $green-button: #4AC959;
 $light-green-button: #21d761;
 
 $gray: #F0F0F0;
-$gray-shadow: rgba(0,0,0,0.4);
+$gray-shadow: rgba(0,0,0,0.35);
 
 $ghost-white: #F9F9F9;
 
 @mixin blue-gradient($side: to top right) {
   -fx-background-color: $dark-blue, linear-gradient($side, reflect, $dark-blue, $light-blue);
 }
-/*
-@mixin backgroundTransparent {
-  #{'.backgroundTransparent'} {
-    -fx-background-color: transparent;
-  }
-}
-
-@mixin backgroundWhite {
-  #{'.backgroundWhite'} {
-    -fx-background-color: white;
-  }
-}
-
-@mixin backgroundLight {
-  #{'.backgroundLight'} {
-    -fx-background-color: $ghost-white; //TODO: cambio
-  }
-}
-*/

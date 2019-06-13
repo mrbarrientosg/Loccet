@@ -29,11 +29,28 @@ $bottom-side-shadow: shadow-side(bottom);
   -fx-effect: dropshadow($type, $color, $radius, $spread, nth($side, 1), nth($side, 2));
 }
 
-@mixin shadowpane {
-  #{'.shadowpane'} {
-    -fx-background-color: transparent;
-    -fx-padding: 10;
-    @include make-shadow($type: gaussian, $side: $right-side-shadow);
-  }
+// Shadow Root
+
+.shadow-root {
+  -fx-background-color: transparent;
+  -fx-padding: 10;
+  @include make-shadow($type: gaussian, $side: $right-side-shadow);
+}
+
+// Shadow Button
+
+.button-shadow-green {
+  -fx-background-color: white;
+  @include make-shadow($color: rgba($green-button, 0.7), $radius: 20, $side: shadow-side($y: 1.5));
+}
+
+.button-shadow-blue {
+  -fx-background-color: white;
+  @include make-shadow($color: rgba($dark-blue, 0.4), $radius: 20, $side: shadow-side($y: 2));
+}
+
+.button-shadow-white {
+  -fx-background-color: darken(white,9);
+  @include make-shadow($color: rgba(black, 0.2), $radius: 20, $side: shadow-side($y: 2));
 }
 

@@ -6,31 +6,18 @@
 @import "../components/backgrounds";
 @import "../components/scrollbar";
 
-@include buttonFillBlue;
-@include buttonBlue;
-
-@include textFieldGrey;
-@include textField;
-
-@include backgroundWhite;
-@include backgroundgray;
-@include datePickerGray;
-
-@include title3;
-
-.gray-scroll {
-   @include custom-scroll($ghost-white);
- }
-
-.right-pane-gradient {
-  -fx-background-radius: 0px 3px 3px 0px;
-  @include blue-gradient(to bottom right);
+.corner-pane {
+  -fx-background-radius: 3px;
 }
 
-@include shadowpane;
+.white-scroll {
+  @include custom-scroll;
+}
 
-.side-menu {
-  -fx-background-color: white;
-  -fx-background-radius: 3px 0px 0px 3px;
-  @include make-shadow($side: $right-side-shadow);
+.gradient-label {
+  @include blue-gradient(to right bottom);
+}
+
+.gray-combo-box {
+  @include make-combo-box($gray);
 }

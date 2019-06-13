@@ -8,11 +8,9 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -21,266 +19,186 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<StackPane styleClass="shadowpane" stylesheets="@../css/createWorker.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane styleClass="shadow-root" stylesheets="@../css/createWorker.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" spacing="10.0">
+      <VBox minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
          <children>
             <ScrollPane fitToWidth="true">
                <content>
-                  <VBox styleClass="backgroundWhite">
+                  <VBox spacing="8.0">
                      <children>
-                        <VBox spacing="20.0">
+                        <HBox spacing="16.0">
                            <children>
-                              <HBox>
+                              <VBox alignment="CENTER" spacing="8.0">
                                  <children>
-                                    <Separator prefHeight="6.0" prefWidth="273.0" visible="false" />
-                                    <GridPane prefHeight="26.0" prefWidth="528.0" styleClass="right-pane-gradient">
-                                      <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="530.0" minWidth="10.0" prefWidth="526.0" />
-                                      </columnConstraints>
-                                      <rowConstraints>
-                                        <RowConstraints vgrow="SOMETIMES" />
-                                      </rowConstraints>
-                                       <children>
-                                          <Label prefHeight="26.0" prefWidth="221.0" styleClass="title3" text="Información general" />
-                                       </children>
-                                       <padding>
-                                          <Insets left="5.0" />
-                                       </padding>
-                                    </GridPane>
+                                    <ImageView fitHeight="156.0" fitWidth="158.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/createWorkerIcon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title3" text="Por favor ingrese " textAlignment="CENTER" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title3" text="los datos correspondientes" />
                                  </children>
-                              </HBox>
-                              <HBox spacing="8.0">
+                              </VBox>
+                              <VBox spacing="8.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <VBox spacing="8.0">
+                                    <Label maxWidth="1.7976931348623157E308" text=" Información General">
+                                       <styleClass>
+                                          <String fx:value="title1" />
+                                          <String fx:value="gradient-label" />
+                                          <String fx:value="corner-pane" />
+                                       </styleClass>
+                                    </Label>
+                                    <GridPane hgap="8.0" vgap="8.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="30.0" />
+                                          <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="30.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
                                        <children>
-                                          <AnchorPane prefHeight="175.0" prefWidth="248.0">
-                                             <children>
-                                                <ImageView fitHeight="156.0" fitWidth="158.0" layoutX="44.0" layoutY="-42.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../images/createWorkerIcon.png" />
-                                                   </image>
-                                                </ImageView>
-                                                <Text layoutX="57.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title3" text="Por favor ingrese " textAlignment="CENTER" />
-                                                <Text layoutX="24.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title3" text="los datos correspondientes" />
-                                             </children>
-                                             <VBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                             </VBox.margin>
-                                          </AnchorPane>
-                                       </children>
-                                    </VBox>
-                                    <VBox spacing="8.0">
-                                       <children>
-                                          <TextField prefHeight="70.0" prefWidth="263.0" promptText="Rut">
-                                             <padding>
-                                                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                                             </padding>
+                                          <TextField prefHeight="70.0" promptText="RUT">
                                              <styleClass>
-                                                <String fx:value="textField" />
-                                                <String fx:value="textFieldGrey" />
+                                                <String fx:value="textfield-gray" />
+                                                <String fx:value="textfield" />
                                              </styleClass>
                                           </TextField>
-                                          <TextField prefHeight="70.0" prefWidth="263.0" promptText="Apellido">
+                                          <TextField prefHeight="70.0" promptText="Apellido" GridPane.rowIndex="1">
                                              <styleClass>
-                                                <String fx:value="textField" />
-                                                <String fx:value="textFieldGrey" />
+                                                <String fx:value="textfield-gray" />
+                                                <String fx:value="textfield" />
                                              </styleClass>
-                                             <padding>
-                                                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                                             </padding>
                                           </TextField>
-                                          <DatePicker editable="false" prefHeight="70.0" prefWidth="263.0" promptText="Fecha de nacimiento">
+                                          <TextField prefHeight="70.0" promptText="Nombre" GridPane.columnIndex="1">
+                                             <styleClass>
+                                                <String fx:value="textfield-gray" />
+                                                <String fx:value="textfield" />
+                                             </styleClass>
+                                          </TextField>
+                                          <DatePicker editable="false" maxWidth="1.7976931348623157E308" prefHeight="70.0" promptText="Fecha de nacimiento" GridPane.rowIndex="2">
+                                             <styleClass>
+                                                <String fx:value="textfield" />
+                                                <String fx:value="textfield-gray" />
+                                             </styleClass>
                                              <padding>
                                                 <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                                              </padding>
-                                             <styleClass>
-                                                <String fx:value="textField" />
-                                                <String fx:value="grayDatePicker" />
-                                                <String fx:value="textFieldGrey" />
-                                             </styleClass>
                                           </DatePicker>
-                                       </children>
-                                    </VBox>
-                                    <VBox spacing="8.0">
-                                       <children>
-                                          <TextField prefHeight="70.0" prefWidth="263.0" promptText="Nombre" styleClass="textFieldGrey">
-                                             <padding>
-                                                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                                             </padding>
-                                          </TextField>
-                                          <ComboBox prefHeight="70.0" prefWidth="263.0" promptText="Especialidad">
+                                          <ComboBox maxWidth="1.7976931348623157E308" prefHeight="70.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                              <styleClass>
                                                 <String fx:value="gray-combo-box" />
-                                                <String fx:value="backgroundgray" />
-                                                <String fx:value="textField" />
+                                                <String fx:value="textfield-gray" />
                                              </styleClass>
-                                             <padding>
-                                                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                                             </padding>
                                           </ComboBox>
                                        </children>
-                                    </VBox>
+                                    </GridPane>
                                  </children>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </HBox>
-                              <HBox styleClass="right-pane-gradient">
-                                 <children>
-                                    <Label styleClass="title3" text="Información de contacto" />
-                                 </children>
-                                 <padding>
-                                    <Insets left="5.0" />
-                                 </padding>
-                              </HBox>
-                              <HBox spacing="8.0">
-                                 <children>
-                                    <VBox spacing="8.0">
-                                       <children>
-                                          <TextField prefHeight="70.0" prefWidth="263.0" promptText=" Teléfono">
-                                             <styleClass>
-                                                <String fx:value="textField" />
-                                                <String fx:value="textFieldGrey" />
-                                             </styleClass>
-                                             <padding>
-                                                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                                             </padding>
-                                          </TextField>
-                                       </children>
-                                    </VBox>
-                                    <VBox>
-                                       <children>
-                                          <TextField prefHeight="70.0" prefWidth="263.0" promptText="e-Mail">
-                                             <padding>
-                                                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                                             </padding>
-                                             <styleClass>
-                                                <String fx:value="textField" />
-                                                <String fx:value="textFieldGrey" />
-                                             </styleClass>
-                                          </TextField>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </HBox>
+                              </VBox>
                            </children>
                            <VBox.margin>
-                              <Insets />
+                              <Insets left="16.0" right="16.0" top="8.0" />
                            </VBox.margin>
-                           <padding>
-                              <Insets bottom="8.0" left="16.0" right="8.0" top="15.0" />
-                           </padding>
-                        </VBox>
-                        <VBox spacing="20.0" styleClass="backgroundWhite">
+                        </HBox>
+                        <GridPane hgap="8.0" vgap="10.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints />
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
                            <children>
-                              <HBox styleClass="right-pane-gradient">
-                                 <children>
-                                    <Label styleClass="title3" text="Domicilio" />
-                                 </children>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                                 <padding>
-                                    <Insets left="5.0" />
-                                 </padding>
-                              </HBox>
-                              <HBox spacing="8.0">
-                                 <children>
-                                    <VBox spacing="8.0">
-                                       <children>
-                                          <TextField prefHeight="70.0" prefWidth="263.0" promptText="País">
-                                             <styleClass>
-                                                <String fx:value="textField" />
-                                                <String fx:value="textFieldGrey" />
-                                             </styleClass>
-                                             <padding>
-                                                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                                             </padding>
-                                          </TextField>
-                                          <TextField prefHeight="70.0" prefWidth="263.0" promptText="Dirección">
-                                             <padding>
-                                                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                                             </padding>
-                                             <styleClass>
-                                                <String fx:value="textField" />
-                                                <String fx:value="textFieldGrey" />
-                                             </styleClass>
-                                          </TextField>
-                                       </children>
-                                       <HBox.margin>
-                                          <Insets />
-                                       </HBox.margin>
-                                    </VBox>
-                                    <VBox spacing="8.0">
-                                       <padding>
-                                          <Insets left="8.0" />
-                                       </padding>
-                                       <children>
-                                          <TextField prefHeight="70.0" prefWidth="263.0" promptText="Ciudad">
-                                             <styleClass>
-                                                <String fx:value="textField" />
-                                                <String fx:value="textFieldGrey" />
-                                             </styleClass>
-                                             <padding>
-                                                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                                             </padding>
-                                          </TextField>
-                                          <TextField prefHeight="70.0" prefWidth="263.0" promptText="Estado/Provincia">
-                                             <styleClass>
-                                                <String fx:value="textField" />
-                                                <String fx:value="textFieldGrey" />
-                                             </styleClass>
-                                             <padding>
-                                                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                                             </padding>
-                                          </TextField>
-                                       </children>
-                                    </VBox>
-                                    <VBox spacing="8.0">
-                                       <children>
-                                          <TextField prefHeight="70.0" prefWidth="263.0" promptText="Zip/Código civil">
-                                             <styleClass>
-                                                <String fx:value="textField" />
-                                                <String fx:value="textFieldGrey" />
-                                             </styleClass>
-                                             <padding>
-                                                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                                             </padding>
-                                          </TextField>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </HBox>
+                              <Label maxWidth="1.7976931348623157E308" text=" Ubicación" GridPane.columnSpan="3" GridPane.rowIndex="2">
+                                 <styleClass>
+                                    <String fx:value="title1" />
+                                    <String fx:value="gradient-label" />
+                                    <String fx:value="corner-pane" />
+                                 </styleClass>
+                              </Label>
+                              <TextField prefHeight="70.0" prefWidth="263.0" promptText="Ciudad *" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                 <styleClass>
+                                    <String fx:value="textfield-gray" />
+                                    <String fx:value="textfield" />
+                                 </styleClass>
+                              </TextField>
+                              <TextField prefHeight="70.0" prefWidth="263.0" promptText="Estado/Provincia *" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                 <styleClass>
+                                    <String fx:value="textfield-gray" />
+                                    <String fx:value="textfield" />
+                                 </styleClass>
+                              </TextField>
+                              <TextField prefHeight="70.0" prefWidth="263.0" promptText="País *" GridPane.rowIndex="3">
+                                 <styleClass>
+                                    <String fx:value="textfield-gray" />
+                                    <String fx:value="textfield" />
+                                 </styleClass>
+                              </TextField>
+                              <TextField prefHeight="70.0" prefWidth="263.0" promptText="Dirección *" GridPane.rowIndex="4">
+                                 <styleClass>
+                                    <String fx:value="textfield-gray" />
+                                    <String fx:value="textfield" />
+                                 </styleClass>
+                              </TextField>
+                              <Label maxWidth="1.7976931348623157E308" text=" Contacto" GridPane.columnSpan="3">
+                                 <styleClass>
+                                    <String fx:value="title1" />
+                                    <String fx:value="gradient-label" />
+                                    <String fx:value="corner-pane" />
+                                 </styleClass>
+                              </Label>
+                              <TextField prefHeight="70.0" prefWidth="263.0" promptText="País *" GridPane.rowIndex="1">
+                                 <styleClass>
+                                    <String fx:value="textfield-gray" />
+                                    <String fx:value="textfield" />
+                                 </styleClass>
+                              </TextField>
+                              <TextField prefHeight="70.0" prefWidth="263.0" promptText="Ciudad *" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <styleClass>
+                                    <String fx:value="textfield-gray" />
+                                    <String fx:value="textfield" />
+                                 </styleClass>
+                              </TextField>
                            </children>
-                           <padding>
-                              <Insets bottom="8.0" left="16.0" right="8.0" top="15.0" />
-                           </padding>
-                        </VBox>
+                           <VBox.margin>
+                              <Insets left="16.0" right="16.0" top="8.0" />
+                           </VBox.margin>
+                        </GridPane>
+                        <ButtonBar VBox.vgrow="ALWAYS">
+                           <buttons>
+                              <Button fx:id="aceptar" defaultButton="true" mnemonicParsing="false" styleClass="button-fill-blue" text="Aceptar" />
+                              <Button fx:id="cancelar" mnemonicParsing="false" styleClass="button-label-gray" text="Cancelar" />
+                           </buttons>
+                           <VBox.margin>
+                              <Insets bottom="16.0" left="16.0" right="16.0" />
+                           </VBox.margin>
+                        </ButtonBar>
                      </children>
+                     <styleClass>
+                        <String fx:value="bg-white" />
+                        <String fx:value="corner-pane" />
+                     </styleClass>
                   </VBox>
                </content>
                <VBox.margin>
                   <Insets />
                </VBox.margin>
                <styleClass>
-                  <String fx:value="backgroundWhite" />
-                  <String fx:value="gray-scroll" />
+                  <String fx:value="white-scroll" />
+                  <String fx:value="corner-pane" />
                </styleClass>
             </ScrollPane>
-            <ButtonBar>
-               <buttons>
-                  <Button mnemonicParsing="false" styleClass="buttonBlue" text="Aceptar" />
-                  <Button mnemonicParsing="false" styleClass="buttonFillBlue" text="Salir" />
-               </buttons>
-            </ButtonBar>
          </children>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
-         </padding>
          <styleClass>
-            <String fx:value="backgroundWhite" />
-            <String fx:value="side-menu" />
+            <String fx:value="bg-white" />
+            <String fx:value="corner-pane" />
          </styleClass>
       </VBox>
    </children>

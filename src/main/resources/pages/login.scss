@@ -1,9 +1,9 @@
-@import '../base/base';
+@import '../base/font';
 @import "../components/buttons";
 @import "../components/textfields";
 @import "../components/backgrounds";
 
-.right-pane-gradient {
+/*.right-pane-gradient {
   -fx-background-radius: 0px 3px 3px 0px;
   @include blue-gradient(to bottom right);
 }
@@ -45,3 +45,4 @@
 @include shadowpane;
 
 @include textFieldGrey;
+ */

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -9,53 +10,67 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="500.0" styleClass="backgroundWhite" stylesheets="@../css/filter.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane styleClass="shadow-root" stylesheets="@../css/filter.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="backgroundWhite" VBox.vgrow="ALWAYS">
-         <content>
-            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0" styleClass="backgroundWhite">
-               <children>
-                  <HBox alignment="CENTER" spacing="10.0">
-                     <VBox.margin>
-                        <Insets left="16.0" right="16.0" top="8.0" />
-                     </VBox.margin>
+      <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="500.0">
+         <children>
+            <ScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
+               <content>
+                  <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0" styleClass="bg-white">
                      <children>
-                        <Label styleClass="title1" text="Filtrar columnas" />
-                        <Separator maxWidth="1.7976931348623157E308" visible="false" HBox.hgrow="ALWAYS" />
-                      <Button fx:id="applyButton" mnemonicParsing="false" styleClass="buttonBlue" text="Aplicar" />
-                        <Button fx:id="cancelButton" mnemonicParsing="false" styleClass="buttonFillBlue" text="Cancelar" />
+                        <HBox alignment="CENTER" spacing="10.0">
+                           <VBox.margin>
+                              <Insets left="16.0" right="16.0" top="8.0" />
+                           </VBox.margin>
+                           <children>
+                              <Label styleClass="title1" text="Filtrar columnas" />
+                              <Separator maxWidth="1.7976931348623157E308" visible="false" HBox.hgrow="ALWAYS" />
+                            <Button fx:id="applyButton" mnemonicParsing="false" styleClass="button-fill-blue" text="Aplicar" />
+                              <Button fx:id="cancelButton" mnemonicParsing="false" styleClass="button-label-gray" text="Cancelar" />
+                           </children>
+                        </HBox>
+                        <GridPane fx:id="content" hgap="8.0" vgap="8.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label styleClass="paragraph-light" text="Columna" />
+                              <Label styleClass="paragraph-light" text="Filtro" GridPane.columnIndex="1" />
+                              <Label styleClass="paragraph-light" text="Valor" GridPane.columnIndex="2" />
+                           </children>
+                           <VBox.margin>
+                              <Insets left="16.0" right="16.0" top="8.0" />
+                           </VBox.margin>
+                        </GridPane>
                      </children>
-                  </HBox>
-                  <GridPane fx:id="content" hgap="8.0" vgap="8.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <Label styleClass="paragraphUI" text="Columna" />
-                        <Label styleClass="paragraphUI" text="Filtro" GridPane.columnIndex="1" />
-                        <Label styleClass="paragraphUI" text="Valor" GridPane.columnIndex="2" />
-                     </children>
-                     <VBox.margin>
-                        <Insets left="16.0" right="16.0" top="8.0" />
-                     </VBox.margin>
-                  </GridPane>
-                  <Button fx:id="addFilter" mnemonicParsing="false" styleClass="buttonFillBlue" text="+ Agregar filtro">
-                     <VBox.margin>
-                        <Insets bottom="8.0" left="8.0" top="8.0" />
-                     </VBox.margin>
-                  </Button>
-               </children>
-            </VBox>
-         </content>
-      </ScrollPane>
+                  </VBox>
+               </content>
+               <styleClass>
+                  <String fx:value="bg-white" />
+                  <String fx:value="white-scroll" />
+                  <String fx:value="corner-pane" />
+               </styleClass>
+            </ScrollPane>
+            <Button fx:id="addFilter" mnemonicParsing="false" styleClass="button-label-blue" text="+ Agregar filtro">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="8.0" top="8.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+         <styleClass>
+            <String fx:value="bg-white" />
+            <String fx:value="corner-pane" />
+         </styleClass>
+      </VBox>
    </children>
-</VBox>
+</StackPane>

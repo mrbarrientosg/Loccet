@@ -1,4 +1,4 @@
-@import '../base/base';
+@import '../base/font';
 @import '../components/buttons';
 @import '../components/backgrounds';
 @import '../components/textfields';
@@ -6,7 +6,7 @@
 @import '../components/tableview';
 @import '../components/scrollbar';
 
-@include buttonBlue;
+/*@include buttonBlue;
 @include buttonWhite;
 @include buttonRed;
 @include buttonWhiteShadow;
@@ -16,3 +16,4 @@
 @include backgroundLight;
 
 @include textFieldGrey;
+ */

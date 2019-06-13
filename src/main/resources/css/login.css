@@ -1,135 +1,77 @@
 /*
-@mixin backgroundTransparent {
-  .backgroundTransparent {
-    -fx-background-color: transparent;
-  }
-}
+Error: Undefined variable: "$dark-blue".
+        on line 103 of ../components/_buttons.scss, in `default_label_button'
+        from line 103 of ../components/_buttons.scss
+        from line 2 of login.scss
 
-@mixin backgroundWhite {
-  .backgroundWhite {
-    -fx-background-color: white;
-  }
-}
-
-@mixin backgroundLight {
-  .backgroundLight {
-    -fx-background-color: $ghost-white; //TODO: cambio
-  }
-}
+Backtrace:
+../components/_buttons.scss:103:in `default_label_button'
+../components/_buttons.scss:103
+login.scss:2
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/script/tree/variable.rb:49:in `_perform'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/script/tree/node.rb:50:in `perform'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:355:in `block (2 levels) in visit_mixin'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/util.rb:70:in `block in map_vals'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/util.rb:69:in `each'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/util.rb:69:in `map_vals'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:355:in `block in visit_mixin'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:98:in `block in with_mixin'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:135:in `with_frame'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:98:in `with_mixin'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:346:in `visit_mixin'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:36:in `visit'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:79:in `block in with_base'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:135:in `with_frame'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:79:in `with_base'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:158:in `visit'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:440:in `block (2 levels) in visit_rule'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:440:in `map'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:440:in `block in visit_rule'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:438:in `visit_rule'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:36:in `visit'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:79:in `block in with_base'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:135:in `with_frame'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:79:in `with_base'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:158:in `visit'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:325:in `block (2 levels) in visit_import'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:325:in `map'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:325:in `block in visit_import'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:88:in `block in with_import'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:135:in `with_frame'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:88:in `with_import'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:322:in `visit_import'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:36:in `visit'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:79:in `block in with_base'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:135:in `with_frame'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:79:in `with_base'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:158:in `visit'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:52:in `map'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:52:in `visit_children'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:167:in `block in visit_children'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:166:in `visit_children'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:36:in `block in visit'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:186:in `visit_root'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:36:in `visit'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:157:in `visit'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:10:in `visit'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/root_node.rb:36:in `css_tree'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/root_node.rb:20:in `render'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/engine.rb:290:in `render'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/exec/sass_scss.rb:396:in `run'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/exec/sass_scss.rb:63:in `process_result'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/exec/base.rb:50:in `parse'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/lib/sass/exec/base.rb:18:in `parse!'
+C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/sass-3.7.4/bin/sass:13:in `<top (required)>'
+C:/Ruby26-x64/bin/sass:23:in `load'
+C:/Ruby26-x64/bin/sass:23:in `<main>'
 */
-@font-face {
-  font-family: "Heebo";
-  src: url("../fonts/Heebo-Regular.ttf") format("truetype"); }
-@font-face {
-  font-family: "Heebo Medium";
-  src: url("../fonts/Heebo-Medium.ttf") format("truetype"); }
-@font-face {
-  font-family: "Heebo Light";
-  src: url("../fonts/Heebo-Light.ttf") format("truetype"); }
-@font-face {
-  font-family: "Heebo Black";
-  src: url("../fonts/Heebo-Black.ttf") format("truetype"); }
-.right-pane-gradient {
-  -fx-background-radius: 0px 3px 3px 0px;
-  -fx-background-color: #0084ff, linear-gradient(to bottom right, reflect, #0084ff, #00c6ff); }
-
-.left-pane-content {
-  -fx-background-radius: 3px 0px 0px 3px; }
-
-.textAreaTransparent {
-  -fx-background-color: transparent;
-  -fx-opacity: 1;
-  -fx-line-spacing: 1px;
-  -fx-text-fill: white; }
-
-.textAreaTransparent .scroll-pane,
-.textAreaTransparent .scroll-pane .viewport,
-.textAreaTransparent .scroll-pane .content {
-  -fx-background-color: transparent; }
-
-.textAreaTransparent *.text {
-  -fx-text-alignment: justify; }
-
-.buttonGreen {
-  -fx-font-family: "Heebo Medium";
-  -fx-font-size: 14px;
-  -fx-text-fill: white;
-  -fx-background-color: #4AC959;
-  -fx-background-radius: 3; }
-  .buttonGreen:hover {
-    -fx-text-fill: white;
-    -fx-background-color: #21d761;
-    -fx-background-radius: 3; }
-  .buttonGreen:pressed {
-    -fx-text-fill: white;
-    -fx-background-color: #4AC959;
-    -fx-background-radius: 3; }
-
-.buttonGreenShadow {
-  -fx-background-color: white;
-  -fx-effect: dropshadow(two-pass-box, rgba(74, 201, 89, 0.7), 20, 0, -0.06, 1.5); }
-
-.buttonLabelGrey {
-  -fx-background-color: transparent;
-  -fx-background-radius: 0;
-  -fx-text-fill: #ACACAC;
-  -fx-font-family: "Heebo Medium";
-  -fx-font-size: 14px; }
-  .buttonLabelGrey:hover {
-    -fx-text-fill: #D1D1D1; }
-  .buttonLabelGrey:pressed {
-    -fx-text-fill: #ACACAC; }
-
-.circle-button {
-  -fx-background-radius: 13px;
-  -fx-min-width: 13px;
-  -fx-max-width: 13px;
-  -fx-min-height: 13px;
-  -fx-max-height: 13px;
-  -fx-background-insets: 0px;
-  -fx-padding: 0px; }
-  .circle-button-red {
-    -fx-background-color: #ff3b30; }
-    .circle-button-red:pressed {
-      -fx-background-color: #c40a00; }
-  .circle-button-green {
-    -fx-background-color: #4cd964; }
-    .circle-button-green:pressed {
-      -fx-background-color: #23a93a; }
-  .circle-button-yellow {
-    -fx-background-color: #ffcc00; }
-    .circle-button-yellow:pressed {
-      -fx-background-color: #bf9900; }
-
-.largeTitle {
-  -fx-font-family: "Heebo Black";
-  -fx-font-size: 34px; }
-
-.title2 {
-  -fx-font-family: "Heebo Black";
-  -fx-font-size: 20px; }
-
-.textField {
-  -fx-font-family: "Heebo Light";
-  -fx-font-size: 13px; }
-
-.paragraph {
-  -fx-font-family: "Heebo";
-  -fx-font-size: 14px; }
-
-.paragraphUI {
-  -fx-font-family: "Heebo Light";
-  -fx-font-size: 14px; }
-
-.backgroundWhite {
-  -fx-background-color: white; }
-
-.shadowpane {
-  -fx-background-color: transparent;
-  -fx-padding: 10;
-  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0, 1, 0); }
-
-.textFieldGrey {
-  -fx-text-fill: black;
-  -fx-prompt-text-fill: #878787;
-  -fx-background-color: #F0F0F0; }
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: Undefined variable: \"$dark-blue\".\A         on line 103 of ../components/_buttons.scss, in `default_label_button'\A         from line 103 of ../components/_buttons.scss\A         from line 2 of login.scss"; }
