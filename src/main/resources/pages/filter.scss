@@ -5,6 +5,8 @@
 @import "../components/backgrounds";
 @import "../components/scrollbar";
 
+@include make-combo-box($gray);
+
 .corner-pane {
   -fx-background-radius: 3px;
 }
@@ -14,6 +16,6 @@
 }
 
 .top-bar {
-  -fx-border-color: $gray;
-  -fx-border-width: 0 0 1 0;
-}
+   -fx-border-color: $gray;
+   -fx-border-width: 0 0 1 0;
+ }

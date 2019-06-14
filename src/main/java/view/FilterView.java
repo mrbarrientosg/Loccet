@@ -83,11 +83,7 @@ public class FilterView extends Fragment implements FilterCellDelegate {
     }
 
     private void addCell(FilterCell cell) {
-        List<Node> nodeList = cell.getChildrens();
-        for (int i = 0; i < nodeList.size(); i++) {
-            content.add(nodeList.get(i), i, lastRow, 1, 1);
-        }
-
+        content.addRow(lastRow, cell.getChildrens());
         lastRow += 1;
     }
 
@@ -108,7 +104,6 @@ public class FilterView extends Fragment implements FilterCellDelegate {
 
     public void setFilterCells(ObservableList<FilterCell> filterCells) {
         this.filterCells = filterCells;
-        lastRow = filterCells.size() == 0 ? 1 : filterCells.size();
         setupFilters();
     }
 

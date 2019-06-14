@@ -294,6 +294,51 @@
     -fx-prompt-text-fill: darken(lightGray, 30%);
   }
 }*/
+.combo-box .list-cell {
+  -fx-background: #F0F0F0;
+  -fx-background-color: transparent;
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 13px;
+  -fx-border-radius: 3px; }
+
+.combo-box .combo-box-popup .list-view {
+  -fx-background-color: #F0F0F0, #F0F0F0;
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 13px; }
+
+.combo-box .combo-box-popup .list-view .list-cell {
+  -fx-background-color: #F0F0F0;
+  -fx-border-width: 0 0 .25 0;
+  -fx-border-color: rgba(0, 0, 0, 0.3);
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 13px; }
+
+.combo-box .combo-box-popup .list-view .list-cell:filled:selected,
+.combo-box .combo-box-popup .list-view .list-cell:filled:selected:hover {
+  -fx-background: #F0F0F0;
+  -fx-background-color: #F0F0F0;
+  -fx-prompt-text-fill: #F0F0F0; }
+
+.combo-box .combo-box-popup .list-view .list-cell:filled:hover {
+  -fx-background-color: #F0F0F0;
+  -fx-prompt-text-fill: #F0F0F0; }
+
+.combo-box .combo-box-base {
+  -fx-background-color: #F0F0F0, #F0F0F0, #F0F0F0, #F0F0F0;
+  -fx-prompt-text-fill: #F0F0F0; }
+
+.combo-box .combo-box-base:hover {
+  -fx-color: #F0F0F0; }
+
+.combo-box .combo-box-base:showing {
+  -fx-color: #F0F0F0; }
+
+.combo-box .combo-box-base:focused {
+  -fx-background-color: #F0F0F0; }
+
+.combo-box .combo-box-base:disabled {
+  -fx-opacity: .4; }
+
 .corner-pane {
   -fx-background-radius: 3px; }
 
