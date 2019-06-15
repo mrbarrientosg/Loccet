@@ -15,9 +15,7 @@ import json.LocalTimeTypeConverter;
 import model.*;
 import network.endpoint.LoccetAPI;
 import network.service.Router;
-import util.chain.ConstructoraFetchHandler;
-import util.chain.DatabaseFetcher;
-import util.chain.ProyectosFetchHandler;
+import util.chain.*;
 import view.LoginView;
 
 import java.io.IOException;
@@ -89,7 +87,9 @@ public final class LoginController extends Controller {
 
         DatabaseFetcher fetcher = new DatabaseFetcher()
                 .add(new ConstructoraFetchHandler())
-                .add(new ProyectosFetchHandler());
+                .add(new ProyectosFetchHandler())
+                .add(new TrabajadoresCFetchHandler())
+                .add(new TrabajadoresPFetchHandler());
 
         fetcher.fetch(parameters, gson, result -> {
             view.hideLoading();
