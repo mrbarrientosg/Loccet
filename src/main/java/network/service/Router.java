@@ -40,7 +40,7 @@ public class Router<EndPoint extends EndPointType> implements NetworkRouter<EndP
             if (response.getContentType() == null) maybeEmitter.onSuccess(null);
             else maybeEmitter.onSuccess(new JsonParser().parse(response.getResponseBody()));
 
-        }).timeout(20, TimeUnit.SECONDS).map(object -> (JsonElement) object).subscribeOn(Schedulers.computation());
+        }).timeout(20, TimeUnit.SECONDS).map(object -> (JsonElement) object);
     }
 
     @Override

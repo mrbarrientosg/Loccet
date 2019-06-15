@@ -87,6 +87,23 @@
   -fx-font-family: "Heebo Medium";
   -fx-font-size: 13px; }
 
+.custom-combo-box .combo-box-popup .list-view .list-cell {
+  -fx-background-color: white;
+  -fx-border-width: 0 0 .25 0;
+  -fx-border-color: rgba(0, 0, 0, 0.3);
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 13px; }
+
+.gray-combo-box .combo-box-popup .list-view .list-cell:filled:selected,
+.gray-combo-box .combo-box-popup .list-view .list-cell:filled:selected:hover {
+  -fx-background: white;
+  -fx-background-color: white;
+  -fx-prompt-text-fill: #F0F0F0; }
+
+.gray-combo-box .combo-box-popup .list-view .list-cell:filled:hover {
+  -fx-background-color: white;
+  -fx-prompt-text-fill: #F0F0F0; }
+
 .gray-combo-box:editable > .arrow-button {
   -fx-background-color: #F0F0F0;
   -fx-background-insets: 1 1 1 0, 1, 2;
