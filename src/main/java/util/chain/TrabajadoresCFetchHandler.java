@@ -26,6 +26,7 @@ public class TrabajadoresCFetchHandler extends FetchHandler {
                 .subscribeOn(Schedulers.computation())
                 .observeOn(JavaFxScheduler.platform())
                 .subscribe(jsonArray -> {
+                    System.out.println("trabajadore const");
                     for (JsonElement jsonElement: jsonArray) {
                         JsonObject json = jsonElement.getAsJsonObject();
                         Trabajador t = deserializer.fromJson(json, Trabajador.class);

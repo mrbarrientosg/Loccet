@@ -7,12 +7,14 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import io.reactivex.schedulers.Schedulers;
 import model.Constructora;
-import model.Trabajador;
+import model.Material;
+import model.Proyecto;
 import network.endpoint.LoccetAPI;
 import network.service.Router;
+
 import java.util.function.Consumer;
 
-public class TrabajadoresPFetchHandler extends FetchHandler {
+public class MaterialesFetchHandler extends FetchHandler {
 
     private Router<LoccetAPI> service = new Router<>();
 
@@ -20,18 +22,20 @@ public class TrabajadoresPFetchHandler extends FetchHandler {
 
     @Override
     public void handle(JsonObject parameters, Gson deserializer, Consumer<Result> result) {
-        disposable = service.request(LoccetAPI.GET_TRABAJADORES_PROYECTOS, parameters)
+        disposable = service.request(LoccetAPI.GET_MATERIALES_PROYECTOS, parameters)
                 .map(JsonElement::getAsJsonArray)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(JavaFxScheduler.platform())
                 .subscribe(jsonArray -> {
-                    System.out.println("trabajadore proyecto");
+                    System.out.println("materiales");
 
-                    for (JsonElement jsonElement: jsonArray) {
+                    for (JsonElement jsonElement : jsonArray) {
                         JsonObject json = jsonElement.getAsJsonObject();
-                        Trabajador t = deserializer.fromJson(json, Trabajador.class);
-                        Constructora.getInstance().agregarTrabajador(json.get("id_proyecto").getAsString(), t);
+                        Material m = deserializer.fromJson(json, Material.class);
+                        Proyecto p = Constructora.getInstance().obtenerProyecto(json.get("id_proyecto").getAsString());
+                        p.agregarMaterial(m);
                     }
+
                     handleNext(parameters, deserializer, result);
                 }, throwable -> {
                     result.accept(Result.error(throwable));

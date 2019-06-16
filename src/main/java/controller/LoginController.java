@@ -89,7 +89,12 @@ public final class LoginController extends Controller {
                 .add(new ConstructoraFetchHandler())
                 .add(new ProyectosFetchHandler())
                 .add(new TrabajadoresCFetchHandler())
-                .add(new TrabajadoresPFetchHandler());
+                .add(new TrabajadoresPFetchHandler())
+                .add(new HorariosFetchHandler())
+                .add(new AsistenciasFetchHandler())
+                .add(new FasesProyectosFetchHandler())
+                .add(new MaterialesFetchHandler())
+                .add(new RegistroMaterialFetchHandler());
 
         fetcher.fetch(parameters, gson, result -> {
             view.hideLoading();
