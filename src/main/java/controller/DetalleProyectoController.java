@@ -3,6 +3,7 @@ package controller;
 import base.Controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import exceptions.EmptyFieldException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import model.Proyecto;
@@ -39,7 +40,7 @@ public class DetalleProyectoController extends Controller {
     //private ObjectProperty<LocalDate> endDate = new SimpleStringProperty();
 
 
-    public void actualizar() {
+    public void actualizar() throws EmptyFieldException {
         model.setNombre(name.get());
         model.getLocalizacion().setDireccion(address.get());
         model.getLocalizacion().setPais(country.get());

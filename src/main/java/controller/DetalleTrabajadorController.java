@@ -2,6 +2,7 @@ package controller;
 
 import base.Controller;
 import delegate.EditTrabajadorDelegate;
+import exceptions.EmptyFieldException;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -39,7 +40,7 @@ public class DetalleTrabajadorController extends Controller {
 
     //private StringProperty telephone = new SimpleStringProperty();
 
-    public void guardar() {
+    public void guardar() throws EmptyFieldException {
         model.setNombre(name.get());
         model.setApellido(lastName.get());
 

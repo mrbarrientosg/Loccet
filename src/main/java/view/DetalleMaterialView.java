@@ -2,6 +2,7 @@ package view;
 import base.Fragment;
 import base.Injectable;
 import controller.DetalleMaterialController;
+import exceptions.EmptyFieldException;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
@@ -112,12 +113,19 @@ public class DetalleMaterialView extends Fragment {
             editarBT.setText("Guardar");//Se cambia el boton editar a guardar.
             editando = true;
         }else {//Si la variable es verdadera se comienza con el proceso de guardado.
-            controller.ModificarDescripcion(descripcionTA.getText());//Se modifica la descripcion.
-            controller.modificarNombre(nombreTF.getText());//Se modifca el nombre.
-            nombreTF.setDisable(true);//Se desactivan los textField
-            descripcionTA.setDisable(true);
-            editarBT.setText("Editar");//Se regresa el boton a editar.
-            editando = false;
+            try {
+                controller.modificarDescripcion(descripcionTA.getText());//Se modifica la descripcion.
+                controller.modificarNombre(nombreTF.getText());//Se modifca el nombre.
+                nombreTF.setDisable(true);//Se desactivan los textField
+                descripcionTA.setDisable(true);
+                editarBT.setText("Editar");//Se regresa el boton a editar.
+                editando = false;
+            } catch (EmptyFieldException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText(e.getMessage());
+                alert.show();
+            }
+
         }
     }
     @FXML
