@@ -16,12 +16,8 @@ import java.util.function.Consumer;
 
 public class RegistroMaterialFetchHandler extends FetchHandler {
 
-    private Router<LoccetAPI> service = new Router<>();
-
-    private Disposable disposable;
-
     @Override
-    public void handle(JsonObject parameters, Gson deserializer, Consumer<Result> result) {
+    public void handle(JsonObject parameters, Gson deserializer, Consumer<FetchResult> result) {
         disposable = service.request(LoccetAPI.GET_REGISTRO_MATERIALES, parameters)
                 .map(JsonElement::getAsJsonArray)
                 .subscribeOn(Schedulers.computation())
@@ -38,12 +34,8 @@ public class RegistroMaterialFetchHandler extends FetchHandler {
 
                     handleNext(parameters, deserializer, result);
                 }, throwable -> {
-                    result.accept(Result.error(throwable));
+                    result.accept(FetchResult.error(throwable));
                 });
     }
 
-    public void dispose() {
-        if (disposable != null)
-            disposable.dispose();
-    }
 }

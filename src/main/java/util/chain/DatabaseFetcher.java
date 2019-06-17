@@ -10,7 +10,7 @@ public class DatabaseFetcher {
 
     private FetchHandler tail;
 
-    public void fetch(JsonObject parameters, Gson deserializer, Consumer<Result> result) {
+    public void fetch(JsonObject parameters, Gson deserializer, Consumer<FetchResult> result) {
        head.handle(parameters, deserializer, result);
     }
 
@@ -24,5 +24,16 @@ public class DatabaseFetcher {
         tail = handler;
 
         return this;
+    }
+
+    public void clear() {
+        for (FetchHandler x = head; x != null; ) {
+            FetchHandler next = x.getNext();
+            x.setNext(null);
+            x.dispose();
+            x = next;
+        }
+
+        head = tail = null;
     }
 }

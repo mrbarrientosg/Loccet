@@ -1,22 +1,22 @@
 package util.chain;
 
-public class Result {
+public class FetchResult {
 
     private boolean isSuccess;
 
     private Throwable error;
 
-    private Result(boolean success, Throwable error) {
+    private FetchResult(boolean success, Throwable error) {
         this.isSuccess = success;
         this.error = error;
     }
 
-    public static Result success() {
-        return new Result(true, null);
+    public static FetchResult success() {
+        return new FetchResult(true, null);
     }
 
-    public static Result error(Throwable error) {
-        return new Result(false, error);
+    public static FetchResult error(Throwable error) {
+        return new FetchResult(false, error);
     }
 
     public boolean isSuccess() {

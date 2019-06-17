@@ -99,6 +99,7 @@ public final class LoginController extends Controller {
         fetcher.fetch(parameters, gson, result -> {
             view.hideLoading();
             if (result.isSuccess()) {
+                fetcher.clear();
                 view.gotoHome();
             } else {
                 view.onError(result.getError());
