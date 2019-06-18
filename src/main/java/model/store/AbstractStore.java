@@ -1,14 +1,14 @@
 package model.store;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class AbstractStore<Model> implements Store<Model> {
 
-    private Set<Model> items;
+    private List<Model> items;
 
     public AbstractStore() {
-        items = new HashSet<>();
+        items = new ArrayList<>();
     }
 
     public Model save(Model value) {
