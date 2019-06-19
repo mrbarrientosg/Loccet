@@ -5,28 +5,6 @@
 @import "../components/backgrounds";
 @import "../components/scrollbar";
 
-//backgrounds
-@include backgroundWhite;
-@include backgroundgray;
-@include backgroundLight;
-
-//buttons
-@include buttonBlue;
-@include buttonFillRed;
-@include buttonWhiteShadow;
-@include buttonBorderRed;
-//fonts
-@include title1;
-@include paragraphUI;
-
-//textfield
-@include textField;
-@include textFieldGrey;
-
-@include shadowpane;
-
-.side-menu {
-  -fx-background-color: white;
-  -fx-background-radius: 3px 0px 0px 3px;
-  @include make-shadow($side: $right-side-shadow);
+.corner-pane {
+  -fx-background-radius: 3px;
 }

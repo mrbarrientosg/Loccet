@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="backgroundLight" stylesheets="@../css/detailproyect.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="bg-white" stylesheets="@../css/detailproyect.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="CENTER" spacing="10.0">
          <children>
@@ -28,49 +28,25 @@
                   <Separator maxWidth="1.7976931348623157E308" visible="false" HBox.hgrow="ALWAYS" />
                   <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0">
                      <children>
-                        <AnchorPane styleClass="buttonWhiteShadow">
+                        <AnchorPane styleClass="button-shadow-white">
                            <StackPane.margin>
-                              <Insets left="5.0" right="5.0" top="10.0" />
+                              <Insets bottom="3.0" left="5.0" right="5.0" top="5.0" />
                            </StackPane.margin>
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
                         </AnchorPane>
-                        <Button mnemonicParsing="false" onAction="#addEmployeeAction" styleClass="buttonBlue" text="Agregar trabajador" />
+                        <Button mnemonicParsing="false" onAction="#addEmployeeAction" styleClass="button-fill-blue" text="Agregar trabajador" />
                      </children>
                   </StackPane>
-                  <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0">
-                     <children>
-                        <AnchorPane styleClass="buttonWhiteShadow">
-                           <StackPane.margin>
-                              <Insets left="5.0" right="5.0" top="10.0" />
-                           </StackPane.margin>
-                           <padding>
-                              <Insets bottom="5.0" />
-                           </padding>
-                        </AnchorPane>
-                        <Button mnemonicParsing="false" onAction="#verDetalleTrabajador" styleClass="buttonFillBlue" text="Ver detalle" />
-                     </children>
-                  </StackPane>
-                  <StackPane maxHeight="-Infinity" minHeight="-Infinity">
-                     <children>
-                        <AnchorPane disable="true" styleClass="buttonWhiteShadow">
-                           <StackPane.margin>
-                              <Insets left="5.0" right="5.0" top="10.0" />
-                           </StackPane.margin>
-                           <padding>
-                              <Insets bottom="5.0" />
-                           </padding>
-                        </AnchorPane>
-                        <Button mnemonicParsing="false" styleClass="buttonRed" text="Eliminar trabajador" />
-                     </children>
-                  </StackPane>
+                  <Button mnemonicParsing="false" onAction="#verDetalleTrabajador" styleClass="button-label-blue" text="Ver detalle" />
+                  <Button mnemonicParsing="false" styleClass="button-label-red" text="Eliminar" />
                </children>
             </HBox>
             <TextField fx:id="searchTextField" promptText="Buscar trabajador">
                <styleClass>
-                  <String fx:value="textField" />
-                  <String fx:value="textFieldGrey" />
+                  <String fx:value="textfield" />
+                  <String fx:value="textfield-gray" />
                </styleClass>
             </TextField>
          </children>
@@ -92,8 +68,8 @@
             <TableColumn fx:id="emailColumn" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Correo electronico" />
          </columns>
          <styleClass>
-            <String fx:value="rrhh-table" />
-            <String fx:value="custom-scroll" />
+            <String fx:value="table" />
+            <String fx:value="gray-scroll" />
          </styleClass>
          <VBox.margin>
             <Insets bottom="16.0" left="16.0" right="16.0" />

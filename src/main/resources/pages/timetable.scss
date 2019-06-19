@@ -5,11 +5,4 @@
 @import "../components/tableview";
 @import "../components/scrollbar";
 
-@include backgroundWhite;
-@include backgroundgray;
-
-@include buttonBlue;
-@include buttonRed;
-@include buttonWhiteShadow;
-
-@include title1;
+@include make-tableview;

@@ -28,14 +28,18 @@ public class FilterCell {
 
     private Parser parser;
 
+    private int row;
+
+    private Node[] childrens;
+
     public FilterCell(ObservableList<Pair<String, Class<?>>> columnList) {
         columnName = new ComboBox<>();
         columnName.setItems(columnList);
         columnName.prefWidth(-1);
         columnName.setMaxWidth(Double.MAX_VALUE);
         columnName.getStylesheets().add(getClass().getResource("../css/filter.css").toString());
-        columnName.getStyleClass().add("gray-combo-box");
-        columnName.getStyleClass().add("textFieldGrey");
+        columnName.getStyleClass().add("textfield-gray");
+        columnName.getStyleClass().add("textfield");
 
         Callback<ListView<Pair<String, Class<?>>>, ListCell<Pair<String, Class<?>>>> factory = lv -> new ListCell<Pair<String, Class<?>>>() {
             @Override
@@ -70,20 +74,22 @@ public class FilterCell {
         filter.prefWidth(-1);
         filter.setMaxWidth(Double.MAX_VALUE);
         filter.getStylesheets().add(getClass().getResource("../css/filter.css").toString());
-        filter.getStyleClass().add("gray-combo-box");
-        filter.getStyleClass().add("textFieldGrey");
+        filter.getStyleClass().add("textfield-gray");
+        filter.getStyleClass().add("textfield");
 
         value = new TextField();
         value.prefWidth(-1);
         value.getStylesheets().add(getClass().getResource("../css/filter.css").toString());
-        value.getStyleClass().add("textFieldGrey");
-        value.getStyleClass().add("textField");
+        value.getStyleClass().add("textfield-gray");
+        value.getStyleClass().add("textfield");
 
         delete = new Button("x");
         delete.getStylesheets().add(getClass().getResource("../css/filter.css").toString());
-        delete.getStyleClass().add("buttonWhite");
+        delete.getStyleClass().add("button-label-black");
 
         delete.setOnAction(this::onDelete);
+
+        childrens = new Node[]{columnName, filter, value, delete};
     }
 
     private void onDelete(ActionEvent event) {
@@ -97,8 +103,8 @@ public class FilterCell {
         this.delegate = delegate;
     }
 
-    public ObservableList<Node> getChildrens() {
-        return FXCollections.observableArrayList(columnName, filter, value, delete);
+    public Node[] getChildrens() {
+        return childrens;
     }
 
     public String getColumnName() {

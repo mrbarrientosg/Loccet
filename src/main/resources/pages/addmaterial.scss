@@ -3,27 +3,6 @@
 @import "../components/textfields";
 @import "../components/backgrounds";
 
-
-@include backgroundLight;
-
-@include textFieldGrey;
-
-@include textField;
-
-@include buttonFillRed;
-
-@include buttonBlue;
-
-@include title2;
-
-@include paragraph;
-
-@include buttonWhiteShadow;
-
-@include shadowpane;
-
-.side-menu {
-  -fx-background-color: white;
-  -fx-background-radius: 3px 0px 0px 3px;
-  @include make-shadow($side: $right-side-shadow);
+.corner-pane {
+  -fx-background-radius: 3px;
 }

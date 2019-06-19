@@ -4,29 +4,4 @@
 @import "../components/backgrounds";
 @import '../components/tableview';
 
-//buttons
-@include buttonBlue;
-
-@include buttonFillBlue;
-
-@include buttonWhite;
-
-@include buttonRed;
-
-@include buttonBorderBlue;
-
-@include buttonWhiteShadow;
-
-//backgrounds
-@include backgroundWhite;
-
-@include backgroundLight;
-
-@include backgroundgray;
-
-//Textfields
-@include textField;
-
-@include textFieldGrey;
-
-@include title1;
+@include make-tableview;

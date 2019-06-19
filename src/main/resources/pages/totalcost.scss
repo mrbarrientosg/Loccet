@@ -2,18 +2,6 @@
 @import "../components/buttons";
 @import "../components/backgrounds";
 
-@include backgroundWhite;
-
-@include buttonBorderBlue;
-@include buttonWhiteShadow;
-
-@include paragraph;
-@include title3;
-
-@include shadowpane;
-
-.side-menu {
-  -fx-background-color: white;
-  -fx-background-radius: 3px 0px 0px 3px;
-  @include make-shadow($side: $right-side-shadow);
+.corner-pane {
+  -fx-background-radius: 3px;
 }

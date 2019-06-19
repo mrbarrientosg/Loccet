@@ -5,15 +5,17 @@
 @import "../components/backgrounds";
 @import "../components/scrollbar";
 
-@include buttonBlue;
-@include buttonFillBlue;
-@include buttonWhite;
+@include make-combo-box($gray);
 
-@include textFieldGrey;
+.corner-pane {
+  -fx-background-radius: 3px;
+}
 
-@include backgroundWhite;
+.white-scroll {
+  @include custom-scroll;
+}
 
-@include title1;
-@include paragraphUI;
-@include textField;
-
+.top-bar {
+   -fx-border-color: $gray;
+   -fx-border-width: 0 0 1 0;
+ }

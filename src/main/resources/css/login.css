@@ -1,22 +1,3 @@
-/*
-@mixin backgroundTransparent {
-  .backgroundTransparent {
-    -fx-background-color: transparent;
-  }
-}
-
-@mixin backgroundWhite {
-  .backgroundWhite {
-    -fx-background-color: white;
-  }
-}
-
-@mixin backgroundLight {
-  .backgroundLight {
-    -fx-background-color: $ghost-white; //TODO: cambio
-  }
-}
-*/
 @font-face {
   font-family: "Heebo";
   src: url("../fonts/Heebo-Regular.ttf") format("truetype"); }
@@ -29,6 +10,223 @@
 @font-face {
   font-family: "Heebo Black";
   src: url("../fonts/Heebo-Black.ttf") format("truetype"); }
+.large-title {
+  -fx-font-family: "Heebo Black";
+  -fx-font-size: 34px; }
+
+.title1 {
+  -fx-font-family: "Heebo Black";
+  -fx-font-size: 24px; }
+
+.title2 {
+  -fx-font-family: "Heebo Black";
+  -fx-font-size: 20px; }
+
+.title3 {
+  -fx-font-family: "Heebo Black";
+  -fx-font-size: 16px; }
+
+.paragraph {
+  -fx-font-family: "Heebo";
+  -fx-font-size: 14px; }
+
+.paragraph-light {
+  -fx-font-family: "Heebo Light";
+  -fx-font-size: 14px; }
+
+.paragraph-medium {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px; }
+
+.textfield {
+  -fx-font-family: "Heebo Light";
+  -fx-font-size: 13px; }
+
+.footnote {
+  -fx-font-family: "Heebo Light";
+  -fx-font-size: 12px; }
+
+.shadow-root {
+  -fx-background-color: transparent;
+  -fx-padding: 10;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 10, 0, 1, 0); }
+
+.button-shadow-green {
+  -fx-background-color: white;
+  -fx-effect: dropshadow(two-pass-box, rgba(74, 201, 89, 0.7), 20, 0, -0.06, 1.5); }
+
+.button-shadow-blue {
+  -fx-background-color: white;
+  -fx-effect: dropshadow(two-pass-box, rgba(0, 132, 255, 0.4), 20, 0, -0.06, 2); }
+
+.button-shadow-white {
+  -fx-background-color: #e8e8e8;
+  -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.2), 20, 0, -0.06, 2); }
+
+.button-label-gray {
+  -fx-background-color: transparent;
+  -fx-background-radius: 0;
+  -fx-text-fill: #ACACAC;
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px; }
+  .button-label-gray:hover {
+    -fx-text-fill: #D1D1D1; }
+  .button-label-gray:pressed {
+    -fx-text-fill: #ACACAC; }
+
+.button-label-black {
+  -fx-background-color: transparent;
+  -fx-background-radius: 0;
+  -fx-text-fill: #595959;
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px; }
+  .button-label-black:hover {
+    -fx-text-fill: #ACACAC; }
+  .button-label-black:pressed {
+    -fx-text-fill: #595959; }
+
+.button-label-light-black {
+  -fx-background-color: transparent;
+  -fx-background-radius: 0;
+  -fx-text-fill: #595959;
+  -fx-font-family: "Heebo Light";
+  -fx-font-size: 14px; }
+  .button-label-light-black:hover {
+    -fx-text-fill: #ACACAC; }
+  .button-label-light-black:pressed {
+    -fx-text-fill: #595959; }
+
+.button-label-blue {
+  -fx-background-color: transparent;
+  -fx-background-radius: 0;
+  -fx-text-fill: #0084ff;
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px; }
+  .button-label-blue:hover {
+    -fx-text-fill: #006acc; }
+  .button-label-blue:pressed {
+    -fx-text-fill: #0084ff; }
+
+.button-label-red {
+  -fx-background-color: transparent;
+  -fx-background-radius: 0;
+  -fx-text-fill: red;
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px; }
+  .button-label-red:hover {
+    -fx-text-fill: #cc0000; }
+  .button-label-red:pressed {
+    -fx-text-fill: red; }
+
+.button-fill-green {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: white;
+  -fx-background-color: #4AC959;
+  -fx-background-radius: 3; }
+  .button-fill-green:hover {
+    -fx-background-color: #21d761; }
+  .button-fill-green:pressed {
+    -fx-background-color: #4AC959; }
+
+.button-fill-blue {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: white;
+  -fx-background-color: #0084ff;
+  -fx-background-radius: 3; }
+  .button-fill-blue:hover {
+    -fx-background-color: #2998ff; }
+  .button-fill-blue:pressed {
+    -fx-background-color: #0084ff; }
+
+.button-fill-red {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: white;
+  -fx-background-color: red;
+  -fx-background-radius: 3; }
+  .button-fill-red:hover {
+    -fx-background-color: #ff2929; }
+  .button-fill-red:pressed {
+    -fx-background-color: red; }
+
+.button-fill-white {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: black;
+  -fx-background-color: white;
+  -fx-background-radius: 3; }
+  .button-fill-white:hover {
+    -fx-background-color: #e6e6e6; }
+  .button-fill-white:pressed {
+    -fx-background-color: white; }
+
+.button-fill-gray {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: black;
+  -fx-background-color: #F0F0F0;
+  -fx-background-radius: 3; }
+  .button-fill-gray:hover {
+    -fx-background-color: #d7d7d7; }
+  .button-fill-gray:pressed {
+    -fx-background-color: #F0F0F0; }
+
+.button-border-blue {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: #0084ff;
+  -fx-background-color: white;
+  -fx-background-radius: 3;
+  -fx-border-radius: 3;
+  -fx-border-color: #0084ff;
+  -fx-border-width: 0.8; }
+  .button-border-blue:hover {
+    -fx-background-color: #f2f2f2; }
+  .button-border-blue:pressed {
+    -fx-background-color: white; }
+
+.button-border-red {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: red;
+  -fx-background-color: white;
+  -fx-background-radius: 3;
+  -fx-border-radius: 3;
+  -fx-border-color: red;
+  -fx-border-width: 0.8; }
+  .button-border-red:hover {
+    -fx-background-color: #f2f2f2; }
+  .button-border-red:pressed {
+    -fx-background-color: white; }
+
+.textfield-gray {
+  -fx-text-fill: black;
+  -fx-prompt-text-fill: #878787;
+  -fx-background-color: #F0F0F0; }
+
+.bg-transparent {
+  -fx-background-color: transparent; }
+
+.bg-white {
+  -fx-background-color: white; }
+
+.bg-light-gray {
+  -fx-background-color: #F9F9F9; }
+
+.bg-gray {
+  -fx-background-color: #F0F0F0; }
+
+.corner-pane {
+  -fx-background-radius: 3px; }
+
+/*@mixin backgroundgray{
+  .backgroundgray{
+    -fx-text-fill: black;
+    -fx-prompt-text-fill: darken(lightGray, 30%);
+  }
+}*/
 .right-pane-gradient {
   -fx-background-radius: 0px 3px 3px 0px;
   -fx-background-color: #0084ff, linear-gradient(to bottom right, reflect, #0084ff, #00c6ff); }
@@ -50,36 +248,6 @@
 .textAreaTransparent *.text {
   -fx-text-alignment: justify; }
 
-.buttonGreen {
-  -fx-font-family: "Heebo Medium";
-  -fx-font-size: 14px;
-  -fx-text-fill: white;
-  -fx-background-color: #4AC959;
-  -fx-background-radius: 3; }
-  .buttonGreen:hover {
-    -fx-text-fill: white;
-    -fx-background-color: #21d761;
-    -fx-background-radius: 3; }
-  .buttonGreen:pressed {
-    -fx-text-fill: white;
-    -fx-background-color: #4AC959;
-    -fx-background-radius: 3; }
-
-.buttonGreenShadow {
-  -fx-background-color: white;
-  -fx-effect: dropshadow(two-pass-box, rgba(74, 201, 89, 0.7), 20, 0, -0.06, 1.5); }
-
-.buttonLabelGrey {
-  -fx-background-color: transparent;
-  -fx-background-radius: 0;
-  -fx-text-fill: #ACACAC;
-  -fx-font-family: "Heebo Medium";
-  -fx-font-size: 14px; }
-  .buttonLabelGrey:hover {
-    -fx-text-fill: #D1D1D1; }
-  .buttonLabelGrey:pressed {
-    -fx-text-fill: #ACACAC; }
-
 .circle-button {
   -fx-background-radius: 13px;
   -fx-min-width: 13px;
@@ -100,36 +268,3 @@
     -fx-background-color: #ffcc00; }
     .circle-button-yellow:pressed {
       -fx-background-color: #bf9900; }
-
-.largeTitle {
-  -fx-font-family: "Heebo Black";
-  -fx-font-size: 34px; }
-
-.title2 {
-  -fx-font-family: "Heebo Black";
-  -fx-font-size: 20px; }
-
-.textField {
-  -fx-font-family: "Heebo Light";
-  -fx-font-size: 13px; }
-
-.paragraph {
-  -fx-font-family: "Heebo";
-  -fx-font-size: 14px; }
-
-.paragraphUI {
-  -fx-font-family: "Heebo Light";
-  -fx-font-size: 14px; }
-
-.backgroundWhite {
-  -fx-background-color: white; }
-
-.shadowpane {
-  -fx-background-color: transparent;
-  -fx-padding: 10;
-  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0, 1, 0); }
-
-.textFieldGrey {
-  -fx-text-fill: black;
-  -fx-prompt-text-fill: #878787;
-  -fx-background-color: #F0F0F0; }

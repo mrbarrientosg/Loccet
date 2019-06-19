@@ -6,13 +6,8 @@
 @import '../components/tableview';
 @import '../components/scrollbar';
 
-@include buttonBlue;
-@include buttonWhite;
-@include buttonRed;
-@include buttonWhiteShadow;
+@include make-tableview;
 
-@include textField;
-
-@include backgroundLight;
-
-@include textFieldGrey;
+.white-scroll {
+  @include custom-scroll;
+}

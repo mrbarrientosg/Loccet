@@ -1,34 +1,30 @@
-.date-picker > .grayDatePicker{
-
-}
-
-.grayDatePicker > .arrow-button {
+.date-picker > .arrow-button {
   -fx-background-color: $gray;
   -fx-background-insets: 1 1 1 0, 1, 2;
   -fx-background-radius: 0 3 3 0, 0 2 2 0, 0 1 1 0;
 }
 
-.grayDatePicker > .text-field {
+.date-picker > .text-field {
   -fx-background-color: $gray;
   -fx-background-insets: 1 0 1 1;
   -fx-background-radius: 2 0 0 2;
 }
 
-.grayDatePicker:focused {
+.date-picker:focused {
   -fx-background-color: $gray;
   -fx-background-insets: -0.2;
   -fx-background-radius: 3;
 }
 
-.grayDatePicker:focused > .text-field,
-.grayDatePicker > .text-field:focused {
+.date-picker:focused > .text-field,
+.date-picker > .text-field:focused {
   -fx-background-color: $gray;
   -fx-border-color: $gray;
   -fx-background-insets: 1 0 1 1, 1 0 1 1, 3 2 3 3;
   -fx-background-radius: 2 0 0 2, 1 0 0 1, 0;
 }
 
-.grayDatePicker:focused > .arrow-button {
+.date-picker:focused > .arrow-button {
   -fx-background-color: $gray;
   -fx-background-insets: 1, 2, 1, 2.6;
   -fx-background-radius: 0 2 2 0, 0 1 1 0, 0 1 1 0, 0 1 1 0;
@@ -133,10 +129,4 @@
 .date-picker-popup > * > .next-month {
   -fx-text-fill: $gray-shadow;
   //-fx-background-color:green;
-}
-@mixin datePickerGray {
-  #{'.datePickerGray'} {
-
-
-  }
 }

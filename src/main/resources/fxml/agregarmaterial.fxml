@@ -10,22 +10,21 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<StackPane styleClass="shadowpane" stylesheets="@../css/addmaterial.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane styleClass="shadow-root" stylesheets="@../css/addmaterial.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox>
+      <VBox minHeight="-Infinity" minWidth="-Infinity" prefWidth="320.0">
          <children>
             <VBox spacing="20.0">
                <children>
-                  <Label styleClass="title2" text="Agregar Material" textAlignment="CENTER">
+                  <Label styleClass="title1" text="Agregar Material" textAlignment="CENTER">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </Label>
                   <TextField fx:id="agregarTF" promptText="Cantidad a agregar">
                      <styleClass>
-                        <String fx:value="textFieldGrey" />
-                        <String fx:value="textField" />
+                        <String fx:value="textfield-gray" />
+                        <String fx:value="textfield" />
                      </styleClass>
                   </TextField>
                </children>
@@ -37,7 +36,7 @@
               <buttons>
                   <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0">
                      <children>
-                        <AnchorPane styleClass="buttonWhiteShadow">
+                        <AnchorPane styleClass="button-shadow-white">
                            <StackPane.margin>
                               <Insets left="5.0" right="5.0" top="10.0" />
                            </StackPane.margin>
@@ -45,22 +44,10 @@
                               <Insets bottom="5.0" />
                            </padding>
                         </AnchorPane>
-                      <Button fx:id="agregarBT" defaultButton="true" mnemonicParsing="false" onAction="#cantidadItem" styleClass="buttonBlue" text="Agregar" />
+                      <Button fx:id="agregarBT" defaultButton="true" mnemonicParsing="false" onAction="#cantidadItem" styleClass="button-fill-blue" text="Agregar" />
                      </children>
                   </StackPane>
-                  <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0">
-                     <children>
-                        <AnchorPane styleClass="buttonWhiteShadow">
-                           <StackPane.margin>
-                              <Insets left="5.0" right="5.0" top="10.0" />
-                           </StackPane.margin>
-                           <padding>
-                              <Insets bottom="5.0" />
-                           </padding>
-                        </AnchorPane>
-                        <Button fx:id="cancelarBT" mnemonicParsing="false" onAction="#salir" styleClass="buttonFillRed" text="Cancelar" />
-                     </children>
-                  </StackPane>
+                  <Button fx:id="cancelarBT" mnemonicParsing="false" onAction="#salir" styleClass="button-label-gray" text="Cancelar" />
               </buttons>
                <VBox.margin>
                   <Insets bottom="16.0" left="16.0" right="16.0" />
@@ -68,8 +55,8 @@
             </ButtonBar>
          </children>
          <styleClass>
-            <String fx:value="backgroundLight" />
-            <String fx:value="side-menu" />
+            <String fx:value="bg-white" />
+            <String fx:value="corner-pane" />
          </styleClass>
       </VBox>
    </children>

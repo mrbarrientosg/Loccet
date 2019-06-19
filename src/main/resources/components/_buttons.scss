@@ -8,243 +8,6 @@
   -fx-padding: 0px;
 }
 
-@mixin buttonLabelGrey($light: false) {
-  #{'.buttonLabelGrey'} {
-    -fx-background-color: transparent;
-    -fx-background-radius: 0;
-    -fx-text-fill: #ACACAC;
-    @if ($light) {
-      @include button-light;
-    } @else {
-      @include button;
-    }
-
-    &:hover {
-      -fx-text-fill: #D1D1D1;
-    }
-
-    &:pressed {
-      -fx-text-fill: #ACACAC;
-    }
-  }
-}
-
-@mixin buttonLabelBlack($light: false) {
-  #{'.buttonLabelBlack'} {
-    -fx-background-color: transparent;
-    -fx-background-radius: 0;
-    -fx-text-fill: #595959;
-    @if ($light) {
-      @include button-light;
-    } @else {
-      @include button;
-    }
-
-    &:hover {
-      -fx-text-fill: #ACACAC;
-    }
-
-    &:pressed {
-      -fx-text-fill: #595959;
-    }
-  }
-}
-
-@mixin buttonGreen {
-  #{'.buttonGreen'} {
-    @include button;
-    -fx-text-fill: white;
-    -fx-background-color: $green-button;
-    -fx-background-radius: 3;
-
-    &:hover {
-      -fx-text-fill: white;
-      -fx-background-color: $light-green-button;
-      -fx-background-radius: 3;
-    }
-
-    &:pressed {
-      -fx-text-fill: white;
-      -fx-background-color: $green-button;
-      -fx-background-radius: 3;
-    }
-  }
-}
-
-@mixin buttonBlue {
-  #{'.buttonBlue'} {
-    @include button;
-    -fx-text-fill: white;
-    -fx-background-color: $dark-blue;
-    -fx-background-radius: 3;
-
-    &:hover {
-      -fx-text-fill: white;
-      -fx-background-color: lighten($dark-blue, 8%);
-      -fx-background-radius: 3;
-    }
-
-    &:pressed {
-      -fx-text-fill: white;
-      -fx-background-color: $dark-blue;;
-      -fx-background-radius: 3;
-    }
-  }
-}
-
-@mixin buttonRed {
-  #{'.buttonRed'} {
-    @include button;
-    -fx-text-fill: white;
-    -fx-background-color: red;
-    -fx-background-radius: 3;
-
-    &:hover {
-      -fx-text-fill: white;
-      -fx-background-color: lighten(red, 8%);
-      -fx-background-radius: 3;
-    }
-
-    &:pressed {
-      -fx-text-fill: white;
-      -fx-background-color: red;
-      -fx-background-radius: 3;
-    }
-  }
-}
-
-@mixin buttonWhite {
-  #{'.buttonWhite'} {
-    @include button;
-    -fx-text-fill: black;
-    -fx-background-color: white;
-    -fx-background-radius: 3;
-
-    &:hover {
-      -fx-text-fill: black;
-      -fx-background-color: darken(white, 10%);
-      -fx-background-radius: 3;
-    }
-
-    &:pressed {
-      -fx-text-fill: black;
-      -fx-background-color: white;;
-      -fx-background-radius: 3;
-    }
-  }
-}
-
-@mixin buttonGray {
-  #{'.buttonGray'} {
-    @include button;
-    -fx-text-fill: black;
-    -fx-background-color: $gray;
-    -fx-background-radius: 3;
-
-    &:hover {
-      -fx-text-fill: black;
-      -fx-background-color: darken($gray, 10%);
-      -fx-background-radius: 3;
-    }
-
-    &:pressed {
-      -fx-text-fill: black;
-      -fx-background-color: $gray;;
-      -fx-background-radius: 3;
-    }
-  }
-}
-
-@mixin buttonFillBlue {
-  #{'.buttonFillBlue'} {
-    @include button;
-    -fx-text-fill: $dark-blue;
-    -fx-background-color: white;
-    -fx-background-radius: 3;
-
-    &:hover {
-      -fx-text-fill: $dark-blue;
-      -fx-background-color: darken(white, 10%);
-      -fx-background-radius: 3;
-    }
-
-    &:pressed {
-      -fx-text-fill: $dark-blue;
-      -fx-background-color: white;
-      -fx-background-radius: 3;
-    }
-  }
-}
-
-@mixin buttonBorderBlue {
-  #{'.buttonBorderBlue'} {
-    @include button;
-    -fx-text-fill: $dark-blue;
-    -fx-background-color: white;
-    -fx-border-radius: 3;
-    -fx-border-color: $dark-blue;
-
-    &:hover {
-      -fx-text-fill: $dark-blue;
-      -fx-background-color: darken(white, 5%);
-      -fx-border-radius: 3;
-      -fx-border-color: $dark-blue;
-    }
-
-    &:pressed {
-      -fx-text-fill: $dark-blue;
-      -fx-background-color: white;
-      -fx-border-radius: 3;
-      -fx-border-color: $dark-blue;
-    }
-  }
-}
-
-@mixin buttonBorderRed {
-  #{'.buttonBorderRed'} {
-    @include button;
-    -fx-text-fill: red;
-    -fx-background-color: white;
-    -fx-border-radius: 3;
-    -fx-border-color: red;
-
-    &:hover {
-      -fx-text-fill: red;
-      -fx-background-color: darken(white, 5%);
-      -fx-border-radius: 3;
-      -fx-border-color: red;
-    }
-
-    &:pressed {
-      -fx-text-fill: red;
-      -fx-background-color: white;
-      -fx-border-radius: 3;
-      -fx-border-color: red;
-    }
-  }
-}
-
-@mixin buttonFillRed {
-  #{'.buttonFillRed'} {
-    @include button;
-    -fx-text-fill: red;
-    -fx-background-color: white;
-    -fx-background-radius: 3;
-
-    &:hover {
-      -fx-text-fill: red;
-      -fx-background-color: darken(white, 10%);
-      -fx-background-radius: 3;
-    }
-
-    &:pressed {
-      -fx-text-fill: red;
-      -fx-background-color: white;
-      -fx-background-radius: 3;
-    }
-  }
-}
-
 @mixin circle-color($map) {
   @each $key, $value in $map {
     &-#{$key} {
@@ -269,25 +32,114 @@
   }
 }
 
-@mixin buttonGreenShadow {
-  #{'.buttonGreenShadow'} {
-    -fx-background-color: white;
-    @include make-shadow($color: rgba($green-button, 0.7), $radius: 20, $side: shadow-side($y: 1.5));
+@mixin default_fill_button($bg_color, $bg_color_hover, $text_color: white, $radius: 3) {
+  @include default_button_font;
+
+  -fx-text-fill: $text_color;
+  -fx-background-color: $bg_color;
+  -fx-background-radius: $radius;
+
+  &:hover {
+    -fx-background-color: $bg_color_hover;
+  }
+
+  &:pressed {
+    -fx-background-color: $bg_color;
   }
 }
 
-@mixin buttonBlueShadow {
-  #{'.buttonBlueShadow'} {
-    -fx-background-color: white;
-    @include make-shadow($color: rgba($dark-blue, 0.4), $radius: 20, $side: shadow-side($y: 2));
+@mixin default_label_button($text_color, $text_color_hover, $bg_color: transparent, $light_font: false, $radius: 0) {
+  -fx-background-color: $bg_color;
+  -fx-background-radius: $radius;
+  -fx-text-fill: $text_color;
+
+  @if ($light_font) {
+    @include light_button_font;
+  } @else {
+    @include default_button_font;
+  }
+
+  &:hover {
+    -fx-text-fill: $text_color_hover;
+  }
+
+  &:pressed {
+    -fx-text-fill: $text_color;
   }
 }
 
+@mixin default_border_button($text_color, $border_color, $bg_color: white, $bg_color_hover: darken(white, 5%), $border_width: 0.8, $radius: 3) {
+  @include default_button_font;
 
-@mixin buttonWhiteShadow {
-  #{'.buttonWhiteShadow'} {
-    -fx-background-color: darken(white,9);
-    @include make-shadow($color: rgba(black, 0.2), $radius: 20, $side: shadow-side($y: 2));
+  -fx-text-fill: $text_color;
+
+  -fx-background-color: $bg_color;
+  -fx-background-radius: $radius;
+
+  -fx-border-radius: $radius;
+  -fx-border-color: $border_color;
+  -fx-border-width: $border_width;
+
+  &:hover {
+    -fx-background-color: $bg_color_hover;
   }
+
+  &:pressed {
+    -fx-background-color: $bg_color;
+  }
+}
+
+// Label Button
+
+.button-label-gray {
+  @include default_label_button($text_color: #ACACAC, $text_color_hover: #D1D1D1);
+}
+
+.button-label-black {
+  @include default_label_button($text_color: #595959, $text_color_hover: #ACACAC);
+}
+
+.button-label-light-black {
+  @include default_label_button($text_color: #595959, $text_color_hover: #ACACAC, $light_font: true);
+}
+
+.button-label-blue {
+  @include default_label_button($text_color: $dark-blue, $text_color_hover: darken($dark-blue, 10%))
+}
+
+.button-label-red {
+  @include default_label_button($text_color: red, $text_color_hover: darken(red, 10%))
+}
+
+// Fill Button
+
+.button-fill-green {
+  @include default_fill_button($bg_color: $green-button, $bg_color_hover: $light-green-button);
+}
+
+.button-fill-blue {
+  @include default_fill_button($bg_color: $dark-blue, $bg_color_hover: lighten($dark-blue, 8%));
+}
+
+.button-fill-red {
+  @include default_fill_button($bg_color: red, $bg_color_hover: lighten(red, 8%));
+}
+
+.button-fill-white {
+  @include default_fill_button($text_color: black, $bg_color: white, $bg_color_hover: darken(white, 10%));
+}
+
+.button-fill-gray {
+  @include default_fill_button($text_color: black, $bg_color: $gray, $bg_color_hover: darken($gray, 10%));
+}
+
+// Border Button
+
+.button-border-blue {
+  @include default_border_button($text_color: $dark-blue, $border_color: $dark-blue);
+}
+
+.button-border-red {
+  @include default_border_button($text_color: red, $border_color: red);
 }
 

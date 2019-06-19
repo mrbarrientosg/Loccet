@@ -4,14 +4,4 @@
 @import "../components/combobox";
 @import "../components/textfields";
 
-@include backgroundLight;
-
-@include buttonBlue;
-@include buttonBorderBlue;
-
-@include title1;
-@include title2;
-@include title3;
-@include paragraph;
-
-@include textFieldGrey;
+@include make-combo-box($gray);

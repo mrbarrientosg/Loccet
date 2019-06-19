@@ -1,22 +1,3 @@
-/*
-@mixin backgroundTransparent {
-  .backgroundTransparent {
-    -fx-background-color: transparent;
-  }
-}
-
-@mixin backgroundWhite {
-  .backgroundWhite {
-    -fx-background-color: white;
-  }
-}
-
-@mixin backgroundLight {
-  .backgroundLight {
-    -fx-background-color: $ghost-white; //TODO: cambio
-  }
-}
-*/
 @font-face {
   font-family: "Heebo";
   src: url("../fonts/Heebo-Regular.ttf") format("truetype"); }
@@ -29,22 +10,239 @@
 @font-face {
   font-family: "Heebo Black";
   src: url("../fonts/Heebo-Black.ttf") format("truetype"); }
-.customRadioButton {
+.large-title {
+  -fx-font-family: "Heebo Black";
+  -fx-font-size: 34px; }
+
+.title1 {
+  -fx-font-family: "Heebo Black";
+  -fx-font-size: 24px; }
+
+.title2 {
+  -fx-font-family: "Heebo Black";
+  -fx-font-size: 20px; }
+
+.title3 {
+  -fx-font-family: "Heebo Black";
+  -fx-font-size: 16px; }
+
+.paragraph {
+  -fx-font-family: "Heebo";
+  -fx-font-size: 14px; }
+
+.paragraph-light {
+  -fx-font-family: "Heebo Light";
+  -fx-font-size: 14px; }
+
+.paragraph-medium {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px; }
+
+.textfield {
+  -fx-font-family: "Heebo Light";
+  -fx-font-size: 13px; }
+
+.footnote {
+  -fx-font-family: "Heebo Light";
+  -fx-font-size: 12px; }
+
+.shadow-root {
+  -fx-background-color: transparent;
+  -fx-padding: 10;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 10, 0, 1, 0); }
+
+.button-shadow-green {
+  -fx-background-color: white;
+  -fx-effect: dropshadow(two-pass-box, rgba(74, 201, 89, 0.7), 20, 0, -0.06, 1.5); }
+
+.button-shadow-blue {
+  -fx-background-color: white;
+  -fx-effect: dropshadow(two-pass-box, rgba(0, 132, 255, 0.4), 20, 0, -0.06, 2); }
+
+.button-shadow-white {
+  -fx-background-color: #e8e8e8;
+  -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.2), 20, 0, -0.06, 2); }
+
+.bg-transparent {
+  -fx-background-color: transparent; }
+
+.bg-white {
+  -fx-background-color: white; }
+
+.bg-light-gray {
+  -fx-background-color: #F9F9F9; }
+
+.bg-gray {
+  -fx-background-color: #F0F0F0; }
+
+.corner-pane {
+  -fx-background-radius: 3px; }
+
+/*@mixin backgroundgray{
+  .backgroundgray{
+    -fx-text-fill: black;
+    -fx-prompt-text-fill: darken(lightGray, 30%);
+  }
+}*/
+.textfield-gray {
+  -fx-text-fill: black;
+  -fx-prompt-text-fill: #878787;
+  -fx-background-color: #F0F0F0; }
+
+.button-label-gray {
+  -fx-background-color: transparent;
+  -fx-background-radius: 0;
+  -fx-text-fill: #ACACAC;
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px; }
+  .button-label-gray:hover {
+    -fx-text-fill: #D1D1D1; }
+  .button-label-gray:pressed {
+    -fx-text-fill: #ACACAC; }
+
+.button-label-black {
+  -fx-background-color: transparent;
+  -fx-background-radius: 0;
+  -fx-text-fill: #595959;
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px; }
+  .button-label-black:hover {
+    -fx-text-fill: #ACACAC; }
+  .button-label-black:pressed {
+    -fx-text-fill: #595959; }
+
+.button-label-light-black {
+  -fx-background-color: transparent;
+  -fx-background-radius: 0;
+  -fx-text-fill: #595959;
+  -fx-font-family: "Heebo Light";
+  -fx-font-size: 14px; }
+  .button-label-light-black:hover {
+    -fx-text-fill: #ACACAC; }
+  .button-label-light-black:pressed {
+    -fx-text-fill: #595959; }
+
+.button-label-blue {
+  -fx-background-color: transparent;
+  -fx-background-radius: 0;
+  -fx-text-fill: #0084ff;
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px; }
+  .button-label-blue:hover {
+    -fx-text-fill: #006acc; }
+  .button-label-blue:pressed {
+    -fx-text-fill: #0084ff; }
+
+.button-label-red {
+  -fx-background-color: transparent;
+  -fx-background-radius: 0;
+  -fx-text-fill: red;
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px; }
+  .button-label-red:hover {
+    -fx-text-fill: #cc0000; }
+  .button-label-red:pressed {
+    -fx-text-fill: red; }
+
+.button-fill-green {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: white;
+  -fx-background-color: #4AC959;
+  -fx-background-radius: 3; }
+  .button-fill-green:hover {
+    -fx-background-color: #21d761; }
+  .button-fill-green:pressed {
+    -fx-background-color: #4AC959; }
+
+.button-fill-blue {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: white;
+  -fx-background-color: #0084ff;
+  -fx-background-radius: 3; }
+  .button-fill-blue:hover {
+    -fx-background-color: #2998ff; }
+  .button-fill-blue:pressed {
+    -fx-background-color: #0084ff; }
+
+.button-fill-red {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: white;
+  -fx-background-color: red;
+  -fx-background-radius: 3; }
+  .button-fill-red:hover {
+    -fx-background-color: #ff2929; }
+  .button-fill-red:pressed {
+    -fx-background-color: red; }
+
+.button-fill-white {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: black;
+  -fx-background-color: white;
+  -fx-background-radius: 3; }
+  .button-fill-white:hover {
+    -fx-background-color: #e6e6e6; }
+  .button-fill-white:pressed {
+    -fx-background-color: white; }
+
+.button-fill-gray {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: black;
+  -fx-background-color: #F0F0F0;
+  -fx-background-radius: 3; }
+  .button-fill-gray:hover {
+    -fx-background-color: #d7d7d7; }
+  .button-fill-gray:pressed {
+    -fx-background-color: #F0F0F0; }
+
+.button-border-blue {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: #0084ff;
+  -fx-background-color: white;
+  -fx-background-radius: 3;
+  -fx-border-radius: 3;
+  -fx-border-color: #0084ff;
+  -fx-border-width: 0.8; }
+  .button-border-blue:hover {
+    -fx-background-color: #f2f2f2; }
+  .button-border-blue:pressed {
+    -fx-background-color: white; }
+
+.button-border-red {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+  -fx-text-fill: red;
+  -fx-background-color: white;
+  -fx-background-radius: 3;
+  -fx-border-radius: 3;
+  -fx-border-color: red;
+  -fx-border-width: 0.8; }
+  .button-border-red:hover {
+    -fx-background-color: #f2f2f2; }
+  .button-border-red:pressed {
+    -fx-background-color: white; }
+
+.radio-button {
   -fx-label-padding: 0.0em 0.0em 0.0em 0.416667em;
   /* 0 0 0 5 */
   -fx-text-fill: #8a8a8a; }
 
-.customRadioButton > .radio {
+.radio-button > .radio {
   -fx-background-color: transparent;
   -fx-border-color: #bdbdbd;
   -fx-border-width: 1px;
   -fx-border-radius: 1.0em;
   -fx-padding: 0.333333em; }
 
-.customRadioButton:hover > .radio {
+.radio-button:hover > .radio {
   -fx-background-color: #e3e3e3; }
 
-.customRadioButton:armed > .radio {
+.radio-button:armed > .radio {
   -fx-color: #66b5ff; }
 
 /*.customRadioButton:focused > .radio{
@@ -55,42 +253,42 @@
   -fx-background-insets: -0.2, 1, 2, -1.4, 2.6;
   -fx-background-radius: 3, 2, 1, 4, 1;
 }*/
-.customRadioButton:selected > .radio > .dot {
+.radio-button:selected > .radio > .dot {
   -fx-background-color: #00c6ff, #0084ff;
   -fx-background-insets: 1 0 -1 0, 0;
   -fx-alignment: CENTER; }
 
-.customSpinner {
+.spinner {
   -fx-background-color: #F0F0F0;
   -fx-prompt-text-fill: #878787;
   -fx-text-fill: #F0F0F0;
   -fx-background-insets: 0, 1;
   -fx-background-radius: 3, 2; }
 
-.customSpinner:focused,
-.customSpinner:contains-focus {
+.spinner:focused,
+.spinner:contains-focus {
   -fx-background-color: -fx-focus-color, -fx-inner-border, -fx-body-color, -fx-faint-focus-color, -fx-body-color;
   -fx-background-insets: -0.2, 1, 2, -1.4, 2.6;
   -fx-background-radius: 3, 2, 1, 4, 1;
   -fx-focus-color: #cacaca;
   -fx-faint-focus-color: #cacaca; }
 
-.customSpinner > .text-field {
+.spinner > .text-field {
   -fx-background-color: #F0F0F0;
   -fx-prompt-text-fill: #878787;
   -fx-text-fill: #F0F0F0;
   -fx-background-insets: 0, 1 0 1 1;
   -fx-background-radius: 3 0 0 3, 2 0 0 2; }
 
-.customSpinner:focused > .text-field,
-.customSpinner:contains-focus > .text-field {
+.spinner:focused > .text-field,
+.spinner:contains-focus > .text-field {
   -fx-background-color: #F0F0F0;
   -fx-prompt-text-fill: #878787;
   -fx-text-fill: #F0F0F0;
   -fx-background-insets: 1 0 1 1, 1 0 1 1, 3 2 3 3;
   -fx-background-radius: 2 0 0 2, 1 0 0 1, 0; }
 
-.customSpinner .increment-arrow-button {
+.spinner .increment-arrow-button {
   -fx-background-color: #F0F0F0;
   /*Change the two 0's here to -1 to get rid of the horizontal line */
   -fx-background-insets: 0 0 -1 0, 1 1 0 1, 2 2 1 2;
@@ -98,33 +296,33 @@
   -fx-padding: 0.333335em 0.666667em 0.333335em 0.666667em;
   /* 5 8 3 8 */ }
 
-.customSpinner .decrement-arrow-button {
+.spinner .decrement-arrow-button {
   -fx-background-color: #F0F0F0;
   -fx-background-insets: 0, 1 1 1 1, 1 2 2 2;
   -fx-background-radius: 0 0 3 0, 0 0 2 0, 0 0 1 0;
   -fx-padding: 0.333335em 0.666667em 0.333335em 0.666667em;
   /* 3 8 5 8 */ }
 
-.customSpinner:focused .increment-arrow-button,
-.customSpinner:contains-focus .increment-arrow-button,
-.customSpinner:focused .decrement-arrow-button,
-.customSpinner:contains-focus .decrement-arrow-button {
+.spinner:focused .increment-arrow-button,
+.spinner:contains-focus .increment-arrow-button,
+.spinner:focused .decrement-arrow-button,
+.spinner:contains-focus .decrement-arrow-button {
   -fx-background-color: #0084ff; }
 
-.customSpinner:focused .increment-arrow-button .increment-arrow {
+.spinner:focused .increment-arrow-button .increment-arrow {
   -fx-background-color: #c6c6c6; }
 
-.customSpinner:focused .decrement-arrow-button .decrement-arrow {
+.spinner:focused .decrement-arrow-button .decrement-arrow {
   -fx-background-color: #c6c6c6; }
 
-.customSpinner .increment-arrow-button .increment-arrow {
+.spinner .increment-arrow-button .increment-arrow {
   -fx-background-color: #0084ff;
   -fx-background-insets: 0 0 -1 0, 0;
   -fx-padding: 0.166667em 0.333333em 0.166667em 0.333333em;
   /* 2 4 2 4 */
   -fx-shape: "M 0 4 h 7 l -3.5 -4 z"; }
 
-.customSpinner .decrement-arrow-button .decrement-arrow {
+.spinner .decrement-arrow-button .decrement-arrow {
   -fx-background-color: #0084ff;
   -fx-background-insets: 0 0 -1 0, 0;
   -fx-padding: 0.166667em 0.333333em 0.166667em 0.333333em;
@@ -132,163 +330,89 @@
   -fx-shape: "M 0 0 h 7 l -3.5 4 z"; }
 
 /* Spinner - Horizontal arrows */
-.customSpinner.split-arrows-horizontal .increment-arrow-button .increment-arrow,
-.customSpinner.arrows-on-right-horizontal .increment-arrow-button .increment-arrow,
-.customSpinner.arrows-on-left-horizontal .increment-arrow-button .increment-arrow {
+.spinner.split-arrows-horizontal .increment-arrow-button .increment-arrow,
+.spinner.arrows-on-right-horizontal .increment-arrow-button .increment-arrow,
+.spinner.arrows-on-left-horizontal .increment-arrow-button .increment-arrow {
   -fx-padding: 0.333333em 0.166667em 0.333333em 0.166667em;
   /* 4 2 4 2 */
   -fx-shape: "M 0 0 v 7 l 3.5 -4 z"; }
 
-.customSpinner.split-arrows-horizontal .decrement-arrow-button .decrement-arrow,
-.customSpinner.arrows-on-right-horizontal .decrement-arrow-button .decrement-arrow,
-.customSpinner.arrows-on-left-horizontal .decrement-arrow-button .decrement-arrow {
+.spinner.split-arrows-horizontal .decrement-arrow-button .decrement-arrow,
+.spinner.arrows-on-right-horizontal .decrement-arrow-button .decrement-arrow,
+.spinner.arrows-on-left-horizontal .decrement-arrow-button .decrement-arrow {
   -fx-padding: 0.333333em 0.166667em 0.333333em 0.166667em;
   /* 4 2 4 2 */
   -fx-shape: "M 4 0 v 7 l -4 -3.5 z"; }
 
 /* Spinner - STYLE_CLASS_ARROWS_ON_RIGHT_HORIZONTAL */
-.customSpinner.arrows-on-right-horizontal .increment-arrow-button {
+.spinner.arrows-on-right-horizontal .increment-arrow-button {
   -fx-background-radius: 0 3 3 0, 0 2 2 0, 0 1 1 0;
   -fx-background-insets: 0 0 0 -1, 1 1 1 0, 2 2 2 1; }
 
-.customSpinner.arrows-on-right-horizontal .decrement-arrow-button {
+.spinner.arrows-on-right-horizontal .decrement-arrow-button {
   -fx-background-radius: 0;
   -fx-background-insets: 0, 1, 2; }
 
 /* Spinner - STYLE_CLASS_ARROWS_ON_LEFT_VERTICAL */
-.customSpinner.arrows-on-left-vertical > .text-field {
+.spinner.arrows-on-left-vertical > .text-field {
   -fx-background-insets: 0, 1 1 1 0;
   -fx-background-radius: 0 3 3 0, 0 2 2 0; }
 
-.customSpinner.arrows-on-left-vertical .increment-arrow-button {
+.spinner.arrows-on-left-vertical .increment-arrow-button {
   -fx-background-radius: 3 0 0 0, 2 0 0 0, 1 0 0 0; }
 
-.customSpinner.arrows-on-left-vertical .decrement-arrow-button {
+.spinner.arrows-on-left-vertical .decrement-arrow-button {
   -fx-background-radius: 0 0 0 3, 0 0 0 2, 0 0 0 1; }
 
 /* Spinner - STYLE_CLASS_ARROWS_ON_LEFT_HORIZONTAL */
-.customSpinner.arrows-on-left-horizontal > .text-field {
+.spinner.arrows-on-left-horizontal > .text-field {
   -fx-background-insets: 0, 1 1 1 0;
   -fx-background-radius: 0 3 3 0, 0 2 2 0; }
 
-.customSpinner.arrows-on-left-horizontal .increment-arrow-button {
+.spinner.arrows-on-left-horizontal .increment-arrow-button {
   -fx-background-insets: 0 0 0 -1, 1 1 1 0, 2 2 2 1;
   -fx-background-radius: 0; }
 
-.customSpinner.arrows-on-left-horizontal .decrement-arrow-button {
+.spinner.arrows-on-left-horizontal .decrement-arrow-button {
   -fx-background-insets: 0, 1, 2;
   -fx-background-radius: 3 0 0 3, 2 0 0 2, 1 0 0 1; }
 
-.customSpinner.arrows-on-left-vertical:focused > .text-field,
-.customSpinner.arrows-on-left-vertical:contains-focus > .text-field,
-.customSpinner.arrows-on-left-horizontal:focused > .text-field,
-.customSpinner.arrows-on-left-horizontal:contains-focus > .text-field {
+.spinner.arrows-on-left-vertical:focused > .text-field,
+.spinner.arrows-on-left-vertical:contains-focus > .text-field,
+.spinner.arrows-on-left-horizontal:focused > .text-field,
+.spinner.arrows-on-left-horizontal:contains-focus > .text-field {
   -fx-background-insets: 1 1 1 0, 1 1 1 0, 3 3 3 2; }
 
 /* Spinner - STYLE_CLASS_SPLIT_ARROWS_VERTICAL */
-.customSpinner.split-arrows-vertical > .text-field {
+.spinner.split-arrows-vertical > .text-field {
   -fx-background-insets: 0, 0 1 0 1;
   -fx-background-radius: 0, 0; }
 
-.customSpinner.split-arrows-vertical .increment-arrow-button {
+.spinner.split-arrows-vertical .increment-arrow-button {
   -fx-background-insets: 0, 1, 2;
   -fx-background-radius: 3 3 0 0, 2 2 0 0, 1 1 0 0; }
 
-.customSpinner.split-arrows-vertical .decrement-arrow-button {
+.spinner.split-arrows-vertical .decrement-arrow-button {
   -fx-background-insets: 0, 1, 2;
   -fx-background-radius: 0 0 3 3, 0 0 2 2, 0 0 1 1; }
 
-.customSpinner.split-arrows-vertical:focused > .text-field,
-.customSpinner.split-arrows-vertical:contains-focus > .text-field {
+.spinner.split-arrows-vertical:focused > .text-field,
+.spinner.split-arrows-vertical:contains-focus > .text-field {
   -fx-background-insets: 0 1 0 1, 0 1 0 1, 2 3 2 3; }
 
 /* Spinner - STYLE_CLASS_SPLIT_ARROWS_HORIZONTAL */
-.customSpinner.split-arrows-horizontal > .text-field {
+.spinner.split-arrows-horizontal > .text-field {
   -fx-background-insets: 0, 1 0 1 0;
   -fx-background-radius: 0, 0; }
 
-.customSpinner.split-arrows-horizontal .increment-arrow-button {
+.spinner.split-arrows-horizontal .increment-arrow-button {
   -fx-background-insets: 0, 1, 2;
   -fx-background-radius: 0 3 3 0, 0 2 2 0, 0 1 1 0; }
 
-.customSpinner.split-arrows-horizontal .decrement-arrow-button {
+.spinner.split-arrows-horizontal .decrement-arrow-button {
   -fx-background-insets: 0, 1, 2;
   -fx-background-radius: 3 0 0 3, 2 0 0 2, 1 0 0 1; }
 
-.customSpinner.split-arrows-horizontal:focused > .text-field,
-.customSpinner.split-arrows-horizontal:contains-focus > .text-field {
+.spinner.split-arrows-horizontal:focused > .text-field,
+.spinner.split-arrows-horizontal:contains-focus > .text-field {
   -fx-background-insets: 1 0 1 0, 1 0 1 0, 3 2 3 2; }
-
-.backgroundLight {
-  -fx-background-color: #F9F9F9; }
-
-.title1 {
-  -fx-font-family: "Heebo Black";
-  -fx-font-size: 24px; }
-
-.title3 {
-  -fx-font-family: "Heebo Black";
-  -fx-font-size: 16px; }
-
-.paragraph {
-  -fx-font-family: "Heebo";
-  -fx-font-size: 14px; }
-
-.buttonBlue {
-  -fx-font-family: "Heebo Medium";
-  -fx-font-size: 14px;
-  -fx-text-fill: white;
-  -fx-background-color: #0084ff;
-  -fx-background-radius: 3; }
-  .buttonBlue:hover {
-    -fx-text-fill: white;
-    -fx-background-color: #2998ff;
-    -fx-background-radius: 3; }
-  .buttonBlue:pressed {
-    -fx-text-fill: white;
-    -fx-background-color: #0084ff;
-    -fx-background-radius: 3; }
-
-.buttonFillBlue {
-  -fx-font-family: "Heebo Medium";
-  -fx-font-size: 14px;
-  -fx-text-fill: #0084ff;
-  -fx-background-color: white;
-  -fx-background-radius: 3; }
-  .buttonFillBlue:hover {
-    -fx-text-fill: #0084ff;
-    -fx-background-color: #e6e6e6;
-    -fx-background-radius: 3; }
-  .buttonFillBlue:pressed {
-    -fx-text-fill: #0084ff;
-    -fx-background-color: white;
-    -fx-background-radius: 3; }
-
-.buttonFillRed {
-  -fx-font-family: "Heebo Medium";
-  -fx-font-size: 14px;
-  -fx-text-fill: red;
-  -fx-background-color: white;
-  -fx-background-radius: 3; }
-  .buttonFillRed:hover {
-    -fx-text-fill: red;
-    -fx-background-color: #e6e6e6;
-    -fx-background-radius: 3; }
-  .buttonFillRed:pressed {
-    -fx-text-fill: red;
-    -fx-background-color: white;
-    -fx-background-radius: 3; }
-
-.buttonWhiteShadow {
-  -fx-background-color: #e8e8e8;
-  -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.2), 20, 0, -0.06, 2); }
-
-.shadowpane {
-  -fx-background-color: transparent;
-  -fx-padding: 10;
-  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0, 1, 0); }
-
-.side-menu {
-  -fx-background-color: white;
-  -fx-background-radius: 3px 0px 0px 3px;
-  -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.4), 10, 0, 1, 0); }

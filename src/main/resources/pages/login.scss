@@ -29,19 +29,4 @@
   -fx-text-alignment: justify;
 }
 
-@include buttonGreen;
-@include buttonGreenShadow;
-@include buttonLabelGrey;
 @include circle-buttons();
-
-@include largeTitle;
-@include title2;
-@include textField;
-@include paragraph;
-@include paragraphUI;
-
-@include backgroundWhite;
-
-@include shadowpane;
-
-@include textFieldGrey;

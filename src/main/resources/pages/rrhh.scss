@@ -6,24 +6,20 @@
 @import '../components/tableview';
 @import "../components/scrollbar";
 
-@include buttonBlue;
-@include buttonWhite;
-@include buttonWhiteShadow;
+@include make-tableview;
 
-@include textField;
+@include make-combo-box;
 
-@include backgroundLight;
+.white-scroll {
+  @include custom-scroll;
+}
 
-@include textFieldGrey;
-
-@include title1;
-
-@include buttonRed;
-
-@include buttonFillBlue;
+.light-gray-scroll {
+  @include custom-scroll($ghost-white);
+}
 
 .gray-scroll {
-  @include custom-scroll($ghost-white);
+  @include custom-scroll($gray);
 }
 
 .table-view2 .column-header > .label > .button.filter {

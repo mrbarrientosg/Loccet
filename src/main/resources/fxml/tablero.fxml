@@ -13,9 +13,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" styleClass="shadowpane" stylesheets="@../css/home.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" styleClass="shadow-root" stylesheets="@../css/home.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox layoutX="244.0" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="90.0" styleClass="top-bar" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -39,7 +38,7 @@
                </children>
             </HBox>
             <Separator orientation="VERTICAL" visible="false" VBox.vgrow="ALWAYS" />
-            <Label fx:id="titleBar" maxWidth="1.7976931348623157E308" styleClass="largeTitle" text="Bienvenido">
+            <Label fx:id="titleBar" maxWidth="1.7976931348623157E308" styleClass="large-title" text="Bienvenido">
                <font>
                   <Font name="Montserrat ExtraBold" size="35.0" />
                </font>
@@ -51,26 +50,14 @@
       </VBox>
       <AnchorPane fx:id="contentPane" layoutX="200.0" layoutY="84.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0">
          <styleClass>
-            <String fx:value="backgroundLight" />
+            <String fx:value="bg-light-gray" />
             <String fx:value="content-pane" />
-         </styleClass>
-         <children>
-            <ImageView fitHeight="413.0" fitWidth="562.0" layoutX="121.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="174.17898559570312" AnchorPane.leftAnchor="121.0" AnchorPane.rightAnchor="121.0" AnchorPane.topAnchor="175.0">
-               <image>
-                  <Image url="@../images/loccetIcon.png" />
-               </image>
-            </ImageView>
-            <Text layoutX="329.0" layoutY="471.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="largeTitle" text="L O C C E T" textAlignment="CENTER" AnchorPane.bottomAnchor="124.689453125" AnchorPane.leftAnchor="329.0" AnchorPane.rightAnchor="305.4482421875" AnchorPane.topAnchor="435.373046875">
-               <font>
-                  <Font size="19.0" />
-               </font>
-            </Text>
-         </children></AnchorPane>
+         </styleClass></AnchorPane>
       <VBox prefWidth="200.0" styleClass="side-menu" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0" prefWidth="200.0" styleClass="side-menu-header">
                <children>
-                  <Label alignment="BOTTOM_LEFT" styleClass="largeTitle" text="Módulos" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Label alignment="BOTTOM_LEFT" styleClass="large-title" text="Módulos" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <font>
                         <Font name="Montserrat Black" size="24.0" />
                      </font>
@@ -92,7 +79,7 @@
                </toggleGroup>
                <styleClass>
                   <String fx:value="side-menu-button" />
-                  <String fx:value="buttonLabelBlack" />
+                  <String fx:value="button-label-light-black" />
                </styleClass>
                <graphic>
                   <ImageView fitHeight="44.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-3.0">
@@ -111,7 +98,7 @@
                </VBox.margin>
                <styleClass>
                   <String fx:value="side-menu-button" />
-                  <String fx:value="buttonLabelBlack" />
+                  <String fx:value="button-label-light-black" />
                </styleClass>
                <graphic>
                   <ImageView fitHeight="44.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" translateX="-7.0">
@@ -130,7 +117,7 @@
                </VBox.margin>
                <styleClass>
                   <String fx:value="side-menu-button" />
-                  <String fx:value="buttonLabelBlack" />
+                  <String fx:value="button-label-light-black" />
                </styleClass>
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-3.0">
@@ -143,7 +130,7 @@
             <ToggleButton fx:id="reporteButton" alignment="CENTER_LEFT" graphicTextGap="0.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" text="Reportes" toggleGroup="$menuToggleGroup">
                <styleClass>
                   <String fx:value="side-menu-button" />
-                  <String fx:value="buttonLabelBlack" />
+                  <String fx:value="button-label-light-black" />
                </styleClass>
                <padding>
                   <Insets left="16.0" />
