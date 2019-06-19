@@ -15,6 +15,7 @@ import json.LocalTimeTypeConverter;
 import model.*;
 import network.endpoint.LoccetAPI;
 import network.service.Router;
+import util.chain.*;
 import view.LoginView;
 
 import java.io.IOException;
@@ -84,7 +85,28 @@ public final class LoginController extends Controller {
                 .registerTypeAdapter(Proyecto.class, new Proyecto.ProyetoDeserializer())
                 .create();
 
-        Disposable disposable = service.request(LoccetAPI.GET_CONSTRUCTORA, parameters)
+        DatabaseFetcher fetcher = new DatabaseFetcher()
+                .add(new ConstructoraFetchHandler())
+                .add(new ProyectosFetchHandler())
+                .add(new TrabajadoresCFetchHandler())
+                .add(new TrabajadoresPFetchHandler())
+                .add(new HorariosFetchHandler())
+                .add(new AsistenciasFetchHandler())
+                .add(new FasesProyectosFetchHandler())
+                .add(new MaterialesFetchHandler())
+                .add(new RegistroMaterialFetchHandler());
+
+        fetcher.fetch(parameters, gson, result -> {
+            view.hideLoading();
+            if (result.isSuccess()) {
+                fetcher.clear();
+                view.gotoHome();
+            } else {
+                view.onError(result.getError());
+            }
+        });
+
+        /*Disposable disposable = service.request(LoccetAPI.GET_CONSTRUCTORA, parameters)
                 .filter(Objects::nonNull)
                 .map(JsonElement::getAsJsonObject)
                 .flatMap(jsonObject -> {
@@ -181,10 +203,10 @@ public final class LoginController extends Controller {
                     LOGGER.log(Level.SEVERE, "", throwable);
                     view.hideLoading();
                     view.onError(throwable);
-                });
+                });*/
 
 
-        compositeDisposable.add(disposable);
+       // compositeDisposable.add(disposable);
     }
 
     public void clear() {
