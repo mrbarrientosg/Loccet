@@ -1,0 +1,30 @@
+@import '../base/base';
+@import "../components/buttons";
+
+
+.redbuttonlight{
+  @include button;
+  -fx-text-fill: white;
+  -fx-background-color: $red;
+  -fx-background-radius: 3;
+
+  &:hover {
+    -fx-text-fill: white;
+    -fx-background-color: lighten($red, 8%);
+    -fx-background-radius: 3;
+  }
+
+  &:pressed {
+    -fx-text-fill: white;
+    -fx-background-color: $red;
+    -fx-background-radius: 3;
+  }
+}
+.transparent{
+  -fx-background-color: transparent;
+}
+.hello{
+  -fx-background-color: yellow;
+}
+@include buttonRed;
+@include title2;
