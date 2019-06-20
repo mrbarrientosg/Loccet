@@ -24,12 +24,15 @@ import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.util.Pair;
+import model.Constructora;
 import model.Trabajador;
 import org.controlsfx.control.tableview2.FilteredTableColumn;
 import org.controlsfx.control.tableview2.FilteredTableView;
 import router.DetalleTrabajadorRouter;
 import router.RRHHRouter;
 import delegate.FilterDelegate;
+import router.TrabajadorRouter;
+
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -143,6 +146,8 @@ public class RRHHView extends View implements EditTrabajadorDelegate, FilterDele
         deleteTrabajador.setOnAction(this::deleteTrabajadorAction);
         detailTrabajador.setOnAction(this::detailTrabajadorAction);
         filterButton.setOnAction(this::showFilterAction);
+
+        createTrabajador.setOnAction(this::showAddTrabajadorAction);
     }
 
     @Override
@@ -198,6 +203,11 @@ public class RRHHView extends View implements EditTrabajadorDelegate, FilterDele
         proyectList.getItems().clear();
         disposable.dispose();
         disposable.clear();
+    }
+
+    private void showAddTrabajadorAction(ActionEvent event) {
+        TrabajadorView view = TrabajadorRouter.create(Constructora.getInstance());
+        view.modal().show();
     }
 
     private void showFilterAction(ActionEvent event) {

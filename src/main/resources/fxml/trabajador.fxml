@@ -60,25 +60,25 @@
                                           <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <TextField prefHeight="70.0" promptText="RUT">
+                                          <TextField fx:id="rutTextField" prefHeight="70.0" promptText="RUT">
                                              <styleClass>
                                                 <String fx:value="textfield-gray" />
                                                 <String fx:value="textfield" />
                                              </styleClass>
                                           </TextField>
-                                          <TextField prefHeight="70.0" promptText="Apellido" GridPane.rowIndex="1">
+                                          <TextField fx:id="lastNameTextField" prefHeight="70.0" promptText="Apellido" GridPane.rowIndex="1">
                                              <styleClass>
                                                 <String fx:value="textfield-gray" />
                                                 <String fx:value="textfield" />
                                              </styleClass>
                                           </TextField>
-                                          <TextField prefHeight="70.0" promptText="Nombre" GridPane.columnIndex="1">
+                                          <TextField fx:id="nameTextField" prefHeight="70.0" promptText="Nombre" GridPane.columnIndex="1">
                                              <styleClass>
                                                 <String fx:value="textfield-gray" />
                                                 <String fx:value="textfield" />
                                              </styleClass>
                                           </TextField>
-                                          <DatePicker editable="false" maxWidth="1.7976931348623157E308" prefHeight="70.0" promptText="Fecha de nacimiento" GridPane.rowIndex="2">
+                                          <DatePicker fx:id="birthdayDateField" editable="false" maxWidth="1.7976931348623157E308" prefHeight="70.0" promptText="Fecha de nacimiento" GridPane.rowIndex="2">
                                              <styleClass>
                                                 <String fx:value="textfield" />
                                                 <String fx:value="textfield-gray" />
@@ -87,7 +87,7 @@
                                                 <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                                              </padding>
                                           </DatePicker>
-                                          <ComboBox maxWidth="1.7976931348623157E308" prefHeight="70.0" promptText="Especialidad" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                          <ComboBox fx:id="specialityList" maxWidth="1.7976931348623157E308" prefHeight="70.0" promptText="Especialidad" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                              <styleClass>
                                                 <String fx:value="gray-combo-box" />
                                                 <String fx:value="textfield-gray" />
@@ -124,25 +124,25 @@
                                     <String fx:value="corner-pane" />
                                  </styleClass>
                               </Label>
-                              <TextField prefHeight="70.0" prefWidth="263.0" promptText="Ciudad *" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                              <TextField fx:id="cityField" prefHeight="70.0" prefWidth="263.0" promptText="Ciudad *" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <styleClass>
                                     <String fx:value="textfield-gray" />
                                     <String fx:value="textfield" />
                                  </styleClass>
                               </TextField>
-                              <TextField prefHeight="70.0" prefWidth="263.0" promptText="Estado/Provincia *" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                              <TextField fx:id="stateField" prefHeight="70.0" prefWidth="263.0" promptText="Estado/Provincia *" GridPane.columnIndex="2" GridPane.rowIndex="3">
                                  <styleClass>
                                     <String fx:value="textfield-gray" />
                                     <String fx:value="textfield" />
                                  </styleClass>
                               </TextField>
-                              <TextField prefHeight="70.0" prefWidth="263.0" promptText="País *" GridPane.rowIndex="3">
+                              <TextField fx:id="countryField" prefHeight="70.0" prefWidth="263.0" promptText="País *" GridPane.rowIndex="3">
                                  <styleClass>
                                     <String fx:value="textfield-gray" />
                                     <String fx:value="textfield" />
                                  </styleClass>
                               </TextField>
-                              <TextField prefHeight="70.0" prefWidth="263.0" promptText="Dirección *" GridPane.rowIndex="4">
+                              <TextField fx:id="addressText" prefHeight="70.0" prefWidth="263.0" promptText="Dirección *" GridPane.rowIndex="4">
                                  <styleClass>
                                     <String fx:value="textfield-gray" />
                                     <String fx:value="textfield" />
@@ -155,19 +155,19 @@
                                     <String fx:value="corner-pane" />
                                  </styleClass>
                               </Label>
-                              <TextField prefHeight="70.0" prefWidth="263.0" promptText="Telefono *" GridPane.rowIndex="1">
+                              <TextField fx:id="telephoneField" prefHeight="70.0" prefWidth="263.0" promptText="Telefono *" GridPane.rowIndex="1">
                                  <styleClass>
                                     <String fx:value="textfield-gray" />
                                     <String fx:value="textfield" />
                                  </styleClass>
                               </TextField>
-                              <TextField prefHeight="70.0" prefWidth="263.0" promptText="Correo electronico" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <TextField fx:id="emailField" prefHeight="70.0" prefWidth="263.0" promptText="Correo electronico" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <styleClass>
                                     <String fx:value="textfield-gray" />
                                     <String fx:value="textfield" />
                                  </styleClass>
                               </TextField>
-                              <TextField prefHeight="70.0" prefWidth="263.0" promptText="Codigo postal" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                              <TextField fx:id="postalCodeField" prefHeight="70.0" prefWidth="263.0" promptText="Codigo postal" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                  <styleClass>
                                     <String fx:value="textfield-gray" />
                                     <String fx:value="textfield" />

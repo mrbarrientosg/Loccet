@@ -52,7 +52,10 @@ public final class TrabajadorView extends View {
     private TextField emailField;
 
     @FXML
-    private Button saveButton;
+    private Button aceptar;
+
+    @FXML
+    private Button cancelar;
 
     @Override
     public void viewDidLoad() {
@@ -61,7 +64,6 @@ public final class TrabajadorView extends View {
 
     @Override
     public void viewDidClose() {
-        clearBind();
         clearFields();
     }
 
@@ -71,7 +73,7 @@ public final class TrabajadorView extends View {
         birthdayDateField.setValue(LocalDate.now());
         specialityList.setItems(FXCollections.observableList(Especialidades.getInstance().getAll()));
         specialityList.getSelectionModel().selectFirst();
-        saveButton.setOnAction(this::saveHandler);
+        aceptar.setOnAction(this::saveHandler);
 
         bindController();
 
@@ -85,34 +87,27 @@ public final class TrabajadorView extends View {
 
     @FXML
     private void cancelHandler(ActionEvent event) {
-        closeView();
+        close();
     }
 
     private void bindController() {
-        controller.rutProperty().bindBidirectional(rutTextField.textProperty());
-        controller.nameProperty().bindBidirectional(nameTextField.textProperty());
-        controller.lastNameProperty().bindBidirectional(lastNameTextField.textProperty());
-        controller.specialityProperty().bindBidirectional(specialityList.valueProperty());
-        controller.birthdayProperty().bindBidirectional(birthdayDateField.valueProperty());
+        rutTextField.textProperty().bindBidirectional(controller.rutProperty());
+        nameTextField.textProperty().bindBidirectional(controller.nameProperty());
+        lastNameTextField.textProperty().bindBidirectional(controller.lastNameProperty());
+        specialityList.valueProperty().bindBidirectional(controller.specialityProperty());
+        birthdayDateField.valueProperty().bindBidirectional(controller.birthdayProperty());
 
-        controller.addressProperty().bindBidirectional(addressText.textProperty());
-        controller.zipProperty().bindBidirectional(postalCodeField.textProperty());
-        controller.countryProperty().bindBidirectional(countryField.textProperty());
-        controller.cityProperty().bindBidirectional(cityField.textProperty());
-        controller.stateProperty().bindBidirectional(stateField.textProperty());
+        addressText.textProperty().bindBidirectional(controller.addressProperty());
+        postalCodeField.textProperty().bindBidirectional(controller.zipProperty());
+        countryField.textProperty().bindBidirectional(controller.countryProperty());
+        cityField.textProperty().bindBidirectional(controller.cityProperty());
+        stateField.textProperty().bindBidirectional(controller.stateProperty());
 
-        controller.telephoneProperty().bindBidirectional(telephoneField.textProperty());
-        controller.emailProperty().bindBidirectional(emailField.textProperty());
-
-        controller.bindEditProperty();
-
-        if (!rutTextField.getText().isEmpty())
-            rutTextField.setDisable(true);
-        else
-            rutTextField.setDisable(false);
+        telephoneField.textProperty().bindBidirectional(controller.telephoneProperty());
+        emailField.textProperty().bindBidirectional(controller.emailProperty());
     }
 
-    private void clearBind() {
+    /*private void clearBind() {
         controller.rutProperty().unbindBidirectional(rutTextField.textProperty());
         controller.nameProperty().unbindBidirectional(nameTextField.textProperty());
         controller.lastNameProperty().unbindBidirectional(lastNameTextField.textProperty());
@@ -127,7 +122,7 @@ public final class TrabajadorView extends View {
 
         controller.telephoneProperty().unbindBidirectional(telephoneField.textProperty());
         controller.emailProperty().unbindBidirectional(emailField.textProperty());
-    }
+    }*/
 
     private void clearFields() {
         rutTextField.setText("");
@@ -142,10 +137,6 @@ public final class TrabajadorView extends View {
 
         telephoneField.setText("");
         emailField.setText("");
-    }
-
-    public void closeView() {
-        ((BorderPane) getRoot().getParent()).getChildren().remove(getRoot());
     }
 
     public void setController(TrabajadorController controller) {
