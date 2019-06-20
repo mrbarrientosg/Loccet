@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import router.AgregarProyectoRouter;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -98,7 +99,9 @@ public final class AgregarProyectoView extends View {
             router.showAlert("Las fechas ingresadas no coinciden.").showAndWait();
         }
         else{
-            controller.presionarAceptar(nombreP,jefeP,montoC,cliente,telefonoC,direccion,ciudad,estado,pais,fechaF,fechaT);
+            controller.presionarAceptar(nombreP.getText(),jefeP.getText(),new BigDecimal(montoC.getText()),cliente.getText(),
+                    telefonoC.getText(),direccion.getText(),ciudad.getText(),estado.getText(),pais.getText()
+                    ,fechaF.getValue(),fechaT.getValue());
             close();
         }
     }

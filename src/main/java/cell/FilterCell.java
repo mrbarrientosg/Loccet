@@ -1,8 +1,5 @@
 package cell;
-
 import delegate.FilterCellDelegate;
-import impl.org.controlsfx.tableview2.filter.parser.number.NumberParser;
-import impl.org.controlsfx.tableview2.filter.parser.string.StringParser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,8 +7,6 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.util.Callback;
 import javafx.util.Pair;
-import org.controlsfx.control.tableview2.filter.parser.Parser;
-
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -26,7 +21,7 @@ public class FilterCell {
 
     private FilterCellDelegate delegate;
 
-    private Parser parser;
+//    private Parser parser;
 
     private int row;
 
@@ -57,7 +52,7 @@ public class FilterCell {
         columnName.setCellFactory(factory);
         columnName.setButtonCell(factory.call(null));
 
-        columnName.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+      /*  columnName.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.getValue().isAssignableFrom(String.class)) {
                 parser = new StringParser(false);
             } else if (newValue.getValue().isAssignableFrom(Number.class)) {
@@ -69,7 +64,7 @@ public class FilterCell {
             list.remove(list.size() - 1);
             filter.setItems(FXCollections.observableArrayList(list));
         });
-
+*/
         filter = new ComboBox<>();
         filter.prefWidth(-1);
         filter.setMaxWidth(Double.MAX_VALUE);
@@ -120,6 +115,7 @@ public class FilterCell {
                 .append(value.getText())
                 .append('\"');
 
-        return parser.parse(builder.toString());
+        // return parser.parse(builder.toString());
+        return null;
     }
 }
