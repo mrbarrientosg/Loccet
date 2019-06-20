@@ -1,0 +1,82 @@
+/*.chart-area-symbol > .custom-chart-area{
+  -fx-background-color: $gray;
+  -fx-background-insets: 0, 1;
+  -fx-background-radius: 4px;
+  -fx-padding: 3px;
+}*/
+.chart > .custom-chart-area{
+
+}
+.custom-chart-area{
+  -fx-padding: 6px;
+  -fx-background-radius: 6px; /* makes sure this remains circular */
+  -fx-background-insets: 0, 3;
+}
+.custom-chart-area .chart-content {
+  -fx-padding: 15;
+  -fx-background-color: $gray;
+}
+
+.custom-chart-area .chart-title {
+  -fx-text-fill: $dark-blue;
+  -fx-font-size: 1.6em;
+}
+
+.custom-chart-area .axis-label {
+  -fx-text-fill: $dark-blue;
+}
+
+.custom-chart-area .chart-legend {
+  -fx-background-color:  transparent;
+  -fx-padding: 20px;
+}
+
+.custom-chart-area .chart-legend-item-symbol{
+  -fx-background-radius: 0;
+}
+
+.custom-chart-area .chart-legend-item{
+  -fx-text-fill: $green;
+}
+.custom-chart-area .chart-plot-background {
+  -fx-background-color: $gray;
+}
+.custom-chart-area .chart-vertical-grid-lines {
+  -fx-stroke: $gray;
+}
+.custom-chart-area .chart-horizontal-grid-lines {
+  -fx-stroke: $gray;
+}
+.custom-chart-area .chart-alternative-row-fill {
+  -fx-fill: $gray;
+  -fx-stroke: transparent;
+  -fx-stroke-width: 0;
+}
+/*.custom-chart-area {
+  -fx-background-color: $gray;
+  -fx-background-insets: 0, 1;
+  -fx-background-radius: 4px;
+  -fx-padding: 3px;
+}*/
+/*.custom-chart-area .default-color0 { -fx-background-color:  white; }
+.custom-chart-area .default-color1 { -fx-background-color:  white; }
+
+.custom-chart-area .chart-series-area-line {
+  -fx-stroke: green;
+  -fx-stroke-width: 1px;
+}
+.default-color0.chart-series-area-line { -fx-stroke: $yellow; }
+.default-color1.chart-series-area-line { -fx-stroke: $red; }
+
+.custom-chart-area .chart-series-area-fill {
+  -fx-stroke: null;
+  -fx-fill: CHART_COLOR_1_TRANS_20;
+}
+.default-color0.chart-series-area-fill { -fx-fill: CHART_COLOR_1_TRANS_20; }
+.default-color1.chart-series-area-fill { -fx-fill: CHART_COLOR_2_TRANS_20; }
+
+.custom-chart-area .area-legend-symbol {
+  -fx-padding: 6px;
+  -fx-background-radius: 6px;
+  -fx-background-insets: 0, 3;
+}*/

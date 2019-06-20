@@ -1,0 +1,40 @@
+.chart-bar > .custom-barchart{
+  -fx-bar-fill: white;
+  -fx-background-color:   linear-gradient(to right,
+          derive(white, -4%),
+          derive(white, -1%),
+          derive(white, 0%),
+          derive(white, -1%),
+          derive(white, -6%)
+  );
+  -fx-background-insets: 0;
+}
+
+.custom-barchart > .negative {
+  -fx-background-insets: 1 0 0 0;
+}
+.custom-barchart:horizontal >.chart-bar {
+  -fx-background-insets: 0 0 0 1;
+}
+.custom-barchart:horizontal >.custom-barchart,
+.stacked-bar-chart:horizontal >.custom-barchart {
+  -fx-background-color:   linear-gradient(to bottom,
+          derive($dark-blue, -4%),
+          derive($dark-blue, -1%),
+          derive($dark-blue, 0%),
+          derive($dark-blue, -1%),
+          derive($dark-blue, -6%)
+  );
+}
+.custom-barchart > .default-color0 .custom-barchart { -fx-bar-fill: CHART_COLOR_1; }
+.custom-barchart > .default-color1 .custom-barchart { -fx-bar-fill: CHART_COLOR_2; }
+.custom-barchart > .default-color2 .custom-barchart { -fx-bar-fill: CHART_COLOR_3; }
+.custom-barchart > .default-color3 .custom-barchart { -fx-bar-fill: CHART_COLOR_4; }
+.custom-barchart > .default-color4 .custom-barchart { -fx-bar-fill: CHART_COLOR_5; }
+.custom-barchart > .default-color5 .custom-barchart { -fx-bar-fill: CHART_COLOR_6; }
+.custom-barchart > .default-color6 .custom-barchart { -fx-bar-fill: CHART_COLOR_7; }
+.custom-barchart > .default-color7 .custom-barchart { -fx-bar-fill: CHART_COLOR_8; }
+
+.custom-barchart >.bar-legend-symbol {
+  -fx-padding: 8px;
+}

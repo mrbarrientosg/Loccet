@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.AreaChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox styleClass="backgroundLight" stylesheets="@../css/dashboard.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox spacing="5.0">
+         <children>
+            <AnchorPane prefWidth="255.0" styleClass="pane-gradient-green">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <children>
+                  <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="171.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/money.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="14.0" layoutY="58.0" styleClass="title3" text="Dinero constructora" textFill="WHITE" />
+                  <Label layoutX="14.0" layoutY="91.0" text="Label" textFill="WHITE" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefWidth="255.0" styleClass="right-pane-gradient">
+               <children>
+                  <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="171.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/suitcase.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="14.0" layoutY="59.0" styleClass="title3" text="Proyectos totales" textFill="WHITE" />
+                  <Label layoutX="14.0" layoutY="85.0" text="Label" textFill="WHITE" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefWidth="255.0" styleClass="pane-gradient-red">
+               <children>
+                  <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="171.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/engineer.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="14.0" layoutY="59.0" styleClass="title3" text="Trabajadores totales" textFill="WHITE" />
+                  <Label layoutX="14.0" layoutY="85.0" text="Label" textFill="WHITE" />
+               </children>
+            </AnchorPane>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </HBox>
+      <HBox styleClass="backgroundLight">
+         <children>
+            <VBox>
+               <children>
+                  <Label styleClass="title3" text="Nuevos proyectos &amp; dinero utilizado">
+                     <VBox.margin>
+                        <Insets left="30.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Separator orientation="VERTICAL" prefHeight="13.0" visible="false" />
+                  <VBox styleClass="shadowpane">
+                     <children>
+                        <AreaChart prefHeight="376.0" prefWidth="450.0" styleClass="custom-chart-area">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </AreaChart>
+                     </children>
+                  </VBox>
+               </children>
+               <HBox.margin>
+                  <Insets right="15.0" />
+               </HBox.margin>
+            </VBox>
+            <VBox prefHeight="413.0" prefWidth="280.0">
+               <children>
+                  <Label styleClass="title3" text="Materiales retirados ">
+                     <VBox.margin>
+                        <Insets bottom="12.0" left="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <VBox styleClass="shadowpane">
+                     <children>
+                        <ListView prefHeight="392.0" styleClass="listViewGrey">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </ListView>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="10.0" top="10.0" />
+         </padding>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </HBox>
+   </children>
+</VBox>

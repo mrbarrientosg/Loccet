@@ -1,0 +1,154 @@
+/*
+@mixin backgroundTransparent {
+  .backgroundTransparent {
+    -fx-background-color: transparent;
+  }
+}
+
+@mixin backgroundWhite {
+  .backgroundWhite {
+    -fx-background-color: white;
+  }
+}
+
+@mixin backgroundLight {
+  .backgroundLight {
+    -fx-background-color: $ghost-white; //TODO: cambio
+  }
+}
+*/
+@font-face {
+  font-family: "Heebo";
+  src: url("../fonts/Heebo-Regular.ttf") format("truetype"); }
+@font-face {
+  font-family: "Heebo Medium";
+  src: url("../fonts/Heebo-Medium.ttf") format("truetype"); }
+@font-face {
+  font-family: "Heebo Light";
+  src: url("../fonts/Heebo-Light.ttf") format("truetype"); }
+@font-face {
+  font-family: "Heebo Black";
+  src: url("../fonts/Heebo-Black.ttf") format("truetype"); }
+/*.chart-area-symbol > .custom-chart-area{
+  -fx-background-color: $gray;
+  -fx-background-insets: 0, 1;
+  -fx-background-radius: 4px;
+  -fx-padding: 3px;
+}*/
+.custom-chart-area {
+  -fx-padding: 6px;
+  -fx-background-radius: 6px;
+  /* makes sure this remains circular */
+  -fx-background-insets: 0, 3; }
+
+.custom-chart-area .chart-content {
+  -fx-padding: 15;
+  -fx-background-color: #F0F0F0; }
+
+.custom-chart-area .chart-title {
+  -fx-text-fill: #0084ff;
+  -fx-font-size: 1.6em; }
+
+.custom-chart-area .axis-label {
+  -fx-text-fill: #0084ff; }
+
+.custom-chart-area .chart-legend {
+  -fx-background-color: transparent;
+  -fx-padding: 20px; }
+
+.custom-chart-area .chart-legend-item-symbol {
+  -fx-background-radius: 0; }
+
+.custom-chart-area .chart-legend-item {
+  -fx-text-fill: #4cd964; }
+
+.custom-chart-area .chart-plot-background {
+  -fx-background-color: #F0F0F0; }
+
+.custom-chart-area .chart-vertical-grid-lines {
+  -fx-stroke: #F0F0F0; }
+
+.custom-chart-area .chart-horizontal-grid-lines {
+  -fx-stroke: #F0F0F0; }
+
+.custom-chart-area .chart-alternative-row-fill {
+  -fx-fill: #F0F0F0;
+  -fx-stroke: transparent;
+  -fx-stroke-width: 0; }
+
+/*.custom-chart-area {
+  -fx-background-color: $gray;
+  -fx-background-insets: 0, 1;
+  -fx-background-radius: 4px;
+  -fx-padding: 3px;
+}*/
+/*.custom-chart-area .default-color0 { -fx-background-color:  white; }
+.custom-chart-area .default-color1 { -fx-background-color:  white; }
+
+.custom-chart-area .chart-series-area-line {
+  -fx-stroke: green;
+  -fx-stroke-width: 1px;
+}
+.default-color0.chart-series-area-line { -fx-stroke: $yellow; }
+.default-color1.chart-series-area-line { -fx-stroke: $red; }
+
+.custom-chart-area .chart-series-area-fill {
+  -fx-stroke: null;
+  -fx-fill: CHART_COLOR_1_TRANS_20;
+}
+.default-color0.chart-series-area-fill { -fx-fill: CHART_COLOR_1_TRANS_20; }
+.default-color1.chart-series-area-fill { -fx-fill: CHART_COLOR_2_TRANS_20; }
+
+.custom-chart-area .area-legend-symbol {
+  -fx-padding: 6px;
+  -fx-background-radius: 6px;
+  -fx-background-insets: 0, 3;
+}*/
+.listViewGrey {
+  -fx-text-fill: black;
+  -fx-background-color: #F0F0F0;
+  -fx-background-radius: 3; }
+
+.listViewGrey .list-cell {
+  -fx-text-fill: black;
+  -fx-background-color: #F0F0F0;
+  -fx-border-width: 0 0 1 0;
+  -fx-border-color: #F7F7F7; }
+
+.listViewGrey .list-cell:selected {
+  -fx-background-color: #F9F9F9; }
+
+.listViewGrey .scroll-bar {
+  -fx-background-color: transparent; }
+
+.right-pane-gradient {
+  -fx-background-radius: 10;
+  -fx-background-color: #0084ff, linear-gradient(to bottom right, reflect, #0084ff, #00c6ff); }
+
+.pane-gradient-green {
+  -fx-background-radius: 10;
+  -fx-background-color: #23a93a, linear-gradient(to bottom right, reflect, #56dc6d, #4cd964); }
+
+.pane-gradient-red {
+  -fx-background-radius: 10;
+  -fx-background-color: #c40a00, linear-gradient(to bottom right, reflect, #f70d00, #ff3b30); }
+
+.backgroundLight {
+  -fx-background-color: #F9F9F9; }
+
+.backgroundWhite {
+  -fx-background-color: white; }
+
+.backgroundgray {
+  -fx-text-fill: black;
+  -fx-prompt-text-fill: #878787;
+  -fx-background-color: #F0F0F0; }
+
+.title3 {
+  -fx-font-family: "Heebo Black";
+  -fx-font-size: 16px; }
+
+.shadowpane {
+  -fx-background-color: transparent;
+  -fx-padding: 10;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0, 1, 0); }

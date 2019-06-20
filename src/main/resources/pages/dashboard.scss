@@ -1,0 +1,28 @@
+@import '../base/base';
+@import "../components/buttons";
+@import "../components/textfields";
+@import "../components/backgrounds";
+@import "../components/areachart";
+@import "../components/listview";
+
+.right-pane-gradient {
+  -fx-background-radius: 10;// 0px 3px 3px 0px;
+  @include blue-gradient(to bottom right);
+}
+
+.pane-gradient-green {
+  -fx-background-radius: 10;// 0px 3px 3px 0px;
+  @include green-gradient(to bottom right);
+}
+
+.pane-gradient-red {
+  -fx-background-radius: 10;// 0px 3px 3px 0px;
+  @include red-gradient(to bottom right);
+}
+@include backgroundLight;
+@include backgroundWhite;
+@include backgroundgray;
+
+@include title3;
+
+@include shadowpane;
