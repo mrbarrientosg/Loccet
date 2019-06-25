@@ -31,7 +31,7 @@ public final class TrabajadorView extends View {
     private DatePicker birthdayDateField;
 
     @FXML
-    private TextArea addressText;
+    private TextField addressText;
 
     @FXML
     private TextField postalCodeField;
@@ -59,7 +59,21 @@ public final class TrabajadorView extends View {
 
     @Override
     public void viewDidLoad() {
-        loadView();
+        aceptar.setOnAction(this::saveHandler);
+
+        cancelar.setOnAction(event -> close());
+
+        rutTextField.requestFocus();
+    }
+
+    @Override
+    public void viewDidShow() {
+        birthdayDateField.setValue(LocalDate.now());
+
+        specialityList.setItems(FXCollections.observableList(Especialidades.getInstance().getAll()));
+        specialityList.getSelectionModel().selectFirst();
+
+        bindController();
     }
 
     @Override
@@ -67,25 +81,11 @@ public final class TrabajadorView extends View {
         clearFields();
     }
 
-    public void loadView() {
-        clearFields();
-
-        birthdayDateField.setValue(LocalDate.now());
-        specialityList.setItems(FXCollections.observableList(Especialidades.getInstance().getAll()));
-        specialityList.getSelectionModel().selectFirst();
-        aceptar.setOnAction(this::saveHandler);
-
-        bindController();
-
-        rutTextField.requestFocus();
-    }
-
-    @FXML
     private void saveHandler(ActionEvent event) {
-        //controller.guardarTrabajador();
+        controller.guardarTrabajador();
+        close();
     }
 
-    @FXML
     private void cancelHandler(ActionEvent event) {
         close();
     }
@@ -106,23 +106,6 @@ public final class TrabajadorView extends View {
         telephoneField.textProperty().bindBidirectional(controller.telephoneProperty());
         emailField.textProperty().bindBidirectional(controller.emailProperty());
     }
-
-    /*private void clearBind() {
-        controller.rutProperty().unbindBidirectional(rutTextField.textProperty());
-        controller.nameProperty().unbindBidirectional(nameTextField.textProperty());
-        controller.lastNameProperty().unbindBidirectional(lastNameTextField.textProperty());
-        controller.specialityProperty().unbindBidirectional(specialityList.valueProperty());
-        controller.birthdayProperty().unbindBidirectional(birthdayDateField.valueProperty());
-
-        controller.addressProperty().unbindBidirectional(addressText.textProperty());
-        controller.zipProperty().unbindBidirectional(postalCodeField.textProperty());
-        controller.countryProperty().unbindBidirectional(countryField.textProperty());
-        controller.cityProperty().unbindBidirectional(cityField.textProperty());
-        controller.stateProperty().unbindBidirectional(stateField.textProperty());
-
-        controller.telephoneProperty().unbindBidirectional(telephoneField.textProperty());
-        controller.emailProperty().unbindBidirectional(emailField.textProperty());
-    }*/
 
     private void clearFields() {
         rutTextField.setText("");

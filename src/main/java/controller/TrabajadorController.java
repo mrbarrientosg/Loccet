@@ -5,8 +5,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import model.Constructora;
-import model.Trabajador;
+import model.*;
 import router.TrabajadorRouter;
 import delegate.EditTrabajadorDelegate;
 import view.TrabajadorView;
@@ -65,6 +64,26 @@ public final class TrabajadorController extends Controller {
         email = new SimpleStringProperty(null);
     }
 
+    public void guardarTrabajador() {
+        Trabajador trabajador;
+
+        Localizacion localizacion = new Localizacion(address.get(), zip.get(), country.get(), state.get(), city.get());
+
+        trabajador = new TrabajadorTiempoCompleto();
+
+        trabajador.setRut(rut.get());
+        trabajador.setNombre(name.get());
+        trabajador.setApellido(lastName.get());
+        trabajador.setFechaNacimiento(birthday.get());
+
+        trabajador.setEspecialidad(Especialidades.getInstance().obtener(speciality.get()));
+        trabajador.setLocalizacion(localizacion);
+
+        trabajador.setTelefono(telephone.get());
+        trabajador.setCorreoElectronico(email.get());
+
+        model.agregarTrabajador(trabajador);
+    }
 
     public void setModel(Constructora model) {
         this.model = model;
