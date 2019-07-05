@@ -52,6 +52,12 @@ public final class TrabajadorView extends View {
     private TextField emailField;
 
     @FXML
+    private RadioButton partTimeButton;
+
+    @FXML
+    private TextField hoursTextField;
+
+    @FXML
     private Button aceptar;
 
     @FXML
@@ -64,6 +70,10 @@ public final class TrabajadorView extends View {
         cancelar.setOnAction(event -> close());
 
         rutTextField.requestFocus();
+
+        partTimeButton.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            hoursTextField.setDisable(!newValue);
+        });
     }
 
     @Override
@@ -86,10 +96,6 @@ public final class TrabajadorView extends View {
         close();
     }
 
-    private void cancelHandler(ActionEvent event) {
-        close();
-    }
-
     private void bindController() {
         rutTextField.textProperty().bindBidirectional(controller.rutProperty());
         nameTextField.textProperty().bindBidirectional(controller.nameProperty());
@@ -105,6 +111,9 @@ public final class TrabajadorView extends View {
 
         telephoneField.textProperty().bindBidirectional(controller.telephoneProperty());
         emailField.textProperty().bindBidirectional(controller.emailProperty());
+
+        partTimeButton.selectedProperty().bindBidirectional(controller.partTimeProperty());
+        hoursTextField.textProperty().bindBidirectional(controller.hoursProperty());
     }
 
     private void clearFields() {

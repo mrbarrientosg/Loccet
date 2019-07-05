@@ -1,10 +1,7 @@
 package controller;
 
 import base.Controller;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import model.*;
 import router.TrabajadorRouter;
 import delegate.EditTrabajadorDelegate;
@@ -47,6 +44,10 @@ public final class TrabajadorController extends Controller {
 
     private StringProperty email;
 
+    private BooleanProperty partTime;
+
+    private StringProperty hours;
+
     public TrabajadorController() {
         rut = new SimpleStringProperty(null);
         name = new SimpleStringProperty(null);
@@ -62,6 +63,9 @@ public final class TrabajadorController extends Controller {
 
         telephone = new SimpleStringProperty(null);
         email = new SimpleStringProperty(null);
+
+        partTime = new SimpleBooleanProperty(false);
+        hours = new SimpleStringProperty(null);
     }
 
     public void guardarTrabajador() {
@@ -69,7 +73,13 @@ public final class TrabajadorController extends Controller {
 
         Localizacion localizacion = new Localizacion(address.get(), zip.get(), country.get(), state.get(), city.get());
 
-        trabajador = new TrabajadorTiempoCompleto();
+
+        if (partTime.get()) {
+            Integer horas = new Integer(hours.getValue());
+            trabajador = new TrabajadorPartTime(horas);
+        } else {
+            trabajador = new TrabajadorTiempoCompleto();
+        }
 
         trabajador.setRut(rut.get());
         trabajador.setNombre(name.get());
@@ -139,5 +149,13 @@ public final class TrabajadorController extends Controller {
 
     public StringProperty emailProperty() {
         return email;
+    }
+
+    public BooleanProperty partTimeProperty() {
+        return partTime;
+    }
+
+    public StringProperty hoursProperty() {
+        return hours;
     }
 }
