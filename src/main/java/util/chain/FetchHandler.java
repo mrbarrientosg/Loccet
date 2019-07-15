@@ -39,11 +39,5 @@ public abstract class FetchHandler {
     public void dispose() {
         if (disposable != null)
             disposable.dispose();
-
-        try {
-            service.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

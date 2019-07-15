@@ -211,11 +211,6 @@ public final class LoginController extends Controller {
 
     public void clear() {
         compositeDisposable.dispose();
-        try {
-            service.close();
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "", e);
-        }
     }
 
 }
