@@ -31,7 +31,7 @@ public final class TrabajadorView extends View {
     private DatePicker birthdayDateField;
 
     @FXML
-    private TextArea addressText;
+    private TextField addressText;
 
     @FXML
     private TextField postalCodeField;
@@ -52,81 +52,68 @@ public final class TrabajadorView extends View {
     private TextField emailField;
 
     @FXML
-    private Button saveButton;
+    private RadioButton partTimeButton;
+
+    @FXML
+    private TextField hoursTextField;
+
+    @FXML
+    private Button aceptar;
+
+    @FXML
+    private Button cancelar;
 
     @Override
     public void viewDidLoad() {
-        loadView();
+        aceptar.setOnAction(this::saveHandler);
+
+        cancelar.setOnAction(event -> close());
+
+        rutTextField.requestFocus();
+
+        partTimeButton.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            hoursTextField.setDisable(!newValue);
+        });
+    }
+
+    @Override
+    public void viewDidShow() {
+        birthdayDateField.setValue(LocalDate.now());
+
+        specialityList.setItems(FXCollections.observableList(Especialidades.getInstance().getAll()));
+        specialityList.getSelectionModel().selectFirst();
+
+        bindController();
     }
 
     @Override
     public void viewDidClose() {
-        clearBind();
         clearFields();
     }
 
-    public void loadView() {
-        clearFields();
-
-        birthdayDateField.setValue(LocalDate.now());
-        specialityList.setItems(FXCollections.observableList(Especialidades.getInstance().getAll()));
-        specialityList.getSelectionModel().selectFirst();
-        saveButton.setOnAction(this::saveHandler);
-
-        bindController();
-
-        rutTextField.requestFocus();
-    }
-
-    @FXML
     private void saveHandler(ActionEvent event) {
-        //controller.guardarTrabajador();
-    }
-
-    @FXML
-    private void cancelHandler(ActionEvent event) {
-        closeView();
+        controller.guardarTrabajador();
+        close();
     }
 
     private void bindController() {
-        controller.rutProperty().bindBidirectional(rutTextField.textProperty());
-        controller.nameProperty().bindBidirectional(nameTextField.textProperty());
-        controller.lastNameProperty().bindBidirectional(lastNameTextField.textProperty());
-        controller.specialityProperty().bindBidirectional(specialityList.valueProperty());
-        controller.birthdayProperty().bindBidirectional(birthdayDateField.valueProperty());
+        rutTextField.textProperty().bindBidirectional(controller.rutProperty());
+        nameTextField.textProperty().bindBidirectional(controller.nameProperty());
+        lastNameTextField.textProperty().bindBidirectional(controller.lastNameProperty());
+        specialityList.valueProperty().bindBidirectional(controller.specialityProperty());
+        birthdayDateField.valueProperty().bindBidirectional(controller.birthdayProperty());
 
-        controller.addressProperty().bindBidirectional(addressText.textProperty());
-        controller.zipProperty().bindBidirectional(postalCodeField.textProperty());
-        controller.countryProperty().bindBidirectional(countryField.textProperty());
-        controller.cityProperty().bindBidirectional(cityField.textProperty());
-        controller.stateProperty().bindBidirectional(stateField.textProperty());
+        addressText.textProperty().bindBidirectional(controller.addressProperty());
+        postalCodeField.textProperty().bindBidirectional(controller.zipProperty());
+        countryField.textProperty().bindBidirectional(controller.countryProperty());
+        cityField.textProperty().bindBidirectional(controller.cityProperty());
+        stateField.textProperty().bindBidirectional(controller.stateProperty());
 
-        controller.telephoneProperty().bindBidirectional(telephoneField.textProperty());
-        controller.emailProperty().bindBidirectional(emailField.textProperty());
+        telephoneField.textProperty().bindBidirectional(controller.telephoneProperty());
+        emailField.textProperty().bindBidirectional(controller.emailProperty());
 
-        controller.bindEditProperty();
-
-        if (!rutTextField.getText().isEmpty())
-            rutTextField.setDisable(true);
-        else
-            rutTextField.setDisable(false);
-    }
-
-    private void clearBind() {
-        controller.rutProperty().unbindBidirectional(rutTextField.textProperty());
-        controller.nameProperty().unbindBidirectional(nameTextField.textProperty());
-        controller.lastNameProperty().unbindBidirectional(lastNameTextField.textProperty());
-        controller.specialityProperty().unbindBidirectional(specialityList.valueProperty());
-        controller.birthdayProperty().unbindBidirectional(birthdayDateField.valueProperty());
-
-        controller.addressProperty().unbindBidirectional(addressText.textProperty());
-        controller.zipProperty().unbindBidirectional(postalCodeField.textProperty());
-        controller.countryProperty().unbindBidirectional(countryField.textProperty());
-        controller.cityProperty().unbindBidirectional(cityField.textProperty());
-        controller.stateProperty().unbindBidirectional(stateField.textProperty());
-
-        controller.telephoneProperty().unbindBidirectional(telephoneField.textProperty());
-        controller.emailProperty().unbindBidirectional(emailField.textProperty());
+        partTimeButton.selectedProperty().bindBidirectional(controller.partTimeProperty());
+        hoursTextField.textProperty().bindBidirectional(controller.hoursProperty());
     }
 
     private void clearFields() {
@@ -142,10 +129,6 @@ public final class TrabajadorView extends View {
 
         telephoneField.setText("");
         emailField.setText("");
-    }
-
-    public void closeView() {
-        ((BorderPane) getRoot().getParent()).getChildren().remove(getRoot());
     }
 
     public void setController(TrabajadorController controller) {

@@ -1,12 +1,8 @@
 package controller;
 
 import base.Controller;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import model.Constructora;
-import model.Trabajador;
+import javafx.beans.property.*;
+import model.*;
 import router.TrabajadorRouter;
 import delegate.EditTrabajadorDelegate;
 import view.TrabajadorView;
@@ -23,8 +19,6 @@ public final class TrabajadorController extends Controller {
     private TrabajadorView view;
 
     private Constructora model;
-
-    private TrabajadorRouter router;
 
     private StringProperty rut;
 
@@ -50,11 +44,9 @@ public final class TrabajadorController extends Controller {
 
     private StringProperty email;
 
-    private boolean isEditing;
+    private BooleanProperty partTime;
 
-    private Trabajador oldTrabajador;
-
-    private EditTrabajadorDelegate delegate;
+    private StringProperty hours;
 
     public TrabajadorController() {
         rut = new SimpleStringProperty(null);
@@ -72,182 +64,35 @@ public final class TrabajadorController extends Controller {
         telephone = new SimpleStringProperty(null);
         email = new SimpleStringProperty(null);
 
-        isEditing = false;
+        partTime = new SimpleBooleanProperty(false);
+        hours = new SimpleStringProperty(null);
     }
 
-    /**
-     * Guarda el nuevo o editado trabajador en el modelo
-     *
-     * @author Matias Barrientos
-     */
-//    public void guardarTrabajador() {
-//        if (!validarTrabajador()) return;
-//
-//        localizacionBuilder
-//                .codigoPostal(zip.get());
-//
-//        trabajadorBuilder
-//                .localizacion(localizacionBuilder.build())
-//                .especialidad(Especialidades.getInstance().obtener(speciality.get()))
-//                .fechaNacimiento(birthday.get());
-//
-//        Trabajador newT = trabajadorBuilder.build();
-//
-//        Trabajador old = null;
-//
-//        if (isEditing)
-//            old = model.actualizarTrabajador(newT);
-//        else
-//            model.agregarTrabajador(newT);
-//
-//        if (delegate != null && isEditing) {
-//            delegate.didEdit(old, newT);
-//        }
-//
-//        view.closeView();
-//    }
-//
-//
-//    private boolean validarTrabajador() {
-//        return validarInformacionPersonal() && validarLocalizacion() && validarContacto();
-//    }
-//
-//    /**
-//     * Valida solo la informacion personal del trabajador, y si
-//     * lo son lo agrega al builder.
-//     * @return false si un dato es incorreto, lo contrario true
-//     *
-//     * @author Matias Barrientos
-//     */
-//    private boolean validarInformacionPersonal() {
-//        // 1 validar RUT
-//        // TODO: Validar que el rut sea correcto
-//        if (!validacionIsEmpty(rut, "Debe ingresar el RUT"))
-//            return false;
-//
-//        trabajadorBuilder.rut(rut.get());
-//
-//        // 2 validar nombre
-//        if (!validacionIsEmpty(name, "Debe ingresar el nombre"))
-//            return false;
-//
-//        trabajadorBuilder.nombre(name.get());
-//
-//        // 3 validar apellido
-//        if (!validacionIsEmpty(lastName, "Debe ingresar el apellido"))
-//            return false;
-//
-//        trabajadorBuilder.apellido(lastName.get());
-//
-//        return true;
-//    }
-//
-//    /**
-//     * Valida la seccion de localizacion
-//     *
-//     *  @return true si los campos son validos, en caso contrario false
-//     *
-//     * @author Matias Barrientos
-//     */
-//    private boolean validarLocalizacion() {
-//        // 1 validar la dirrecion
-//        if (!validacionIsEmpty(address, "Debe ingresar la dirreción"))
-//            return false;
-//
-//        localizacionBuilder.direccion(address.get());
-//
-//        // 2 validar pais
-//        if (!validacionIsEmpty(country, "Debe ingresar el país"))
-//            return false;
-//
-//        localizacionBuilder.pais(country.get());
-//
-//        // 3 validar ciudad
-//        if (!validacionIsEmpty(city, "Debe ingresar la ciudad"))
-//            return false;
-//
-//        localizacionBuilder.ciudad(city.get());
-//
-//        // 4 validar el estado
-//        if (!validacionIsEmpty(state, "Debe ingresar el estado/provincia"))
-//            return false;
-//
-//        localizacionBuilder.estado(state.get());
-//
-//        return true;
-//    }
-//
-//    /**
-//     * Valida la seccion de contacto
-//     *
-//     *  @return true si los campos son validos, en caso contrario false
-//     *
-//     * @author Matias Barrientos
-//     */
-//    private boolean validarContacto() {
-//        // 1 validar telefono
-//        if (!validacionIsEmpty(telephone, "Debe ingresar el telefono"))
-//            return false;
-//
-//        trabajadorBuilder.telefono(telephone.get());
-//
-//        // 2 validar email
-//        // TODO: Validar que el email sea correcto, que tenga el @
-//        if (!validacionIsEmpty(email, "Debe ingresar el correo electronico"))
-//            return false;
-//
-//        trabajadorBuilder.correoElectronico(email.get());
-//
-//        return true;
-//    }
+    public void guardarTrabajador() {
+        Trabajador trabajador;
 
-    /**
-     * Valida que el campo no sea vacio
-     *
-     *  @return true si el campo es valido, en caso contrario false
-     *
-     * @author Matias Barrientos
-     */
-    private boolean validacionIsEmpty(StringProperty property, String errorMessage) {
-        if (property.isEmpty().get() || property.isNull().get()) {
-            router.showError(errorMessage);
-            return false;
+        Localizacion localizacion = new Localizacion(address.get(), zip.get(), country.get(), state.get(), city.get());
+
+
+        if (partTime.get()) {
+            Integer horas = new Integer(hours.getValue());
+            trabajador = new TrabajadorPartTime(horas);
+        } else {
+            trabajador = new TrabajadorTiempoCompleto();
         }
-        return true;
-    }
 
-    /**
-     * Si el controlador esta en modo editar, llena los campos
-     * de la vista.
-     *
-     * @author Matias Barrientos
-     */
-    public void bindEditProperty() {
-        if (!isEditing || oldTrabajador == null) return;
+        trabajador.setRut(rut.get());
+        trabajador.setNombre(name.get());
+        trabajador.setApellido(lastName.get());
+        trabajador.setFechaNacimiento(birthday.get());
 
-        rut.set(oldTrabajador.getRut());
-        name.set(oldTrabajador.getNombre());
-        lastName.set(oldTrabajador.getApellido());
-        speciality.set(oldTrabajador.getEspecialidad().getNombre());
-        birthday.setValue(oldTrabajador.getFechaNacimiento());
+        trabajador.setEspecialidad(Especialidades.getInstance().obtener(speciality.get()));
+        trabajador.setLocalizacion(localizacion);
 
-        address.set(oldTrabajador.getLocalizacion().getDireccion());
-        zip.set(oldTrabajador.getLocalizacion().getCodigoPostal());
-        country.set(oldTrabajador.getLocalizacion().getPais());
-        city.set(oldTrabajador.getLocalizacion().getCiudad());
-        state.set(oldTrabajador.getLocalizacion().getEstado());
+        trabajador.setTelefono(telephone.get());
+        trabajador.setCorreoElectronico(email.get());
 
-        telephone.setValue(oldTrabajador.getTelefono());
-        email.setValue(oldTrabajador.getCorreoElectronico());
-    }
-
-    public void setOldTrabajador(Trabajador oldTrabajador) {
-        this.oldTrabajador = oldTrabajador;
-
-        if (oldTrabajador != null) isEditing = true;
-        else isEditing = false;
-
-        view.loadView();
+        model.agregarTrabajador(trabajador);
     }
 
     public void setModel(Constructora model) {
@@ -256,14 +101,6 @@ public final class TrabajadorController extends Controller {
 
     public void setView(TrabajadorView view) {
         this.view = view;
-    }
-
-    public void setRouter(TrabajadorRouter router) {
-        this.router = router;
-    }
-
-    public void setDelegate(EditTrabajadorDelegate delegate) {
-        this.delegate = delegate;
     }
 
     public StringProperty rutProperty() {
@@ -312,5 +149,13 @@ public final class TrabajadorController extends Controller {
 
     public StringProperty emailProperty() {
         return email;
+    }
+
+    public BooleanProperty partTimeProperty() {
+        return partTime;
+    }
+
+    public StringProperty hoursProperty() {
+        return hours;
     }
 }
