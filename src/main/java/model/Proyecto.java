@@ -43,6 +43,7 @@ public class Proyecto implements Costeable{
     // MARK: - Constructor
 
     public Proyecto() {
+        id = generarId();
         asistenciaStore = new MemoryStoreAsistencia();
         storeTrabajador = new MemoryStoreTrabajador();
         storeFase = new MemoryStoreFase();
@@ -291,6 +292,11 @@ public class Proyecto implements Costeable{
 
             return json;
         }
+    }
+    private final String generarId(){
+        String result = java.util.UUID.randomUUID().toString();
+        result = result.substring(0,20);
+        return result;
     }
 
 
