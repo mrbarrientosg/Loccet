@@ -43,13 +43,7 @@ public final class AgregarProyectoView extends View {
     private TextField cliente;
 
     @FXML
-    private TextField mailC;
-
-    @FXML
     private TextField pais;
-
-    @FXML
-    private TextField telefonoC;
 
     @FXML
     private DatePicker fechaT;
@@ -85,12 +79,9 @@ public final class AgregarProyectoView extends View {
         if(nombreP.getText().isEmpty() || jefeP.getText().isEmpty() ||
                 montoC.getText().isEmpty()||
                 cliente.getText().isEmpty()||
-                telefonoC.getText().isEmpty()||
-                mailC.getText().isEmpty()||
                 direccion.getText().isEmpty()||
                 ciudad.getText().isEmpty()||
                 estado.getText().isEmpty()||pais.getText().isEmpty() ||
-
                 fechaF.getEditor().getText().isEmpty() || fechaT.getEditor().getText().isEmpty()){
                 router.showAlert("Existen casillas sin rellenar!").showAndWait();
                 System.out.println("campos vacios");
@@ -100,7 +91,7 @@ public final class AgregarProyectoView extends View {
         }
         else{
             controller.presionarAceptar(nombreP.getText(),jefeP.getText(),new BigDecimal(montoC.getText()),cliente.getText(),
-                    telefonoC.getText(),direccion.getText(),ciudad.getText(),estado.getText(),pais.getText()
+                    direccion.getText(),ciudad.getText(),estado.getText(),pais.getText()
                     ,fechaF.getValue(),fechaT.getValue());
             close();
         }
@@ -132,11 +123,9 @@ public final class AgregarProyectoView extends View {
     public void setValues(){
         nombreP.setText("");
         jefeP.setText("");
-        mailC.setText("");
         montoC.setText("");
         ciudad.setText("");
         cliente.setText("");
-        telefonoC.setText("");
         estado.setText("");
         pais.setText("");
         direccion.setText("");

@@ -27,13 +27,12 @@ public final class AgregarProyectoController extends Controller {
      * Función que permite ingresar un proyecto a la constructora.
      * @author Matías Zúñiga
      */
-    public void presionarAceptar(String nombreP, String jefeP, BigDecimal montoC, String cliente, String telefonoC,
+    public void presionarAceptar(String nombreP, String jefeP, BigDecimal montoC, String cliente,
                                  String direccion, String ciudad, String estado, String pais,
                                  LocalDate fechaF, LocalDate fechaT){
         System.out.println("Todos los campos estan llenos");
         Proyecto proyecto = new Proyecto();
         Localizacion localizacion = new Localizacion(direccion,pais,estado,ciudad);
-
         proyecto.setNombre(nombreP);
         proyecto.setNombreCliente(cliente);
         proyecto.setEstimacion(montoC);
@@ -41,6 +40,7 @@ public final class AgregarProyectoController extends Controller {
         proyecto.setFechaTermino(fechaF);
         proyecto.setLocalizacion(localizacion);
         model.agregarProyecto(proyecto);
+        //TODO: se agrega un proyecto
     }
 
     /**

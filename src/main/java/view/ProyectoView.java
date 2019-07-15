@@ -19,6 +19,7 @@ import router.AgregarProyectoRouter;
 import router.DetalleProyectoRouter;
 import router.ProyectoRouter;
 import java.time.LocalDate;
+import java.util.Optional;
 
 public class ProyectoView extends View {
 
@@ -84,6 +85,7 @@ public class ProyectoView extends View {
         listProyectos = controller.getList();
         filteredProyect = new FilteredList<>(listProyectos, e -> true);
         refreshTable();
+
     }
 
     private void inicializarTablaProyecto() {
@@ -140,8 +142,22 @@ public class ProyectoView extends View {
     public void createProyect(ActionEvent event){
         AgregarProyectoView view = AgregarProyectoRouter.create();
         view.modal().withStyle(StageStyle.TRANSPARENT).show();
-        sortedList().clear();
+        System.out.println("pruebaaaaaaaaaaaaaaaaaa");
         cargarDatos();
+    }
+    @FXML
+    public void deleteProyect(ActionEvent event){
+        ProyectoCell cell = selection();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Alerta");
+        alert.setHeaderText("Esta accion borrara el proyecto");
+        alert.setContentText("¿Esta seguro de que desea continuar?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            controller.deleteProyect(cell.getId());
+            cargarDatos();
+        }
+
     }
 
     public void setController(ProyectoController controller) { this.controller = controller; }
