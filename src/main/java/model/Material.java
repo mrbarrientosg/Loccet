@@ -1,5 +1,7 @@
 package model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import exceptions.EmptyFieldException;
 import model.store.Store;
 import model.store.memory.MemoryStoreRegistroMaterial;
@@ -28,10 +30,12 @@ public class Material {
 
     private double cantidad;
 
+    @SerializedName("unidad_medida")
     private String uds;
 
     private BigDecimal precio;
 
+    @Expose(serialize = false, deserialize = false)
     private Store<RegistroMaterial> registroMaterialStore;
 
     // MARK: - Constructores

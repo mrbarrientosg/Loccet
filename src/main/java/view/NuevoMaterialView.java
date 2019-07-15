@@ -2,6 +2,7 @@ package view;
 
 import base.View;
 import controller.InventarioMaterialController;
+import exceptions.ItemExisteException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -102,7 +103,14 @@ public final class NuevoMaterialView extends View {
 
             }
 
-            controller.nuevoMaterial(material);
+            try {
+                controller.nuevoMaterial(material);
+            } catch (ItemExisteException e) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+            }
             close();
         } else{//En caso de que el usuario deje un campo vacio salta una excepcion.
             Alert alert = new Alert(Alert.AlertType.WARNING);

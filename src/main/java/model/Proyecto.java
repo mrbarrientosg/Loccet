@@ -2,6 +2,7 @@ package model;
 
 import com.google.gson.*;
 import exceptions.EmptyFieldException;
+import exceptions.ItemExisteException;
 import json.LocalDateTypeConverter;
 import model.store.*;
 import model.store.memory.MemoryStoreAsistencia;
@@ -81,9 +82,9 @@ public class Proyecto implements Costeable{
      *
      * @author Matias Zuñiga
      */
-    public void agregarTrabajador(Trabajador trabajador){
+    public void agregarTrabajador(Trabajador trabajador) throws ItemExisteException {
         if (storeTrabajador.contains(trabajador))
-            return;
+            throw new ItemExisteException();
 
         trabajador.asociarProyecto(this);
         storeTrabajador.save(trabajador);
@@ -121,7 +122,7 @@ public class Proyecto implements Costeable{
 
     // MARK: - Metodos Inventario
 
-    public void agregarMaterial(Material material) {
+    public void agregarMaterial(Material material) throws ItemExisteException {
         inventarioMaterial.agregarMaterial(material);
     }
 
@@ -280,6 +281,8 @@ public class Proyecto implements Costeable{
                 p.setFechaTermino(gson.fromJson(json.get("fecha_termino"), LocalDate.class));
 
                 p.setLocalizacion(gson.fromJson(json.get("localizacion").getAsString(), Localizacion.class));
+
+                p.inventarioMaterial.setId(json.get("id_inventario").getAsInt());
             } catch (EmptyFieldException e) {
                 // TODO: Ver que se hace en este caso
                 e.printStackTrace();

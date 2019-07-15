@@ -2,6 +2,10 @@ package controller;
 
 import base.Controller;
 import cell.MaterialCell;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import exceptions.ItemExisteException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -11,6 +15,8 @@ import javafx.stage.FileChooser;
 import model.InventarioMaterial;
 import model.Material;
 import model.Proyecto;
+import network.endpoint.MaterialAPI;
+import network.service.Router;
 import router.InventarioMaterialRouter;
 import util.ExportFile.ExportFile;
 import util.InventarioExport.ExportInventarioPDF;
@@ -24,6 +30,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 /**
@@ -92,9 +99,25 @@ public final class InventarioMaterialController extends Controller {
      * Agrega un nuevo material al modelo
      * @param material nuevo material a agregar
      */
-    public void nuevoMaterial(Material material){
+    public void nuevoMaterial(Material material) throws ItemExisteException {
         model.agregarMaterial(material);
         listMateriales.add(new MaterialCell(material));
+
+        Router<MaterialAPI> service = Router.getInstance();
+
+        Gson gson = new Gson();
+
+        JsonObject json = gson.toJsonTree(material).getAsJsonObject();
+        json.addProperty("id_inventario", model.getId());
+
+        json.remove("registroMaterialStore");
+
+        System.out.println(json);
+
+        service.request(MaterialAPI.CREATE, json)
+                .subscribe(System.out::println, throwable -> {
+                    LOGGER.log(Level.SEVERE, "", throwable);
+                });
     }
 
     public void agregarMaterial(String idMaterial, double cantidad){
