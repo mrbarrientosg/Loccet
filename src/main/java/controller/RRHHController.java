@@ -31,7 +31,7 @@ public class RRHHController extends Controller {
 
     private Constructora model = Constructora.getInstance();
 
-    private Router<TrabajadorAPI> service = new Router<>();
+    private Router<TrabajadorAPI> service = Router.getInstance();
 
     public ObservableList<TrabajadorCell> fetchTrabajadores() {
         ObservableList<TrabajadorCell> cells = FXCollections.observableArrayList(e -> new Observable[]{ new SimpleStringProperty(e.getRut())});

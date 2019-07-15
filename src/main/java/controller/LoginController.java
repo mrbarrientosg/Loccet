@@ -28,7 +28,7 @@ public final class LoginController extends Controller {
 
     private LoginView view;
 
-    private Router<LoccetAPI> service = new Router<>();
+    private Router<LoccetAPI> service = Router.getInstance();
 
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 

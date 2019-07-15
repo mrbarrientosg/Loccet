@@ -31,7 +31,7 @@ public final class ListaTrabajadorController extends Controller implements Searc
     public ListaTrabajadorController(ListaTrabajadorView view, Proyecto model) {
         this.view = view;
         this.model = model;
-        service = new Router<>();
+        service = Router.getInstance();
     }
 
     public ObservableList<TrabajadorCell> loadData() {

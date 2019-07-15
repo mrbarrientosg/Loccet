@@ -22,8 +22,16 @@ public class Router<EndPoint extends EndPointType> implements NetworkRouter<EndP
 
     private CompletableFuture<Response> response;
 
-    public Router() {
+    private static Router instance;
+
+    private Router() {
         asyncHttpClient = new DefaultAsyncHttpClient();
+    }
+
+    public static Router getInstance() {
+        if (instance == null)
+            instance = new Router();
+        return instance;
     }
 
     @Override

@@ -33,7 +33,7 @@ public class DetalleProyectoController extends Controller {
 
     private StringProperty client = new SimpleStringProperty();
 
-    private Router<ProyectoAPI> service = new Router<>();
+    private Router<ProyectoAPI> service = Router.getInstance();
 
     //private ObjectProperty<LocalDate> startDate = new SimpleStringProperty();
 
