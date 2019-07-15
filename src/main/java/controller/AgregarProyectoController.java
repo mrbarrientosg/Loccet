@@ -11,6 +11,7 @@ import router.AgregarProyectoRouter;
 import view.AgregarProyectoView;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 /**
  * @author Matias Zuñiga
@@ -26,22 +27,20 @@ public final class AgregarProyectoController extends Controller {
      * Función que permite ingresar un proyecto a la constructora.
      * @author Matías Zúñiga
      */
-    public void presionarAceptar(TextField nombreP,TextField jefeP, TextField montoC,TextField cliente,TextField telefonoC,TextField direccion,TextField ciudad,TextField estado,TextField pais,DatePicker fechaF,DatePicker fechaT){
+    public void presionarAceptar(String nombreP, String jefeP, BigDecimal montoC, String cliente,
+                                 String direccion, String ciudad, String estado, String pais,
+                                 LocalDate fechaF, LocalDate fechaT){
         System.out.println("Todos los campos estan llenos");
         Proyecto proyecto = new Proyecto();
-
-//        Localizacion localizacion = new Localizacion();
-//        localizacion.setCiudad(ciudad.getText());
-//        localizacion.setDireccion(direccion.getText());
-//        localizacion.setEstado(estado.getText());
-//
-//        proyecto.setNombre(nombreP.getText());
-//        proyecto.setNombreCliente(cliente.getText());
-//        proyecto.setEstimacion(new BigDecimal(montoC.getText()));
-//        proyecto.setFechaInicio(fechaF.getValue());
-//        proyecto.setFechaTermino(fechaF.getValue());
-//        proyecto.setLocalizacion(localizacion);
-//        model.agregarProyecto(proyecto);
+        Localizacion localizacion = new Localizacion(direccion,pais,estado,ciudad);
+        proyecto.setNombre(nombreP);
+        proyecto.setNombreCliente(cliente);
+        proyecto.setEstimacion(montoC);
+        proyecto.setFechaInicio(fechaF);
+        proyecto.setFechaTermino(fechaF);
+        proyecto.setLocalizacion(localizacion);
+        model.agregarProyecto(proyecto);
+        //TODO: se agrega un proyecto
     }
 
     /**

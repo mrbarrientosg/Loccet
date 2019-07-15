@@ -31,5 +31,9 @@ public class ProyectoController extends Controller {
         return model.obtenerProyecto(id);
     }
 
+    public void deleteProyect(String id){
+        model.eliminarProyecto(id);
+    }
+
 }
 
