@@ -56,6 +56,7 @@ public class DetalleTrabajadorController extends Controller {
         if (delegate != null)
             delegate.didEditTrabajador();
 
+        // TODO: Falta la especialidad
         //model.setEspecialidad();
 
     }

@@ -22,20 +22,26 @@ public class Material {
 
     // MARK: - Atributos
 
+    @Expose
     private String id;
 
+    @Expose
     private String nombre;
 
+    @Expose
     private String descripcion;
 
+    @Expose
     private double cantidad;
 
+    @Expose
     @SerializedName("unidad_medida")
     private String uds;
 
+    @Expose
     private BigDecimal precio;
 
-    @Expose(serialize = false, deserialize = false)
+    @Expose(serialize = false)
     private Store<RegistroMaterial> registroMaterialStore;
 
     // MARK: - Constructores

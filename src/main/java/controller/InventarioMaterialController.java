@@ -110,8 +110,6 @@ public final class InventarioMaterialController extends Controller {
         JsonObject json = gson.toJsonTree(material).getAsJsonObject();
         json.addProperty("id_inventario", model.getId());
 
-        json.remove("registroMaterialStore");
-
         System.out.println(json);
 
         service.request(MaterialAPI.CREATE, json)

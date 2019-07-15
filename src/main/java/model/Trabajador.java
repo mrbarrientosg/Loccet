@@ -1,6 +1,7 @@
 package model;
 
 import com.google.gson.*;
+import com.google.gson.annotations.Expose;
 import exceptions.EmptyFieldException;
 import exceptions.InvalidaRutException;
 import json.LocalDateTypeConverter;
@@ -17,24 +18,34 @@ public abstract class Trabajador {
 
     // MARK: - Atributos
 
+    @Expose
     private String rut;
 
+    @Expose
     private String nombre;
 
+    @Expose
     private String apellido;
 
+    @Expose
     private LocalDate fechaNacimiento;
 
+    @Expose(serialize = false)
     private Especialidad especialidad;
 
+    @Expose
     private Localizacion localizacion;
 
+    @Expose
     private String telefono;
 
+    @Expose
     private String correoElectronico;
 
+    @Expose(serialize = false)
     private StoreProyecto storeProyecto;
 
+    @Expose(serialize = false)
     private StoreHorario storeHorario;
 
     // MARK: - Constructor
