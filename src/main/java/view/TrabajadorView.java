@@ -2,6 +2,8 @@ package view;
 
 import base.View;
 import controller.TrabajadorController;
+import exceptions.EmptyFieldException;
+import exceptions.InvalidaRutException;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -92,7 +94,13 @@ public final class TrabajadorView extends View {
     }
 
     private void saveHandler(ActionEvent event) {
-        controller.guardarTrabajador();
+        try {
+            controller.guardarTrabajador();
+        } catch (EmptyFieldException | InvalidaRutException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
         close();
     }
 

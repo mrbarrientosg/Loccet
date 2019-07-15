@@ -1,6 +1,8 @@
 package controller;
 
 import base.Controller;
+import exceptions.EmptyFieldException;
+import exceptions.InvalidaRutException;
 import javafx.beans.property.*;
 import model.*;
 import router.TrabajadorRouter;
@@ -68,7 +70,7 @@ public final class TrabajadorController extends Controller {
         hours = new SimpleStringProperty(null);
     }
 
-    public void guardarTrabajador() {
+    public void guardarTrabajador() throws EmptyFieldException, InvalidaRutException {
         Trabajador trabajador;
 
         Localizacion localizacion = new Localizacion(address.get(), zip.get(), country.get(), state.get(), city.get());
