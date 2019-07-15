@@ -89,9 +89,9 @@ public final class HomeRouter {
     }
 
     public void modificarTrabajador(Constructora model, Trabajador old) {
-        TrabajadorView trabajadorView = TrabajadorRouter.create(model, old);
+        //TrabajadorView trabajadorView = TrabajadorRouter.create(model, old);
 
-        NodeUtils.replaceWith(master.getRoot().getCenter(), trabajadorView.getRoot(), true, true, null);
+        //NodeUtils.replaceWith(master.getRoot().getCenter(), trabajadorView.getRoot(), true, true, null);
 
     }
 

@@ -1,32 +1,40 @@
 package model;
 
-import com.google.gson.JsonObject;
+import com.google.gson.annotations.Expose;
+import exceptions.EmptyFieldException;
+import util.StringUtils;
 
 public class Localizacion {
 
     // MARK: - Atributos
 
+    @Expose
     private Integer id;
 
+    @Expose
     private String direccion;
 
+    @Expose
     private String codigoPostal;
 
+    @Expose
     private String pais;
 
+    @Expose
     private String estado;
 
+    @Expose
     private String ciudad;
 
-    public Localizacion(String direccion, String codigoPostal, String pais, String estado, String ciudad) {
-        this.direccion = direccion;
+    public Localizacion(String direccion, String codigoPostal, String pais, String estado, String ciudad) throws EmptyFieldException {
+        setDireccion(direccion);
+        setPais(pais);
+        setEstado(estado);
+        setCiudad(ciudad);
         this.codigoPostal = codigoPostal;
-        this.pais = pais;
-        this.estado = estado;
-        this.ciudad = ciudad;
     }
 
-    public Localizacion(String direccion, String pais, String estado, String ciudad) {
+    public Localizacion(String direccion, String pais, String estado, String ciudad) throws EmptyFieldException {
         this(direccion, null, pais, estado, ciudad);
     }
 
@@ -70,7 +78,10 @@ public class Localizacion {
         this.id = id;
     }
 
-    public void setDireccion(String direccion) {
+    public void setDireccion(String direccion) throws EmptyFieldException {
+        if (StringUtils.isEmpty(direccion))
+            throw new EmptyFieldException("Dirrección");
+
         this.direccion = direccion;
     }
 
@@ -78,15 +89,24 @@ public class Localizacion {
         this.codigoPostal = codigoPostal;
     }
 
-    public void setPais(String pais) {
+    public void setPais(String pais) throws EmptyFieldException {
+        if (StringUtils.isEmpty(pais))
+            throw new EmptyFieldException("Pais");
+
         this.pais = pais;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(String estado) throws EmptyFieldException {
+        if (StringUtils.isEmpty(estado))
+            throw new EmptyFieldException("Estado");
+
         this.estado = estado;
     }
 
-    public void setCiudad(String ciudad) {
+    public void setCiudad(String ciudad) throws EmptyFieldException {
+        if (StringUtils.isEmpty(ciudad))
+            throw new EmptyFieldException("Ciudad");
+
         this.ciudad = ciudad;
     }
 

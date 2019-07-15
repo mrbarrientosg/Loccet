@@ -1,11 +1,21 @@
 package controller;
 
 import base.Controller;
+import com.google.gson.JsonObject;
+import exceptions.EmptyFieldException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Material;
 import model.RegistroMaterial;
+import network.endpoint.MaterialAPI;
+import network.endpoint.TrabajadorAPI;
+import network.service.Router;
 import view.DetalleMaterialView;
+
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
 
 
 /**
@@ -28,7 +38,7 @@ public class DetalleMaterialController extends Controller {
     /**
      * @param nombre material
      */
-    public void  modificarNombre(String nombre){
+    public void  modificarNombre(String nombre) throws EmptyFieldException {
         model.setNombre(nombre);
     }
 
@@ -55,17 +65,6 @@ public class DetalleMaterialController extends Controller {
 
     public Double getCantidad(){return model.getCantidad();}
 
-    /**
-     * @param descripcion  material
-     */
-
-    public void ModificarDescripcion(String descripcion){model.setDescripcion(descripcion);}
-
-    /**
-     * @param nombre material
-     */
-
-    public void ModificarNombre(String nombre){model.setNombre(nombre);}
 
     public boolean retirarMaterial(double cantidad){
         if (model.getCantidad() < cantidad) return false;
@@ -74,29 +73,48 @@ public class DetalleMaterialController extends Controller {
             RegistroMaterial registroMaterial = new RegistroMaterial(cantidad,true);
             model.agregarRegistro(registroMaterial);
             view.cargarDatos();
+            addRegistroMaterialBD(true, cantidad);
             return true;
         }
     }
+
     public void agregarMaterial(double cantidad){
         model.setCantidad(model.getCantidad()+cantidad);
         RegistroMaterial registroMaterial = new RegistroMaterial(cantidad,false);
         model.agregarRegistro(registroMaterial);
         view.cargarDatos();
+        addRegistroMaterialBD(false, cantidad);
     }
 
     public ObservableList<RegistroMaterial> obtenerRegistro(){
         return FXCollections.observableList(model.getListaRegistroMaterial());
     }
-    /**
-     * @param view detalleMaterial
-     */
+
+    private void addRegistroMaterialBD(Boolean retirado, double cantidad) {
+        Router<MaterialAPI> service = Router.getInstance();
+
+        JsonObject json = new JsonObject();
+
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                .withZone(ZoneId.systemDefault());
+
+        json.addProperty("id_material", model.getId());
+        json.addProperty("cantidad", cantidad);
+        json.addProperty("fecha", timeFormatter.format(Instant.now()));
+        json.addProperty("retirado", retirado);
+
+        service.request(MaterialAPI.ADD_REGISTROMATERIAL, json)
+                .subscribe(System.out::println, throwable -> {
+                    LOGGER.log(Level.SEVERE, "", throwable);
+                });
+    }
 
     public void setView(DetalleMaterialView view) {
         this.view = view;
     }
+
     public void setModel(Material model){
         this.model = model;
     }
-
 
 }

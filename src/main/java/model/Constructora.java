@@ -1,6 +1,7 @@
 package model;
 
 import com.google.gson.JsonObject;
+import exceptions.ItemExisteException;
 import model.store.MemorySpecification;
 import model.store.memory.MemoryStoreProyecto;
 import model.store.memory.MemoryStoreTrabajador;
@@ -96,7 +97,7 @@ public class Constructora implements Costeable {
      * @return false si no se pudo agregar y true lo contrario
      * @author Matias Barrientos
      */
-    public void agregarTrabajador(String idProyecto, Trabajador trabajador) {
+    public void agregarTrabajador(String idProyecto, Trabajador trabajador) throws ItemExisteException {
         Proyecto proyecto = storeProyecto.findById(idProyecto);
 
         if (proyecto == null) return;

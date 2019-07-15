@@ -13,6 +13,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.rxjavafx.observables.JavaFxObservable;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import io.reactivex.schedulers.Schedulers;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -24,12 +25,15 @@ import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.util.Pair;
+import model.Constructora;
 import model.Trabajador;
 import org.controlsfx.control.tableview2.FilteredTableColumn;
 import org.controlsfx.control.tableview2.FilteredTableView;
 import router.DetalleTrabajadorRouter;
 import router.RRHHRouter;
 import delegate.FilterDelegate;
+import router.TrabajadorRouter;
+
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -93,13 +97,14 @@ public class RRHHView extends View implements EditTrabajadorDelegate, FilterDele
 
     private ObservableList<FilterCell> filterCells;
 
-    private CompositeDisposable disposable;
+    private Boolean disposable;
 
     @Override
     public void viewDidLoad() {
+        disposable = false;
+
         filterCells = FXCollections.observableArrayList();
         columnList = FXCollections.observableArrayList();
-        disposable = new CompositeDisposable();
 
         rutColumn = new FilteredTableColumn<>("Rut");
         nameColumn = new FilteredTableColumn<>("Nombre");
@@ -111,7 +116,7 @@ public class RRHHView extends View implements EditTrabajadorDelegate, FilterDele
         rutColumn.setCellValueFactory(new PropertyValueFactory<>("rut"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("apellido"));
-        specialityColumn.setCellValueFactory(new PropertyValueFactory<>("nombreEspecialidad"));
+        specialityColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getNombreEspecialidad()));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("correoElectronico"));
         telephoneConlumn.setCellValueFactory(new PropertyValueFactory<>("telefono"));
 
@@ -143,6 +148,8 @@ public class RRHHView extends View implements EditTrabajadorDelegate, FilterDele
         deleteTrabajador.setOnAction(this::deleteTrabajadorAction);
         detailTrabajador.setOnAction(this::detailTrabajadorAction);
         filterButton.setOnAction(this::showFilterAction);
+
+        createTrabajador.setOnAction(this::showAddTrabajadorAction);
     }
 
     @Override
@@ -151,11 +158,10 @@ public class RRHHView extends View implements EditTrabajadorDelegate, FilterDele
         proyectList.getItems().add(0, all);
         proyectList.getItems().addAll(controller.getProyectos());
 
-        proyectList.getSelectionModel().selectFirst();
+        if (!disposable) {
+            Observable<String> textInputs = JavaFxObservable.valuesOf(searchField.textProperty());
 
-        Observable<String> textInputs = JavaFxObservable.valuesOf(searchField.textProperty());
-
-        Disposable search = textInputs
+            textInputs
                     .debounce(300, TimeUnit.MILLISECONDS)
                     .distinctUntilChanged()
                     .map(value -> {
@@ -171,12 +177,9 @@ public class RRHHView extends View implements EditTrabajadorDelegate, FilterDele
                         tableTrabajadores.setItems(list);
                     });
 
-        disposable.add(search);
+            Observable<ProyectoCell> selected = JavaFxObservable.valuesOf(proyectList.getSelectionModel().selectedItemProperty());
 
-
-        Observable<ProyectoCell> selected = JavaFxObservable.valuesOf(proyectList.getSelectionModel().selectedItemProperty());
-
-        Disposable project = selected
+            selected
                     .filter(Objects::nonNull)
                     .map(value -> {
                         if (value.getNombre().equals("Todos"))
@@ -190,14 +193,23 @@ public class RRHHView extends View implements EditTrabajadorDelegate, FilterDele
                         tableTrabajadores.setItems(list);
                     });
 
-        disposable.add(project);
+            disposable = true;
+        }
+
+        proyectList.getSelectionModel().selectFirst();
+
     }
 
     @Override
     public void viewDidClose() {
         proyectList.getItems().clear();
-        disposable.dispose();
-        disposable.clear();
+    }
+
+    private void showAddTrabajadorAction(ActionEvent event) {
+        TrabajadorView view = TrabajadorRouter.create(Constructora.getInstance());
+        view.modal()
+                .withStyle(StageStyle.TRANSPARENT)
+                .show().getScene().setFill(Color.TRANSPARENT);
     }
 
     private void showFilterAction(ActionEvent event) {

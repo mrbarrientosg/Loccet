@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="804.0" styleClass="bg-light-gray" stylesheets="@../css/proyecto.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="804.0" styleClass="bg-light-gray" stylesheets="@../App.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="35.0" spacing="10.0">
          <children>
@@ -43,7 +43,7 @@
                </children>
             </StackPane>
             <Button fx:id="detailButton" mnemonicParsing="false" onAction="#lookDetails" prefHeight="35.0" styleClass="button-label-blue" text="Ver detalle" textFill="WHITE" />
-            <Button mnemonicParsing="false" onAction="#deleteProyect" styleClass="button-label-red" text="Eliminar" />
+            <Button mnemonicParsing="false" styleClass="button-label-red" text="Eliminar" />
          </children>
          <VBox.margin>
             <Insets left="16.0" right="16.0" top="16.0" />

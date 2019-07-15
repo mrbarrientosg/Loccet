@@ -13,7 +13,7 @@ public abstract class FetchHandler {
 
     private FetchHandler next;
 
-    protected Router<LoccetAPI> service = new Router<>();
+    protected Router<LoccetAPI> service = Router.getInstance();
 
     protected Disposable disposable;
 
@@ -39,11 +39,5 @@ public abstract class FetchHandler {
     public void dispose() {
         if (disposable != null)
             disposable.dispose();
-
-        try {
-            service.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

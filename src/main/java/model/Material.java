@@ -1,7 +1,11 @@
 package model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import exceptions.EmptyFieldException;
 import model.store.Store;
 import model.store.memory.MemoryStoreRegistroMaterial;
+import util.StringUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -18,18 +22,26 @@ public class Material {
 
     // MARK: - Atributos
 
+    @Expose
     private String id;
 
+    @Expose
     private String nombre;
 
+    @Expose
     private String descripcion;
 
+    @Expose
     private double cantidad;
 
+    @Expose
+    @SerializedName("unidad_medida")
     private String uds;
 
+    @Expose
     private BigDecimal precio;
 
+    @Expose(serialize = false)
     private Store<RegistroMaterial> registroMaterialStore;
 
     // MARK: - Constructores
@@ -107,7 +119,10 @@ public class Material {
 
     // MARK: - Setter
 
-    public void setNombre(String nombre) {
+    public void setNombre(String nombre) throws EmptyFieldException {
+        if (StringUtils.isEmpty(nombre))
+            throw new EmptyFieldException("Nombre");
+
         this.nombre = nombre;
     }
 

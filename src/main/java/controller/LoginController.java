@@ -2,7 +2,7 @@ package controller;
 
 import base.Controller;
 import com.google.gson.*;
-import exceptions.EmptyFieldsException;
+import exceptions.EmptyFieldException;
 import exceptions.InvalidUserException;
 import io.reactivex.Maybe;
 import io.reactivex.disposables.CompositeDisposable;
@@ -28,7 +28,7 @@ public final class LoginController extends Controller {
 
     private LoginView view;
 
-    private Router<LoccetAPI> service = new Router<>();
+    private Router<LoccetAPI> service = Router.getInstance();
 
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
@@ -39,7 +39,7 @@ public final class LoginController extends Controller {
     /**
      * Inicia sesion
      */
-    public void loginUser() throws EmptyFieldsException {
+    public void loginUser() throws EmptyFieldException {
 
         /*if (view.getUsername().isEmpty() || view.getPassword().isEmpty() || view.getDNS().isEmpty()) {
             throw new EmptyFieldsException();
@@ -211,11 +211,6 @@ public final class LoginController extends Controller {
 
     public void clear() {
         compositeDisposable.dispose();
-        try {
-            service.close();
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "", e);
-        }
     }
 
 }

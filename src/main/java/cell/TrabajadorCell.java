@@ -2,9 +2,6 @@ package cell;
 
 import model.Trabajador;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-
 public final class TrabajadorCell {
 
     private String rut;

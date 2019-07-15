@@ -2,10 +2,12 @@ package view;
 
 import base.View;
 import controller.DetalleProyectoController;
+import exceptions.EmptyFieldException;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -110,10 +112,17 @@ public class DetalleProyectoView extends View {
     private void editAction(ActionEvent event) {
         if (isEditing) {
             // guardar
-            controller.actualizar();
-            editButton.setText("Editar");
-            isEditing = false;
-            disable.setValue(true);
+            try {
+                controller.actualizar();
+                editButton.setText("Editar");
+                isEditing = false;
+                disable.setValue(true);
+            } catch (EmptyFieldException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText(e.getMessage());
+                alert.show();
+            }
+
         } else {
             editButton.setText("Guardar");
             disable.setValue(false);

@@ -3,6 +3,7 @@ package controller;
 import base.Controller;
 import cell.TrabajadorCell;
 import com.google.gson.JsonObject;
+import exceptions.ItemExisteException;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import javafx.collections.FXCollections;
@@ -31,7 +32,7 @@ public final class ListaTrabajadorController extends Controller implements Searc
     public ListaTrabajadorController(ListaTrabajadorView view, Proyecto model) {
         this.view = view;
         this.model = model;
-        service = new Router<>();
+        service = Router.getInstance();
     }
 
     public ObservableList<TrabajadorCell> loadData() {
@@ -49,22 +50,30 @@ public final class ListaTrabajadorController extends Controller implements Searc
     @Override
     public void selectedEmployee(Trabajador value) {
         if (model.obtenerTrabajador(value.getRut()) != null) return;
-        model.agregarTrabajador(value);
-        view.addEmployee(new TrabajadorCell(value));
 
-        JsonObject json = new JsonObject();
+        try {
+            model.agregarTrabajador(value);
 
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-                .withZone(ZoneId.systemDefault());
+            view.addEmployee(new TrabajadorCell(value));
 
-        json.addProperty("fecha_incio_trabajador", timeFormatter.format(Instant.now()));
-        json.addProperty("rut_trabajador", value.getRut());
-        json.addProperty("id_proyecto", model.getId());
+            JsonObject json = new JsonObject();
 
-        service.request(TrabajadorAPI.ADD_TO_PROJECT, json)
-                .subscribe(System.out::println, throwable -> {
-                    LOGGER.log(Level.SEVERE, "", throwable);
-                });
+            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                    .withZone(ZoneId.systemDefault());
+
+            json.addProperty("fecha_incio_trabajador", timeFormatter.format(Instant.now()));
+            json.addProperty("rut_trabajador", value.getRut());
+            json.addProperty("id_proyecto", model.getId());
+
+            service.request(TrabajadorAPI.ADD_TO_PROJECT, json)
+                    .subscribe(System.out::println, throwable -> {
+                        LOGGER.log(Level.SEVERE, "", throwable);
+                    });
+        } catch (ItemExisteException e) {
+            // TODO: Falta enviar alerta
+            e.printStackTrace();
+        }
+
     }
 
     public Trabajador obtenerTrabajador(String rut) {

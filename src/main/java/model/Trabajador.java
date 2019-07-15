@@ -1,12 +1,15 @@
 package model;
 
 import com.google.gson.*;
+import com.google.gson.annotations.Expose;
+import exceptions.EmptyFieldException;
+import exceptions.InvalidaRutException;
 import json.LocalDateTypeConverter;
 import model.store.memory.MemoryStoreHorario;
 import model.store.memory.MemoryStoreProyecto;
 import model.store.StoreHorario;
 import model.store.StoreProyecto;
-
+import util.StringUtils;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -15,24 +18,34 @@ public abstract class Trabajador {
 
     // MARK: - Atributos
 
+    @Expose
     private String rut;
 
+    @Expose
     private String nombre;
 
+    @Expose
     private String apellido;
 
+    @Expose
     private LocalDate fechaNacimiento;
 
+    @Expose(serialize = false)
     private Especialidad especialidad;
 
+    @Expose
     private Localizacion localizacion;
 
+    @Expose
     private String telefono;
 
+    @Expose
     private String correoElectronico;
 
+    @Expose(serialize = false)
     private StoreProyecto storeProyecto;
 
+    @Expose(serialize = false)
     private StoreHorario storeHorario;
 
     // MARK: - Constructor
@@ -100,19 +113,34 @@ public abstract class Trabajador {
 
     // MARK: - Setter
 
-    public void setRut(String rut) {
+    public void setRut(String rut) throws EmptyFieldException, InvalidaRutException {
+        if (StringUtils.isEmpty(rut))
+            throw new EmptyFieldException("Rut");
+
+        if (!validarRut(rut))
+            throw new InvalidaRutException();
+
         this.rut = rut;
     }
 
-    public void setNombre(String nombre) {
+    public void setNombre(String nombre) throws EmptyFieldException {
+        if (StringUtils.isEmpty(nombre))
+            throw new EmptyFieldException("Nombre");
+
         this.nombre = nombre;
     }
 
-    public void setApellido(String apellido) {
+    public void setApellido(String apellido) throws EmptyFieldException {
+        if (StringUtils.isEmpty(apellido))
+            throw new EmptyFieldException("Apellido");
+
         this.apellido = apellido;
     }
 
-    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+    public void setFechaNacimiento(LocalDate fechaNacimiento) throws EmptyFieldException {
+        if (fechaNacimiento == null)
+            throw new EmptyFieldException("Fecha de nacimiento");
+
         this.fechaNacimiento = fechaNacimiento;
     }
 
@@ -124,7 +152,10 @@ public abstract class Trabajador {
         this.localizacion = localizacion;
     }
 
-    public void setTelefono(String telefono) {
+    public void setTelefono(String telefono) throws EmptyFieldException {
+        if (StringUtils.isEmpty(telefono))
+            throw new EmptyFieldException("Telefono");
+
         this.telefono = telefono;
     }
 
@@ -154,23 +185,49 @@ public abstract class Trabajador {
                     .registerTypeAdapter(LocalDate.class, new LocalDateTypeConverter())
                     .create();
 
-            t.setRut(json.get("rut").getAsString());
-            t.setNombre(json.get("nombre").getAsString());
-            t.setApellido(json.get("apellido").getAsString());
+            try {
+                t.setRut(json.get("rut").getAsString());
+                t.setNombre(json.get("nombre").getAsString());
+                t.setApellido(json.get("apellido").getAsString());
 
-            t.setEspecialidad(gson.fromJson(json.get("especialidad").getAsString(), Especialidad.class));
-            t.setLocalizacion(gson.fromJson(json.get("localizacion").getAsString(), Localizacion.class));
+                t.setEspecialidad(gson.fromJson(json.get("especialidad").getAsString(), Especialidad.class));
+                t.setLocalizacion(gson.fromJson(json.get("localizacion").getAsString(), Localizacion.class));
 
-            t.setTelefono(json.get("telefono").getAsString());
+                t.setTelefono(json.get("telefono").getAsString());
 
-            if (json.get("correo_electronico") != null && !json.get("correo_electronico").isJsonNull()){
-                t.setCorreoElectronico(json.get("correo_electronico").getAsString());
+                if (json.get("correo_electronico") != null && !json.get("correo_electronico").isJsonNull()){
+                    t.setCorreoElectronico(json.get("correo_electronico").getAsString());
+                }
+
+                t.setFechaNacimiento(gson.fromJson(json.get("fecha_nacimiento"), LocalDate.class));
+            } catch (EmptyFieldException | InvalidaRutException ex) {
+                // TODO: Ver que se hace en este caso.
+                ex.printStackTrace();
             }
-
-            t.setFechaNacimiento(gson.fromJson(json.get("fecha_nacimiento"), LocalDate.class));
 
             return t;
         }
+    }
+
+    private boolean validarRut(String rut) {
+        boolean validacion = false;
+
+        rut =  rut.toUpperCase();
+        rut = rut.replace(".", "");
+        rut = rut.replace("-", "");
+        int rutAux = Integer.parseInt(rut.substring(0, rut.length() - 1));
+
+        char dv = rut.charAt(rut.length() - 1);
+
+        int m = 0, s = 1;
+        for (; rutAux != 0; rutAux /= 10) {
+            s = (s + rutAux % 10 * (9 - m++ % 6)) % 11;
+        }
+        if (dv == (char) (s != 0 ? s + 47 : 75)) {
+            validacion = true;
+        }
+
+        return validacion;
     }
 
 }
