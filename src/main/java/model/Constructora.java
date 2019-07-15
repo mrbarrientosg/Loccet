@@ -102,7 +102,11 @@ public class Constructora implements Costeable {
 
         if (proyecto == null) return;
 
-        proyecto.agregarTrabajador(trabajador);
+        if (storeTrabajador.contains(trabajador)) {
+            proyecto.agregarTrabajador(storeTrabajador.findByRut(trabajador.getRut()));
+        } else {
+            proyecto.agregarTrabajador(trabajador);
+        }
 
         agregarTrabajador(trabajador);
     }

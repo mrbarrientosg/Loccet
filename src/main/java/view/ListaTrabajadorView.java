@@ -125,6 +125,13 @@ public final class ListaTrabajadorView extends View implements EditTrabajadorDel
                 .show();
     }
 
+    @FXML
+    private void deleteAction(ActionEvent event) {
+        TrabajadorCell cell = tableView.getSelectionModel().getSelectedItem();
+        if (cell == null) return;
+        controller.eliminarTrabajador(cell.getRut());
+    }
+
     public void addEmployee(TrabajadorCell cell) {
         tableView.getItems().add(cell);
         searchTextField.setText("");

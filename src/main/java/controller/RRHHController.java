@@ -97,10 +97,10 @@ public class RRHHController extends Controller {
 
         json.addProperty("rut", rut);
 
-        /*service.request(TrabajadorAPI.REMOVE, json)
+        service.request(TrabajadorAPI.REMOVE, json)
                 .subscribe(System.out::println, throwable -> {
                     LOGGER.log(Level.SEVERE, "", throwable);
-                });*/
+                });
     }
 
     public List<ProyectoCell> getProyectos() {

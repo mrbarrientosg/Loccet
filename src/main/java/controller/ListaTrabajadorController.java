@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import model.Proyecto;
 import model.Trabajador;
 import delegate.SearchEmployeeDelegate;
+import network.endpoint.ProyectoAPI;
 import network.endpoint.TrabajadorAPI;
 import network.service.Router;
 import view.ListaTrabajadorView;
@@ -78,5 +79,23 @@ public final class ListaTrabajadorController extends Controller implements Searc
 
     public Trabajador obtenerTrabajador(String rut) {
         return model.obtenerTrabajador(rut);
+    }
+
+    public void eliminarTrabajador(String rut) {
+        model.eliminarTrabajador(rut);
+
+        Router<TrabajadorAPI> service = Router.getInstance();
+
+        JsonObject json = new JsonObject();
+
+        json.addProperty("rut_trabajador", rut);
+        json.addProperty("id_proyecto", model.getId());
+
+        System.out.println(json);
+
+        service.request(TrabajadorAPI.REMOVE_FROM_PROJECT, json)
+                .subscribe(System.out::println, throwable -> {
+                    LOGGER.log(Level.SEVERE, "", throwable);
+                });
     }
 }
