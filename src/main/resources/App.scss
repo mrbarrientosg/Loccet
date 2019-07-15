@@ -1,0 +1,158 @@
+@import "base/color";
+@import "base/font";
+@import "base/shadows";
+
+@import "components/backgrounds";
+@import "components/buttons";
+@import "components/combobox";
+@import "components/datepicker";
+@import "components/listview";
+@import "components/radiobutton";
+@import "components/scrollbar";
+@import "components/spinner";
+@import "components/tableview";
+@import "components/textarea";
+@import "components/textfields";
+
+.top-bar {
+  -fx-border-color: $gray;
+  -fx-border-width: 0 0 1 0;
+}
+
+.gray-combo-box {
+  @include make-combo-box($gray)
+}
+
+.white-scroll {
+  @include custom-scroll;
+}
+
+.gradient-label {
+  @include blue-gradient(to right bottom);
+}
+
+.gray-scroll {
+  @include custom-scroll($gray);
+}
+
+@include make-tableview;
+
+.gray-combo-box {
+  @include make-combo-box($gray);
+}
+
+@include make-radio-button;
+
+@include make-spinner;
+
+.top-bar-home {
+  -fx-border-width: 0 0 0.25 0;
+  -fx-border-color: rgba(0,0,0,0.5);
+  -fx-background-color: white;
+  -fx-background-radius: 0px 3px 0px 0px;
+}
+
+.content-pane {
+  -fx-background-radius: 0px 0px 3px 0px;
+}
+
+.side-menu-header {
+  -fx-background-radius: 3px 0px 0px 0px;
+  @include blue-gradient;
+}
+
+.side-menu {
+  -fx-background-color: white;
+  -fx-background-radius: 3px 0px 0px 3px;
+  @include make-shadow($side: $right-side-shadow);
+}
+
+.side-menu-button {
+  -fx-text-alignment: left;
+}
+
+.side-menu-button:pressed {
+  -fx-text-fill: $dark-blue;
+  -fx-background-color: rgba($dark-blue, .07);
+}
+
+.side-menu-button:selected {
+  -fx-text-fill: $dark-blue;
+  -fx-background-color: rgba($dark-blue, .07);
+}
+
+@include circle-buttons();
+
+.right-pane-gradient {
+  -fx-background-radius: 0px 3px 3px 0px;
+  @include blue-gradient(to bottom right);
+}
+
+.left-pane-content {
+  -fx-background-radius: 3px 0px 0px 3px;
+}
+
+.textAreaTransparent {
+  -fx-background-color: transparent;
+  -fx-opacity: 1;
+  -fx-line-spacing: 1px;
+  -fx-text-fill: white;
+}
+
+.textAreaTransparent .scroll-pane,
+.textAreaTransparent .scroll-pane .viewport,
+.textAreaTransparent .scroll-pane .content {
+  -fx-background-color: transparent;
+}
+
+.textAreaTransparent *.text {
+  -fx-text-alignment: justify;
+}
+
+.light-gray-scroll {
+  @include custom-scroll($ghost-white);
+}
+
+.white-combo-box {
+  @include make-combo-box;
+}
+
+.table-view2 .column-header > .label > .button.filter {
+  -fx-background-color: transparent;
+  -fx-background-image: null;
+  -fx-background-size: 0;
+  -fx-background-position: center center;
+  -fx-background-repeat: stretch;
+  -fx-padding: 0;
+}
+
+.table-view2 .column-header > .label > .button.filter:filtered {
+  -fx-background-image: null;
+}
+
+.table-view2 > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .tableview2-cell {
+  -fx-text-fill: #595959;
+  -fx-alignment: CENTER;
+  -fx-border-width: 0;
+}
+
+.table-view2:focused:row-selection > .virtual-flow > .clipped-container > .sheet > .table-row-cell:focused > .tableview2-cell {
+  -fx-background-color: $gray;
+  -fx-border-width: 0;
+}
+
+.table-view2:focused:row-selection > .virtual-flow > .clipped-container > .sheet > .table-row-cell:focused > .tableview2-cell:left {
+  -fx-background-color: $gray;
+  -fx-border-width: 0;
+}
+
+.table-view2:focused:row-selection > .virtual-flow > .clipped-container > .sheet > .table-row-cell:focused > .tableview2-cell:right {
+  -fx-background-color: $gray;
+  -fx-border-width: 0;
+}
+
+
+.table-view2:focused:row-selection > .virtual-flow > .clipped-container > .sheet > .table-row-cell:focused > .tableview2-cell:single {
+  -fx-background-color: $gray;
+  -fx-border-width: 0;
+}
