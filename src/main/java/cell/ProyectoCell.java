@@ -1,11 +1,8 @@
 package cell;
-import model.InventarioMaterial;
 import model.Proyecto;
-import model.Trabajador;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 
 public final class ProyectoCell {
@@ -32,7 +29,7 @@ public final class ProyectoCell {
         fechaInicio = m.getFechaInicio();
         fechaTermino = m.getFechaTermino();
         cliente = m.getNombreCliente();
-        estimacion = m.getEstimacion();
+        estimacion = m.getCostoEstimado();
     }
 
     public ProyectoCell(String nombre) {

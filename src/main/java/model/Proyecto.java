@@ -1,6 +1,7 @@
 package model;
 
 import com.google.gson.*;
+import com.google.gson.annotations.Expose;
 import exceptions.EmptyFieldException;
 import exceptions.ItemExisteException;
 import json.LocalDateTypeConverter;
@@ -21,26 +22,37 @@ public class Proyecto implements Costeable{
 
     // MARK: - Atributos
 
+    @Expose
     private String id;
 
+    @Expose
     private String nombre;
 
+    @Expose
     private Localizacion localizacion;
 
+    @Expose
     private LocalDate fechaInicio;
 
+    @Expose
     private LocalDate fechaTermino;
 
-    private BigDecimal estimacion;
+    @Expose
+    private BigDecimal costoEstimado;
 
+    @Expose
     private String nombreCliente;
 
+    @Expose(serialize = false)
     private StoreTrabajador storeTrabajador;
 
+    @Expose(serialize = false)
     private Store<Asistencia> asistenciaStore;
 
+    @Expose(serialize = false)
     private StoreFase storeFase;
 
+    @Expose(serialize = false)
     private InventarioMaterial inventarioMaterial;
 
     // MARK: - Constructor
@@ -59,7 +71,7 @@ public class Proyecto implements Costeable{
         this.localizacion = new Localizacion(other.localizacion);
         this.fechaInicio = other.fechaInicio;
         this.fechaTermino = other.fechaTermino;
-        this.estimacion = other.estimacion;
+        this.costoEstimado = other.costoEstimado;
         this.nombreCliente = other.nombreCliente;
     }
 
@@ -192,8 +204,8 @@ public class Proyecto implements Costeable{
         return fechaTermino;
     }
 
-    public BigDecimal getEstimacion() {
-        return estimacion;
+    public BigDecimal getCostoEstimado() {
+        return costoEstimado;
     }
 
     public String getNombreCliente() {
@@ -235,8 +247,8 @@ public class Proyecto implements Costeable{
         this.fechaTermino = fechaTermino;
     }
 
-    public void setEstimacion(BigDecimal estimacion) {
-        this.estimacion = estimacion;
+    public void setCostoEstimado(BigDecimal costoEstimado) {
+        this.costoEstimado = costoEstimado;
     }
 
     public void setNombreCliente(String nombreCliente) {
@@ -275,7 +287,7 @@ public class Proyecto implements Costeable{
             try {
                 p.setId(json.get("id").getAsString());
                 p.setNombre(json.get("nombre").getAsString());
-                p.setEstimacion(json.get("costo_estimado").getAsBigDecimal());
+                p.setCostoEstimado(json.get("costo_estimado").getAsBigDecimal());
                 p.setNombreCliente(json.get("nombre_cliente").getAsString());
 
                 p.setFechaInicio(gson.fromJson(json.get("fecha_inicio"), LocalDate.class));

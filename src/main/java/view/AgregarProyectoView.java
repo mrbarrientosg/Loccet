@@ -2,6 +2,7 @@ package view;
 
 import base.View;
 import controller.AgregarProyectoController;
+import exceptions.EmptyFieldException;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -90,9 +91,14 @@ public final class AgregarProyectoView extends View {
             router.showAlert("Las fechas ingresadas no coinciden.").showAndWait();
         }
         else{
-            controller.presionarAceptar(nombreP.getText(),jefeP.getText(),new BigDecimal(montoC.getText()),cliente.getText(),
-                    direccion.getText(),ciudad.getText(),estado.getText(),pais.getText()
-                    ,fechaF.getValue(),fechaT.getValue());
+            try {
+                controller.presionarAceptar(nombreP.getText(),jefeP.getText(),new BigDecimal(montoC.getText()),cliente.getText(),
+                        direccion.getText(),ciudad.getText(),estado.getText(),pais.getText()
+                        ,fechaF.getValue(),fechaT.getValue());
+            } catch (EmptyFieldException e) {
+                Alert alert = router.showWarning(e.getMessage());
+                alert.show();
+            }
             close();
         }
     }
