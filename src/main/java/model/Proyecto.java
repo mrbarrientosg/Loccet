@@ -1,11 +1,13 @@
 package model;
 
 import com.google.gson.*;
+import exceptions.EmptyFieldException;
 import json.LocalDateTypeConverter;
 import model.store.*;
 import model.store.memory.MemoryStoreAsistencia;
 import model.store.memory.MemoryStoreFase;
 import model.store.memory.MemoryStoreTrabajador;
+import util.StringUtils;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
@@ -202,11 +204,17 @@ public class Proyecto implements Costeable{
 
     // MARK: - Setter
 
-    public void setId(String id) {
+    public void setId(String id) throws EmptyFieldException {
+        if (StringUtils.isEmpty(id))
+            throw new EmptyFieldException("ID");
+
         this.id = id;
     }
 
-    public void setNombre(String nombre) {
+    public void setNombre(String nombre) throws EmptyFieldException {
+        if (StringUtils.isEmpty(nombre))
+            throw new EmptyFieldException("Nombre");
+
         this.nombre = nombre;
     }
 
@@ -214,7 +222,10 @@ public class Proyecto implements Costeable{
         this.localizacion = localizacion;
     }
 
-    public void setFechaInicio(LocalDate fechaInicio) {
+    public void setFechaInicio(LocalDate fechaInicio) throws EmptyFieldException {
+        if (fechaInicio == null)
+            throw new EmptyFieldException("Fecha inicio");
+
         this.fechaInicio = fechaInicio;
     }
 
@@ -259,15 +270,21 @@ public class Proyecto implements Costeable{
                     .registerTypeAdapter(LocalDate.class, new LocalDateTypeConverter())
                     .create();
 
-            p.setId(json.get("id").getAsString());
-            p.setNombre(json.get("nombre").getAsString());
-            p.setEstimacion(json.get("costo_estimado").getAsBigDecimal());
-            p.setNombreCliente(json.get("nombre_cliente").getAsString());
+            try {
+                p.setId(json.get("id").getAsString());
+                p.setNombre(json.get("nombre").getAsString());
+                p.setEstimacion(json.get("costo_estimado").getAsBigDecimal());
+                p.setNombreCliente(json.get("nombre_cliente").getAsString());
 
-            p.setFechaInicio(gson.fromJson(json.get("fecha_inicio"), LocalDate.class));
-            p.setFechaTermino(gson.fromJson(json.get("fecha_termino"), LocalDate.class));
+                p.setFechaInicio(gson.fromJson(json.get("fecha_inicio"), LocalDate.class));
+                p.setFechaTermino(gson.fromJson(json.get("fecha_termino"), LocalDate.class));
 
-            p.setLocalizacion(gson.fromJson(json.get("localizacion").getAsString(), Localizacion.class));
+                p.setLocalizacion(gson.fromJson(json.get("localizacion").getAsString(), Localizacion.class));
+            } catch (EmptyFieldException e) {
+                // TODO: Ver que se hace en este caso
+                e.printStackTrace();
+            }
+
 
             return p;
         }

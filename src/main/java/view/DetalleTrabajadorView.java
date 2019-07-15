@@ -2,14 +2,12 @@ package view;
 
 import base.View;
 import controller.DetalleTrabajadorController;
+import exceptions.EmptyFieldException;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
 public class DetalleTrabajadorView extends View {
@@ -115,10 +113,17 @@ public class DetalleTrabajadorView extends View {
     private void editAction(ActionEvent event) {
         if (isEditing) {
             // guardar
-            controller.guardar();
-            editButton.setText("Editar");
-            isEditing = false;
-            disable.setValue(true);
+            try {
+                controller.guardar();
+                editButton.setText("Editar");
+                isEditing = false;
+                disable.setValue(true);
+            } catch (EmptyFieldException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText(e.getMessage());
+                alert.show();
+            }
+
         } else {
             editButton.setText("Guardar");
             disable.setValue(false);

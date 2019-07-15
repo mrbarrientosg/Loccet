@@ -2,7 +2,7 @@ package view;
 
 import base.Fragment;
 import controller.LoginController;
-import exceptions.EmptyFieldsException;
+import exceptions.EmptyFieldException;
 import exceptions.InvalidUserException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -79,7 +79,7 @@ public final class LoginView extends Fragment {
     private void login(ActionEvent actionEvent) {
         try {
             controller.loginUser();
-        } catch (EmptyFieldsException e) {
+        } catch (EmptyFieldException e) {
             onError(e);
         }
     }
@@ -104,7 +104,7 @@ public final class LoginView extends Fragment {
     }
 
     public void onError(Throwable e){
-        if (e instanceof EmptyFieldsException || e instanceof InvalidUserException) {
+        if (e instanceof EmptyFieldException || e instanceof InvalidUserException) {
             router.showError(e.getMessage());
         } else {
             router.showError("Opps ha ocurrido un error, intenta de nuevo.");

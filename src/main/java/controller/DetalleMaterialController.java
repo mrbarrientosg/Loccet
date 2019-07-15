@@ -1,6 +1,7 @@
 package controller;
 
 import base.Controller;
+import exceptions.EmptyFieldException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Material;
@@ -28,7 +29,7 @@ public class DetalleMaterialController extends Controller {
     /**
      * @param nombre material
      */
-    public void  modificarNombre(String nombre){
+    public void  modificarNombre(String nombre) throws EmptyFieldException {
         model.setNombre(nombre);
     }
 
@@ -55,17 +56,6 @@ public class DetalleMaterialController extends Controller {
 
     public Double getCantidad(){return model.getCantidad();}
 
-    /**
-     * @param descripcion  material
-     */
-
-    public void ModificarDescripcion(String descripcion){model.setDescripcion(descripcion);}
-
-    /**
-     * @param nombre material
-     */
-
-    public void ModificarNombre(String nombre){model.setNombre(nombre);}
 
     public boolean retirarMaterial(double cantidad){
         if (model.getCantidad() < cantidad) return false;

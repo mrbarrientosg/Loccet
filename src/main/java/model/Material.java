@@ -1,7 +1,9 @@
 package model;
 
+import exceptions.EmptyFieldException;
 import model.store.Store;
 import model.store.memory.MemoryStoreRegistroMaterial;
+import util.StringUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -107,7 +109,10 @@ public class Material {
 
     // MARK: - Setter
 
-    public void setNombre(String nombre) {
+    public void setNombre(String nombre) throws EmptyFieldException {
+        if (StringUtils.isEmpty(nombre))
+            throw new EmptyFieldException("Nombre");
+
         this.nombre = nombre;
     }
 
