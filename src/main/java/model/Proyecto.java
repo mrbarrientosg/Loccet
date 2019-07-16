@@ -126,11 +126,8 @@ public class Proyecto implements Costeable{
         return trabajadors;
     }
 
-    public List<Trabajador> getTrabajadores() {
-        // Hay cambiarlo por un iterator
-        List<Trabajador> list = new ArrayList<>();
-        storeTrabajador.findAll().forEach(list::add);
-        return list;
+    public Iterable<Trabajador> getTrabajadores() {
+        return storeTrabajador.findAll();
     }
 
     // MARK: - Metodos Inventario

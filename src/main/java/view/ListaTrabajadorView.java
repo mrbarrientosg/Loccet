@@ -130,6 +130,7 @@ public final class ListaTrabajadorView extends View implements EditTrabajadorDel
         TrabajadorCell cell = tableView.getSelectionModel().getSelectedItem();
         if (cell == null) return;
         controller.eliminarTrabajador(cell.getRut());
+        tableView.getItems().remove(cell);
     }
 
     public void addEmployee(TrabajadorCell cell) {
@@ -143,7 +144,7 @@ public final class ListaTrabajadorView extends View implements EditTrabajadorDel
 
     @Override
     public void didEditTrabajador() {
-        tableView.setItems(controller.loadData());
+        controller.fechtData(tableView::setItems);
         searchTextField.setText("");
     }
 }

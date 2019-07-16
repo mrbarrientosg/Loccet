@@ -254,14 +254,10 @@ public class RRHHView extends View implements EditTrabajadorDelegate, FilterDele
     public void didEditTrabajador() {
         ProyectoCell cell = proyectList.getSelectionModel().getSelectedItem();
 
-        ObservableList<TrabajadorCell> list;
-
         if (cell.getNombre().equals("Todos"))
-            list = controller.fetchTrabajadores();
+            controller.fetchTrabajadores(tableTrabajadores::setItems);
         else
-            list = controller.fetchTrabajadores(cell.getId());
-
-        tableTrabajadores.setItems(list);
+            controller.fetchTrabajadores(cell.getId(), tableTrabajadores::setItems);
 
         searchField.setText("");
     }

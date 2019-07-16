@@ -6,6 +6,7 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,6 +15,8 @@ import model.Trabajador;
 import delegate.SearchEmployeeDelegate;
 import view.BuscarTrabajadorView;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class BuscarTrabajadorController extends Controller {
@@ -30,12 +33,9 @@ public class BuscarTrabajadorController extends Controller {
         model = Constructora.getInstance();
         selectedItem = new SimpleObjectProperty<>();
     }
-    public ObservableList<TrabajadorCell> loadData() {
-        return FXCollections.observableList(model.getConjuntoTrabajadores().stream().map(TrabajadorCell::new).collect(Collectors.toList()));
-    }
 
     public Single<ObservableList<TrabajadorCell>> searchEmployee(String text) {
-        return Observable.fromIterable(model.getConjuntoTrabajadores())
+        return Observable.fromIterable(model.getTrabajadores())
                 .filter(trabajador -> trabajador.getRut().contains(text))
                 .map(TrabajadorCell::new)
                 .toList()

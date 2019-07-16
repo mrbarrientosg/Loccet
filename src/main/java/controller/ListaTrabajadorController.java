@@ -19,6 +19,9 @@ import view.ListaTrabajadorView;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
@@ -36,8 +39,14 @@ public final class ListaTrabajadorController extends Controller implements Searc
         service = Router.getInstance();
     }
 
-    public ObservableList<TrabajadorCell> loadData() {
-        return FXCollections.observableList(model.getTrabajadores().stream().map(TrabajadorCell::new).collect(Collectors.toList()));
+    public void fechtData(Consumer<ObservableList<TrabajadorCell>> callback) {
+        CompletableFuture.supplyAsync(() -> {
+            ObservableList<TrabajadorCell> cells = FXCollections.observableArrayList();
+
+            model.getTrabajadores().forEach(cell -> cells.add(new TrabajadorCell(cell)));
+
+            return cells;
+        }).thenAccept(callback);
     }
 
     public Single<ObservableList<TrabajadorCell>> searchEmployee(String text) {

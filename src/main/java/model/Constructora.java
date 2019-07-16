@@ -167,11 +167,8 @@ public class Constructora implements Costeable {
         return dns;
     }
 
-    public List<Trabajador> getConjuntoTrabajadores() {
-        // Hay cambiarlo por un iterator
-        List<Trabajador> list = new ArrayList<>();
-        storeTrabajador.findAll().forEach(list::add);
-        return list;
+    public Iterable<Trabajador> getTrabajadores() {
+        return storeTrabajador.findAll();
     }
 
     public List<Proyecto> getListaProyecto() {

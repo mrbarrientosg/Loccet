@@ -2,24 +2,22 @@ package view;
 
 import base.Fragment;
 import base.Injectable;
-import base.View;
 import cell.MaterialCell;
 import controller.InventarioMaterialController;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
 import javafx.stage.StageStyle;
-import model.InventarioMaterial;
 import model.Material;
 import router.DetalleMaterialRouter;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.File;
+import java.io.IOException;
 import java.util.Optional;
 
 
@@ -44,7 +42,6 @@ public final class InventarioMaterialView extends Fragment {
     private Button nuevoMaterialBT;
 
 
-
     //Tabla inventario.
     @FXML
     private TableView<MaterialCell> tablaInventario;
@@ -63,6 +60,10 @@ public final class InventarioMaterialView extends Fragment {
     @FXML
     private TableColumn<MaterialCell,Double> precioCL;
 
+    private FilteredList<MaterialCell> filteredMateriales;
+
+    private ObservableList<MaterialCell> listMateriales;
+
     @Override
     public void viewDidLoad() {
         tablaInventario.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -78,11 +79,17 @@ public final class InventarioMaterialView extends Fragment {
 
     @Override
     public void viewDidShow() {
-
         inicializarTablaMateriales();
+
+        controller.cargarDatos(list -> {
+            listMateriales = list;
+            tablaInventario.setItems(list);
+            filteredMateriales = new FilteredList<>(list, e -> true);
+        });
+
         searchText.setOnKeyReleased(event -> {
             searchText.textProperty().addListener((observable, oldValue, newValue) -> {
-                controller.didSearch(newValue);
+                didSearch(newValue);
             });
             refreshTable();
         });
@@ -100,9 +107,18 @@ public final class InventarioMaterialView extends Fragment {
         NuevoMaterialView view = Injectable.find(NuevoMaterialView.class);
         view.setController(controller);
         view.modal().withBlock(true).show();
-        refreshTable();
     }
 
+    public void didAddMaterial(MaterialCell cell) {
+        listMateriales.add(cell);
+        tablaInventario.refresh();
+    }
+
+
+    public void removeMaterial(MaterialCell cell) {
+        listMateriales.removeIf((materialCell) -> materialCell.getId().equals(cell.getId()));
+        tablaInventario.refresh();
+    }
 
     /**
      * Funcion que retorna el item seleccionado de la tabla inventario.
@@ -128,11 +144,9 @@ public final class InventarioMaterialView extends Fragment {
             Material material = controller.getMaterial(materialCell.getId());
             DetalleMaterialView view = DetalleMaterialRouter.create(material);
             view.modal().withStyle(StageStyle.TRANSPARENT).show();
-            controller.cargarDatos();
-            refreshTable();
         }
         else{
-            controller.showWarning("Seleccionar material", "Por favor seleccione material a eliminar").showAndWait();;
+           // controller.showWarning("Seleccionar material", "Por favor seleccione material a eliminar").showAndWait();;
         }
     }
 
@@ -152,14 +166,30 @@ public final class InventarioMaterialView extends Fragment {
             alert.setContentText("¿Esta seguro de que desea continuar?");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK){
-                MaterialCell aux = controller.eliminarMaterial(material.getId());
-                controller.cargarDatos();
+                controller.eliminarMaterial(material.getId());
             }
     }
 
     @FXML
     private void exportarInventario(ActionEvent event) {
-        controller.exportarInventario();
+        FileChooser fileChooser = new FileChooser();
+
+        //Set extension filter for text files
+        FileChooser.ExtensionFilter pdfFilter = new FileChooser.ExtensionFilter("PDF files (*.pdf)", "*.pdf");
+        FileChooser.ExtensionFilter xlsxFilter = new FileChooser.ExtensionFilter("Excel files (*.xlsx)", "*.xlsx");
+
+        fileChooser.getExtensionFilters().addAll(pdfFilter, xlsxFilter);
+
+        //Show save file dialog
+        File dest = fileChooser.showSaveDialog(getPrimaryStage());
+
+        if (dest != null) {
+            try {
+                controller.guardarArchivoInventario(fileChooser.selectedExtensionFilterProperty().get().getExtensions().get(0), dest, listMateriales);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
 
@@ -176,7 +206,6 @@ public final class InventarioMaterialView extends Fragment {
         cantidadCL.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
         descripcionCL.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
         precioCL.setCellValueFactory(new PropertyValueFactory<>("precio"));
-        refreshTable();
     }
 
 
@@ -184,9 +213,23 @@ public final class InventarioMaterialView extends Fragment {
      * Funcion que recarga la tabla.
      */
     private void refreshTable() {
-        SortedList sortedList = controller.sortedList();
+        filteredMateriales = new FilteredList<>(listMateriales, e -> true);
+        SortedList<MaterialCell> sortedList = new SortedList<>(filteredMateriales);
         tablaInventario.setItems(sortedList);
         sortedList.comparatorProperty().bind(tablaInventario.comparatorProperty());
+    }
+
+    /**
+     * Filtra la busqueda de la vista
+     * @param query String que contiene la busqueda de la vista
+     */
+    private void didSearch(String query) {
+        filteredMateriales.setPredicate(materialCell ->
+                materialCell.getNombre().toLowerCase().contains(query.toLowerCase()) ||
+                        materialCell.getId().toLowerCase().contains(query.toLowerCase()) ||
+                        materialCell.getDescripcion().toLowerCase().contains(query.toLowerCase()) ||
+                        materialCell.getUds().toLowerCase().contains(query.toLowerCase())
+        );
     }
 
     /**

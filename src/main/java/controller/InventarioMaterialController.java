@@ -2,16 +2,18 @@ package controller;
 
 import base.Controller;
 import cell.MaterialCell;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import cell.TrabajadorCell;
+import com.google.gson.*;
 import exceptions.ItemExisteException;
+import javafx.beans.Observable;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
+import json.LocalDateTypeConverter;
 import model.InventarioMaterial;
 import model.Material;
 import model.Proyecto;
@@ -27,9 +29,12 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
@@ -42,28 +47,21 @@ public final class InventarioMaterialController extends Controller {
 
     private InventarioMaterialView view;
 
-    private InventarioMaterialRouter router;
-
     private InventarioMaterial model;
 
     private Proyecto proyecto;
 
-    private FilteredList<MaterialCell> filteredMateriales;
-
-    private ObservableList<MaterialCell> listMateriales;
+    private Router<MaterialAPI> service = Router.getInstance();
 
     private ExportFile exportFile;
 
     /**
      * @param view  inventario material
      * @param model  inventario material
-     * @param router inventario material
      */
-    public InventarioMaterialController(InventarioMaterialView view, InventarioMaterial model, InventarioMaterialRouter router) {
+    public InventarioMaterialController(InventarioMaterialView view, InventarioMaterial model) {
         this.view = view;
         this.model = model;
-        this.router = router;
-        cargarDatos();
         exportFile = new ExportFile();
     }
 
@@ -72,25 +70,16 @@ public final class InventarioMaterialController extends Controller {
      *
      * @author Sebastian Fuenzalida.
      */
-    public void cargarDatos() {
-        List<Material> list = new ArrayList<>();
+    public void cargarDatos(Consumer<ObservableList<MaterialCell>> callBack) {
+        CompletableFuture.supplyAsync(() -> {
+            ObservableList<MaterialCell> list = FXCollections.observableArrayList();
 
-        model.obtenerMateriales().forEach(list::add);
+            model.obtenerMateriales().forEach(material -> list.add(new MaterialCell(material)));
 
-        listMateriales = FXCollections.observableList(list.stream().map(MaterialCell::new).collect(Collectors.toList()));
-        filteredMateriales = new FilteredList<>(listMateriales, e -> true);
+            return list;
+        }).thenAccept(callBack);
     }
 
-    /**
-     * Se retornan los datos obtenidos previamente.
-     *
-     * @author Sebastian Fuenzalida.
-     *
-     * @return lista de materiales
-     */
-    public SortedList<MaterialCell> sortedList() {
-        return new SortedList<>(filteredMateriales);
-    }
 
     public Material getMaterial(String id){
         return model.obtenerMaterial(id);
@@ -101,11 +90,12 @@ public final class InventarioMaterialController extends Controller {
      */
     public void nuevoMaterial(Material material) throws ItemExisteException {
         model.agregarMaterial(material);
-        listMateriales.add(new MaterialCell(material));
+        view.didAddMaterial(new MaterialCell(material));
 
-        Router<MaterialAPI> service = Router.getInstance();
-
-        Gson gson = new Gson();
+        Gson gson =  new GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                .excludeFieldsWithoutExposeAnnotation()
+                .create();
 
         JsonObject json = gson.toJsonTree(material).getAsJsonObject();
         json.addProperty("id_inventario", model.getId());
@@ -139,54 +129,20 @@ public final class InventarioMaterialController extends Controller {
      * Elimina un material del modelo
      * @param idMaterial id del material a eliminar
      */
-    public MaterialCell eliminarMaterial(String idMaterial){
-            MaterialCell materialCell =  new MaterialCell(model.eliminarMaterial(idMaterial));
-            listMateriales.remove(materialCell);
-            sortedList().remove(materialCell);
-            return materialCell;
-             // TODO: Informar a la vista que se ha eliminado un material de la table.
-             //listMateriales.removeIf(materialCell -> materialCell.getId().equals(eliminado.getId()));
-    }
+    public void eliminarMaterial(String idMaterial){
+        MaterialCell materialCell = new MaterialCell(model.eliminarMaterial(idMaterial));
 
-    /**
-     * Filtra la busqueda de la vista
-     * @param query String que contiene la busqueda de la vista
-     */
-    public void didSearch(String query) {
-        filteredMateriales.setPredicate(materialCell ->
-                materialCell.getNombre().toLowerCase().contains(query.toLowerCase()) ||
-                        materialCell.getId().toLowerCase().contains(query.toLowerCase()) ||
-                        materialCell.getDescripcion().toLowerCase().contains(query.toLowerCase()) ||
-                        materialCell.getUds().toLowerCase().contains(query.toLowerCase())
-        );
-    }
+        view.removeMaterial(materialCell);
 
-    public Alert showWarning(String header, String message) {
-        return router.showWarning(header, message);
-    }
+        JsonObject json = new JsonObject();
+        json.addProperty("id_material", idMaterial);
 
-    /**
-     * Muestra el FileChooser para poder exportar el inventario
-     */
-    public void exportarInventario() {
-        FileChooser fileChooser = new FileChooser();
+        System.out.println(json);
 
-        //Set extension filter for text files
-        FileChooser.ExtensionFilter pdfFilter = new FileChooser.ExtensionFilter("PDF files (*.pdf)", "*.pdf");
-        FileChooser.ExtensionFilter xlsxFilter = new FileChooser.ExtensionFilter("Excel files (*.xlsx)", "*.xlsx");
-
-        fileChooser.getExtensionFilters().addAll(pdfFilter, xlsxFilter);
-
-        //Show save file dialog
-        File dest = fileChooser.showSaveDialog(getPrimaryStage());
-
-        if (dest != null) {
-            try {
-                guardarArchivoInventario(fileChooser.selectedExtensionFilterProperty().get().getExtensions().get(0), dest);
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
+        service.request(MaterialAPI.REMOVE, json)
+                .subscribe(System.out::println, throwable -> {
+                    LOGGER.log(Level.SEVERE, "", throwable);
+                });
     }
 
     /**
@@ -195,36 +151,24 @@ public final class InventarioMaterialController extends Controller {
      * @param dest archivo de destino para guardar
      * @throws IOException
      */
-    private void guardarArchivoInventario(String extension, File dest) throws IOException {
+    public void guardarArchivoInventario(String extension, File dest, ObservableList<MaterialCell> list) throws IOException {
         if (extension.equals("*.pdf")) {
-            exportFile.changeStrategy(new ExportInventarioPDF(proyecto.getNombre(), listMateriales));
+            exportFile.changeStrategy(new ExportInventarioPDF(proyecto.getNombre(), list));
         } else {
-            exportFile.changeStrategy(new ExportInventarioXLSX(proyecto.getNombre(), listMateriales));
+            exportFile.changeStrategy(new ExportInventarioXLSX(proyecto.getNombre(), list));
         }
 
         File file = exportFile.export();
 
         if (file == null) {
-            router.showWarning("Error", "La exportación no se pudo guardar");
+            // TODO: Falta implementar el warning
+            //router.showWarning("Error", "La exportación no se pudo guardar");
             return;
         }
 
         Files.copy(file.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
     }
 
-    /**
-     * @param newValue material
-     */
-    private void changeMaterial(Material newValue) {
-        ListIterator<MaterialCell> iterator = listMateriales.listIterator();
-
-        while (iterator.hasNext()) {
-            if (iterator.next().getId().equals(newValue.getId())) {
-                iterator.set(new MaterialCell(newValue));
-                break;
-            }
-        }
-    }
 
     /**
      * @param proyecto proyecto
