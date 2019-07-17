@@ -20,8 +20,10 @@ public class Horario {
 
     // MARK: - Constructor
 
-    public Horario() {
-
+    public Horario(Integer dia, LocalTime horaInicio, LocalTime horaFin) {
+        this.dia = dia;
+        this.horaInicio = horaInicio;
+        this.horaFin = horaFin;
     }
 
     // MARK: - Getter

@@ -128,7 +128,6 @@ public class RRHHView extends View implements EditTrabajadorDelegate, FilterDele
 
         tableTrabajadores.fixedCellSizeProperty().setValue(40);
 
-
         Callback<ListView<ProyectoCell>, ListCell<ProyectoCell>> factory = lv -> new ListCell<ProyectoCell>() {
             @Override
             protected void updateItem(ProyectoCell item, boolean empty) {

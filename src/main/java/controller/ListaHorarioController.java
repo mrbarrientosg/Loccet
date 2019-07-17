@@ -41,4 +41,8 @@ public final class ListaHorarioController extends Controller {
     public void setModel(Trabajador model) {
         this.model = model;
     }
+
+    public Trabajador getModel() {
+        return model;
+    }
 }

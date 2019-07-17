@@ -122,6 +122,9 @@ public abstract class Trabajador {
         return correoElectronico;
     }
 
+    public Iterable<Proyecto> getProyectos() {
+        return storeProyecto.findAll();
+    }
     // MARK: - Setter
 
     public void setRut(String rut) throws EmptyFieldException, InvalidaRutException {
