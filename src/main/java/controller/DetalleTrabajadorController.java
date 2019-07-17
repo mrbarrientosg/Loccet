@@ -53,8 +53,6 @@ public class DetalleTrabajadorController extends Controller {
 
     private Router<TrabajadorAPI> service = Router.getInstance();
 
-    //private StringProperty telephone = new SimpleStringProperty();
-
     public void guardar() throws EmptyFieldException {
         model.setNombre(name.get());
         model.setApellido(lastName.get());

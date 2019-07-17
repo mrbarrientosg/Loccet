@@ -70,6 +70,15 @@ public class Material {
         registroMaterialStore = new MemoryStoreRegistroMaterial();
     }
 
+    public Material(Material other) {
+        this.id = other.id;
+        this.nombre = other.nombre;
+        this.descripcion = other.descripcion;
+        this.cantidad = other.cantidad;
+        this.uds = other.uds;
+        this.precio = other.precio;
+    }
+
     // MARK: - Metodos Registro Material
 
     public void agregarRegistro(RegistroMaterial registroMaterial) {
@@ -148,4 +157,19 @@ public class Material {
         return list;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+
+        if (!(obj instanceof Material)) return false;
+
+        Material m = (Material) obj;
+
+        return m.id.equals(id) &&
+                m.nombre.equals(nombre) &&
+                m.descripcion.equals(descripcion) &&
+                Double.compare(m.cantidad, cantidad) == 0 &&
+                m.uds.equals(uds) &&
+                m.precio.equals(precio);
+    }
 }

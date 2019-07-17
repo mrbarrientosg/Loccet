@@ -1,10 +1,14 @@
 package controller;
 
 import base.Controller;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import exceptions.EmptyFieldException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import json.LocalDateTypeConverter;
 import model.Material;
 import model.RegistroMaterial;
 import network.endpoint.MaterialAPI;
@@ -13,6 +17,7 @@ import network.service.Router;
 import view.DetalleMaterialView;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
@@ -22,17 +27,22 @@ import java.util.logging.Level;
  * @author Sebastian Fuenzalida
  */
 public class DetalleMaterialController extends Controller {
+
     //Se declaran las variables
 
     private DetalleMaterialView view;
+
     private Material model;
+
+    private Material oldMaterial;
+
+    private Router<MaterialAPI> service = Router.getInstance();
 
     /**
      * @param descripcion material
      */
-    public void modificarDescripcion(String descripcion){
+    public void modificarDescripcion(String descripcion) {
         model.setDescripcion(descripcion);
-
     }
 
     /**
@@ -52,18 +62,24 @@ public class DetalleMaterialController extends Controller {
     /**
      * @return nombre material.
      */
-    public String getNombre(){return model.getNombre();}
+    public String getNombre() {
+        return model.getNombre();
+    }
 
     /**
      * @return descripcion material
      */
-    public String getDescripcion(){return model.getDescripcion();}
+    public String getDescripcion() {
+        return model.getDescripcion();
+    }
 
     /**
      * @return cantidad material
      */
 
-    public Double getCantidad(){return model.getCantidad();}
+    public Double getCantidad() {
+        return model.getCantidad();
+    }
 
 
     public boolean retirarMaterial(double cantidad){
@@ -109,12 +125,31 @@ public class DetalleMaterialController extends Controller {
                 });
     }
 
+    public void save() {
+        if (oldMaterial.equals(model))
+            return;
+
+        Gson gson =  new GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                .excludeFieldsWithoutExposeAnnotation()
+                .create();
+
+        System.out.println(gson.toJsonTree(model).getAsJsonObject());
+
+        service.request(MaterialAPI.UPDATE, gson.toJsonTree(model).getAsJsonObject())
+                .subscribe(System.out::println, throwable -> {
+                    LOGGER.log(Level.SEVERE, "", throwable);
+                });
+
+    }
+
     public void setView(DetalleMaterialView view) {
         this.view = view;
     }
 
     public void setModel(Material model){
         this.model = model;
+        oldMaterial = new Material(model);
     }
 
 }
