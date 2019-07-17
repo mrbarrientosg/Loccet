@@ -5,13 +5,10 @@ import cell.ProyectoCell;
 import com.google.gson.JsonObject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import model.Constructora;
 import model.Proyecto;
 import network.endpoint.ProyectoAPI;
-import network.service.Router;
-import sun.rmi.runtime.RuntimeUtil;
+import network.service.NetService;
 import view.ProyectoView;
 
 import java.util.logging.Level;
@@ -38,7 +35,7 @@ public class ProyectoController extends Controller {
     public void deleteProyect(String id){
         model.eliminarProyecto(id);
 
-        Router<ProyectoAPI> service = Router.getInstance();
+        NetService<ProyectoAPI> service = NetService.getInstance();
 
         JsonObject json = new JsonObject();
 

@@ -4,16 +4,15 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import io.reactivex.disposables.Disposable;
 import network.endpoint.LoccetAPI;
-import network.service.Router;
+import network.service.NetService;
 
-import java.io.IOException;
 import java.util.function.Consumer;
 
 public abstract class FetchHandler {
 
     private FetchHandler next;
 
-    protected Router<LoccetAPI> service = Router.getInstance();
+    protected NetService<LoccetAPI> service = NetService.getInstance();
 
     protected Disposable disposable;
 

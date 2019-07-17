@@ -1,29 +1,19 @@
 package controller;
 
 import base.Controller;
-import cell.MaterialCell;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 import exceptions.EmptyFieldException;
 import exceptions.NegativeQuantityException;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import json.LocalDateTypeConverter;
 import model.Material;
 import model.RegistroMaterial;
 import network.endpoint.MaterialAPI;
-import network.endpoint.TrabajadorAPI;
-import network.service.Router;
+import network.service.NetService;
 import view.DetalleMaterialView;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.logging.Level;
@@ -42,7 +32,7 @@ public class DetalleMaterialController extends Controller {
 
     private Material oldMaterial;
 
-    private Router<MaterialAPI> service = Router.getInstance();
+    private NetService<MaterialAPI> service = NetService.getInstance();
 
     public void obtenerRegistro(Consumer<ObservableList<RegistroMaterial>> callBack){
         CompletableFuture.supplyAsync(() -> {

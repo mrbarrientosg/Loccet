@@ -4,28 +4,23 @@ import base.Controller;
 import cell.ProyectoCell;
 import cell.TrabajadorCell;
 import com.google.gson.JsonObject;
-import io.reactivex.Single;
 import javafx.beans.Observable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import model.Constructora;
 import model.Proyecto;
 import model.Trabajador;
 import network.endpoint.TrabajadorAPI;
-import network.service.Router;
+import network.service.NetService;
 import specification.TrabajadorByQuerySpecification;
 import view.RRHHView;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 public class RRHHController extends Controller {
@@ -34,7 +29,7 @@ public class RRHHController extends Controller {
 
     private Constructora model = Constructora.getInstance();
 
-    private Router<TrabajadorAPI> service = Router.getInstance();
+    private NetService<TrabajadorAPI> service = NetService.getInstance();
 
     public void fetchTrabajadores(Consumer<ObservableList<TrabajadorCell>> callBack) {
         CompletableFuture.supplyAsync(() -> {

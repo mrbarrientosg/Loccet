@@ -2,25 +2,16 @@ package controller;
 
 import base.Controller;
 import cell.MaterialCell;
-import cell.TrabajadorCell;
 import com.google.gson.*;
 import exceptions.ItemExisteException;
-import javafx.beans.Observable;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
-import javafx.scene.control.Alert;
-import javafx.stage.FileChooser;
-import json.LocalDateTypeConverter;
 import model.InventarioMaterial;
 import model.Material;
 import model.Proyecto;
 import model.RegistroMaterial;
 import network.endpoint.MaterialAPI;
-import network.service.Router;
-import router.InventarioMaterialRouter;
+import network.service.NetService;
 import util.ExportFile.ExportFile;
 import util.InventarioExport.ExportInventarioPDF;
 import util.InventarioExport.ExportInventarioXLSX;
@@ -30,17 +21,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.logging.Level;
-import java.util.stream.Collectors;
 
 /**
  * Clase manejadora de las funciones de la vista inventario.
@@ -55,7 +38,7 @@ public final class InventarioMaterialController extends Controller {
 
     private Proyecto proyecto;
 
-    private Router<MaterialAPI> service = Router.getInstance();
+    private NetService<MaterialAPI> service = NetService.getInstance();
 
     private ExportFile exportFile;
 

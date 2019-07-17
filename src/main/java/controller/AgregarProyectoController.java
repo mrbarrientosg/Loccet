@@ -11,7 +11,7 @@ import model.Constructora;
 import model.Localizacion;
 import model.Proyecto;
 import network.endpoint.ProyectoAPI;
-import network.service.Router;
+import network.service.NetService;
 import view.AgregarProyectoView;
 
 import java.math.BigDecimal;
@@ -47,7 +47,7 @@ public final class AgregarProyectoController extends Controller {
         model.agregarProyecto(proyecto);
         //TODO: se agrega un proyecto
 
-        Router<ProyectoAPI> service = Router.getInstance();
+        NetService<ProyectoAPI> service = NetService.getInstance();
 
         Gson gson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
