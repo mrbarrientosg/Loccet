@@ -28,6 +28,11 @@ public class MemoryStoreTrabajador extends AbstractStore<Trabajador> implements 
     }
 
     @Override
+    public boolean contains(Trabajador value) {
+        return mapTrabajadores.containsKey(value.getRut());
+    }
+
+    @Override
     public Trabajador findByRut(String rut) {
         return mapTrabajadores.get(rut);
     }

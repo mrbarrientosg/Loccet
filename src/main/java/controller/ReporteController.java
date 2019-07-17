@@ -3,15 +3,12 @@ package controller;
 import base.Controller;
 import cell.ProyectoCell;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import model.Constructora;
-import model.Costeable;
 import model.Proyecto;
 import view.ReporteView;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +23,7 @@ public class ReporteController extends Controller {
         List<Proyecto> proyectos = model.getListaProyecto();
         BigDecimal montoContructoraAcumulado = new BigDecimal(0);
         for (int i  = 0 ; i < proyectos.size(); i++){
-            montoContructoraAcumulado.add(proyectos.get(i).getEstimacion());
+            montoContructoraAcumulado.add(proyectos.get(i).getCostoEstimado());
         }
         return montoContructoraAcumulado;
     }
@@ -46,7 +43,7 @@ public class ReporteController extends Controller {
         return montoContractual.subtract(gastos);
     }
     public BigDecimal montoContractualProyecto(String id){
-      return model.obtenerProyecto(id).getEstimacion();
+      return model.obtenerProyecto(id).getCostoEstimado();
     }
 
     public String getDireccion(String id){

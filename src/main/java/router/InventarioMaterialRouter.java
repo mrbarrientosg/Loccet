@@ -18,8 +18,7 @@ public final class InventarioMaterialRouter {
 
     public static InventarioMaterialView create(InventarioMaterial model, Proyecto proyecto) {
         InventarioMaterialView inventarioView = Injectable.find(InventarioMaterialView.class);
-        InventarioMaterialRouter inventarioRouter = new InventarioMaterialRouter();
-        InventarioMaterialController inventarioController = new InventarioMaterialController(inventarioView, model, inventarioRouter);
+        InventarioMaterialController inventarioController = new InventarioMaterialController(inventarioView, model);
 
         inventarioView.setController(inventarioController);
         inventarioController.setProyecto(proyecto);

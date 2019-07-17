@@ -1,6 +1,7 @@
 package model;
 
 import com.google.gson.JsonObject;
+import exceptions.ItemExisteException;
 import model.store.MemorySpecification;
 import model.store.memory.MemoryStoreProyecto;
 import model.store.memory.MemoryStoreTrabajador;
@@ -96,12 +97,16 @@ public class Constructora implements Costeable {
      * @return false si no se pudo agregar y true lo contrario
      * @author Matias Barrientos
      */
-    public void agregarTrabajador(String idProyecto, Trabajador trabajador) {
+    public void agregarTrabajador(String idProyecto, Trabajador trabajador) throws ItemExisteException {
         Proyecto proyecto = storeProyecto.findById(idProyecto);
 
         if (proyecto == null) return;
 
-        proyecto.agregarTrabajador(trabajador);
+        if (storeTrabajador.contains(trabajador)) {
+            proyecto.agregarTrabajador(storeTrabajador.findByRut(trabajador.getRut()));
+        } else {
+            proyecto.agregarTrabajador(trabajador);
+        }
 
         agregarTrabajador(trabajador);
     }
@@ -162,11 +167,8 @@ public class Constructora implements Costeable {
         return dns;
     }
 
-    public List<Trabajador> getConjuntoTrabajadores() {
-        // Hay cambiarlo por un iterator
-        List<Trabajador> list = new ArrayList<>();
-        storeTrabajador.findAll().forEach(list::add);
-        return list;
+    public Iterable<Trabajador> getTrabajadores() {
+        return storeTrabajador.findAll();
     }
 
     public List<Proyecto> getListaProyecto() {

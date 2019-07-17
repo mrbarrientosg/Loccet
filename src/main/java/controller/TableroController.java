@@ -2,9 +2,7 @@ package controller;
 
 import base.Controller;
 import model.Constructora;
-import router.HomeRouter;
 import router.TableroRouter;
-import view.HomeView;
 import view.TableroView;
 
 public class TableroController extends Controller {

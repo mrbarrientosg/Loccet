@@ -1,7 +1,9 @@
 package model;
 
 import com.google.gson.*;
+import com.google.gson.annotations.Expose;
 import exceptions.EmptyFieldException;
+import exceptions.ItemExisteException;
 import json.LocalDateTypeConverter;
 import model.store.*;
 import model.store.memory.MemoryStoreAsistencia;
@@ -20,31 +22,43 @@ public class Proyecto implements Costeable{
 
     // MARK: - Atributos
 
+    @Expose
     private String id;
 
+    @Expose
     private String nombre;
 
+    @Expose
     private Localizacion localizacion;
 
+    @Expose
     private LocalDate fechaInicio;
 
+    @Expose
     private LocalDate fechaTermino;
 
-    private BigDecimal estimacion;
+    @Expose
+    private BigDecimal costoEstimado;
 
+    @Expose
     private String nombreCliente;
 
+    @Expose(serialize = false)
     private StoreTrabajador storeTrabajador;
 
+    @Expose(serialize = false)
     private Store<Asistencia> asistenciaStore;
 
+    @Expose(serialize = false)
     private StoreFase storeFase;
 
+    @Expose(serialize = false)
     private InventarioMaterial inventarioMaterial;
 
     // MARK: - Constructor
 
     public Proyecto() {
+        id = generarId();
         asistenciaStore = new MemoryStoreAsistencia();
         storeTrabajador = new MemoryStoreTrabajador();
         storeFase = new MemoryStoreFase();
@@ -57,7 +71,7 @@ public class Proyecto implements Costeable{
         this.localizacion = new Localizacion(other.localizacion);
         this.fechaInicio = other.fechaInicio;
         this.fechaTermino = other.fechaTermino;
-        this.estimacion = other.estimacion;
+        this.costoEstimado = other.costoEstimado;
         this.nombreCliente = other.nombreCliente;
     }
 
@@ -81,9 +95,9 @@ public class Proyecto implements Costeable{
      *
      * @author Matias Zuñiga
      */
-    public void agregarTrabajador(Trabajador trabajador){
+    public void agregarTrabajador(Trabajador trabajador) throws ItemExisteException {
         if (storeTrabajador.contains(trabajador))
-            return;
+            throw new ItemExisteException();
 
         trabajador.asociarProyecto(this);
         storeTrabajador.save(trabajador);
@@ -112,16 +126,13 @@ public class Proyecto implements Costeable{
         return trabajadors;
     }
 
-    public List<Trabajador> getTrabajadores() {
-        // Hay cambiarlo por un iterator
-        List<Trabajador> list = new ArrayList<>();
-        storeTrabajador.findAll().forEach(list::add);
-        return list;
+    public Iterable<Trabajador> getTrabajadores() {
+        return storeTrabajador.findAll();
     }
 
     // MARK: - Metodos Inventario
 
-    public void agregarMaterial(Material material) {
+    public void agregarMaterial(Material material) throws ItemExisteException {
         inventarioMaterial.agregarMaterial(material);
     }
 
@@ -190,8 +201,8 @@ public class Proyecto implements Costeable{
         return fechaTermino;
     }
 
-    public BigDecimal getEstimacion() {
-        return estimacion;
+    public BigDecimal getCostoEstimado() {
+        return costoEstimado;
     }
 
     public String getNombreCliente() {
@@ -233,8 +244,8 @@ public class Proyecto implements Costeable{
         this.fechaTermino = fechaTermino;
     }
 
-    public void setEstimacion(BigDecimal estimacion) {
-        this.estimacion = estimacion;
+    public void setCostoEstimado(BigDecimal costoEstimado) {
+        this.costoEstimado = costoEstimado;
     }
 
     public void setNombreCliente(String nombreCliente) {
@@ -273,13 +284,15 @@ public class Proyecto implements Costeable{
             try {
                 p.setId(json.get("id").getAsString());
                 p.setNombre(json.get("nombre").getAsString());
-                p.setEstimacion(json.get("costo_estimado").getAsBigDecimal());
+                p.setCostoEstimado(json.get("costo_estimado").getAsBigDecimal());
                 p.setNombreCliente(json.get("nombre_cliente").getAsString());
 
                 p.setFechaInicio(gson.fromJson(json.get("fecha_inicio"), LocalDate.class));
                 p.setFechaTermino(gson.fromJson(json.get("fecha_termino"), LocalDate.class));
 
                 p.setLocalizacion(gson.fromJson(json.get("localizacion").getAsString(), Localizacion.class));
+
+                p.inventarioMaterial.setId(json.get("id_inventario").getAsInt());
             } catch (EmptyFieldException e) {
                 // TODO: Ver que se hace en este caso
                 e.printStackTrace();
@@ -308,6 +321,11 @@ public class Proyecto implements Costeable{
 
             return json;
         }
+    }
+    private final String generarId(){
+        String result = java.util.UUID.randomUUID().toString();
+        result = result.substring(0,20);
+        return result;
     }
 
 

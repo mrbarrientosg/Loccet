@@ -70,12 +70,18 @@ public class DetalleMaterialView extends Fragment {
         mostrarDatos();
     }
 
+    @Override
+    public void viewDidClose() {
+        controller.save();
+    }
+
     private void refreshTable(){
 
         SortedList sortedList = new SortedList(listaRegistro);
         tableView.setItems(listaRegistro);
         sortedList.comparatorProperty().bind(tableView.comparatorProperty());
     }
+
     public void cargarDatos(){
         listaRegistro = controller.obtenerRegistro();
         refreshTable();

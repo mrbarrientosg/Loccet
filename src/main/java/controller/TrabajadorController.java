@@ -1,15 +1,24 @@
 package controller;
 
 import base.Controller;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import exceptions.EmptyFieldException;
 import exceptions.InvalidaRutException;
 import javafx.beans.property.*;
+import json.LocalDateTypeConverter;
 import model.*;
+import network.endpoint.MaterialAPI;
+import network.endpoint.TrabajadorAPI;
+import network.service.Router;
 import router.TrabajadorRouter;
 import delegate.EditTrabajadorDelegate;
 import view.TrabajadorView;
 
 import java.time.LocalDate;
+import java.util.logging.Level;
 
 /**
  * Controlador para la vista Trabajador
@@ -75,9 +84,10 @@ public final class TrabajadorController extends Controller {
 
         Localizacion localizacion = new Localizacion(address.get(), zip.get(), country.get(), state.get(), city.get());
 
+        Integer horas = null;
 
         if (partTime.get()) {
-            Integer horas = new Integer(hours.getValue());
+            horas = new Integer(hours.getValue());
             trabajador = new TrabajadorPartTime(horas);
         } else {
             trabajador = new TrabajadorTiempoCompleto();
@@ -95,6 +105,32 @@ public final class TrabajadorController extends Controller {
         trabajador.setCorreoElectronico(email.get());
 
         model.agregarTrabajador(trabajador);
+
+        Router<TrabajadorAPI> service = Router.getInstance();
+
+        Gson gson = new GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                .registerTypeAdapter(LocalDate.class, new LocalDateTypeConverter())
+                .excludeFieldsWithoutExposeAnnotation()
+                .create();
+
+        JsonObject json = gson.toJsonTree(trabajador).getAsJsonObject();
+        json.addProperty("cantidad_hora_trabajada", horas != null ? horas : 8);
+        json.addProperty("tiempo_completo", horas != null ? 0 : 1);
+
+        // TODO: Falta implementar la especialidad
+        json.addProperty("id_especialidad", 1);
+
+        json.addProperty("dns_constructora", model.getDns());
+
+        System.out.println(json);
+
+        service.request(TrabajadorAPI.CREATE, json)
+                .subscribe(jsonElement -> {
+                    localizacion.setId(jsonElement.getAsJsonObject().get("id_localizacion").getAsInt());
+                }, throwable -> {
+                    LOGGER.log(Level.SEVERE, "", throwable);
+                });
     }
 
     public void setModel(Constructora model) {

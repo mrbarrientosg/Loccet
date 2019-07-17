@@ -94,6 +94,7 @@ public class DetalleTrabajadorView extends View {
     @Override
     public void viewDidClose() {
         container.getChildren().remove(listaHorarioView.getRoot());
+        controller.save();
     }
 
     public void bind() {

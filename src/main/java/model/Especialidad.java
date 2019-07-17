@@ -19,6 +19,11 @@ public class Especialidad {
         this.sueldoPorHora = sueldoPorHora;
     }
 
+    public Especialidad(Especialidad other) {
+        this.nombre = other.nombre;
+        this.sueldoPorHora = other.sueldoPorHora;
+    }
+
     // MARK: - Getter
 
     public String getNombre() {
@@ -29,4 +34,14 @@ public class Especialidad {
         return sueldoPorHora;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+
+        if (!(obj instanceof Trabajador)) return false;
+
+        Especialidad e = (Especialidad) obj;
+
+        return e.nombre.equals(nombre) && e.sueldoPorHora.equals(sueldoPorHora);
+    }
 }

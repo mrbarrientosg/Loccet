@@ -20,6 +20,9 @@ import view.RRHHView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -33,25 +36,29 @@ public class RRHHController extends Controller {
 
     private Router<TrabajadorAPI> service = Router.getInstance();
 
-    public ObservableList<TrabajadorCell> fetchTrabajadores() {
-        ObservableList<TrabajadorCell> cells = FXCollections.observableArrayList(e -> new Observable[]{ new SimpleStringProperty(e.getRut())});
+    public void fetchTrabajadores(Consumer<ObservableList<TrabajadorCell>> callBack) {
+        CompletableFuture.supplyAsync(() -> {
+            ObservableList<TrabajadorCell> cells = FXCollections.observableArrayList(e -> new Observable[]{ new SimpleStringProperty(e.getRut())});
 
-        model.getConjuntoTrabajadores().stream().map(TrabajadorCell::new).forEach(cells::add);
+            model.getTrabajadores().forEach(trabajador -> cells.add(new TrabajadorCell(trabajador)));
 
-        return cells;
+            return cells;
+        }).thenAccept(callBack);
     }
 
-    public ObservableList<TrabajadorCell> fetchTrabajadores(String idProyecto) {
-        Proyecto p = model.obtenerProyecto(idProyecto);
+    public void fetchTrabajadores(String idProyecto, Consumer<ObservableList<TrabajadorCell>> callBack) {
+        CompletableFuture.supplyAsync(() -> {
+            Proyecto p = model.obtenerProyecto(idProyecto);
 
-        ObservableList<TrabajadorCell> cells = FXCollections.observableArrayList(e -> new Observable[]{ new SimpleStringProperty(e.getRut())});
+            ObservableList<TrabajadorCell> cells = FXCollections.observableArrayList(e -> new Observable[]{ new SimpleStringProperty(e.getRut())});
 
-        if (p == null)
+            if (p == null)
+                return cells;
+
+            model.getTrabajadores().forEach(trabajador -> cells.add(new TrabajadorCell(trabajador)));
+
             return cells;
-
-        p.getTrabajadores().stream().map(TrabajadorCell::new).forEach(cells::add);
-
-        return cells;
+        }).thenAccept(callBack);
     }
 
     public ObservableList<TrabajadorCell> searchEmployee(String text) {
@@ -63,7 +70,7 @@ public class RRHHController extends Controller {
 
         return cells;
 
-}
+    }
 
     public ObservableList<TrabajadorCell> searchEmployeeProject(String idProject, String text) {
         Proyecto p = model.obtenerProyecto(idProject);
@@ -97,10 +104,10 @@ public class RRHHController extends Controller {
 
         json.addProperty("rut", rut);
 
-        /*service.request(TrabajadorAPI.REMOVE, json)
+        service.request(TrabajadorAPI.REMOVE, json)
                 .subscribe(System.out::println, throwable -> {
                     LOGGER.log(Level.SEVERE, "", throwable);
-                });*/
+                });
     }
 
     public List<ProyectoCell> getProyectos() {

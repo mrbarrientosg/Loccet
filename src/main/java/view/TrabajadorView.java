@@ -96,12 +96,12 @@ public final class TrabajadorView extends View {
     private void saveHandler(ActionEvent event) {
         try {
             controller.guardarTrabajador();
+            close();
         } catch (EmptyFieldException | InvalidaRutException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
         }
-        close();
     }
 
     private void bindController() {

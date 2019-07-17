@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.ItemExisteException;
 import model.store.memory.MemoryStoreMaterial;
 import model.store.StoreMaterial;
 
@@ -16,6 +17,8 @@ public class InventarioMaterial implements Costeable {
 
     private StoreMaterial storeMaterial;
 
+    private Integer id;
+
     // MARK: - Constructor
 
     public InventarioMaterial() {
@@ -24,9 +27,9 @@ public class InventarioMaterial implements Costeable {
 
     // MARK: - Metodos Material
 
-    public void agregarMaterial(Material material) {
+    public void agregarMaterial(Material material) throws ItemExisteException {
         if (storeMaterial.contains(material))
-            return;
+            throw new ItemExisteException();
 
         storeMaterial.save(material);
     }
@@ -60,5 +63,13 @@ public class InventarioMaterial implements Costeable {
         });
 
         return costoTotal;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }
