@@ -151,10 +151,8 @@ public class Material {
         this.precio = precio;
     }
 
-    public List<RegistroMaterial> getListaRegistroMaterial() {
-        List<RegistroMaterial> list = new ArrayList<>();
-        registroMaterialStore.findAll().forEach(list::add);
-        return list;
+    public Iterable<RegistroMaterial> getRegistrosMateriales() {
+        return registroMaterialStore.findAll();
     }
 
     @Override
