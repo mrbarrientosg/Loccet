@@ -66,7 +66,7 @@ public final class ListaHorarioView extends View implements AddHorarioDelegate {
 
     @Override
     public void viewDidShow() {
-        tableHorario.setItems(controller.fetchHorarios());
+        controller.fetchHorarios(tableHorario::setItems);
     }
 
     public void didDeleteHorario(HorarioCell cell) {

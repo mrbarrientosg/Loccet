@@ -2,10 +2,14 @@ package controller;
 
 import base.Controller;
 import cell.HorarioCell;
+import cell.ProyectoCell;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Trabajador;
 import view.ListaHorarioView;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 
 public final class ListaHorarioController extends Controller {
 
@@ -16,12 +20,14 @@ public final class ListaHorarioController extends Controller {
     /**
      * Carga la informacion desde el modelo
      */
-    public ObservableList<HorarioCell> fetchHorarios() {
-        ObservableList<HorarioCell> list = FXCollections.observableArrayList();
+    public void fetchHorarios(Consumer<ObservableList<HorarioCell>> callBack) {
+        CompletableFuture.supplyAsync(() -> {
+            ObservableList<HorarioCell> list = FXCollections.observableArrayList();
 
-        model.obtenerListaHorario().forEach(horario -> list.add(new HorarioCell(horario)));
+            model.obtenerListaHorario().forEach(horario -> list.add(new HorarioCell(horario)));
 
-        return list;
+            return list;
+        }).thenAccept(callBack);
     }
 
     /**
