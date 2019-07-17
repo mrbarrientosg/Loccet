@@ -8,7 +8,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import model.Proyecto;
 import network.endpoint.ProyectoAPI;
-import network.service.Router;
+import network.service.NetService;
 import view.DetalleProyectoView;
 
 import java.util.logging.Level;
@@ -33,12 +33,11 @@ public class DetalleProyectoController extends Controller {
 
     private StringProperty client = new SimpleStringProperty();
 
-    private Router<ProyectoAPI> service = Router.getInstance();
+    private NetService<ProyectoAPI> service = NetService.getInstance();
 
     //private ObjectProperty<LocalDate> startDate = new SimpleStringProperty();
 
     //private ObjectProperty<LocalDate> endDate = new SimpleStringProperty();
-
 
     public void actualizar() throws EmptyFieldException {
         model.setNombre(name.get());

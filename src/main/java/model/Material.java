@@ -3,6 +3,7 @@ package model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import exceptions.EmptyFieldException;
+import exceptions.NegativeQuantityException;
 import model.store.Store;
 import model.store.memory.MemoryStoreRegistroMaterial;
 import util.StringUtils;
@@ -139,7 +140,10 @@ public class Material {
         this.descripcion = descripcion;
     }
 
-    public void setCantidad(double cantidad) {
+    public void setCantidad(double cantidad) throws NegativeQuantityException {
+        if (cantidad < 0)
+            throw new NegativeQuantityException();
+
         this.cantidad = cantidad;
     }
 
@@ -151,10 +155,8 @@ public class Material {
         this.precio = precio;
     }
 
-    public List<RegistroMaterial> getListaRegistroMaterial() {
-        List<RegistroMaterial> list = new ArrayList<>();
-        registroMaterialStore.findAll().forEach(list::add);
-        return list;
+    public Iterable<RegistroMaterial> getRegistrosMateriales() {
+        return registroMaterialStore.findAll();
     }
 
     @Override

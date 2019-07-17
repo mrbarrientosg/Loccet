@@ -3,14 +3,12 @@ package util.chain;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import io.reactivex.schedulers.Schedulers;
 import model.Constructora;
 import model.Fase;
 import model.Proyecto;
 import network.endpoint.LoccetAPI;
-import network.service.Router;
 
 import java.util.function.Consumer;
 

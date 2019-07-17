@@ -4,7 +4,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import io.reactivex.Maybe;
-import io.reactivex.schedulers.Schedulers;
 import network.NetworkException;
 import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.BoundRequestBuilder;
@@ -12,25 +11,24 @@ import org.asynchttpclient.DefaultAsyncHttpClient;
 import org.asynchttpclient.Response;
 
 import java.io.IOException;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
-public class Router<EndPoint extends EndPointType> implements NetworkRouter<EndPoint> {
+public class NetService<EndPoint extends EndPointType> implements NetworkRouter<EndPoint> {
 
     private AsyncHttpClient asyncHttpClient;
 
     private CompletableFuture<Response> response;
 
-    private static Router instance;
+    private static NetService instance;
 
-    private Router() {
+    private NetService() {
         asyncHttpClient = new DefaultAsyncHttpClient();
     }
 
-    public static Router getInstance() {
+    public static NetService getInstance() {
         if (instance == null)
-            instance = new Router();
+            instance = new NetService();
         return instance;
     }
 

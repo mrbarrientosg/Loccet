@@ -4,31 +4,27 @@ import base.Controller;
 import com.google.gson.*;
 import exceptions.EmptyFieldException;
 import exceptions.InvalidUserException;
-import io.reactivex.Maybe;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import io.reactivex.schedulers.Schedulers;
-import javafx.util.Pair;
 import json.InstantTypeConverter;
 import json.LocalTimeTypeConverter;
 import model.*;
 import network.endpoint.LoccetAPI;
-import network.service.Router;
+import network.service.NetService;
 import util.chain.*;
 import view.LoginView;
 
-import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalTime;
 import java.util.Objects;
-import java.util.logging.Level;
 
 public final class LoginController extends Controller {
 
     private LoginView view;
 
-    private Router<LoccetAPI> service = Router.getInstance();
+    private NetService<LoccetAPI> service = NetService.getInstance();
 
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 

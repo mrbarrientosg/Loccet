@@ -8,6 +8,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import network.service.NetService;
 import router.LoginRouter;
 import view.LoginView;
 
@@ -37,6 +38,11 @@ public class Main extends Application {
         primaryStage.titleProperty().bind(loginView.getTitleProperty());
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.show();
+    }
+
+    @Override
+    public void stop() throws Exception {
+        NetService.getInstance().close();
     }
 }
 

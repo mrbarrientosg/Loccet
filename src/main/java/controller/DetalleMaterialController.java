@@ -4,24 +4,18 @@ import base.Controller;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 import exceptions.EmptyFieldException;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
+import exceptions.NegativeQuantityException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import json.LocalDateTypeConverter;
 import model.Material;
 import model.RegistroMaterial;
 import network.endpoint.MaterialAPI;
-import network.endpoint.TrabajadorAPI;
-import network.service.Router;
+import network.service.NetService;
 import view.DetalleMaterialView;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 import java.util.logging.Level;
 
 
@@ -38,76 +32,34 @@ public class DetalleMaterialController extends Controller {
 
     private Material oldMaterial;
 
-    private Router<MaterialAPI> service = Router.getInstance();
+    private NetService<MaterialAPI> service = NetService.getInstance();
 
-    /**
-     * @param descripcion material
-     */
-    public void modificarDescripcion(String descripcion) {
-        model.setDescripcion(descripcion);
+    public void obtenerRegistro(Consumer<ObservableList<RegistroMaterial>> callBack){
+        CompletableFuture.supplyAsync(() -> {
+            ObservableList<RegistroMaterial> list = FXCollections.observableArrayList();
+
+            model.getRegistrosMateriales().forEach(list::add);
+
+            return list;
+        }).thenAccept(callBack);
     }
 
-    /**
-     * @param nombre material
-     */
-    public void modificarNombre(String nombre) throws EmptyFieldException {
-        model.setNombre(nombre);
-    }
-
-    /**
-     * @return id
-     */
-    public String getID(){
-        return model.getId();
-    }
-
-    /**
-     * @return nombre material.
-     */
-    public String getNombre() {
-        return model.getNombre();
-    }
-
-    /**
-     * @return descripcion material
-     */
-    public String getDescripcion() {
-        return model.getDescripcion();
-    }
-
-    /**
-     * @return cantidad material
-     */
-
-    public Double getCantidad() {
-        return model.getCantidad();
-    }
-
-
-    public boolean retirarMaterial(double cantidad){
-        if (model.getCantidad() < cantidad) return false;
-        else{
-            model.setCantidad(model.getCantidad()-cantidad);
-            RegistroMaterial registroMaterial = new RegistroMaterial(cantidad,true);
-            model.agregarRegistro(registroMaterial);
-            view.cargarDatos();
-            addRegistroMaterialBD(registroMaterial);
-            updateMaterial();
-            return true;
-        }
-    }
-
-    public void agregarMaterial(double cantidad){
-        model.setCantidad(model.getCantidad()+cantidad);
-        RegistroMaterial registroMaterial = new RegistroMaterial(cantidad,false);
+    public void retirarMaterial(double cantidad) throws NegativeQuantityException {
+        model.setCantidad(model.getCantidad() - cantidad);
+        RegistroMaterial registroMaterial = new RegistroMaterial(cantidad,true);
         model.agregarRegistro(registroMaterial);
         view.cargarDatos();
         addRegistroMaterialBD(registroMaterial);
         updateMaterial();
     }
 
-    public ObservableList<RegistroMaterial> obtenerRegistro(){
-        return FXCollections.observableList(model.getListaRegistroMaterial());
+    public void agregarMaterial(double cantidad) throws NegativeQuantityException {
+        model.setCantidad(model.getCantidad() + cantidad);
+        RegistroMaterial registroMaterial = new RegistroMaterial(cantidad,false);
+        model.agregarRegistro(registroMaterial);
+        view.cargarDatos();
+        addRegistroMaterialBD(registroMaterial);
+        updateMaterial();
     }
 
     private void addRegistroMaterialBD(RegistroMaterial rm) {
@@ -154,4 +106,47 @@ public class DetalleMaterialController extends Controller {
         oldMaterial = new Material(model);
     }
 
+    /**
+     * @param descripcion material
+     */
+    public void modificarDescripcion(String descripcion) {
+        model.setDescripcion(descripcion);
+    }
+
+    /**
+     * @param nombre material
+     */
+    public void modificarNombre(String nombre) throws EmptyFieldException {
+        model.setNombre(nombre);
+    }
+
+
+    /**
+     * @return id
+     */
+    public String getID(){
+        return model.getId();
+    }
+
+    /**
+     * @return nombre material.
+     */
+    public String getNombre() {
+        return model.getNombre();
+    }
+
+    /**
+     * @return descripcion material
+     */
+    public String getDescripcion() {
+        return model.getDescripcion();
+    }
+
+    /**
+     * @return cantidad material
+     */
+
+    public Double getCantidad() {
+        return model.getCantidad();
+    }
 }

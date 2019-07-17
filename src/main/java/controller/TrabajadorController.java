@@ -10,11 +10,8 @@ import exceptions.InvalidaRutException;
 import javafx.beans.property.*;
 import json.LocalDateTypeConverter;
 import model.*;
-import network.endpoint.MaterialAPI;
 import network.endpoint.TrabajadorAPI;
-import network.service.Router;
-import router.TrabajadorRouter;
-import delegate.EditTrabajadorDelegate;
+import network.service.NetService;
 import view.TrabajadorView;
 
 import java.time.LocalDate;
@@ -106,7 +103,7 @@ public final class TrabajadorController extends Controller {
 
         model.agregarTrabajador(trabajador);
 
-        Router<TrabajadorAPI> service = Router.getInstance();
+        NetService<TrabajadorAPI> service = NetService.getInstance();
 
         Gson gson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)

@@ -11,13 +11,11 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import json.LocalDateTypeConverter;
-import model.Proyecto;
 import model.Trabajador;
 import model.TrabajadorPartTime;
 import model.TrabajadorTiempoCompleto;
-import network.endpoint.ProyectoAPI;
 import network.endpoint.TrabajadorAPI;
-import network.service.Router;
+import network.service.NetService;
 import view.DetalleTrabajadorView;
 
 import java.time.LocalDate;
@@ -51,7 +49,7 @@ public class DetalleTrabajadorController extends Controller {
 
     private Trabajador oldTrabajador;
 
-    private Router<TrabajadorAPI> service = Router.getInstance();
+    private NetService<TrabajadorAPI> service = NetService.getInstance();
 
     public void guardar() throws EmptyFieldException {
         model.setNombre(name.get());

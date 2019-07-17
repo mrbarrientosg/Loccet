@@ -11,9 +11,8 @@ import javafx.collections.ObservableList;
 import model.Proyecto;
 import model.Trabajador;
 import delegate.SearchEmployeeDelegate;
-import network.endpoint.ProyectoAPI;
 import network.endpoint.TrabajadorAPI;
-import network.service.Router;
+import network.service.NetService;
 import view.ListaTrabajadorView;
 
 import java.time.Instant;
@@ -21,9 +20,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 import java.util.logging.Level;
-import java.util.stream.Collectors;
 
 public final class ListaTrabajadorController extends Controller implements SearchEmployeeDelegate {
 
@@ -31,12 +28,12 @@ public final class ListaTrabajadorController extends Controller implements Searc
 
     private final Proyecto model;
 
-    private Router<TrabajadorAPI> service;
+    private NetService<TrabajadorAPI> service;
 
     public ListaTrabajadorController(ListaTrabajadorView view, Proyecto model) {
         this.view = view;
         this.model = model;
-        service = Router.getInstance();
+        service = NetService.getInstance();
     }
 
     public void fechtData(Consumer<ObservableList<TrabajadorCell>> callback) {
@@ -93,7 +90,7 @@ public final class ListaTrabajadorController extends Controller implements Searc
     public void eliminarTrabajador(String rut) {
         model.eliminarTrabajador(rut);
 
-        Router<TrabajadorAPI> service = Router.getInstance();
+        NetService<TrabajadorAPI> service = NetService.getInstance();
 
         JsonObject json = new JsonObject();
 

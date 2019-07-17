@@ -5,6 +5,7 @@ import base.View;
 import cell.MaterialCell;
 import controller.DetalleMaterialController;
 import controller.InventarioMaterialController;
+import exceptions.NegativeQuantityException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -67,14 +68,16 @@ public final class RetirarMaterialView extends View {
        if(!retirarTF.getText().isEmpty()) {
            String lector = retirarTF.getText();
            double aux = Double.parseDouble(lector);
-           if (!controller.retirarMaterial(aux)){
+           try {
+               controller.retirarMaterial(aux);
+               close();
+           } catch (NegativeQuantityException e) {
                Alert alert = new Alert(Alert.AlertType.ERROR);
                alert.setTitle("Error");
                alert.setHeaderText("No hay suficiente material");
                alert.setContentText("La cantidad de material a retirar es mayor al que se tiene");
                alert.showAndWait();
            }
-           else close();
        }else {
            Alert alert = new Alert(Alert.AlertType.ERROR);
            alert.setTitle("Error");

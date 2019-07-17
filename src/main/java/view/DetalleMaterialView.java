@@ -29,9 +29,10 @@ public class DetalleMaterialView extends Fragment {
     //Se declaran las variables.
 
     private DetalleMaterialController controller;
+
     private DetalleMaterialRouter router;
+
     private boolean editando;
-    private ObservableList<RegistroMaterial> listaRegistro;
 
     @FXML
     private TextField idTF;
@@ -75,16 +76,9 @@ public class DetalleMaterialView extends Fragment {
         controller.save();
     }
 
-    private void refreshTable(){
-
-        SortedList sortedList = new SortedList(listaRegistro);
-        tableView.setItems(listaRegistro);
-        sortedList.comparatorProperty().bind(tableView.comparatorProperty());
-    }
 
     public void cargarDatos(){
-        listaRegistro = controller.obtenerRegistro();
-        refreshTable();
+        controller.obtenerRegistro(tableView::setItems);
     }
 
     /**
@@ -134,10 +128,12 @@ public class DetalleMaterialView extends Fragment {
 
         }
     }
+
     @FXML
     public void salir(ActionEvent event){
         close();
     }
+
     /**
      * Funcion que carga los datos en la tabla.
      *
@@ -195,6 +191,7 @@ public class DetalleMaterialView extends Fragment {
         view.modal().withStyle(StageStyle.TRANSPARENT).show();
         mostrarDatos();
     }
+
     @FXML
     public void agregar(ActionEvent event){
         AgregarMaterialView view = Injectable.find(AgregarMaterialView.class);
