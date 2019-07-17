@@ -55,6 +55,17 @@ public abstract class Trabajador {
         storeProyecto = new MemoryStoreProyecto();
     }
 
+    public Trabajador(Trabajador other) {
+        this.rut = other.rut;
+        this.nombre = other.nombre;
+        this.apellido = other.apellido;
+        this.fechaNacimiento = other.fechaNacimiento;
+        this.localizacion = new Localizacion(other.localizacion);
+        this.especialidad = new Especialidad(other.especialidad);
+        this.telefono = other.telefono;
+        this.correoElectronico = other.correoElectronico;
+    }
+
     // MARK: - Metodos Proyecto
 
     public void asociarProyecto(Proyecto proyecto) {
@@ -161,6 +172,24 @@ public abstract class Trabajador {
 
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+
+        if (!(obj instanceof Trabajador)) return false;
+
+        Trabajador p = (Trabajador) obj;
+
+        return p.rut.equals(rut) &&
+                p.nombre.equals(nombre) &&
+                p.apellido.equals(apellido) &&
+                p.localizacion.equals(localizacion) &&
+                p.fechaNacimiento.isEqual(fechaNacimiento) &&
+                p.especialidad.equals(especialidad) &&
+                p.correoElectronico.equals(correoElectronico) &&
+                p.telefono.equals(telefono);
     }
 
     // MARK: - JSON

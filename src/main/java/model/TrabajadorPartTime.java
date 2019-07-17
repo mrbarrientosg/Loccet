@@ -10,6 +10,11 @@ public class TrabajadorPartTime extends Trabajador {
         this.cantidadHoraTrabajada = cantidadHoraTrabajada;
     }
 
+    public TrabajadorPartTime(TrabajadorPartTime other) {
+        super(other);
+        this.cantidadHoraTrabajada = other.cantidadHoraTrabajada;
+    }
+
     public void setCantidadHoraTrabajada(int cantidadHoraTrabajada) {
         this.cantidadHoraTrabajada = cantidadHoraTrabajada;
     }

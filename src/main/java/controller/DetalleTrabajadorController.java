@@ -1,16 +1,27 @@
 package controller;
 
 import base.Controller;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import delegate.EditTrabajadorDelegate;
 import exceptions.EmptyFieldException;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import json.LocalDateTypeConverter;
+import model.Proyecto;
 import model.Trabajador;
+import model.TrabajadorPartTime;
+import model.TrabajadorTiempoCompleto;
+import network.endpoint.ProyectoAPI;
+import network.endpoint.TrabajadorAPI;
+import network.service.Router;
 import view.DetalleTrabajadorView;
 
 import java.time.LocalDate;
+import java.util.logging.Level;
 
 public class DetalleTrabajadorController extends Controller {
 
@@ -37,6 +48,10 @@ public class DetalleTrabajadorController extends Controller {
     private ObjectProperty<LocalDate> birthday = new SimpleObjectProperty<>();
 
     private EditTrabajadorDelegate delegate;
+
+    private Trabajador oldTrabajador;
+
+    private Router<TrabajadorAPI> service = Router.getInstance();
 
     //private StringProperty telephone = new SimpleStringProperty();
 
@@ -75,12 +90,36 @@ public class DetalleTrabajadorController extends Controller {
         birthday.setValue(model.getFechaNacimiento());
     }
 
+    public void save() {
+        if (oldTrabajador.equals(model))
+            return;
+
+        Gson gson = new GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                .registerTypeAdapter(LocalDate.class, new LocalDateTypeConverter())
+                .excludeFieldsWithoutExposeAnnotation()
+                .create();
+
+        System.out.println(gson.toJsonTree(model).getAsJsonObject());
+
+        service.request(TrabajadorAPI.UPDATE, gson.toJsonTree(model).getAsJsonObject())
+                .subscribe(System.out::println, throwable -> {
+                    LOGGER.log(Level.SEVERE, "", throwable);
+                });
+
+    }
+
     public void setView(DetalleTrabajadorView view) {
         this.view = view;
     }
 
     public void setModel(Trabajador model) {
         this.model = model;
+        if (model instanceof TrabajadorPartTime) {
+            oldTrabajador = new TrabajadorPartTime((TrabajadorPartTime) model);
+        } else {
+            oldTrabajador = new TrabajadorTiempoCompleto((TrabajadorTiempoCompleto) model);
+        }
         loadData();
         view.bind();
     }
