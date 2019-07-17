@@ -39,7 +39,6 @@ public class DetalleProyectoController extends Controller {
 
     //private ObjectProperty<LocalDate> endDate = new SimpleStringProperty();
 
-
     public void actualizar() throws EmptyFieldException {
         model.setNombre(name.get());
         model.getLocalizacion().setDireccion(address.get());

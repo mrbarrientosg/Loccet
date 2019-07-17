@@ -3,6 +3,7 @@ package view;
 import base.Fragment;
 import controller.DetalleMaterialController;
 import controller.InventarioMaterialController;
+import exceptions.NegativeQuantityException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -54,7 +55,14 @@ public final class AgregarMaterialView extends Fragment {
     @FXML
     public void cantidadItem(ActionEvent event){
         if(!agregarTF.getText().isEmpty()) {
-            controller.agregarMaterial(Double.parseDouble(agregarTF.getText()));
+            try {
+                controller.agregarMaterial(Double.parseDouble(agregarTF.getText()));
+            } catch (NegativeQuantityException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+            }
             close();
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);

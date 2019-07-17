@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import exceptions.EmptyFieldException;
+import exceptions.NegativeQuantityException;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import javafx.collections.FXCollections;
@@ -53,21 +54,17 @@ public class DetalleMaterialController extends Controller {
         }).thenAccept(callBack);
     }
 
-    public boolean retirarMaterial(double cantidad){
-        if (model.getCantidad() < cantidad) return false;
-        else{
-            model.setCantidad(model.getCantidad()-cantidad);
-            RegistroMaterial registroMaterial = new RegistroMaterial(cantidad,true);
-            model.agregarRegistro(registroMaterial);
-            view.cargarDatos();
-            addRegistroMaterialBD(registroMaterial);
-            updateMaterial();
-            return true;
-        }
+    public void retirarMaterial(double cantidad) throws NegativeQuantityException {
+        model.setCantidad(model.getCantidad() - cantidad);
+        RegistroMaterial registroMaterial = new RegistroMaterial(cantidad,true);
+        model.agregarRegistro(registroMaterial);
+        view.cargarDatos();
+        addRegistroMaterialBD(registroMaterial);
+        updateMaterial();
     }
 
-    public void agregarMaterial(double cantidad){
-        model.setCantidad(model.getCantidad()+cantidad);
+    public void agregarMaterial(double cantidad) throws NegativeQuantityException {
+        model.setCantidad(model.getCantidad() + cantidad);
         RegistroMaterial registroMaterial = new RegistroMaterial(cantidad,false);
         model.agregarRegistro(registroMaterial);
         view.cargarDatos();
