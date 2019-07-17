@@ -83,28 +83,28 @@ public final class NuevoMaterialView extends View {
     private RegistroMaterial registroMaterial(double cantidad){
         return new RegistroMaterial(cantidad,false);
     }
+
     @FXML
     public void agregar(ActionEvent event) {
         String lector = idMaterialTF.getText();
         Material material;
+        RegistroMaterial registroMaterial;
         if (!nombreTF.getText().isEmpty() && !descripcionTF.getText().isEmpty()&& !cantidadTF.getText().isEmpty()
         && !precioTF.getText().isEmpty()){
             if (lector.isEmpty()) {
                 material = new Material(nombreTF.getText(), descripcionTF.getText(), Double.parseDouble(cantidadTF.getText()), //Si el usuario no ingresa el id
-                        unidadCB.getSelectionModel().getSelectedItem().toString(),                                             //se utiliza este constructor.
+                        unidadCB.getSelectionModel().getSelectedItem(),                                             //se utiliza este constructor.
                         BigDecimal.valueOf(Double.parseDouble(precioTF.getText())));
-                material.agregarRegistro(registroMaterial(material.getCantidad()));
-
             } else{
                 material = new Material(nombreTF.getText(), descripcionTF.getText(), Double.parseDouble(cantidadTF.getText()), //Si el usuario si ingresa id
-                        unidadCB.getSelectionModel().getSelectedItem().toString(), lector,                                     //Se utiliza este constructor.
+                        unidadCB.getSelectionModel().getSelectedItem(), lector,                                     //Se utiliza este constructor.
                         BigDecimal.valueOf(Double.parseDouble(precioTF.getText())));
-                material.agregarRegistro(registroMaterial(material.getCantidad()));
-
             }
 
+            registroMaterial = registroMaterial(material.getCantidad());
+
             try {
-                controller.nuevoMaterial(material);
+                controller.nuevoMaterial(material, registroMaterial);
             } catch (ItemExisteException e) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning");

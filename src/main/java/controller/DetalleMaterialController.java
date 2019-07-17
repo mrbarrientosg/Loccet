@@ -6,6 +6,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import exceptions.EmptyFieldException;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import json.LocalDateTypeConverter;
@@ -48,7 +50,7 @@ public class DetalleMaterialController extends Controller {
     /**
      * @param nombre material
      */
-    public void  modificarNombre(String nombre) throws EmptyFieldException {
+    public void modificarNombre(String nombre) throws EmptyFieldException {
         model.setNombre(nombre);
     }
 
@@ -89,7 +91,8 @@ public class DetalleMaterialController extends Controller {
             RegistroMaterial registroMaterial = new RegistroMaterial(cantidad,true);
             model.agregarRegistro(registroMaterial);
             view.cargarDatos();
-            addRegistroMaterialBD(true, cantidad);
+            addRegistroMaterialBD(registroMaterial);
+            updateMaterial();
             return true;
         }
     }
@@ -99,36 +102,35 @@ public class DetalleMaterialController extends Controller {
         RegistroMaterial registroMaterial = new RegistroMaterial(cantidad,false);
         model.agregarRegistro(registroMaterial);
         view.cargarDatos();
-        addRegistroMaterialBD(false, cantidad);
+        addRegistroMaterialBD(registroMaterial);
+        updateMaterial();
     }
 
     public ObservableList<RegistroMaterial> obtenerRegistro(){
         return FXCollections.observableList(model.getListaRegistroMaterial());
     }
 
-    private void addRegistroMaterialBD(Boolean retirado, double cantidad) {
-        Router<MaterialAPI> service = Router.getInstance();
+    private void addRegistroMaterialBD(RegistroMaterial rm) {
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(RegistroMaterial.class, new RegistroMaterial.RegistroMaterialSerializer())
+                .create();
 
-        JsonObject json = new JsonObject();
+        System.out.println(gson.toJsonTree(rm).getAsJsonObject());
 
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-                .withZone(ZoneId.systemDefault());
-
-        json.addProperty("id_material", model.getId());
-        json.addProperty("cantidad", cantidad);
-        json.addProperty("fecha", timeFormatter.format(Instant.now()));
-        json.addProperty("retirado", retirado);
-
-        service.request(MaterialAPI.ADD_REGISTROMATERIAL, json)
+        service.request(MaterialAPI.ADD_REGISTROMATERIAL, gson.toJsonTree(rm).getAsJsonObject())
                 .subscribe(System.out::println, throwable -> {
                     LOGGER.log(Level.SEVERE, "", throwable);
                 });
     }
 
+
     public void save() {
         if (oldMaterial.equals(model))
             return;
+        updateMaterial();
+    }
 
+    private void updateMaterial() {
         Gson gson =  new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                 .excludeFieldsWithoutExposeAnnotation()

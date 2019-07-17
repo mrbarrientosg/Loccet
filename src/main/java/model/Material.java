@@ -168,7 +168,6 @@ public class Material {
         return m.id.equals(id) &&
                 m.nombre.equals(nombre) &&
                 m.descripcion.equals(descripcion) &&
-                Double.compare(m.cantidad, cantidad) == 0 &&
                 m.uds.equals(uds) &&
                 m.precio.equals(precio);
     }

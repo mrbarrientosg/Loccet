@@ -17,6 +17,7 @@ import json.LocalDateTypeConverter;
 import model.InventarioMaterial;
 import model.Material;
 import model.Proyecto;
+import model.RegistroMaterial;
 import network.endpoint.MaterialAPI;
 import network.service.Router;
 import router.InventarioMaterialRouter;
@@ -29,7 +30,10 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
@@ -88,7 +92,8 @@ public final class InventarioMaterialController extends Controller {
      * Agrega un nuevo material al modelo
      * @param material nuevo material a agregar
      */
-    public void nuevoMaterial(Material material) throws ItemExisteException {
+    public void nuevoMaterial(Material material, RegistroMaterial rm) throws ItemExisteException {
+        material.agregarRegistro(rm);
         model.agregarMaterial(material);
         view.didAddMaterial(new MaterialCell(material));
 
@@ -106,23 +111,19 @@ public final class InventarioMaterialController extends Controller {
                 .subscribe(System.out::println, throwable -> {
                     LOGGER.log(Level.SEVERE, "", throwable);
                 });
+
+        addRegistroMaterialBD(rm);
     }
 
-    public void agregarMaterial(String idMaterial, double cantidad){
-        //changeMaterial(model.agregarMaterial(idMaterial, cantidad));
-    }
+    private void addRegistroMaterialBD(RegistroMaterial rm) {
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(RegistroMaterial.class, new RegistroMaterial.RegistroMaterialSerializer())
+                .create();
 
-    public void retirarMaterial(String idMaterial, double cantidad){
-        //changeMaterial(model.retirarMaterial(idMaterial, cantidad));
-    }
-
-    public void modificarNombre(String idMaterial, String nombre){
-       // changeMaterial(model.modificarNombre(idMaterial, nombre));
-    }
-
-
-    public void modificarDescripcion(String idMaterial, String descripcion){
-       // changeMaterial(model.modificarDescripcion(idMaterial, descripcion));
+        service.request(MaterialAPI.ADD_REGISTROMATERIAL, gson.toJsonTree(rm).getAsJsonObject())
+                .subscribe(System.out::println, throwable -> {
+                    LOGGER.log(Level.SEVERE, "", throwable);
+                });
     }
 
     /**

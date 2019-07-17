@@ -81,6 +81,7 @@ public class DetalleMaterialView extends Fragment {
         tableView.setItems(listaRegistro);
         sortedList.comparatorProperty().bind(tableView.comparatorProperty());
     }
+
     public void cargarDatos(){
         listaRegistro = controller.obtenerRegistro();
         refreshTable();
