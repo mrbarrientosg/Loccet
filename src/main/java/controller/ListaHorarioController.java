@@ -2,10 +2,21 @@ package controller;
 
 import base.Controller;
 import cell.HorarioCell;
+import cell.ProyectoCell;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.Horario;
 import model.Trabajador;
+import network.endpoint.HorarioAPI;
+import network.service.NetService;
 import view.ListaHorarioView;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
+import java.util.logging.Level;
 
 public final class ListaHorarioController extends Controller {
 
@@ -16,12 +27,14 @@ public final class ListaHorarioController extends Controller {
     /**
      * Carga la informacion desde el modelo
      */
-    public ObservableList<HorarioCell> fetchHorarios() {
-        ObservableList<HorarioCell> list = FXCollections.observableArrayList();
+    public void fetchHorarios(Consumer<ObservableList<HorarioCell>> callBack) {
+        CompletableFuture.supplyAsync(() -> {
+            ObservableList<HorarioCell> list = FXCollections.observableArrayList();
 
-        model.obtenerListaHorario().forEach(horario -> list.add(new HorarioCell(horario)));
+            model.obtenerListaHorario().forEach(horario -> list.add(new HorarioCell(horario)));
 
-        return list;
+            return list;
+        }).thenAccept(callBack);
     }
 
     /**
@@ -30,8 +43,20 @@ public final class ListaHorarioController extends Controller {
      */
     public void eliminarHorario(HorarioCell cell) {
         if (cell == null) return;
+
         model.eliminarHorario(cell.getId());
+
         view.didDeleteHorario(cell);
+
+        NetService<HorarioAPI> service = NetService.getInstance();
+
+        JsonObject json = new JsonObject();
+        json.addProperty("id_horario", cell.getId());
+
+        service.request(HorarioAPI.REMOVE, json)
+                .subscribe(System.out::println, throwable -> {
+                    LOGGER.log(Level.SEVERE, "", throwable);
+                });
     }
 
     public void setView(ListaHorarioView view) {
@@ -40,5 +65,9 @@ public final class ListaHorarioController extends Controller {
 
     public void setModel(Trabajador model) {
         this.model = model;
+    }
+
+    public Trabajador getModel() {
+        return model;
     }
 }

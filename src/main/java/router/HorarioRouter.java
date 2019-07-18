@@ -2,6 +2,7 @@ package router;
 
 import base.Injectable;
 import controller.HorarioController;
+import delegate.AddHorarioDelegate;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.StageStyle;
@@ -11,14 +12,14 @@ import view.HorarioView;
 
 public final class HorarioRouter {
 
-    public static HorarioView create(Proyecto proyecto, Trabajador trabajador) {
+    public static HorarioView create(Trabajador trabajador, AddHorarioDelegate delegate) {
         HorarioView view = Injectable.find(HorarioView.class);
         HorarioRouter router = new HorarioRouter();
         HorarioController controller = Injectable.find(HorarioController.class);
 
         view.setController(controller);
 
-        controller.setProyecto(proyecto);
+        controller.setDelegate(delegate);
         controller.setTrabajador(trabajador);
         controller.setView(view);
         controller.setRouter(router);

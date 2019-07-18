@@ -1,6 +1,7 @@
 package view;
 
 import base.View;
+import cell.ProyectoCell;
 import controller.HorarioController;
 import javafx.application.Platform;
 import javafx.beans.binding.ObjectBinding;
@@ -9,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Callback;
 import model.Trabajador;
 import router.ListaHorarioRouter;
 import java.time.LocalTime;
@@ -18,10 +20,7 @@ public final class HorarioView extends View {
     private HorarioController controller;
 
     @FXML
-    private Label nombreTrabajador;
-
-    @FXML
-    private Label nombreProyecto;
+    private ComboBox<ProyectoCell> proyectList;
 
     @FXML
     private ToggleGroup diasToggle;
@@ -66,27 +65,46 @@ public final class HorarioView extends View {
             }
         };
 
+        Callback<ListView<ProyectoCell>, ListCell<ProyectoCell>> factory = lv -> new ListCell<ProyectoCell>() {
+            @Override
+            protected void updateItem(ProyectoCell item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setText(null);
+                } else {
+                    setText(item.getNombre());
+                }
+            }
+        };
+
+        proyectList.setCellFactory(factory);
+        proyectList.setButtonCell(factory.call(null));
+    }
+
+    @Override
+    public void viewDidShow() {
         loadView();
+        controller.fetchProyectos(proyectList::setItems);
     }
 
     @Override
     public void viewDidClose() {
         controller.setDelegate(null);
-        refreshView();
     }
 
     @FXML
     private void agregarHorario(ActionEvent event) {
-        controller.agregarHorario(diasToggle.getToggles().indexOf(diasToggle.getSelectedToggle()) + 1);
+        if (proyectList.getValue() == null)
+            // TODO: Falta morstrar alerta de que debe seleccionar un proyecto
+            return;
+
+        controller.agregarHorario(diasToggle.getToggles().indexOf(diasToggle.getSelectedToggle()) + 1, proyectList.getValue());
     }
 
     @FXML
     private void salir(ActionEvent event) {
-        ((BorderPane) getRoot().getParent()).getChildren().remove(getRoot());
-    }
-
-    public void addListView(Trabajador model) {
-
+        close();
     }
 
     private void loadView() {
@@ -107,27 +125,15 @@ public final class HorarioView extends View {
     }
 
     public void refreshView() {
-        getRoot().getChildren().removeIf(node -> node instanceof BorderPane);
-
-        nombreTrabajador.setText(controller.getNombreTrabajador());
-        nombreProyecto.setText(controller.getNombreProyecto());
-
         horaEntrada.getEditor().setText("00");
         minutoEntrada.getEditor().setText("00");
 
         horaSalida.getEditor().setText("00");
         minutoSalida.getEditor().setText("00");
-
-        controller.addListView();
     }
 
     public void setController(HorarioController controller) {
         this.controller = controller;
-    }
-
-    @Override
-    public VBox getRoot() {
-        return (VBox) super.getRoot();
     }
 
     private void setupSpinner(Spinner<Integer> spinner, int max) {

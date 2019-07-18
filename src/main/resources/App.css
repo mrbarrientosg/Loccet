@@ -682,8 +682,7 @@
 
 .spinner {
   -fx-background-color: #F0F0F0;
-  -fx-prompt-text-fill: #878787;
-  -fx-text-fill: #F0F0F0;
+  -fx-text-fill: black;
   -fx-background-insets: 0, 1;
   -fx-background-radius: 3, 2; }
 
@@ -692,21 +691,19 @@
   -fx-background-color: -fx-focus-color, -fx-inner-border, -fx-body-color, -fx-faint-focus-color, -fx-body-color;
   -fx-background-insets: -0.2, 1, 2, -1.4, 2.6;
   -fx-background-radius: 3, 2, 1, 4, 1;
-  -fx-focus-color: #cacaca;
-  -fx-faint-focus-color: #cacaca; }
+  -fx-focus-color: #F0F0F0;
+  -fx-faint-focus-color: #F0F0F0; }
 
 .spinner > .text-field {
   -fx-background-color: #F0F0F0;
-  -fx-prompt-text-fill: #878787;
-  -fx-text-fill: #F0F0F0;
+  -fx-text-fill: black;
   -fx-background-insets: 0, 1 0 1 1;
   -fx-background-radius: 3 0 0 3, 2 0 0 2; }
 
 .spinner:focused > .text-field,
 .spinner:contains-focus > .text-field {
   -fx-background-color: #F0F0F0;
-  -fx-prompt-text-fill: #878787;
-  -fx-text-fill: #F0F0F0;
+  -fx-text-fill: black;
   -fx-background-insets: 1 0 1 1, 1 0 1 1, 3 2 3 3;
   -fx-background-radius: 2 0 0 2, 1 0 0 1, 0; }
 
@@ -729,13 +726,13 @@
 .spinner:contains-focus .increment-arrow-button,
 .spinner:focused .decrement-arrow-button,
 .spinner:contains-focus .decrement-arrow-button {
-  -fx-background-color: #0084ff; }
+  -fx-background-color: #F9F9F9; }
 
 .spinner:focused .increment-arrow-button .increment-arrow {
-  -fx-background-color: #c6c6c6; }
+  -fx-background-color: #0084ff; }
 
 .spinner:focused .decrement-arrow-button .decrement-arrow {
-  -fx-background-color: #c6c6c6; }
+  -fx-background-color: #0084ff; }
 
 .spinner .increment-arrow-button .increment-arrow {
   -fx-background-color: #0084ff;

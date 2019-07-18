@@ -3,16 +3,19 @@ package view;
 import base.View;
 import cell.HorarioCell;
 import controller.ListaHorarioController;
+import delegate.AddHorarioDelegate;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.Horario;
+import router.HorarioRouter;
 import util.Dias;
 
 import java.time.LocalTime;
 
-public final class ListaHorarioView extends View {
+public final class ListaHorarioView extends View implements AddHorarioDelegate {
 
     private ListaHorarioController controller;
 
@@ -63,7 +66,7 @@ public final class ListaHorarioView extends View {
 
     @Override
     public void viewDidShow() {
-        tableHorario.setItems(controller.fetchHorarios());
+        controller.fetchHorarios(tableHorario::setItems);
     }
 
     public void didDeleteHorario(HorarioCell cell) {
@@ -71,7 +74,7 @@ public final class ListaHorarioView extends View {
     }
 
     private void addHorarioAction(ActionEvent event) {
-
+        HorarioRouter.create(controller.getModel(), this).modal().show();
     }
 
     private void deleteAction(ActionEvent event) {
@@ -84,5 +87,10 @@ public final class ListaHorarioView extends View {
 
     public ListaHorarioController getController() {
         return controller;
+    }
+
+    @Override
+    public void didAddHorario(Horario horario) {
+        tableHorario.getItems().add(new HorarioCell(horario));
     }
 }
