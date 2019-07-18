@@ -6,10 +6,9 @@ import controller.ReporteController;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.stage.StageStyle;
+import javafx.util.Callback;
 import model.Costeable;
 import router.ReporteRouter;
 import java.math.BigDecimal;
@@ -54,7 +53,23 @@ public class ReporteView extends View {
 
     @Override
     public void viewDidLoad() {
+        Callback<ListView<ProyectoCell>, ListCell<ProyectoCell>> factory = lv -> new ListCell<ProyectoCell>() {
+            @Override
+            protected void updateItem(ProyectoCell item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setText(null);
+                } else {
+                    setText(item.getNombre());
+                }
+            }
+        };
+
+        proyectoCB.setCellFactory(factory);
+        proyectoCB.setButtonCell(factory.call(null));
     }
+
     @Override
     public void viewDidShow(){
         nombreProyectos = controller.getProyectos();
@@ -87,7 +102,6 @@ public class ReporteView extends View {
 
     @FXML
     private void cargarLabel(ActionEvent event) {
-
         ProyectoCell proyecto = proyectoCB.getSelectionModel().getSelectedItem();
         idProyecto = proyecto.getId();
         direccionLB.setText(controller.getDireccion(proyecto.getId()));
