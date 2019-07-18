@@ -1,6 +1,7 @@
 package cell;
 
 import model.Trabajador;
+import model.TrabajadorPartTime;
 import model.TrabajadorTiempoCompleto;
 
 public final class TrabajadorCell {
@@ -21,6 +22,8 @@ public final class TrabajadorCell {
 
     private String tipoTrabajador;
 
+    private Integer horasPorDia;
+
     public TrabajadorCell(Trabajador t) {
         this.rut = t.getRut();
         this.nombre = t.getNombre();
@@ -30,6 +33,7 @@ public final class TrabajadorCell {
         this.telefono = t.getTelefono();
         this.correoElectronico = t.getCorreoElectronico();
         this.tipoTrabajador = (t instanceof TrabajadorTiempoCompleto) ? "Tiempo Completo" : "Part Time";
+        this.horasPorDia = (t instanceof TrabajadorTiempoCompleto) ? 8 : ((TrabajadorPartTime) t).getCantidadHoraTrabajada();
     }
 
     public String getRut() {
@@ -62,5 +66,9 @@ public final class TrabajadorCell {
 
     public String getTipoTrabajador() {
         return tipoTrabajador;
+    }
+
+    public Integer getHorasPorDia() {
+        return horasPorDia;
     }
 }

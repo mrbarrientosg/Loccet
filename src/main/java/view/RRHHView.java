@@ -75,6 +75,10 @@ public class RRHHView extends View implements EditTrabajadorDelegate, FilterDele
 
     private FilteredTableColumn<TrabajadorCell, String> telephoneConlumn;
 
+    private FilteredTableColumn<TrabajadorCell, String> typeColumn;
+
+    private FilteredTableColumn<TrabajadorCell, Integer> horasColumn;
+
     @FXML
     private Button filterButton;
 
@@ -97,6 +101,8 @@ public class RRHHView extends View implements EditTrabajadorDelegate, FilterDele
         specialityColumn = new FilteredTableColumn<>("Especialidad");
         emailColumn = new FilteredTableColumn<>("Correo Electronico");
         telephoneConlumn = new FilteredTableColumn<>("Telefono");
+        typeColumn = new FilteredTableColumn<>("Tipo");
+        horasColumn = new FilteredTableColumn<>("Horas por dia");
 
         rutColumn.setCellValueFactory(new PropertyValueFactory<>("rut"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
@@ -104,11 +110,18 @@ public class RRHHView extends View implements EditTrabajadorDelegate, FilterDele
         specialityColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getNombreEspecialidad()));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("correoElectronico"));
         telephoneConlumn.setCellValueFactory(new PropertyValueFactory<>("telefono"));
+        typeColumn.setCellValueFactory(new PropertyValueFactory<>("tipoTrabajador"));
+        horasColumn.setCellValueFactory(new PropertyValueFactory<>("horasPorDia"));
 
-        tableTrabajadores.getColumns().setAll(rutColumn, nameColumn, lastNameColumn, specialityColumn, emailColumn, telephoneConlumn);
+        tableTrabajadores.getColumns().setAll(rutColumn, nameColumn, lastNameColumn, specialityColumn, emailColumn,
+                telephoneConlumn, typeColumn, horasColumn);
 
         tableTrabajadores.getColumns().forEach(trabajadorCellTableColumn -> {
-            columnList.add(new Pair<>(trabajadorCellTableColumn.getText(), String.class));
+            if (trabajadorCellTableColumn.getText().equals("Horas por dia")) {
+                columnList.add(new Pair<>(trabajadorCellTableColumn.getText(), Integer.class));
+            } else {
+                columnList.add(new Pair<>(trabajadorCellTableColumn.getText(), String.class));
+            }
         });
 
         tableTrabajadores.fixedCellSizeProperty().setValue(40);

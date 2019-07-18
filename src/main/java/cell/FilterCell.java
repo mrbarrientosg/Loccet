@@ -58,9 +58,9 @@ public class FilterCell {
         columnName.setButtonCell(factory.call(null));
 
         columnName.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.getValue().isAssignableFrom(String.class)) {
+            if (String.class.isAssignableFrom(newValue.getValue())) {
                 parser = new StringParser(false);
-            } else if (newValue.getValue().isAssignableFrom(Number.class)) {
+            } else if (Number.class.isAssignableFrom(newValue.getValue())) {
                 parser = new NumberParser();
             }
 
@@ -115,10 +115,16 @@ public class FilterCell {
         if (filter.getValue() == null)
             return null;
 
-        StringBuilder builder = new StringBuilder(filter.getValue())
-                .append(" \"")
-                .append(value.getText())
-                .append('\"');
+        StringBuilder builder = new StringBuilder(filter.getValue());
+
+        if (parser instanceof NumberParser) {
+            builder.append(value.getText());
+        } else {
+           builder.append(" \"")
+                   .append(value.getText())
+                   .append('\"');
+        }
+
 
         return parser.parse(builder.toString());
     }

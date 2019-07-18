@@ -51,29 +51,22 @@ public final class ListaTrabajadorView extends View implements EditTrabajadorDel
     private TableColumn<TrabajadorCell, String> lastNameColumn;
 
     @FXML
-    private TableColumn<TrabajadorCell, String> fechaNaciemientoColumn;
-
-    @FXML
     private TableColumn<TrabajadorCell, String> specialityColumn;
 
     @FXML
-    private TableColumn<TrabajadorCell, String> proyectColumn;
+    private TableColumn<TrabajadorCell, String> typeColumn;
 
     @FXML
-    private TableColumn<TrabajadorCell, String> telefonoColumn;
-
-    @FXML
-    private TableColumn<TrabajadorCell, String> emailColumn;
+    private TableColumn<TrabajadorCell, String> horasColumn;
 
     @Override
     public void viewDidLoad() {
         rutColumn.setCellValueFactory(new PropertyValueFactory<>("rut"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("apellido"));
-        fechaNaciemientoColumn.setCellValueFactory(new PropertyValueFactory<>("fechaNacimiento"));
         specialityColumn.setCellValueFactory(new PropertyValueFactory<>("nombreEspecialidad"));
-        telefonoColumn.setCellValueFactory(new PropertyValueFactory<>("telefono"));
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("correoElectronico"));
+        typeColumn.setCellValueFactory(new PropertyValueFactory<>("tipoTrabajador"));
+        horasColumn.setCellValueFactory(new PropertyValueFactory<>("horasPorDia"));
     }
 
     @Override
