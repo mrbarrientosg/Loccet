@@ -90,6 +90,7 @@
             <Insets left="16.0" right="16.0" />
          </VBox.margin>
       </GridPane>
+      <Separator maxHeight="1.7976931348623157E308" orientation="VERTICAL" VBox.vgrow="ALWAYS" />
       <HBox spacing="50.0">
          <children>
             <HBox spacing="8.0">

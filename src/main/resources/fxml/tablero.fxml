@@ -67,29 +67,7 @@
                   </Label>
                </children>
             </AnchorPane>
-            <ToggleButton fx:id="inicioButton" alignment="CENTER_LEFT" graphicTextGap="7.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" selected="true" text="Inicio">
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-               <padding>
-                  <Insets left="16.0" />
-               </padding>
-               <toggleGroup>
-                  <ToggleGroup fx:id="menuToggleGroup" />
-               </toggleGroup>
-               <styleClass>
-                  <String fx:value="side-menu-button" />
-                  <String fx:value="button-label-light-black" />
-               </styleClass>
-               <graphic>
-                  <ImageView fitHeight="44.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-3.0">
-                     <image>
-                        <Image url="@../images/dashboard.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </ToggleButton>
-            <ToggleButton fx:id="rrhhButton" alignment="CENTER_LEFT" graphicTextGap="0.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" text="RRHH" toggleGroup="$menuToggleGroup">
+            <ToggleButton fx:id="rrhhButton" alignment="CENTER_LEFT" graphicTextGap="0.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" selected="true" text="RRHH">
                <padding>
                   <Insets left="16.0" />
                </padding>
@@ -107,6 +85,9 @@
                      </image>
                   </ImageView>
                </graphic>
+               <toggleGroup>
+                  <ToggleGroup fx:id="menuToggleGroup" />
+               </toggleGroup>
             </ToggleButton>
             <ToggleButton fx:id="proyectoButton" alignment="CENTER_LEFT" graphicTextGap="7.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" text="Proyectos" toggleGroup="$menuToggleGroup">
                <padding>

@@ -28,9 +28,6 @@ public class TableroView extends Fragment {
     private ToggleGroup menuToggleGroup;
 
     @FXML
-    private ToggleButton inicioButton;
-
-    @FXML
     private ToggleButton rrhhButton;
 
     @FXML
@@ -65,6 +62,8 @@ public class TableroView extends Fragment {
             }
         });
 
+        lastSelected = rrhhButton;
+
         menuToggleGroup.selectedToggleProperty().addListener((obsVal, oldVal, newVal) -> {
             if (newVal == null)
                 oldVal.setSelected(true);
@@ -80,6 +79,8 @@ public class TableroView extends Fragment {
                 lastSelected = newVal;
             }
         });
+
+        setupCenter(rrhhButton);
 
         minimizeButton.setOnAction(event -> {
             getCurrentStage().setIconified(true);
