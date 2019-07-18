@@ -207,7 +207,7 @@ public abstract class Trabajador {
 
             JsonObject json = jsonElement.getAsJsonObject();
 
-            if (json.get("tiempo_completo").getAsBoolean()) {
+            if (json.get("tiempo_completo").getAsInt() == 1) {
                 t = new TrabajadorTiempoCompleto();
             } else {
                 t = new TrabajadorPartTime(json.get("cantidad_hora_trabajada").getAsInt());
@@ -223,9 +223,7 @@ public abstract class Trabajador {
                 t.setNombre(json.get("nombre").getAsString());
                 t.setApellido(json.get("apellido").getAsString());
 
-                Especialidad especialidad = gson.fromJson(json.get("especialidad").getAsString(), Especialidad.class);
-
-                Especialidades.getInstance().agregar(especialidad);
+                Especialidad especialidad = Especialidades.getInstance().obtener(json.get("id_especialidad").getAsInt());
 
                 t.setEspecialidad(especialidad);
                 t.setLocalizacion(gson.fromJson(json.get("localizacion").getAsString(), Localizacion.class));

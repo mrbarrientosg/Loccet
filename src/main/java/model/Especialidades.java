@@ -11,7 +11,7 @@ public class Especialidades {
     // MARK: - Atributos
     private static Especialidades instance;
 
-    private final Map<String, Especialidad> especialidades;
+    private final Map<Integer, Especialidad> especialidades;
 
     // MARK: - Constructores
 
@@ -29,14 +29,14 @@ public class Especialidades {
     // MARK: - Metodos Especialidad
 
     public void agregar(Especialidad especialidad) {
-        if (especialidades.containsKey(especialidad.getNombre()))
+        if (especialidades.containsKey(especialidad.getId()))
             return;
 
-        especialidades.put(especialidad.getNombre(), especialidad);
+        especialidades.put(especialidad.getId(), especialidad);
     }
 
-    public Especialidad obtener(String nombre) {
-        return especialidades.get(nombre);
+    public Especialidad obtener(Integer id) {
+        return especialidades.get(id);
     }
 
     public List<String> getAll() {

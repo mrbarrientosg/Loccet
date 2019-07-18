@@ -95,7 +95,8 @@ public final class TrabajadorController extends Controller {
         trabajador.setApellido(lastName.get());
         trabajador.setFechaNacimiento(birthday.get());
 
-        trabajador.setEspecialidad(Especialidades.getInstance().obtener(speciality.get()));
+        // TODO: Falta modifica
+        //trabajador.setEspecialidad(Especialidades.getInstance().obtener(speciality.get()));
         trabajador.setLocalizacion(localizacion);
 
         trabajador.setTelefono(telephone.get());
