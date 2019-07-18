@@ -214,6 +214,7 @@ public abstract class Trabajador {
             }
 
             Gson gson = new GsonBuilder()
+                    .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                     .registerTypeAdapter(LocalDate.class, new LocalDateTypeConverter())
                     .create();
 
@@ -222,7 +223,11 @@ public abstract class Trabajador {
                 t.setNombre(json.get("nombre").getAsString());
                 t.setApellido(json.get("apellido").getAsString());
 
-                t.setEspecialidad(gson.fromJson(json.get("especialidad").getAsString(), Especialidad.class));
+                Especialidad especialidad = gson.fromJson(json.get("especialidad").getAsString(), Especialidad.class);
+
+                Especialidades.getInstance().agregar(especialidad);
+
+                t.setEspecialidad(especialidad);
                 t.setLocalizacion(gson.fromJson(json.get("localizacion").getAsString(), Localizacion.class));
 
                 t.setTelefono(json.get("telefono").getAsString());

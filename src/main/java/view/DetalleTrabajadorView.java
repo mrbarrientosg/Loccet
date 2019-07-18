@@ -5,10 +5,13 @@ import controller.DetalleTrabajadorController;
 import exceptions.EmptyFieldException;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import model.Especialidad;
+import model.Especialidades;
 
 public class DetalleTrabajadorView extends View {
 
@@ -53,7 +56,7 @@ public class DetalleTrabajadorView extends View {
     private TextField lastNameField;
 
     @FXML
-    private ComboBox<?> specialityField;
+    private ComboBox<String> specialityField;
 
     @FXML
     private VBox container;
@@ -82,6 +85,8 @@ public class DetalleTrabajadorView extends View {
 
         editButton.setOnAction(this::editAction);
         exitButton.setOnAction(event -> close());
+
+        specialityField.setItems(FXCollections.observableArrayList(Especialidades.getInstance().getAll()));
     }
 
     @Override
@@ -109,6 +114,8 @@ public class DetalleTrabajadorView extends View {
         telephoneField.textProperty().bindBidirectional(controller.telephoneProperty());
         emailField.textProperty().bindBidirectional(controller.emailProperty());
         birthdayField.valueProperty().bindBidirectional(controller.birthdayProperty());
+
+        specialityField.valueProperty().bindBidirectional(controller.specialityProperty());
     }
 
     private void editAction(ActionEvent event) {

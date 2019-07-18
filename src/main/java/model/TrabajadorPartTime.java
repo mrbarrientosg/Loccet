@@ -25,6 +25,6 @@ public class TrabajadorPartTime extends Trabajador {
 
     @Override
     public BigDecimal calcularSueldo() {
-        return BigDecimal.valueOf(cantidadHoraTrabajada).multiply(getEspecialidad().getSueldoPorHora());
+        return BigDecimal.valueOf(cantidadHoraTrabajada).multiply(getEspecialidad().getPagoPorHora());
     }
 }
