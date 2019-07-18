@@ -7,8 +7,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -93,44 +91,7 @@
                      <VBox.margin>
                         <Insets left="16.0" right="16.0" top="8.0" />
                      </VBox.margin>
-                     <children>
-                        <HBox alignment="CENTER" minHeight="-Infinity" prefHeight="35.0" spacing="16.0">
-                           <children>
-                              <Label styleClass="title1" text="Especialidades" />
-                              <Separator visible="false" HBox.hgrow="ALWAYS" />
-                              <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0">
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                                 <children>
-                                    <AnchorPane styleClass="button-shadow-white">
-                                       <StackPane.margin>
-                                          <Insets left="5.0" right="5.0" top="10.0" />
-                                       </StackPane.margin>
-                                       <padding>
-                                          <Insets bottom="5.0" />
-                                       </padding>
-                                    </AnchorPane>
-                                    <Button fx:id="createEspecialidad" mnemonicParsing="false" prefHeight="35.0" styleClass="button-fill-blue" text="Crear especialidad" textFill="WHITE" />
-                                 </children>
-                              </StackPane>
-                           </children>
-                        </HBox>
-                     </children>
                   </VBox>
-                  <TableView fx:id="tableEspecialidades">
-                     <columns>
-                        <TableColumn fx:id="nameEspecialidad" prefWidth="75.0" text="Nombre" />
-                        <TableColumn fx:id="sueldoEspecialidad" prefWidth="120.0" text="Sueldo por hora" />
-                     </columns>
-                     <styleClass>
-                        <String fx:value="table" />
-                        <String fx:value="gray-scroll" />
-                     </styleClass>
-                     <VBox.margin>
-                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                     </VBox.margin>
-                  </TableView>
                </children>
             </VBox>
          </content>

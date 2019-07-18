@@ -76,22 +76,7 @@ public class RRHHView extends View implements EditTrabajadorDelegate, FilterDele
     private FilteredTableColumn<TrabajadorCell, String> telephoneConlumn;
 
     @FXML
-    private Button createEspecialidad;
-
-    @FXML
-    private Button deleteEspecialidad;
-
-    @FXML
     private Button filterButton;
-
-    @FXML
-    private TableView<?> tableEspecialidades;
-
-    @FXML
-    private TableColumn<?, ?> nameEspecialidad;
-
-    @FXML
-    private TableColumn<?, ?> sueldoEspecialidad;
 
     private ObservableList<Pair<String, Class<?>>> columnList;
 
