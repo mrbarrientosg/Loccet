@@ -11,6 +11,7 @@ public enum LoccetAPI implements EndPointType {
     LOGIN,
     GET_CONSTRUCTORA,
     GET_PROYECTOS,
+    GET_ESPECIALIDADES,
     GET_TRABAJADORES_PROYECTOS,
     GET_TRABAJADORES_CONSTRUCTORA,
     GET_HORARIOS_TRABAJADORES,
@@ -39,6 +40,8 @@ public enum LoccetAPI implements EndPointType {
                 return "loccet-getconstructora";
             case GET_PROYECTOS:
                 return "loccet-getproyectos";
+            case GET_ESPECIALIDADES:
+                return "loccet-getespecialidades";
             case GET_TRABAJADORES_PROYECTOS:
                 return "loccet-gettrabajadoresproyectos";
             case GET_TRABAJADORES_CONSTRUCTORA:

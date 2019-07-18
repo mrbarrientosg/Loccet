@@ -34,7 +34,7 @@ public final class TrabajadorController extends Controller {
 
     private StringProperty lastName;
 
-    private StringProperty speciality;
+    private ObjectProperty<Especialidad> speciality;
 
     private ObjectProperty<LocalDate> birthday;
 
@@ -60,7 +60,7 @@ public final class TrabajadorController extends Controller {
         rut = new SimpleStringProperty(null);
         name = new SimpleStringProperty(null);
         lastName = new SimpleStringProperty(null);
-        speciality = new SimpleStringProperty(null);
+        speciality = new SimpleObjectProperty<>(null);
         birthday = new SimpleObjectProperty<>(null);
 
         address = new SimpleStringProperty(null);
@@ -95,7 +95,7 @@ public final class TrabajadorController extends Controller {
         trabajador.setApellido(lastName.get());
         trabajador.setFechaNacimiento(birthday.get());
 
-        trabajador.setEspecialidad(Especialidades.getInstance().obtener(speciality.get()));
+        trabajador.setEspecialidad(Especialidades.getInstance().obtener(speciality.get().getId()));
         trabajador.setLocalizacion(localizacion);
 
         trabajador.setTelefono(telephone.get());
@@ -150,7 +150,7 @@ public final class TrabajadorController extends Controller {
         return lastName;
     }
 
-    public StringProperty specialityProperty() {
+    public ObjectProperty<Especialidad> specialityProperty() {
         return speciality;
     }
 

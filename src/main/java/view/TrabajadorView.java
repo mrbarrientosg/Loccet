@@ -1,6 +1,7 @@
 package view;
 
 import base.View;
+import cell.ProyectoCell;
 import controller.TrabajadorController;
 import exceptions.EmptyFieldException;
 import exceptions.InvalidaRutException;
@@ -9,6 +10,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.util.Callback;
+import model.Especialidad;
 import model.Especialidades;
 
 import java.time.LocalDate;
@@ -27,7 +30,7 @@ public final class TrabajadorView extends View {
     private TextField lastNameTextField;
 
     @FXML
-    private ComboBox<String> specialityList;
+    private ComboBox<Especialidad> specialityList;
 
     @FXML
     private DatePicker birthdayDateField;
@@ -76,13 +79,29 @@ public final class TrabajadorView extends View {
         partTimeButton.selectedProperty().addListener((observable, oldValue, newValue) -> {
             hoursTextField.setDisable(!newValue);
         });
+
+        Callback<ListView<Especialidad>, ListCell<Especialidad>> factory = lv -> new ListCell<Especialidad>() {
+            @Override
+            protected void updateItem(Especialidad item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setText(null);
+                } else {
+                    setText(item.getNombre());
+                }
+            }
+        };
+
+        specialityList.setCellFactory(factory);
+        specialityList.setButtonCell(factory.call(null));
     }
 
     @Override
     public void viewDidShow() {
         birthdayDateField.setValue(LocalDate.now());
 
-        specialityList.setItems(FXCollections.observableList(Especialidades.getInstance().getAll()));
+        Especialidades.getInstance().getAll(specialityList::setItems);
         specialityList.getSelectionModel().selectFirst();
 
         bindController();

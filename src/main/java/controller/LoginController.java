@@ -84,6 +84,7 @@ public final class LoginController extends Controller {
         DatabaseFetcher fetcher = new DatabaseFetcher()
                 .add(new ConstructoraFetchHandler())
                 .add(new ProyectosFetchHandler())
+                .add(new EspecialidadesFetchHandler())
                 .add(new TrabajadoresCFetchHandler())
                 .add(new TrabajadoresPFetchHandler())
                 .add(new HorariosFetchHandler())

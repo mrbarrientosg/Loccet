@@ -1,9 +1,11 @@
 package model;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class Especialidades {
@@ -11,7 +13,7 @@ public class Especialidades {
     // MARK: - Atributos
     private static Especialidades instance;
 
-    private final Map<String, Especialidad> especialidades;
+    private final Map<Integer, Especialidad> especialidades;
 
     // MARK: - Constructores
 
@@ -29,20 +31,26 @@ public class Especialidades {
     // MARK: - Metodos Especialidad
 
     public void agregar(Especialidad especialidad) {
-        if (especialidades.containsKey(especialidad.getNombre()))
+        if (especialidades.containsKey(especialidad.getId()))
             return;
 
-        especialidades.put(especialidad.getNombre(), especialidad);
+        especialidades.put(especialidad.getId(), especialidad);
     }
 
-    public Especialidad obtener(String nombre) {
-        return especialidades.get(nombre);
+    public Especialidad obtener(Integer id) {
+        return especialidades.get(id);
     }
 
-    public List<String> getAll() {
-        return Collections.unmodifiableList(especialidades.values().stream()
-                .map(Especialidad::getNombre)
-                .collect(Collectors.toList()));
+    public void getAll(Consumer<ObservableList<Especialidad>> callBack) {
+        CompletableFuture.supplyAsync(() -> {
+            ObservableList<Especialidad> list = FXCollections.observableArrayList();
+
+            especialidades.forEach((key, value) -> {
+                list.add(value);
+            });
+
+            return list;
+        }).thenAccept(callBack);
     }
 
 }

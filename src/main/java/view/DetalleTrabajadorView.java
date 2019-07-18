@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.util.Callback;
 import model.Especialidad;
 import model.Especialidades;
 
@@ -56,7 +57,7 @@ public class DetalleTrabajadorView extends View {
     private TextField lastNameField;
 
     @FXML
-    private ComboBox<String> specialityField;
+    private ComboBox<Especialidad> specialityField;
 
     @FXML
     private VBox container;
@@ -86,7 +87,23 @@ public class DetalleTrabajadorView extends View {
         editButton.setOnAction(this::editAction);
         exitButton.setOnAction(event -> close());
 
-        specialityField.setItems(FXCollections.observableArrayList(Especialidades.getInstance().getAll()));
+        Callback<ListView<Especialidad>, ListCell<Especialidad>> factory = lv -> new ListCell<Especialidad>() {
+            @Override
+            protected void updateItem(Especialidad item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setText(null);
+                } else {
+                    setText(item.getNombre());
+                }
+            }
+        };
+
+        specialityField.setCellFactory(factory);
+        specialityField.setButtonCell(factory.call(null));
+
+        Especialidades.getInstance().getAll(specialityField::setItems);
     }
 
     @Override

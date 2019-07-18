@@ -6,9 +6,11 @@ public class Especialidad {
 
     // MARK: - Atributos
 
-    private final String nombre;
+    private Integer id;
 
-    private final BigDecimal pagoPorHora;
+    private String nombre;
+
+    private BigDecimal pagoPorHora;
 
     // MARK: - Constructor
 
@@ -30,6 +32,10 @@ public class Especialidad {
 
     public BigDecimal getPagoPorHora() {
         return pagoPorHora;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     @Override

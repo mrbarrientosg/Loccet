@@ -11,6 +11,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import json.LocalDateTypeConverter;
+import model.Especialidad;
 import model.Trabajador;
 import model.TrabajadorPartTime;
 import model.TrabajadorTiempoCompleto;
@@ -45,7 +46,7 @@ public class DetalleTrabajadorController extends Controller {
 
     private ObjectProperty<LocalDate> birthday = new SimpleObjectProperty<>();
 
-    private ObjectProperty<String> speciality = new SimpleObjectProperty<>();
+    private ObjectProperty<Especialidad> speciality = new SimpleObjectProperty<>();
 
     private EditTrabajadorDelegate delegate;
 
@@ -66,12 +67,10 @@ public class DetalleTrabajadorController extends Controller {
         model.setCorreoElectronico(email.get());
         model.setFechaNacimiento(birthday.get());
 
+        model.setEspecialidad(speciality.get());
+
         if (delegate != null)
             delegate.didEditTrabajador();
-
-        // TODO: Falta la especialidad
-        //model.setEspecialidad();
-
     }
 
     private void loadData() {
@@ -87,7 +86,7 @@ public class DetalleTrabajadorController extends Controller {
         email.setValue(model.getCorreoElectronico());
         birthday.setValue(model.getFechaNacimiento());
 
-        speciality.set(model.getEspecialidad().getNombre());
+        speciality.set(model.getEspecialidad());
     }
 
     public void save() {
@@ -168,7 +167,7 @@ public class DetalleTrabajadorController extends Controller {
         return birthday;
     }
 
-    public ObjectProperty<String> specialityProperty() {
+    public ObjectProperty<Especialidad> specialityProperty() {
         return speciality;
     }
 }
