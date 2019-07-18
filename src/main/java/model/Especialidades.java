@@ -29,6 +29,9 @@ public class Especialidades {
     // MARK: - Metodos Especialidad
 
     public void agregar(Especialidad especialidad) {
+        if (especialidades.containsKey(especialidad.getNombre()))
+            return;
+
         especialidades.put(especialidad.getNombre(), especialidad);
     }
 

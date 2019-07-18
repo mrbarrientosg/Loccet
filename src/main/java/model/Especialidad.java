@@ -1,7 +1,5 @@
 package model;
 
-import com.google.gson.JsonObject;
-
 import java.math.BigDecimal;
 
 public class Especialidad {
@@ -10,18 +8,18 @@ public class Especialidad {
 
     private final String nombre;
 
-    private final BigDecimal sueldoPorHora;
+    private final BigDecimal pagoPorHora;
 
     // MARK: - Constructor
 
-    public Especialidad(String nombre, BigDecimal sueldoPorHora) {
+    public Especialidad(String nombre, BigDecimal pagoPorHora) {
         this.nombre = nombre;
-        this.sueldoPorHora = sueldoPorHora;
+        this.pagoPorHora = pagoPorHora;
     }
 
     public Especialidad(Especialidad other) {
         this.nombre = other.nombre;
-        this.sueldoPorHora = other.sueldoPorHora;
+        this.pagoPorHora = other.pagoPorHora;
     }
 
     // MARK: - Getter
@@ -30,18 +28,18 @@ public class Especialidad {
         return nombre;
     }
 
-    public BigDecimal getSueldoPorHora() {
-        return sueldoPorHora;
+    public BigDecimal getPagoPorHora() {
+        return pagoPorHora;
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj == this) return true;
 
-        if (!(obj instanceof Trabajador)) return false;
+        if (!(obj instanceof Especialidad)) return false;
 
         Especialidad e = (Especialidad) obj;
 
-        return e.nombre.equals(nombre) && e.sueldoPorHora.equals(sueldoPorHora);
+        return e.nombre.equals(nombre) && e.pagoPorHora.equals(pagoPorHora);
     }
 }

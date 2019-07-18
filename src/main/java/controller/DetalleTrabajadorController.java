@@ -45,6 +45,8 @@ public class DetalleTrabajadorController extends Controller {
 
     private ObjectProperty<LocalDate> birthday = new SimpleObjectProperty<>();
 
+    private ObjectProperty<String> speciality = new SimpleObjectProperty<>();
+
     private EditTrabajadorDelegate delegate;
 
     private Trabajador oldTrabajador;
@@ -84,6 +86,8 @@ public class DetalleTrabajadorController extends Controller {
         telephone.setValue(model.getTelefono());
         email.setValue(model.getCorreoElectronico());
         birthday.setValue(model.getFechaNacimiento());
+
+        speciality.set(model.getEspecialidad().getNombre());
     }
 
     public void save() {
@@ -162,5 +166,9 @@ public class DetalleTrabajadorController extends Controller {
 
     public ObjectProperty<LocalDate> birthdayProperty() {
         return birthday;
+    }
+
+    public ObjectProperty<String> specialityProperty() {
+        return speciality;
     }
 }
