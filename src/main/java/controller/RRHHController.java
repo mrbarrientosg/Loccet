@@ -92,7 +92,9 @@ public class RRHHController extends Controller {
 
     public void deleteTrabajador(String rut) {
         Trabajador t = model.eliminarTrabajador(rut);
+
         if (t == null) return;
+
         view.didDeleteTrabajador(t.getRut());
 
         JsonObject json = new JsonObject();

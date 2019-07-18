@@ -4,6 +4,8 @@ import base.Controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import exceptions.EmptyFieldException;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import model.Proyecto;
@@ -11,6 +13,7 @@ import network.endpoint.ProyectoAPI;
 import network.service.NetService;
 import view.DetalleProyectoView;
 
+import java.time.LocalDate;
 import java.util.logging.Level;
 
 public class DetalleProyectoController extends Controller {
@@ -35,9 +38,9 @@ public class DetalleProyectoController extends Controller {
 
     private NetService<ProyectoAPI> service = NetService.getInstance();
 
-    //private ObjectProperty<LocalDate> startDate = new SimpleStringProperty();
+    private ObjectProperty<LocalDate> startDate = new SimpleObjectProperty<>();
 
-    //private ObjectProperty<LocalDate> endDate = new SimpleStringProperty();
+    private ObjectProperty<LocalDate> endDate = new SimpleObjectProperty<>();
 
     public void actualizar() throws EmptyFieldException {
         model.setNombre(name.get());
@@ -55,6 +58,8 @@ public class DetalleProyectoController extends Controller {
         state.setValue(model.getLocalizacion().getEstado());
         city.setValue(model.getLocalizacion().getCiudad());
         client.setValue(model.getNombreCliente());
+        startDate.setValue(model.getFechaInicio());
+        endDate.setValue(model.getFechaTermino());
     }
 
     public void save() {
@@ -107,6 +112,14 @@ public class DetalleProyectoController extends Controller {
 
     public StringProperty clientProperty() {
         return client;
+    }
+
+    public ObjectProperty<LocalDate> startDateProperty() {
+        return startDate;
+    }
+
+    public ObjectProperty<LocalDate> endDateProperty() {
+        return endDate;
     }
 }
 

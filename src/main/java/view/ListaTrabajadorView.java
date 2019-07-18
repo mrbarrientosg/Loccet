@@ -57,12 +57,6 @@ public final class ListaTrabajadorView extends View implements EditTrabajadorDel
     private TableColumn<TrabajadorCell, String> specialityColumn;
 
     @FXML
-    private TableColumn<TrabajadorCell, String> horasTrabajoColumn;
-
-    @FXML
-    private TableColumn<TrabajadorCell, String> sueldoHoraColumn;
-
-    @FXML
     private TableColumn<TrabajadorCell, String> proyectColumn;
 
     @FXML
@@ -78,8 +72,6 @@ public final class ListaTrabajadorView extends View implements EditTrabajadorDel
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("apellido"));
         fechaNaciemientoColumn.setCellValueFactory(new PropertyValueFactory<>("fechaNacimiento"));
         specialityColumn.setCellValueFactory(new PropertyValueFactory<>("nombreEspecialidad"));
-        horasTrabajoColumn.setCellValueFactory(new PropertyValueFactory<>("cantidadDeHoras"));
-        sueldoHoraColumn.setCellValueFactory(new PropertyValueFactory<>("sueldoPorHora"));
         telefonoColumn.setCellValueFactory(new PropertyValueFactory<>("telefono"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("correoElectronico"));
     }

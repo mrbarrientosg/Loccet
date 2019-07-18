@@ -142,17 +142,24 @@
 }
 
 .table-view2:focused:row-selection > .virtual-flow > .clipped-container > .sheet > .table-row-cell:focused > .tableview2-cell:left {
-  -fx-background-color: $gray;
+  -fx-background-color: transparent;
   -fx-border-width: 0;
 }
 
 .table-view2:focused:row-selection > .virtual-flow > .clipped-container > .sheet > .table-row-cell:focused > .tableview2-cell:right {
-  -fx-background-color: $gray;
+  -fx-background-color: transparent;
   -fx-border-width: 0;
 }
 
 
 .table-view2:focused:row-selection > .virtual-flow > .clipped-container > .sheet > .table-row-cell:focused > .tableview2-cell:single {
-  -fx-background-color: $gray;
+  -fx-background-color: transparent;
   -fx-border-width: 0;
+}
+
+.progress-indicator:indeterminate > .spinner {
+  /** Applying to undo styling from .spinner, reported in RT-37965 */
+  -fx-background-color: transparent;
+  -fx-background-insets: 0;
+  -fx-background-radius: 0;
 }

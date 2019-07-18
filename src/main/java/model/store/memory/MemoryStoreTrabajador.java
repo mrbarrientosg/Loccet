@@ -23,12 +23,17 @@ public class MemoryStoreTrabajador extends AbstractStore<Trabajador> implements 
 
     @Override
     public Trabajador delete(Trabajador value) {
-        super.delete(value);
+        if (super.delete(value) == null)
+            return null;
+
         return mapTrabajadores.remove(value.getRut());
     }
 
     @Override
     public boolean contains(Trabajador value) {
+        if (value == null)
+            return false;
+
         return mapTrabajadores.containsKey(value.getRut());
     }
 

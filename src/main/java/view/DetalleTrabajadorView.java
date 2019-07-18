@@ -115,6 +115,12 @@ public class DetalleTrabajadorView extends View {
 
     @Override
     public void viewDidClose() {
+        if (isEditing) {
+            editButton.setText("Editar");
+            isEditing = false;
+            disable.setValue(true);
+        }
+
         container.getChildren().remove(listaHorarioView.getRoot());
         controller.save();
     }

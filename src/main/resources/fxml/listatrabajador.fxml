@@ -61,8 +61,6 @@
             <TableColumn fx:id="lastNameColumn" editable="false" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Apellido" />
             <TableColumn fx:id="fechaNaciemientoColumn" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Fecha Nacimiento" />
             <TableColumn fx:id="specialityColumn" editable="false" prefWidth="84.0" style="-fx-alignment: CENTER;" text="Especialidad" />
-            <TableColumn fx:id="horasTrabajoColumn" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Horas de Trabajo" />
-            <TableColumn fx:id="sueldoHoraColumn" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Sueldo por Hora" />
             <TableColumn fx:id="proyectColumn" editable="false" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Proyecto" visible="false" />
             <TableColumn fx:id="telefonoColumn" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Telefono" />
             <TableColumn fx:id="emailColumn" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Correo electronico" />

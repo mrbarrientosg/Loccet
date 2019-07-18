@@ -31,7 +31,7 @@ public abstract class AbstractStore<Model> implements Store<Model> {
 
     public boolean contains(Model value) {
         if (value == null)
-            throw new NullPointerException();
+            return false;
 
         return items.contains(value);
     }

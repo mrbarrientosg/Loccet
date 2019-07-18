@@ -94,6 +94,12 @@ public class DetalleProyectoView extends View {
 
     @Override
     public void viewDidClose() {
+        if (isEditing) {
+            editButton.setText("Editar");
+            isEditing = false;
+            disable.setValue(true);
+        }
+
         container.getChildren().remove(listaTrabajadorView.getRoot());
         container.getChildren().remove(inventarioMaterialView.getRoot());
 
@@ -107,6 +113,8 @@ public class DetalleProyectoView extends View {
         stateField.textProperty().bindBidirectional(controller.stateProperty());
         cityField.textProperty().bindBidirectional(controller.cityProperty());
         clientField.textProperty().bindBidirectional(controller.clientProperty());
+        startDateField.valueProperty().bind(controller.startDateProperty());
+        endDateField.valueProperty().bind(controller.endDateProperty());
     }
 
     private void editAction(ActionEvent event) {
