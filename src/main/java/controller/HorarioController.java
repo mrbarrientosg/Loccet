@@ -3,21 +3,32 @@ package controller;
 import base.Controller;
 import cell.ProyectoCell;
 import cell.TrabajadorCell;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import javafx.beans.Observable;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import json.LocalDateTypeConverter;
 import model.Horario;
 import model.Proyecto;
 import model.Trabajador;
+import network.endpoint.HorarioAPI;
+import network.endpoint.TrabajadorAPI;
+import network.service.NetService;
 import router.HorarioRouter;
 import delegate.AddHorarioDelegate;
 import view.HorarioView;
+
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
+import java.util.logging.Level;
 
 /**
  * Controlador de la vista HorarioView
@@ -63,6 +74,23 @@ public final class HorarioController extends Controller {
 
         if (delegate != null)
             delegate.didAddHorario(horario);
+
+        NetService<HorarioAPI> service = NetService.getInstance();
+
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Horario.class, new Horario.HorarioSerializer())
+                .create();
+
+        JsonObject json = gson.toJsonTree(horario).getAsJsonObject();
+
+        System.out.println(json);
+
+        service.request(HorarioAPI.CREATE, json)
+                .subscribe(jsonElement -> {
+                    horario.setId(jsonElement.getAsJsonObject().get("id_horario").getAsInt());
+                }, throwable -> {
+                    LOGGER.log(Level.SEVERE, "", throwable);
+                });
 
         view.close();
     }
