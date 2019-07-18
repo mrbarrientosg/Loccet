@@ -28,7 +28,7 @@ public enum HorarioAPI implements EndPointType {
             case CREATE:
                 return "loccet-addhorario";
             case REMOVE:
-                return "";
+                return "loccet-removehorario";
         }
 
         return "";
