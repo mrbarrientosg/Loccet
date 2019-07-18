@@ -158,7 +158,10 @@ public abstract class Trabajador {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public void setEspecialidad(Especialidad especialidad) {
+    public void setEspecialidad(Especialidad especialidad) throws EmptyFieldException {
+        if (especialidad == null)
+            throw new EmptyFieldException("Especialidad");
+        
         this.especialidad = especialidad;
     }
 

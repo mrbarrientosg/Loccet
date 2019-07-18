@@ -1,9 +1,11 @@
 package model;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class Especialidades {
@@ -39,10 +41,16 @@ public class Especialidades {
         return especialidades.get(id);
     }
 
-    public List<String> getAll() {
-        return Collections.unmodifiableList(especialidades.values().stream()
-                .map(Especialidad::getNombre)
-                .collect(Collectors.toList()));
+    public void getAll(Consumer<ObservableList<Especialidad>> callBack) {
+        CompletableFuture.supplyAsync(() -> {
+            ObservableList<Especialidad> list = FXCollections.observableArrayList();
+
+            especialidades.forEach((key, value) -> {
+                list.add(value);
+            });
+
+            return list;
+        }).thenAccept(callBack);
     }
 
 }
