@@ -133,18 +133,19 @@ public class ProyectoView extends View {
         if (cell == null) return;
         Proyecto p = controller.buscarProyecto(cell.getId());
         DetalleProyectoView view = DetalleProyectoRouter.create(p);
-        //getCurrentStage().getScene().getRoot().setDisable(true);
-        view.modal()
-                .withStyle(StageStyle.TRANSPARENT)
-                .show();
+        view.modal().withStyle(StageStyle.TRANSPARENT)
+                .show().getScene().setFill(Color.TRANSPARENT);
     }
+
     @FXML
     public void createProyect(ActionEvent event){
         AgregarProyectoView view = AgregarProyectoRouter.create();
-        view.modal().withStyle(StageStyle.TRANSPARENT).show();
-        System.out.println("pruebaaaaaaaaaaaaaaaaaa");
-        cargarDatos();
+        view.modal().withStyle(StageStyle.TRANSPARENT)
+                .show().getScene().setFill(Color.TRANSPARENT);
+        // TODO: analizar
+        //cargarDatos();
     }
+
     @FXML
     public void deleteProyect(ActionEvent event){
         ProyectoCell cell = selection();

@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.StageStyle;
 import model.Material;
@@ -106,7 +107,8 @@ public final class InventarioMaterialView extends Fragment {
     public void nuevoMaterial(ActionEvent event){
         NuevoMaterialView view = Injectable.find(NuevoMaterialView.class);
         view.setController(controller);
-        view.modal().withBlock(true).show();
+        view.modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
+                .show().getScene().setFill(Color.TRANSPARENT);;
     }
 
     public void didAddMaterial(MaterialCell cell) {
@@ -143,7 +145,8 @@ public final class InventarioMaterialView extends Fragment {
         if(materialCell!=null) {
             Material material = controller.getMaterial(materialCell.getId());
             DetalleMaterialView view = DetalleMaterialRouter.create(material);
-            view.modal().withStyle(StageStyle.TRANSPARENT).show();
+            view.modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
+                    .show().getScene().setFill(Color.TRANSPARENT);
         }
         else{
            // controller.showWarning("Seleccionar material", "Por favor seleccione material a eliminar").showAndWait();;

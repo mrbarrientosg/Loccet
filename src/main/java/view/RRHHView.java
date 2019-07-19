@@ -201,8 +201,7 @@ public class RRHHView extends View implements SaveTrabajadorDelegate, FilterDele
 
     private void showAddTrabajadorAction(ActionEvent event) {
         TrabajadorView view = TrabajadorRouter.create(Constructora.getInstance(), this);
-        view.modal()
-                .withStyle(StageStyle.TRANSPARENT)
+        view.modal().withStyle(StageStyle.TRANSPARENT)
                 .show().getScene().setFill(Color.TRANSPARENT);
     }
 
@@ -211,7 +210,8 @@ public class RRHHView extends View implements SaveTrabajadorDelegate, FilterDele
         view.setFilterCells(filterCells);
         view.setColumnList(columnList);
         view.setDelegate(this);
-        view.modal().withResizable(true).show();
+        view.modal().withResizable(true).withStyle(StageStyle.TRANSPARENT)
+                .show().getScene().setFill(Color.TRANSPARENT);
     }
 
     private void deleteTrabajadorAction(ActionEvent event) {
@@ -227,8 +227,7 @@ public class RRHHView extends View implements SaveTrabajadorDelegate, FilterDele
         if (cell == null) return;
         Trabajador t = controller.obtenerTrabajador(cell.getRut());
         DetalleTrabajadorView view = DetalleTrabajadorRouter.create(t, this);
-        view.modal()
-                .withStyle(StageStyle.TRANSPARENT)
+        view.modal().withStyle(StageStyle.TRANSPARENT)
                 .show().getScene().setFill(Color.TRANSPARENT);
     }
 

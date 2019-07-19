@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import model.Costeable;
@@ -86,7 +87,8 @@ public class ReporteView extends View {
         CostoTotalView view = Injectable.find(CostoTotalView.class);
         view.setdatos(montoContractual.toString(), gastoContructora.toString(),
                 controller.montoActualContructora(gastoContructora,montoContractual).toString());
-        view.modal().withStyle(StageStyle.TRANSPARENT).show();
+        view.modal().withStyle(StageStyle.TRANSPARENT)
+                .show().getScene().setFill(Color.TRANSPARENT);
     }
 
     @Override
@@ -122,6 +124,11 @@ public class ReporteView extends View {
     }
 
 
-    public void setController(ReporteController controller){this.controller = controller;}
-    public void setRouter(ReporteRouter router){this.router = router;}
+    public void setController(ReporteController controller) {
+        this.controller = controller;
+    }
+
+    public void setRouter(ReporteRouter router) {
+        this.router = router;
+    }
 }

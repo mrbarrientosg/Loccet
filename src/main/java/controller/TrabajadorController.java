@@ -82,8 +82,6 @@ public final class TrabajadorController extends Controller {
     public void guardarTrabajador() throws EmptyFieldException, InvalidaRutException {
         Trabajador trabajador;
 
-        Localizacion localizacion = new Localizacion(address.get(), zip.get(), country.get(), state.get(), city.get());
-
         Integer horas = null;
 
         if (partTime.get()) {
@@ -99,6 +97,9 @@ public final class TrabajadorController extends Controller {
         trabajador.setFechaNacimiento(birthday.get());
 
         trabajador.setEspecialidad(speciality.get());
+
+        Localizacion localizacion = new Localizacion(address.get(), zip.get(), country.get(), state.get(), city.get());
+
         trabajador.setLocalizacion(localizacion);
 
         trabajador.setTelefono(telephone.get());

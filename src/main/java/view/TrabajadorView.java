@@ -99,12 +99,14 @@ public final class TrabajadorView extends View {
 
     @Override
     public void viewDidShow() {
+        bindController();
+
         birthdayDateField.setValue(LocalDate.now());
 
-        Especialidades.getInstance().getAll(specialityList::setItems);
-        specialityList.getSelectionModel().selectFirst();
-
-        bindController();
+        Especialidades.getInstance().getAll(especialidads -> {
+            specialityList.setItems(especialidads);
+            specialityList.getSelectionModel().selectFirst();
+        });
     }
 
     @Override

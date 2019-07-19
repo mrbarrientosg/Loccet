@@ -15,6 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import model.Trabajador;
 import router.BuscarTrabajadorRouter;
@@ -72,9 +73,7 @@ public final class ListaTrabajadorView extends View implements SaveTrabajadorDel
                         .toObservable())
                 .subscribeOn(Schedulers.io())
                 .observeOn(JavaFxScheduler.platform())
-                .subscribe(list -> {
-                    tableView.setItems(list);
-                });
+                .subscribe(tableView::setItems);
     }
 
     @Override
@@ -85,9 +84,8 @@ public final class ListaTrabajadorView extends View implements SaveTrabajadorDel
     @FXML
     private void addEmployeeAction(ActionEvent event) {
         BuscarTrabajadorView view = BuscarTrabajadorRouter.create(controller);
-        view.modal()
-                .withOwner(null)
-                .show();
+        view.modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
+                .show().getScene().setFill(Color.TRANSPARENT);
     }
 
     @FXML
@@ -96,10 +94,8 @@ public final class ListaTrabajadorView extends View implements SaveTrabajadorDel
         if (cell == null) return;
         Trabajador t = controller.obtenerTrabajador(cell.getRut());
         DetalleTrabajadorView view = DetalleTrabajadorRouter.create(t, this);
-        view.modal()
-                .withStyle(StageStyle.TRANSPARENT)
-                .show();
-    }
+        view.modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
+                .show().getScene().setFill(Color.TRANSPARENT);    }
 
     @FXML
     private void deleteAction(ActionEvent event) {
