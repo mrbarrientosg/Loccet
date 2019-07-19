@@ -91,7 +91,7 @@ public class ProyectoView extends View {
 
     private void inicializarTablaProyecto() {
         iDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        nameProyectColumn.setCellValueFactory(new PropertyValueFactory<>("nombreProyecto"));
+        nameProyectColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         startDateColumn.setCellValueFactory(new PropertyValueFactory<>("fechaInicio"));
         endDateColumn.setCellValueFactory(new PropertyValueFactory<>("fechaTermino"));
         amountColumn.setCellValueFactory(new PropertyValueFactory<>("estimacion"));
