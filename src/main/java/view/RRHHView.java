@@ -36,6 +36,7 @@ import util.AsyncTask;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 
@@ -220,14 +221,38 @@ public class RRHHView extends View implements SaveTrabajadorDelegate, FilterDele
     private void deleteTrabajadorAction(ActionEvent event) {
         TrabajadorCell cell = tableTrabajadores.getSelectionModel().getSelectedItem();
 
-        if (cell == null) return;
+        if (cell == null){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("No selecciono ningun trabajador");
+            alert.setContentText("Por favor seleccione un trabajador");
 
-        controller.deleteTrabajador(cell.getRut());
+            alert.showAndWait();
+            return;
+        }
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación");
+        alert.setHeaderText("Esta accion eliminara un trabajador");
+        alert.setContentText("¿Desea continuar?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            controller.deleteTrabajador(cell.getRut());
+        }
+
+
     }
 
     private void detailTrabajadorAction(ActionEvent event) {
         TrabajadorCell cell = tableTrabajadores.getSelectionModel().getSelectedItem();
-        if (cell == null) return;
+        if (cell == null){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setHeaderText("No selecciono ningun trabajador");
+                alert.setContentText("Por favor seleccione un trabajador");
+
+                alert.showAndWait();
+                return;
+        }
         Trabajador t = controller.obtenerTrabajador(cell.getRut());
         DetalleTrabajadorView view = DetalleTrabajadorRouter.create(t, this);
         view.modal().withStyle(StageStyle.TRANSPARENT)
