@@ -6,6 +6,7 @@ import cell.TrabajadorCell;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Constructora;
+import model.Costeable;
 import model.Proyecto;
 import util.AsyncTask;
 import view.ReporteView;
@@ -36,21 +37,8 @@ public class ReporteController extends Controller {
         }).thenAccept(consumer);
     }
 
-    public void hacerCostos(String idProyecto) {
-        Proyecto p = model.obtenerProyecto(idProyecto);
-        view.mostrarCostoProyecto(p);
-    }
-
-    public void hacerCostos() {
-        view.mostrarCostoContructora(model);
-    }
-
-    public BigDecimal montoActualContructora(BigDecimal montoContractual, BigDecimal gastos) {
-        return montoContractual.subtract(gastos);
-    }
-
-    public BigDecimal montoActualProyecto(BigDecimal montoContractual, BigDecimal gastos) {
-        return montoContractual.subtract(gastos);
+    public Costeable costos(String idProyecto) {
+        return model.obtenerProyecto(idProyecto);
     }
 
     public BigDecimal montoContractualProyecto(String id){

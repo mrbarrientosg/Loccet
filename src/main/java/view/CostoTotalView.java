@@ -6,13 +6,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import model.Costeable;
+import model.Proyecto;
+import util.AsyncTask;
 
 import java.math.BigDecimal;
+import java.util.Iterator;
+import java.util.function.Consumer;
 
 public class CostoTotalView extends View {
-     private String montoContractualConstructora;
-     private String gastoContructora;
-     private String montoActual;
 
     @FXML
     private Label montoContractualLB;
@@ -32,29 +34,17 @@ public class CostoTotalView extends View {
 
     }
 
-    @Override
-    public void viewDidShow(){
-        cargarLabel();
+    @FXML
+    public void salir(ActionEvent event){
+        close();
     }
 
-
-
-    private void cargarLabel(){
-        montoContractualLB.setText(montoContractualConstructora);
-        gastoLB.setText(gastoContructora);
-        montoActualLB.setText(montoActual);
+    public void setupView(Costeable costeable, BigDecimal montoContractual) {
+        AsyncTask.supplyAsync(costeable::calcularCosto).thenAccept(costo -> {
+            this.gastoLB.setText(costo.toString());
+            this.montoContractualLB.setText(montoContractual.toString());
+            this.montoActualLB.setText(montoContractual.subtract(costo).toString());
+        });
     }
 
-   public void salir(ActionEvent event){
-       close();
-   }
-
-
-
-    public void setdatos(String montoContractualConstructora,String gastoContructora, String montoActual){
-        this.montoContractualConstructora = montoContractualConstructora;
-        this.montoActual = montoActual;
-        this.gastoContructora = gastoContructora;
-
-    }
 }

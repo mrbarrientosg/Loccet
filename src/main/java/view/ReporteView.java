@@ -10,8 +10,11 @@ import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
+import model.Constructora;
 import model.Costeable;
 import router.ReporteRouter;
+import util.AsyncTask;
+
 import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
@@ -92,18 +95,12 @@ public class ReporteView extends View {
         });
     }
 
-    public void mostrarCostoProyecto(Costeable c) {
-        gastoLB.setText(c.calcularCosto().toString());
-    }
-
-    public void mostrarCostoContructora(Costeable c){
-        BigDecimal gastoContructora = c.calcularCosto();
-
+    @FXML
+    public void costoContructora(ActionEvent event){
         controller.montoContractualConstructora(montoContractual -> {
             CostoTotalView view = Injectable.find(CostoTotalView.class);
 
-            view.setdatos(montoContractual.toString(), gastoContructora.toString(),
-                    controller.montoActualContructora(gastoContructora ,montoContractual).toString());
+            view.setupView(Constructora.getInstance(), montoContractual);
 
             view.modal().withStyle(StageStyle.TRANSPARENT)
                     .show().getScene().setFill(Color.TRANSPARENT);
@@ -111,22 +108,16 @@ public class ReporteView extends View {
     }
 
     @FXML
-    public void costoContructora(ActionEvent event){
-        controller.hacerCostos();
-    }
-
-    @FXML
-    private void cargarLabel(ActionEvent event) {
-
-    }
-
-    @FXML
     private void costoProyecto(ActionEvent event) {
         if (idProyecto != null) {
-            montoContractualLB.setText(controller.montoContractualProyecto(idProyecto).toString());
-            controller.hacerCostos(idProyecto);
-            montoActualLB.setText(controller.montoActualProyecto(new BigDecimal(montoContractualLB.getText()),
-                   new BigDecimal(gastoLB.getText())).toString());
+            AsyncTask.supplyAsync(controller.costos(idProyecto)::calcularCosto).thenAccept(costo -> {
+                BigDecimal montoContractual = controller.montoContractualProyecto(idProyecto);
+
+                montoContractualLB.setText(montoContractual.toString());
+
+                gastoLB.setText(costo.toString());
+                montoActualLB.setText(montoContractual.subtract(costo).toString());
+            });
         }
         else{
             Alert alert = new Alert(Alert.AlertType.WARNING);
