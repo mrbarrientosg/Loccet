@@ -70,7 +70,7 @@ public class DetalleTrabajadorController extends Controller {
         model.setEspecialidad(speciality.get());
 
         if (delegate != null)
-            delegate.didSaveTrabajador();
+            delegate.didSaveTrabajador(model);
     }
 
     private void loadData() {

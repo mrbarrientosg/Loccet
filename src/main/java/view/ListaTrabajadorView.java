@@ -8,6 +8,7 @@ import io.reactivex.Observable;
 import io.reactivex.rxjavafx.observables.JavaFxObservable;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import io.reactivex.schedulers.Schedulers;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,7 +21,10 @@ import javafx.stage.StageStyle;
 import model.Trabajador;
 import router.BuscarTrabajadorRouter;
 import router.DetalleTrabajadorRouter;
+import util.AsyncTask;
 
+import java.util.ListIterator;
+import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 
 public final class ListaTrabajadorView extends View implements SaveTrabajadorDelegate {
@@ -115,9 +119,21 @@ public final class ListaTrabajadorView extends View implements SaveTrabajadorDel
     }
 
     @Override
-    public void didSaveTrabajador() {
-        controller.fechtData(tableView::setItems);
-        searchTextField.setText("");
+    public void didSaveTrabajador(Trabajador trabajador) {
+        AsyncTask.supplyAsync(() -> {
+            ListIterator<TrabajadorCell> iterator = tableView.getItems().listIterator();
+
+            while (iterator.hasNext()) {
+                TrabajadorCell cell = iterator.next();
+                if (cell.getRut().equals(trabajador.getRut())) {
+                    Platform.runLater(() -> {
+                        iterator.set(new TrabajadorCell(trabajador));
+                    });
+                    return true;
+                }
+            }
+            return false;
+        });
     }
 
 }

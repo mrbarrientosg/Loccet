@@ -11,6 +11,7 @@ import io.reactivex.Observable;
 import io.reactivex.rxjavafx.observables.JavaFxObservable;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import io.reactivex.schedulers.Schedulers;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,7 +31,9 @@ import router.DetalleTrabajadorRouter;
 import router.RRHHRouter;
 import delegate.FilterDelegate;
 import router.TrabajadorRouter;
+import util.AsyncTask;
 
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -244,16 +247,37 @@ public class RRHHView extends View implements SaveTrabajadorDelegate, FilterDele
     }
 
     @Override
-    public void didSaveTrabajador() {
-        ProyectoCell cell = proyectList.getSelectionModel().getSelectedItem();
+    public void didSaveTrabajador(Trabajador trabajador) {
+        AsyncTask.supplyAsync(() -> {
+            ListIterator<TrabajadorCell> iterator = tableTrabajadores.getItems().listIterator();
 
-        if (cell.getNombre().equals("Todos"))
+            while (iterator.hasNext()) {
+                TrabajadorCell cell = iterator.next();
+                if (cell.getRut().equals(trabajador.getRut())) {
+                    Platform.runLater(() -> {
+                        iterator.set(new TrabajadorCell(trabajador));
+                    });
+                    return true;
+                }
+            }
+            return false;
+        }).thenAccept(replace -> {
+            ProyectoCell cell = proyectList.getSelectionModel().getSelectedItem();
+
+            if (!replace && cell.getNombre().equals("Todos"))
+                tableTrabajadores.getItems().add(new TrabajadorCell(trabajador));
+
+        });
+
+       /*ProyectoCell cell = proyectList.getSelectionModel().getSelectedItem();
+
+            if (cell.getNombre().equals("Todos"))
             controller.fetchTrabajadores(tableTrabajadores::setItems);
         else
             controller.fetchTrabajadores(cell.getId(), tableTrabajadores::setItems);
 
         searchField.setText("");
-        tableTrabajadores.refresh();
+        tableTrabajadores.refresh();*/
     }
 
     @Override

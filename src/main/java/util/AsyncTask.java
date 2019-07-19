@@ -13,18 +13,36 @@ public class AsyncTask<T> extends Task<T> {
 
     private Supplier<T> supplier;
 
+    private Runnable runnable;
+
     public AsyncTask(Supplier<T> supplier) {
         super();
         this.supplier = supplier;
         ThreadPools.getInstance().fxThreadPool().execute(this);
     }
 
+    public AsyncTask(Runnable runnable) {
+        super();
+        this.runnable = runnable;
+        ThreadPools.getInstance().fxThreadPool().execute(this);
+    }
+
+
     public static <T> AsyncTask<T> supplyAsync(Supplier<T> supplier) {
         return new AsyncTask<>(supplier);
     }
 
+    public static AsyncTask<Void> runAsync(Runnable runnable) {
+        return new AsyncTask<>(runnable);
+    }
+
     @Override
     protected T call() throws Exception {
+        if (runnable != null) {
+            runnable.run();
+            return null;
+        }
+
         return supplier.get();
     }
 
