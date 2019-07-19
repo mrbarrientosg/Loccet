@@ -25,6 +25,7 @@ public class ProyectoController extends Controller {
     }
 
     public ObservableList<ProyectoCell> getList(){
+        // TODO: Cambiar por AsyncTask
         return FXCollections.observableList(model.getListaProyecto().stream().map(ProyectoCell::new).collect(Collectors.toList()));
     }
 

@@ -12,6 +12,7 @@ import model.Proyecto;
 import model.RegistroMaterial;
 import network.endpoint.MaterialAPI;
 import network.service.NetService;
+import util.AsyncTask;
 import util.ExportFile.ExportFile;
 import util.InventarioExport.ExportInventarioPDF;
 import util.InventarioExport.ExportInventarioXLSX;
@@ -58,7 +59,7 @@ public final class InventarioMaterialController extends Controller {
      * @author Sebastian Fuenzalida.
      */
     public void cargarDatos(Consumer<ObservableList<MaterialCell>> callBack) {
-        CompletableFuture.supplyAsync(() -> {
+        AsyncTask.supplyAsync(() -> {
             ObservableList<MaterialCell> list = FXCollections.observableArrayList();
 
             model.obtenerMateriales().forEach(material -> list.add(new MaterialCell(material)));

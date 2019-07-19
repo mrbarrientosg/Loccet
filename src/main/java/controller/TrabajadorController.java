@@ -5,6 +5,7 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import delegate.SaveTrabajadorDelegate;
 import exceptions.EmptyFieldException;
 import exceptions.InvalidaRutException;
 import javafx.beans.property.*;
@@ -56,6 +57,8 @@ public final class TrabajadorController extends Controller {
 
     private StringProperty hours;
 
+    private SaveTrabajadorDelegate delegate;
+
     public TrabajadorController() {
         rut = new SimpleStringProperty(null);
         name = new SimpleStringProperty(null);
@@ -95,13 +98,16 @@ public final class TrabajadorController extends Controller {
         trabajador.setApellido(lastName.get());
         trabajador.setFechaNacimiento(birthday.get());
 
-        trabajador.setEspecialidad(Especialidades.getInstance().obtener(speciality.get().getId()));
+        trabajador.setEspecialidad(speciality.get());
         trabajador.setLocalizacion(localizacion);
 
         trabajador.setTelefono(telephone.get());
         trabajador.setCorreoElectronico(email.get());
 
         model.agregarTrabajador(trabajador);
+
+        if (delegate != null)
+            delegate.didSaveTrabajador();
 
         NetService<TrabajadorAPI> service = NetService.getInstance();
 
@@ -128,6 +134,10 @@ public final class TrabajadorController extends Controller {
                 }, throwable -> {
                     LOGGER.log(Level.SEVERE, "", throwable);
                 });
+    }
+
+    public void setDelegate(SaveTrabajadorDelegate delegate) {
+        this.delegate = delegate;
     }
 
     public void setModel(Constructora model) {

@@ -1,29 +1,20 @@
 package view;
 
-import base.Fragment;
 import base.View;
 import cell.TrabajadorCell;
 import controller.ListaTrabajadorController;
-import delegate.EditTrabajadorDelegate;
+import delegate.SaveTrabajadorDelegate;
 import io.reactivex.Observable;
 import io.reactivex.rxjavafx.observables.JavaFxObservable;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import io.reactivex.schedulers.Schedulers;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Modality;
 import javafx.stage.StageStyle;
 import model.Trabajador;
 import router.BuscarTrabajadorRouter;
@@ -31,7 +22,7 @@ import router.DetalleTrabajadorRouter;
 
 import java.util.concurrent.TimeUnit;
 
-public final class ListaTrabajadorView extends View implements EditTrabajadorDelegate {
+public final class ListaTrabajadorView extends View implements SaveTrabajadorDelegate {
 
     private ListaTrabajadorController controller;
 
@@ -128,8 +119,9 @@ public final class ListaTrabajadorView extends View implements EditTrabajadorDel
     }
 
     @Override
-    public void didEditTrabajador() {
+    public void didSaveTrabajador() {
         controller.fechtData(tableView::setItems);
         searchTextField.setText("");
     }
+
 }

@@ -2,11 +2,8 @@ package router;
 
 import base.Injectable;
 import controller.TrabajadorController;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import delegate.SaveTrabajadorDelegate;
 import model.Constructora;
-import model.Trabajador;
-import delegate.EditTrabajadorDelegate;
 import view.TrabajadorView;
 
 /**
@@ -23,13 +20,14 @@ public final class TrabajadorRouter {
      *
      * @author Matias Barrientos
      */
-    public static TrabajadorView create(Constructora model) {
+    public static TrabajadorView create(Constructora model, SaveTrabajadorDelegate delegate) {
         TrabajadorView view = Injectable.find(TrabajadorView.class);
 
         TrabajadorController controller = Injectable.find(TrabajadorController.class);
 
         controller.setView(view);
         controller.setModel(model);
+        controller.setDelegate(delegate);
 
         view.setController(controller);
 

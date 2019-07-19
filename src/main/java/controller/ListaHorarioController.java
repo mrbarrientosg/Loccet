@@ -12,6 +12,7 @@ import model.Horario;
 import model.Trabajador;
 import network.endpoint.HorarioAPI;
 import network.service.NetService;
+import util.AsyncTask;
 import view.ListaHorarioView;
 
 import java.util.concurrent.CompletableFuture;
@@ -28,7 +29,7 @@ public final class ListaHorarioController extends Controller {
      * Carga la informacion desde el modelo
      */
     public void fetchHorarios(Consumer<ObservableList<HorarioCell>> callBack) {
-        CompletableFuture.supplyAsync(() -> {
+        AsyncTask.supplyAsync(() -> {
             ObservableList<HorarioCell> list = FXCollections.observableArrayList();
 
             model.obtenerListaHorario().forEach(horario -> list.add(new HorarioCell(horario)));

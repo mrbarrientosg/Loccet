@@ -14,9 +14,8 @@ import java.util.stream.Collectors;
 
 public class ReporteController extends Controller {
 
-
-
     private ReporteView view;
+
     private Constructora model = Constructora.getInstance();
 
     public BigDecimal montoContractualConstructora(){
@@ -32,16 +31,20 @@ public class ReporteController extends Controller {
         Proyecto p = model.obtenerProyecto(idProyecto);
         view.mostrarCostoProyecto(p);
     }
+
     public void hacerCostos(){
 
         view.mostrarCostoContructora(model);
     }
+
     public BigDecimal montoActualContructora(BigDecimal montoContractual, BigDecimal gastos){
         return montoContractual.subtract(gastos);
     }
+
     public BigDecimal montoActualProyecto(BigDecimal montoContractual, BigDecimal gastos){
         return montoContractual.subtract(gastos);
     }
+
     public BigDecimal montoContractualProyecto(String id){
       return model.obtenerProyecto(id).getCostoEstimado();
     }
@@ -49,12 +52,15 @@ public class ReporteController extends Controller {
     public String getDireccion(String id){
         return model.obtenerProyecto(id).getLocalizacion().getDireccion();
     }
+
     public String getPais(String id){
         return model.obtenerProyecto(id).getLocalizacion().getPais();
     }
+
     public String getCiudad(String id){
         return model.obtenerProyecto(id).getLocalizacion().getCiudad();
     }
+
     public String getCliente(String id){
         return model.obtenerProyecto(id).getNombreCliente();
     }

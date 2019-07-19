@@ -13,6 +13,7 @@ import model.Trabajador;
 import delegate.SearchEmployeeDelegate;
 import network.endpoint.TrabajadorAPI;
 import network.service.NetService;
+import util.AsyncTask;
 import view.ListaTrabajadorView;
 
 import java.time.Instant;
@@ -37,7 +38,7 @@ public final class ListaTrabajadorController extends Controller implements Searc
     }
 
     public void fechtData(Consumer<ObservableList<TrabajadorCell>> callback) {
-        CompletableFuture.supplyAsync(() -> {
+        AsyncTask.supplyAsync(() -> {
             ObservableList<TrabajadorCell> cells = FXCollections.observableArrayList();
 
             model.getTrabajadores().forEach(cell -> cells.add(new TrabajadorCell(cell)));

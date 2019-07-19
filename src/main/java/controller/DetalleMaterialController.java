@@ -12,6 +12,7 @@ import model.Material;
 import model.RegistroMaterial;
 import network.endpoint.MaterialAPI;
 import network.service.NetService;
+import util.AsyncTask;
 import view.DetalleMaterialView;
 
 import java.util.concurrent.CompletableFuture;
@@ -35,7 +36,7 @@ public class DetalleMaterialController extends Controller {
     private NetService<MaterialAPI> service = NetService.getInstance();
 
     public void obtenerRegistro(Consumer<ObservableList<RegistroMaterial>> callBack){
-        CompletableFuture.supplyAsync(() -> {
+        AsyncTask.supplyAsync(() -> {
             ObservableList<RegistroMaterial> list = FXCollections.observableArrayList();
 
             model.getRegistrosMateriales().forEach(list::add);

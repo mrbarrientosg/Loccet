@@ -6,17 +6,14 @@ import cell.FilterCell;
 import cell.ProyectoCell;
 import cell.TrabajadorCell;
 import controller.RRHHController;
-import delegate.EditTrabajadorDelegate;
+import delegate.SaveTrabajadorDelegate;
 import io.reactivex.Observable;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.rxjavafx.observables.JavaFxObservable;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import io.reactivex.schedulers.Schedulers;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -39,7 +36,7 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 
-public class RRHHView extends View implements EditTrabajadorDelegate, FilterDelegate {
+public class RRHHView extends View implements SaveTrabajadorDelegate, FilterDelegate {
 
     private RRHHController controller;
 
@@ -203,7 +200,7 @@ public class RRHHView extends View implements EditTrabajadorDelegate, FilterDele
     }
 
     private void showAddTrabajadorAction(ActionEvent event) {
-        TrabajadorView view = TrabajadorRouter.create(Constructora.getInstance());
+        TrabajadorView view = TrabajadorRouter.create(Constructora.getInstance(), this);
         view.modal()
                 .withStyle(StageStyle.TRANSPARENT)
                 .show().getScene().setFill(Color.TRANSPARENT);
@@ -248,7 +245,7 @@ public class RRHHView extends View implements EditTrabajadorDelegate, FilterDele
     }
 
     @Override
-    public void didEditTrabajador() {
+    public void didSaveTrabajador() {
         ProyectoCell cell = proyectList.getSelectionModel().getSelectedItem();
 
         if (cell.getNombre().equals("Todos"))
@@ -257,6 +254,7 @@ public class RRHHView extends View implements EditTrabajadorDelegate, FilterDele
             controller.fetchTrabajadores(cell.getId(), tableTrabajadores::setItems);
 
         searchField.setText("");
+        tableTrabajadores.refresh();
     }
 
     @Override
