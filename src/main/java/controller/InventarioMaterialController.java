@@ -6,10 +6,7 @@ import com.google.gson.*;
 import exceptions.ItemExisteException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.InventarioMaterial;
-import model.Material;
-import model.Proyecto;
-import model.RegistroMaterial;
+import model.*;
 import network.endpoint.MaterialAPI;
 import network.service.NetService;
 import util.AsyncTask;
@@ -22,9 +19,11 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 /**
  * Clase manejadora de las funciones de la vista inventario.
@@ -66,6 +65,10 @@ public final class InventarioMaterialController extends Controller {
 
             return list;
         }).thenAccept(callBack);
+    }
+
+    public ObservableList<String> fetchUnidades() {
+        return FXCollections.observableArrayList(Arrays.asList(UnidadMedida.values()).stream().map(UnidadMedida::getValue).collect(Collectors.toList()));
     }
 
 

@@ -10,8 +10,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import model.Material;
 import model.RegistroMaterial;
+import model.UnidadMedida;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
@@ -47,32 +49,24 @@ public final class NuevoMaterialView extends View {
 
     @Override
     public void viewDidLoad() {
-        unidadesDeMedida = FXCollections.observableArrayList();
-        unidadesDeMedida.add("MM");
-        unidadesDeMedida.add("CM");
-        unidadesDeMedida.add("CM2");
-        unidadesDeMedida.add("CM3");
-        unidadesDeMedida.add("M");
-        unidadesDeMedida.add("M2");
-        unidadesDeMedida.add("M3");
-        unidadesDeMedida.add("L");
-        unidadesDeMedida.add("KG");
-        unidadesDeMedida.add("GR");
-        unidadesDeMedida.add("UN");
-        unidadCB.setItems(unidadesDeMedida);
-        unidadCB.getSelectionModel().selectFirst();
         Pattern pattern = Pattern.compile("\\d*|\\d+\\.\\d*");
-        TextFormatter formatter =  new TextFormatter<UnaryOperator>(change -> {            //Permite agregar solo numeros y un punto.
-            return pattern.matcher(change.getControlNewText()).matches() ? change : null;
-        });
+
+        TextFormatter formatter =  new TextFormatter<UnaryOperator>(change ->
+                 pattern.matcher(change.getControlNewText()).matches() ? change : null);
+
         cantidadTF.setTextFormatter(formatter);
 
-        Pattern patern = Pattern.compile("\\d*|\\d+\\.\\d*");
-        TextFormatter formater =  new TextFormatter<UnaryOperator>(change -> {
-            return pattern.matcher(change.getControlNewText()).matches() ? change : null;
-        });
+        TextFormatter formater =  new TextFormatter<UnaryOperator>(change ->
+                pattern.matcher(change.getControlNewText()).matches() ? change : null );
+
         precioTF.setTextFormatter(formater);
 
+    }
+
+    @Override
+    public void viewDidShow() {
+        unidadCB.setItems(controller.fetchUnidades());
+        unidadCB.getSelectionModel().selectFirst();
     }
 
     @Override
@@ -122,6 +116,7 @@ public final class NuevoMaterialView extends View {
 
     }
     private void clear(){
+        idMaterialTF.setText("");
         nombreTF.setText("");
         descripcionTF.setText("");
         cantidadTF.setText("");
