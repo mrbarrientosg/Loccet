@@ -100,8 +100,8 @@ public class DetalleTrabajadorView extends View {
             }
         };
 
-        specialityField.setCellFactory(factory);
         specialityField.setButtonCell(factory.call(null));
+        specialityField.setCellFactory(factory);
 
         Especialidades.getInstance().getAll(specialityField::setItems);
     }

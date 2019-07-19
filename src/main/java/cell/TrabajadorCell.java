@@ -3,6 +3,7 @@ package cell;
 import model.Trabajador;
 import model.TrabajadorPartTime;
 import model.TrabajadorTiempoCompleto;
+import util.StringUtils;
 
 public final class TrabajadorCell {
 
@@ -31,7 +32,7 @@ public final class TrabajadorCell {
         this.fechaNacimiento = t.getFechaNacimiento().toString();
         this.nombreEspecialidad = t.getEspecialidad().getNombre();
         this.telefono = t.getTelefono();
-        this.correoElectronico = t.getCorreoElectronico();
+        this.correoElectronico = StringUtils.isEmpty(t.getCorreoElectronico()) ? "-" : t.getCorreoElectronico();
         this.tipoTrabajador = (t instanceof TrabajadorTiempoCompleto) ? "Tiempo Completo" : "Part Time";
         this.horasPorDia = (t instanceof TrabajadorTiempoCompleto) ? 8 : ((TrabajadorPartTime) t).getCantidadHoraTrabajada();
     }
