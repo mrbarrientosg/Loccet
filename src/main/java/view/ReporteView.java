@@ -13,6 +13,7 @@ import javafx.util.Callback;
 import model.Costeable;
 import router.ReporteRouter;
 import java.math.BigDecimal;
+import java.util.Optional;
 
 public class ReporteView extends View {
 
@@ -120,6 +121,13 @@ public class ReporteView extends View {
             controller.hacerCostos(idProyecto);
             montoActualLB.setText(controller.montoActualProyecto(new BigDecimal(montoContractualLB.getText()),
                    new BigDecimal(gastoLB.getText())).toString());
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Falta seleccionar un proyecto");
+            alert.setContentText("Por favor, seleccione un proyecto");
+            alert.showAndWait();
         }
     }
 

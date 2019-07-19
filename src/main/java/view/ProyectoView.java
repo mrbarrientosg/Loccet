@@ -130,12 +130,20 @@ public class ProyectoView extends View {
     @FXML
     public void lookDetails(ActionEvent event){
         ProyectoCell cell = selection();
-        if (cell == null) return;
+        if (cell == null){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("No selecciono ningun proyecto");
+            alert.setContentText("Por favor, seleccionar un proyecto");
+            alert.showAndWait();
+            return;
+        };
         Proyecto p = controller.buscarProyecto(cell.getId());
         DetalleProyectoView view = DetalleProyectoRouter.create(p);
         view.modal().withStyle(StageStyle.TRANSPARENT)
                 .show().getScene().setFill(Color.TRANSPARENT);
     }
+
 
     @FXML
     public void createProyect(ActionEvent event){
@@ -149,6 +157,15 @@ public class ProyectoView extends View {
     @FXML
     public void deleteProyect(ActionEvent event){
         ProyectoCell cell = selection();
+        if (cell == null){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("No selecciono ningun proyecto");
+            alert.setContentText("Por favor seleccione un proyecto");
+
+            alert.showAndWait();
+            return;
+        }
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Alerta");
         alert.setHeaderText("Esta accion borrara el proyecto");

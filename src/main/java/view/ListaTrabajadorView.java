@@ -12,9 +12,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
@@ -24,6 +22,7 @@ import router.DetalleTrabajadorRouter;
 import util.AsyncTask;
 
 import java.util.ListIterator;
+import java.util.Optional;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 
@@ -95,7 +94,14 @@ public final class ListaTrabajadorView extends View implements SaveTrabajadorDel
     @FXML
     private void verDetalleTrabajador(ActionEvent event) {
         TrabajadorCell cell = tableView.getSelectionModel().getSelectedItem();
-        if (cell == null) return;
+        if (cell == null){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("No selecciono ningun trabajador");
+            alert.setContentText("Por favor seleccione un trabajador");
+            alert.showAndWait();
+            return;
+        }
         Trabajador t = controller.obtenerTrabajador(cell.getRut());
         DetalleTrabajadorView view = DetalleTrabajadorRouter.create(t, this);
         view.modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
@@ -104,9 +110,24 @@ public final class ListaTrabajadorView extends View implements SaveTrabajadorDel
     @FXML
     private void deleteAction(ActionEvent event) {
         TrabajadorCell cell = tableView.getSelectionModel().getSelectedItem();
-        if (cell == null) return;
-        controller.eliminarTrabajador(cell.getRut());
-        tableView.getItems().remove(cell);
+        if (cell == null){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setHeaderText("No selecciono ningun trabajador");
+                alert.setContentText("Por favor seleccione un trabajador");
+                alert.showAndWait();
+            return;
+        }
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación");
+        alert.setHeaderText("Esta accion eliminara un trabajador");
+        alert.setContentText("¿Desea continuar?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            controller.eliminarTrabajador(cell.getRut());
+            tableView.getItems().remove(cell);
+        }
+
     }
 
     public void addEmployee(TrabajadorCell cell) {
