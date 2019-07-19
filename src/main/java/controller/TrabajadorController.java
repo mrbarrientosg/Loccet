@@ -8,6 +8,7 @@ import com.google.gson.JsonObject;
 import delegate.SaveTrabajadorDelegate;
 import exceptions.EmptyFieldException;
 import exceptions.InvalidaRutException;
+import io.reactivex.Maybe;
 import javafx.beans.property.*;
 import json.LocalDateTypeConverter;
 import model.*;
@@ -123,16 +124,24 @@ public final class TrabajadorController extends Controller {
         json.addProperty("tiempo_completo", horas != null ? 0 : 1);
 
         // TODO: Falta implementar la especialidad
-        json.addProperty("id_especialidad", 1);
+        json.addProperty("id_especialidad", trabajador.getEspecialidad().getId());
 
         json.addProperty("dns_constructora", model.getDns());
 
         System.out.println(json);
 
         service.request(TrabajadorAPI.CREATE, json)
-                .subscribe(jsonElement -> {
-                    localizacion.setId(jsonElement.getAsJsonObject().get("id_localizacion").getAsInt());
-                }, throwable -> {
+                .flatMap(jsonElement -> {
+                    if (jsonElement.getAsJsonObject().has("id_localizacion"))
+                        localizacion.setId(jsonElement.getAsJsonObject().get("id_localizacion").getAsInt());
+                    else {
+                        json.remove("dns_constructora");
+                        return service.request(TrabajadorAPI.UPDATE, json);
+                    }
+
+                    return Maybe.just(new JsonObject());
+                })
+                .subscribe(System.out::println, throwable -> {
                     LOGGER.log(Level.SEVERE, "", throwable);
                 });
     }
