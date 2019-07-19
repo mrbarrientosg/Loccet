@@ -82,10 +82,11 @@ public class ProyectoView extends View {
     }
 
     private void cargarDatos(){
-        listProyectos = controller.getList();
-        filteredProyect = new FilteredList<>(listProyectos, e -> true);
-        refreshTable();
-
+        controller.fetchProyectos(proyectoCells -> {
+            listProyectos = proyectoCells;
+            filteredProyect = new FilteredList<>(listProyectos, e -> true);
+            refreshTable();
+        });
     }
 
     private void inicializarTablaProyecto() {

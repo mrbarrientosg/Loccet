@@ -7,10 +7,12 @@ import model.store.memory.MemoryStoreProyecto;
 import model.store.memory.MemoryStoreTrabajador;
 import model.store.StoreProyecto;
 import model.store.StoreTrabajador;
+import util.AsyncTask;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 public class Constructora implements Costeable {
@@ -171,21 +173,19 @@ public class Constructora implements Costeable {
         return storeTrabajador.findAll();
     }
 
-    public List<Proyecto> getListaProyecto() {
-        List<Proyecto> list = new ArrayList<>();
-        storeProyecto.findAll().forEach(list::add);
-        return list;
+    public Iterable<Proyecto> getProyectos() {
+        return storeProyecto.findAll();
     }
-
 
     @Override
     public BigDecimal calcularCosto() {
-        Iterable<Proyecto> iterable = storeProyecto.findAll();
+        Iterator<Proyecto> iterator = storeProyecto.findAll().iterator();
+
         BigDecimal costoAproximado = new BigDecimal(0);
 
-        iterable.forEach(proyecto -> {
-            costoAproximado.add(proyecto.calcularCosto());
-        });
+        while (iterator.hasNext()) {
+            costoAproximado = costoAproximado.add(iterator.next().calcularCosto());
+        }
 
         return costoAproximado;
     }

@@ -14,14 +14,15 @@ import model.Costeable;
 import router.ReporteRouter;
 import java.math.BigDecimal;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class ReporteView extends View {
 
     private ReporteController controller;
-    private ReporteRouter router;
-    private String idProyecto;
-    private ObservableList<ProyectoCell> nombreProyectos;
 
+    private ReporteRouter router;
+
+    private String idProyecto;
 
     @FXML
     private Button costoTotalButton;
@@ -74,8 +75,21 @@ public class ReporteView extends View {
 
     @Override
     public void viewDidShow(){
-        nombreProyectos = controller.getProyectos();
-        proyectoCB.setItems(nombreProyectos);
+        controller.fetchProyectos(proyectoCells -> {
+            proyectoCB.setItems(proyectoCells);
+            proyectoCB.getSelectionModel().selectFirst();
+        });
+
+        proyectoCB.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                ProyectoCell proyecto = newValue;
+                idProyecto = proyecto.getId();
+                direccionLB.setText(controller.getDireccion(proyecto.getId()));
+                clienteLB.setText(controller.getCliente(proyecto.getId()));
+                paisLB.setText(controller.getPais(proyecto.getId()));
+                ciudadLB.setText(controller.getCiudad(proyecto.getId()));
+            }
+        });
     }
 
     public void mostrarCostoProyecto(Costeable c) {
@@ -84,17 +98,16 @@ public class ReporteView extends View {
 
     public void mostrarCostoContructora(Costeable c){
         BigDecimal gastoContructora = c.calcularCosto();
-        BigDecimal montoContractual = controller.montoContractualConstructora();
-        CostoTotalView view = Injectable.find(CostoTotalView.class);
-        view.setdatos(montoContractual.toString(), gastoContructora.toString(),
-                controller.montoActualContructora(gastoContructora,montoContractual).toString());
-        view.modal().withStyle(StageStyle.TRANSPARENT)
-                .show().getScene().setFill(Color.TRANSPARENT);
-    }
 
-    @Override
-    public void viewDidClose(){
-        nombreProyectos.clear();
+        controller.montoContractualConstructora(montoContractual -> {
+            CostoTotalView view = Injectable.find(CostoTotalView.class);
+
+            view.setdatos(montoContractual.toString(), gastoContructora.toString(),
+                    controller.montoActualContructora(gastoContructora ,montoContractual).toString());
+
+            view.modal().withStyle(StageStyle.TRANSPARENT)
+                    .show().getScene().setFill(Color.TRANSPARENT);
+        });
     }
 
     @FXML
@@ -102,15 +115,8 @@ public class ReporteView extends View {
         controller.hacerCostos();
     }
 
-
     @FXML
     private void cargarLabel(ActionEvent event) {
-        ProyectoCell proyecto = proyectoCB.getSelectionModel().getSelectedItem();
-        idProyecto = proyecto.getId();
-        direccionLB.setText(controller.getDireccion(proyecto.getId()));
-        clienteLB.setText(controller.getCliente(proyecto.getId()));
-        paisLB.setText(controller.getPais(proyecto.getId()));
-        ciudadLB.setText(controller.getCiudad(proyecto.getId()));
 
     }
 
@@ -130,7 +136,6 @@ public class ReporteView extends View {
             alert.showAndWait();
         }
     }
-
 
     public void setController(ReporteController controller) {
         this.controller = controller;

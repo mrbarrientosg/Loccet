@@ -154,7 +154,7 @@ public class RRHHView extends View implements SaveTrabajadorDelegate, FilterDele
     public void viewDidShow() {
         ProyectoCell all = new ProyectoCell("Todos");
         proyectList.getItems().add(0, all);
-        proyectList.getItems().addAll(controller.getProyectos());
+        controller.fetchProyectos(proyectList.getItems()::addAll);
 
         if (!disposable) {
             Observable<String> textInputs = JavaFxObservable.valuesOf(searchField.textProperty());

@@ -37,16 +37,6 @@ public final class ListaTrabajadorController extends Controller implements Searc
         service = NetService.getInstance();
     }
 
-    public void fechtData(Consumer<ObservableList<TrabajadorCell>> callback) {
-        AsyncTask.supplyAsync(() -> {
-            ObservableList<TrabajadorCell> cells = FXCollections.observableArrayList();
-
-            model.getTrabajadores().forEach(cell -> cells.add(new TrabajadorCell(cell)));
-
-            return cells;
-        }).thenAccept(callback);
-    }
-
     public Single<ObservableList<TrabajadorCell>> searchEmployee(String text) {
         return Observable.fromIterable(model.getTrabajadores())
                 .filter(trabajador -> trabajador.getRut().contains(text))

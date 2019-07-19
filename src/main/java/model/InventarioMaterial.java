@@ -59,7 +59,7 @@ public class InventarioMaterial implements Costeable {
         BigDecimal costoTotal = new BigDecimal(0);
 
         iterable.forEach(material -> {
-            costoTotal.add(material.getPrecio());
+            costoTotal.add(material.calcularCosto());
         });
 
         return costoTotal;

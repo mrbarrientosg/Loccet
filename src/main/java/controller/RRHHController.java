@@ -108,8 +108,14 @@ public class RRHHController extends Controller {
                 });
     }
 
-    public List<ProyectoCell> getProyectos() {
-        return model.getListaProyecto().stream().map(ProyectoCell::new).collect(Collectors.toList());
+    public void fetchProyectos(Consumer<ObservableList<ProyectoCell>> callback) {
+        AsyncTask.supplyAsync(() -> {
+            ObservableList<ProyectoCell> cells = FXCollections.observableArrayList();
+
+            model.getProyectos().forEach(proyecto -> cells.add(new ProyectoCell(proyecto)));
+
+            return cells;
+        }).thenAccept(callback);
     }
 
     public void setView(RRHHView view) {

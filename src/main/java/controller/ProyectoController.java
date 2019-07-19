@@ -9,8 +9,10 @@ import model.Constructora;
 import model.Proyecto;
 import network.endpoint.ProyectoAPI;
 import network.service.NetService;
+import util.AsyncTask;
 import view.ProyectoView;
 
+import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
@@ -24,9 +26,14 @@ public class ProyectoController extends Controller {
         this.view = view;
     }
 
-    public ObservableList<ProyectoCell> getList(){
-        // TODO: Cambiar por AsyncTask
-        return FXCollections.observableList(model.getListaProyecto().stream().map(ProyectoCell::new).collect(Collectors.toList()));
+    public void fetchProyectos(Consumer<ObservableList<ProyectoCell>> callback) {
+        AsyncTask.supplyAsync(() -> {
+            ObservableList<ProyectoCell> cells = FXCollections.observableArrayList();
+
+            model.getProyectos().forEach(proyecto -> cells.add(new ProyectoCell(proyecto)));
+
+            return cells;
+        }).thenAccept(callback);
     }
 
     public Proyecto buscarProyecto(String id) {
