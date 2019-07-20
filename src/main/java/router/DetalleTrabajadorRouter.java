@@ -2,14 +2,14 @@ package router;
 
 import base.Injectable;
 import controller.DetalleTrabajadorController;
-import delegate.EditTrabajadorDelegate;
+import delegate.SaveTrabajadorDelegate;
 import model.Trabajador;
 import view.DetalleTrabajadorView;
 import view.ListaHorarioView;
 
 public class DetalleTrabajadorRouter {
 
-    public static DetalleTrabajadorView create(Trabajador model, EditTrabajadorDelegate delegate) {
+    public static DetalleTrabajadorView create(Trabajador model, SaveTrabajadorDelegate delegate) {
         DetalleTrabajadorView view = Injectable.find(DetalleTrabajadorView.class);
         DetalleTrabajadorController controller = Injectable.find(DetalleTrabajadorController.class);
 
@@ -21,7 +21,6 @@ public class DetalleTrabajadorRouter {
         controller.setView(view);
         controller.setModel(model);
         controller.setDelegate(delegate);
-
 
         return view;
     }

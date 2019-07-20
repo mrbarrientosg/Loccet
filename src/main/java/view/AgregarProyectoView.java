@@ -13,6 +13,8 @@ import router.AgregarProyectoRouter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Optional;
+import java.util.function.UnaryOperator;
+import java.util.regex.Pattern;
 
 /**
  * Establece la vista de agregar proyecto al momento de presionarlo en el menuBar
@@ -22,11 +24,10 @@ import java.util.Optional;
 public final class AgregarProyectoView extends View {
 
     private AgregarProyectoController controller;
+
     private AgregarProyectoRouter router;
 
     //MARK - Botones
-    @FXML
-    private TextField jefeP;
 
     @FXML
     private TextField ciudad;
@@ -67,8 +68,13 @@ public final class AgregarProyectoView extends View {
     }
 
     @Override
-    public void viewDidClose(){
-        setValues();
+    public void viewDidShow() {
+        bindController();
+    }
+
+    @Override
+    public void viewDidClose() {
+        clearValues();
     }
 
     /**
@@ -76,30 +82,13 @@ public final class AgregarProyectoView extends View {
      * @author Matías Zúñiga
      */
     @FXML
-    private void apretarAceptar(){
-        if(nombreP.getText().isEmpty() || jefeP.getText().isEmpty() ||
-                montoC.getText().isEmpty()||
-                cliente.getText().isEmpty()||
-                direccion.getText().isEmpty()||
-                ciudad.getText().isEmpty()||
-                estado.getText().isEmpty()||pais.getText().isEmpty() ||
-                fechaF.getEditor().getText().isEmpty() || fechaT.getEditor().getText().isEmpty()){
-                router.showAlert("Existen casillas sin rellenar!").showAndWait();
-                System.out.println("campos vacios");
-        }
-        else if(fechaF.getValue().isAfter(fechaT.getValue())){
-            router.showAlert("Las fechas ingresadas no coinciden.").showAndWait();
-        }
-        else{
-            try {
-                controller.presionarAceptar(nombreP.getText(),jefeP.getText(),new BigDecimal(montoC.getText()),cliente.getText(),
-                        direccion.getText(),ciudad.getText(),estado.getText(),pais.getText()
-                        ,fechaF.getValue(),fechaT.getValue());
-            } catch (EmptyFieldException e) {
-                Alert alert = router.showWarning(e.getMessage());
-                alert.show();
-            }
+    private void apretarAceptar() {
+        try {
+            controller.saveProyecto();
             close();
+        } catch (EmptyFieldException e) {
+            Alert alert = router.showWarning(e.getMessage());
+            alert.show();
         }
     }
     /**
@@ -107,7 +96,7 @@ public final class AgregarProyectoView extends View {
      * @author Matías Zúñiga
      */
     @FXML
-    private void apretarCancelar(){
+    private void apretarCancelar() {
         Alert alert = router.showWarning("Esta seguro que desea cancelar?");
         Optional<ButtonType> result = alert.showAndWait();
         if(result.isPresent()){
@@ -120,15 +109,27 @@ public final class AgregarProyectoView extends View {
         }
     }
 
+    private void bindController() {
+        nombreP.textProperty().bindBidirectional(controller.nameProperty());
+        cliente.textProperty().bindBidirectional(controller.clienteProperty());
+        montoC.textProperty().bindBidirectional(controller.montoProperty());
+
+        direccion.textProperty().bindBidirectional(controller.addressProperty());
+        pais.textProperty().bindBidirectional(controller.countryProperty());
+        ciudad.textProperty().bindBidirectional(controller.cityProperty());
+        estado.textProperty().bindBidirectional(controller.stateProperty());
+
+        fechaF.valueProperty().bindBidirectional(controller.fechaInicioProperty());
+        fechaT.valueProperty().bindBidirectional(controller.fechaTerminoProperty());
+    }
 
 
     /**
-     * @author: Matías Zúñiga
      * Función que setea los valores iniciales en vacio.
+     * @author Matías Zúñiga
      */
-    public void setValues(){
+    public void clearValues(){
         nombreP.setText("");
-        jefeP.setText("");
         montoC.setText("");
         ciudad.setText("");
         cliente.setText("");
@@ -140,24 +141,26 @@ public final class AgregarProyectoView extends View {
     }
 
     /**
-     * @author: Matías Zúñiga
      * Función que prohibe el uso de letras en la casilla monto contractual.
+     * @author Matías Zúñiga
      */
     public void lettersOff(){
         fechaF.setValue(LocalDate.now());
         fechaT.setValue(LocalDate.now());
-        montoC.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    montoC.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
+
+        Pattern pattern = Pattern.compile("\\d*|\\d+\\.\\d*");
+
+        TextFormatter formatter =  new TextFormatter<UnaryOperator>(change ->
+                pattern.matcher(change.getControlNewText()).matches() ? change : null);
+
+        montoC.setTextFormatter(formatter);
     }
+
     public void setController(AgregarProyectoController controller) {
         this.controller = controller;
     }
-    public void setRouter(AgregarProyectoRouter router){this.router = router;}
+
+    public void setRouter(AgregarProyectoRouter router) {
+        this.router = router;
+    }
 }

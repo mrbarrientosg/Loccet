@@ -48,4 +48,9 @@ public class Especialidad {
 
         return e.nombre.equals(nombre) && e.pagoPorHora.equals(pagoPorHora);
     }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }

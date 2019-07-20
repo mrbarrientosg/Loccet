@@ -5,6 +5,8 @@ import controller.LoginController;
 import exceptions.EmptyFieldException;
 import exceptions.InvalidUserException;
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -48,8 +50,11 @@ public final class LoginView extends Fragment {
 
     private double yOffset = 0;
 
+    private BooleanProperty disable;
+
     @Override
     public void viewDidLoad() {
+        disable = new SimpleBooleanProperty(false);
 
         getRoot().setOnMousePressed(event -> {
             xOffset = event.getSceneX();
@@ -62,6 +67,12 @@ public final class LoginView extends Fragment {
                 getPrimaryStage().setY(event.getScreenY() - yOffset);
             }
         });
+
+        username.disableProperty().bind(disable);
+        password.disableProperty().bind(disable);
+        dns.disableProperty().bind(disable);
+        loginButton.disableProperty().bind(disable);
+        exitButton.disableProperty().bind(disable);
 
         loginButton.setOnAction(this::login);
 
@@ -89,11 +100,14 @@ public final class LoginView extends Fragment {
     }
 
     public void showLoading() {
+        disable.setValue(true);
+
         LOGGER.info("Cargando");
         loadingOverlay();
     }
 
     public void hideLoading() {
+        disable.setValue(false);
         LOGGER.info("Listo");
         getRoot().getChildren().remove(1);
     }
@@ -103,7 +117,8 @@ public final class LoginView extends Fragment {
         replaceWith(tableroView, true, true);
     }
 
-    public void onError(Throwable e){
+    public void onError(Throwable e) {
+
         if (e instanceof EmptyFieldException || e instanceof InvalidUserException) {
             router.showError(e.getMessage());
         } else {

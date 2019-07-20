@@ -14,6 +14,7 @@ import model.Trabajador;
 import network.endpoint.TrabajadorAPI;
 import network.service.NetService;
 import specification.TrabajadorByQuerySpecification;
+import util.AsyncTask;
 import view.RRHHView;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public class RRHHController extends Controller {
     private NetService<TrabajadorAPI> service = NetService.getInstance();
 
     public void fetchTrabajadores(Consumer<ObservableList<TrabajadorCell>> callBack) {
-        CompletableFuture.supplyAsync(() -> {
+        AsyncTask.supplyAsync(() -> {
             ObservableList<TrabajadorCell> cells = FXCollections.observableArrayList(e -> new Observable[]{ new SimpleStringProperty(e.getRut())});
 
             model.getTrabajadores().forEach(trabajador -> cells.add(new TrabajadorCell(trabajador)));
@@ -42,7 +43,7 @@ public class RRHHController extends Controller {
     }
 
     public void fetchTrabajadores(String idProyecto, Consumer<ObservableList<TrabajadorCell>> callBack) {
-        CompletableFuture.supplyAsync(() -> {
+        AsyncTask.supplyAsync(() -> {
             Proyecto p = model.obtenerProyecto(idProyecto);
 
             ObservableList<TrabajadorCell> cells = FXCollections.observableArrayList(e -> new Observable[]{ new SimpleStringProperty(e.getRut())});
@@ -92,7 +93,9 @@ public class RRHHController extends Controller {
 
     public void deleteTrabajador(String rut) {
         Trabajador t = model.eliminarTrabajador(rut);
+
         if (t == null) return;
+
         view.didDeleteTrabajador(t.getRut());
 
         JsonObject json = new JsonObject();
@@ -105,8 +108,14 @@ public class RRHHController extends Controller {
                 });
     }
 
-    public List<ProyectoCell> getProyectos() {
-        return model.getListaProyecto().stream().map(ProyectoCell::new).collect(Collectors.toList());
+    public void fetchProyectos(Consumer<ObservableList<ProyectoCell>> callback) {
+        AsyncTask.supplyAsync(() -> {
+            ObservableList<ProyectoCell> cells = FXCollections.observableArrayList();
+
+            model.getProyectos().forEach(proyecto -> cells.add(new ProyectoCell(proyecto)));
+
+            return cells;
+        }).thenAccept(callback);
     }
 
     public void setView(RRHHView view) {

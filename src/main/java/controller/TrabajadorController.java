@@ -5,8 +5,10 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import delegate.SaveTrabajadorDelegate;
 import exceptions.EmptyFieldException;
 import exceptions.InvalidaRutException;
+import io.reactivex.Maybe;
 import javafx.beans.property.*;
 import json.LocalDateTypeConverter;
 import model.*;
@@ -56,6 +58,8 @@ public final class TrabajadorController extends Controller {
 
     private StringProperty hours;
 
+    private SaveTrabajadorDelegate delegate;
+
     public TrabajadorController() {
         rut = new SimpleStringProperty(null);
         name = new SimpleStringProperty(null);
@@ -79,8 +83,6 @@ public final class TrabajadorController extends Controller {
     public void guardarTrabajador() throws EmptyFieldException, InvalidaRutException {
         Trabajador trabajador;
 
-        Localizacion localizacion = new Localizacion(address.get(), zip.get(), country.get(), state.get(), city.get());
-
         Integer horas = null;
 
         if (partTime.get()) {
@@ -95,13 +97,19 @@ public final class TrabajadorController extends Controller {
         trabajador.setApellido(lastName.get());
         trabajador.setFechaNacimiento(birthday.get());
 
-        trabajador.setEspecialidad(Especialidades.getInstance().obtener(speciality.get().getId()));
+        trabajador.setEspecialidad(speciality.get());
+
+        Localizacion localizacion = new Localizacion(address.get(), zip.get(), country.get(), state.get(), city.get());
+
         trabajador.setLocalizacion(localizacion);
 
         trabajador.setTelefono(telephone.get());
         trabajador.setCorreoElectronico(email.get());
 
         model.agregarTrabajador(trabajador);
+
+        if (delegate != null)
+            delegate.didSaveTrabajador(trabajador);
 
         NetService<TrabajadorAPI> service = NetService.getInstance();
 
@@ -116,18 +124,30 @@ public final class TrabajadorController extends Controller {
         json.addProperty("tiempo_completo", horas != null ? 0 : 1);
 
         // TODO: Falta implementar la especialidad
-        json.addProperty("id_especialidad", 1);
+        json.addProperty("id_especialidad", trabajador.getEspecialidad().getId());
 
         json.addProperty("dns_constructora", model.getDns());
 
         System.out.println(json);
 
         service.request(TrabajadorAPI.CREATE, json)
-                .subscribe(jsonElement -> {
-                    localizacion.setId(jsonElement.getAsJsonObject().get("id_localizacion").getAsInt());
-                }, throwable -> {
+                .flatMap(jsonElement -> {
+                    if (jsonElement.getAsJsonObject().has("id_localizacion"))
+                        localizacion.setId(jsonElement.getAsJsonObject().get("id_localizacion").getAsInt());
+                    else {
+                        json.remove("dns_constructora");
+                        return service.request(TrabajadorAPI.UPDATE, json);
+                    }
+
+                    return Maybe.just(new JsonObject());
+                })
+                .subscribe(System.out::println, throwable -> {
                     LOGGER.log(Level.SEVERE, "", throwable);
                 });
+    }
+
+    public void setDelegate(SaveTrabajadorDelegate delegate) {
+        this.delegate = delegate;
     }
 
     public void setModel(Constructora model) {

@@ -7,19 +7,25 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
+import model.Constructora;
 import model.Costeable;
 import router.ReporteRouter;
+import util.AsyncTask;
+
 import java.math.BigDecimal;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class ReporteView extends View {
 
     private ReporteController controller;
-    private ReporteRouter router;
-    private String idProyecto;
-    private ObservableList<ProyectoCell> nombreProyectos;
 
+    private ReporteRouter router;
+
+    private String idProyecto;
 
     @FXML
     private Button costoTotalButton;
@@ -72,56 +78,61 @@ public class ReporteView extends View {
 
     @Override
     public void viewDidShow(){
-        nombreProyectos = controller.getProyectos();
-        proyectoCB.setItems(nombreProyectos);
-    }
+        controller.fetchProyectos(proyectoCells -> {
+            proyectoCB.setItems(proyectoCells);
+            proyectoCB.getSelectionModel().selectFirst();
+        });
 
-    public void mostrarCostoProyecto(Costeable c) {
-        gastoLB.setText(c.calcularCosto().toString());
-    }
-
-    public void mostrarCostoContructora(Costeable c){
-        BigDecimal gastoContructora = c.calcularCosto();
-        BigDecimal montoContractual = controller.montoContractualConstructora();
-        CostoTotalView view = Injectable.find(CostoTotalView.class);
-        view.setdatos(montoContractual.toString(), gastoContructora.toString(),
-                controller.montoActualContructora(gastoContructora,montoContractual).toString());
-        view.modal().withStyle(StageStyle.TRANSPARENT).show();
-    }
-
-    @Override
-    public void viewDidClose(){
-        nombreProyectos.clear();
+        proyectoCB.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                ProyectoCell proyecto = newValue;
+                idProyecto = proyecto.getId();
+                direccionLB.setText(controller.getDireccion(proyecto.getId()));
+                clienteLB.setText(controller.getCliente(proyecto.getId()));
+                paisLB.setText(controller.getPais(proyecto.getId()));
+                ciudadLB.setText(controller.getCiudad(proyecto.getId()));
+            }
+        });
     }
 
     @FXML
     public void costoContructora(ActionEvent event){
-        controller.hacerCostos();
-    }
+        controller.montoContractualConstructora(montoContractual -> {
+            CostoTotalView view = Injectable.find(CostoTotalView.class);
 
+            view.setupView(Constructora.getInstance(), montoContractual);
 
-    @FXML
-    private void cargarLabel(ActionEvent event) {
-        ProyectoCell proyecto = proyectoCB.getSelectionModel().getSelectedItem();
-        idProyecto = proyecto.getId();
-        direccionLB.setText(controller.getDireccion(proyecto.getId()));
-        clienteLB.setText(controller.getCliente(proyecto.getId()));
-        paisLB.setText(controller.getPais(proyecto.getId()));
-        ciudadLB.setText(controller.getCiudad(proyecto.getId()));
-
+            view.modal().withStyle(StageStyle.TRANSPARENT)
+                    .show().getScene().setFill(Color.TRANSPARENT);
+        });
     }
 
     @FXML
     private void costoProyecto(ActionEvent event) {
         if (idProyecto != null) {
-            montoContractualLB.setText(controller.montoContractualProyecto(idProyecto).toString());
-            controller.hacerCostos(idProyecto);
-            montoActualLB.setText(controller.montoActualProyecto(new BigDecimal(montoContractualLB.getText()),
-                   new BigDecimal(gastoLB.getText())).toString());
+            AsyncTask.supplyAsync(controller.costos(idProyecto)::calcularCosto).thenAccept(costo -> {
+                BigDecimal montoContractual = controller.montoContractualProyecto(idProyecto);
+
+                montoContractualLB.setText(montoContractual.toString());
+
+                gastoLB.setText(costo.toString());
+                montoActualLB.setText(montoContractual.subtract(costo).toString());
+            });
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Falta seleccionar un proyecto");
+            alert.setContentText("Por favor, seleccione un proyecto");
+            alert.showAndWait();
         }
     }
 
+    public void setController(ReporteController controller) {
+        this.controller = controller;
+    }
 
-    public void setController(ReporteController controller){this.controller = controller;}
-    public void setRouter(ReporteRouter router){this.router = router;}
+    public void setRouter(ReporteRouter router) {
+        this.router = router;
+    }
 }

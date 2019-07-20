@@ -2,6 +2,7 @@ package router;
 
 import base.Injectable;
 import controller.DetalleProyectoController;
+import delegate.SaveProyectoDelegate;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import model.Proyecto;
@@ -11,7 +12,7 @@ import view.ListaTrabajadorView;
 
 public class DetalleProyectoRouter {
 
-    public static DetalleProyectoView create(Proyecto proyecto) {
+    public static DetalleProyectoView create(Proyecto proyecto, SaveProyectoDelegate delegate) {
         DetalleProyectoView detalleProyectoView = Injectable.find(DetalleProyectoView.class);
         DetalleProyectoRouter router = new DetalleProyectoRouter();
         DetalleProyectoController detalleProyectoController = Injectable.find(DetalleProyectoController.class);
@@ -28,6 +29,7 @@ public class DetalleProyectoRouter {
 
         detalleProyectoController.setView(detalleProyectoView);
         detalleProyectoController.setModel(proyecto);
+        detalleProyectoController.setDelegate(delegate);
 
         return detalleProyectoView;
     }

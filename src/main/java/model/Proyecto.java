@@ -15,7 +15,9 @@ import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 
 public class Proyecto implements Costeable{
@@ -168,13 +170,13 @@ public class Proyecto implements Costeable{
 
     @Override
     public BigDecimal calcularCosto(){
-        Iterable<Trabajador> iterable = storeTrabajador.findAll();
+        Iterator<Trabajador> iterator = storeTrabajador.findAll().iterator();
 
         BigDecimal costoAproximado = new BigDecimal(0);
 
-        iterable.forEach(trabajador ->  {
-            costoAproximado.add(trabajador.calcularSueldo());
-        });
+        while (iterator.hasNext()) {
+            costoAproximado = costoAproximado.add(iterator.next().calcularSueldo());
+        }
 
         return costoAproximado.add(inventarioMaterial.calcularCosto());
     }
@@ -215,7 +217,7 @@ public class Proyecto implements Costeable{
 
     // MARK: - Setter
 
-    public void setId(String id) throws EmptyFieldException {
+    private void setId(String id) throws EmptyFieldException {
         if (StringUtils.isEmpty(id))
             throw new EmptyFieldException("ID");
 

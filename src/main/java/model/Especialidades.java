@@ -2,11 +2,15 @@ package model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
+import util.AsyncTask;
+import util.ThreadPools;
 
-import java.util.*;
-import java.util.concurrent.CompletableFuture;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 public class Especialidades {
 
@@ -42,7 +46,7 @@ public class Especialidades {
     }
 
     public void getAll(Consumer<ObservableList<Especialidad>> callBack) {
-        CompletableFuture.supplyAsync(() -> {
+        AsyncTask.supplyAsync(() -> {
             ObservableList<Especialidad> list = FXCollections.observableArrayList();
 
             especialidades.forEach((key, value) -> {
@@ -54,3 +58,5 @@ public class Especialidades {
     }
 
 }
+
+

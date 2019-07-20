@@ -6,12 +6,10 @@ import com.google.gson.*;
 import exceptions.ItemExisteException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.InventarioMaterial;
-import model.Material;
-import model.Proyecto;
-import model.RegistroMaterial;
+import model.*;
 import network.endpoint.MaterialAPI;
 import network.service.NetService;
+import util.AsyncTask;
 import util.ExportFile.ExportFile;
 import util.InventarioExport.ExportInventarioPDF;
 import util.InventarioExport.ExportInventarioXLSX;
@@ -21,9 +19,11 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 /**
  * Clase manejadora de las funciones de la vista inventario.
@@ -58,13 +58,17 @@ public final class InventarioMaterialController extends Controller {
      * @author Sebastian Fuenzalida.
      */
     public void cargarDatos(Consumer<ObservableList<MaterialCell>> callBack) {
-        CompletableFuture.supplyAsync(() -> {
+        AsyncTask.supplyAsync(() -> {
             ObservableList<MaterialCell> list = FXCollections.observableArrayList();
 
             model.obtenerMateriales().forEach(material -> list.add(new MaterialCell(material)));
 
             return list;
         }).thenAccept(callBack);
+    }
+
+    public ObservableList<String> fetchUnidades() {
+        return FXCollections.observableArrayList(Arrays.asList(UnidadMedida.values()).stream().map(UnidadMedida::getValue).collect(Collectors.toList()));
     }
 
 

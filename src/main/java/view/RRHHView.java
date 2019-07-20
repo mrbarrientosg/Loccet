@@ -6,17 +6,15 @@ import cell.FilterCell;
 import cell.ProyectoCell;
 import cell.TrabajadorCell;
 import controller.RRHHController;
-import delegate.EditTrabajadorDelegate;
+import delegate.SaveTrabajadorDelegate;
 import io.reactivex.Observable;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.rxjavafx.observables.JavaFxObservable;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import io.reactivex.schedulers.Schedulers;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -33,13 +31,13 @@ import router.DetalleTrabajadorRouter;
 import router.RRHHRouter;
 import delegate.FilterDelegate;
 import router.TrabajadorRouter;
+import util.AsyncTask;
 
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 
-public class RRHHView extends View implements EditTrabajadorDelegate, FilterDelegate {
+public class RRHHView extends View implements SaveTrabajadorDelegate, FilterDelegate {
 
     private RRHHController controller;
 
@@ -75,6 +73,10 @@ public class RRHHView extends View implements EditTrabajadorDelegate, FilterDele
 
     private FilteredTableColumn<TrabajadorCell, String> telephoneConlumn;
 
+    private FilteredTableColumn<TrabajadorCell, String> typeColumn;
+
+    private FilteredTableColumn<TrabajadorCell, Integer> horasColumn;
+
     @FXML
     private Button filterButton;
 
@@ -97,6 +99,8 @@ public class RRHHView extends View implements EditTrabajadorDelegate, FilterDele
         specialityColumn = new FilteredTableColumn<>("Especialidad");
         emailColumn = new FilteredTableColumn<>("Correo Electronico");
         telephoneConlumn = new FilteredTableColumn<>("Telefono");
+        typeColumn = new FilteredTableColumn<>("Tipo");
+        horasColumn = new FilteredTableColumn<>("Horas por dia");
 
         rutColumn.setCellValueFactory(new PropertyValueFactory<>("rut"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
@@ -104,11 +108,18 @@ public class RRHHView extends View implements EditTrabajadorDelegate, FilterDele
         specialityColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getNombreEspecialidad()));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("correoElectronico"));
         telephoneConlumn.setCellValueFactory(new PropertyValueFactory<>("telefono"));
+        typeColumn.setCellValueFactory(new PropertyValueFactory<>("tipoTrabajador"));
+        horasColumn.setCellValueFactory(new PropertyValueFactory<>("horasPorDia"));
 
-        tableTrabajadores.getColumns().setAll(rutColumn, nameColumn, lastNameColumn, specialityColumn, emailColumn, telephoneConlumn);
+        tableTrabajadores.getColumns().setAll(rutColumn, nameColumn, lastNameColumn, specialityColumn, emailColumn,
+                telephoneConlumn, typeColumn, horasColumn);
 
         tableTrabajadores.getColumns().forEach(trabajadorCellTableColumn -> {
-            columnList.add(new Pair<>(trabajadorCellTableColumn.getText(), String.class));
+            if (trabajadorCellTableColumn.getText().equals("Horas por dia")) {
+                columnList.add(new Pair<>(trabajadorCellTableColumn.getText(), Integer.class));
+            } else {
+                columnList.add(new Pair<>(trabajadorCellTableColumn.getText(), String.class));
+            }
         });
 
         tableTrabajadores.fixedCellSizeProperty().setValue(40);
@@ -132,7 +143,6 @@ public class RRHHView extends View implements EditTrabajadorDelegate, FilterDele
         deleteTrabajador.setOnAction(this::deleteTrabajadorAction);
         detailTrabajador.setOnAction(this::detailTrabajadorAction);
         filterButton.setOnAction(this::showFilterAction);
-
         createTrabajador.setOnAction(this::showAddTrabajadorAction);
     }
 
@@ -140,7 +150,7 @@ public class RRHHView extends View implements EditTrabajadorDelegate, FilterDele
     public void viewDidShow() {
         ProyectoCell all = new ProyectoCell("Todos");
         proyectList.getItems().add(0, all);
-        proyectList.getItems().addAll(controller.getProyectos());
+        controller.fetchProyectos(proyectList.getItems()::addAll);
 
         if (!disposable) {
             Observable<String> textInputs = JavaFxObservable.valuesOf(searchField.textProperty());
@@ -175,6 +185,7 @@ public class RRHHView extends View implements EditTrabajadorDelegate, FilterDele
                     .observeOn(JavaFxScheduler.platform())
                     .subscribe(list -> {
                         tableTrabajadores.setItems(list);
+                        filters(getConditions());
                     });
 
             disposable = true;
@@ -190,9 +201,8 @@ public class RRHHView extends View implements EditTrabajadorDelegate, FilterDele
     }
 
     private void showAddTrabajadorAction(ActionEvent event) {
-        TrabajadorView view = TrabajadorRouter.create(Constructora.getInstance());
-        view.modal()
-                .withStyle(StageStyle.TRANSPARENT)
+        TrabajadorView view = TrabajadorRouter.create(Constructora.getInstance(), this);
+        view.modal().withStyle(StageStyle.TRANSPARENT)
                 .show().getScene().setFill(Color.TRANSPARENT);
     }
 
@@ -201,24 +211,48 @@ public class RRHHView extends View implements EditTrabajadorDelegate, FilterDele
         view.setFilterCells(filterCells);
         view.setColumnList(columnList);
         view.setDelegate(this);
-        view.modal().withResizable(true).show();
+        view.modal().withResizable(true).withStyle(StageStyle.TRANSPARENT)
+                .show().getScene().setFill(Color.TRANSPARENT);
     }
 
     private void deleteTrabajadorAction(ActionEvent event) {
         TrabajadorCell cell = tableTrabajadores.getSelectionModel().getSelectedItem();
 
-        if (cell == null) return;
+        if (cell == null){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("No selecciono ningun trabajador");
+            alert.setContentText("Por favor seleccione un trabajador");
+            alert.showAndWait();
+            return;
+        }
 
-        controller.deleteTrabajador(cell.getRut());
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación");
+        alert.setHeaderText("Esta accion eliminara un trabajador");
+        alert.setContentText("¿Desea continuar?");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == ButtonType.OK){
+            controller.deleteTrabajador(cell.getRut());
+        }
+
     }
 
     private void detailTrabajadorAction(ActionEvent event) {
         TrabajadorCell cell = tableTrabajadores.getSelectionModel().getSelectedItem();
-        if (cell == null) return;
+        if (cell == null){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setHeaderText("No selecciono ningun trabajador");
+                alert.setContentText("Por favor seleccione un trabajador");
+
+                alert.showAndWait();
+                return;
+        }
         Trabajador t = controller.obtenerTrabajador(cell.getRut());
         DetalleTrabajadorView view = DetalleTrabajadorRouter.create(t, this);
-        view.modal()
-                .withStyle(StageStyle.TRANSPARENT)
+        view.modal().withStyle(StageStyle.TRANSPARENT)
                 .show().getScene().setFill(Color.TRANSPARENT);
     }
 
@@ -235,15 +269,29 @@ public class RRHHView extends View implements EditTrabajadorDelegate, FilterDele
     }
 
     @Override
-    public void didEditTrabajador() {
-        ProyectoCell cell = proyectList.getSelectionModel().getSelectedItem();
+    public void didSaveTrabajador(Trabajador trabajador) {
+        AsyncTask.supplyAsync(() -> {
+            ListIterator<TrabajadorCell> iterator = tableTrabajadores.getItems().listIterator();
 
-        if (cell.getNombre().equals("Todos"))
-            controller.fetchTrabajadores(tableTrabajadores::setItems);
-        else
-            controller.fetchTrabajadores(cell.getId(), tableTrabajadores::setItems);
+            while (iterator.hasNext()) {
+                TrabajadorCell cell = iterator.next();
+                if (cell.getRut().equals(trabajador.getRut())) {
+                    Platform.runLater(() -> {
+                        iterator.set(new TrabajadorCell(trabajador));
+                    });
+                    return true;
+                }
+            }
+            return false;
+        }).thenAccept(replace -> {
+            ProyectoCell cell = proyectList.getSelectionModel().getSelectedItem();
 
-        searchField.setText("");
+            if (!replace && cell.getNombre().equals("Todos"))
+                tableTrabajadores.getItems().add(new TrabajadorCell(trabajador));
+
+            searchField.setText("");
+        });
+
     }
 
     @Override
@@ -252,5 +300,20 @@ public class RRHHView extends View implements EditTrabajadorDelegate, FilterDele
             FilteredTableColumn filteredTableColumn = (FilteredTableColumn) column;
             filteredTableColumn.setPredicate(coditions.get(column.getText()));
         });
+    }
+
+    private Map<String, Predicate> getConditions() {
+        Map<String, Predicate> map = new HashMap<>();
+
+        filterCells.forEach(cell -> {
+            if (map.containsKey(cell.getColumnName())) {
+                Predicate predicate = map.get(cell.getColumnName()).and(cell.getFilter());
+                map.put(cell.getColumnName(), predicate);
+            } else {
+                map.put(cell.getColumnName(), cell.getFilter());
+            }
+        });
+
+        return map;
     }
 }

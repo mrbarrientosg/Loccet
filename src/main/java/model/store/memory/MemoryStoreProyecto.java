@@ -28,6 +28,11 @@ public class MemoryStoreProyecto extends AbstractStore<Proyecto> implements Stor
     }
 
     @Override
+    public boolean contains(Proyecto value) {
+        return mapProyecto.containsKey(value.getId());
+    }
+
+    @Override
     public Proyecto findById(String id) {
         return mapProyecto.get(id);
     }

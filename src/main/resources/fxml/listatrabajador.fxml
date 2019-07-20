@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="bg-white" stylesheets="@../App.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="bg-white" stylesheets="@../App.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="CENTER" spacing="10.0">
          <children>
@@ -59,13 +59,10 @@
             <TableColumn fx:id="rutColumn" editable="false" prefWidth="75.0" style="-fx-alignment: CENTER;" text="RUT" />
             <TableColumn fx:id="nameColumn" editable="false" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Nombre" />
             <TableColumn fx:id="lastNameColumn" editable="false" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Apellido" />
-            <TableColumn fx:id="fechaNaciemientoColumn" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Fecha Nacimiento" />
             <TableColumn fx:id="specialityColumn" editable="false" prefWidth="84.0" style="-fx-alignment: CENTER;" text="Especialidad" />
-            <TableColumn fx:id="horasTrabajoColumn" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Horas de Trabajo" />
-            <TableColumn fx:id="sueldoHoraColumn" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Sueldo por Hora" />
             <TableColumn fx:id="proyectColumn" editable="false" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Proyecto" visible="false" />
-            <TableColumn fx:id="telefonoColumn" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Telefono" />
-            <TableColumn fx:id="emailColumn" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Correo electronico" />
+            <TableColumn fx:id="typeColumn" prefWidth="75.0" text="Tipo" />
+            <TableColumn fx:id="horasColumn" prefWidth="75.0" text="Horas por dia" />
          </columns>
          <styleClass>
             <String fx:value="table" />

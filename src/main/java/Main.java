@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import network.service.NetService;
 import router.LoginRouter;
+import util.ThreadPools;
 import view.LoginView;
 
 public class Main extends Application {
@@ -43,6 +44,7 @@ public class Main extends Application {
     @Override
     public void stop() throws Exception {
         NetService.getInstance().close();
+        ThreadPools.getInstance().shutdownThreadPools();
     }
 }
 

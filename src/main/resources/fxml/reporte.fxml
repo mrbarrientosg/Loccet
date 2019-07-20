@@ -15,7 +15,7 @@
 
 <VBox prefWidth="804.0" spacing="15.0" styleClass="bg-light-gray" stylesheets="@../App.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ComboBox fx:id="proyectoCB" onAction="#cargarLabel" prefWidth="130.0" promptText="Proyectos" styleClass="textfield-gray">
+      <ComboBox fx:id="proyectoCB" prefWidth="130.0" promptText="Proyectos" styleClass="textfield-gray">
          <VBox.margin>
             <Insets left="16.0" right="16.0" top="16.0" />
          </VBox.margin>
@@ -96,21 +96,19 @@
             <HBox spacing="8.0">
                <children>
                   <Label styleClass="paragraph" text="Monto contractual:" />
-                  <Label fx:id="montoContractualLB" styleClass="paragraph" />
+                  <Label fx:id="montoContractualLB" maxWidth="1.7976931348623157E308" styleClass="paragraph" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
-            <Separator prefWidth="80.0" visible="false" />
             <HBox spacing="8.0">
                <children>
                   <Label styleClass="paragraph" text="Gastos:" />
-                  <Label fx:id="gastoLB" styleClass="paragraph" />
+                  <Label fx:id="gastoLB" maxWidth="1.7976931348623157E308" styleClass="paragraph" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
-            <Separator prefWidth="80.0" visible="false" />
             <HBox spacing="8.0">
                <children>
                   <Label styleClass="paragraph" text="Monto actual:" />
-                  <Label fx:id="montoActualLB" styleClass="paragraph" />
+                  <Label fx:id="montoActualLB" maxWidth="1.7976931348623157E308" styleClass="paragraph" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
          </children>

@@ -3,7 +3,10 @@ package view;
 import base.Fragment;
 import base.Injectable;
 import cell.MaterialCell;
+import cell.TrabajadorCell;
 import controller.InventarioMaterialController;
+import delegate.EditMaterialDelegate;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -12,12 +15,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.StageStyle;
 import model.Material;
 import router.DetalleMaterialRouter;
+import util.AsyncTask;
+
 import java.io.File;
 import java.io.IOException;
+import java.util.ListIterator;
 import java.util.Optional;
 
 
@@ -26,7 +33,7 @@ import java.util.Optional;
  *
  * @author  Sebastian Fuenzalida.
  */
-public final class InventarioMaterialView extends Fragment {
+public final class InventarioMaterialView extends Fragment implements EditMaterialDelegate {
 
     private InventarioMaterialController controller;
 
@@ -106,7 +113,8 @@ public final class InventarioMaterialView extends Fragment {
     public void nuevoMaterial(ActionEvent event){
         NuevoMaterialView view = Injectable.find(NuevoMaterialView.class);
         view.setController(controller);
-        view.modal().withBlock(true).show();
+        view.modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
+                .show().getScene().setFill(Color.TRANSPARENT);;
     }
 
     public void didAddMaterial(MaterialCell cell) {
@@ -142,8 +150,9 @@ public final class InventarioMaterialView extends Fragment {
         MaterialCell materialCell = seleccion();
         if(materialCell!=null) {
             Material material = controller.getMaterial(materialCell.getId());
-            DetalleMaterialView view = DetalleMaterialRouter.create(material);
-            view.modal().withStyle(StageStyle.TRANSPARENT).show();
+            DetalleMaterialView view = DetalleMaterialRouter.create(material, this);
+            view.modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
+                    .show().getScene().setFill(Color.TRANSPARENT);
         }
         else{
            // controller.showWarning("Seleccionar material", "Por favor seleccione material a eliminar").showAndWait();;
@@ -237,6 +246,24 @@ public final class InventarioMaterialView extends Fragment {
      */
     public void setController(InventarioMaterialController controller) {
         this.controller = controller;
+    }
+
+    @Override
+    public void didEditMaterial(Material material) {
+        AsyncTask.supplyAsync(() -> {
+            ListIterator<MaterialCell> iterator = tablaInventario.getItems().listIterator();
+
+            while (iterator.hasNext()) {
+                MaterialCell cell = iterator.next();
+                if (cell.getId().equals(material.getId())) {
+                    Platform.runLater(() -> {
+                        iterator.set(new MaterialCell(material));
+                    });
+                    return true;
+                }
+            }
+            return false;
+        });
     }
 }
 

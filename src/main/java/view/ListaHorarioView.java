@@ -9,6 +9,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
+import javafx.stage.StageStyle;
 import model.Horario;
 import router.HorarioRouter;
 import util.Dias;
@@ -74,7 +76,9 @@ public final class ListaHorarioView extends View implements AddHorarioDelegate {
     }
 
     private void addHorarioAction(ActionEvent event) {
-        HorarioRouter.create(controller.getModel(), this).modal().show();
+        HorarioView view = HorarioRouter.create(controller.getModel(), this);
+        view.modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
+                .show().getScene().setFill(Color.TRANSPARENT);
     }
 
     private void deleteAction(ActionEvent event) {

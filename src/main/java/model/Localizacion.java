@@ -39,6 +39,7 @@ public class Localizacion {
     }
 
     public Localizacion(Localizacion other) {
+        this.id = other.id;
         this.direccion = other.direccion;
         this.codigoPostal = other.codigoPostal;
         this.pais = other.pais;

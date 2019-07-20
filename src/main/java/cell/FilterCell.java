@@ -1,5 +1,7 @@
 package cell;
 import delegate.FilterCellDelegate;
+import impl.org.controlsfx.tableview2.filter.parser.number.NumberParser;
+import impl.org.controlsfx.tableview2.filter.parser.string.StringParser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -7,6 +9,8 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.util.Callback;
 import javafx.util.Pair;
+import org.controlsfx.control.tableview2.filter.parser.Parser;
+
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -21,18 +25,19 @@ public class FilterCell {
 
     private FilterCellDelegate delegate;
 
-//    private Parser parser;
+    private Parser parser;
 
     private int row;
 
     private Node[] childrens;
 
     public FilterCell(ObservableList<Pair<String, Class<?>>> columnList) {
+
         columnName = new ComboBox<>();
         columnName.setItems(columnList);
         columnName.prefWidth(-1);
         columnName.setMaxWidth(Double.MAX_VALUE);
-        columnName.getStylesheets().add(getClass().getResource("../css/filter.css").toString());
+        columnName.getStylesheets().add(getClass().getResource("../App.css").toString());
         columnName.getStyleClass().add("textfield-gray");
         columnName.getStyleClass().add("textfield");
 
@@ -52,10 +57,10 @@ public class FilterCell {
         columnName.setCellFactory(factory);
         columnName.setButtonCell(factory.call(null));
 
-      /*  columnName.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.getValue().isAssignableFrom(String.class)) {
+        columnName.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (String.class.isAssignableFrom(newValue.getValue())) {
                 parser = new StringParser(false);
-            } else if (newValue.getValue().isAssignableFrom(Number.class)) {
+            } else if (Number.class.isAssignableFrom(newValue.getValue())) {
                 parser = new NumberParser();
             }
 
@@ -64,22 +69,22 @@ public class FilterCell {
             list.remove(list.size() - 1);
             filter.setItems(FXCollections.observableArrayList(list));
         });
-*/
+
         filter = new ComboBox<>();
         filter.prefWidth(-1);
         filter.setMaxWidth(Double.MAX_VALUE);
-        filter.getStylesheets().add(getClass().getResource("../css/filter.css").toString());
+        filter.getStylesheets().add(getClass().getResource("../App.css").toString());
         filter.getStyleClass().add("textfield-gray");
         filter.getStyleClass().add("textfield");
 
         value = new TextField();
         value.prefWidth(-1);
-        value.getStylesheets().add(getClass().getResource("../css/filter.css").toString());
+        value.getStylesheets().add(getClass().getResource("../App.css").toString());
         value.getStyleClass().add("textfield-gray");
         value.getStyleClass().add("textfield");
 
         delete = new Button("x");
-        delete.getStylesheets().add(getClass().getResource("../css/filter.css").toString());
+        delete.getStylesheets().add(getClass().getResource("../App.css").toString());
         delete.getStyleClass().add("button-label-black");
 
         delete.setOnAction(this::onDelete);
@@ -110,12 +115,17 @@ public class FilterCell {
         if (filter.getValue() == null)
             return null;
 
-        StringBuilder builder = new StringBuilder(filter.getValue())
-                .append(" \"")
-                .append(value.getText())
-                .append('\"');
+        StringBuilder builder = new StringBuilder(filter.getValue());
 
-        // return parser.parse(builder.toString());
-        return null;
+        if (parser instanceof NumberParser) {
+            builder.append(value.getText());
+        } else {
+           builder.append(" \"")
+                   .append(value.getText())
+                   .append('\"');
+        }
+
+
+        return parser.parse(builder.toString());
     }
 }

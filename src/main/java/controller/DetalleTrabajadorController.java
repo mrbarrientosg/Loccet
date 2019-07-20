@@ -4,7 +4,7 @@ import base.Controller;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import delegate.EditTrabajadorDelegate;
+import delegate.SaveTrabajadorDelegate;
 import exceptions.EmptyFieldException;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -48,7 +48,7 @@ public class DetalleTrabajadorController extends Controller {
 
     private ObjectProperty<Especialidad> speciality = new SimpleObjectProperty<>();
 
-    private EditTrabajadorDelegate delegate;
+    private SaveTrabajadorDelegate delegate;
 
     private Trabajador oldTrabajador;
 
@@ -70,7 +70,7 @@ public class DetalleTrabajadorController extends Controller {
         model.setEspecialidad(speciality.get());
 
         if (delegate != null)
-            delegate.didEditTrabajador();
+            delegate.didSaveTrabajador(model);
     }
 
     private void loadData() {
@@ -123,7 +123,7 @@ public class DetalleTrabajadorController extends Controller {
         view.bind();
     }
 
-    public void setDelegate(EditTrabajadorDelegate delegate) {
+    public void setDelegate(SaveTrabajadorDelegate delegate) {
         this.delegate = delegate;
     }
 

@@ -22,6 +22,7 @@ import network.endpoint.TrabajadorAPI;
 import network.service.NetService;
 import router.HorarioRouter;
 import delegate.AddHorarioDelegate;
+import util.AsyncTask;
 import view.HorarioView;
 
 import java.time.LocalDate;
@@ -48,7 +49,7 @@ public final class HorarioController extends Controller {
     private AddHorarioDelegate delegate;
 
     public void fetchProyectos(Consumer<ObservableList<ProyectoCell>> callBack) {
-        CompletableFuture.supplyAsync(() -> {
+        AsyncTask.supplyAsync(() -> {
             ObservableList<ProyectoCell> cells = FXCollections.observableArrayList();
 
             trabajador.getProyectos().forEach(proyecto -> cells.add(new ProyectoCell(proyecto)));

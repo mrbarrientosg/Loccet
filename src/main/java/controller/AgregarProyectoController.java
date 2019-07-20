@@ -5,9 +5,13 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import delegate.SaveProyectoDelegate;
+import delegate.SaveTrabajadorDelegate;
 import exceptions.EmptyFieldException;
+import javafx.beans.property.*;
 import json.LocalDateTypeConverter;
 import model.Constructora;
+import model.Especialidad;
 import model.Localizacion;
 import model.Proyecto;
 import network.endpoint.ProyectoAPI;
@@ -26,27 +30,66 @@ import java.util.logging.Level;
 public final class AgregarProyectoController extends Controller {
 
     private AgregarProyectoView view;
+
     private Constructora model = Constructora.getInstance();
 
-    /**
-     * Función que permite ingresar un proyecto a la constructora.
-     * @author Matías Zúñiga
-     */
-    public void presionarAceptar(String nombreP, String jefeP, BigDecimal montoC, String cliente,
-                                 String direccion, String ciudad, String estado, String pais,
-                                 LocalDate fechaF, LocalDate fechaT) throws EmptyFieldException {
-        System.out.println("Todos los campos estan llenos");
-        Proyecto proyecto = new Proyecto();
-        Localizacion localizacion = new Localizacion(direccion,pais,estado,ciudad);
-        proyecto.setNombre(nombreP);
-        proyecto.setNombreCliente(cliente);
-        proyecto.setCostoEstimado(montoC);
-        proyecto.setFechaInicio(fechaF);
-        proyecto.setFechaTermino(fechaF);
-        proyecto.setLocalizacion(localizacion);
-        model.agregarProyecto(proyecto);
-        //TODO: se agrega un proyecto
+    private StringProperty name;
 
+    private StringProperty cliente;
+
+    private StringProperty monto;
+
+    private StringProperty address;
+
+    private StringProperty country;
+
+    private StringProperty city;
+
+    private StringProperty state;
+
+    private ObjectProperty<LocalDate> fechaInicio;
+
+    private ObjectProperty<LocalDate> fechaTermino;
+
+    private SaveProyectoDelegate delegate;
+
+    public AgregarProyectoController() {
+        name = new SimpleStringProperty(null);
+        cliente = new SimpleStringProperty(null);
+        monto = new SimpleStringProperty(null);
+
+        address = new SimpleStringProperty(null);
+        country = new SimpleStringProperty(null);
+        city = new SimpleStringProperty(null);
+        state = new SimpleStringProperty(null);
+
+        fechaInicio = new SimpleObjectProperty<>(null);
+        fechaTermino = new SimpleObjectProperty<>(null);
+    }
+
+    public void saveProyecto() throws EmptyFieldException {
+        Proyecto proyecto = new Proyecto();
+
+        proyecto.setNombre(name.get());
+        proyecto.setNombreCliente(cliente.get());
+        proyecto.setCostoEstimado(new BigDecimal(monto.get()));
+
+        Localizacion localizacion = new Localizacion(address.get(), country.get(), state.get(), city.get());
+
+        proyecto.setLocalizacion(localizacion);
+
+        proyecto.setFechaInicio(fechaInicio.get());
+        proyecto.setFechaTermino(fechaTermino.get());
+
+        model.agregarProyecto(proyecto);
+
+        if (delegate != null)
+            delegate.didSaveProyecto(proyecto);
+
+        saveToDB(proyecto);
+    }
+
+    private void saveToDB(Proyecto proyecto) {
         NetService<ProyectoAPI> service = NetService.getInstance();
 
         Gson gson = new GsonBuilder()
@@ -60,10 +103,10 @@ public final class AgregarProyectoController extends Controller {
 
         System.out.println(json);
 
-        service.request(ProyectoAPI.CREATE.CREATE, json)
+        service.request(ProyectoAPI.CREATE, json)
                 .subscribe(jsonElement -> {
                     JsonObject responseJson = jsonElement.getAsJsonObject();
-                    localizacion.setId(responseJson.get("id_localizacion").getAsInt());
+                    proyecto.getLocalizacion().setId(responseJson.get("id_localizacion").getAsInt());
                     proyecto.getInventarioMaterial().setId(responseJson.get("id_inventario").getAsInt());
                     System.out.println(jsonElement);
                 }, throwable -> {
@@ -71,21 +114,47 @@ public final class AgregarProyectoController extends Controller {
                 });
     }
 
-    /**
-     * @param mensaje texto expuesto en la alerta.
-     * @return una ventana de tipo alerta
-     * @author Matías Zúñiga
-     */
-  /*  public Alert showAlert(String mensaje) {
-        return router.showAlert(mensaje);
-    }*/
-    /**
-     * @return una ventana de tipo Warning.
-     * @author Matías Zúñiga
-     */
-  /*  public Alert showWarning(String mensaje) {
-        return router.showWarning(mensaje);
-    }*/
+    public void setView(AgregarProyectoView view) {
+        this.view = view;
+    }
 
-    public void setView(AgregarProyectoView view){this.view = view;}
+    public void setDelegate(SaveProyectoDelegate delegate) {
+        this.delegate = delegate;
+    }
+
+    public StringProperty nameProperty() {
+        return name;
+    }
+
+    public StringProperty clienteProperty() {
+        return cliente;
+    }
+
+    public StringProperty montoProperty() {
+        return monto;
+    }
+
+    public StringProperty addressProperty() {
+        return address;
+    }
+
+    public StringProperty countryProperty() {
+        return country;
+    }
+
+    public StringProperty cityProperty() {
+        return city;
+    }
+
+    public StringProperty stateProperty() {
+        return state;
+    }
+
+    public ObjectProperty<LocalDate> fechaInicioProperty() {
+        return fechaInicio;
+    }
+
+    public ObjectProperty<LocalDate> fechaTerminoProperty() {
+        return fechaTermino;
+    }
 }
