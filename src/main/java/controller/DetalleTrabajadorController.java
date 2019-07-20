@@ -4,6 +4,7 @@ import base.Controller;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import delegate.SaveTrabajadorDelegate;
 import exceptions.EmptyFieldException;
 import javafx.beans.property.ObjectProperty;
@@ -44,6 +45,8 @@ public class DetalleTrabajadorController extends Controller {
 
     private StringProperty email = new SimpleStringProperty();
 
+    private StringProperty horas = new SimpleStringProperty();
+
     private ObjectProperty<LocalDate> birthday = new SimpleObjectProperty<>();
 
     private ObjectProperty<Especialidad> speciality = new SimpleObjectProperty<>();
@@ -69,6 +72,9 @@ public class DetalleTrabajadorController extends Controller {
 
         model.setEspecialidad(speciality.get());
 
+        if (model instanceof TrabajadorPartTime)
+            ((TrabajadorPartTime) model).setCantidadHoraTrabajada(Integer.parseInt(horas.get()));
+
         if (delegate != null)
             delegate.didSaveTrabajador(model);
     }
@@ -87,6 +93,9 @@ public class DetalleTrabajadorController extends Controller {
         birthday.setValue(model.getFechaNacimiento());
 
         speciality.set(model.getEspecialidad());
+
+        if (model instanceof TrabajadorPartTime)
+            horas.set(String.valueOf(((TrabajadorPartTime) model).getCantidadHoraTrabajada()));
     }
 
     public void save() {
@@ -99,9 +108,15 @@ public class DetalleTrabajadorController extends Controller {
                 .excludeFieldsWithoutExposeAnnotation()
                 .create();
 
-        System.out.println(gson.toJsonTree(model).getAsJsonObject());
+        JsonObject json = gson.toJsonTree(model).getAsJsonObject();
 
-        service.request(TrabajadorAPI.UPDATE, gson.toJsonTree(model).getAsJsonObject())
+        if (model instanceof TrabajadorPartTime) {
+            json.addProperty("cantidad_hora_trabajada", ((TrabajadorPartTime) model).getCantidadHoraTrabajada());
+        }
+
+        System.out.println(json);
+
+        service.request(TrabajadorAPI.UPDATE, json)
                 .subscribe(System.out::println, throwable -> {
                     LOGGER.log(Level.SEVERE, "", throwable);
                 });
@@ -114,11 +129,15 @@ public class DetalleTrabajadorController extends Controller {
 
     public void setModel(Trabajador model) {
         this.model = model;
+
         if (model instanceof TrabajadorPartTime) {
             oldTrabajador = new TrabajadorPartTime((TrabajadorPartTime) model);
+            view.showPartTimeVbox();
         } else {
             oldTrabajador = new TrabajadorTiempoCompleto((TrabajadorTiempoCompleto) model);
+            view.hidePartTimeVbox();
         }
+
         loadData();
         view.bind();
     }
@@ -169,5 +188,9 @@ public class DetalleTrabajadorController extends Controller {
 
     public ObjectProperty<Especialidad> specialityProperty() {
         return speciality;
+    }
+
+    public StringProperty horasProperty() {
+        return horas;
     }
 }

@@ -45,6 +45,9 @@ public class ProyectoView extends View implements SaveProyectoDelegate {
     private Button detailButton;
 
     @FXML
+    private Button deleteButton;
+
+    @FXML
     private Button createProyectButton;
 
     @FXML
@@ -71,6 +74,16 @@ public class ProyectoView extends View implements SaveProyectoDelegate {
     @Override
     public void viewDidLoad() {
         inicializarTablaProyecto();
+
+        tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                detailButton.setDisable(false);
+                deleteButton .setDisable(false);
+            }else{
+                detailButton.setDisable(true);
+                deleteButton.setDisable(true);
+            }
+        });
     }
 
     @Override
@@ -96,25 +109,12 @@ public class ProyectoView extends View implements SaveProyectoDelegate {
     }
 
     private ProyectoCell selection() {
-        int selection = tableView.getSelectionModel().getSelectedIndex();
-        if(selection >= 0){
-            ProyectoCell proyect = tableView.getItems().get(selection);
-            return proyect;
-        }
-        return null;
+        return tableView.getSelectionModel().getSelectedItem();
     }
 
     @FXML
     public void lookDetails(ActionEvent event){
         ProyectoCell cell = selection();
-        if (cell == null){
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText("No selecciono ningun proyecto");
-            alert.setContentText("Por favor, seleccionar un proyecto");
-            alert.showAndWait();
-            return;
-        };
         Proyecto p = controller.buscarProyecto(cell.getId());
         DetalleProyectoView view = DetalleProyectoRouter.create(p, this);
         view.modal().withStyle(StageStyle.TRANSPARENT)
@@ -134,20 +134,14 @@ public class ProyectoView extends View implements SaveProyectoDelegate {
     @FXML
     public void deleteProyect(ActionEvent event){
         ProyectoCell cell = selection();
-        if (cell == null){
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText("No selecciono ningun proyecto");
-            alert.setContentText("Por favor seleccione un proyecto");
 
-            alert.showAndWait();
-            return;
-        }
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Alerta");
         alert.setHeaderText("Esta accion borrara el proyecto");
         alert.setContentText("¿Esta seguro de que desea continuar?");
+
         Optional<ButtonType> result = alert.showAndWait();
+
         if (result.get() == ButtonType.OK){
             controller.deleteProyect(cell.getId());
         }
@@ -178,6 +172,8 @@ public class ProyectoView extends View implements SaveProyectoDelegate {
         }).thenAccept(replace -> {
             if (!replace)
                 tableView.getItems().add(new ProyectoCell(proyecto));
+
+            searchText.setText("");
         });
     }
 }

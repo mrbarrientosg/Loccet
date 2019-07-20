@@ -3,6 +3,7 @@ package model;
 import com.google.gson.*;
 import json.InstantTypeConverter;
 import json.LocalDateTypeConverter;
+import util.DateUtils;
 
 import java.lang.reflect.Type;
 import java.time.Instant;
@@ -61,13 +62,9 @@ public class RegistroMaterial {
         public JsonElement serialize(RegistroMaterial registroMaterial, Type type, JsonSerializationContext jsonSerializationContext) {
             JsonObject json = new JsonObject();
 
-            DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-                    .withLocale(Locale.getDefault())
-                    .withZone(ZoneId.systemDefault());
-
             json.addProperty("id_material", registroMaterial.material.getId());
             json.addProperty("cantidad", registroMaterial.cantidad);
-            json.addProperty("fecha", format.format(registroMaterial.fecha));
+            json.addProperty("fecha", DateUtils.formatDate(registroMaterial.fecha));
             json.addProperty("retirado", registroMaterial.retirado);
 
             return json;

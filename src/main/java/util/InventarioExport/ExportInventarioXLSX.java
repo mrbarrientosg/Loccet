@@ -49,8 +49,7 @@ public class ExportInventarioXLSX implements ExportFileStrategy {
         createHeaderCell(headerRow,"Descripción", 2);
         createHeaderCell(headerRow,"Cantidad", 3);
         createHeaderCell(headerRow,"UDS", 4);
-        createHeaderCell(headerRow,"Retiro", 5);
-        createHeaderCell(headerRow,"Precio", 6);
+        createHeaderCell(headerRow,"Precio", 5);
 
         int rowNum = 1;
 
@@ -63,8 +62,7 @@ public class ExportInventarioXLSX implements ExportFileStrategy {
             row.createCell(2).setCellValue(materialCell.getDescripcion());
             row.createCell(3).setCellValue(materialCell.getCantidad());
             row.createCell(4).setCellValue(materialCell.getUds());
-            row.createCell(5).setCellValue(materialCell.getRetiro());
-            row.createCell(6).setCellValue(materialCell.getPrecio());
+            row.createCell(5).setCellValue(materialCell.getPrecio());
         }
 
         // Resize all columns to fit the content size

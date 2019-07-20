@@ -1,6 +1,7 @@
 package controller;
 
 import base.Controller;
+import cell.RegistroMaterialCell;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -16,6 +17,7 @@ import network.service.NetService;
 import util.AsyncTask;
 import view.DetalleMaterialView;
 
+import java.math.BigDecimal;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.logging.Level;
@@ -38,11 +40,11 @@ public class DetalleMaterialController extends Controller {
 
     private EditMaterialDelegate delegate;
 
-    public void obtenerRegistro(Consumer<ObservableList<RegistroMaterial>> callBack){
+    public void obtenerRegistro(Consumer<ObservableList<RegistroMaterialCell>> callBack){
         AsyncTask.supplyAsync(() -> {
-            ObservableList<RegistroMaterial> list = FXCollections.observableArrayList();
+            ObservableList<RegistroMaterialCell> list = FXCollections.observableArrayList();
 
-            model.getRegistrosMateriales().forEach(list::add);
+            model.getRegistrosMateriales().forEach(registroMaterial -> list.add(new RegistroMaterialCell(registroMaterial)));
 
             return list;
         }).thenAccept(callBack);
@@ -160,5 +162,9 @@ public class DetalleMaterialController extends Controller {
 
     public Double getCantidad() {
         return model.getCantidad();
+    }
+
+    public String getPrecio() {
+        return model.getPrecio().toString();
     }
 }

@@ -70,7 +70,6 @@
           <TableColumn fx:id="descripcionCL" editable="false" minWidth="-1.0" prefWidth="201.0" text="Descripcion" />
             <TableColumn fx:id="cantidadCL" editable="false" minWidth="-1.0" prefWidth="59.0" text="Cantidad" />
             <TableColumn fx:id="udsCL" editable="false" minWidth="-1.0" prefWidth="77.0" text="UDS" />
-            <TableColumn fx:id="retiroCL" editable="false" minWidth="-1.0" prefWidth="62.0" text="Retiro" />
             <TableColumn fx:id="precioCL" editable="false" minWidth="-1.0" prefWidth="100.0" text="Precio" />
         </columns>
          <VBox.margin>

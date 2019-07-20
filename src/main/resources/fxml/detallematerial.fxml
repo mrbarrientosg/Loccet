@@ -67,12 +67,12 @@
                            <children>
                               <VBox spacing="5.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label styleClass="paragraph" text="Nombre">
+                                    <Label styleClass="paragraph" text="ID">
                                        <VBox.margin>
                                           <Insets />
                                        </VBox.margin>
                                     </Label>
-                                    <TextField fx:id="nombreTF">
+                                    <TextField fx:id="idTF">
                                        <styleClass>
                                           <String fx:value="textfield" />
                                           <String fx:value="textfield-gray" />
@@ -88,12 +88,12 @@
                               </VBox>
                               <VBox spacing="5.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label styleClass="paragraph" text="ID">
+                                    <Label styleClass="paragraph" text="Nombre">
                                        <VBox.margin>
                                           <Insets />
                                        </VBox.margin>
                                     </Label>
-                                    <TextField fx:id="idTF">
+                                    <TextField fx:id="nombreTF">
                                        <styleClass>
                                           <String fx:value="textfield" />
                                           <String fx:value="textfield-gray" />
@@ -132,6 +132,31 @@
                            <VBox.margin>
                               <Insets left="16.0" right="16.0" top="8.0" />
                            </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT">
+                           <VBox.margin>
+                              <Insets left="16.0" right="16.0" />
+                           </VBox.margin>
+                           <children>
+                              <VBox prefWidth="215.0" spacing="5.0">
+                                 <children>
+                                    <Label styleClass="paragraph" text="Precio">
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </Label>
+                                    <TextField fx:id="precioTF">
+                                       <styleClass>
+                                          <String fx:value="textfield" />
+                                          <String fx:value="textfield-gray" />
+                                       </styleClass>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </TextField>
+                                 </children>
+                              </VBox>
+                           </children>
                         </HBox>
                         <VBox spacing="5.0">
                            <children>

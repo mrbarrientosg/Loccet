@@ -105,7 +105,7 @@ public class RRHHView extends View implements SaveTrabajadorDelegate, FilterDele
         rutColumn.setCellValueFactory(new PropertyValueFactory<>("rut"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("apellido"));
-        specialityColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getNombreEspecialidad()));
+        specialityColumn.setCellValueFactory(new PropertyValueFactory<>("nombreEspecialidad"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("correoElectronico"));
         telephoneConlumn.setCellValueFactory(new PropertyValueFactory<>("telefono"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("tipoTrabajador"));
@@ -144,6 +144,16 @@ public class RRHHView extends View implements SaveTrabajadorDelegate, FilterDele
         detailTrabajador.setOnAction(this::detailTrabajadorAction);
         filterButton.setOnAction(this::showFilterAction);
         createTrabajador.setOnAction(this::showAddTrabajadorAction);
+
+        tableTrabajadores.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                detailTrabajador.setDisable(false);
+                deleteTrabajador .setDisable(false);
+            }else{
+                detailTrabajador.setDisable(true);
+                deleteTrabajador.setDisable(true);
+            }
+        });
     }
 
     @Override
@@ -218,15 +228,6 @@ public class RRHHView extends View implements SaveTrabajadorDelegate, FilterDele
     private void deleteTrabajadorAction(ActionEvent event) {
         TrabajadorCell cell = tableTrabajadores.getSelectionModel().getSelectedItem();
 
-        if (cell == null){
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText("No selecciono ningun trabajador");
-            alert.setContentText("Por favor seleccione un trabajador");
-            alert.showAndWait();
-            return;
-        }
-
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmación");
         alert.setHeaderText("Esta accion eliminara un trabajador");
@@ -241,15 +242,6 @@ public class RRHHView extends View implements SaveTrabajadorDelegate, FilterDele
 
     private void detailTrabajadorAction(ActionEvent event) {
         TrabajadorCell cell = tableTrabajadores.getSelectionModel().getSelectedItem();
-        if (cell == null){
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning");
-                alert.setHeaderText("No selecciono ningun trabajador");
-                alert.setContentText("Por favor seleccione un trabajador");
-
-                alert.showAndWait();
-                return;
-        }
         Trabajador t = controller.obtenerTrabajador(cell.getRut());
         DetalleTrabajadorView view = DetalleTrabajadorRouter.create(t, this);
         view.modal().withStyle(StageStyle.TRANSPARENT)

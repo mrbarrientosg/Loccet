@@ -6,6 +6,10 @@ import cell.MaterialCell;
 import cell.TrabajadorCell;
 import controller.InventarioMaterialController;
 import delegate.EditMaterialDelegate;
+import io.reactivex.Observable;
+import io.reactivex.rxjavafx.observables.JavaFxObservable;
+import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
+import io.reactivex.schedulers.Schedulers;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -26,6 +30,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ListIterator;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -43,8 +48,10 @@ public final class InventarioMaterialView extends Fragment implements EditMateri
     //Botones.
     @FXML
     private Button editarBT;
+
     @FXML
     private Button eliminarBT;
+
     @FXML
     private Button nuevoMaterialBT;
 
@@ -52,24 +59,24 @@ public final class InventarioMaterialView extends Fragment implements EditMateri
     //Tabla inventario.
     @FXML
     private TableView<MaterialCell> tablaInventario;
+
     @FXML
     private TableColumn<MaterialCell,String> idMaterialCL;
+
     @FXML
     private TableColumn<MaterialCell,String> descripcionCL;
+
     @FXML
     private TableColumn<MaterialCell,Double> cantidadCL;
+
     @FXML
     private TableColumn<MaterialCell,String> udsCL;
+
     @FXML
     private TableColumn<MaterialCell, String> nombreMaterialCL;
-    @FXML
-    private TableColumn<MaterialCell,Double> retiroCL;
+
     @FXML
     private TableColumn<MaterialCell,Double> precioCL;
-
-    private FilteredList<MaterialCell> filteredMateriales;
-
-    private ObservableList<MaterialCell> listMateriales;
 
     @Override
     public void viewDidLoad() {
@@ -82,24 +89,22 @@ public final class InventarioMaterialView extends Fragment implements EditMateri
                 eliminarBT.setDisable(true);
             }
         });
+
    }
 
     @Override
     public void viewDidShow() {
         inicializarTablaMateriales();
 
-        controller.cargarDatos(list -> {
-            listMateriales = list;
-            tablaInventario.setItems(list);
-            filteredMateriales = new FilteredList<>(list, e -> true);
-        });
+        Observable<String> textInputs = JavaFxObservable.valuesOf(searchText.textProperty());
 
-        searchText.setOnKeyReleased(event -> {
-            searchText.textProperty().addListener((observable, oldValue, newValue) -> {
-                didSearch(newValue);
-            });
-            refreshTable();
-        });
+        textInputs
+                .debounce(300, TimeUnit.MILLISECONDS)
+                .distinctUntilChanged()
+                .map(controller::searchProyecto)
+                .subscribeOn(Schedulers.io())
+                .observeOn(JavaFxScheduler.platform())
+                .subscribe(tablaInventario::setItems);
     }
 
     /**
@@ -118,14 +123,13 @@ public final class InventarioMaterialView extends Fragment implements EditMateri
     }
 
     public void didAddMaterial(MaterialCell cell) {
-        listMateriales.add(cell);
-        tablaInventario.refresh();
+        tablaInventario.getItems().add(cell);
+        searchText.setText("");
     }
 
 
     public void removeMaterial(MaterialCell cell) {
-        listMateriales.removeIf((materialCell) -> materialCell.getId().equals(cell.getId()));
-        tablaInventario.refresh();
+        tablaInventario.getItems().removeIf((materialCell) -> materialCell.getId().equals(cell.getId()));
     }
 
     /**
@@ -137,9 +141,8 @@ public final class InventarioMaterialView extends Fragment implements EditMateri
      */
     private MaterialCell seleccion(){
         int seleccion = tablaInventario.getSelectionModel().getSelectedIndex();
-        if(seleccion>=0){
-            MaterialCell material = tablaInventario.getItems().get(seleccion);
-            return material;
+        if(seleccion >= 0){
+            return tablaInventario.getItems().get(seleccion);
         }
         return null;
     }
@@ -194,7 +197,8 @@ public final class InventarioMaterialView extends Fragment implements EditMateri
 
         if (dest != null) {
             try {
-                controller.guardarArchivoInventario(fileChooser.selectedExtensionFilterProperty().get().getExtensions().get(0), dest, listMateriales);
+                controller.guardarArchivoInventario(fileChooser.selectedExtensionFilterProperty().get().getExtensions().get(0),
+                        dest, tablaInventario.getItems());
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -208,37 +212,12 @@ public final class InventarioMaterialView extends Fragment implements EditMateri
      * @author Sebastian Fuenzalida.
      */
     private void inicializarTablaMateriales() {
-        retiroCL.setCellValueFactory(new PropertyValueFactory<>("retiro"));
         udsCL.setCellValueFactory(new PropertyValueFactory<>("uds"));
         nombreMaterialCL.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         idMaterialCL.setCellValueFactory(new PropertyValueFactory<>("id"));
         cantidadCL.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
         descripcionCL.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
         precioCL.setCellValueFactory(new PropertyValueFactory<>("precio"));
-    }
-
-
-    /**
-     * Funcion que recarga la tabla.
-     */
-    private void refreshTable() {
-        filteredMateriales = new FilteredList<>(listMateriales, e -> true);
-        SortedList<MaterialCell> sortedList = new SortedList<>(filteredMateriales);
-        tablaInventario.setItems(sortedList);
-        sortedList.comparatorProperty().bind(tablaInventario.comparatorProperty());
-    }
-
-    /**
-     * Filtra la busqueda de la vista
-     * @param query String que contiene la busqueda de la vista
-     */
-    private void didSearch(String query) {
-        filteredMateriales.setPredicate(materialCell ->
-                materialCell.getNombre().toLowerCase().contains(query.toLowerCase()) ||
-                        materialCell.getId().toLowerCase().contains(query.toLowerCase()) ||
-                        materialCell.getDescripcion().toLowerCase().contains(query.toLowerCase()) ||
-                        materialCell.getUds().toLowerCase().contains(query.toLowerCase())
-        );
     }
 
     /**

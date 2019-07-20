@@ -1,6 +1,7 @@
 package view;
 import base.Fragment;
 import base.Injectable;
+import cell.RegistroMaterialCell;
 import controller.DetalleMaterialController;
 import exceptions.EmptyFieldException;
 import javafx.collections.ObservableList;
@@ -37,26 +38,40 @@ public class DetalleMaterialView extends Fragment {
 
     @FXML
     private TextField idTF;
+
     @FXML
     private TextField nombreTF;
+
     @FXML
     private TextField cantidadTF;
+
     @FXML
     private TextArea  descripcionTA;
+
     @FXML
-    private TableView<RegistroMaterial> tableView;
+    private TextField precioTF;
+
     @FXML
-    private TableColumn<RegistroMaterial,Instant> fechaCL;
+    private TableView<RegistroMaterialCell> tableView;
+
     @FXML
-    private TableColumn<RegistroMaterial,Double> cantidadCL;
+    private TableColumn<RegistroMaterialCell, String> fechaCL;
+
     @FXML
-    private TableColumn<RegistroMaterial,Boolean> retiradoCL;
+    private TableColumn<RegistroMaterialCell, String> cantidadCL;
+
+    @FXML
+    private TableColumn<RegistroMaterialCell, String> retiradoCL;
+
     @FXML
     private Button editarBT;
+
     @FXML
     private Button salirBT;
+
     @FXML
     private Button ingresarBT;
+
     @FXML
     private Button retirarBT;
 
@@ -92,8 +107,10 @@ public class DetalleMaterialView extends Fragment {
         nombreTF.setDisable(true);
         cantidadTF.setDisable(true);
         descripcionTA.setDisable(true);
+        precioTF.setDisable(true);
 
         idTF.setText(controller.getID());
+        precioTF.setText(controller.getPrecio());
         nombreTF.setText(controller.getNombre());
         cantidadTF.setText(Double.toString(controller.getCantidad()));
         descripcionTA.setText(controller.getDescripcion());
@@ -113,7 +130,7 @@ public class DetalleMaterialView extends Fragment {
             descripcionTA.setDisable(false);
             editarBT.setText("Guardar");//Se cambia el boton editar a guardar.
             editando = true;
-        }else {//Si la variable es verdadera se comienza con el proceso de guardado.
+        } else {//Si la variable es verdadera se comienza con el proceso de guardado.
             try {
                 controller.modificarDescripcion(descripcionTA.getText());//Se modifica la descripcion.
                 controller.modificarNombre(nombreTF.getText());//Se modifca el nombre.
@@ -142,47 +159,8 @@ public class DetalleMaterialView extends Fragment {
      */
     private void inicializarTablaRegistro() {
         fechaCL.setCellValueFactory(new PropertyValueFactory<>("fecha"));
-        fechaCL.setCellFactory(column -> {
-            TableCell<RegistroMaterial, Instant> cell = new TableCell<RegistroMaterial, Instant>() {
-                private DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")
-                        .withLocale(Locale.getDefault())
-                        .withZone(ZoneId.systemDefault());
-                        //new DateTimeFormatter("dd-MM-yyyy HH:MM:ss");
-
-                @Override
-                protected void updateItem(Instant item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if(empty) {
-                        setText(null);
-                    }
-                    else {
-                        if (item != null) setText(format.format(item));
-                        else setText(null);
-                    }
-                }
-            };
-
-            return cell;
-        });
         cantidadCL.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
         retiradoCL.setCellValueFactory(new PropertyValueFactory<>("retirado"));
-        retiradoCL.setCellFactory(column -> {
-            TableCell<RegistroMaterial, Boolean> cell = new TableCell<RegistroMaterial, Boolean>() {
-
-                @Override
-                protected void updateItem(Boolean item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if(empty) {
-                        setText(null);
-                    }
-                    else {
-                        if (!item) setText("Agregado");
-                        else setText("Retirado");
-                    }
-                }
-            };
-            return cell;
-        });
     }
 
     @FXML

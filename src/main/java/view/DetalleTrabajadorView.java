@@ -14,6 +14,9 @@ import javafx.util.Callback;
 import model.Especialidad;
 import model.Especialidades;
 
+import java.util.function.UnaryOperator;
+import java.util.regex.Pattern;
+
 public class DetalleTrabajadorView extends View {
 
     private DetalleTrabajadorController controller;
@@ -57,7 +60,13 @@ public class DetalleTrabajadorView extends View {
     private TextField lastNameField;
 
     @FXML
+    private TextField horasFields;
+
+    @FXML
     private ComboBox<Especialidad> specialityField;
+
+    @FXML
+    private VBox partTimeVbox;
 
     @FXML
     private VBox container;
@@ -83,6 +92,7 @@ public class DetalleTrabajadorView extends View {
         telephoneField.disableProperty().bind(disable);
         emailField.disableProperty().bind(disable);
         specialityField.disableProperty().bind(disable);
+        horasFields.disableProperty().bind(disable);
 
         editButton.setOnAction(this::editAction);
         exitButton.setOnAction(event -> close());
@@ -104,12 +114,17 @@ public class DetalleTrabajadorView extends View {
         specialityField.setCellFactory(factory);
 
         Especialidades.getInstance().getAll(specialityField::setItems);
+
+        Pattern pattern = Pattern.compile("\\d*|\\d+\\.\\d*");
+
+        TextFormatter formatter =  new TextFormatter<UnaryOperator>(change -> pattern.matcher(change.getControlNewText()).matches() ? change : null);
+
+        horasFields.setTextFormatter(formatter);
     }
 
     @Override
     public void viewDidShow() {
         rutField.setText(controller.getRut());
-
         container.getChildren().add(listaHorarioView.getRoot());
     }
 
@@ -139,6 +154,16 @@ public class DetalleTrabajadorView extends View {
         birthdayField.valueProperty().bindBidirectional(controller.birthdayProperty());
 
         specialityField.valueProperty().bindBidirectional(controller.specialityProperty());
+
+        horasFields.textProperty().bindBidirectional(controller.horasProperty());
+    }
+
+    public void hidePartTimeVbox() {
+        partTimeVbox.setVisible(false);
+    }
+
+    public void showPartTimeVbox() {
+        partTimeVbox.setVisible(true);
     }
 
     private void editAction(ActionEvent event) {
