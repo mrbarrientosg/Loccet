@@ -50,8 +50,6 @@ public class ExportInventarioPDF implements ExportFileStrategy {
            table.addCell(createHeader("Descripción"));
            table.addCell(createHeader("Cantidad"));
            table.addCell(createHeader("UDS"));
-           table.addCell(createHeader("Retiro"));
-           //table.addCell(createHeader("Fecha Retiro"));
            table.addCell(createHeader("Precio"));
 
            table.setHeaderRows(1);
@@ -112,9 +110,6 @@ public class ExportInventarioPDF implements ExportFileStrategy {
                     table.addCell(createCell(materialCell.getUds()));
                     break;
                 case 5:
-                    table.addCell(createCell(materialCell.getRetiro()));
-                    break;
-                case 6:
                     table.addCell(createCell(materialCell.getPrecio()));
                     break;
             }

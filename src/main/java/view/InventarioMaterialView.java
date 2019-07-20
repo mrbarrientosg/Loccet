@@ -43,8 +43,10 @@ public final class InventarioMaterialView extends Fragment implements EditMateri
     //Botones.
     @FXML
     private Button editarBT;
+
     @FXML
     private Button eliminarBT;
+
     @FXML
     private Button nuevoMaterialBT;
 
@@ -52,18 +54,22 @@ public final class InventarioMaterialView extends Fragment implements EditMateri
     //Tabla inventario.
     @FXML
     private TableView<MaterialCell> tablaInventario;
+
     @FXML
     private TableColumn<MaterialCell,String> idMaterialCL;
+
     @FXML
     private TableColumn<MaterialCell,String> descripcionCL;
+
     @FXML
     private TableColumn<MaterialCell,Double> cantidadCL;
+
     @FXML
     private TableColumn<MaterialCell,String> udsCL;
+
     @FXML
     private TableColumn<MaterialCell, String> nombreMaterialCL;
-    @FXML
-    private TableColumn<MaterialCell,Double> retiroCL;
+
     @FXML
     private TableColumn<MaterialCell,Double> precioCL;
 
@@ -208,7 +214,6 @@ public final class InventarioMaterialView extends Fragment implements EditMateri
      * @author Sebastian Fuenzalida.
      */
     private void inicializarTablaMateriales() {
-        retiroCL.setCellValueFactory(new PropertyValueFactory<>("retiro"));
         udsCL.setCellValueFactory(new PropertyValueFactory<>("uds"));
         nombreMaterialCL.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         idMaterialCL.setCellValueFactory(new PropertyValueFactory<>("id"));
