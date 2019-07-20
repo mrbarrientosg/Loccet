@@ -8,7 +8,7 @@ public class ProyectoByQuerySpecification implements MemorySpecification<Proyect
     private final String query;
 
     public ProyectoByQuerySpecification(final String query) {
-        this.query = query;
+        this.query = query.toLowerCase();
     }
 
     @Override
@@ -18,13 +18,13 @@ public class ProyectoByQuerySpecification implements MemorySpecification<Proyect
         boolean test = false;
 
         if (value.getId() != null)
-            test |= value.getId().contains(query);
+            test = value.getId().toLowerCase().contains(query);
 
         if (value.getNombre() != null)
-            test |= value.getNombre().contains(query);
+            test |= value.getNombre().toLowerCase().contains(query);
 
         if (value.getNombreCliente() != null)
-            test |= value.getNombreCliente().contains(query);
+            test |= value.getNombreCliente().toLowerCase().contains(query);
 
         if (value.getFechaInicio() != null)
             test |= value.getFechaInicio().toString().contains(query);

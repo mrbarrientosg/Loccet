@@ -8,7 +8,7 @@ public class MaterialByQuerySpecification implements MemorySpecification<Materia
     private final String query;
 
     public MaterialByQuerySpecification(final String query) {
-        this.query = query;
+        this.query = query.toLowerCase();
     }
 
     @Override
@@ -18,16 +18,16 @@ public class MaterialByQuerySpecification implements MemorySpecification<Materia
         boolean test = false;
 
         if (value.getId() != null)
-            test |= value.getId().contains(query);
+            test = value.getId().toLowerCase().contains(query);
 
         if (value.getNombre() != null)
-            test |= value.getNombre().contains(query);
+            test |= value.getNombre().toLowerCase().contains(query);
 
         if (value.getDescripcion() != null)
-            test |= value.getDescripcion().contains(query);
+            test |= value.getDescripcion().toLowerCase().contains(query);
 
         if (value.getUds() != null)
-            test |= value.getUds().contains(query);
+            test |= value.getUds().toLowerCase().contains(query);
 
         return test;
     }
