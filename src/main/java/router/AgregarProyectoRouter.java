@@ -2,6 +2,7 @@ package router;
 
 import base.Injectable;
 import controller.AgregarProyectoController;
+import delegate.SaveProyectoDelegate;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
@@ -21,7 +22,7 @@ public final class AgregarProyectoRouter {
      *
      * @author Matias Zúñiga
      */
-    public static AgregarProyectoView create() {
+    public static AgregarProyectoView create(SaveProyectoDelegate delegate) {
         AgregarProyectoView view = Injectable.find(AgregarProyectoView.class);
         AgregarProyectoRouter router = new AgregarProyectoRouter();
         AgregarProyectoController controller = Injectable.find(AgregarProyectoController.class);
@@ -30,6 +31,7 @@ public final class AgregarProyectoRouter {
         view.setRouter(router);
 
         controller.setView(view);
+        controller.setDelegate(delegate);
 
         return view;
     }

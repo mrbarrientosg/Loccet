@@ -2,7 +2,10 @@ package view;
 
 import base.View;
 import cell.ProyectoCell;
+import cell.TrabajadorCell;
 import controller.ProyectoController;
+import delegate.SaveProyectoDelegate;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -18,10 +21,13 @@ import model.Proyecto;
 import router.AgregarProyectoRouter;
 import router.DetalleProyectoRouter;
 import router.ProyectoRouter;
+import util.AsyncTask;
+
 import java.time.LocalDate;
+import java.util.ListIterator;
 import java.util.Optional;
 
-public class ProyectoView extends View {
+public class ProyectoView extends View implements SaveProyectoDelegate {
 
     private ProyectoController controller;
 
@@ -98,12 +104,8 @@ public class ProyectoView extends View {
         clientColumn.setCellValueFactory(new PropertyValueFactory<>("cliente"));
     }
 
-    private SortedList<ProyectoCell> sortedList() {
-        return new SortedList<>(filteredProyect);
-    }
-
     private void refreshTable(){
-        SortedList sortedList = sortedList();
+        SortedList<ProyectoCell> sortedList = new SortedList<>(filteredProyect);
         tableView.setItems(sortedList);
         sortedList.comparatorProperty().bind(tableView.comparatorProperty());
     }
@@ -121,7 +123,7 @@ public class ProyectoView extends View {
 
     private ProyectoCell selection() {
         int selection = tableView.getSelectionModel().getSelectedIndex();
-        if(selection>=0){
+        if(selection >= 0){
             ProyectoCell proyect = tableView.getItems().get(selection);
             return proyect;
         }
@@ -148,7 +150,7 @@ public class ProyectoView extends View {
 
     @FXML
     public void createProyect(ActionEvent event){
-        AgregarProyectoView view = AgregarProyectoRouter.create();
+        AgregarProyectoView view = AgregarProyectoRouter.create(this);
         view.modal().withStyle(StageStyle.TRANSPARENT)
                 .show().getScene().setFill(Color.TRANSPARENT);
         // TODO: analizar
@@ -183,6 +185,27 @@ public class ProyectoView extends View {
 
     public void setRouter(ProyectoRouter router) {
         this.router = router;
+    }
+
+    @Override
+    public void didSaveProyecto(Proyecto proyecto) {
+        AsyncTask.supplyAsync(() -> {
+            ListIterator<ProyectoCell> iterator = tableView.getItems().listIterator();
+
+            while (iterator.hasNext()) {
+                ProyectoCell cell = iterator.next();
+                if (cell.getId().equals(proyecto.getId())) {
+                    Platform.runLater(() -> {
+                        iterator.set(new ProyectoCell(proyecto));
+                    });
+                    return true;
+                }
+            }
+            return false;
+        }).thenAccept(replace -> {
+            if (!replace)
+                listProyectos.add(new ProyectoCell(proyecto));
+        });
     }
 }
 

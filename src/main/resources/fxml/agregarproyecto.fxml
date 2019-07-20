@@ -71,12 +71,6 @@
                                                 <String fx:value="textfield" />
                                              </styleClass>
                                           </TextField>
-                                          <TextField fx:id="jefeP" maxWidth="1.7976931348623157E308" prefHeight="70.0" promptText="Jefe del proyecto *" GridPane.rowIndex="2">
-                                             <styleClass>
-                                                <String fx:value="textfield-gray" />
-                                                <String fx:value="textfield" />
-                                             </styleClass>
-                                          </TextField>
                                           <DatePicker fx:id="fechaF" editable="false" maxWidth="1.7976931348623157E308" prefHeight="70.0" promptText="Fecha inicio *" GridPane.columnIndex="1">
                                              <styleClass>
                                                 <String fx:value="textfield" />
@@ -95,7 +89,7 @@
                                                 <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                                              </padding>
                                           </DatePicker>
-                                          <TextField fx:id="cliente" maxWidth="1.7976931348623157E308" prefHeight="70.0" promptText="Nombre del cliente *" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                          <TextField fx:id="cliente" maxWidth="1.7976931348623157E308" prefHeight="70.0" promptText="Nombre del cliente *" GridPane.rowIndex="2">
                                              <font>
                                                 <Font name="Heebo-Regular" size="12.0" />
                                              </font>

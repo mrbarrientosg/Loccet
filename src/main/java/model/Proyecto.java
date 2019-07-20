@@ -217,7 +217,7 @@ public class Proyecto implements Costeable{
 
     // MARK: - Setter
 
-    public void setId(String id) throws EmptyFieldException {
+    private void setId(String id) throws EmptyFieldException {
         if (StringUtils.isEmpty(id))
             throw new EmptyFieldException("ID");
 
