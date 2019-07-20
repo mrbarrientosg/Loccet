@@ -1,10 +1,13 @@
 package model;
 
 import exceptions.ItemExisteException;
+import model.store.MemorySpecification;
 import model.store.memory.MemoryStoreMaterial;
 import model.store.StoreMaterial;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Clase Inventario
@@ -48,8 +51,15 @@ public class InventarioMaterial implements Costeable {
         storeMaterial.findById(idMaterial).agregarRegistro(registroMaterial);
     }
 
-    public Iterable<Material> obtenerMateriales() {
-        return storeMaterial.findAll();
+    public Iterable<Material> buscarMaterial(MemorySpecification<Material> specification) {
+        final List<Material> materials = new ArrayList<>();
+
+        for (Material material: storeMaterial.findAll()) {
+            if (specification.test(material))
+                materials.add(material);
+        }
+
+        return materials;
     }
 
     @Override

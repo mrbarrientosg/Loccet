@@ -172,6 +172,8 @@ public class ProyectoView extends View implements SaveProyectoDelegate {
         }).thenAccept(replace -> {
             if (!replace)
                 tableView.getItems().add(new ProyectoCell(proyecto));
+
+            searchText.setText("");
         });
     }
 }

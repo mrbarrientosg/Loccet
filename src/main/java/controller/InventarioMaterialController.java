@@ -2,13 +2,18 @@ package controller;
 
 import base.Controller;
 import cell.MaterialCell;
+import cell.TrabajadorCell;
 import com.google.gson.*;
 import exceptions.ItemExisteException;
+import javafx.beans.Observable;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.*;
 import network.endpoint.MaterialAPI;
 import network.service.NetService;
+import specification.MaterialByQuerySpecification;
+import specification.TrabajadorByQuerySpecification;
 import util.AsyncTask;
 import util.ExportFile.ExportFile;
 import util.InventarioExport.ExportInventarioPDF;
@@ -24,6 +29,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * Clase manejadora de las funciones de la vista inventario.
@@ -52,25 +58,21 @@ public final class InventarioMaterialController extends Controller {
         exportFile = new ExportFile();
     }
 
-    /**
-     * Se obtienen los datos cargados del modelo.
-     *
-     * @author Sebastian Fuenzalida.
-     */
-    public void cargarDatos(Consumer<ObservableList<MaterialCell>> callBack) {
-        AsyncTask.supplyAsync(() -> {
-            ObservableList<MaterialCell> list = FXCollections.observableArrayList();
+    public ObservableList<MaterialCell> searchProyecto(String text) {
+        ObservableList<MaterialCell> cells = FXCollections.observableArrayList();
 
-            model.obtenerMateriales().forEach(material -> list.add(new MaterialCell(material)));
+        StreamSupport.stream(model.buscarMaterial(new MaterialByQuerySpecification(text)).spliterator(), false)
+                .map(MaterialCell::new)
+                .forEach(cells::add);
 
-            return list;
-        }).thenAccept(callBack);
+        return cells;
     }
 
     public ObservableList<String> fetchUnidades() {
-        return FXCollections.observableArrayList(Arrays.asList(UnidadMedida.values()).stream().map(UnidadMedida::getValue).collect(Collectors.toList()));
+        return FXCollections.observableArrayList(Arrays.stream(UnidadMedida.values())
+                .map(UnidadMedida::getValue)
+                .collect(Collectors.toList()));
     }
-
 
     public Material getMaterial(String id){
         return model.obtenerMaterial(id);
@@ -164,4 +166,5 @@ public final class InventarioMaterialController extends Controller {
     public void setProyecto(Proyecto proyecto) {
         this.proyecto = proyecto;
     }
+
 }
