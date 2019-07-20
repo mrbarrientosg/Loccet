@@ -108,6 +108,9 @@ public class FilterCell {
     }
 
     public String getColumnName() {
+        if (columnName.getValue() == null)
+            return null;
+
         return columnName.getValue().getKey();
     }
 

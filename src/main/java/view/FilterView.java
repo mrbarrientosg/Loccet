@@ -14,6 +14,7 @@ import delegate.FilterDelegate;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.function.Predicate;
 
@@ -67,11 +68,13 @@ public class FilterView extends Fragment implements FilterCellDelegate {
     }
 
     private void applyAction(ActionEvent event) {
+        filterCells.removeIf(filterCell -> filterCell.getColumnName() == null || filterCell.getFilter() == null);
         delegate.filters(getConditions());
         close();
     }
 
     private void closeAction(ActionEvent event) {
+        filterCells.clear();
         close();
     }
 

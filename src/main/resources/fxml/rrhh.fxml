@@ -64,9 +64,9 @@
                                     <Button fx:id="createTrabajador" mnemonicParsing="false" prefHeight="35.0" styleClass="button-fill-blue" text="Crear trabajador" textFill="WHITE" />
                                  </children>
                               </StackPane>
-                              <Button fx:id="detailTrabajador" mnemonicParsing="false" prefHeight="35.0" styleClass="button-label-blue" text="Ver detalle" textFill="WHITE" />
-                              <Button fx:id="deleteTrabajador" mnemonicParsing="false" prefHeight="35.0" styleClass="button-label-red" text="Eliminar" textFill="WHITE" />
-                              <Button fx:id="filterButton" mnemonicParsing="false" prefHeight="35.0" styleClass="button-label-gray" text="Filtrar" textFill="WHITE" />
+                              <Button fx:id="detailTrabajador" disable="true" mnemonicParsing="false" prefHeight="35.0" styleClass="button-label-blue" text="Ver detalle" textFill="WHITE" />
+                              <Button fx:id="deleteTrabajador" disable="true" mnemonicParsing="false" prefHeight="35.0" styleClass="button-label-red" text="Eliminar" textFill="WHITE" />
+                              <Button fx:id="filterButton" mnemonicParsing="false" prefHeight="35.0" styleClass="button-label-black" text="Filtrar" textFill="WHITE" />
                            </children>
                         </HBox>
                         <TextField fx:id="searchField" maxHeight="1.7976931348623157E308" promptText="Buscar trabajador">
