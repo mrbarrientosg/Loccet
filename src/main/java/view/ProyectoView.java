@@ -5,6 +5,10 @@ import cell.ProyectoCell;
 import cell.TrabajadorCell;
 import controller.ProyectoController;
 import delegate.SaveProyectoDelegate;
+import io.reactivex.Observable;
+import io.reactivex.rxjavafx.observables.JavaFxObservable;
+import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
+import io.reactivex.schedulers.Schedulers;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -26,16 +30,13 @@ import util.AsyncTask;
 import java.time.LocalDate;
 import java.util.ListIterator;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 public class ProyectoView extends View implements SaveProyectoDelegate {
 
     private ProyectoController controller;
 
     private ProyectoRouter router;
-
-    private ObservableList<ProyectoCell> listProyectos;
-
-    private FilteredList<ProyectoCell> filteredProyect;
 
     @FXML
     private TextField searchText;
@@ -50,49 +51,39 @@ public class ProyectoView extends View implements SaveProyectoDelegate {
     private TableView<ProyectoCell> tableView;
 
     @FXML
-    private TableColumn<ProyectoCell,String> iDColumn;
+    private TableColumn<ProyectoCell, String> iDColumn;
 
     @FXML
-    private TableColumn<ProyectoCell,String> nameProyectColumn;
+    private TableColumn<ProyectoCell, String> nameProyectColumn;
 
     @FXML
-    private TableColumn<ProyectoCell,String> clientColumn;
+    private TableColumn<ProyectoCell, String> clientColumn;
 
     @FXML
-    private TableColumn<ProyectoCell,Double> amountColumn;
+    private TableColumn<ProyectoCell, Double> amountColumn;
 
     @FXML
-    private TableColumn<ProyectoCell, LocalDate> startDateColumn;
+    private TableColumn<ProyectoCell, String> startDateColumn;
 
     @FXML
-    private TableColumn<ProyectoCell,LocalDate> endDateColumn;
+    private TableColumn<ProyectoCell, String> endDateColumn;
 
     @Override
     public void viewDidLoad() {
-        searchText.setOnKeyReleased(event -> {
-            searchText.textProperty().addListener((observable, oldValue, newValue) -> {
-                didSearch(newValue);
-            });
-            refreshTable();
-        });
+        inicializarTablaProyecto();
     }
 
     @Override
     public void viewDidShow() {
-        inicializarTablaProyecto();
-        cargarDatos();
-    }
+        Observable<String> textInputs = JavaFxObservable.valuesOf(searchText.textProperty());
 
-    public void viewDidClose(){
-
-    }
-
-    private void cargarDatos(){
-        controller.fetchProyectos(proyectoCells -> {
-            listProyectos = proyectoCells;
-            filteredProyect = new FilteredList<>(listProyectos, e -> true);
-            refreshTable();
-        });
+        textInputs
+                .debounce(300, TimeUnit.MILLISECONDS)
+                .distinctUntilChanged()
+                .map(controller::searchProyecto)
+                .subscribeOn(Schedulers.io())
+                .observeOn(JavaFxScheduler.platform())
+                .subscribe(tableView::setItems);
     }
 
     private void inicializarTablaProyecto() {
@@ -102,23 +93,6 @@ public class ProyectoView extends View implements SaveProyectoDelegate {
         endDateColumn.setCellValueFactory(new PropertyValueFactory<>("fechaTermino"));
         amountColumn.setCellValueFactory(new PropertyValueFactory<>("estimacion"));
         clientColumn.setCellValueFactory(new PropertyValueFactory<>("cliente"));
-    }
-
-    private void refreshTable(){
-        SortedList<ProyectoCell> sortedList = new SortedList<>(filteredProyect);
-        tableView.setItems(sortedList);
-        sortedList.comparatorProperty().bind(tableView.comparatorProperty());
-    }
-
-   //Filtra los proyectos
-    private void didSearch(String query) {
-        filteredProyect.setPredicate(ProyectoCell ->
-                ProyectoCell.getNombre().toLowerCase().contains(query.toLowerCase()) ||
-                        ProyectoCell.getId().toLowerCase().contains(query.toLowerCase()) ||
-                        ProyectoCell.getCliente().toLowerCase().contains(query.toLowerCase()) ||
-                        ProyectoCell.getFechaInicio().toString().contains(query.toLowerCase())
-                        //ProyectoCell.getFechaTermino().toString().contains(query.toLowerCase())
-        );
     }
 
     private ProyectoCell selection() {
@@ -142,7 +116,7 @@ public class ProyectoView extends View implements SaveProyectoDelegate {
             return;
         };
         Proyecto p = controller.buscarProyecto(cell.getId());
-        DetalleProyectoView view = DetalleProyectoRouter.create(p);
+        DetalleProyectoView view = DetalleProyectoRouter.create(p, this);
         view.modal().withStyle(StageStyle.TRANSPARENT)
                 .show().getScene().setFill(Color.TRANSPARENT);
     }
@@ -176,7 +150,6 @@ public class ProyectoView extends View implements SaveProyectoDelegate {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
             controller.deleteProyect(cell.getId());
-            cargarDatos();
         }
 
     }
@@ -204,7 +177,7 @@ public class ProyectoView extends View implements SaveProyectoDelegate {
             return false;
         }).thenAccept(replace -> {
             if (!replace)
-                listProyectos.add(new ProyectoCell(proyecto));
+                tableView.getItems().add(new ProyectoCell(proyecto));
         });
     }
 }

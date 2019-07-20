@@ -2,19 +2,25 @@ package controller;
 
 import base.Controller;
 import cell.ProyectoCell;
+import cell.TrabajadorCell;
 import com.google.gson.JsonObject;
+import javafx.beans.Observable;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Constructora;
 import model.Proyecto;
 import network.endpoint.ProyectoAPI;
 import network.service.NetService;
+import specification.ProyectoByQuerySpecification;
+import specification.TrabajadorByQuerySpecification;
 import util.AsyncTask;
 import view.ProyectoView;
 
 import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 public class ProyectoController extends Controller {
 
@@ -26,14 +32,14 @@ public class ProyectoController extends Controller {
         this.view = view;
     }
 
-    public void fetchProyectos(Consumer<ObservableList<ProyectoCell>> callback) {
-        AsyncTask.supplyAsync(() -> {
-            ObservableList<ProyectoCell> cells = FXCollections.observableArrayList();
+    public ObservableList<ProyectoCell> searchProyecto(String text) {
+        ObservableList<ProyectoCell> cells = FXCollections.observableArrayList();
 
-            model.getProyectos().forEach(proyecto -> cells.add(new ProyectoCell(proyecto)));
+        StreamSupport.stream(model.buscarProyecto(new ProyectoByQuerySpecification(text)).spliterator(), false)
+                .map(ProyectoCell::new)
+                .forEach(cells::add);
 
-            return cells;
-        }).thenAccept(callback);
+        return cells;
     }
 
     public Proyecto buscarProyecto(String id) {

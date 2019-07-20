@@ -3,6 +3,7 @@ package controller;
 import base.Controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import delegate.SaveProyectoDelegate;
 import exceptions.EmptyFieldException;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -24,23 +25,41 @@ public class DetalleProyectoController extends Controller {
 
     private Proyecto oldProyecto;
 
-    private StringProperty name = new SimpleStringProperty();
+    private StringProperty name;
 
-    private StringProperty address = new SimpleStringProperty();
+    private StringProperty address;
 
-    private StringProperty country = new SimpleStringProperty();
+    private StringProperty country;
 
-    private StringProperty state = new SimpleStringProperty();
+    private StringProperty state;
 
-    private StringProperty city = new SimpleStringProperty();
+    private StringProperty city;
 
-    private StringProperty client = new SimpleStringProperty();
+    private StringProperty client;
 
-    private NetService<ProyectoAPI> service = NetService.getInstance();
+    private ObjectProperty<LocalDate> startDate;
 
-    private ObjectProperty<LocalDate> startDate = new SimpleObjectProperty<>();
+    private ObjectProperty<LocalDate> endDate;
 
-    private ObjectProperty<LocalDate> endDate = new SimpleObjectProperty<>();
+    private NetService<ProyectoAPI> service;
+
+    private SaveProyectoDelegate delegate;
+
+    public DetalleProyectoController() {
+        name = new SimpleStringProperty(null);
+        client = new SimpleStringProperty(null);
+        //monto = new SimpleStringProperty(null);
+
+        address = new SimpleStringProperty(null);
+        country = new SimpleStringProperty(null);
+        city = new SimpleStringProperty(null);
+        state = new SimpleStringProperty(null);
+
+        startDate = new SimpleObjectProperty<>(null);
+        endDate = new SimpleObjectProperty<>(null);
+
+        service = NetService.getInstance();
+    }
 
     public void actualizar() throws EmptyFieldException {
         model.setNombre(name.get());
@@ -66,6 +85,9 @@ public class DetalleProyectoController extends Controller {
         if (oldProyecto.equals(model))
             return;
 
+        if (delegate != null)
+            delegate.didSaveProyecto(model);
+
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Proyecto.class, new Proyecto.ProyectoSerializer())
                 .create();
@@ -86,6 +108,10 @@ public class DetalleProyectoController extends Controller {
         oldProyecto = new Proyecto(model);
         loadData();
         view.bind();
+    }
+
+    public void setDelegate(SaveProyectoDelegate delegate) {
+        this.delegate = delegate;
     }
 
     public String getIdProyecto() { return model.getId(); }

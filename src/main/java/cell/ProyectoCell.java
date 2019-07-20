@@ -1,5 +1,6 @@
 package cell;
 import model.Proyecto;
+import util.DateUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -15,21 +16,21 @@ public final class ProyectoCell {
 
     private String cliente;
 
-    private LocalDate fechaInicio;
+    private String fechaInicio;
 
-    private LocalDate fechaTermino;
+    private String fechaTermino;
 
-    private BigDecimal estimacion;
+    private String estimacion;
 
     // MARK: - Constructor
 
     public ProyectoCell(Proyecto m) {
         id = m.getId();
         nombre = m.getNombre();
-        fechaInicio = m.getFechaInicio();
-        fechaTermino = m.getFechaTermino();
+        fechaInicio = DateUtils.formatDate(m.getFechaInicio());
+        fechaTermino = m.getFechaTermino() == null ? "-" : DateUtils.formatDate(m.getFechaInicio());
         cliente = m.getNombreCliente();
-        estimacion = m.getCostoEstimado();
+        estimacion = m.getCostoEstimado().toString();
     }
 
     public ProyectoCell(String nombre) {
@@ -38,11 +39,11 @@ public final class ProyectoCell {
 
     // MARK: - Getter
 
-    public LocalDate getFechaInicio() {
+    public String getFechaInicio() {
         return fechaInicio;
     }
 
-    public LocalDate getFechaTermino() {
+    public String getFechaTermino() {
         return fechaTermino;
     }
 
@@ -58,7 +59,7 @@ public final class ProyectoCell {
         return cliente;
     }
 
-    public BigDecimal getEstimacion() {
+    public String getEstimacion() {
         return estimacion;
     }
 
