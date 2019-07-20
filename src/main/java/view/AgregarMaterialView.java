@@ -41,9 +41,7 @@ public final class AgregarMaterialView extends Fragment {
     public void viewDidShow(){
         Pattern pattern = Pattern.compile("\\d*|\\d+\\.\\d*");
 
-        TextFormatter formatter =  new TextFormatter<UnaryOperator>(change -> {
-            return pattern.matcher(change.getControlNewText()).matches() ? change : null;
-        });
+        TextFormatter formatter =  new TextFormatter<UnaryOperator>(change -> pattern.matcher(change.getControlNewText()).matches() ? change : null);
 
         agregarTF.setTextFormatter(formatter);
     }

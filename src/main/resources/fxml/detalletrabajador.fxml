@@ -205,6 +205,17 @@
                                     </ComboBox>
                                  </children>
                               </VBox>
+                              <VBox fx:id="partTimeVbox" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <children>
+                                    <Label styleClass="paragraph" text="Horas por dia" />
+                                    <TextField fx:id="horasFields" disable="true">
+                                       <styleClass>
+                                          <String fx:value="textfield" />
+                                          <String fx:value="textfield-gray" />
+                                       </styleClass>
+                                    </TextField>
+                                 </children>
+                              </VBox>
                            </children>
                            <VBox.margin>
                               <Insets bottom="16.0" left="16.0" right="16.0" top="8.0" />

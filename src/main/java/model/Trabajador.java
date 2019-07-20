@@ -194,7 +194,7 @@ public abstract class Trabajador {
                 p.localizacion.equals(localizacion) &&
                 p.fechaNacimiento.isEqual(fechaNacimiento) &&
                 p.especialidad.equals(especialidad) &&
-                p.correoElectronico.equals(correoElectronico) &&
+                (p.correoElectronico == null || p.correoElectronico.equals(correoElectronico)) &&
                 p.telefono.equals(telefono);
     }
 
