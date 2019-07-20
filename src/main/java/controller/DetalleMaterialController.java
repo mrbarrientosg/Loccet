@@ -4,6 +4,7 @@ import base.Controller;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import delegate.EditMaterialDelegate;
 import exceptions.EmptyFieldException;
 import exceptions.NegativeQuantityException;
 import javafx.collections.FXCollections;
@@ -34,6 +35,8 @@ public class DetalleMaterialController extends Controller {
     private Material oldMaterial;
 
     private NetService<MaterialAPI> service = NetService.getInstance();
+
+    private EditMaterialDelegate delegate;
 
     public void obtenerRegistro(Consumer<ObservableList<RegistroMaterial>> callBack){
         AsyncTask.supplyAsync(() -> {
@@ -80,10 +83,14 @@ public class DetalleMaterialController extends Controller {
     public void save() {
         if (oldMaterial.equals(model))
             return;
+
         updateMaterial();
     }
 
     private void updateMaterial() {
+        if (delegate != null)
+            delegate.didEditMaterial(model);
+
         Gson gson =  new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                 .excludeFieldsWithoutExposeAnnotation()
@@ -105,6 +112,10 @@ public class DetalleMaterialController extends Controller {
     public void setModel(Material model){
         this.model = model;
         oldMaterial = new Material(model);
+    }
+
+    public void setDelegate(EditMaterialDelegate delegate) {
+        this.delegate = delegate;
     }
 
     /**

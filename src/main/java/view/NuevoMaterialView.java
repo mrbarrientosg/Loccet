@@ -21,8 +21,6 @@ public final class NuevoMaterialView extends View {
 
     private InventarioMaterialController controller;
 
-    private ObservableList<String> unidadesDeMedida;
-
     @FXML
     private Button agregarBT;
 

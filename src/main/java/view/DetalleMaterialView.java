@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import model.RegistroMaterial;
 import router.DetalleMaterialRouter;
@@ -188,7 +189,8 @@ public class DetalleMaterialView extends Fragment {
     public void retirar(ActionEvent event){
         RetirarMaterialView view = Injectable.find(RetirarMaterialView.class);
         view.setController(controller);
-        view.modal().withStyle(StageStyle.TRANSPARENT).show();
+        view.modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
+                .show().getScene().setFill(Color.TRANSPARENT);
         mostrarDatos();
     }
 
@@ -196,7 +198,8 @@ public class DetalleMaterialView extends Fragment {
     public void agregar(ActionEvent event){
         AgregarMaterialView view = Injectable.find(AgregarMaterialView.class);
         view.setController(controller);
-        view.modal().withStyle(StageStyle.TRANSPARENT).show();
+        view.modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
+                .show().getScene().setFill(Color.TRANSPARENT);
         mostrarDatos();
 
     }

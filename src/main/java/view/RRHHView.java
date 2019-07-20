@@ -292,15 +292,6 @@ public class RRHHView extends View implements SaveTrabajadorDelegate, FilterDele
             searchField.setText("");
         });
 
-
-       /*ProyectoCell cell = proyectList.getSelectionModel().getSelectedItem();
-
-            if (cell.getNombre().equals("Todos"))
-            controller.fetchTrabajadores(tableTrabajadores::setItems);
-        else
-            controller.fetchTrabajadores(cell.getId(), tableTrabajadores::setItems);
-
-        tableTrabajadores.refresh();*/
     }
 
     @Override
