@@ -142,9 +142,13 @@ public class ProyectoView extends View implements SaveProyectoDelegate {
 
         Optional<ButtonType> result = alert.showAndWait();
 
-        if (result.get() == ButtonType.OK){
-            controller.deleteProyect(cell.getId());
-        }
+        result.ifPresent(buttonType -> {
+            if (buttonType == ButtonType.OK){
+                controller.deleteProyect(cell.getId());
+                tableView.getItems().remove(cell);
+            }
+        });
+    
 
     }
 

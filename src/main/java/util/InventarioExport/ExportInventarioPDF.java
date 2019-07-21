@@ -43,8 +43,7 @@ public class ExportInventarioPDF implements ExportFileStrategy {
            addEmptyLine(title, 1);
            document.add(title);
 
-           PdfPTable table = new PdfPTable(7);
-          // table.addCell(createHeader("Fecha Ingreso"));
+           PdfPTable table = new PdfPTable(6);
            table.addCell(createHeader("ID"));
            table.addCell(createHeader("Nombre"));
            table.addCell(createHeader("Descripción"));
@@ -53,8 +52,6 @@ public class ExportInventarioPDF implements ExportFileStrategy {
            table.addCell(createHeader("Precio"));
 
            table.setHeaderRows(1);
-
-           table.setWidths(new float[]{0.13f, 0.11f, 0.11f, 0.15f, 0.12f, 0.07f, 0.11f});
            table.setWidthPercentage(100);
            table.setHorizontalAlignment(Element.ALIGN_CENTER);
 
@@ -121,15 +118,6 @@ public class ExportInventarioPDF implements ExportFileStrategy {
         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         cell.setVerticalAlignment(Element.ALIGN_CENTER);
         return cell;
-    }
-
-    private PdfPCell createCell(Date date) {
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-        return createCell(format.format(date));
-    }
-
-    private PdfPCell createCell(Double value) {
-        return createCell(String.valueOf(value));
     }
 
     private static void addEmptyLine(Paragraph paragraph, int number) {

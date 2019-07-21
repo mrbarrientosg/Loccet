@@ -66,7 +66,7 @@ public class ExportInventarioXLSX implements ExportFileStrategy {
         }
 
         // Resize all columns to fit the content size
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 6; i++) {
             sheet.autoSizeColumn(i);
         }
 
