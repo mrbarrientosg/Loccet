@@ -36,7 +36,6 @@ public class Main extends Application {
         scene.setFill(Color.TRANSPARENT);
 
         primaryStage.setResizable(false);
-        primaryStage.titleProperty().bind(loginView.getTitleProperty());
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.show();
     }

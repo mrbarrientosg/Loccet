@@ -76,7 +76,7 @@ public final class ListaHorarioView extends View implements AddHorarioDelegate {
     }
 
     private void addHorarioAction(ActionEvent event) {
-        HorarioView view = HorarioRouter.create(controller.getModel(), this);
+        CrearHorarioView view = HorarioRouter.create(controller.getModel(), this);
         view.modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
                 .show().getScene().setFill(Color.TRANSPARENT);
     }

@@ -2,8 +2,6 @@ package cell;
 
 import model.Material;
 
-import java.util.Date;
-
 public final class MaterialCell {
 
     private String id;

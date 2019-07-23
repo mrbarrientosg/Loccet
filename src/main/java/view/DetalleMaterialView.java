@@ -1,33 +1,24 @@
 package view;
-import base.Fragment;
+
 import base.Injectable;
+import base.View;
 import cell.RegistroMaterialCell;
 import controller.DetalleMaterialController;
 import exceptions.EmptyFieldException;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
-import model.RegistroMaterial;
 import router.DetalleMaterialRouter;
-
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.util.Locale;
 
 /**
  * Clase vista del detalle de un material.
  *
  * @author Sebastian Fuenzalida.
  */
-public class DetalleMaterialView extends Fragment {
+public class DetalleMaterialView extends View {
     //Se declaran las variables.
 
     private DetalleMaterialController controller;

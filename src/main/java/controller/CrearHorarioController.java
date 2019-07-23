@@ -2,41 +2,31 @@ package controller;
 
 import base.Controller;
 import cell.ProyectoCell;
-import cell.TrabajadorCell;
-import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import javafx.beans.Observable;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import json.LocalDateTypeConverter;
 import model.Horario;
-import model.Proyecto;
 import model.Trabajador;
 import network.endpoint.HorarioAPI;
-import network.endpoint.TrabajadorAPI;
 import network.service.NetService;
 import router.HorarioRouter;
 import delegate.AddHorarioDelegate;
 import util.AsyncTask;
-import view.HorarioView;
-
-import java.time.LocalDate;
+import view.CrearHorarioView;
 import java.time.LocalTime;
-import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.logging.Level;
 
 /**
- * Controlador de la vista HorarioView
+ * Controlador de la vista CrearHorarioView
  */
-public final class HorarioController extends Controller {
+public final class CrearHorarioController extends Controller {
 
-    private HorarioView view;
+    private CrearHorarioView view;
 
     private HorarioRouter router;
 
@@ -109,7 +99,7 @@ public final class HorarioController extends Controller {
         this.delegate = delegate;
     }
 
-    public void setView(HorarioView view) {
+    public void setView(CrearHorarioView view) {
         this.view = view;
         view.refreshView();
     }

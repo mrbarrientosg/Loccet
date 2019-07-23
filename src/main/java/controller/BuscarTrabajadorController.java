@@ -1,12 +1,10 @@
 package controller;
 
-import base.Controller;
 import cell.TrabajadorCell;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,11 +13,7 @@ import model.Trabajador;
 import delegate.SearchEmployeeDelegate;
 import view.BuscarTrabajadorView;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
-
-public class BuscarTrabajadorController extends Controller {
+public final class BuscarTrabajadorController {
 
     private Constructora model;
 

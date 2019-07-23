@@ -6,17 +6,15 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import delegate.SaveProyectoDelegate;
-import delegate.SaveTrabajadorDelegate;
 import exceptions.EmptyFieldException;
 import javafx.beans.property.*;
 import json.LocalDateTypeConverter;
 import model.Constructora;
-import model.Especialidad;
 import model.Localizacion;
 import model.Proyecto;
 import network.endpoint.ProyectoAPI;
 import network.service.NetService;
-import view.AgregarProyectoView;
+import view.CrearProyectoView;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -27,9 +25,9 @@ import java.util.logging.Level;
  * Se encarga de mostrar la información ingresada por el usuario en la vista AgregarProyecto
  */
 
-public final class AgregarProyectoController extends Controller {
+public final class CrearProyectoController extends Controller {
 
-    private AgregarProyectoView view;
+    private CrearProyectoView view;
 
     private Constructora model = Constructora.getInstance();
 
@@ -53,7 +51,7 @@ public final class AgregarProyectoController extends Controller {
 
     private SaveProyectoDelegate delegate;
 
-    public AgregarProyectoController() {
+    public CrearProyectoController() {
         name = new SimpleStringProperty(null);
         cliente = new SimpleStringProperty(null);
         monto = new SimpleStringProperty(null);
@@ -114,7 +112,7 @@ public final class AgregarProyectoController extends Controller {
                 });
     }
 
-    public void setView(AgregarProyectoView view) {
+    public void setView(CrearProyectoView view) {
         this.view = view;
     }
 

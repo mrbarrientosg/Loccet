@@ -2,22 +2,19 @@ package view;
 
 import base.View;
 import cell.ProyectoCell;
-import controller.HorarioController;
+import controller.CrearHorarioController;
 import javafx.application.Platform;
 import javafx.beans.binding.ObjectBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.util.Callback;
-import model.Trabajador;
-import router.ListaHorarioRouter;
+
 import java.time.LocalTime;
 
-public final class HorarioView extends View {
+public final class CrearHorarioView extends View {
 
-    private HorarioController controller;
+    private CrearHorarioController controller;
 
     @FXML
     private ComboBox<ProyectoCell> proyectList;
@@ -132,7 +129,7 @@ public final class HorarioView extends View {
         minutoSalida.getEditor().setText("00");
     }
 
-    public void setController(HorarioController controller) {
+    public void setController(CrearHorarioController controller) {
         this.controller = controller;
     }
 

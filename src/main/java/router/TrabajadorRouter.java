@@ -1,10 +1,10 @@
 package router;
 
 import base.Injectable;
-import controller.TrabajadorController;
+import controller.CrearTrabajadorController;
 import delegate.SaveTrabajadorDelegate;
 import model.Constructora;
-import view.TrabajadorView;
+import view.CrearTrabajadorView;
 
 /**
  * Clase router para la vista Trabajador
@@ -20,10 +20,10 @@ public final class TrabajadorRouter {
      *
      * @author Matias Barrientos
      */
-    public static TrabajadorView create(Constructora model, SaveTrabajadorDelegate delegate) {
-        TrabajadorView view = Injectable.find(TrabajadorView.class);
+    public static CrearTrabajadorView create(Constructora model, SaveTrabajadorDelegate delegate) {
+        CrearTrabajadorView view = Injectable.find(CrearTrabajadorView.class);
 
-        TrabajadorController controller = Injectable.find(TrabajadorController.class);
+        CrearTrabajadorController controller = Injectable.find(CrearTrabajadorController.class);
 
         controller.setView(view);
         controller.setModel(model);

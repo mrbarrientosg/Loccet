@@ -1,14 +1,13 @@
 package router;
 
 import base.Injectable;
-import controller.AgregarProyectoController;
+import controller.CrearProyectoController;
 import delegate.SaveProyectoDelegate;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.StageStyle;
-import model.Constructora;
-import view.AgregarProyectoView;
+import view.CrearProyectoView;
 
 /**
  * @author Matias Zuñiga
@@ -22,10 +21,10 @@ public final class AgregarProyectoRouter {
      *
      * @author Matias Zúñiga
      */
-    public static AgregarProyectoView create(SaveProyectoDelegate delegate) {
-        AgregarProyectoView view = Injectable.find(AgregarProyectoView.class);
+    public static CrearProyectoView create(SaveProyectoDelegate delegate) {
+        CrearProyectoView view = Injectable.find(CrearProyectoView.class);
         AgregarProyectoRouter router = new AgregarProyectoRouter();
-        AgregarProyectoController controller = Injectable.find(AgregarProyectoController.class);
+        CrearProyectoController controller = Injectable.find(CrearProyectoController.class);
 
         view.setController(controller);
         view.setRouter(router);

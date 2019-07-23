@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
-public final class NuevoMaterialView extends View {
+public final class CrearMaterialView extends View {
 
     private InventarioMaterialController controller;
 

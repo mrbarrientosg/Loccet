@@ -1,24 +1,21 @@
 package view;
 
 import base.View;
-import cell.ProyectoCell;
-import controller.TrabajadorController;
+import controller.CrearTrabajadorController;
 import exceptions.EmptyFieldException;
 import exceptions.InvalidaRutException;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
 import model.Especialidad;
 import model.Especialidades;
 
 import java.time.LocalDate;
 
-public final class TrabajadorView extends View {
+public final class CrearTrabajadorView extends View {
 
-    private TrabajadorController controller;
+    private CrearTrabajadorController controller;
 
     @FXML
     private TextField rutTextField;
@@ -160,7 +157,7 @@ public final class TrabajadorView extends View {
         emailField.setText("");
     }
 
-    public void setController(TrabajadorController controller) {
+    public void setController(CrearTrabajadorController controller) {
         this.controller = controller;
     }
 

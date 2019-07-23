@@ -3,7 +3,6 @@ package view;
 import base.Fragment;
 import base.Injectable;
 import cell.MaterialCell;
-import cell.TrabajadorCell;
 import controller.InventarioMaterialController;
 import delegate.EditMaterialDelegate;
 import io.reactivex.Observable;
@@ -11,9 +10,6 @@ import io.reactivex.rxjavafx.observables.JavaFxObservable;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import io.reactivex.schedulers.Schedulers;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
@@ -116,7 +112,7 @@ public final class InventarioMaterialView extends Fragment implements EditMateri
      */
     @FXML
     public void nuevoMaterial(ActionEvent event){
-        NuevoMaterialView view = Injectable.find(NuevoMaterialView.class);
+        CrearMaterialView view = Injectable.find(CrearMaterialView.class);
         view.setController(controller);
         view.modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
                 .show().getScene().setFill(Color.TRANSPARENT);;

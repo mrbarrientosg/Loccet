@@ -1,16 +1,12 @@
 package view;
 
 import base.View;
-import controller.AgregarProyectoController;
+import controller.CrearProyectoController;
 import exceptions.EmptyFieldException;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
 import router.AgregarProyectoRouter;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.function.UnaryOperator;
@@ -21,9 +17,9 @@ import java.util.regex.Pattern;
  *
  * @author Matias Zuñiga
  */
-public final class AgregarProyectoView extends View {
+public final class CrearProyectoView extends View {
 
-    private AgregarProyectoController controller;
+    private CrearProyectoController controller;
 
     private AgregarProyectoRouter router;
 
@@ -156,7 +152,7 @@ public final class AgregarProyectoView extends View {
         montoC.setTextFormatter(formatter);
     }
 
-    public void setController(AgregarProyectoController controller) {
+    public void setController(CrearProyectoController controller) {
         this.controller = controller;
     }
 

@@ -12,7 +12,6 @@ import io.reactivex.rxjavafx.observables.JavaFxObservable;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import io.reactivex.schedulers.Schedulers;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -211,7 +210,7 @@ public class RRHHView extends View implements SaveTrabajadorDelegate, FilterDele
     }
 
     private void showAddTrabajadorAction(ActionEvent event) {
-        TrabajadorView view = TrabajadorRouter.create(Constructora.getInstance(), this);
+        CrearTrabajadorView view = TrabajadorRouter.create(Constructora.getInstance(), this);
         view.modal().withStyle(StageStyle.TRANSPARENT)
                 .show().getScene().setFill(Color.TRANSPARENT);
     }

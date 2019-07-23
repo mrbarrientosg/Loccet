@@ -1,21 +1,20 @@
 package router;
 
 import base.Injectable;
-import controller.HorarioController;
+import controller.CrearHorarioController;
 import delegate.AddHorarioDelegate;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.StageStyle;
-import model.Proyecto;
 import model.Trabajador;
-import view.HorarioView;
+import view.CrearHorarioView;
 
 public final class HorarioRouter {
 
-    public static HorarioView create(Trabajador trabajador, AddHorarioDelegate delegate) {
-        HorarioView view = Injectable.find(HorarioView.class);
+    public static CrearHorarioView create(Trabajador trabajador, AddHorarioDelegate delegate) {
+        CrearHorarioView view = Injectable.find(CrearHorarioView.class);
         HorarioRouter router = new HorarioRouter();
-        HorarioController controller = Injectable.find(HorarioController.class);
+        CrearHorarioController controller = Injectable.find(CrearHorarioController.class);
 
         view.setController(controller);
 

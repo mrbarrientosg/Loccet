@@ -14,7 +14,7 @@ import json.LocalDateTypeConverter;
 import model.*;
 import network.endpoint.TrabajadorAPI;
 import network.service.NetService;
-import view.TrabajadorView;
+import view.CrearTrabajadorView;
 
 import java.time.LocalDate;
 import java.util.logging.Level;
@@ -24,9 +24,9 @@ import java.util.logging.Level;
  *
  * @author Matias Barrientos
  */
-public final class TrabajadorController extends Controller {
+public final class CrearTrabajadorController extends Controller {
 
-    private TrabajadorView view;
+    private CrearTrabajadorView view;
 
     private Constructora model;
 
@@ -60,7 +60,7 @@ public final class TrabajadorController extends Controller {
 
     private SaveTrabajadorDelegate delegate;
 
-    public TrabajadorController() {
+    public CrearTrabajadorController() {
         rut = new SimpleStringProperty(null);
         name = new SimpleStringProperty(null);
         lastName = new SimpleStringProperty(null);
@@ -154,7 +154,7 @@ public final class TrabajadorController extends Controller {
         this.model = model;
     }
 
-    public void setView(TrabajadorView view) {
+    public void setView(CrearTrabajadorView view) {
         this.view = view;
     }
 

@@ -10,11 +10,10 @@ import javafx.scene.control.*;
 import javafx.util.Callback;
 import javafx.util.Pair;
 import org.controlsfx.control.tableview2.filter.parser.Parser;
-
 import java.util.List;
 import java.util.function.Predicate;
 
-public class FilterCell {
+public final class FilterCell {
     private ComboBox<Pair<String, Class<?>>> columnName;
 
     private ComboBox<String> filter;

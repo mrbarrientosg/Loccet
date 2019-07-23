@@ -2,7 +2,6 @@ package view;
 
 import base.View;
 import cell.ProyectoCell;
-import cell.TrabajadorCell;
 import controller.ProyectoController;
 import delegate.SaveProyectoDelegate;
 import io.reactivex.Observable;
@@ -10,16 +9,11 @@ import io.reactivex.rxjavafx.observables.JavaFxObservable;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import io.reactivex.schedulers.Schedulers;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Proyecto;
 import router.AgregarProyectoRouter;
@@ -27,7 +21,6 @@ import router.DetalleProyectoRouter;
 import router.ProyectoRouter;
 import util.AsyncTask;
 
-import java.time.LocalDate;
 import java.util.ListIterator;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -124,7 +117,7 @@ public class ProyectoView extends View implements SaveProyectoDelegate {
 
     @FXML
     public void createProyect(ActionEvent event){
-        AgregarProyectoView view = AgregarProyectoRouter.create(this);
+        CrearProyectoView view = AgregarProyectoRouter.create(this);
         view.modal().withStyle(StageStyle.TRANSPARENT)
                 .show().getScene().setFill(Color.TRANSPARENT);
         // TODO: analizar
