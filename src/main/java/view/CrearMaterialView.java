@@ -2,18 +2,13 @@ package view;
 
 import base.View;
 import controller.InventarioMaterialController;
-import exceptions.ItemExisteException;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import model.Material;
 import model.RegistroMaterial;
-import model.UnidadMedida;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
@@ -95,14 +90,8 @@ public final class CrearMaterialView extends View {
 
             registroMaterial = registroMaterial(material.getCantidad());
 
-            try {
-                controller.nuevoMaterial(material, registroMaterial);
-            } catch (ItemExisteException e) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning");
-                alert.setContentText(e.getMessage());
-                alert.showAndWait();
-            }
+            controller.nuevoMaterial(material, registroMaterial);
+
             close();
         } else{//En caso de que el usuario deje un campo vacio salta una excepcion.
             Alert alert = new Alert(Alert.AlertType.WARNING);

@@ -30,7 +30,7 @@ public class RRHHController extends Controller {
 
     private Constructora model = Constructora.getInstance();
 
-    private NetService<TrabajadorAPI> service = NetService.getInstance();
+    private NetService service = NetService.getInstance();
 
     public void fetchTrabajadores(Consumer<ObservableList<TrabajadorCell>> callBack) {
         AsyncTask.supplyAsync(() -> {

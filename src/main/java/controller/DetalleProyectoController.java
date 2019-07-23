@@ -9,6 +9,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import model.Constructora;
 import model.Proyecto;
 import network.endpoint.ProyectoAPI;
 import network.service.NetService;
@@ -21,7 +22,9 @@ public class DetalleProyectoController extends Controller {
 
     private DetalleProyectoView view;
 
-    private Proyecto model;
+    private Constructora model;
+
+    private Proyecto actualProyecto;
 
     private Proyecto oldProyecto;
 
@@ -41,14 +44,15 @@ public class DetalleProyectoController extends Controller {
 
     private ObjectProperty<LocalDate> endDate;
 
-    private NetService<ProyectoAPI> service;
+    private NetService service;
 
     private SaveProyectoDelegate delegate;
+
+    private String idProyecto;
 
     public DetalleProyectoController() {
         name = new SimpleStringProperty(null);
         client = new SimpleStringProperty(null);
-        //monto = new SimpleStringProperty(null);
 
         address = new SimpleStringProperty(null);
         country = new SimpleStringProperty(null);
@@ -59,40 +63,41 @@ public class DetalleProyectoController extends Controller {
         endDate = new SimpleObjectProperty<>(null);
 
         service = NetService.getInstance();
+        model = Constructora.getInstance();
     }
 
     public void actualizar() throws EmptyFieldException {
-        model.setNombre(name.get());
-        model.getLocalizacion().setDireccion(address.get());
-        model.getLocalizacion().setPais(country.get());
-        model.getLocalizacion().setEstado(state.get());
-        model.getLocalizacion().setCiudad(city.get());
-        model.setNombreCliente(client.get());
+        actualProyecto.setNombre(name.get());
+        actualProyecto.getLocalizacion().setDireccion(address.get());
+        actualProyecto.getLocalizacion().setPais(country.get());
+        actualProyecto.getLocalizacion().setEstado(state.get());
+        actualProyecto.getLocalizacion().setCiudad(city.get());
+        actualProyecto.setNombreCliente(client.get());
     }
 
     private void loadData() {
-        name.setValue(model.getNombre());
-        address.setValue(model.getLocalizacion().getDireccion());
-        country.setValue(model.getLocalizacion().getPais());
-        state.setValue(model.getLocalizacion().getEstado());
-        city.setValue(model.getLocalizacion().getCiudad());
-        client.setValue(model.getNombreCliente());
-        startDate.setValue(model.getFechaInicio());
-        endDate.setValue(model.getFechaTermino());
+        name.setValue(actualProyecto.getNombre());
+        address.setValue(actualProyecto.getLocalizacion().getDireccion());
+        country.setValue(actualProyecto.getLocalizacion().getPais());
+        state.setValue(actualProyecto.getLocalizacion().getEstado());
+        city.setValue(actualProyecto.getLocalizacion().getCiudad());
+        client.setValue(actualProyecto.getNombreCliente());
+        startDate.setValue(actualProyecto.getFechaInicio());
+        endDate.setValue(actualProyecto.getFechaTermino());
     }
 
     public void save() {
-        if (oldProyecto.equals(model))
+        if (oldProyecto.equals(actualProyecto))
             return;
 
         if (delegate != null)
-            delegate.didSaveProyecto(model);
+            delegate.didSaveProyecto(actualProyecto);
 
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Proyecto.class, new Proyecto.ProyectoSerializer())
                 .create();
 
-        service.request(ProyectoAPI.UPDATE, gson.toJsonTree(model).getAsJsonObject())
+        service.request(ProyectoAPI.UPDATE, gson.toJsonTree(actualProyecto).getAsJsonObject())
                 .subscribe(System.out::println, throwable -> {
                     LOGGER.log(Level.SEVERE, "", throwable);
                 });
@@ -103,9 +108,10 @@ public class DetalleProyectoController extends Controller {
         this.view = view;
     }
 
-    public void setModel(Proyecto model) {
-        this.model = model;
-        oldProyecto = new Proyecto(model);
+    public void setIdProyecto(String idProyecto) {
+        this.idProyecto = idProyecto;
+        actualProyecto = model.obtenerProyecto(idProyecto);
+        oldProyecto = new Proyecto(actualProyecto);
         loadData();
         view.bind();
     }
@@ -114,7 +120,9 @@ public class DetalleProyectoController extends Controller {
         this.delegate = delegate;
     }
 
-    public String getIdProyecto() { return model.getId(); }
+    public String getIdProyecto() {
+        return idProyecto;
+    }
 
     public StringProperty nameProperty() {
         return name;

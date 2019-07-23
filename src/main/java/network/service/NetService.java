@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
-public class NetService<EndPoint extends EndPointType> implements NetworkRouter<EndPoint> {
+public class NetService implements NetworkRouter {
 
     private AsyncHttpClient asyncHttpClient;
 
@@ -33,7 +33,7 @@ public class NetService<EndPoint extends EndPointType> implements NetworkRouter<
     }
 
     @Override
-    public Maybe<JsonElement> request(EndPoint route, JsonObject parameters) {
+    public Maybe<JsonElement> request(EndPointType route, JsonObject parameters) {
         return Maybe.create(maybeEmitter -> {
             this.response = buildRequest(route, parameters)
                     .execute()
@@ -55,7 +55,7 @@ public class NetService<EndPoint extends EndPointType> implements NetworkRouter<
         asyncHttpClient = null;
     }
 
-    private BoundRequestBuilder buildRequest(EndPoint route, JsonObject parameters) {
+    private BoundRequestBuilder buildRequest(EndPointType route, JsonObject parameters) {
         BoundRequestBuilder request = asyncHttpClient
                 .prepare(route.httpMethod().name(), route.baseURL().concat(route.path()));
 

@@ -124,7 +124,7 @@ public class DetalleTrabajadorView extends View {
 
     @Override
     public void viewDidShow() {
-        rutField.setText(controller.getRut());
+        rutField.setText(controller.getRutTrabajador());
         container.getChildren().add(listaHorarioView.getRoot());
     }
 

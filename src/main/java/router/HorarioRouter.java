@@ -11,24 +11,17 @@ import view.CrearHorarioView;
 
 public final class HorarioRouter {
 
-    public static CrearHorarioView create(Trabajador trabajador, AddHorarioDelegate delegate) {
+    public static CrearHorarioView create(String rut, AddHorarioDelegate delegate) {
         CrearHorarioView view = Injectable.find(CrearHorarioView.class);
-        HorarioRouter router = new HorarioRouter();
+
         CrearHorarioController controller = Injectable.find(CrearHorarioController.class);
 
         view.setController(controller);
 
         controller.setDelegate(delegate);
-        controller.setTrabajador(trabajador);
+        controller.setRutTrabajador(rut);
         controller.setView(view);
-        controller.setRouter(router);
 
         return view;
-    }
-
-    public Alert showWarning(String mensaje){
-        Alert alert = new Alert(Alert.AlertType.WARNING, mensaje, ButtonType.OK, ButtonType.CANCEL);
-        alert.initStyle(StageStyle.UTILITY);
-        return alert;
     }
 }

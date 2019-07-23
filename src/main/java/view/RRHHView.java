@@ -241,8 +241,8 @@ public class RRHHView extends View implements SaveTrabajadorDelegate, FilterDele
 
     private void detailTrabajadorAction(ActionEvent event) {
         TrabajadorCell cell = tableTrabajadores.getSelectionModel().getSelectedItem();
-        Trabajador t = controller.obtenerTrabajador(cell.getRut());
-        DetalleTrabajadorView view = DetalleTrabajadorRouter.create(t, this);
+
+        DetalleTrabajadorView view = DetalleTrabajadorRouter.create(cell.getRut(), this);
         view.modal().withStyle(StageStyle.TRANSPARENT)
                 .show().getScene().setFill(Color.TRANSPARENT);
     }

@@ -2,19 +2,13 @@ package controller;
 
 import base.Controller;
 import cell.MaterialCell;
-import cell.TrabajadorCell;
 import com.google.gson.*;
-import exceptions.ItemExisteException;
-import javafx.beans.Observable;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.*;
 import network.endpoint.MaterialAPI;
 import network.service.NetService;
 import specification.MaterialByQuerySpecification;
-import specification.TrabajadorByQuerySpecification;
-import util.AsyncTask;
 import util.ExportFile.ExportFile;
 import util.InventarioExport.ExportInventarioPDF;
 import util.InventarioExport.ExportInventarioXLSX;
@@ -25,8 +19,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
-import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -44,7 +36,7 @@ public final class InventarioMaterialController extends Controller {
 
     private Proyecto proyecto;
 
-    private NetService<MaterialAPI> service = NetService.getInstance();
+    private NetService service = NetService.getInstance();
 
     private ExportFile exportFile;
 
@@ -81,7 +73,7 @@ public final class InventarioMaterialController extends Controller {
      * Agrega un nuevo material al modelo
      * @param material nuevo material a agregar
      */
-    public void nuevoMaterial(Material material, RegistroMaterial rm) throws ItemExisteException {
+    public void nuevoMaterial(Material material, RegistroMaterial rm) {
         material.agregarRegistro(rm);
         model.agregarMaterial(material);
         view.didAddMaterial(new MaterialCell(material));

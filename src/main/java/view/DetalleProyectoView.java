@@ -89,7 +89,7 @@ public class DetalleProyectoView extends View {
         idField.setText(controller.getIdProyecto());
 
         container.getChildren().add(listaTrabajadorView.getRoot());
-        container.getChildren().add(inventarioMaterialView.getRoot());
+        //container.getChildren().add(inventarioMaterialView.getRoot());
     }
 
     @Override
@@ -101,7 +101,7 @@ public class DetalleProyectoView extends View {
         }
 
         container.getChildren().remove(listaTrabajadorView.getRoot());
-        container.getChildren().remove(inventarioMaterialView.getRoot());
+        //container.getChildren().remove(inventarioMaterialView.getRoot());
 
         controller.save();
     }

@@ -36,7 +36,7 @@ public class DetalleMaterialController extends Controller {
 
     private Material oldMaterial;
 
-    private NetService<MaterialAPI> service = NetService.getInstance();
+    private NetService service = NetService.getInstance();
 
     private EditMaterialDelegate delegate;
 

@@ -108,8 +108,8 @@ public class ProyectoView extends View implements SaveProyectoDelegate {
     @FXML
     public void lookDetails(ActionEvent event){
         ProyectoCell cell = selection();
-        Proyecto p = controller.buscarProyecto(cell.getId());
-        DetalleProyectoView view = DetalleProyectoRouter.create(p, this);
+
+        DetalleProyectoView view = DetalleProyectoRouter.create(cell.getId(), this);
         view.modal().withStyle(StageStyle.TRANSPARENT)
                 .show().getScene().setFill(Color.TRANSPARENT);
     }

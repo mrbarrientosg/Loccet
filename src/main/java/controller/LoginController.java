@@ -24,7 +24,7 @@ public final class LoginController extends Controller {
 
     private LoginView view;
 
-    private NetService<LoccetAPI> service = NetService.getInstance();
+    private NetService service = NetService.getInstance();
 
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 

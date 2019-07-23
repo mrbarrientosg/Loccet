@@ -3,42 +3,37 @@ package controller;
 import base.Controller;
 import cell.TrabajadorCell;
 import com.google.gson.JsonObject;
-import exceptions.ItemExisteException;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.Proyecto;
+import model.Constructora;
 import model.Trabajador;
 import delegate.SearchEmployeeDelegate;
 import network.endpoint.TrabajadorAPI;
 import network.service.NetService;
-import util.AsyncTask;
+import util.DateUtils;
 import view.ListaTrabajadorView;
-
 import java.time.Instant;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
 import java.util.logging.Level;
 
 public final class ListaTrabajadorController extends Controller implements SearchEmployeeDelegate {
 
-    private final ListaTrabajadorView view;
+    private ListaTrabajadorView view;
 
-    private final Proyecto model;
+    private Constructora model;
 
-    private NetService<TrabajadorAPI> service;
+    private NetService service;
 
-    public ListaTrabajadorController(ListaTrabajadorView view, Proyecto model) {
-        this.view = view;
-        this.model = model;
+    private String idProyecto;
+
+    public ListaTrabajadorController() {
+        this.model = Constructora.getInstance();
         service = NetService.getInstance();
     }
 
     public Single<ObservableList<TrabajadorCell>> searchEmployee(String text) {
-        return Observable.fromIterable(model.getTrabajadores())
+        return Observable.fromIterable(model.getTrabajadores(idProyecto))
                 .filter(trabajador -> trabajador.getRut().contains(text))
                 .map(TrabajadorCell::new)
                 .toList()
@@ -47,46 +42,34 @@ public final class ListaTrabajadorController extends Controller implements Searc
 
     @Override
     public void selectedEmployee(Trabajador value) {
-        if (model.obtenerTrabajador(value.getRut()) != null) return;
+        if (model.obtenerTrabajador(value.getRut(), idProyecto) != null) return;
 
-        try {
-            model.agregarTrabajador(value);
+        model.agregarTrabajador(idProyecto, value);
 
-            view.addEmployee(new TrabajadorCell(value));
+        view.addEmployee(new TrabajadorCell(value));
 
-            JsonObject json = new JsonObject();
+        JsonObject json = new JsonObject();
 
-            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-                    .withZone(ZoneId.systemDefault());
+        json.addProperty("fecha_incio_trabajador", DateUtils.formatDate("yyyy-MM-dd HH:mm:ss", Instant.now()));
+        json.addProperty("rut_trabajador", value.getRut());
+        json.addProperty("id_proyecto", idProyecto);
 
-            json.addProperty("fecha_incio_trabajador", timeFormatter.format(Instant.now()));
-            json.addProperty("rut_trabajador", value.getRut());
-            json.addProperty("id_proyecto", model.getId());
+        service.request(TrabajadorAPI.ADD_TO_PROJECT, json)
+                .subscribe(System.out::println, throwable -> {
+                    LOGGER.log(Level.SEVERE, "", throwable);
+                });
 
-            service.request(TrabajadorAPI.ADD_TO_PROJECT, json)
-                    .subscribe(System.out::println, throwable -> {
-                        LOGGER.log(Level.SEVERE, "", throwable);
-                    });
-        } catch (ItemExisteException e) {
-            // TODO: Falta enviar alerta
-            e.printStackTrace();
-        }
-
-    }
-
-    public Trabajador obtenerTrabajador(String rut) {
-        return model.obtenerTrabajador(rut);
     }
 
     public void eliminarTrabajador(String rut) {
-        model.eliminarTrabajador(rut);
+        model.eliminarTrabajador(idProyecto, rut);
 
-        NetService<TrabajadorAPI> service = NetService.getInstance();
+        NetService service = NetService.getInstance();
 
         JsonObject json = new JsonObject();
 
         json.addProperty("rut_trabajador", rut);
-        json.addProperty("id_proyecto", model.getId());
+        json.addProperty("id_proyecto", idProyecto);
 
         System.out.println(json);
 
@@ -94,5 +77,13 @@ public final class ListaTrabajadorController extends Controller implements Searc
                 .subscribe(System.out::println, throwable -> {
                     LOGGER.log(Level.SEVERE, "", throwable);
                 });
+    }
+
+    public void setView(ListaTrabajadorView view) {
+        this.view = view;
+    }
+
+    public void setIdProyecto(String idProyecto) {
+        this.idProyecto = idProyecto;
     }
 }

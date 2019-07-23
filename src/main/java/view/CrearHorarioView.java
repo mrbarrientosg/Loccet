@@ -129,10 +129,6 @@ public final class CrearHorarioView extends View {
         minutoSalida.getEditor().setText("00");
     }
 
-    public void setController(CrearHorarioController controller) {
-        this.controller = controller;
-    }
-
     private void setupSpinner(Spinner<Integer> spinner, int max) {
         SpinnerValueFactory factory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, max, 0);
         spinner.setValueFactory(factory);
@@ -178,4 +174,9 @@ public final class CrearHorarioView extends View {
             }
         });
     }
+
+    public void setController(CrearHorarioController controller) {
+        this.controller = controller;
+    }
+
 }

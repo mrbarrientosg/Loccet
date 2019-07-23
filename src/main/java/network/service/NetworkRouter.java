@@ -6,7 +6,7 @@ import io.reactivex.Maybe;
 
 import java.io.IOException;
 
-public interface NetworkRouter<EndPoint extends  EndPointType> {
-    public Maybe<JsonElement> request(EndPoint router, JsonObject parameters);
+public interface NetworkRouter {
+    public Maybe<JsonElement> request(EndPointType router, JsonObject parameters);
     public void close() throws IOException;
 }

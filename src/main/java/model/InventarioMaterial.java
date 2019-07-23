@@ -1,6 +1,5 @@
 package model;
 
-import exceptions.ItemExisteException;
 import model.store.MemorySpecification;
 import model.store.memory.MemoryStoreMaterial;
 import model.store.StoreMaterial;
@@ -30,9 +29,9 @@ public class InventarioMaterial implements Costeable {
 
     // MARK: - Metodos Material
 
-    public void agregarMaterial(Material material) throws ItemExisteException {
+    public void agregarMaterial(Material material) {
         if (storeMaterial.contains(material))
-            throw new ItemExisteException();
+            return;
 
         storeMaterial.save(material);
     }

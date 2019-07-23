@@ -88,7 +88,7 @@ public final class CrearProyectoController extends Controller {
     }
 
     private void saveToDB(Proyecto proyecto) {
-        NetService<ProyectoAPI> service = NetService.getInstance();
+        NetService service = NetService.getInstance();
 
         Gson gson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)

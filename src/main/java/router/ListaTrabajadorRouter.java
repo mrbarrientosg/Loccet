@@ -10,18 +10,15 @@ import view.ListaTrabajadorView;
 
 public final class ListaTrabajadorRouter {
 
-    public static ListaTrabajadorView create(Proyecto model) {
+    public static ListaTrabajadorView create(String idProyecto) {
         ListaTrabajadorView view = Injectable.find(ListaTrabajadorView.class);
-        ListaTrabajadorController controller = new ListaTrabajadorController(view,  model);
+        ListaTrabajadorController controller = Injectable.find(ListaTrabajadorController.class);
 
         view.setController(controller);
 
-        return view;
-    }
+        controller.setIdProyecto(idProyecto);
+        controller.setView(view);
 
-    public Alert showWarning(String message) {
-        Alert warning = new Alert(Alert.AlertType.WARNING, message, ButtonType.YES, ButtonType.CANCEL);
-        warning.setTitle("Alerta");
-        return warning;
+        return view;
     }
 }

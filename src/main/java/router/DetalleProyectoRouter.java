@@ -12,31 +12,26 @@ import view.ListaTrabajadorView;
 
 public class DetalleProyectoRouter {
 
-    public static DetalleProyectoView create(Proyecto proyecto, SaveProyectoDelegate delegate) {
+    public static DetalleProyectoView create(String idProyecto, SaveProyectoDelegate delegate) {
         DetalleProyectoView detalleProyectoView = Injectable.find(DetalleProyectoView.class);
         DetalleProyectoRouter router = new DetalleProyectoRouter();
         DetalleProyectoController detalleProyectoController = Injectable.find(DetalleProyectoController.class);
 
-        ListaTrabajadorView listaTrabajadorView = ListaTrabajadorRouter.create(proyecto);
+        ListaTrabajadorView listaTrabajadorView = ListaTrabajadorRouter.create(idProyecto);
 
-        InventarioMaterialView inventarioMaterialView = InventarioMaterialRouter.create(proyecto.getInventarioMaterial(), proyecto);
+        // TODO: Falta el inventario
+        //InventarioMaterialView inventarioMaterialView = InventarioMaterialRouter.create(proyecto.getInventarioMaterial(), proyecto);
 
         detalleProyectoView.setListaTrabajadorView(listaTrabajadorView);
-        detalleProyectoView.setInventarioMaterialView(inventarioMaterialView);
+        //detalleProyectoView.setInventarioMaterialView(inventarioMaterialView);
 
         detalleProyectoView.setRouter(router);
         detalleProyectoView.setController(detalleProyectoController);
 
         detalleProyectoController.setView(detalleProyectoView);
-        detalleProyectoController.setModel(proyecto);
+        detalleProyectoController.setIdProyecto(idProyecto);
         detalleProyectoController.setDelegate(delegate);
 
         return detalleProyectoView;
-    }
-
-
-    public void showSaveAlert() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Los datos se han guardado correctamente", ButtonType.OK);
-        alert.showAndWait();
     }
 }

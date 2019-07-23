@@ -9,17 +9,17 @@ import view.ListaHorarioView;
 
 public class DetalleTrabajadorRouter {
 
-    public static DetalleTrabajadorView create(Trabajador model, SaveTrabajadorDelegate delegate) {
+    public static DetalleTrabajadorView create(String rut, SaveTrabajadorDelegate delegate) {
         DetalleTrabajadorView view = Injectable.find(DetalleTrabajadorView.class);
         DetalleTrabajadorController controller = Injectable.find(DetalleTrabajadorController.class);
 
-        ListaHorarioView listaHorarioView = ListaHorarioRouter.create(model);
+        ListaHorarioView listaHorarioView = ListaHorarioRouter.create(rut);
 
         view.setController(controller);
         view.setListaHorarioView(listaHorarioView);
 
         controller.setView(view);
-        controller.setModel(model);
+        controller.setRutTrabajador(rut);
         controller.setDelegate(delegate);
 
         return view;

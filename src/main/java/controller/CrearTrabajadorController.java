@@ -111,7 +111,7 @@ public final class CrearTrabajadorController extends Controller {
         if (delegate != null)
             delegate.didSaveTrabajador(trabajador);
 
-        NetService<TrabajadorAPI> service = NetService.getInstance();
+        NetService service = NetService.getInstance();
 
         Gson gson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)

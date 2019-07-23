@@ -1,13 +1,11 @@
 package model;
 
 import com.google.gson.JsonObject;
-import exceptions.ItemExisteException;
 import model.store.MemorySpecification;
 import model.store.memory.MemoryStoreProyecto;
 import model.store.memory.MemoryStoreTrabajador;
 import model.store.StoreProyecto;
 import model.store.StoreTrabajador;
-import util.AsyncTask;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -84,6 +82,16 @@ public class Constructora implements Costeable {
         return storeTrabajador.findByRut(rut);
     }
 
+    public Trabajador obtenerTrabajador(String rut, String idProyecto) {
+        Proyecto proyecto = storeProyecto.findById(idProyecto);
+
+        if (proyecto == null)
+            return null;
+
+        return proyecto.obtenerTrabajador(rut);
+    }
+
+
     public void agregarTrabajador(Trabajador trabajador) {
         if (storeTrabajador.contains(trabajador))
             return;
@@ -99,7 +107,7 @@ public class Constructora implements Costeable {
      * @return false si no se pudo agregar y true lo contrario
      * @author Matias Barrientos
      */
-    public void agregarTrabajador(String idProyecto, Trabajador trabajador) throws ItemExisteException {
+    public void agregarTrabajador(String idProyecto, Trabajador trabajador) {
         Proyecto proyecto = storeProyecto.findById(idProyecto);
 
         if (proyecto == null) return;
@@ -155,6 +163,24 @@ public class Constructora implements Costeable {
     }
 
 
+    public void agregarHorario(String rut, String idProyecto, Horario horario) {
+        Trabajador trabajador = storeTrabajador.findByRut(rut);
+
+        if (trabajador == null)
+            return;
+
+        trabajador.agregarHorario(idProyecto, horario);
+    }
+
+    public void eliminarHorario(String rut, Integer idHorario) {
+        Trabajador trabajador = storeTrabajador.findByRut(rut);
+
+        if (trabajador == null)
+            return;
+
+        trabajador.eliminarHorario(idHorario);
+    }
+
     // MARK: - Getter
 
     public String getRut() {
@@ -171,6 +197,33 @@ public class Constructora implements Costeable {
 
     public Iterable<Trabajador> getTrabajadores() {
         return storeTrabajador.findAll();
+    }
+
+    public Iterable<Trabajador> getTrabajadores(String idProyecto) {
+        Proyecto proyecto = storeProyecto.findById(idProyecto);
+
+        if (proyecto == null)
+            return Collections.emptyList();
+
+        return proyecto.getTrabajadores();
+    }
+
+    public Iterable<Horario> getHorarios(String rut) {
+        Trabajador trabajador = storeTrabajador.findByRut(rut);
+
+        if (trabajador == null)
+            return Collections.emptyList();
+
+        return trabajador.obtenerListaHorario();
+    }
+
+    public Iterable<Proyecto> getProyectos(String rut) {
+        Trabajador trabajador = storeTrabajador.findByRut(rut);
+
+        if (trabajador == null)
+            return Collections.emptyList();
+
+        return trabajador.getProyectos();
     }
 
     public Iterable<Proyecto> getProyectos() {
