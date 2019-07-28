@@ -4,17 +4,9 @@ import base.Fragment;
 import base.Injectable;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import router.ProyectoRouter;
-import router.RRHHRouter;
-import router.ReporteRouter;
-
-import java.io.IOException;
 
 public class TableroView extends Fragment {
 
@@ -119,15 +111,15 @@ public class TableroView extends Fragment {
          */
 
         if (button == rrhhButton) {
-            RRHHView rrhhView = RRHHRouter.create();
+            RRHHView rrhhView = Injectable.find(RRHHView.class);
             setCenter(rrhhView.getRoot());
             titleBar.setText("Recursos Humanos");
         } else if(button == proyectoButton){
-            ProyectoView proyectoView = ProyectoRouter.create();
+            ProyectoView proyectoView = Injectable.find(ProyectoView.class);
             setCenter(proyectoView.getRoot());
             titleBar.setText("Proyectos");
-        }else if(button == reporteButton){
-            ReporteView reporteView = ReporteRouter.create();
+        } else if(button == reporteButton){
+            ReporteView reporteView = Injectable.find(ReporteView.class);
             setCenter(reporteView.getRoot());
             titleBar.setText("Reporte");
         } else {

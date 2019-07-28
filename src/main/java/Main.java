@@ -6,7 +6,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import network.service.NetService;
-import router.LoginRouter;
 import util.ThreadPools;
 import view.LoginView;
 
@@ -25,7 +24,7 @@ public class Main extends Application {
 
         Injectable.setPrimaryStage(primaryStage);
 
-        LoginView loginView = LoginRouter.create();
+        LoginView loginView = Injectable.find(LoginView.class);
 
         Scene scene = new Scene(loginView.getRoot());
         primaryStage.setScene(scene);

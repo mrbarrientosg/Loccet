@@ -28,7 +28,7 @@ public final class ListaTrabajadorController extends Controller implements Searc
     private String idProyecto;
 
     public ListaTrabajadorController() {
-        this.model = Constructora.getInstance();
+        model = Constructora.getInstance();
         service = NetService.getInstance();
     }
 
@@ -79,11 +79,11 @@ public final class ListaTrabajadorController extends Controller implements Searc
                 });
     }
 
-    public void setView(ListaTrabajadorView view) {
-        this.view = view;
-    }
-
     public void setIdProyecto(String idProyecto) {
         this.idProyecto = idProyecto;
+    }
+
+    public void setView(ListaTrabajadorView view) {
+        this.view = view;
     }
 }

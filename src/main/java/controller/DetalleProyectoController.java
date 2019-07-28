@@ -20,8 +20,6 @@ import java.util.logging.Level;
 
 public class DetalleProyectoController extends Controller {
 
-    private DetalleProyectoView view;
-
     private Constructora model;
 
     private Proyecto actualProyecto;
@@ -104,16 +102,11 @@ public class DetalleProyectoController extends Controller {
 
     }
 
-    public void setView(DetalleProyectoView view) {
-        this.view = view;
-    }
-
     public void setIdProyecto(String idProyecto) {
         this.idProyecto = idProyecto;
         actualProyecto = model.obtenerProyecto(idProyecto);
         oldProyecto = new Proyecto(actualProyecto);
         loadData();
-        view.bind();
     }
 
     public void setDelegate(SaveProyectoDelegate delegate) {

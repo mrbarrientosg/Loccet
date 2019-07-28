@@ -19,15 +19,12 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.StageStyle;
 import model.Material;
-import router.DetalleMaterialRouter;
 import util.AsyncTask;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ListIterator;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
-
 
 /**
  * Clase que mostrara las vistas.
@@ -76,6 +73,9 @@ public final class InventarioMaterialView extends Fragment implements EditMateri
 
     @Override
     public void viewDidLoad() {
+        // TODO: Falta implementar
+        // controller = new InventarioMaterialController();
+
         tablaInventario.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 editarBT.setDisable(false);
@@ -86,12 +86,16 @@ public final class InventarioMaterialView extends Fragment implements EditMateri
             }
         });
 
+        udsCL.setCellValueFactory(new PropertyValueFactory<>("uds"));
+        nombreMaterialCL.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        idMaterialCL.setCellValueFactory(new PropertyValueFactory<>("id"));
+        cantidadCL.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+        descripcionCL.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
+        precioCL.setCellValueFactory(new PropertyValueFactory<>("precio"));
    }
 
     @Override
     public void viewDidShow() {
-        inicializarTablaMateriales();
-
         Observable<String> textInputs = JavaFxObservable.valuesOf(searchText.textProperty());
 
         textInputs
@@ -113,7 +117,6 @@ public final class InventarioMaterialView extends Fragment implements EditMateri
     @FXML
     public void nuevoMaterial(ActionEvent event){
         CrearMaterialView view = Injectable.find(CrearMaterialView.class);
-        view.setController(controller);
         view.modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
                 .show().getScene().setFill(Color.TRANSPARENT);;
     }
@@ -149,9 +152,7 @@ public final class InventarioMaterialView extends Fragment implements EditMateri
         MaterialCell materialCell = seleccion();
         if(materialCell!=null) {
             Material material = controller.getMaterial(materialCell.getId());
-            DetalleMaterialView view = DetalleMaterialRouter.create(material, this);
-            view.modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
-                    .show().getScene().setFill(Color.TRANSPARENT);
+            Injectable.find(DetalleMaterialView.class).display(material, this);
         }
         else{
            // controller.showWarning("Seleccionar material", "Por favor seleccione material a eliminar").showAndWait();;
@@ -199,28 +200,6 @@ public final class InventarioMaterialView extends Fragment implements EditMateri
                 ex.printStackTrace();
             }
         }
-    }
-
-
-    /**
-     * Funcion privada que inicializa la tabla de materiales.
-     *
-     * @author Sebastian Fuenzalida.
-     */
-    private void inicializarTablaMateriales() {
-        udsCL.setCellValueFactory(new PropertyValueFactory<>("uds"));
-        nombreMaterialCL.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        idMaterialCL.setCellValueFactory(new PropertyValueFactory<>("id"));
-        cantidadCL.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
-        descripcionCL.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
-        precioCL.setCellValueFactory(new PropertyValueFactory<>("precio"));
-    }
-
-    /**
-     * @param controller inventario Material
-     */
-    public void setController(InventarioMaterialController controller) {
-        this.controller = controller;
     }
 
     @Override

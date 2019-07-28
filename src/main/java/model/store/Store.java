@@ -8,4 +8,6 @@ public interface Store<Model> {
     public boolean contains(Model value);
 
     public Iterable<Model> findAll();
+
+    public void clear();
 }

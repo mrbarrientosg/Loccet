@@ -62,7 +62,16 @@ public class Constructora implements Costeable {
     }
 
     public Proyecto eliminarProyecto(String idProyecto) {
-        return storeProyecto.delete(idProyecto);
+        Proyecto proyecto = storeProyecto.findById(idProyecto);
+
+        if (proyecto == null)
+            return null;
+
+        storeProyecto.delete(proyecto);
+
+        proyecto.limpiar();
+
+        return proyecto;
     }
 
     public Iterable<Proyecto> buscarProyecto(MemorySpecification<Proyecto> specification) {
@@ -122,18 +131,28 @@ public class Constructora implements Costeable {
     }
 
     public Trabajador eliminarTrabajador(String rut) {
-        if (storeTrabajador.findByRut(rut) == null) return null;
+        Trabajador trabajador = storeTrabajador.delete(rut);
 
-        storeProyecto.findAll().forEach(proyecto -> {
-            proyecto.eliminarTrabajador(rut);
-        });
+        if (trabajador == null)
+            return null;
 
-        return storeTrabajador.delete(rut);
+        trabajador.limpiar();
+
+        return trabajador;
     }
 
     public Trabajador eliminarTrabajador(String idProyecto, String rut) {
         Proyecto p = storeProyecto.findById(idProyecto);
+
         if (p == null) return null;
+
+        Trabajador trabajador = p.eliminarTrabajador(rut);
+
+        if (trabajador == null)
+            return null;
+
+        trabajador.eliminarProyecto(idProyecto);
+
         return p.eliminarTrabajador(rut);
     }
 

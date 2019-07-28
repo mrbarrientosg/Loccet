@@ -26,8 +26,8 @@ public class HorariosFetchHandler extends FetchHandler {
                     for (JsonElement jsonElement : jsonArray) {
                         JsonObject json = jsonElement.getAsJsonObject();
                         Horario h = deserializer.fromJson(json, Horario.class);
-                        Trabajador t = Constructora.getInstance().obtenerTrabajador(json.get("rut_trabajador").getAsString());
-                        t.agregarHorario(json.get("id_proyecto").getAsString(), h);
+                        Constructora.getInstance().agregarHorario(json.get("rut_trabajador").getAsString(),
+                                json.get("id_proyecto").getAsString(), h);
                     }
 
                     handleNext(parameters, deserializer, result);

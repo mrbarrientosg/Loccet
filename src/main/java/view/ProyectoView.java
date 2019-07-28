@@ -1,5 +1,6 @@
 package view;
 
+import base.Injectable;
 import base.View;
 import cell.ProyectoCell;
 import controller.ProyectoController;
@@ -16,11 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import model.Proyecto;
-import router.AgregarProyectoRouter;
-import router.DetalleProyectoRouter;
-import router.ProyectoRouter;
 import util.AsyncTask;
-
 import java.util.ListIterator;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -28,8 +25,6 @@ import java.util.concurrent.TimeUnit;
 public class ProyectoView extends View implements SaveProyectoDelegate {
 
     private ProyectoController controller;
-
-    private ProyectoRouter router;
 
     @FXML
     private TextField searchText;
@@ -66,7 +61,14 @@ public class ProyectoView extends View implements SaveProyectoDelegate {
 
     @Override
     public void viewDidLoad() {
-        inicializarTablaProyecto();
+        controller = Injectable.find(ProyectoController.class);
+
+        iDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        nameProyectColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        startDateColumn.setCellValueFactory(new PropertyValueFactory<>("fechaInicio"));
+        endDateColumn.setCellValueFactory(new PropertyValueFactory<>("fechaTermino"));
+        amountColumn.setCellValueFactory(new PropertyValueFactory<>("estimacion"));
+        clientColumn.setCellValueFactory(new PropertyValueFactory<>("cliente"));
 
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
@@ -92,15 +94,6 @@ public class ProyectoView extends View implements SaveProyectoDelegate {
                 .subscribe(tableView::setItems);
     }
 
-    private void inicializarTablaProyecto() {
-        iDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        nameProyectColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        startDateColumn.setCellValueFactory(new PropertyValueFactory<>("fechaInicio"));
-        endDateColumn.setCellValueFactory(new PropertyValueFactory<>("fechaTermino"));
-        amountColumn.setCellValueFactory(new PropertyValueFactory<>("estimacion"));
-        clientColumn.setCellValueFactory(new PropertyValueFactory<>("cliente"));
-    }
-
     private ProyectoCell selection() {
         return tableView.getSelectionModel().getSelectedItem();
     }
@@ -108,20 +101,13 @@ public class ProyectoView extends View implements SaveProyectoDelegate {
     @FXML
     public void lookDetails(ActionEvent event){
         ProyectoCell cell = selection();
-
-        DetalleProyectoView view = DetalleProyectoRouter.create(cell.getId(), this);
-        view.modal().withStyle(StageStyle.TRANSPARENT)
-                .show().getScene().setFill(Color.TRANSPARENT);
+        Injectable.find(DetalleProyectoView.class).display(cell.getId(), this);
     }
 
 
     @FXML
     public void createProyect(ActionEvent event){
-        CrearProyectoView view = AgregarProyectoRouter.create(this);
-        view.modal().withStyle(StageStyle.TRANSPARENT)
-                .show().getScene().setFill(Color.TRANSPARENT);
-        // TODO: analizar
-        //cargarDatos();
+        Injectable.find(CrearProyectoView.class).display(this);
     }
 
     @FXML
@@ -143,12 +129,6 @@ public class ProyectoView extends View implements SaveProyectoDelegate {
         });
     
 
-    }
-
-    public void setController(ProyectoController controller) { this.controller = controller; }
-
-    public void setRouter(ProyectoRouter router) {
-        this.router = router;
     }
 
     @Override

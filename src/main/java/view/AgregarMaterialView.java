@@ -1,8 +1,8 @@
 package view;
 
 import base.Fragment;
+import base.Injectable;
 import controller.DetalleMaterialController;
-import controller.InventarioMaterialController;
 import exceptions.NegativeQuantityException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,7 +10,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-
+import javafx.scene.paint.Color;
+import javafx.stage.StageStyle;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
@@ -35,8 +36,9 @@ public final class AgregarMaterialView extends Fragment {
 
     @Override
     public void viewDidLoad() {
-
+        controller = Injectable.find(DetalleMaterialController.class);
     }
+
     @Override
     public void viewDidShow(){
         Pattern pattern = Pattern.compile("\\d*|\\d+\\.\\d*");
@@ -72,12 +74,13 @@ public final class AgregarMaterialView extends Fragment {
     }
 
     @FXML
-    public void salir(ActionEvent event){
+    public void salir(ActionEvent event) {
         close();
     }
 
-    public void setController(DetalleMaterialController controller) {
-        this.controller = controller;
+    public void display() {
+        modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
+                .show().getScene().setFill(Color.TRANSPARENT);
     }
 
 }

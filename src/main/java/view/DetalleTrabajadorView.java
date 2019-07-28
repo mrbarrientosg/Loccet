@@ -1,7 +1,9 @@
 package view;
 
+import base.Injectable;
 import base.View;
 import controller.DetalleTrabajadorController;
+import delegate.SaveTrabajadorDelegate;
 import exceptions.EmptyFieldException;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -10,6 +12,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import model.Especialidad;
 import model.Especialidades;
@@ -77,8 +81,11 @@ public class DetalleTrabajadorView extends View {
 
     @Override
     public void viewDidLoad() {
+        controller = Injectable.find(DetalleTrabajadorController.class);
+        controller.setView(this);
         isEditing = false;
         disable = new SimpleBooleanProperty(true);
+        bind();
 
         nameField.disableProperty().bind(disable);
         lastNameField.disableProperty().bind(disable);
@@ -140,7 +147,7 @@ public class DetalleTrabajadorView extends View {
         controller.save();
     }
 
-    public void bind() {
+    private void bind() {
         nameField.textProperty().bindBidirectional(controller.nameProperty());
         lastNameField.textProperty().bindBidirectional(controller.lastNameProperty());
 
@@ -187,11 +194,11 @@ public class DetalleTrabajadorView extends View {
         }
     }
 
-    public void setController(DetalleTrabajadorController controller) {
-        this.controller = controller;
-    }
-
-    public void setListaHorarioView(ListaHorarioView listaHorarioView) {
-        this.listaHorarioView = listaHorarioView;
+    public void display(String rut, SaveTrabajadorDelegate delegate) {
+        controller.setRutTrabajador(rut);
+        controller.setDelegate(delegate);
+        listaHorarioView = Injectable.find(ListaHorarioView.class).display(rut);
+        modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
+                .show().getScene().setFill(Color.TRANSPARENT);
     }
 }

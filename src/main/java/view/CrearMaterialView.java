@@ -1,5 +1,6 @@
 package view;
 
+import base.Injectable;
 import base.View;
 import controller.InventarioMaterialController;
 import javafx.event.ActionEvent;
@@ -7,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import model.Material;
 import model.RegistroMaterial;
-
 import java.math.BigDecimal;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
@@ -42,6 +42,9 @@ public final class CrearMaterialView extends View {
 
     @Override
     public void viewDidLoad() {
+        // TODO: Falta implentar controller
+        // controller = Injectable.find(InventarioMaterialController.class);
+
         Pattern pattern = Pattern.compile("\\d*|\\d+\\.\\d*");
 
         TextFormatter formatter =  new TextFormatter<UnaryOperator>(change ->
@@ -113,10 +116,6 @@ public final class CrearMaterialView extends View {
     @FXML
     public void salir(ActionEvent event){
         close();
-    }
-
-    public void setController(InventarioMaterialController controller) {
-        this.controller = controller;
     }
 
 }

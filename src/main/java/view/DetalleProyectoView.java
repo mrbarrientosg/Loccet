@@ -1,7 +1,9 @@
 package view;
 
+import base.Injectable;
 import base.View;
 import controller.DetalleProyectoController;
+import delegate.SaveProyectoDelegate;
 import exceptions.EmptyFieldException;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -12,14 +14,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import router.DetalleProyectoRouter;
-import router.ListaTrabajadorRouter;
+import javafx.scene.paint.Color;
+import javafx.stage.StageStyle;
 
 public class DetalleProyectoView extends View {
 
     private DetalleProyectoController controller;
-
-    private DetalleProyectoRouter router;
 
     private ListaTrabajadorView listaTrabajadorView;
 
@@ -67,8 +67,10 @@ public class DetalleProyectoView extends View {
 
     @Override
     public void viewDidLoad() {
+        controller = Injectable.find(DetalleProyectoController.class);
         isEditing = false;
         disable = new SimpleBooleanProperty(true);
+        bind();
 
         nameField.disableProperty().bind(disable);
         addressField.disableProperty().bind(disable);
@@ -106,7 +108,7 @@ public class DetalleProyectoView extends View {
         controller.save();
     }
 
-    public void bind() {
+    private void bind() {
         nameField.textProperty().bindBidirectional(controller.nameProperty());
         addressField.textProperty().bindBidirectional(controller.addressProperty());
         countryField.textProperty().bindBidirectional(controller.countryProperty());
@@ -138,19 +140,17 @@ public class DetalleProyectoView extends View {
         }
     }
 
-    public void setController(DetalleProyectoController controller) {
-        this.controller = controller;
-    }
-
-    public void setRouter(DetalleProyectoRouter router) {
-        this.router = router;
-    }
-
-    public void setListaTrabajadorView(ListaTrabajadorView listaTrabajadorView) {
-        this.listaTrabajadorView = listaTrabajadorView;
-    }
-
     public void setInventarioMaterialView(InventarioMaterialView inventarioMaterialView) {
         this.inventarioMaterialView = inventarioMaterialView;
+    }
+
+    public void display(String id, SaveProyectoDelegate delegate) {
+        controller.setIdProyecto(id);
+        controller.setDelegate(delegate);
+
+        listaTrabajadorView = Injectable.find(ListaTrabajadorView.class).display(id);
+
+        modal().withStyle(StageStyle.TRANSPARENT)
+                .show().getScene().setFill(Color.TRANSPARENT);
     }
 }

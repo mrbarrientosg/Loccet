@@ -39,4 +39,10 @@ public abstract class AbstractStore<Model> implements Store<Model> {
     public Iterable<Model> findAll() {
         return items;
     }
+
+    @Override
+    public void clear() {
+        items.clear();
+        items = null;
+    }
 }

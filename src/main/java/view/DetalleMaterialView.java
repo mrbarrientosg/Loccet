@@ -4,6 +4,7 @@ import base.Injectable;
 import base.View;
 import cell.RegistroMaterialCell;
 import controller.DetalleMaterialController;
+import delegate.EditMaterialDelegate;
 import exceptions.EmptyFieldException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,7 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
-import router.DetalleMaterialRouter;
+import model.Material;
 
 /**
  * Clase vista del detalle de un material.
@@ -19,11 +20,8 @@ import router.DetalleMaterialRouter;
  * @author Sebastian Fuenzalida.
  */
 public class DetalleMaterialView extends View {
-    //Se declaran las variables.
 
     private DetalleMaterialController controller;
-
-    private DetalleMaterialRouter router;
 
     private boolean editando;
 
@@ -68,12 +66,16 @@ public class DetalleMaterialView extends View {
 
     @Override
     public void viewDidLoad() {
+        controller = Injectable.find(DetalleMaterialController.class);
         editando = false;
 
+        fechaCL.setCellValueFactory(new PropertyValueFactory<>("fecha"));
+        cantidadCL.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+        retiradoCL.setCellValueFactory(new PropertyValueFactory<>("retirado"));
     }
+
     @Override
     public void viewDidShow(){
-        inicializarTablaRegistro();
         cargarDatos();
         mostrarDatos();
     }
@@ -84,7 +86,7 @@ public class DetalleMaterialView extends View {
     }
 
 
-    public void cargarDatos(){
+    public void cargarDatos() {
         controller.obtenerRegistro(tableView::setItems);
     }
 
@@ -143,21 +145,9 @@ public class DetalleMaterialView extends View {
         close();
     }
 
-    /**
-     * Funcion que carga los datos en la tabla.
-     *
-     * @author Sebastian Fuenzalida.
-     */
-    private void inicializarTablaRegistro() {
-        fechaCL.setCellValueFactory(new PropertyValueFactory<>("fecha"));
-        cantidadCL.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
-        retiradoCL.setCellValueFactory(new PropertyValueFactory<>("retirado"));
-    }
-
     @FXML
     public void retirar(ActionEvent event){
         RetirarMaterialView view = Injectable.find(RetirarMaterialView.class);
-        view.setController(controller);
         view.modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
                 .show().getScene().setFill(Color.TRANSPARENT);
         mostrarDatos();
@@ -165,23 +155,16 @@ public class DetalleMaterialView extends View {
 
     @FXML
     public void agregar(ActionEvent event){
-        AgregarMaterialView view = Injectable.find(AgregarMaterialView.class);
-        view.setController(controller);
-        view.modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
-                .show().getScene().setFill(Color.TRANSPARENT);
+        Injectable.find(AgregarMaterialView.class).display();
         mostrarDatos();
-
     }
 
-    /**
-     * @param controller detalleMaterial
-     */
-    public void setController(DetalleMaterialController controller) {
-        this.controller = controller;
+    public void display(Material material, EditMaterialDelegate delegate) {
+        controller.setModel(material);
+        controller.setDelegate(delegate);
+        modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
+                .show().getScene().setFill(Color.TRANSPARENT);
     }
-    /**
-     * @param router  detalleMaterial
-     */
-    public void setRouter(DetalleMaterialRouter router){this.router = router;}
+
 }
 

@@ -37,4 +37,11 @@ public class MemoryStoreFase extends AbstractStore<Fase> implements StoreFase {
     public Fase delete(int id) {
         return delete(findById(id));
     }
+
+    @Override
+    public void clear() {
+        super.clear();
+        faseMap.clear();
+        faseMap = null;
+    }
 }

@@ -1,15 +1,18 @@
 package view;
 
+import base.Injectable;
 import base.View;
 import cell.ProyectoCell;
 import controller.CrearHorarioController;
+import delegate.AddHorarioDelegate;
 import javafx.application.Platform;
 import javafx.beans.binding.ObjectBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.paint.Color;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
-
 import java.time.LocalTime;
 
 public final class CrearHorarioView extends View {
@@ -40,6 +43,9 @@ public final class CrearHorarioView extends View {
 
     @Override
     public void viewDidLoad() {
+        controller = Injectable.find(CrearHorarioController.class);
+        controller.setView(this);
+
         entradaBinding = new ObjectBinding<LocalTime>() {
             {
                 super.bind(horaEntrada.valueProperty(), minutoEntrada.valueProperty());
@@ -175,8 +181,11 @@ public final class CrearHorarioView extends View {
         });
     }
 
-    public void setController(CrearHorarioController controller) {
-        this.controller = controller;
+    public void display(String rut, AddHorarioDelegate delegate) {
+        controller.setRutTrabajador(rut);
+        controller.setDelegate(delegate);
+        modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
+                .show().getScene().setFill(Color.TRANSPARENT);
     }
 
 }

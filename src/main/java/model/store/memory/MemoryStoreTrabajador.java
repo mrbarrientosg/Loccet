@@ -46,4 +46,11 @@ public class MemoryStoreTrabajador extends AbstractStore<Trabajador> implements 
     public Trabajador delete(String rut) {
         return delete(findByRut(rut));
     }
+
+    @Override
+    public void clear() {
+        super.clear();
+        mapTrabajadores.clear();
+        mapTrabajadores = null;
+    }
 }

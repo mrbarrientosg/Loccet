@@ -26,8 +26,6 @@ import java.util.logging.Level;
  */
 public final class CrearTrabajadorController extends Controller {
 
-    private CrearTrabajadorView view;
-
     private Constructora model;
 
     private StringProperty rut;
@@ -78,6 +76,8 @@ public final class CrearTrabajadorController extends Controller {
 
         partTime = new SimpleBooleanProperty(false);
         hours = new SimpleStringProperty(null);
+
+        model = Constructora.getInstance();
     }
 
     public void guardarTrabajador() throws EmptyFieldException, InvalidaRutException {
@@ -148,14 +148,6 @@ public final class CrearTrabajadorController extends Controller {
 
     public void setDelegate(SaveTrabajadorDelegate delegate) {
         this.delegate = delegate;
-    }
-
-    public void setModel(Constructora model) {
-        this.model = model;
-    }
-
-    public void setView(CrearTrabajadorView view) {
-        this.view = view;
     }
 
     public StringProperty rutProperty() {

@@ -164,6 +164,17 @@ public class Proyecto implements Costeable{
         inventarioMaterial.agregarRegistroMaterial(idMaterial, registroMaterial);
     }
 
+    public void limpiar() {
+        storeTrabajador.findAll().forEach(trabajador -> trabajador.eliminarProyecto(id));
+        storeTrabajador.clear();
+        storeFase.clear();
+        asistenciaStore.clear();
+
+        storeFase = null;
+        storeTrabajador = null;
+        asistenciaStore = null;
+        localizacion = null;
+    }
     // MARK: - Interfaz Costeable
 
     @Override

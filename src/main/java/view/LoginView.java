@@ -1,6 +1,7 @@
 package view;
 
 import base.Fragment;
+import base.Injectable;
 import controller.LoginController;
 import exceptions.EmptyFieldException;
 import exceptions.InvalidUserException;
@@ -10,20 +11,15 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import router.LoginRouter;
 
 public final class LoginView extends Fragment {
 
     private LoginController controller;
-
-    private LoginRouter router;
 
     @FXML
     private TextField username;
@@ -54,6 +50,9 @@ public final class LoginView extends Fragment {
 
     @Override
     public void viewDidLoad() {
+        controller = new LoginController();
+        controller.setView(this);
+
         disable = new SimpleBooleanProperty(false);
 
         getRoot().setOnMousePressed(event -> {
@@ -113,16 +112,16 @@ public final class LoginView extends Fragment {
     }
 
     public void gotoHome() {
-        TableroView tableroView = router.showTablero();
+        TableroView tableroView = Injectable.find(TableroView.class);
         replaceWith(tableroView, true, true);
     }
 
     public void onError(Throwable e) {
 
         if (e instanceof EmptyFieldException || e instanceof InvalidUserException) {
-            router.showError(e.getMessage());
+            //router.showError(e.getMessage());
         } else {
-            router.showError("Opps ha ocurrido un error, intenta de nuevo.");
+            //router.showError("Opps ha ocurrido un error, intenta de nuevo.");
         }
     }
 
@@ -146,15 +145,6 @@ public final class LoginView extends Fragment {
         box.setStyle("-fx-background-color: rgba(255, 255, 255, 0.8);");
         box.setAlignment(Pos.CENTER);
         getRoot().getChildren().add(box);
-    }
-
-
-    public void setController(LoginController controller) {
-        this.controller = controller;
-    }
-
-    public void setRouter(LoginRouter router) {
-        this.router = router;
     }
 
     public String getUsername() {

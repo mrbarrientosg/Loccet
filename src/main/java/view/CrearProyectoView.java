@@ -1,11 +1,14 @@
 package view;
 
+import base.Injectable;
 import base.View;
 import controller.CrearProyectoController;
+import delegate.SaveProyectoDelegate;
 import exceptions.EmptyFieldException;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import router.AgregarProyectoRouter;
+import javafx.scene.paint.Color;
+import javafx.stage.StageStyle;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -21,9 +24,7 @@ public final class CrearProyectoView extends View {
 
     private CrearProyectoController controller;
 
-    private AgregarProyectoRouter router;
-
-    //MARK - Botones
+    // MARK: - Botones
 
     @FXML
     private TextField ciudad;
@@ -60,6 +61,8 @@ public final class CrearProyectoView extends View {
 
     @Override
     public void viewDidLoad() {
+        controller = Injectable.find(CrearProyectoController.class);
+
         lettersOff();
     }
 
@@ -83,26 +86,28 @@ public final class CrearProyectoView extends View {
             controller.saveProyecto();
             close();
         } catch (EmptyFieldException e) {
-            Alert alert = router.showWarning(e.getMessage());
-            alert.show();
+           // Alert alert = router.showWarning(e.getMessage());
+            //alert.show();
         }
     }
+
     /**
      * Función que cancela el ingreso del nuevo proyecto.
      * @author Matías Zúñiga
      */
     @FXML
     private void apretarCancelar() {
-        Alert alert = router.showWarning("Esta seguro que desea cancelar?");
-        Optional<ButtonType> result = alert.showAndWait();
-        if(result.isPresent()){
-            if(result.get() == ButtonType.OK){
-               close();
-            }
-            else{
-                alert.close();
-            }
-        }
+//        Alert alert = router.showWarning("Esta seguro que desea cancelar?");
+//        Optional<ButtonType> result = alert.showAndWait();
+//        if(result.isPresent()){
+//            if(result.get() == ButtonType.OK){
+//               close();
+//            }
+//            else{
+//                alert.close();
+//            }
+//        }
+        close();
     }
 
     private void bindController() {
@@ -152,11 +157,9 @@ public final class CrearProyectoView extends View {
         montoC.setTextFormatter(formatter);
     }
 
-    public void setController(CrearProyectoController controller) {
-        this.controller = controller;
-    }
-
-    public void setRouter(AgregarProyectoRouter router) {
-        this.router = router;
+    public void display(SaveProyectoDelegate delegate) {
+        controller.setDelegate(delegate);
+        modal().withStyle(StageStyle.TRANSPARENT)
+                .show().getScene().setFill(Color.TRANSPARENT);
     }
 }

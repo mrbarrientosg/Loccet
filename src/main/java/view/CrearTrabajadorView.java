@@ -1,16 +1,19 @@
 package view;
 
+import base.Injectable;
 import base.View;
 import controller.CrearTrabajadorController;
+import delegate.SaveTrabajadorDelegate;
 import exceptions.EmptyFieldException;
 import exceptions.InvalidaRutException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.paint.Color;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import model.Especialidad;
 import model.Especialidades;
-
 import java.time.LocalDate;
 
 public final class CrearTrabajadorView extends View {
@@ -67,6 +70,10 @@ public final class CrearTrabajadorView extends View {
 
     @Override
     public void viewDidLoad() {
+        controller = Injectable.find(CrearTrabajadorController.class);
+
+        bindController();
+
         aceptar.setOnAction(this::saveHandler);
 
         cancelar.setOnAction(event -> close());
@@ -96,8 +103,6 @@ public final class CrearTrabajadorView extends View {
 
     @Override
     public void viewDidShow() {
-        bindController();
-
         birthdayDateField.setValue(LocalDate.now());
 
         Especialidades.getInstance().getAll(especialidads -> {
@@ -157,8 +162,10 @@ public final class CrearTrabajadorView extends View {
         emailField.setText("");
     }
 
-    public void setController(CrearTrabajadorController controller) {
-        this.controller = controller;
+    public void display(SaveTrabajadorDelegate delegate) {
+        controller.setDelegate(delegate);
+        modal().withStyle(StageStyle.TRANSPARENT)
+                .show().getScene().setFill(Color.TRANSPARENT);
     }
 
 }

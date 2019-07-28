@@ -1,6 +1,7 @@
 package controller;
 
 import base.Controller;
+import base.Injectable;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -16,6 +17,7 @@ import model.*;
 import network.endpoint.TrabajadorAPI;
 import network.service.NetService;
 import view.DetalleTrabajadorView;
+import view.ListaTrabajadorView;
 
 import java.time.LocalDate;
 import java.util.logging.Level;
@@ -145,10 +147,6 @@ public class DetalleTrabajadorController extends Controller {
 
     }
 
-    public void setView(DetalleTrabajadorView view) {
-        this.view = view;
-    }
-
     public void setRutTrabajador(String rutTrabajador) {
         this.rutTrabajador = rutTrabajador;
 
@@ -163,11 +161,14 @@ public class DetalleTrabajadorController extends Controller {
         }
 
         loadData();
-        view.bind();
     }
 
     public void setDelegate(SaveTrabajadorDelegate delegate) {
         this.delegate = delegate;
+    }
+
+    public void setView(DetalleTrabajadorView view) {
+        this.view = view;
     }
 
     public String getRutTrabajador() {

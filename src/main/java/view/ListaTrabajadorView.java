@@ -1,5 +1,6 @@
 package view;
 
+import base.Injectable;
 import base.View;
 import cell.TrabajadorCell;
 import controller.ListaTrabajadorController;
@@ -17,13 +18,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import model.Trabajador;
-import router.BuscarTrabajadorRouter;
-import router.DetalleTrabajadorRouter;
 import util.AsyncTask;
-
 import java.util.ListIterator;
 import java.util.Optional;
-import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 
 public final class ListaTrabajadorView extends View implements SaveTrabajadorDelegate {
@@ -62,6 +59,9 @@ public final class ListaTrabajadorView extends View implements SaveTrabajadorDel
 
     @Override
     public void viewDidLoad() {
+        controller = Injectable.find(ListaTrabajadorController.class);
+        controller.setView(this);
+
         rutColumn.setCellValueFactory(new PropertyValueFactory<>("rut"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("apellido"));
@@ -103,18 +103,13 @@ public final class ListaTrabajadorView extends View implements SaveTrabajadorDel
 
     @FXML
     private void addEmployeeAction(ActionEvent event) {
-        BuscarTrabajadorView view = BuscarTrabajadorRouter.create(controller);
-        view.modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
-                .show().getScene().setFill(Color.TRANSPARENT);
+        Injectable.find(BuscarTrabajadorView.class).display(controller);
     }
 
     @FXML
     private void verDetalleTrabajador(ActionEvent event) {
         TrabajadorCell cell = tableView.getSelectionModel().getSelectedItem();
-
-        DetalleTrabajadorView view = DetalleTrabajadorRouter.create(cell.getRut(), this);
-        view.modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
-                .show().getScene().setFill(Color.TRANSPARENT);
+        Injectable.find(DetalleTrabajadorView.class).display(cell.getRut(), this);
     }
 
     @FXML
@@ -139,10 +134,6 @@ public final class ListaTrabajadorView extends View implements SaveTrabajadorDel
         searchTextField.setText("");
     }
 
-    public void setController(ListaTrabajadorController controller) {
-        this.controller = controller;
-    }
-
     @Override
     public void didSaveTrabajador(Trabajador trabajador) {
         AsyncTask.supplyAsync(() -> {
@@ -159,6 +150,11 @@ public final class ListaTrabajadorView extends View implements SaveTrabajadorDel
             }
             return false;
         });
+    }
+
+    public ListaTrabajadorView display(String id) {
+        controller.setIdProyecto(id);
+        return this;
     }
 
 }

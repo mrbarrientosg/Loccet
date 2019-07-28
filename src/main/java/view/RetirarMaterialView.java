@@ -1,10 +1,8 @@
 package view;
 
-
+import base.Injectable;
 import base.View;
-import cell.MaterialCell;
 import controller.DetalleMaterialController;
-import controller.InventarioMaterialController;
 import exceptions.NegativeQuantityException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,11 +10,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import model.Material;
-
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
-
 
 /**
  * Vista de Retirar material.
@@ -26,8 +21,6 @@ import java.util.regex.Pattern;
 public final class RetirarMaterialView extends View {
 
     private DetalleMaterialController controller;
-
-    private MaterialCell material;
 
     @FXML
     private Button retirarBT;
@@ -40,27 +33,19 @@ public final class RetirarMaterialView extends View {
 
     @Override
     public void viewDidLoad() {
+        controller = Injectable.find(DetalleMaterialController.class);
 
-    }
-    @Override
-    public void viewDidShow(){
         Pattern pattern = Pattern.compile("\\d*|\\d+\\.\\d*");
 
-        TextFormatter formatter =  new TextFormatter<UnaryOperator>(change -> {
-            return pattern.matcher(change.getControlNewText()).matches() ? change : null;
-        });
+        TextFormatter formatter =  new TextFormatter<UnaryOperator>(change ->
+                pattern.matcher(change.getControlNewText()).matches() ? change : null);
 
         retirarTF.setTextFormatter(formatter);
-
     }
 
     @Override
     public void viewDidClose() {
         retirarTF.setText("");
-    }
-
-    public void setMaterial(MaterialCell material){
-        this.material = material;
     }
 
     @FXML
@@ -90,10 +75,6 @@ public final class RetirarMaterialView extends View {
     @FXML
     public void cancelar(ActionEvent event){
         close();
-    }
-
-    public void setController(DetalleMaterialController controller) {
-        this.controller = controller;
     }
 
 }
