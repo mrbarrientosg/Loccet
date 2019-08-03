@@ -15,9 +15,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.paint.Color;
-import javafx.stage.StageStyle;
 import model.Trabajador;
+import util.Alert;
 import util.AsyncTask;
 import java.util.ListIterator;
 import java.util.Optional;
@@ -116,11 +115,11 @@ public final class ListaTrabajadorView extends View implements SaveTrabajadorDel
     private void deleteAction(ActionEvent event) {
         TrabajadorCell cell = tableView.getSelectionModel().getSelectedItem();
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmación");
-        alert.setHeaderText("Esta accion eliminara un trabajador");
-        alert.setContentText("¿Desea continuar?");
-        Optional<ButtonType> result = alert.showAndWait();
+        Optional<ButtonType> result = Alert.confirmation()
+                .withTitle("Eliminar Trabajador")
+                .withDescription("¿Desea continuar?")
+                .withButton(ButtonType.OK, ButtonType.CANCEL)
+                .build().showAndWait();
 
         if (result.get() == ButtonType.OK){
             controller.eliminarTrabajador(cell.getRut());

@@ -123,7 +123,6 @@ public final class CrearTrabajadorController extends Controller {
         json.addProperty("cantidad_hora_trabajada", horas != null ? horas : 8);
         json.addProperty("tiempo_completo", horas != null ? 0 : 1);
 
-        // TODO: Falta implementar la especialidad
         json.addProperty("id_especialidad", trabajador.getEspecialidad().getId());
 
         json.addProperty("dns_constructora", model.getDns());

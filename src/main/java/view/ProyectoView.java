@@ -14,9 +14,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.paint.Color;
-import javafx.stage.StageStyle;
 import model.Proyecto;
+import util.Alert;
 import util.AsyncTask;
 import java.util.ListIterator;
 import java.util.Optional;
@@ -104,7 +103,6 @@ public class ProyectoView extends View implements SaveProyectoDelegate {
         Injectable.find(DetalleProyectoView.class).display(cell.getId(), this);
     }
 
-
     @FXML
     public void createProyect(ActionEvent event){
         Injectable.find(CrearProyectoView.class).display(this);
@@ -114,12 +112,11 @@ public class ProyectoView extends View implements SaveProyectoDelegate {
     public void deleteProyect(ActionEvent event){
         ProyectoCell cell = selection();
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Alerta");
-        alert.setHeaderText("Esta accion borrara el proyecto");
-        alert.setContentText("¿Esta seguro de que desea continuar?");
-
-        Optional<ButtonType> result = alert.showAndWait();
+        Optional<ButtonType> result = Alert.confirmation()
+                .withTitle("Eliminar Proyecto")
+                .withDescription("¿Esta seguro de que desea continuar?")
+                .withButton(ButtonType.OK, ButtonType.CANCEL)
+                .build().showAndWait();
 
         result.ifPresent(buttonType -> {
             if (buttonType == ButtonType.OK){

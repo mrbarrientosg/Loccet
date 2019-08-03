@@ -12,10 +12,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import util.Alert;
 
 public final class LoginView extends Fragment {
 
@@ -117,11 +119,16 @@ public final class LoginView extends Fragment {
     }
 
     public void onError(Throwable e) {
-
         if (e instanceof EmptyFieldException || e instanceof InvalidUserException) {
-            //router.showError(e.getMessage());
+            Alert.error()
+                    .withDescription(e.getMessage())
+                    .withButton(ButtonType.OK)
+                    .build().show();
         } else {
-            //router.showError("Opps ha ocurrido un error, intenta de nuevo.");
+            Alert.error()
+                    .withDescription("Opps ha ocurrido un error, intenta de nuevo.")
+                    .withButton(ButtonType.OK)
+                    .build().show();
         }
     }
 

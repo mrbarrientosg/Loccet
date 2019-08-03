@@ -1,9 +1,9 @@
 package view;
 
-import base.Fragment;
 import base.Injectable;
 import base.View;
 import cell.MaterialCell;
+import com.itextpdf.text.DocumentException;
 import controller.InventarioMaterialController;
 import delegate.EditMaterialDelegate;
 import io.reactivex.Observable;
@@ -13,14 +13,11 @@ import io.reactivex.schedulers.Schedulers;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableView;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
-import javafx.stage.StageStyle;
 import model.Material;
-import model.Proyecto;
+import util.Alert;
 import util.AsyncTask;
 import java.io.File;
 import java.io.IOException;
@@ -159,8 +156,12 @@ public final class InventarioMaterialView extends View implements EditMaterialDe
             Material material = controller.getMaterial(materialCell.getId());
             Injectable.find(DetalleMaterialView.class).display(controller.getIdProyecto(), material, this);
         }
-        else{
-           // controller.showWarning("Seleccionar material", "Por favor seleccione material a eliminar").showAndWait();;
+        else {
+            Alert.warning()
+                    .withTitle("Seleccionar material")
+                    .withDescription("Por favor seleccione material a eliminar")
+                    .withButton(ButtonType.OK)
+                    .build().show();
         }
     }
 
@@ -174,14 +175,16 @@ public final class InventarioMaterialView extends View implements EditMaterialDe
     @FXML
     public void eliminar(ActionEvent event){
         MaterialCell material = seleccion();
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Alerta");
-            alert.setHeaderText("Esta accion borrara el material");
-            alert.setContentText("¿Esta seguro de que desea continuar?");
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK){
-                controller.eliminarMaterial(material.getId());
-            }
+
+        Optional<ButtonType> result = Alert.confirmation()
+                .withTitle("Eliminar Material")
+                .withDescription("¿Esta seguro de que desea continuar?")
+                .withButton(ButtonType.OK, ButtonType.CANCEL)
+                .build().showAndWait();
+
+        if (result.get() == ButtonType.OK){
+            controller.eliminarMaterial(material.getId());
+        }
     }
 
     @FXML
@@ -201,8 +204,11 @@ public final class InventarioMaterialView extends View implements EditMaterialDe
             try {
                 controller.guardarArchivoInventario(fileChooser.selectedExtensionFilterProperty().get().getExtensions().get(0),
                         dest, tablaInventario.getItems());
-            } catch (IOException ex) {
-                ex.printStackTrace();
+            } catch (IOException | DocumentException ex) {
+                Alert.error()
+                        .withDescription("El inventario no pudo ser exportado")
+                        .withButton(ButtonType.OK)
+                        .build().show();
             }
         }
     }

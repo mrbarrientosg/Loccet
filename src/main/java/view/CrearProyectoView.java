@@ -4,11 +4,13 @@ import base.Injectable;
 import base.View;
 import controller.CrearProyectoController;
 import delegate.SaveProyectoDelegate;
+import exceptions.DateRangeException;
 import exceptions.EmptyFieldException;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
+import util.Alert;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -85,9 +87,11 @@ public final class CrearProyectoView extends View {
         try {
             controller.saveProyecto();
             close();
-        } catch (EmptyFieldException e) {
-           // Alert alert = router.showWarning(e.getMessage());
-            //alert.show();
+        } catch (EmptyFieldException | DateRangeException e) {
+            Alert.error()
+                    .withDescription(e.getMessage())
+                    .withButton(ButtonType.OK)
+                    .build().show();
         }
     }
 
@@ -97,16 +101,6 @@ public final class CrearProyectoView extends View {
      */
     @FXML
     private void apretarCancelar() {
-//        Alert alert = router.showWarning("Esta seguro que desea cancelar?");
-//        Optional<ButtonType> result = alert.showAndWait();
-//        if(result.isPresent()){
-//            if(result.get() == ButtonType.OK){
-//               close();
-//            }
-//            else{
-//                alert.close();
-//            }
-//        }
         close();
     }
 

@@ -6,10 +6,12 @@ import controller.DetalleMaterialController;
 import exceptions.NegativeQuantityException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import util.Alert;
+
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
@@ -57,18 +59,16 @@ public final class RetirarMaterialView extends View {
                controller.retirarMaterial(aux);
                close();
            } catch (NegativeQuantityException e) {
-               Alert alert = new Alert(Alert.AlertType.ERROR);
-               alert.setTitle("Error");
-               alert.setHeaderText("No hay suficiente material");
-               alert.setContentText("La cantidad de material a retirar es mayor al que se tiene");
-               alert.showAndWait();
+               Alert.error()
+                       .withDescription(e.getMessage())
+                       .withButton(ButtonType.OK)
+                       .build().show();
            }
-       }else {
-           Alert alert = new Alert(Alert.AlertType.ERROR);
-           alert.setTitle("Error");
-           alert.setHeaderText("Ingreso de datos invalido");
-           alert.setContentText("Por favor ingresar un numero");
-           alert.showAndWait();
+       } else {
+           Alert.error()
+                   .withDescription("Por favor ingresar un numero")
+                   .withButton(ButtonType.OK)
+                   .build().show();
        }
     }
 

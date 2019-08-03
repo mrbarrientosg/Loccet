@@ -8,6 +8,7 @@ import util.ExportFile.ExportFileStrategy;
 import util.PDFBuilder;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -28,7 +29,7 @@ public class ExportInventarioPDF implements ExportFileStrategy {
 
    private final Font cellTableFont = FontFactory.getFont(FontFactory.TIMES, 12, Font.NORMAL);
 
-   public ExportInventarioPDF(final String nombreProyecto, final List<MaterialCell> materialCells) {
+   public ExportInventarioPDF(final String nombreProyecto, final List<MaterialCell> materialCells) throws IOException, DocumentException {
        this.materialCells = materialCells;
        this.nombreProyecto = nombreProyecto;
        pdfBuilder = PDFBuilder.create("Inventario " + nombreProyecto);
@@ -64,7 +65,7 @@ public class ExportInventarioPDF implements ExportFileStrategy {
    }
 
     @Override
-    public File export() {
+    public File export() throws IOException {
         return pdfBuilder.buildPDF();
     }
 

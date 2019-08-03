@@ -17,6 +17,7 @@ import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import model.Especialidad;
 import model.Especialidades;
+import util.Alert;
 
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
@@ -182,9 +183,10 @@ public class DetalleTrabajadorView extends View {
                 isEditing = false;
                 disable.setValue(true);
             } catch (EmptyFieldException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText(e.getMessage());
-                alert.show();
+                Alert.error()
+                        .withDescription(e.getMessage())
+                        .withButton(ButtonType.OK)
+                        .build().show();
             }
 
         } else {

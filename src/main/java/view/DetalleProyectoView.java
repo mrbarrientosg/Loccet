@@ -9,13 +9,14 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
+import util.Alert;
 
 public class DetalleProyectoView extends View {
 
@@ -128,9 +129,10 @@ public class DetalleProyectoView extends View {
                 isEditing = false;
                 disable.setValue(true);
             } catch (EmptyFieldException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText(e.getMessage());
-                alert.show();
+                Alert.error()
+                        .withDescription(e.getMessage())
+                        .withButton(ButtonType.OK)
+                        .build().show();
             }
 
         } else {

@@ -3,6 +3,8 @@ package view;
 import base.Injectable;
 import base.View;
 import controller.InventarioMaterialController;
+import exceptions.EmptyFieldException;
+import exceptions.NegativeQuantityException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -10,6 +12,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import model.Material;
 import model.RegistroMaterial;
+import util.Alert;
+
 import java.math.BigDecimal;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
@@ -57,7 +61,6 @@ public final class CrearMaterialView extends View {
                 pattern.matcher(change.getControlNewText()).matches() ? change : null );
 
         precioTF.setTextFormatter(formater);
-
     }
 
     @Override
@@ -78,10 +81,12 @@ public final class CrearMaterialView extends View {
     @FXML
     public void agregar(ActionEvent event) {
         String lector = idMaterialTF.getText();
+
         Material material;
+
         RegistroMaterial registroMaterial;
-        if (!nombreTF.getText().isEmpty() && !descripcionTF.getText().isEmpty()&& !cantidadTF.getText().isEmpty()
-        && !precioTF.getText().isEmpty()){
+
+        try {
             if (lector.isEmpty()) {
                 material = new Material(nombreTF.getText(), descripcionTF.getText(), Double.parseDouble(cantidadTF.getText()), //Si el usuario no ingresa el id
                         unidadCB.getSelectionModel().getSelectedItem(),                                             //se utiliza este constructor.
@@ -97,15 +102,14 @@ public final class CrearMaterialView extends View {
             controller.nuevoMaterial(material, registroMaterial);
 
             close();
-        } else {//En caso de que el usuario deje un campo vacio salta una excepcion.
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText("Ingreso de datos invalido");
-            alert.setContentText("Por favor ingresar los campos requeridos");
-            alert.showAndWait();
+        }  catch (NegativeQuantityException | EmptyFieldException e) {
+            Alert.error()
+                    .withDescription(e.getMessage())
+                    .withButton(ButtonType.OK)
+                    .build().show();
         }
-
     }
+
     private void clear(){
         idMaterialTF.setText("");
         nombreTF.setText("");

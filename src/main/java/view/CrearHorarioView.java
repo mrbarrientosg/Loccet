@@ -5,6 +5,7 @@ import base.View;
 import cell.ProyectoCell;
 import controller.CrearHorarioController;
 import delegate.AddHorarioDelegate;
+import exceptions.DateRangeException;
 import javafx.application.Platform;
 import javafx.beans.binding.ObjectBinding;
 import javafx.event.ActionEvent;
@@ -13,6 +14,8 @@ import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
+import util.Alert;
+
 import java.time.LocalTime;
 
 public final class CrearHorarioView extends View {
@@ -98,11 +101,22 @@ public final class CrearHorarioView extends View {
 
     @FXML
     private void agregarHorario(ActionEvent event) {
-        if (proyectList.getValue() == null)
-            // TODO: Falta morstrar alerta de que debe seleccionar un proyecto
+        if (proyectList.getValue() == null) {
+            Alert.error()
+                    .withDescription("Debe seleccion un proyecto para agregar el horario")
+                    .withButton(ButtonType.OK)
+                    .build().show();
             return;
+        }
 
-        controller.agregarHorario(diasToggle.getToggles().indexOf(diasToggle.getSelectedToggle()) + 1, proyectList.getValue());
+        try {
+            controller.agregarHorario(diasToggle.getToggles().indexOf(diasToggle.getSelectedToggle()) + 1, proyectList.getValue());
+        } catch (DateRangeException e) {
+            Alert.error()
+                    .withDescription(e.getMessage())
+                    .withButton(ButtonType.OK)
+                    .build().show();
+        }
     }
 
     @FXML

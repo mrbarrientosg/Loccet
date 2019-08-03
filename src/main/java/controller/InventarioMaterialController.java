@@ -3,6 +3,7 @@ package controller;
 import base.Controller;
 import cell.MaterialCell;
 import com.google.gson.*;
+import com.itextpdf.text.DocumentException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.*;
@@ -129,7 +130,7 @@ public final class InventarioMaterialController extends Controller {
      * @param dest archivo de destino para guardar
      * @throws IOException
      */
-    public void guardarArchivoInventario(String extension, File dest, ObservableList<MaterialCell> list) throws IOException {
+    public void guardarArchivoInventario(String extension, File dest, ObservableList<MaterialCell> list) throws IOException, DocumentException {
         Proyecto p = model.obtenerProyecto(idProyecto);
 
         if (extension.equals("*.pdf")) {
@@ -139,12 +140,6 @@ public final class InventarioMaterialController extends Controller {
         }
 
         File file = exportFile.export();
-
-        if (file == null) {
-            // TODO: Falta implementar el warning
-            //router.showWarning("Error", "La exportación no se pudo guardar");
-            return;
-        }
 
         Files.copy(file.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
     }

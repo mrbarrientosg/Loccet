@@ -13,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import model.Material;
+import util.Alert;
 
 /**
  * Clase vista del detalle de un material.
@@ -35,7 +36,7 @@ public class DetalleMaterialView extends View {
     private TextField cantidadTF;
 
     @FXML
-    private TextArea  descripcionTA;
+    private TextArea descripcionTA;
 
     @FXML
     private TextField precioTF;
@@ -122,16 +123,19 @@ public class DetalleMaterialView extends View {
             editando = true;
         } else {//Si la variable es verdadera se comienza con el proceso de guardado.
             try {
-                controller.modificarDescripcion(descripcionTA.getText());//Se modifica la descripcion.
-                controller.modificarNombre(nombreTF.getText());//Se modifca el nombre.
-                nombreTF.setDisable(true);//Se desactivan los textField
+                controller.modificarDescripcion(descripcionTA.getText()); //Se modifica la descripcion.
+                controller.modificarNombre(nombreTF.getText()); //Se modifca el nombre.
+
+                nombreTF.setDisable(true); //Se desactivan los textField
                 descripcionTA.setDisable(true);
-                editarBT.setText("Editar");//Se regresa el boton a editar.
+                editarBT.setText("Editar"); //Se regresa el boton a editar.
                 editando = false;
+
             } catch (EmptyFieldException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText(e.getMessage());
-                alert.show();
+                Alert.error()
+                        .withDescription(e.getMessage())
+                        .withButton(ButtonType.OK)
+                        .build().show();
             }
 
         }

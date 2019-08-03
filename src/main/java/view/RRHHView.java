@@ -22,11 +22,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.util.Pair;
-import model.Constructora;
 import model.Trabajador;
 import org.controlsfx.control.tableview2.FilteredTableColumn;
 import org.controlsfx.control.tableview2.FilteredTableView;
 import delegate.FilterDelegate;
+import util.Alert;
 import util.AsyncTask;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -157,9 +157,7 @@ public class RRHHView extends View implements SaveTrabajadorDelegate, FilterDele
                     })
                     .subscribeOn(Schedulers.io())
                     .observeOn(JavaFxScheduler.platform())
-                    .subscribe(list -> {
-                        tableTrabajadores.setItems(list);
-                    });
+                    .subscribe(tableTrabajadores::setItems);
 
             Observable<ProyectoCell> selected = JavaFxObservable.valuesOf(proyectList.getSelectionModel().selectedItemProperty());
 
@@ -206,11 +204,11 @@ public class RRHHView extends View implements SaveTrabajadorDelegate, FilterDele
     private void deleteTrabajadorAction(ActionEvent event) {
         TrabajadorCell cell = tableTrabajadores.getSelectionModel().getSelectedItem();
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmación");
-        alert.setHeaderText("Esta accion eliminara un trabajador");
-        alert.setContentText("¿Desea continuar?");
-        Optional<ButtonType> result = alert.showAndWait();
+        Optional<ButtonType> result = Alert.confirmation()
+                .withTitle("Eliminar Trabajador")
+                .withDescription("¿Desea continuar?")
+                .withButton(ButtonType.OK, ButtonType.CANCEL)
+                .build().showAndWait();
 
         if (result.get() == ButtonType.OK){
             controller.deleteTrabajador(cell.getRut());

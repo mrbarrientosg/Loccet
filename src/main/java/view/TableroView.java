@@ -93,23 +93,6 @@ public class TableroView extends Fragment {
     }
 
     private void setupCenter(Toggle button) {
-        /*
-         Task<Parent> loadTask = new Task<Parent>() {
-            @Override
-            protected Parent call() throws Exception {
-                return Injectable.find(RRHHView.class).getRoot();
-            }
-        };
-
-        loadTask.setOnSucceeded(event -> {
-            if (button == rrhhButton) {
-                setCenter(loadTask.getValue());
-            }
-        });
-
-        new Thread(loadTask).start();
-         */
-
         if (button == rrhhButton) {
             RRHHView rrhhView = Injectable.find(RRHHView.class);
             setCenter(rrhhView.getRoot());

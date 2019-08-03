@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import model.Constructora;
+import util.Alert;
 import util.AsyncTask;
 import java.math.BigDecimal;
 
@@ -114,12 +115,11 @@ public class ReporteView extends View {
                 montoActualLB.setText(montoContractual.subtract(costo).toString());
             });
         }
-        else{
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText("Falta seleccionar un proyecto");
-            alert.setContentText("Por favor, seleccione un proyecto");
-            alert.showAndWait();
+        else {
+            Alert.error()
+                    .withDescription("Por favor, seleccione un proyecto")
+                    .withButton(ButtonType.OK)
+                    .build().show();
         }
     }
 

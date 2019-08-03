@@ -5,6 +5,7 @@ import cell.ProyectoCell;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import exceptions.DateRangeException;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -59,11 +60,9 @@ public final class CrearHorarioController extends Controller {
      * Agregar un Horario al modelo Trabajador
      * @param dia
      */
-    public void agregarHorario(int dia, ProyectoCell cell) {
+    public void agregarHorario(int dia, ProyectoCell cell) throws DateRangeException {
         if (entrada.get().compareTo(salida.get()) > 0) {
-            // TODO: falta excepcion
-            //router.showWarning("La hora de entrada no puede superar la hora de salida").show();
-            return;
+            throw new DateRangeException("La hora de entrada no puede ser mayor que la de salida.");
         }
 
         Horario horario = new Horario(dia, entrada.get(), salida.get());

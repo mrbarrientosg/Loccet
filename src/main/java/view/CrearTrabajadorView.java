@@ -14,6 +14,8 @@ import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import model.Especialidad;
 import model.Especialidades;
+import util.Alert;
+
 import java.time.LocalDate;
 
 public final class CrearTrabajadorView extends View {
@@ -121,9 +123,10 @@ public final class CrearTrabajadorView extends View {
             controller.guardarTrabajador();
             close();
         } catch (EmptyFieldException | InvalidaRutException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText(e.getMessage());
-            alert.show();
+            Alert.error()
+                    .withDescription(e.getMessage())
+                    .withButton(ButtonType.OK)
+                    .build().show();
         }
     }
 
