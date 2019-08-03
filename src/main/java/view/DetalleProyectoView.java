@@ -91,7 +91,7 @@ public class DetalleProyectoView extends View {
         idField.setText(controller.getIdProyecto());
 
         container.getChildren().add(listaTrabajadorView.getRoot());
-        //container.getChildren().add(inventarioMaterialView.getRoot());
+        container.getChildren().add(inventarioMaterialView.getRoot());
     }
 
     @Override
@@ -103,7 +103,7 @@ public class DetalleProyectoView extends View {
         }
 
         container.getChildren().remove(listaTrabajadorView.getRoot());
-        //container.getChildren().remove(inventarioMaterialView.getRoot());
+        container.getChildren().remove(inventarioMaterialView.getRoot());
 
         controller.save();
     }
@@ -140,15 +140,13 @@ public class DetalleProyectoView extends View {
         }
     }
 
-    public void setInventarioMaterialView(InventarioMaterialView inventarioMaterialView) {
-        this.inventarioMaterialView = inventarioMaterialView;
-    }
-
     public void display(String id, SaveProyectoDelegate delegate) {
         controller.setIdProyecto(id);
         controller.setDelegate(delegate);
 
         listaTrabajadorView = Injectable.find(ListaTrabajadorView.class).display(id);
+
+        inventarioMaterialView = Injectable.find(InventarioMaterialView.class).display(id);
 
         modal().withStyle(StageStyle.TRANSPARENT)
                 .show().getScene().setFill(Color.TRANSPARENT);

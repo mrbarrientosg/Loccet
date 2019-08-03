@@ -67,6 +67,7 @@ public class DetalleMaterialView extends View {
     @Override
     public void viewDidLoad() {
         controller = Injectable.find(DetalleMaterialController.class);
+        controller.setView(this);
         editando = false;
 
         fechaCL.setCellValueFactory(new PropertyValueFactory<>("fecha"));
@@ -76,7 +77,7 @@ public class DetalleMaterialView extends View {
 
     @Override
     public void viewDidShow(){
-        cargarDatos();
+        controller.obtenerRegistros(tableView::setItems);
         mostrarDatos();
     }
 
@@ -85,10 +86,6 @@ public class DetalleMaterialView extends View {
         controller.save();
     }
 
-
-    public void cargarDatos() {
-        controller.obtenerRegistro(tableView::setItems);
-    }
 
     /**
      * Funcion que muestra en la vista los datos del material.
@@ -140,6 +137,11 @@ public class DetalleMaterialView extends View {
         }
     }
 
+    public void agregarRegistroMaterial(RegistroMaterialCell cell) {
+        tableView.getItems().add(cell);
+        cantidadTF.setText(Double.toString(controller.getCantidad()));
+    }
+
     @FXML
     public void salir(ActionEvent event){
         close();
@@ -159,8 +161,9 @@ public class DetalleMaterialView extends View {
         mostrarDatos();
     }
 
-    public void display(Material material, EditMaterialDelegate delegate) {
-        controller.setModel(material);
+    public void display(String idProyecto, Material material, EditMaterialDelegate delegate) {
+        controller.setOldMaterial(material);
+        controller.setIdProyecto(idProyecto);
         controller.setDelegate(delegate);
         modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
                 .show().getScene().setFill(Color.TRANSPARENT);

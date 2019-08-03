@@ -10,6 +10,7 @@ import exceptions.EmptyFieldException;
 import exceptions.NegativeQuantityException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.Constructora;
 import model.Material;
 import model.RegistroMaterial;
 import network.endpoint.MaterialAPI;
@@ -32,38 +33,50 @@ public class DetalleMaterialController extends Controller {
 
     private DetalleMaterialView view;
 
-    private Material model;
+    private Constructora model;
 
     private Material oldMaterial;
 
-    private NetService service = NetService.getInstance();
+    private NetService service;
+
+    private String idProyecto;
 
     private EditMaterialDelegate delegate;
 
-    public void obtenerRegistro(Consumer<ObservableList<RegistroMaterialCell>> callBack){
+    public DetalleMaterialController() {
+        service = NetService.getInstance();
+        model = Constructora.getInstance();
+    }
+
+    public void obtenerRegistros(Consumer<ObservableList<RegistroMaterialCell>> callBack){
         AsyncTask.supplyAsync(() -> {
             ObservableList<RegistroMaterialCell> list = FXCollections.observableArrayList();
 
-            model.getRegistrosMateriales().forEach(registroMaterial -> list.add(new RegistroMaterialCell(registroMaterial)));
+            model.getRegistrosMateriales(idProyecto, oldMaterial.getId())
+                    .forEach(registroMaterial -> list.add(new RegistroMaterialCell(registroMaterial)));
 
             return list;
         }).thenAccept(callBack);
     }
 
     public void retirarMaterial(double cantidad) throws NegativeQuantityException {
-        model.setCantidad(model.getCantidad() - cantidad);
+        model.actualizarCantidadMaterial(idProyecto, oldMaterial.getId(), -cantidad);
+
         RegistroMaterial registroMaterial = new RegistroMaterial(cantidad,true);
-        model.agregarRegistro(registroMaterial);
-        view.cargarDatos();
+        model.agregarRegistroMaterial(idProyecto, oldMaterial.getId(), registroMaterial);
+
+        view.agregarRegistroMaterial(new RegistroMaterialCell(registroMaterial));
         addRegistroMaterialBD(registroMaterial);
         updateMaterial();
     }
 
     public void agregarMaterial(double cantidad) throws NegativeQuantityException {
-        model.setCantidad(model.getCantidad() + cantidad);
+        model.actualizarCantidadMaterial(idProyecto, oldMaterial.getId(), cantidad);
+
         RegistroMaterial registroMaterial = new RegistroMaterial(cantidad,false);
-        model.agregarRegistro(registroMaterial);
-        view.cargarDatos();
+        model.agregarRegistroMaterial(idProyecto, oldMaterial.getId(), registroMaterial);
+
+        view.agregarRegistroMaterial(new RegistroMaterialCell(registroMaterial));
         addRegistroMaterialBD(registroMaterial);
         updateMaterial();
     }
@@ -83,24 +96,26 @@ public class DetalleMaterialController extends Controller {
 
 
     public void save() {
-        if (oldMaterial.equals(model))
+        if (oldMaterial.equals(model.obtenerMaterial(idProyecto, oldMaterial.getId())))
             return;
 
         updateMaterial();
     }
 
     private void updateMaterial() {
+        Material m = model.obtenerMaterial(idProyecto, oldMaterial.getId());
+
         if (delegate != null)
-            delegate.didEditMaterial(model);
+            delegate.didEditMaterial(m);
 
         Gson gson =  new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                 .excludeFieldsWithoutExposeAnnotation()
                 .create();
 
-        System.out.println(gson.toJsonTree(model).getAsJsonObject());
+        System.out.println(gson.toJsonTree(m).getAsJsonObject());
 
-        service.request(MaterialAPI.UPDATE, gson.toJsonTree(model).getAsJsonObject())
+        service.request(MaterialAPI.UPDATE, gson.toJsonTree(m).getAsJsonObject())
                 .subscribe(System.out::println, throwable -> {
                     LOGGER.log(Level.SEVERE, "", throwable);
                 });
@@ -111,9 +126,12 @@ public class DetalleMaterialController extends Controller {
         this.view = view;
     }
 
-    public void setModel(Material model){
-        this.model = model;
-        oldMaterial = new Material(model);
+    public void setOldMaterial(Material old) {
+        this.oldMaterial = new Material(old);
+    }
+
+    public void setIdProyecto(String idProyecto) {
+        this.idProyecto = idProyecto;
     }
 
     public void setDelegate(EditMaterialDelegate delegate) {
@@ -124,14 +142,17 @@ public class DetalleMaterialController extends Controller {
      * @param descripcion material
      */
     public void modificarDescripcion(String descripcion) {
-        model.setDescripcion(descripcion);
+        Material m = model.obtenerMaterial(idProyecto, oldMaterial.getId());
+
+        m.setDescripcion(descripcion);
     }
 
     /**
      * @param nombre material
      */
     public void modificarNombre(String nombre) throws EmptyFieldException {
-        model.setNombre(nombre);
+        Material m = model.obtenerMaterial(idProyecto, oldMaterial.getId());
+        m.setNombre(nombre);
     }
 
 
@@ -139,21 +160,23 @@ public class DetalleMaterialController extends Controller {
      * @return id
      */
     public String getID(){
-        return model.getId();
+        return oldMaterial.getId();
     }
 
     /**
      * @return nombre material.
      */
     public String getNombre() {
-        return model.getNombre();
+        Material m = model.obtenerMaterial(idProyecto, oldMaterial.getId());
+        return m.getNombre();
     }
 
     /**
      * @return descripcion material
      */
     public String getDescripcion() {
-        return model.getDescripcion();
+        Material m = model.obtenerMaterial(idProyecto, oldMaterial.getId());
+        return m.getDescripcion();
     }
 
     /**
@@ -161,10 +184,12 @@ public class DetalleMaterialController extends Controller {
      */
 
     public Double getCantidad() {
-        return model.getCantidad();
+        Material m = model.obtenerMaterial(idProyecto, oldMaterial.getId());
+        return m.getCantidad();
     }
 
     public String getPrecio() {
-        return model.getPrecio().toString();
+        Material m = model.obtenerMaterial(idProyecto, oldMaterial.getId());
+        return m.getPrecio().toString();
     }
 }

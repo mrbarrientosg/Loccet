@@ -6,6 +6,8 @@ import controller.InventarioMaterialController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.paint.Color;
+import javafx.stage.StageStyle;
 import model.Material;
 import model.RegistroMaterial;
 import java.math.BigDecimal;
@@ -42,8 +44,7 @@ public final class CrearMaterialView extends View {
 
     @Override
     public void viewDidLoad() {
-        // TODO: Falta implentar controller
-        // controller = Injectable.find(InventarioMaterialController.class);
+        controller = Injectable.find(InventarioMaterialController.class);
 
         Pattern pattern = Pattern.compile("\\d*|\\d+\\.\\d*");
 
@@ -67,7 +68,7 @@ public final class CrearMaterialView extends View {
 
     @Override
     public void viewDidClose() {
-        clear();//Limpia los TextField.
+        clear();
     }
 
     private RegistroMaterial registroMaterial(double cantidad){
@@ -96,7 +97,7 @@ public final class CrearMaterialView extends View {
             controller.nuevoMaterial(material, registroMaterial);
 
             close();
-        } else{//En caso de que el usuario deje un campo vacio salta una excepcion.
+        } else {//En caso de que el usuario deje un campo vacio salta una excepcion.
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");
             alert.setHeaderText("Ingreso de datos invalido");
@@ -116,6 +117,11 @@ public final class CrearMaterialView extends View {
     @FXML
     public void salir(ActionEvent event){
         close();
+    }
+
+    public void display() {
+        modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
+                .show().getScene().setFill(Color.TRANSPARENT);
     }
 
 }
