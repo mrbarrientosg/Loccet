@@ -1,13 +1,12 @@
 package model;
 
 import com.google.gson.JsonObject;
-import exceptions.ItemExisteException;
+import exceptions.NegativeQuantityException;
 import model.store.MemorySpecification;
 import model.store.memory.MemoryStoreProyecto;
 import model.store.memory.MemoryStoreTrabajador;
 import model.store.StoreProyecto;
 import model.store.StoreTrabajador;
-import util.AsyncTask;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -64,7 +63,16 @@ public class Constructora implements Costeable {
     }
 
     public Proyecto eliminarProyecto(String idProyecto) {
-        return storeProyecto.delete(idProyecto);
+        Proyecto proyecto = storeProyecto.findById(idProyecto);
+
+        if (proyecto == null)
+            return null;
+
+        storeProyecto.delete(proyecto);
+
+        proyecto.limpiar();
+
+        return proyecto;
     }
 
     public Iterable<Proyecto> buscarProyecto(MemorySpecification<Proyecto> specification) {
@@ -84,6 +92,16 @@ public class Constructora implements Costeable {
         return storeTrabajador.findByRut(rut);
     }
 
+    public Trabajador obtenerTrabajador(String rut, String idProyecto) {
+        Proyecto proyecto = storeProyecto.findById(idProyecto);
+
+        if (proyecto == null)
+            return null;
+
+        return proyecto.obtenerTrabajador(rut);
+    }
+
+
     public void agregarTrabajador(Trabajador trabajador) {
         if (storeTrabajador.contains(trabajador))
             return;
@@ -99,7 +117,7 @@ public class Constructora implements Costeable {
      * @return false si no se pudo agregar y true lo contrario
      * @author Matias Barrientos
      */
-    public void agregarTrabajador(String idProyecto, Trabajador trabajador) throws ItemExisteException {
+    public void agregarTrabajador(String idProyecto, Trabajador trabajador) {
         Proyecto proyecto = storeProyecto.findById(idProyecto);
 
         if (proyecto == null) return;
@@ -114,33 +132,29 @@ public class Constructora implements Costeable {
     }
 
     public Trabajador eliminarTrabajador(String rut) {
-        if (storeTrabajador.findByRut(rut) == null) return null;
+        Trabajador trabajador = storeTrabajador.delete(rut);
 
-        storeProyecto.findAll().forEach(proyecto -> {
-            proyecto.eliminarTrabajador(rut);
-        });
+        if (trabajador == null)
+            return null;
 
-        return storeTrabajador.delete(rut);
+        trabajador.limpiar();
+
+        return trabajador;
     }
 
     public Trabajador eliminarTrabajador(String idProyecto, String rut) {
         Proyecto p = storeProyecto.findById(idProyecto);
-        if (p == null) return null;
-        return p.eliminarTrabajador(rut);
-    }
 
-    /**
-     * Buscar los trabajadores especificos en un proyecto
-     *
-     * @param idProyecto id del proyecto
-     * @param specification   consulta de busqueda
-     * @return Lista de trabajadores encontrados
-     * @author Matias Barrientos
-     */
-    public Iterable<Trabajador> buscarTrabajador(String idProyecto, MemorySpecification<Trabajador> specification) {
-        Proyecto p = storeProyecto.findById(idProyecto);
-        if (p == null) return Collections.emptyList();
-        return p.buscarTrabajador(specification);
+        if (p == null) return null;
+
+        Trabajador trabajador = p.eliminarTrabajador(rut);
+
+        if (trabajador == null)
+            return null;
+
+        trabajador.eliminarProyecto(idProyecto);
+
+        return p.eliminarTrabajador(rut);
     }
 
     public Iterable<Trabajador> buscarTrabajador(MemorySpecification<Trabajador> specification) {
@@ -154,6 +168,97 @@ public class Constructora implements Costeable {
         return trabajadors;
     }
 
+
+    public void agregarHorario(String rut, String idProyecto, Horario horario) {
+        Trabajador trabajador = storeTrabajador.findByRut(rut);
+
+        if (trabajador == null)
+            return;
+
+        trabajador.agregarHorario(idProyecto, horario);
+    }
+
+    public void eliminarHorario(String rut, Integer idHorario) {
+        Trabajador trabajador = storeTrabajador.findByRut(rut);
+
+        if (trabajador == null)
+            return;
+
+        trabajador.eliminarHorario(idHorario);
+    }
+
+    public Iterable<Material> buscarMaterial(String idProyecto, MemorySpecification<Material> specification) {
+        Proyecto p = storeProyecto.findById(idProyecto);
+
+        if (p == null)
+            return Collections.emptyList();
+
+        return p.getInventarioMaterial().buscarMaterial(specification);
+    }
+
+    public Material obtenerMaterial(String idProyecto, String idMaterial) {
+        Proyecto p = storeProyecto.findById(idProyecto);
+
+        if (p == null)
+            return null;
+
+        return p.getInventarioMaterial().obtenerMaterial(idMaterial);
+    }
+
+    public void agregarMaterial(String idProyecto, Material material) {
+        Proyecto p = storeProyecto.findById(idProyecto);
+
+        if (p == null)
+            return;
+
+        p.getInventarioMaterial().agregarMaterial(material);
+    }
+
+    public Material eliminarMaterial(String idProyecto, String idMaterial) {
+        Proyecto p = storeProyecto.findById(idProyecto);
+
+        if (p == null)
+            return null;
+
+        return p.getInventarioMaterial().eliminarMaterial(idMaterial);
+    }
+
+    public Integer getIdInventario(String idProyecto) {
+        Proyecto p = storeProyecto.findById(idProyecto);
+
+        if (p == null)
+            return null;
+
+        return p.getInventarioMaterial().getId();
+    }
+
+    public void agregarRegistroMaterial(String idProyecto, String idMaterial, RegistroMaterial rm) {
+        Proyecto proyecto = storeProyecto.findById(idProyecto);
+
+        if (proyecto == null)
+            return;
+
+        Material m = proyecto.getInventarioMaterial().obtenerMaterial(idMaterial);
+
+        if (m == null)
+            return;
+
+        m.agregarRegistro(rm);
+    }
+
+    public void actualizarCantidadMaterial(String idProyecto, String idMaterial, double cantidad) throws NegativeQuantityException {
+        Proyecto proyecto = storeProyecto.findById(idProyecto);
+
+        if (proyecto == null)
+            return;
+
+        Material m = proyecto.getInventarioMaterial().obtenerMaterial(idMaterial);
+
+        if (m == null)
+            return;
+
+        m.setCantidad(m.getCantidad() + cantidad);
+    }
 
     // MARK: - Getter
 
@@ -173,8 +278,49 @@ public class Constructora implements Costeable {
         return storeTrabajador.findAll();
     }
 
+    public Iterable<Trabajador> getTrabajadores(String idProyecto) {
+        Proyecto proyecto = storeProyecto.findById(idProyecto);
+
+        if (proyecto == null)
+            return Collections.emptyList();
+
+        return proyecto.getTrabajadores();
+    }
+
+    public Iterable<Horario> getHorarios(String rut) {
+        Trabajador trabajador = storeTrabajador.findByRut(rut);
+
+        if (trabajador == null)
+            return Collections.emptyList();
+
+        return trabajador.obtenerListaHorario();
+    }
+
+    public Iterable<Proyecto> getProyectos(String rut) {
+        Trabajador trabajador = storeTrabajador.findByRut(rut);
+
+        if (trabajador == null)
+            return Collections.emptyList();
+
+        return trabajador.getProyectos();
+    }
+
     public Iterable<Proyecto> getProyectos() {
         return storeProyecto.findAll();
+    }
+
+    public Iterable<RegistroMaterial> getRegistrosMateriales(String idProyecto, String idMaterial) {
+        Proyecto proyecto = storeProyecto.findById(idProyecto);
+
+        if (proyecto == null)
+            return Collections.emptyList();
+
+        Material m = proyecto.getInventarioMaterial().obtenerMaterial(idMaterial);
+
+        if (m == null)
+            return Collections.emptyList();
+
+        return m.getRegistrosMateriales();
     }
 
     @Override

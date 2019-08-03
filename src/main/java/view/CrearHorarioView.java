@@ -1,23 +1,26 @@
 package view;
 
+import base.Injectable;
 import base.View;
 import cell.ProyectoCell;
-import controller.HorarioController;
+import controller.CrearHorarioController;
+import delegate.AddHorarioDelegate;
+import exceptions.DateRangeException;
 import javafx.application.Platform;
 import javafx.beans.binding.ObjectBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
-import model.Trabajador;
-import router.ListaHorarioRouter;
+import util.Alert;
+
 import java.time.LocalTime;
 
-public final class HorarioView extends View {
+public final class CrearHorarioView extends View {
 
-    private HorarioController controller;
+    private CrearHorarioController controller;
 
     @FXML
     private ComboBox<ProyectoCell> proyectList;
@@ -43,6 +46,9 @@ public final class HorarioView extends View {
 
     @Override
     public void viewDidLoad() {
+        controller = Injectable.find(CrearHorarioController.class);
+        controller.setView(this);
+
         entradaBinding = new ObjectBinding<LocalTime>() {
             {
                 super.bind(horaEntrada.valueProperty(), minutoEntrada.valueProperty());
@@ -95,11 +101,22 @@ public final class HorarioView extends View {
 
     @FXML
     private void agregarHorario(ActionEvent event) {
-        if (proyectList.getValue() == null)
-            // TODO: Falta morstrar alerta de que debe seleccionar un proyecto
+        if (proyectList.getValue() == null) {
+            Alert.error()
+                    .withDescription("Debe seleccion un proyecto para agregar el horario")
+                    .withButton(ButtonType.OK)
+                    .build().show();
             return;
+        }
 
-        controller.agregarHorario(diasToggle.getToggles().indexOf(diasToggle.getSelectedToggle()) + 1, proyectList.getValue());
+        try {
+            controller.agregarHorario(diasToggle.getToggles().indexOf(diasToggle.getSelectedToggle()) + 1, proyectList.getValue());
+        } catch (DateRangeException e) {
+            Alert.error()
+                    .withDescription(e.getMessage())
+                    .withButton(ButtonType.OK)
+                    .build().show();
+        }
     }
 
     @FXML
@@ -130,10 +147,6 @@ public final class HorarioView extends View {
 
         horaSalida.getEditor().setText("00");
         minutoSalida.getEditor().setText("00");
-    }
-
-    public void setController(HorarioController controller) {
-        this.controller = controller;
     }
 
     private void setupSpinner(Spinner<Integer> spinner, int max) {
@@ -181,4 +194,12 @@ public final class HorarioView extends View {
             }
         });
     }
+
+    public void display(String rut, AddHorarioDelegate delegate) {
+        controller.setRutTrabajador(rut);
+        controller.setDelegate(delegate);
+        modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
+                .show().getScene().setFill(Color.TRANSPARENT);
+    }
+
 }

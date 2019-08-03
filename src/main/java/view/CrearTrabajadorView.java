@@ -1,24 +1,26 @@
 package view;
 
+import base.Injectable;
 import base.View;
-import cell.ProyectoCell;
-import controller.TrabajadorController;
+import controller.CrearTrabajadorController;
+import delegate.SaveTrabajadorDelegate;
 import exceptions.EmptyFieldException;
 import exceptions.InvalidaRutException;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import model.Especialidad;
 import model.Especialidades;
+import util.Alert;
 
 import java.time.LocalDate;
 
-public final class TrabajadorView extends View {
+public final class CrearTrabajadorView extends View {
 
-    private TrabajadorController controller;
+    private CrearTrabajadorController controller;
 
     @FXML
     private TextField rutTextField;
@@ -70,6 +72,10 @@ public final class TrabajadorView extends View {
 
     @Override
     public void viewDidLoad() {
+        controller = Injectable.find(CrearTrabajadorController.class);
+
+        bindController();
+
         aceptar.setOnAction(this::saveHandler);
 
         cancelar.setOnAction(event -> close());
@@ -99,8 +105,6 @@ public final class TrabajadorView extends View {
 
     @Override
     public void viewDidShow() {
-        bindController();
-
         birthdayDateField.setValue(LocalDate.now());
 
         Especialidades.getInstance().getAll(especialidads -> {
@@ -119,9 +123,10 @@ public final class TrabajadorView extends View {
             controller.guardarTrabajador();
             close();
         } catch (EmptyFieldException | InvalidaRutException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText(e.getMessage());
-            alert.show();
+            Alert.error()
+                    .withDescription(e.getMessage())
+                    .withButton(ButtonType.OK)
+                    .build().show();
         }
     }
 
@@ -160,8 +165,10 @@ public final class TrabajadorView extends View {
         emailField.setText("");
     }
 
-    public void setController(TrabajadorController controller) {
-        this.controller = controller;
+    public void display(SaveTrabajadorDelegate delegate) {
+        controller.setDelegate(delegate);
+        modal().withStyle(StageStyle.TRANSPARENT)
+                .show().getScene().setFill(Color.TRANSPARENT);
     }
 
 }

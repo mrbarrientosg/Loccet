@@ -12,7 +12,7 @@ public abstract class FetchHandler {
 
     private FetchHandler next;
 
-    protected NetService<LoccetAPI> service = NetService.getInstance();
+    protected NetService service = NetService.getInstance();
 
     protected Disposable disposable;
 

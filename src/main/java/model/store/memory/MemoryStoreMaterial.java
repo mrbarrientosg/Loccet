@@ -36,4 +36,11 @@ public class MemoryStoreMaterial extends AbstractStore<Material> implements Stor
     public Material delete(String id) {
         return delete(findById(id));
     }
+
+    @Override
+    public void clear() {
+        super.clear();
+        materialMap.clear();
+        materialMap = null;
+    }
 }

@@ -1,8 +1,8 @@
 package view;
 
+import base.Injectable;
 import base.View;
 import cell.ProyectoCell;
-import cell.TrabajadorCell;
 import controller.ProyectoController;
 import delegate.SaveProyectoDelegate;
 import io.reactivex.Observable;
@@ -10,24 +10,13 @@ import io.reactivex.rxjavafx.observables.JavaFxObservable;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import io.reactivex.schedulers.Schedulers;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.paint.Color;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import model.Proyecto;
-import router.AgregarProyectoRouter;
-import router.DetalleProyectoRouter;
-import router.ProyectoRouter;
+import util.Alert;
 import util.AsyncTask;
-
-import java.time.LocalDate;
 import java.util.ListIterator;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -35,8 +24,6 @@ import java.util.concurrent.TimeUnit;
 public class ProyectoView extends View implements SaveProyectoDelegate {
 
     private ProyectoController controller;
-
-    private ProyectoRouter router;
 
     @FXML
     private TextField searchText;
@@ -73,7 +60,14 @@ public class ProyectoView extends View implements SaveProyectoDelegate {
 
     @Override
     public void viewDidLoad() {
-        inicializarTablaProyecto();
+        controller = Injectable.find(ProyectoController.class);
+
+        iDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        nameProyectColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        startDateColumn.setCellValueFactory(new PropertyValueFactory<>("fechaInicio"));
+        endDateColumn.setCellValueFactory(new PropertyValueFactory<>("fechaTermino"));
+        amountColumn.setCellValueFactory(new PropertyValueFactory<>("estimacion"));
+        clientColumn.setCellValueFactory(new PropertyValueFactory<>("cliente"));
 
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
@@ -99,15 +93,6 @@ public class ProyectoView extends View implements SaveProyectoDelegate {
                 .subscribe(tableView::setItems);
     }
 
-    private void inicializarTablaProyecto() {
-        iDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        nameProyectColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        startDateColumn.setCellValueFactory(new PropertyValueFactory<>("fechaInicio"));
-        endDateColumn.setCellValueFactory(new PropertyValueFactory<>("fechaTermino"));
-        amountColumn.setCellValueFactory(new PropertyValueFactory<>("estimacion"));
-        clientColumn.setCellValueFactory(new PropertyValueFactory<>("cliente"));
-    }
-
     private ProyectoCell selection() {
         return tableView.getSelectionModel().getSelectedItem();
     }
@@ -115,32 +100,23 @@ public class ProyectoView extends View implements SaveProyectoDelegate {
     @FXML
     public void lookDetails(ActionEvent event){
         ProyectoCell cell = selection();
-        Proyecto p = controller.buscarProyecto(cell.getId());
-        DetalleProyectoView view = DetalleProyectoRouter.create(p, this);
-        view.modal().withStyle(StageStyle.TRANSPARENT)
-                .show().getScene().setFill(Color.TRANSPARENT);
+        Injectable.find(DetalleProyectoView.class).display(cell.getId(), this);
     }
-
 
     @FXML
     public void createProyect(ActionEvent event){
-        AgregarProyectoView view = AgregarProyectoRouter.create(this);
-        view.modal().withStyle(StageStyle.TRANSPARENT)
-                .show().getScene().setFill(Color.TRANSPARENT);
-        // TODO: analizar
-        //cargarDatos();
+        Injectable.find(CrearProyectoView.class).display(this);
     }
 
     @FXML
     public void deleteProyect(ActionEvent event){
         ProyectoCell cell = selection();
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Alerta");
-        alert.setHeaderText("Esta accion borrara el proyecto");
-        alert.setContentText("¿Esta seguro de que desea continuar?");
-
-        Optional<ButtonType> result = alert.showAndWait();
+        Optional<ButtonType> result = Alert.confirmation()
+                .withTitle("Eliminar Proyecto")
+                .withDescription("¿Esta seguro de que desea continuar?")
+                .withButton(ButtonType.OK, ButtonType.CANCEL)
+                .build().showAndWait();
 
         result.ifPresent(buttonType -> {
             if (buttonType == ButtonType.OK){
@@ -150,12 +126,6 @@ public class ProyectoView extends View implements SaveProyectoDelegate {
         });
     
 
-    }
-
-    public void setController(ProyectoController controller) { this.controller = controller; }
-
-    public void setRouter(ProyectoRouter router) {
-        this.router = router;
     }
 
     @Override

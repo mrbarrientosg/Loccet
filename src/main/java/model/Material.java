@@ -47,23 +47,23 @@ public class Material implements Costeable {
 
     // MARK: - Constructores
 
-    public Material(String nombre, String descripcion, double cantidad,String uds,BigDecimal precio) {
-        this.descripcion = descripcion;
-        this.cantidad = cantidad;
-        this.nombre = nombre;
-        this.uds = uds;
+    public Material(String nombre, String descripcion, double cantidad, String uds ,BigDecimal precio) throws EmptyFieldException, NegativeQuantityException {
+        setNombre(nombre);
+        setDescripcion(descripcion);
+        setCantidad(cantidad);
+        setUds(uds);
+        setPrecio(precio);
         id = generarId();
-        this.precio = precio;
         registroMaterialStore = new MemoryStoreRegistroMaterial();
     }
 
-    public Material(String nombre, String descripcion, double cantidad,String uds,String id,BigDecimal precio){
-        this.descripcion = descripcion;
-        this.cantidad = cantidad;
-        this.nombre = nombre;
-        this.uds = uds;
-        this.id = id;
-        this.precio = precio;
+    public Material(String nombre, String descripcion, double cantidad,String uds,String id,BigDecimal precio) throws NegativeQuantityException, EmptyFieldException {
+        setNombre(nombre);
+        setDescripcion(descripcion);
+        setCantidad(cantidad);
+        setUds(uds);
+        setId(id);
+        setPrecio(precio);
         registroMaterialStore = new MemoryStoreRegistroMaterial();
     }
 
@@ -128,6 +128,13 @@ public class Material implements Costeable {
     }
 
     // MARK: - Setter
+
+    private void setId(String id) throws EmptyFieldException {
+        if (StringUtils.isEmpty(id))
+            throw new EmptyFieldException("ID");
+
+        this.id = id;
+    }
 
     public void setNombre(String nombre) throws EmptyFieldException {
         if (StringUtils.isEmpty(nombre))

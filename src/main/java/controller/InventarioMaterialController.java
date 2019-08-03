@@ -2,19 +2,14 @@ package controller;
 
 import base.Controller;
 import cell.MaterialCell;
-import cell.TrabajadorCell;
 import com.google.gson.*;
-import exceptions.ItemExisteException;
-import javafx.beans.Observable;
-import javafx.beans.property.SimpleStringProperty;
+import com.itextpdf.text.DocumentException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.*;
 import network.endpoint.MaterialAPI;
 import network.service.NetService;
 import specification.MaterialByQuerySpecification;
-import specification.TrabajadorByQuerySpecification;
-import util.AsyncTask;
 import util.ExportFile.ExportFile;
 import util.InventarioExport.ExportInventarioPDF;
 import util.InventarioExport.ExportInventarioXLSX;
@@ -25,8 +20,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
-import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -40,28 +33,24 @@ public final class InventarioMaterialController extends Controller {
 
     private InventarioMaterialView view;
 
-    private InventarioMaterial model;
+    private Constructora model;
 
-    private Proyecto proyecto;
+    private String idProyecto;
 
-    private NetService<MaterialAPI> service = NetService.getInstance();
+    private NetService service;
 
     private ExportFile exportFile;
 
-    /**
-     * @param view  inventario material
-     * @param model  inventario material
-     */
-    public InventarioMaterialController(InventarioMaterialView view, InventarioMaterial model) {
-        this.view = view;
-        this.model = model;
+    public InventarioMaterialController() {
+        model = Constructora.getInstance();
+        service = NetService.getInstance();
         exportFile = new ExportFile();
     }
 
-    public ObservableList<MaterialCell> searchProyecto(String text) {
+    public ObservableList<MaterialCell> searchMaterials(String text) {
         ObservableList<MaterialCell> cells = FXCollections.observableArrayList();
 
-        StreamSupport.stream(model.buscarMaterial(new MaterialByQuerySpecification(text)).spliterator(), false)
+        StreamSupport.stream(model.buscarMaterial(idProyecto, new MaterialByQuerySpecification(text)).spliterator(), false)
                 .map(MaterialCell::new)
                 .forEach(cells::add);
 
@@ -75,15 +64,15 @@ public final class InventarioMaterialController extends Controller {
     }
 
     public Material getMaterial(String id){
-        return model.obtenerMaterial(id);
+        return model.obtenerMaterial(idProyecto, id);
     }
     /**
      * Agrega un nuevo material al modelo
      * @param material nuevo material a agregar
      */
-    public void nuevoMaterial(Material material, RegistroMaterial rm) throws ItemExisteException {
+    public void nuevoMaterial(Material material, RegistroMaterial rm) {
         material.agregarRegistro(rm);
-        model.agregarMaterial(material);
+        model.agregarMaterial(idProyecto, material);
         view.didAddMaterial(new MaterialCell(material));
 
         Gson gson =  new GsonBuilder()
@@ -92,7 +81,7 @@ public final class InventarioMaterialController extends Controller {
                 .create();
 
         JsonObject json = gson.toJsonTree(material).getAsJsonObject();
-        json.addProperty("id_inventario", model.getId());
+        json.addProperty("id_inventario", model.getIdInventario(idProyecto));
 
         System.out.println(json);
 
@@ -120,7 +109,7 @@ public final class InventarioMaterialController extends Controller {
      * @param idMaterial id del material a eliminar
      */
     public void eliminarMaterial(String idMaterial){
-        MaterialCell materialCell = new MaterialCell(model.eliminarMaterial(idMaterial));
+        MaterialCell materialCell = new MaterialCell(model.eliminarMaterial(idProyecto, idMaterial));
 
         view.removeMaterial(materialCell);
 
@@ -141,30 +130,30 @@ public final class InventarioMaterialController extends Controller {
      * @param dest archivo de destino para guardar
      * @throws IOException
      */
-    public void guardarArchivoInventario(String extension, File dest, ObservableList<MaterialCell> list) throws IOException {
+    public void guardarArchivoInventario(String extension, File dest, ObservableList<MaterialCell> list) throws IOException, DocumentException {
+        Proyecto p = model.obtenerProyecto(idProyecto);
+
         if (extension.equals("*.pdf")) {
-            exportFile.changeStrategy(new ExportInventarioPDF(proyecto.getNombre(), list));
+            exportFile.changeStrategy(new ExportInventarioPDF(p.getNombre(), list));
         } else {
-            exportFile.changeStrategy(new ExportInventarioXLSX(proyecto.getNombre(), list));
+            exportFile.changeStrategy(new ExportInventarioXLSX(p.getNombre(), list));
         }
 
         File file = exportFile.export();
-
-        if (file == null) {
-            // TODO: Falta implementar el warning
-            //router.showWarning("Error", "La exportación no se pudo guardar");
-            return;
-        }
 
         Files.copy(file.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
     }
 
 
-    /**
-     * @param proyecto proyecto
-     */
-    public void setProyecto(Proyecto proyecto) {
-        this.proyecto = proyecto;
+    public void setIdProyecto(String idProyecto) {
+        this.idProyecto = idProyecto;
     }
 
+    public void setView(InventarioMaterialView view) {
+        this.view = view;
+    }
+
+    public String getIdProyecto() {
+        return idProyecto;
+    }
 }

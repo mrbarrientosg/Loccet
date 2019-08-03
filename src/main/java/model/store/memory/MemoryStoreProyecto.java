@@ -42,17 +42,10 @@ public class MemoryStoreProyecto extends AbstractStore<Proyecto> implements Stor
         return delete(findById(id));
     }
 
-    /*@Override
-    public Iterable<Proyecto> get(Specification specification) {
-        final MemorySpecification<Proyecto> memorySpecification = (MemorySpecification<Proyecto>) specification;
-
-        final List<Proyecto> trabajadors = new ArrayList<>();
-
-        for (Proyecto proyecto: listaProyecto) {
-            if (memorySpecification.test(proyecto))
-                trabajadors.add(proyecto);
-        }
-
-        return trabajadors;
-    }*/
+    @Override
+    public void clear() {
+        super.clear();
+        mapProyecto.clear();
+        mapProyecto = null;
+    }
 }

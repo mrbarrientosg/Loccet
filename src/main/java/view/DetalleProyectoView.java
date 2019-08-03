@@ -1,25 +1,26 @@
 package view;
 
+import base.Injectable;
 import base.View;
 import controller.DetalleProyectoController;
+import delegate.SaveProyectoDelegate;
 import exceptions.EmptyFieldException;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import router.DetalleProyectoRouter;
-import router.ListaTrabajadorRouter;
+import javafx.scene.paint.Color;
+import javafx.stage.StageStyle;
+import util.Alert;
 
 public class DetalleProyectoView extends View {
 
     private DetalleProyectoController controller;
-
-    private DetalleProyectoRouter router;
 
     private ListaTrabajadorView listaTrabajadorView;
 
@@ -67,8 +68,10 @@ public class DetalleProyectoView extends View {
 
     @Override
     public void viewDidLoad() {
+        controller = Injectable.find(DetalleProyectoController.class);
         isEditing = false;
         disable = new SimpleBooleanProperty(true);
+        bind();
 
         nameField.disableProperty().bind(disable);
         addressField.disableProperty().bind(disable);
@@ -106,7 +109,7 @@ public class DetalleProyectoView extends View {
         controller.save();
     }
 
-    public void bind() {
+    private void bind() {
         nameField.textProperty().bindBidirectional(controller.nameProperty());
         addressField.textProperty().bindBidirectional(controller.addressProperty());
         countryField.textProperty().bindBidirectional(controller.countryProperty());
@@ -126,9 +129,10 @@ public class DetalleProyectoView extends View {
                 isEditing = false;
                 disable.setValue(true);
             } catch (EmptyFieldException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText(e.getMessage());
-                alert.show();
+                Alert.error()
+                        .withDescription(e.getMessage())
+                        .withButton(ButtonType.OK)
+                        .build().show();
             }
 
         } else {
@@ -138,19 +142,15 @@ public class DetalleProyectoView extends View {
         }
     }
 
-    public void setController(DetalleProyectoController controller) {
-        this.controller = controller;
-    }
+    public void display(String id, SaveProyectoDelegate delegate) {
+        controller.setIdProyecto(id);
+        controller.setDelegate(delegate);
 
-    public void setRouter(DetalleProyectoRouter router) {
-        this.router = router;
-    }
+        listaTrabajadorView = Injectable.find(ListaTrabajadorView.class).display(id);
 
-    public void setListaTrabajadorView(ListaTrabajadorView listaTrabajadorView) {
-        this.listaTrabajadorView = listaTrabajadorView;
-    }
+        inventarioMaterialView = Injectable.find(InventarioMaterialView.class).display(id);
 
-    public void setInventarioMaterialView(InventarioMaterialView inventarioMaterialView) {
-        this.inventarioMaterialView = inventarioMaterialView;
+        modal().withStyle(StageStyle.TRANSPARENT)
+                .show().getScene().setFill(Color.TRANSPARENT);
     }
 }

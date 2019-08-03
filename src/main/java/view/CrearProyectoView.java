@@ -1,16 +1,17 @@
 package view;
 
+import base.Injectable;
 import base.View;
-import controller.AgregarProyectoController;
+import controller.CrearProyectoController;
+import delegate.SaveProyectoDelegate;
+import exceptions.DateRangeException;
 import exceptions.EmptyFieldException;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import router.AgregarProyectoRouter;
+import javafx.scene.paint.Color;
+import javafx.stage.StageStyle;
+import util.Alert;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.function.UnaryOperator;
@@ -21,13 +22,11 @@ import java.util.regex.Pattern;
  *
  * @author Matias Zuñiga
  */
-public final class AgregarProyectoView extends View {
+public final class CrearProyectoView extends View {
 
-    private AgregarProyectoController controller;
+    private CrearProyectoController controller;
 
-    private AgregarProyectoRouter router;
-
-    //MARK - Botones
+    // MARK: - Botones
 
     @FXML
     private TextField ciudad;
@@ -64,6 +63,8 @@ public final class AgregarProyectoView extends View {
 
     @Override
     public void viewDidLoad() {
+        controller = Injectable.find(CrearProyectoController.class);
+
         lettersOff();
     }
 
@@ -86,27 +87,21 @@ public final class AgregarProyectoView extends View {
         try {
             controller.saveProyecto();
             close();
-        } catch (EmptyFieldException e) {
-            Alert alert = router.showWarning(e.getMessage());
-            alert.show();
+        } catch (EmptyFieldException | DateRangeException e) {
+            Alert.error()
+                    .withDescription(e.getMessage())
+                    .withButton(ButtonType.OK)
+                    .build().show();
         }
     }
+
     /**
      * Función que cancela el ingreso del nuevo proyecto.
      * @author Matías Zúñiga
      */
     @FXML
     private void apretarCancelar() {
-        Alert alert = router.showWarning("Esta seguro que desea cancelar?");
-        Optional<ButtonType> result = alert.showAndWait();
-        if(result.isPresent()){
-            if(result.get() == ButtonType.OK){
-               close();
-            }
-            else{
-                alert.close();
-            }
-        }
+        close();
     }
 
     private void bindController() {
@@ -156,11 +151,9 @@ public final class AgregarProyectoView extends View {
         montoC.setTextFormatter(formatter);
     }
 
-    public void setController(AgregarProyectoController controller) {
-        this.controller = controller;
-    }
-
-    public void setRouter(AgregarProyectoRouter router) {
-        this.router = router;
+    public void display(SaveProyectoDelegate delegate) {
+        controller.setDelegate(delegate);
+        modal().withStyle(StageStyle.TRANSPARENT)
+                .show().getScene().setFill(Color.TRANSPARENT);
     }
 }

@@ -1,15 +1,18 @@
 package view;
 
 import base.Fragment;
+import base.Injectable;
 import controller.DetalleMaterialController;
-import controller.InventarioMaterialController;
 import exceptions.NegativeQuantityException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.paint.Color;
+import javafx.stage.StageStyle;
+import util.Alert;
 
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
@@ -35,8 +38,9 @@ public final class AgregarMaterialView extends Fragment {
 
     @Override
     public void viewDidLoad() {
-
+        controller = Injectable.find(DetalleMaterialController.class);
     }
+
     @Override
     public void viewDidShow(){
         Pattern pattern = Pattern.compile("\\d*|\\d+\\.\\d*");
@@ -56,28 +60,28 @@ public final class AgregarMaterialView extends Fragment {
             try {
                 controller.agregarMaterial(Double.parseDouble(agregarTF.getText()));
             } catch (NegativeQuantityException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setContentText(e.getMessage());
-                alert.showAndWait();
+                Alert.error()
+                        .withDescription(e.getMessage())
+                        .withButton(ButtonType.OK)
+                        .build().show();
             }
             close();
-        }else{
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Ingreso de datos invalido");
-            alert.setContentText("Por favor ingresar un numero");
-            alert.showAndWait();
+        } else {
+            Alert.error()
+                    .withHeader("Por favor ingresar un numero")
+                    .withButton(ButtonType.OK)
+                    .build().show();
         }
     }
 
     @FXML
-    public void salir(ActionEvent event){
+    public void salir(ActionEvent event) {
         close();
     }
 
-    public void setController(DetalleMaterialController controller) {
-        this.controller = controller;
+    public void display() {
+        modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
+                .show().getScene().setFill(Color.TRANSPARENT);
     }
 
 }

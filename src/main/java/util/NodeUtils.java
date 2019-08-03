@@ -19,24 +19,12 @@ public class NodeUtils {
         if (from.getScene() != null && from == from.getScene().getRoot()) {
             Scene scene = from.getScene();
 
-
-            //replacement.component.getCurrentStage().setScene(scene);
-           // component.getCurrentStage().titleProperty().bind(replacement.component.getTitleProperty());
-
-            //removeFromParent(from);
-            //removeFromParent(to);
-            //from.getParent().getChildrenUnmodifiable().remove(from);
-            //to.getParent().getChildrenUnmodifiable().remove(to);
             scene.setRoot((Parent) to);
             if (sizeToScene) scene.getWindow().sizeToScene();
             if (centerOnScreen) scene.getWindow().centerOnScreen();
 
         } else if (from.getParent() instanceof Pane) {
-            //removeFromParent(from);
-            //removeFromParent(to);
             attach(from, to);
-            //if (sizeToScene) component.getCurrentStage().sizeToScene();
-            //if (centerOnScreen) component.getCurrentStage().centerOnScreen();
         }
     }
 

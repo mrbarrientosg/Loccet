@@ -6,17 +6,16 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import delegate.SaveProyectoDelegate;
-import delegate.SaveTrabajadorDelegate;
+import exceptions.DateRangeException;
 import exceptions.EmptyFieldException;
 import javafx.beans.property.*;
 import json.LocalDateTypeConverter;
 import model.Constructora;
-import model.Especialidad;
 import model.Localizacion;
 import model.Proyecto;
 import network.endpoint.ProyectoAPI;
 import network.service.NetService;
-import view.AgregarProyectoView;
+import view.CrearProyectoView;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -27,9 +26,9 @@ import java.util.logging.Level;
  * Se encarga de mostrar la información ingresada por el usuario en la vista AgregarProyecto
  */
 
-public final class AgregarProyectoController extends Controller {
+public final class CrearProyectoController extends Controller {
 
-    private AgregarProyectoView view;
+    private CrearProyectoView view;
 
     private Constructora model = Constructora.getInstance();
 
@@ -53,7 +52,7 @@ public final class AgregarProyectoController extends Controller {
 
     private SaveProyectoDelegate delegate;
 
-    public AgregarProyectoController() {
+    public CrearProyectoController() {
         name = new SimpleStringProperty(null);
         cliente = new SimpleStringProperty(null);
         monto = new SimpleStringProperty(null);
@@ -67,7 +66,7 @@ public final class AgregarProyectoController extends Controller {
         fechaTermino = new SimpleObjectProperty<>(null);
     }
 
-    public void saveProyecto() throws EmptyFieldException {
+    public void saveProyecto() throws EmptyFieldException, DateRangeException {
         Proyecto proyecto = new Proyecto();
 
         proyecto.setNombre(name.get());
@@ -77,6 +76,10 @@ public final class AgregarProyectoController extends Controller {
         Localizacion localizacion = new Localizacion(address.get(), country.get(), state.get(), city.get());
 
         proyecto.setLocalizacion(localizacion);
+
+        if (fechaInicio.get().isAfter(fechaTermino.get())) {
+            throw new DateRangeException("La fecha de inicio del proyecto no puede ser mayor que la de termino.");
+        }
 
         proyecto.setFechaInicio(fechaInicio.get());
         proyecto.setFechaTermino(fechaTermino.get());
@@ -90,7 +93,7 @@ public final class AgregarProyectoController extends Controller {
     }
 
     private void saveToDB(Proyecto proyecto) {
-        NetService<ProyectoAPI> service = NetService.getInstance();
+        NetService service = NetService.getInstance();
 
         Gson gson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
@@ -114,7 +117,7 @@ public final class AgregarProyectoController extends Controller {
                 });
     }
 
-    public void setView(AgregarProyectoView view) {
+    public void setView(CrearProyectoView view) {
         this.view = view;
     }
 

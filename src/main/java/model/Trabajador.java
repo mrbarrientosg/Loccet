@@ -13,6 +13,9 @@ import util.StringUtils;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public abstract class Trabajador {
 
@@ -75,8 +78,14 @@ public abstract class Trabajador {
     // MARK: - Metodos Horario
 
     public void agregarHorario(String idProyecto, Horario horario) {
-        horario.setProyecto(storeProyecto.findById(idProyecto));
+        Proyecto proyecto = storeProyecto.findById(idProyecto);
+
+        if (proyecto == null)
+            return;
+
+        horario.setProyecto(proyecto);
         horario.setTrabajador(this);
+
         storeHorario.save(horario);
     }
 
@@ -84,8 +93,40 @@ public abstract class Trabajador {
         storeHorario.delete(id);
     }
 
+    public void eliminarProyecto(String idProyecto) {
+        storeProyecto.delete(idProyecto);
+
+        List<Horario> list = new ArrayList<>();
+
+        storeHorario.findAll().forEach(horario -> {
+            if (horario.getProyecto().getId().equals(idProyecto))
+                list.add(horario);
+        });
+
+        list.forEach(storeHorario::delete);
+    }
+
+
     public Iterable<Horario> obtenerListaHorario() {
         return storeHorario.findAll();
+    }
+
+    public void limpiar() {
+        storeProyecto.findAll().forEach(proyecto -> proyecto.eliminarTrabajador(rut));
+
+        storeHorario.findAll().forEach(horario -> {
+            horario.setProyecto(null);
+            horario.setTrabajador(null);
+        });
+
+        storeHorario.clear();
+        storeProyecto.clear();
+
+        storeHorario = null;
+        storeProyecto = null;
+
+        localizacion = null;
+        especialidad = null;
     }
 
     // MARK: - Getter

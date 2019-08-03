@@ -1,10 +1,7 @@
 package cell;
+
 import model.Proyecto;
 import util.DateUtils;
-
-import java.math.BigDecimal;
-import java.time.LocalDate;
-
 
 public final class ProyectoCell {
 

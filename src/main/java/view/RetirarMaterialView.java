@@ -1,22 +1,19 @@
 package view;
 
-
+import base.Injectable;
 import base.View;
-import cell.MaterialCell;
 import controller.DetalleMaterialController;
-import controller.InventarioMaterialController;
 import exceptions.NegativeQuantityException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import model.Material;
+import util.Alert;
 
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
-
 
 /**
  * Vista de Retirar material.
@@ -26,8 +23,6 @@ import java.util.regex.Pattern;
 public final class RetirarMaterialView extends View {
 
     private DetalleMaterialController controller;
-
-    private MaterialCell material;
 
     @FXML
     private Button retirarBT;
@@ -40,27 +35,19 @@ public final class RetirarMaterialView extends View {
 
     @Override
     public void viewDidLoad() {
+        controller = Injectable.find(DetalleMaterialController.class);
 
-    }
-    @Override
-    public void viewDidShow(){
         Pattern pattern = Pattern.compile("\\d*|\\d+\\.\\d*");
 
-        TextFormatter formatter =  new TextFormatter<UnaryOperator>(change -> {
-            return pattern.matcher(change.getControlNewText()).matches() ? change : null;
-        });
+        TextFormatter formatter =  new TextFormatter<UnaryOperator>(change ->
+                pattern.matcher(change.getControlNewText()).matches() ? change : null);
 
         retirarTF.setTextFormatter(formatter);
-
     }
 
     @Override
     public void viewDidClose() {
         retirarTF.setText("");
-    }
-
-    public void setMaterial(MaterialCell material){
-        this.material = material;
     }
 
     @FXML
@@ -72,28 +59,22 @@ public final class RetirarMaterialView extends View {
                controller.retirarMaterial(aux);
                close();
            } catch (NegativeQuantityException e) {
-               Alert alert = new Alert(Alert.AlertType.ERROR);
-               alert.setTitle("Error");
-               alert.setHeaderText("No hay suficiente material");
-               alert.setContentText("La cantidad de material a retirar es mayor al que se tiene");
-               alert.showAndWait();
+               Alert.error()
+                       .withDescription(e.getMessage())
+                       .withButton(ButtonType.OK)
+                       .build().show();
            }
-       }else {
-           Alert alert = new Alert(Alert.AlertType.ERROR);
-           alert.setTitle("Error");
-           alert.setHeaderText("Ingreso de datos invalido");
-           alert.setContentText("Por favor ingresar un numero");
-           alert.showAndWait();
+       } else {
+           Alert.error()
+                   .withDescription("Por favor ingresar un numero")
+                   .withButton(ButtonType.OK)
+                   .build().show();
        }
     }
 
     @FXML
     public void cancelar(ActionEvent event){
         close();
-    }
-
-    public void setController(DetalleMaterialController controller) {
-        this.controller = controller;
     }
 
 }

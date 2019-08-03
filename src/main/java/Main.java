@@ -1,15 +1,11 @@
 import base.Injectable;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import network.service.NetService;
-import router.LoginRouter;
 import util.ThreadPools;
 import view.LoginView;
 
@@ -28,7 +24,7 @@ public class Main extends Application {
 
         Injectable.setPrimaryStage(primaryStage);
 
-        LoginView loginView = LoginRouter.create();
+        LoginView loginView = Injectable.find(LoginView.class);
 
         Scene scene = new Scene(loginView.getRoot());
         primaryStage.setScene(scene);
@@ -36,7 +32,6 @@ public class Main extends Application {
         scene.setFill(Color.TRANSPARENT);
 
         primaryStage.setResizable(false);
-        primaryStage.titleProperty().bind(loginView.getTitleProperty());
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.show();
     }

@@ -8,6 +8,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.Constructora;
 import model.Horario;
 import model.Trabajador;
 import network.endpoint.HorarioAPI;
@@ -23,7 +24,13 @@ public final class ListaHorarioController extends Controller {
 
     private ListaHorarioView view;
 
-    private Trabajador model;
+    private Constructora model;
+
+    private String rutTrabajador;
+
+    public ListaHorarioController() {
+        model = Constructora.getInstance();
+    }
 
     /**
      * Carga la informacion desde el modelo
@@ -32,7 +39,7 @@ public final class ListaHorarioController extends Controller {
         AsyncTask.supplyAsync(() -> {
             ObservableList<HorarioCell> list = FXCollections.observableArrayList();
 
-            model.obtenerListaHorario().forEach(horario -> list.add(new HorarioCell(horario)));
+            model.getHorarios(rutTrabajador).forEach(horario -> list.add(new HorarioCell(horario)));
 
             return list;
         }).thenAccept(callBack);
@@ -45,11 +52,11 @@ public final class ListaHorarioController extends Controller {
     public void eliminarHorario(HorarioCell cell) {
         if (cell == null) return;
 
-        model.eliminarHorario(cell.getId());
+        model.eliminarHorario(rutTrabajador, cell.getId());
 
         view.didDeleteHorario(cell);
 
-        NetService<HorarioAPI> service = NetService.getInstance();
+        NetService service = NetService.getInstance();
 
         JsonObject json = new JsonObject();
         json.addProperty("id_horario", cell.getId());
@@ -64,11 +71,11 @@ public final class ListaHorarioController extends Controller {
         this.view = view;
     }
 
-    public void setModel(Trabajador model) {
-        this.model = model;
+    public void setRutTrabajador(String rutTrabajador) {
+        this.rutTrabajador = rutTrabajador;
     }
 
-    public Trabajador getModel() {
-        return model;
+    public String getRutTrabajador() {
+        return rutTrabajador;
     }
 }

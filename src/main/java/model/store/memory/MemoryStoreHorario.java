@@ -28,6 +28,11 @@ public class MemoryStoreHorario extends AbstractStore<Horario> implements StoreH
     }
 
     @Override
+    public boolean contains(Horario value) {
+        return horarioMap.containsKey(value.getId());
+    }
+
+    @Override
     public Horario findById(Integer id) {
         return horarioMap.get(id);
     }
@@ -35,5 +40,12 @@ public class MemoryStoreHorario extends AbstractStore<Horario> implements StoreH
     @Override
     public Horario delete(Integer id) {
         return delete(findById(id));
+    }
+
+    @Override
+    public void clear() {
+        super.clear();
+        horarioMap.clear();
+        horarioMap = null;
     }
 }

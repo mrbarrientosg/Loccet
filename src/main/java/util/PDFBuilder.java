@@ -19,20 +19,13 @@ public final class PDFBuilder {
 
     private File pdfNewFile;
 
-    private PDFBuilder(String name) {
+    private PDFBuilder(String name) throws IOException, DocumentException {
         document = new Document();
-        try {
-            pdfNewFile = File.createTempFile(name, ".pdf");
-            PdfWriter.getInstance(document, new FileOutputStream(pdfNewFile));
-        } catch (FileNotFoundException fileNotFoundException) {
-            System.out.println("No such file was found to generate the PDF "
-                    + "(No se encontró el fichero para generar el pdf)" + fileNotFoundException);
-        } catch (DocumentException | IOException e) {
-            e.printStackTrace();
-        }
+        pdfNewFile = File.createTempFile(name, ".pdf");
+        PdfWriter.getInstance(document, new FileOutputStream(pdfNewFile));
     }
 
-    public static PDFBuilder create(String name) {
+    public static PDFBuilder create(String name) throws IOException, DocumentException {
         return new PDFBuilder(name);
     }
 

@@ -1,38 +1,28 @@
 package view;
-import base.Fragment;
+
 import base.Injectable;
+import base.View;
 import cell.RegistroMaterialCell;
 import controller.DetalleMaterialController;
+import delegate.EditMaterialDelegate;
 import exceptions.EmptyFieldException;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
-import model.RegistroMaterial;
-import router.DetalleMaterialRouter;
-
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.util.Locale;
+import model.Material;
+import util.Alert;
 
 /**
  * Clase vista del detalle de un material.
  *
  * @author Sebastian Fuenzalida.
  */
-public class DetalleMaterialView extends Fragment {
-    //Se declaran las variables.
+public class DetalleMaterialView extends View {
 
     private DetalleMaterialController controller;
-
-    private DetalleMaterialRouter router;
 
     private boolean editando;
 
@@ -46,7 +36,7 @@ public class DetalleMaterialView extends Fragment {
     private TextField cantidadTF;
 
     @FXML
-    private TextArea  descripcionTA;
+    private TextArea descripcionTA;
 
     @FXML
     private TextField precioTF;
@@ -77,13 +67,18 @@ public class DetalleMaterialView extends Fragment {
 
     @Override
     public void viewDidLoad() {
+        controller = Injectable.find(DetalleMaterialController.class);
+        controller.setView(this);
         editando = false;
 
+        fechaCL.setCellValueFactory(new PropertyValueFactory<>("fecha"));
+        cantidadCL.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+        retiradoCL.setCellValueFactory(new PropertyValueFactory<>("retirado"));
     }
+
     @Override
     public void viewDidShow(){
-        inicializarTablaRegistro();
-        cargarDatos();
+        controller.obtenerRegistros(tableView::setItems);
         mostrarDatos();
     }
 
@@ -92,10 +87,6 @@ public class DetalleMaterialView extends Fragment {
         controller.save();
     }
 
-
-    public void cargarDatos(){
-        controller.obtenerRegistro(tableView::setItems);
-    }
 
     /**
      * Funcion que muestra en la vista los datos del material.
@@ -132,19 +123,27 @@ public class DetalleMaterialView extends Fragment {
             editando = true;
         } else {//Si la variable es verdadera se comienza con el proceso de guardado.
             try {
-                controller.modificarDescripcion(descripcionTA.getText());//Se modifica la descripcion.
-                controller.modificarNombre(nombreTF.getText());//Se modifca el nombre.
-                nombreTF.setDisable(true);//Se desactivan los textField
+                controller.modificarDescripcion(descripcionTA.getText()); //Se modifica la descripcion.
+                controller.modificarNombre(nombreTF.getText()); //Se modifca el nombre.
+
+                nombreTF.setDisable(true); //Se desactivan los textField
                 descripcionTA.setDisable(true);
-                editarBT.setText("Editar");//Se regresa el boton a editar.
+                editarBT.setText("Editar"); //Se regresa el boton a editar.
                 editando = false;
+
             } catch (EmptyFieldException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText(e.getMessage());
-                alert.show();
+                Alert.error()
+                        .withDescription(e.getMessage())
+                        .withButton(ButtonType.OK)
+                        .build().show();
             }
 
         }
+    }
+
+    public void agregarRegistroMaterial(RegistroMaterialCell cell) {
+        tableView.getItems().add(cell);
+        cantidadTF.setText(Double.toString(controller.getCantidad()));
     }
 
     @FXML
@@ -152,21 +151,9 @@ public class DetalleMaterialView extends Fragment {
         close();
     }
 
-    /**
-     * Funcion que carga los datos en la tabla.
-     *
-     * @author Sebastian Fuenzalida.
-     */
-    private void inicializarTablaRegistro() {
-        fechaCL.setCellValueFactory(new PropertyValueFactory<>("fecha"));
-        cantidadCL.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
-        retiradoCL.setCellValueFactory(new PropertyValueFactory<>("retirado"));
-    }
-
     @FXML
     public void retirar(ActionEvent event){
         RetirarMaterialView view = Injectable.find(RetirarMaterialView.class);
-        view.setController(controller);
         view.modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
                 .show().getScene().setFill(Color.TRANSPARENT);
         mostrarDatos();
@@ -174,23 +161,17 @@ public class DetalleMaterialView extends Fragment {
 
     @FXML
     public void agregar(ActionEvent event){
-        AgregarMaterialView view = Injectable.find(AgregarMaterialView.class);
-        view.setController(controller);
-        view.modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
-                .show().getScene().setFill(Color.TRANSPARENT);
+        Injectable.find(AgregarMaterialView.class).display();
         mostrarDatos();
-
     }
 
-    /**
-     * @param controller detalleMaterial
-     */
-    public void setController(DetalleMaterialController controller) {
-        this.controller = controller;
+    public void display(String idProyecto, Material material, EditMaterialDelegate delegate) {
+        controller.setOldMaterial(material);
+        controller.setIdProyecto(idProyecto);
+        controller.setDelegate(delegate);
+        modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
+                .show().getScene().setFill(Color.TRANSPARENT);
     }
-    /**
-     * @param router  detalleMaterial
-     */
-    public void setRouter(DetalleMaterialRouter router){this.router = router;}
+
 }
 

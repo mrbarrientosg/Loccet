@@ -1,5 +1,6 @@
 package view;
 
+import base.Injectable;
 import base.View;
 import cell.HorarioCell;
 import controller.ListaHorarioController;
@@ -9,12 +10,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.paint.Color;
-import javafx.stage.StageStyle;
 import model.Horario;
-import router.HorarioRouter;
 import util.Dias;
-
 import java.time.LocalTime;
 
 public final class ListaHorarioView extends View implements AddHorarioDelegate {
@@ -44,6 +41,8 @@ public final class ListaHorarioView extends View implements AddHorarioDelegate {
 
     @Override
     public void viewDidLoad() {
+        controller = Injectable.find(ListaHorarioController.class);
+
         diaColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().dia()));
         proyectoColumn.setCellValueFactory(new PropertyValueFactory<>("nombreProyecto"));
         entradaColumn.setCellValueFactory(new PropertyValueFactory<>("horaInicio"));
@@ -76,25 +75,20 @@ public final class ListaHorarioView extends View implements AddHorarioDelegate {
     }
 
     private void addHorarioAction(ActionEvent event) {
-        HorarioView view = HorarioRouter.create(controller.getModel(), this);
-        view.modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
-                .show().getScene().setFill(Color.TRANSPARENT);
+        Injectable.find(CrearHorarioView.class).display(controller.getRutTrabajador(), this);
     }
 
     private void deleteAction(ActionEvent event) {
         controller.eliminarHorario(tableHorario.getSelectionModel().getSelectedItem());
     }
 
-    public void setController(ListaHorarioController controller) {
-        this.controller = controller;
-    }
-
-    public ListaHorarioController getController() {
-        return controller;
-    }
-
     @Override
     public void didAddHorario(Horario horario) {
         tableHorario.getItems().add(new HorarioCell(horario));
+    }
+
+    public ListaHorarioView display(String rut) {
+        controller.setRutTrabajador(rut);
+        return this;
     }
 }

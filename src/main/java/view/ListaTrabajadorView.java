@@ -1,5 +1,6 @@
 package view;
 
+import base.Injectable;
 import base.View;
 import cell.TrabajadorCell;
 import controller.ListaTrabajadorController;
@@ -14,21 +15,22 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.paint.Color;
-import javafx.stage.StageStyle;
 import model.Trabajador;
-import router.BuscarTrabajadorRouter;
-import router.DetalleTrabajadorRouter;
+import util.Alert;
 import util.AsyncTask;
-
 import java.util.ListIterator;
 import java.util.Optional;
-import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 
 public final class ListaTrabajadorView extends View implements SaveTrabajadorDelegate {
 
     private ListaTrabajadorController controller;
+
+    @FXML
+    private Button deleteButton;
+
+    @FXML
+    private Button detailButton;
 
     @FXML
     private TextField searchTextField;
@@ -56,12 +58,26 @@ public final class ListaTrabajadorView extends View implements SaveTrabajadorDel
 
     @Override
     public void viewDidLoad() {
+        controller = Injectable.find(ListaTrabajadorController.class);
+        controller.setView(this);
+
         rutColumn.setCellValueFactory(new PropertyValueFactory<>("rut"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("apellido"));
         specialityColumn.setCellValueFactory(new PropertyValueFactory<>("nombreEspecialidad"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("tipoTrabajador"));
         horasColumn.setCellValueFactory(new PropertyValueFactory<>("horasPorDia"));
+
+        tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                deleteButton.setDisable(false);
+                detailButton.setDisable(false);
+            } else {
+                deleteButton.setDisable(true);
+                detailButton.setDisable(true);
+            }
+        });
+
     }
 
     @Override
@@ -86,43 +102,25 @@ public final class ListaTrabajadorView extends View implements SaveTrabajadorDel
 
     @FXML
     private void addEmployeeAction(ActionEvent event) {
-        BuscarTrabajadorView view = BuscarTrabajadorRouter.create(controller);
-        view.modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
-                .show().getScene().setFill(Color.TRANSPARENT);
+        Injectable.find(BuscarTrabajadorView.class).display(controller);
     }
 
     @FXML
     private void verDetalleTrabajador(ActionEvent event) {
         TrabajadorCell cell = tableView.getSelectionModel().getSelectedItem();
-        if (cell == null){
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText("No selecciono ningun trabajador");
-            alert.setContentText("Por favor seleccione un trabajador");
-            alert.showAndWait();
-            return;
-        }
-        Trabajador t = controller.obtenerTrabajador(cell.getRut());
-        DetalleTrabajadorView view = DetalleTrabajadorRouter.create(t, this);
-        view.modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
-                .show().getScene().setFill(Color.TRANSPARENT);    }
+        Injectable.find(DetalleTrabajadorView.class).display(cell.getRut(), this);
+    }
 
     @FXML
     private void deleteAction(ActionEvent event) {
         TrabajadorCell cell = tableView.getSelectionModel().getSelectedItem();
-        if (cell == null){
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning");
-                alert.setHeaderText("No selecciono ningun trabajador");
-                alert.setContentText("Por favor seleccione un trabajador");
-                alert.showAndWait();
-            return;
-        }
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmación");
-        alert.setHeaderText("Esta accion eliminara un trabajador");
-        alert.setContentText("¿Desea continuar?");
-        Optional<ButtonType> result = alert.showAndWait();
+
+        Optional<ButtonType> result = Alert.confirmation()
+                .withTitle("Eliminar Trabajador")
+                .withDescription("¿Desea continuar?")
+                .withButton(ButtonType.OK, ButtonType.CANCEL)
+                .build().showAndWait();
+
         if (result.get() == ButtonType.OK){
             controller.eliminarTrabajador(cell.getRut());
             tableView.getItems().remove(cell);
@@ -133,10 +131,6 @@ public final class ListaTrabajadorView extends View implements SaveTrabajadorDel
     public void addEmployee(TrabajadorCell cell) {
         tableView.getItems().add(cell);
         searchTextField.setText("");
-    }
-
-    public void setController(ListaTrabajadorController controller) {
-        this.controller = controller;
     }
 
     @Override
@@ -155,6 +149,11 @@ public final class ListaTrabajadorView extends View implements SaveTrabajadorDel
             }
             return false;
         });
+    }
+
+    public ListaTrabajadorView display(String id) {
+        controller.setIdProyecto(id);
+        return this;
     }
 
 }

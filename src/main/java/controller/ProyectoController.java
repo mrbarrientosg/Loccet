@@ -49,7 +49,7 @@ public class ProyectoController extends Controller {
     public void deleteProyect(String id){
         model.eliminarProyecto(id);
 
-        NetService<ProyectoAPI> service = NetService.getInstance();
+        NetService service = NetService.getInstance();
 
         JsonObject json = new JsonObject();
 

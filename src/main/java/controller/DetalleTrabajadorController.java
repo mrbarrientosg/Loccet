@@ -1,6 +1,7 @@
 package controller;
 
 import base.Controller;
+import base.Injectable;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -12,94 +13,117 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import json.LocalDateTypeConverter;
-import model.Especialidad;
-import model.Trabajador;
-import model.TrabajadorPartTime;
-import model.TrabajadorTiempoCompleto;
+import model.*;
 import network.endpoint.TrabajadorAPI;
 import network.service.NetService;
 import view.DetalleTrabajadorView;
+import view.ListaTrabajadorView;
 
 import java.time.LocalDate;
 import java.util.logging.Level;
 
 public class DetalleTrabajadorController extends Controller {
 
-    private Trabajador model;
-
     private DetalleTrabajadorView view;
 
-    private StringProperty name = new SimpleStringProperty();
+    private Constructora model;
 
-    private StringProperty lastName = new SimpleStringProperty();
+    private StringProperty name;
 
-    private StringProperty address = new SimpleStringProperty();
+    private StringProperty lastName;
 
-    private StringProperty country = new SimpleStringProperty();
+    private StringProperty address;
 
-    private StringProperty state = new SimpleStringProperty();
+    private StringProperty country;
 
-    private StringProperty city = new SimpleStringProperty();
+    private StringProperty state;
 
-    private StringProperty telephone = new SimpleStringProperty();
+    private StringProperty city;
 
-    private StringProperty email = new SimpleStringProperty();
+    private StringProperty telephone;
 
-    private StringProperty horas = new SimpleStringProperty();
+    private StringProperty email;
 
-    private ObjectProperty<LocalDate> birthday = new SimpleObjectProperty<>();
+    private StringProperty horas;
 
-    private ObjectProperty<Especialidad> speciality = new SimpleObjectProperty<>();
+    private ObjectProperty<LocalDate> birthday;
+
+    private ObjectProperty<Especialidad> speciality;
 
     private SaveTrabajadorDelegate delegate;
 
+    private Trabajador actualTrabajador;
+
     private Trabajador oldTrabajador;
 
-    private NetService<TrabajadorAPI> service = NetService.getInstance();
+    private String rutTrabajador;
+
+    private NetService service;
+
+    public DetalleTrabajadorController() {
+        name = new SimpleStringProperty();
+        lastName = new SimpleStringProperty();
+
+        address = new SimpleStringProperty();
+        country = new SimpleStringProperty();
+        state = new SimpleStringProperty();
+        city = new SimpleStringProperty();
+
+        telephone = new SimpleStringProperty();
+        email = new SimpleStringProperty();
+
+        horas = new SimpleStringProperty();
+
+        birthday = new SimpleObjectProperty<>();
+        speciality = new SimpleObjectProperty<>();
+
+        service = NetService.getInstance();
+        model = Constructora.getInstance();
+    }
 
     public void guardar() throws EmptyFieldException {
-        model.setNombre(name.get());
-        model.setApellido(lastName.get());
+        actualTrabajador.setNombre(name.get());
+        actualTrabajador.setApellido(lastName.get());
 
-        model.getLocalizacion().setDireccion(address.get());
-        model.getLocalizacion().setPais(country.get());
-        model.getLocalizacion().setEstado(state.get());
-        model.getLocalizacion().setCiudad(city.get());
+        actualTrabajador.getLocalizacion().setDireccion(address.get());
+        actualTrabajador.getLocalizacion().setPais(country.get());
+        actualTrabajador.getLocalizacion().setEstado(state.get());
+        actualTrabajador.getLocalizacion().setCiudad(city.get());
 
-        model.setTelefono(telephone.get());
-        model.setCorreoElectronico(email.get());
-        model.setFechaNacimiento(birthday.get());
+        actualTrabajador.setTelefono(telephone.get());
+        actualTrabajador.setCorreoElectronico(email.get());
+        actualTrabajador.setFechaNacimiento(birthday.get());
 
-        model.setEspecialidad(speciality.get());
+        actualTrabajador.setEspecialidad(speciality.get());
 
-        if (model instanceof TrabajadorPartTime)
-            ((TrabajadorPartTime) model).setCantidadHoraTrabajada(Integer.parseInt(horas.get()));
+        if (actualTrabajador instanceof TrabajadorPartTime)
+            ((TrabajadorPartTime) actualTrabajador).setCantidadHoraTrabajada(Integer.parseInt(horas.get()));
 
         if (delegate != null)
-            delegate.didSaveTrabajador(model);
+            delegate.didSaveTrabajador(actualTrabajador);
     }
 
     private void loadData() {
-        name.setValue(model.getNombre());
-        lastName.setValue(model.getApellido());
+        name.setValue(actualTrabajador.getNombre());
+        lastName.setValue(actualTrabajador.getApellido());
 
-        address.setValue(model.getLocalizacion().getDireccion());
-        country.setValue(model.getLocalizacion().getPais());
-        state.setValue(model.getLocalizacion().getEstado());
-        city.setValue(model.getLocalizacion().getCiudad());
+        address.setValue(actualTrabajador.getLocalizacion().getDireccion());
+        country.setValue(actualTrabajador.getLocalizacion().getPais());
+        state.setValue(actualTrabajador.getLocalizacion().getEstado());
+        city.setValue(actualTrabajador.getLocalizacion().getCiudad());
 
-        telephone.setValue(model.getTelefono());
-        email.setValue(model.getCorreoElectronico());
-        birthday.setValue(model.getFechaNacimiento());
+        telephone.setValue(actualTrabajador.getTelefono());
+        email.setValue(actualTrabajador.getCorreoElectronico());
+        birthday.setValue(actualTrabajador.getFechaNacimiento());
 
-        speciality.set(model.getEspecialidad());
+        speciality.set(actualTrabajador.getEspecialidad());
 
-        if (model instanceof TrabajadorPartTime)
-            horas.set(String.valueOf(((TrabajadorPartTime) model).getCantidadHoraTrabajada()));
+        if (actualTrabajador instanceof TrabajadorPartTime)
+            horas.set(String.valueOf(((TrabajadorPartTime) actualTrabajador).getCantidadHoraTrabajada()));
     }
 
     public void save() {
-        if (oldTrabajador.equals(model))
+        if (oldTrabajador.equals(actualTrabajador))
             return;
 
         Gson gson = new GsonBuilder()
@@ -108,10 +132,10 @@ public class DetalleTrabajadorController extends Controller {
                 .excludeFieldsWithoutExposeAnnotation()
                 .create();
 
-        JsonObject json = gson.toJsonTree(model).getAsJsonObject();
+        JsonObject json = gson.toJsonTree(actualTrabajador).getAsJsonObject();
 
-        if (model instanceof TrabajadorPartTime) {
-            json.addProperty("cantidad_hora_trabajada", ((TrabajadorPartTime) model).getCantidadHoraTrabajada());
+        if (actualTrabajador instanceof TrabajadorPartTime) {
+            json.addProperty("cantidad_hora_trabajada", ((TrabajadorPartTime) actualTrabajador).getCantidadHoraTrabajada());
         }
 
         System.out.println(json);
@@ -123,31 +147,32 @@ public class DetalleTrabajadorController extends Controller {
 
     }
 
-    public void setView(DetalleTrabajadorView view) {
-        this.view = view;
-    }
+    public void setRutTrabajador(String rutTrabajador) {
+        this.rutTrabajador = rutTrabajador;
 
-    public void setModel(Trabajador model) {
-        this.model = model;
+        actualTrabajador = model.obtenerTrabajador(rutTrabajador);
 
-        if (model instanceof TrabajadorPartTime) {
-            oldTrabajador = new TrabajadorPartTime((TrabajadorPartTime) model);
+        if (actualTrabajador instanceof TrabajadorPartTime) {
+            oldTrabajador = new TrabajadorPartTime((TrabajadorPartTime) actualTrabajador);
             view.showPartTimeVbox();
         } else {
-            oldTrabajador = new TrabajadorTiempoCompleto((TrabajadorTiempoCompleto) model);
+            oldTrabajador = new TrabajadorTiempoCompleto((TrabajadorTiempoCompleto) actualTrabajador);
             view.hidePartTimeVbox();
         }
 
         loadData();
-        view.bind();
     }
 
     public void setDelegate(SaveTrabajadorDelegate delegate) {
         this.delegate = delegate;
     }
 
-    public String getRut() {
-        return model.getRut();
+    public void setView(DetalleTrabajadorView view) {
+        this.view = view;
+    }
+
+    public String getRutTrabajador() {
+        return rutTrabajador;
     }
 
     public StringProperty nameProperty() {

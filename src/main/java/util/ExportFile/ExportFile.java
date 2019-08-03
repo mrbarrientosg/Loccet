@@ -1,6 +1,7 @@
 package util.ExportFile;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * Clas que maneja de la forma que se exporta un archivo
@@ -13,7 +14,7 @@ public final class ExportFile {
         this.fileStrategy = strategy;
     }
 
-    public File export() {
+    public File export() throws IOException {
         return fileStrategy.export();
     }
 }

@@ -14,7 +14,7 @@ import json.LocalDateTypeConverter;
 import model.*;
 import network.endpoint.TrabajadorAPI;
 import network.service.NetService;
-import view.TrabajadorView;
+import view.CrearTrabajadorView;
 
 import java.time.LocalDate;
 import java.util.logging.Level;
@@ -24,9 +24,7 @@ import java.util.logging.Level;
  *
  * @author Matias Barrientos
  */
-public final class TrabajadorController extends Controller {
-
-    private TrabajadorView view;
+public final class CrearTrabajadorController extends Controller {
 
     private Constructora model;
 
@@ -60,7 +58,7 @@ public final class TrabajadorController extends Controller {
 
     private SaveTrabajadorDelegate delegate;
 
-    public TrabajadorController() {
+    public CrearTrabajadorController() {
         rut = new SimpleStringProperty(null);
         name = new SimpleStringProperty(null);
         lastName = new SimpleStringProperty(null);
@@ -78,6 +76,8 @@ public final class TrabajadorController extends Controller {
 
         partTime = new SimpleBooleanProperty(false);
         hours = new SimpleStringProperty(null);
+
+        model = Constructora.getInstance();
     }
 
     public void guardarTrabajador() throws EmptyFieldException, InvalidaRutException {
@@ -111,7 +111,7 @@ public final class TrabajadorController extends Controller {
         if (delegate != null)
             delegate.didSaveTrabajador(trabajador);
 
-        NetService<TrabajadorAPI> service = NetService.getInstance();
+        NetService service = NetService.getInstance();
 
         Gson gson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
@@ -123,7 +123,6 @@ public final class TrabajadorController extends Controller {
         json.addProperty("cantidad_hora_trabajada", horas != null ? horas : 8);
         json.addProperty("tiempo_completo", horas != null ? 0 : 1);
 
-        // TODO: Falta implementar la especialidad
         json.addProperty("id_especialidad", trabajador.getEspecialidad().getId());
 
         json.addProperty("dns_constructora", model.getDns());
@@ -148,14 +147,6 @@ public final class TrabajadorController extends Controller {
 
     public void setDelegate(SaveTrabajadorDelegate delegate) {
         this.delegate = delegate;
-    }
-
-    public void setModel(Constructora model) {
-        this.model = model;
-    }
-
-    public void setView(TrabajadorView view) {
-        this.view = view;
     }
 
     public StringProperty rutProperty() {

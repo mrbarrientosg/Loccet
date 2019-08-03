@@ -1,9 +1,9 @@
 package view;
+
 import base.Injectable;
 import base.View;
 import cell.ProyectoCell;
 import controller.ReporteController;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -11,19 +11,13 @@ import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import model.Constructora;
-import model.Costeable;
-import router.ReporteRouter;
+import util.Alert;
 import util.AsyncTask;
-
 import java.math.BigDecimal;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class ReporteView extends View {
 
     private ReporteController controller;
-
-    private ReporteRouter router;
 
     private String idProyecto;
 
@@ -59,6 +53,8 @@ public class ReporteView extends View {
 
     @Override
     public void viewDidLoad() {
+        controller = Injectable.find(ReporteController.class);
+
         Callback<ListView<ProyectoCell>, ListCell<ProyectoCell>> factory = lv -> new ListCell<ProyectoCell>() {
             @Override
             protected void updateItem(ProyectoCell item, boolean empty) {
@@ -119,20 +115,12 @@ public class ReporteView extends View {
                 montoActualLB.setText(montoContractual.subtract(costo).toString());
             });
         }
-        else{
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText("Falta seleccionar un proyecto");
-            alert.setContentText("Por favor, seleccione un proyecto");
-            alert.showAndWait();
+        else {
+            Alert.error()
+                    .withDescription("Por favor, seleccione un proyecto")
+                    .withButton(ButtonType.OK)
+                    .build().show();
         }
     }
 
-    public void setController(ReporteController controller) {
-        this.controller = controller;
-    }
-
-    public void setRouter(ReporteRouter router) {
-        this.router = router;
-    }
 }

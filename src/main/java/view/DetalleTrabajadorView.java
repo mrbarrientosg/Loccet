@@ -1,7 +1,9 @@
 package view;
 
+import base.Injectable;
 import base.View;
 import controller.DetalleTrabajadorController;
+import delegate.SaveTrabajadorDelegate;
 import exceptions.EmptyFieldException;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -10,9 +12,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import model.Especialidad;
 import model.Especialidades;
+import util.Alert;
 
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
@@ -77,8 +82,11 @@ public class DetalleTrabajadorView extends View {
 
     @Override
     public void viewDidLoad() {
+        controller = Injectable.find(DetalleTrabajadorController.class);
+        controller.setView(this);
         isEditing = false;
         disable = new SimpleBooleanProperty(true);
+        bind();
 
         nameField.disableProperty().bind(disable);
         lastNameField.disableProperty().bind(disable);
@@ -124,7 +132,7 @@ public class DetalleTrabajadorView extends View {
 
     @Override
     public void viewDidShow() {
-        rutField.setText(controller.getRut());
+        rutField.setText(controller.getRutTrabajador());
         container.getChildren().add(listaHorarioView.getRoot());
     }
 
@@ -140,7 +148,7 @@ public class DetalleTrabajadorView extends View {
         controller.save();
     }
 
-    public void bind() {
+    private void bind() {
         nameField.textProperty().bindBidirectional(controller.nameProperty());
         lastNameField.textProperty().bindBidirectional(controller.lastNameProperty());
 
@@ -175,9 +183,10 @@ public class DetalleTrabajadorView extends View {
                 isEditing = false;
                 disable.setValue(true);
             } catch (EmptyFieldException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText(e.getMessage());
-                alert.show();
+                Alert.error()
+                        .withDescription(e.getMessage())
+                        .withButton(ButtonType.OK)
+                        .build().show();
             }
 
         } else {
@@ -187,11 +196,11 @@ public class DetalleTrabajadorView extends View {
         }
     }
 
-    public void setController(DetalleTrabajadorController controller) {
-        this.controller = controller;
-    }
-
-    public void setListaHorarioView(ListaHorarioView listaHorarioView) {
-        this.listaHorarioView = listaHorarioView;
+    public void display(String rut, SaveTrabajadorDelegate delegate) {
+        controller.setRutTrabajador(rut);
+        controller.setDelegate(delegate);
+        listaHorarioView = Injectable.find(ListaHorarioView.class).display(rut);
+        modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
+                .show().getScene().setFill(Color.TRANSPARENT);
     }
 }

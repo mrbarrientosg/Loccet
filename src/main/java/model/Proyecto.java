@@ -3,7 +3,6 @@ package model;
 import com.google.gson.*;
 import com.google.gson.annotations.Expose;
 import exceptions.EmptyFieldException;
-import exceptions.ItemExisteException;
 import json.LocalDateTypeConverter;
 import model.store.*;
 import model.store.memory.MemoryStoreAsistencia;
@@ -17,7 +16,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 
 public class Proyecto implements Costeable{
@@ -97,9 +95,9 @@ public class Proyecto implements Costeable{
      *
      * @author Matias Zuñiga
      */
-    public void agregarTrabajador(Trabajador trabajador) throws ItemExisteException {
+    public void agregarTrabajador(Trabajador trabajador) {
         if (storeTrabajador.contains(trabajador))
-            throw new ItemExisteException();
+            return;
 
         trabajador.asociarProyecto(this);
         storeTrabajador.save(trabajador);
@@ -134,7 +132,7 @@ public class Proyecto implements Costeable{
 
     // MARK: - Metodos Inventario
 
-    public void agregarMaterial(Material material) throws ItemExisteException {
+    public void agregarMaterial(Material material) {
         inventarioMaterial.agregarMaterial(material);
     }
 
@@ -166,6 +164,17 @@ public class Proyecto implements Costeable{
         inventarioMaterial.agregarRegistroMaterial(idMaterial, registroMaterial);
     }
 
+    public void limpiar() {
+        storeTrabajador.findAll().forEach(trabajador -> trabajador.eliminarProyecto(id));
+        storeTrabajador.clear();
+        storeFase.clear();
+        asistenciaStore.clear();
+
+        storeFase = null;
+        storeTrabajador = null;
+        asistenciaStore = null;
+        localizacion = null;
+    }
     // MARK: - Interfaz Costeable
 
     @Override

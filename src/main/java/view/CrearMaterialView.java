@@ -1,23 +1,24 @@
 package view;
 
+import base.Injectable;
 import base.View;
 import controller.InventarioMaterialController;
-import exceptions.ItemExisteException;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import exceptions.EmptyFieldException;
+import exceptions.NegativeQuantityException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.paint.Color;
+import javafx.stage.StageStyle;
 import model.Material;
 import model.RegistroMaterial;
-import model.UnidadMedida;
+import util.Alert;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
-public final class NuevoMaterialView extends View {
+public final class CrearMaterialView extends View {
 
     private InventarioMaterialController controller;
 
@@ -47,6 +48,8 @@ public final class NuevoMaterialView extends View {
 
     @Override
     public void viewDidLoad() {
+        controller = Injectable.find(InventarioMaterialController.class);
+
         Pattern pattern = Pattern.compile("\\d*|\\d+\\.\\d*");
 
         TextFormatter formatter =  new TextFormatter<UnaryOperator>(change ->
@@ -58,7 +61,6 @@ public final class NuevoMaterialView extends View {
                 pattern.matcher(change.getControlNewText()).matches() ? change : null );
 
         precioTF.setTextFormatter(formater);
-
     }
 
     @Override
@@ -69,7 +71,7 @@ public final class NuevoMaterialView extends View {
 
     @Override
     public void viewDidClose() {
-        clear();//Limpia los TextField.
+        clear();
     }
 
     private RegistroMaterial registroMaterial(double cantidad){
@@ -79,10 +81,12 @@ public final class NuevoMaterialView extends View {
     @FXML
     public void agregar(ActionEvent event) {
         String lector = idMaterialTF.getText();
+
         Material material;
+
         RegistroMaterial registroMaterial;
-        if (!nombreTF.getText().isEmpty() && !descripcionTF.getText().isEmpty()&& !cantidadTF.getText().isEmpty()
-        && !precioTF.getText().isEmpty()){
+
+        try {
             if (lector.isEmpty()) {
                 material = new Material(nombreTF.getText(), descripcionTF.getText(), Double.parseDouble(cantidadTF.getText()), //Si el usuario no ingresa el id
                         unidadCB.getSelectionModel().getSelectedItem(),                                             //se utiliza este constructor.
@@ -95,24 +99,17 @@ public final class NuevoMaterialView extends View {
 
             registroMaterial = registroMaterial(material.getCantidad());
 
-            try {
-                controller.nuevoMaterial(material, registroMaterial);
-            } catch (ItemExisteException e) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning");
-                alert.setContentText(e.getMessage());
-                alert.showAndWait();
-            }
-            close();
-        } else{//En caso de que el usuario deje un campo vacio salta una excepcion.
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText("Ingreso de datos invalido");
-            alert.setContentText("Por favor ingresar los campos requeridos");
-            alert.showAndWait();
-        }
+            controller.nuevoMaterial(material, registroMaterial);
 
+            close();
+        }  catch (NegativeQuantityException | EmptyFieldException e) {
+            Alert.error()
+                    .withDescription(e.getMessage())
+                    .withButton(ButtonType.OK)
+                    .build().show();
+        }
     }
+
     private void clear(){
         idMaterialTF.setText("");
         nombreTF.setText("");
@@ -126,8 +123,9 @@ public final class NuevoMaterialView extends View {
         close();
     }
 
-    public void setController(InventarioMaterialController controller) {
-        this.controller = controller;
+    public void display() {
+        modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
+                .show().getScene().setFill(Color.TRANSPARENT);
     }
 
 }

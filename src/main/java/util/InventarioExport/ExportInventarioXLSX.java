@@ -80,18 +80,15 @@ public class ExportInventarioXLSX implements ExportFileStrategy {
     }
 
     @Override
-    public File export() {
-        // Write the output to a file
+    public File export() throws IOException {
         File file = null;
+
         FileOutputStream fileOut = null;
-        try {
-            file = File.createTempFile("Inventario_" + nombreProyecto , ".xlsx");
-            fileOut = new FileOutputStream(file);
-            workbook.write(fileOut);
-            fileOut.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        file = File.createTempFile("Inventario_" + nombreProyecto , ".xlsx");
+        fileOut = new FileOutputStream(file);
+        workbook.write(fileOut);
+        fileOut.close();
 
         return file;
     }

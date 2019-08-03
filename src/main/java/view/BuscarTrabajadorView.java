@@ -3,24 +3,23 @@ package view;
 import base.Fragment;
 import cell.TrabajadorCell;
 import controller.BuscarTrabajadorController;
+import delegate.SearchEmployeeDelegate;
 import io.reactivex.Observable;
 import io.reactivex.rxjavafx.observables.JavaFxObservable;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import io.reactivex.schedulers.Schedulers;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import model.Trabajador;
+import javafx.scene.paint.Color;
+import javafx.stage.StageStyle;
 
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-public class BuscarTrabajadorView extends Fragment {
+public final class BuscarTrabajadorView extends Fragment {
 
     private BuscarTrabajadorController controller;
 
@@ -38,6 +37,8 @@ public class BuscarTrabajadorView extends Fragment {
 
     @Override
     public void viewDidLoad() {
+        controller = new BuscarTrabajadorController();
+        controller.setView(this);
 
         listView.setCellFactory(param -> new ListCell<TrabajadorCell>() {
             @Override
@@ -60,6 +61,9 @@ public class BuscarTrabajadorView extends Fragment {
             else
                 doneButton.setDisable(true);
         });
+
+        doneButton.setOnAction(controller::doneAction);
+        cancelButton.setOnAction(event -> close());
     }
 
     @Override
@@ -74,18 +78,14 @@ public class BuscarTrabajadorView extends Fragment {
                         .toObservable())
                 .subscribeOn(Schedulers.io())
                 .observeOn(JavaFxScheduler.platform())
-                .subscribe(list -> {
-                    listView.setItems(list);
-                });
+                .subscribe(listView::setItems);
 
         controller.selectedItemProperty().bind(listView.getSelectionModel().selectedItemProperty());
-
-        doneButton.setOnAction(controller::doneAction);
-        cancelButton.setOnAction(event -> close());
     }
 
-
-    public void setController(BuscarTrabajadorController controller) {
-        this.controller = controller;
+    public void display(SearchEmployeeDelegate delegate) {
+        controller.setDelegate(delegate);
+        modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
+                .show().getScene().setFill(Color.TRANSPARENT);
     }
 }

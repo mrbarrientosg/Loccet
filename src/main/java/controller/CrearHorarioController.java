@@ -2,57 +2,54 @@ package controller;
 
 import base.Controller;
 import cell.ProyectoCell;
-import cell.TrabajadorCell;
-import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import javafx.beans.Observable;
+import exceptions.DateRangeException;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import json.LocalDateTypeConverter;
+import model.Constructora;
 import model.Horario;
-import model.Proyecto;
-import model.Trabajador;
 import network.endpoint.HorarioAPI;
-import network.endpoint.TrabajadorAPI;
 import network.service.NetService;
-import router.HorarioRouter;
 import delegate.AddHorarioDelegate;
 import util.AsyncTask;
-import view.HorarioView;
-
-import java.time.LocalDate;
+import view.CrearHorarioView;
 import java.time.LocalTime;
-import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.logging.Level;
 
 /**
- * Controlador de la vista HorarioView
+ * Controlador de la vista CrearHorarioView
  */
-public final class HorarioController extends Controller {
+public final class CrearHorarioController extends Controller {
 
-    private HorarioView view;
+    private CrearHorarioView view;
 
-    private HorarioRouter router;
-
-    private Trabajador trabajador;
-
-    private final ObjectProperty<LocalTime> entrada = new SimpleObjectProperty<>();
-
-    private final ObjectProperty<LocalTime> salida = new SimpleObjectProperty<>();
+    private Constructora model;
 
     private AddHorarioDelegate delegate;
+
+    private ObjectProperty<LocalTime> entrada;
+
+    private ObjectProperty<LocalTime> salida;
+
+    private String rutTrabajador;
+
+    public CrearHorarioController() {
+        entrada = new SimpleObjectProperty<>();
+        salida = new SimpleObjectProperty<>();
+
+        model = Constructora.getInstance();
+    }
 
     public void fetchProyectos(Consumer<ObservableList<ProyectoCell>> callBack) {
         AsyncTask.supplyAsync(() -> {
             ObservableList<ProyectoCell> cells = FXCollections.observableArrayList();
 
-            trabajador.getProyectos().forEach(proyecto -> cells.add(new ProyectoCell(proyecto)));
+            model.getProyectos(rutTrabajador).forEach(proyecto -> cells.add(new ProyectoCell(proyecto)));
 
             return cells;
         }).thenAccept(callBack);
@@ -63,20 +60,19 @@ public final class HorarioController extends Controller {
      * Agregar un Horario al modelo Trabajador
      * @param dia
      */
-    public void agregarHorario(int dia, ProyectoCell cell) {
+    public void agregarHorario(int dia, ProyectoCell cell) throws DateRangeException {
         if (entrada.get().compareTo(salida.get()) > 0) {
-            router.showWarning("La hora de entrada no puede superar la hora de salida").show();
-            return;
+            throw new DateRangeException("La hora de entrada no puede ser mayor que la de salida.");
         }
 
         Horario horario = new Horario(dia, entrada.get(), salida.get());
 
-        trabajador.agregarHorario(cell.getId(), horario);
+        model.agregarHorario(rutTrabajador, cell.getId(), horario);
 
         if (delegate != null)
             delegate.didAddHorario(horario);
 
-        NetService<HorarioAPI> service = NetService.getInstance();
+        NetService service = NetService.getInstance();
 
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Horario.class, new Horario.HorarioSerializer())
@@ -109,16 +105,11 @@ public final class HorarioController extends Controller {
         this.delegate = delegate;
     }
 
-    public void setView(HorarioView view) {
+    public void setView(CrearHorarioView view) {
         this.view = view;
-        view.refreshView();
     }
 
-    public void setRouter(HorarioRouter router) {
-        this.router = router;
-    }
-
-    public void setTrabajador(Trabajador trabajador) {
-        this.trabajador = trabajador;
+    public void setRutTrabajador(String rutTrabajador) {
+        this.rutTrabajador = rutTrabajador;
     }
 }
