@@ -1,5 +1,7 @@
 package model.store;
 
+import model.Cleanable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +43,7 @@ public abstract class AbstractStore<Model> implements Store<Model> {
     }
 
     @Override
-    public void clear() {
+    public void clean() {
         items.clear();
         items = null;
     }

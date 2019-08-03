@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Sebastian Fuenzalida
  */
-public class InventarioMaterial implements Costeable {
+public class InventarioMaterial implements Costeable, Cleanable {
 
     // MARK: - Atributos
 
@@ -80,5 +80,11 @@ public class InventarioMaterial implements Costeable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    @Override
+    public void clean() {
+        storeMaterial.clean();
+        storeMaterial = null;
     }
 }

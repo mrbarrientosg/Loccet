@@ -18,7 +18,7 @@ import java.util.Iterator;
 import java.util.List;
 
 
-public class Proyecto implements Costeable{
+public class Proyecto implements Costeable, Cleanable {
 
     // MARK: - Atributos
 
@@ -136,6 +136,18 @@ public class Proyecto implements Costeable{
         inventarioMaterial.agregarMaterial(material);
     }
 
+    public Material eliminarMaterial(String idMaterial) {
+        return inventarioMaterial.eliminarMaterial(idMaterial);
+    }
+
+    public Material obtenerMaterial(String idMaterial) {
+        return inventarioMaterial.obtenerMaterial(idMaterial);
+    }
+
+    public Iterable<Material> buscarMaterial(MemorySpecification<Material> specification) {
+        return inventarioMaterial.buscarMaterial(specification);
+    }
+
     // MARK: - Metodos Asistencia
 
     public void agregarAsistencia(String rutTrabajador, Asistencia asistencia) {
@@ -164,17 +176,6 @@ public class Proyecto implements Costeable{
         inventarioMaterial.agregarRegistroMaterial(idMaterial, registroMaterial);
     }
 
-    public void limpiar() {
-        storeTrabajador.findAll().forEach(trabajador -> trabajador.eliminarProyecto(id));
-        storeTrabajador.clear();
-        storeFase.clear();
-        asistenciaStore.clear();
-
-        storeFase = null;
-        storeTrabajador = null;
-        asistenciaStore = null;
-        localizacion = null;
-    }
     // MARK: - Interfaz Costeable
 
     @Override
@@ -220,8 +221,8 @@ public class Proyecto implements Costeable{
         return nombreCliente;
     }
 
-    public InventarioMaterial getInventarioMaterial() {
-        return inventarioMaterial;
+    public Integer getIdInventario() {
+        return inventarioMaterial.getId();
     }
 
     // MARK: - Setter
@@ -263,6 +264,10 @@ public class Proyecto implements Costeable{
         this.nombreCliente = nombreCliente;
     }
 
+    public void setIdInventario(Integer id) {
+        inventarioMaterial.setId(id);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == this) return true;
@@ -278,6 +283,18 @@ public class Proyecto implements Costeable{
 
     }
 
+    @Override
+    public void clean() {
+        storeTrabajador.findAll().forEach(trabajador -> trabajador.eliminarProyecto(id));
+        storeTrabajador.clean();
+        storeFase.clean();
+        asistenciaStore.clean();
+
+        storeFase = null;
+        storeTrabajador = null;
+        asistenciaStore = null;
+        localizacion = null;
+    }
 
     // MARK: - JSON
 

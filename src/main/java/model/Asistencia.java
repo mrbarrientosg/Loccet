@@ -2,7 +2,7 @@ package model;
 
 import java.time.Instant;
 
-public class Asistencia {
+public class Asistencia implements Cleanable {
 
     // MARK: - Atributos
 
@@ -74,5 +74,11 @@ public class Asistencia {
 
     public void setTrabajador(Trabajador trabajador) {
         this.trabajador = trabajador;
+    }
+
+    @Override
+    public void clean() {
+        proyecto = null;
+        trabajador = null;
     }
 }

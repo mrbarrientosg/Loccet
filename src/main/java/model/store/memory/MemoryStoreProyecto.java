@@ -43,8 +43,8 @@ public class MemoryStoreProyecto extends AbstractStore<Proyecto> implements Stor
     }
 
     @Override
-    public void clear() {
-        super.clear();
+    public void clean() {
+        super.clean();
         mapProyecto.clear();
         mapProyecto = null;
     }

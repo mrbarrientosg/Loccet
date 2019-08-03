@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public abstract class Trabajador {
+public abstract class Trabajador implements Cleanable {
 
     // MARK: - Atributos
 
@@ -106,21 +106,17 @@ public abstract class Trabajador {
         list.forEach(storeHorario::delete);
     }
 
-
     public Iterable<Horario> obtenerListaHorario() {
         return storeHorario.findAll();
     }
 
-    public void limpiar() {
+    @Override
+    public void clean() {
         storeProyecto.findAll().forEach(proyecto -> proyecto.eliminarTrabajador(rut));
+        storeHorario.findAll().forEach(Horario::clean);
 
-        storeHorario.findAll().forEach(horario -> {
-            horario.setProyecto(null);
-            horario.setTrabajador(null);
-        });
-
-        storeHorario.clear();
-        storeProyecto.clear();
+        storeHorario.clean();
+        storeProyecto.clean();
 
         storeHorario = null;
         storeProyecto = null;

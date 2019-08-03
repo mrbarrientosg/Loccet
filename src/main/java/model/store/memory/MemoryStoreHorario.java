@@ -43,8 +43,8 @@ public class MemoryStoreHorario extends AbstractStore<Horario> implements StoreH
     }
 
     @Override
-    public void clear() {
-        super.clear();
+    public void clean() {
+        super.clean();
         horarioMap.clear();
         horarioMap = null;
     }

@@ -39,8 +39,8 @@ public class MemoryStoreFase extends AbstractStore<Fase> implements StoreFase {
     }
 
     @Override
-    public void clear() {
-        super.clear();
+    public void clean() {
+        super.clean();
         faseMap.clear();
         faseMap = null;
     }

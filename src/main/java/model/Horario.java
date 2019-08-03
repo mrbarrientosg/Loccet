@@ -11,7 +11,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-public class Horario {
+public class Horario implements Cleanable {
 
     // MARK: - Atributos
 
@@ -75,6 +75,11 @@ public class Horario {
         this.trabajador = trabajador;
     }
 
+    @Override
+    public void clean() {
+        proyecto = null;
+        trabajador = null;
+    }
 
     public static class HorarioSerializer implements JsonSerializer<Horario> {
 
@@ -91,4 +96,5 @@ public class Horario {
             return json;
         }
     }
+
 }

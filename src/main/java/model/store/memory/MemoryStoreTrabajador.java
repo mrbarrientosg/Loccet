@@ -48,8 +48,8 @@ public class MemoryStoreTrabajador extends AbstractStore<Trabajador> implements 
     }
 
     @Override
-    public void clear() {
-        super.clear();
+    public void clean() {
+        super.clean();
         mapTrabajadores.clear();
         mapTrabajadores = null;
     }

@@ -5,7 +5,7 @@ import model.store.memory.MemoryStoreTarea;
 
 import java.time.Instant;
 
-public class Fase {
+public class Fase implements Cleanable {
 
     // MARK: - Atributos
 
@@ -92,5 +92,12 @@ public class Fase {
 
     public void setProyecto(Proyecto proyecto) {
         this.proyecto = proyecto;
+    }
+
+    @Override
+    public void clean() {
+        proyecto = null;
+        tareaStore.clean();
+        tareaStore = null;
     }
 }

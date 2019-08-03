@@ -70,7 +70,7 @@ public class Constructora implements Costeable {
 
         storeProyecto.delete(proyecto);
 
-        proyecto.limpiar();
+        proyecto.clean();
 
         return proyecto;
     }
@@ -137,7 +137,7 @@ public class Constructora implements Costeable {
         if (trabajador == null)
             return null;
 
-        trabajador.limpiar();
+        trabajador.clean();
 
         return trabajador;
     }
@@ -193,7 +193,7 @@ public class Constructora implements Costeable {
         if (p == null)
             return Collections.emptyList();
 
-        return p.getInventarioMaterial().buscarMaterial(specification);
+        return p.buscarMaterial(specification);
     }
 
     public Material obtenerMaterial(String idProyecto, String idMaterial) {
@@ -202,7 +202,7 @@ public class Constructora implements Costeable {
         if (p == null)
             return null;
 
-        return p.getInventarioMaterial().obtenerMaterial(idMaterial);
+        return p.obtenerMaterial(idMaterial);
     }
 
     public void agregarMaterial(String idProyecto, Material material) {
@@ -211,7 +211,7 @@ public class Constructora implements Costeable {
         if (p == null)
             return;
 
-        p.getInventarioMaterial().agregarMaterial(material);
+        p.agregarMaterial(material);
     }
 
     public Material eliminarMaterial(String idProyecto, String idMaterial) {
@@ -220,7 +220,7 @@ public class Constructora implements Costeable {
         if (p == null)
             return null;
 
-        return p.getInventarioMaterial().eliminarMaterial(idMaterial);
+        return p.eliminarMaterial(idMaterial);
     }
 
     public Integer getIdInventario(String idProyecto) {
@@ -229,7 +229,7 @@ public class Constructora implements Costeable {
         if (p == null)
             return null;
 
-        return p.getInventarioMaterial().getId();
+        return p.getIdInventario();
     }
 
     public void agregarRegistroMaterial(String idProyecto, String idMaterial, RegistroMaterial rm) {
@@ -238,7 +238,7 @@ public class Constructora implements Costeable {
         if (proyecto == null)
             return;
 
-        Material m = proyecto.getInventarioMaterial().obtenerMaterial(idMaterial);
+        Material m = proyecto.obtenerMaterial(idMaterial);
 
         if (m == null)
             return;
@@ -252,7 +252,7 @@ public class Constructora implements Costeable {
         if (proyecto == null)
             return;
 
-        Material m = proyecto.getInventarioMaterial().obtenerMaterial(idMaterial);
+        Material m = proyecto.obtenerMaterial(idMaterial);
 
         if (m == null)
             return;
@@ -315,7 +315,7 @@ public class Constructora implements Costeable {
         if (proyecto == null)
             return Collections.emptyList();
 
-        Material m = proyecto.getInventarioMaterial().obtenerMaterial(idMaterial);
+        Material m = proyecto.obtenerMaterial(idMaterial);
 
         if (m == null)
             return Collections.emptyList();

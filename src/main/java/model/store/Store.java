@@ -1,6 +1,8 @@
 package model.store;
 
-public interface Store<Model> {
+import model.Cleanable;
+
+public interface Store<Model> extends Cleanable {
     public Model save(Model value);
 
     public Model delete(Model value);
@@ -8,6 +10,4 @@ public interface Store<Model> {
     public boolean contains(Model value);
 
     public Iterable<Model> findAll();
-
-    public void clear();
 }

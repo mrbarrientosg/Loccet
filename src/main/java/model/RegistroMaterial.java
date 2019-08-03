@@ -16,7 +16,7 @@ import java.util.Locale;
 /**
  * @author Sebastian Fuenzalida.
  */
-public class RegistroMaterial {
+public class RegistroMaterial implements Cleanable {
 
     // MARK: - Atributos
 
@@ -54,6 +54,11 @@ public class RegistroMaterial {
 
     public void setMaterial(Material material) {
         this.material = material;
+    }
+
+    @Override
+    public void clean() {
+        material = null;
     }
 
     public static class RegistroMaterialSerializer implements JsonSerializer<RegistroMaterial> {

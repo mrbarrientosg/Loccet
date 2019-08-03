@@ -19,7 +19,7 @@ import java.util.List;
  * @author Sebastian Fuenzalida
  *
  */
-public class Material implements Costeable {
+public class Material implements Costeable, Cleanable {
 
     // MARK: - Atributos
 
@@ -184,5 +184,11 @@ public class Material implements Costeable {
     @Override
     public BigDecimal calcularCosto() {
         return getPrecio().multiply(BigDecimal.valueOf(getCantidad()));
+    }
+
+    @Override
+    public void clean() {
+        registroMaterialStore.clean();
+        registroMaterialStore = null;
     }
 }

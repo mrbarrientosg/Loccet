@@ -3,7 +3,6 @@ package model.store.memory;
 import model.Material;
 import model.store.AbstractStore;
 import model.store.StoreMaterial;
-
 import java.util.*;
 
 public class MemoryStoreMaterial extends AbstractStore<Material> implements StoreMaterial {
@@ -38,8 +37,8 @@ public class MemoryStoreMaterial extends AbstractStore<Material> implements Stor
     }
 
     @Override
-    public void clear() {
-        super.clear();
+    public void clean() {
+        super.clean();
         materialMap.clear();
         materialMap = null;
     }

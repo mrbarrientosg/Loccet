@@ -110,7 +110,7 @@ public final class CrearProyectoController extends Controller {
                 .subscribe(jsonElement -> {
                     JsonObject responseJson = jsonElement.getAsJsonObject();
                     proyecto.getLocalizacion().setId(responseJson.get("id_localizacion").getAsInt());
-                    proyecto.getInventarioMaterial().setId(responseJson.get("id_inventario").getAsInt());
+                    proyecto.setIdInventario(responseJson.get("id_inventario").getAsInt());
                     System.out.println(jsonElement);
                 }, throwable -> {
                     LOGGER.log(Level.SEVERE, "", throwable);
