@@ -6,6 +6,7 @@ import controller.CrearTrabajadorController;
 import delegate.SaveTrabajadorDelegate;
 import exceptions.EmptyFieldException;
 import exceptions.InvalidaRutException;
+import exceptions.ObjectExistException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -122,7 +123,7 @@ public final class CrearTrabajadorView extends View {
         try {
             controller.guardarTrabajador();
             close();
-        } catch (EmptyFieldException | InvalidaRutException e) {
+        } catch (EmptyFieldException | InvalidaRutException | ObjectExistException e) {
             Alert.error()
                     .withDescription(e.getMessage())
                     .withButton(ButtonType.OK)

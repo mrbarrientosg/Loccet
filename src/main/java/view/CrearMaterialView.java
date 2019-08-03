@@ -107,6 +107,11 @@ public final class CrearMaterialView extends View {
                     .withDescription(e.getMessage())
                     .withButton(ButtonType.OK)
                     .build().show();
+        } catch (NumberFormatException e) {
+            Alert.error()
+                    .withDescription("Debe rellenar los campos")
+                    .withButton(ButtonType.OK)
+                    .build().show();
         }
     }
 
