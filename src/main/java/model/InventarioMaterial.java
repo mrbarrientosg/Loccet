@@ -6,6 +6,7 @@ import model.store.StoreMaterial;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -63,13 +64,12 @@ public class InventarioMaterial implements Costeable, Cleanable {
 
     @Override
     public BigDecimal calcularCosto() {
-        Iterable<Material> iterable = storeMaterial.findAll();
+        Iterator<Material> iterator = storeMaterial.findAll().iterator();
 
         BigDecimal costoTotal = new BigDecimal(0);
 
-        iterable.forEach(material -> {
-            costoTotal.add(material.calcularCosto());
-        });
+        while (iterator.hasNext())
+            costoTotal = costoTotal.add(iterator.next().calcularCosto());
 
         return costoTotal;
     }

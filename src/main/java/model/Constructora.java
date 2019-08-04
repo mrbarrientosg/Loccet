@@ -329,9 +329,8 @@ public class Constructora implements Costeable {
 
         BigDecimal costoAproximado = new BigDecimal(0);
 
-        while (iterator.hasNext()) {
+        while (iterator.hasNext())
             costoAproximado = costoAproximado.add(iterator.next().calcularCosto());
-        }
 
         return costoAproximado;
     }

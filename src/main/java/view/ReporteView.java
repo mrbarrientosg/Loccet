@@ -14,6 +14,9 @@ import model.Constructora;
 import util.Alert;
 import util.AsyncTask;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.util.Currency;
+import java.util.Locale;
 
 public class ReporteView extends View {
 
@@ -106,13 +109,16 @@ public class ReporteView extends View {
     @FXML
     private void costoProyecto(ActionEvent event) {
         if (idProyecto != null) {
+            DecimalFormat df = new DecimalFormat();
+            df.setMaximumFractionDigits(0);
+            df.setCurrency(Currency.getInstance(Locale.getDefault()));
+
             AsyncTask.supplyAsync(controller.costos(idProyecto)::calcularCosto).thenAccept(costo -> {
                 BigDecimal montoContractual = controller.montoContractualProyecto(idProyecto);
 
-                montoContractualLB.setText(montoContractual.toString());
-
-                gastoLB.setText(costo.toString());
-                montoActualLB.setText(montoContractual.subtract(costo).toString());
+                montoContractualLB.setText("$" + df.format(montoContractual));
+                gastoLB.setText("$" + df.format(costo));
+                montoActualLB.setText("$" + df.format(montoContractual.subtract(costo)));
             });
         }
         else {

@@ -7,28 +7,52 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane styleClass="shadow-root" stylesheets="@../App.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane styleClass="shadow-root" stylesheets="@../App.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox alignment="CENTER" prefHeight="230.0" prefWidth="350.0">
+      <VBox alignment="CENTER" prefHeight="250.0" prefWidth="400.0">
          <children>
-            <AnchorPane prefHeight="212.0" prefWidth="350.0">
+            <StackPane>
                <children>
-                  <ImageView fitHeight="239.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/total.png" />
-                     </image>
-                  </ImageView>
-                  <Label layoutX="51.0" layoutY="43.0" styleClass="title3" text="Monto contractual :" />
-                  <Label layoutX="51.0" layoutY="82.0" styleClass="title3" text="Gasto :" />
-                  <Label layoutX="51.0" layoutY="128.0" styleClass="title3" text="Monto actual :" />
-                  <Label fx:id="montoContractualLB" layoutX="218.0" layoutY="43.0" styleClass="title3" />
-                  <Label fx:id="gastoLB" layoutX="218.0" layoutY="82.0" styleClass="title3" />
-                  <Label fx:id="montoActualLB" layoutX="218.0" layoutY="128.0" styleClass="title3" />
+                  <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" StackPane.alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="250.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <image>
+                              <Image url="@../images/total.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <VBox alignment="CENTER" spacing="30.0">
+                     <children>
+                        <HBox spacing="8.0">
+                           <children>
+                              <Label styleClass="title3" text="Monto contractual :" />
+                              <Label fx:id="montoContractualLB" maxWidth="1.7976931348623157E308" styleClass="title3" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
+                        <HBox spacing="8.0">
+                           <children>
+                              <Label styleClass="title3" text="Gasto :" />
+                              <Label fx:id="gastoLB" maxWidth="1.7976931348623157E308" styleClass="title3" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
+                        <HBox spacing="8.0">
+                           <children>
+                              <Label styleClass="title3" text="Monto actual :" />
+                              <Label fx:id="montoActualLB" maxWidth="1.7976931348623157E308" styleClass="title3" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
+                     </children>
+                     <StackPane.margin>
+                        <Insets bottom="16.0" left="16.0" right="16.0" />
+                     </StackPane.margin>
+                  </VBox>
                </children>
-            </AnchorPane>
+            </StackPane>
             <Button fx:id="salirBT" mnemonicParsing="false" onAction="#salir" prefWidth="90.0" styleClass="button-fill-red" text="Salir">
                <VBox.margin>
                   <Insets bottom="8.0" top="4.0" />

@@ -8,6 +8,9 @@ import javafx.scene.control.Label;
 import model.Costeable;
 import util.AsyncTask;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.util.Currency;
+import java.util.Locale;
 
 public class CostoTotalView extends View {
 
@@ -23,7 +26,6 @@ public class CostoTotalView extends View {
     @FXML
     private Button salirBT;
 
-
     @Override
     public void viewDidLoad() {
 
@@ -35,10 +37,14 @@ public class CostoTotalView extends View {
     }
 
     public void setupView(Costeable costeable, BigDecimal montoContractual) {
+        DecimalFormat df = new DecimalFormat();
+        df.setMaximumFractionDigits(0);
+        df.setCurrency(Currency.getInstance(Locale.getDefault()));
+
         AsyncTask.supplyAsync(costeable::calcularCosto).thenAccept(costo -> {
-            this.gastoLB.setText(costo.toString());
-            this.montoContractualLB.setText(montoContractual.toString());
-            this.montoActualLB.setText(montoContractual.subtract(costo).toString());
+            this.gastoLB.setText("$" + df.format(costo));
+            this.montoContractualLB.setText("$" + df.format(montoContractual));
+            this.montoActualLB.setText("$" + df.format(montoContractual.subtract(costo)));
         });
     }
 

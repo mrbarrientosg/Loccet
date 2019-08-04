@@ -184,9 +184,8 @@ public class Proyecto implements Costeable, Cleanable {
 
         BigDecimal costoAproximado = new BigDecimal(0);
 
-        while (iterator.hasNext()) {
+        while (iterator.hasNext())
             costoAproximado = costoAproximado.add(iterator.next().calcularSueldo());
-        }
 
         return costoAproximado.add(inventarioMaterial.calcularCosto());
     }
