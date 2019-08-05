@@ -32,31 +32,6 @@ public class RRHHController extends Controller {
 
     private NetService service = NetService.getInstance();
 
-    public void fetchTrabajadores(Consumer<ObservableList<TrabajadorCell>> callBack) {
-        AsyncTask.supplyAsync(() -> {
-            ObservableList<TrabajadorCell> cells = FXCollections.observableArrayList(e -> new Observable[]{ new SimpleStringProperty(e.getRut())});
-
-            model.getTrabajadores().forEach(trabajador -> cells.add(new TrabajadorCell(trabajador)));
-
-            return cells;
-        }).thenAccept(callBack);
-    }
-
-    public void fetchTrabajadores(String idProyecto, Consumer<ObservableList<TrabajadorCell>> callBack) {
-        AsyncTask.supplyAsync(() -> {
-            Proyecto p = model.obtenerProyecto(idProyecto);
-
-            ObservableList<TrabajadorCell> cells = FXCollections.observableArrayList(e -> new Observable[]{ new SimpleStringProperty(e.getRut())});
-
-            if (p == null)
-                return cells;
-
-            model.getTrabajadores().forEach(trabajador -> cells.add(new TrabajadorCell(trabajador)));
-
-            return cells;
-        }).thenAccept(callBack);
-    }
-
     public ObservableList<TrabajadorCell> searchEmployee(String text) {
         ObservableList<TrabajadorCell> cells = FXCollections.observableArrayList(e -> new Observable[]{ new SimpleStringProperty(e.getRut())});
 
@@ -85,10 +60,6 @@ public class RRHHController extends Controller {
 
     public ObservableList<TrabajadorCell> getEmployeesProject(String id) {
         return searchEmployeeProject(id, "");
-    }
-
-    public Trabajador obtenerTrabajador(String rut) {
-        return model.obtenerTrabajador(rut);
     }
 
     public void deleteTrabajador(String rut) {

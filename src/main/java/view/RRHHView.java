@@ -66,7 +66,8 @@ public class RRHHView extends View implements SaveTrabajadorDelegate, FilterDele
     @Override
     public void viewDidLoad() {
         controller = Injectable.find(RRHHController.class);
-
+        controller.setView(this);
+        
         disposable = false;
 
         filterCells = FXCollections.observableArrayList();
@@ -223,6 +224,7 @@ public class RRHHView extends View implements SaveTrabajadorDelegate, FilterDele
 
     public void didDeleteTrabajador(String rut) {
         tableTrabajadores.getItems().removeIf(value -> value.getRut().equals(rut));
+        tableTrabajadores.refresh();
     }
 
     @Override
