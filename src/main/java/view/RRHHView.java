@@ -67,7 +67,7 @@ public class RRHHView extends View implements SaveTrabajadorDelegate, FilterDele
     public void viewDidLoad() {
         controller = Injectable.find(RRHHController.class);
         controller.setView(this);
-        
+
         disposable = false;
 
         filterCells = FXCollections.observableArrayList();

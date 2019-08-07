@@ -1,7 +1,6 @@
 package specification;
 
 import model.Material;
-import model.store.MemorySpecification;
 
 public class MaterialByQuerySpecification implements MemorySpecification<Material> {
 

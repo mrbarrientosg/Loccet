@@ -3,7 +3,7 @@ package model;
 import com.google.gson.*;
 import com.google.gson.annotations.Expose;
 import exceptions.EmptyFieldException;
-import exceptions.InvalidaRutException;
+import exceptions.InvalidRutException;
 import json.LocalDateTypeConverter;
 import model.store.memory.MemoryStoreHorario;
 import model.store.memory.MemoryStoreProyecto;
@@ -164,12 +164,12 @@ public abstract class Trabajador implements Cleanable {
     }
     // MARK: - Setter
 
-    public void setRut(String rut) throws EmptyFieldException, InvalidaRutException {
+    public void setRut(String rut) throws EmptyFieldException, InvalidRutException {
         if (StringUtils.isEmpty(rut))
             throw new EmptyFieldException("Rut");
 
         if (!validarRut(rut))
-            throw new InvalidaRutException();
+            throw new InvalidRutException();
 
         this.rut = rut;
     }
@@ -275,7 +275,7 @@ public abstract class Trabajador implements Cleanable {
                 }
 
                 t.setFechaNacimiento(gson.fromJson(json.get("fecha_nacimiento"), LocalDate.class));
-            } catch (EmptyFieldException | InvalidaRutException ex) {
+            } catch (EmptyFieldException | InvalidRutException ex) {
                 // TODO: Ver que se hace en este caso.
                 ex.printStackTrace();
             }

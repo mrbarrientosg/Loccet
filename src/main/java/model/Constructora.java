@@ -2,7 +2,7 @@ package model;
 
 import com.google.gson.JsonObject;
 import exceptions.NegativeQuantityException;
-import model.store.MemorySpecification;
+import specification.MemorySpecification;
 import model.store.memory.MemoryStoreProyecto;
 import model.store.memory.MemoryStoreTrabajador;
 import model.store.StoreProyecto;

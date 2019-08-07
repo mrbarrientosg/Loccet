@@ -1,6 +1,6 @@
 package model;
 
-import model.store.MemorySpecification;
+import specification.MemorySpecification;
 import model.store.memory.MemoryStoreMaterial;
 import model.store.StoreMaterial;
 

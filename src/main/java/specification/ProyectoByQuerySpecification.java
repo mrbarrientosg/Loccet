@@ -1,7 +1,6 @@
 package specification;
 
 import model.Proyecto;
-import model.store.MemorySpecification;
 
 public class ProyectoByQuerySpecification implements MemorySpecification<Proyecto> {
 

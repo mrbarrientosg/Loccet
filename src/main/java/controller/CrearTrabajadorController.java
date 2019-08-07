@@ -7,7 +7,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import delegate.SaveTrabajadorDelegate;
 import exceptions.EmptyFieldException;
-import exceptions.InvalidaRutException;
+import exceptions.InvalidRutException;
 import exceptions.ObjectExistException;
 import io.reactivex.Maybe;
 import javafx.beans.property.*;
@@ -81,7 +81,7 @@ public final class CrearTrabajadorController extends Controller {
         model = Constructora.getInstance();
     }
 
-    public void guardarTrabajador() throws EmptyFieldException, InvalidaRutException, ObjectExistException {
+    public void guardarTrabajador() throws EmptyFieldException, InvalidRutException, ObjectExistException {
         if (model.obtenerTrabajador(rut.get()) != null)
             throw new ObjectExistException("El trabajador ya esta en la constructora");
 

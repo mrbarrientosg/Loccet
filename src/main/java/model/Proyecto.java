@@ -8,6 +8,7 @@ import model.store.*;
 import model.store.memory.MemoryStoreAsistencia;
 import model.store.memory.MemoryStoreFase;
 import model.store.memory.MemoryStoreTrabajador;
+import specification.MemorySpecification;
 import util.StringUtils;
 
 import java.lang.reflect.Type;
