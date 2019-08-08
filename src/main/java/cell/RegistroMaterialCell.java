@@ -3,7 +3,7 @@ package cell;
 import model.RegistroMaterial;
 import util.DateUtils;
 
-public class RegistroMaterialCell {
+public final class RegistroMaterialCell {
 
     private String fecha;
 

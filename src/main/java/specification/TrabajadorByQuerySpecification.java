@@ -2,7 +2,7 @@ package specification;
 
 import model.Trabajador;
 
-public class TrabajadorByQuerySpecification implements MemorySpecification<Trabajador> {
+public final class TrabajadorByQuerySpecification implements MemorySpecification<Trabajador> {
 
     private final String query;
 

@@ -1,6 +1,6 @@
 package network;
 
-public class NetworkException extends Exception {
+public final class NetworkException extends Exception {
 
     private final int code;
 

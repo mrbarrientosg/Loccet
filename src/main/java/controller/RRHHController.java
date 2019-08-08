@@ -24,7 +24,7 @@ import java.util.logging.Level;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-public class RRHHController extends Controller {
+public final class RRHHController extends Controller {
 
     private RRHHView view;
 
@@ -40,7 +40,6 @@ public class RRHHController extends Controller {
                 .forEach(cells::add);
 
         return cells;
-
     }
 
     public ObservableList<TrabajadorCell> searchEmployeeProject(String idProject, String text) {

@@ -7,10 +7,9 @@ import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import io.reactivex.schedulers.Schedulers;
 import model.*;
 import network.endpoint.LoccetAPI;
-
 import java.util.function.Consumer;
 
-public class AsistenciasFetchHandler extends FetchHandler {
+public final class AsistenciasFetchHandler extends FetchHandler {
 
     @Override
     public void handle(JsonObject parameters, Gson deserializer, Consumer<FetchResult> result) {

@@ -1,6 +1,6 @@
 package view;
 
-import base.View;
+import base.Fragment;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,7 +12,7 @@ import java.text.DecimalFormat;
 import java.util.Currency;
 import java.util.Locale;
 
-public class CostoTotalView extends View {
+public final class CostoTotalView extends Fragment {
 
     @FXML
     private Label montoContractualLB;

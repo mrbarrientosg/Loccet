@@ -8,7 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
-public class TableroView extends Fragment {
+public final class TableroView extends Fragment {
 
     @FXML
     private Label titleBar;

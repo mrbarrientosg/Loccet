@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ThreadPools {
+public final class ThreadPools {
 
     private enum ThreadPoolType {
         DAEMON,

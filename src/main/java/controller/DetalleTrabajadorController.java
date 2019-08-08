@@ -22,7 +22,7 @@ import view.ListaTrabajadorView;
 import java.time.LocalDate;
 import java.util.logging.Level;
 
-public class DetalleTrabajadorController extends Controller {
+public final class DetalleTrabajadorController extends Controller {
 
     private DetalleTrabajadorView view;
 

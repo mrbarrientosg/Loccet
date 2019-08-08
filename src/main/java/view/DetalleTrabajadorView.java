@@ -22,7 +22,7 @@ import util.Alert;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
-public class DetalleTrabajadorView extends View {
+public final class DetalleTrabajadorView extends View {
 
     private DetalleTrabajadorController controller;
 

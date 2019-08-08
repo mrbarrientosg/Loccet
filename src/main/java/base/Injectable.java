@@ -1,8 +1,7 @@
 package base;
 
 import javafx.stage.Stage;
-
-import java.util.HashMap;
+import java.util.WeakHashMap;
 
 /**
  * Clase que guarda la referencia de las vistas principales,
@@ -16,7 +15,7 @@ import java.util.HashMap;
  */
 public final class Injectable {
 
-    private static final HashMap<Class, Instance> vistas = new HashMap<>();
+    private static final WeakHashMap<Class, Instance> vistas = new WeakHashMap<>();
 
     private static Stage primaryStage;
 

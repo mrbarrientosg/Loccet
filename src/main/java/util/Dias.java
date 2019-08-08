@@ -1,6 +1,6 @@
 package util;
 
-public class Dias {
+public final class Dias {
     public static final String LUNES = "LUNES";
     public static final String MARTES = "MARTES";
     public static final String MIERCOLES = "MIERCOLES";

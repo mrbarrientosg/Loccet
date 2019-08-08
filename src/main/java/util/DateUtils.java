@@ -6,7 +6,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-public class DateUtils {
+public final class DateUtils {
 
     public static String formatDate(LocalDate date) {
         return formatDate("dd-MM-yyyy", date);

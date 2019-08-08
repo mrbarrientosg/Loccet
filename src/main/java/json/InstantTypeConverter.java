@@ -5,8 +5,7 @@ import com.google.gson.*;
 import java.lang.reflect.Type;
 import java.time.Instant;
 
-public class InstantTypeConverter
-        implements JsonSerializer<Instant>, JsonDeserializer<Instant> {
+public final class InstantTypeConverter implements JsonSerializer<Instant>, JsonDeserializer<Instant> {
     @Override
     public JsonElement serialize(Instant src, Type srcType, JsonSerializationContext context) {
         return new JsonPrimitive(src.getEpochSecond());

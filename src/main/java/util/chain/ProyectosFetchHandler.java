@@ -11,7 +11,7 @@ import network.endpoint.LoccetAPI;
 
 import java.util.function.Consumer;
 
-public class ProyectosFetchHandler extends FetchHandler {
+public final class ProyectosFetchHandler extends FetchHandler {
 
     @Override
     public void handle(JsonObject parameters, Gson deserializer, Consumer<FetchResult> result) {

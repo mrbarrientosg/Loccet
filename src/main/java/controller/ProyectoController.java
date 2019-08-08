@@ -22,7 +22,7 @@ import java.util.logging.Level;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-public class ProyectoController extends Controller {
+public final class ProyectoController extends Controller {
 
     private Constructora model = Constructora.getInstance();
 

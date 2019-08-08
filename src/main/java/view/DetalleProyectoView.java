@@ -18,7 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import util.Alert;
 
-public class DetalleProyectoView extends View {
+public final class DetalleProyectoView extends View {
 
     private DetalleProyectoController controller;
 

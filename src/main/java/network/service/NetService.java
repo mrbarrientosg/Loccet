@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
-public class NetService implements NetworkRouter {
+public final class NetService implements NetworkRouter {
 
     private AsyncHttpClient asyncHttpClient;
 

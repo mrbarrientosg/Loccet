@@ -1,17 +1,12 @@
 package util;
 
-import base.UIComponent;
-import javafx.application.Application;
-import javafx.event.EventTarget;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
-import java.util.function.Consumer;
-
-public class NodeUtils {
+public final class NodeUtils {
 
     public static void replaceWith(Node from, Node to, Boolean sizeToScene, Boolean centerOnScreen, Runnable onTransit) {
         if (onTransit != null) onTransit.run();

@@ -21,7 +21,7 @@ import java.util.ListIterator;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
-public class ProyectoView extends View implements SaveProyectoDelegate {
+public final class ProyectoView extends View implements SaveProyectoDelegate {
 
     private ProyectoController controller;
 

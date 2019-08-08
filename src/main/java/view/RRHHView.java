@@ -32,7 +32,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 
-public class RRHHView extends View implements SaveTrabajadorDelegate, FilterDelegate {
+public final class RRHHView extends View implements SaveTrabajadorDelegate, FilterDelegate {
 
     private RRHHController controller;
 

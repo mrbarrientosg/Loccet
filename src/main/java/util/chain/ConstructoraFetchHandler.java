@@ -10,7 +10,7 @@ import network.endpoint.LoccetAPI;
 
 import java.util.function.Consumer;
 
-public class ConstructoraFetchHandler extends FetchHandler {
+public final class ConstructoraFetchHandler extends FetchHandler {
 
     @Override
     public void handle(JsonObject parameters, Gson deserializer, Consumer<FetchResult> result) {

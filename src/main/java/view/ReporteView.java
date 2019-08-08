@@ -18,7 +18,7 @@ import java.text.DecimalFormat;
 import java.util.Currency;
 import java.util.Locale;
 
-public class ReporteView extends View {
+public final class ReporteView extends View {
 
     private ReporteController controller;
 
@@ -101,7 +101,7 @@ public class ReporteView extends View {
 
             view.setupView(Constructora.getInstance(), montoContractual);
 
-            view.modal().withStyle(StageStyle.TRANSPARENT)
+            view.modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
                     .show().getScene().setFill(Color.TRANSPARENT);
         });
     }

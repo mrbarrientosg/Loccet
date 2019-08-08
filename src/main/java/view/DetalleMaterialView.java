@@ -20,7 +20,7 @@ import util.Alert;
  *
  * @author Sebastian Fuenzalida.
  */
-public class DetalleMaterialView extends View {
+public final class DetalleMaterialView extends View {
 
     private DetalleMaterialController controller;
 

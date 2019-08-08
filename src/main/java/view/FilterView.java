@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
 
-public class FilterView extends Fragment implements FilterCellDelegate {
+public final class FilterView extends Fragment implements FilterCellDelegate {
 
     @FXML
     private Button applyButton;

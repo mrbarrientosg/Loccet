@@ -18,7 +18,7 @@ import view.DetalleProyectoView;
 import java.time.LocalDate;
 import java.util.logging.Level;
 
-public class DetalleProyectoController extends Controller {
+public final class DetalleProyectoController extends Controller {
 
     private Constructora model;
 

@@ -27,7 +27,7 @@ import java.util.logging.Level;
 /**
  * @author Sebastian Fuenzalida
  */
-public class DetalleMaterialController extends Controller {
+public final class DetalleMaterialController extends Controller {
 
     //Se declaran las variables
 

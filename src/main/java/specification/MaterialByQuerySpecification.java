@@ -2,7 +2,7 @@ package specification;
 
 import model.Material;
 
-public class MaterialByQuerySpecification implements MemorySpecification<Material> {
+public final class MaterialByQuerySpecification implements MemorySpecification<Material> {
 
     private final String query;
 

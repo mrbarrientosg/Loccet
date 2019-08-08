@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class Alert {
+public final class Alert {
 
     private javafx.scene.control.Alert alert;
 
@@ -32,7 +32,7 @@ public class Alert {
         return new AlertBuilder(javafx.scene.control.Alert.AlertType.CONFIRMATION);
     }
 
-    public static class AlertBuilder {
+    public static final class AlertBuilder {
 
         private javafx.scene.control.Alert.AlertType type;
 

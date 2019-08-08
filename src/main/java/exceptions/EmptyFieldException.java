@@ -1,6 +1,6 @@
 package exceptions;
 
-public class EmptyFieldException extends Exception {
+public final class EmptyFieldException extends Exception {
 
     private String fieldName;
 

@@ -2,7 +2,7 @@ package specification;
 
 import model.Proyecto;
 
-public class ProyectoByQuerySpecification implements MemorySpecification<Proyecto> {
+public final class ProyectoByQuerySpecification implements MemorySpecification<Proyecto> {
 
     private final String query;
 

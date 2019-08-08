@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-public class ReporteController extends Controller {
+public final class ReporteController extends Controller {
 
     private ReporteView view;
 

@@ -12,7 +12,7 @@ import network.endpoint.LoccetAPI;
 
 import java.util.function.Consumer;
 
-public class HorariosFetchHandler extends FetchHandler {
+public final class HorariosFetchHandler extends FetchHandler {
 
     @Override
     public void handle(JsonObject parameters, Gson deserializer, Consumer<FetchResult> result) {
