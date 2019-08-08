@@ -32,6 +32,11 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 
+/**
+ * Vista que recursos humanos
+ *
+ * @author Matias Barrientos
+ */
 public final class RRHHView extends View implements SaveTrabajadorDelegate, FilterDelegate {
 
     private RRHHController controller;

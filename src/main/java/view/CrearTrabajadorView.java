@@ -19,6 +19,11 @@ import util.Alert;
 
 import java.time.LocalDate;
 
+/**
+ * Vista para poder crear un nuevo trabajador
+ *
+ * @author Matias Barrientos
+ */
 public final class CrearTrabajadorView extends View {
 
     private CrearTrabajadorController controller;

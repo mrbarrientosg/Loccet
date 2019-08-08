@@ -21,6 +21,12 @@ import java.util.ListIterator;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Vista que despliego los proyecto
+ *
+ * @author Matias Zuñiga
+ * @author Sebastian Fuenzalida
+ */
 public final class ProyectoView extends View implements SaveProyectoDelegate {
 
     private ProyectoController controller;

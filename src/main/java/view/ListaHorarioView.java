@@ -14,6 +14,11 @@ import model.Horario;
 import util.Dias;
 import java.time.LocalTime;
 
+/**
+ * Vista que despliega los horarios
+ *
+ * @author Matias Barrientos
+ */
 public final class ListaHorarioView extends View implements AddHorarioDelegate {
 
     private ListaHorarioController controller;

@@ -18,6 +18,12 @@ import java.text.DecimalFormat;
 import java.util.Currency;
 import java.util.Locale;
 
+/**
+ * Vista que muestra los reportes
+ *
+ * @author Matias Zuñiga
+ * @author Sebastian Fuenzalida
+ */
 public final class ReporteView extends View {
 
     private ReporteController controller;

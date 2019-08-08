@@ -22,6 +22,11 @@ import util.Alert;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
+/**
+ * Vista detalle de un trabajador
+ *
+ * @author Matias Barrientos
+ */
 public final class DetalleTrabajadorView extends View {
 
     private DetalleTrabajadorController controller;

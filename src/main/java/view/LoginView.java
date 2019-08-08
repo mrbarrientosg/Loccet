@@ -19,6 +19,11 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import util.Alert;
 
+/**
+ * Vista para iniciar sesion
+ *
+ * @author Matias Barrientos
+ */
 public final class LoginView extends Fragment {
 
     private LoginController controller;

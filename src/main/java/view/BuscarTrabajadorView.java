@@ -19,6 +19,11 @@ import javafx.stage.StageStyle;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Vista para buscar un trabajador
+ *
+ * @author Matias Barrientos
+ */
 public final class BuscarTrabajadorView extends Fragment {
 
     private BuscarTrabajadorController controller;

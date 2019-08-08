@@ -18,6 +18,11 @@ import java.math.BigDecimal;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
+/**
+ * Vista para crear un nuevo material
+ *
+ * @author Sebastian Fuenzalida
+ */
 public final class CrearMaterialView extends View {
 
     private InventarioMaterialController controller;

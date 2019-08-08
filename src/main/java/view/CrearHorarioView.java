@@ -18,6 +18,11 @@ import util.Alert;
 
 import java.time.LocalTime;
 
+/**
+ * Vista que contiene los campos para crear un horario
+ *
+ * @author Matias Barrientos
+ */
 public final class CrearHorarioView extends View {
 
     private CrearHorarioController controller;

@@ -18,7 +18,7 @@ import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
 /**
- * Establece la vista de agregar proyecto al momento de presionarlo en el menuBar
+ * Vista para crear un proyecto
  *
  * @author Matias Zuñiga
  */

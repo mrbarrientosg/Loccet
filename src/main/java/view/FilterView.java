@@ -14,6 +14,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
 
+/**
+ * Vista para filtrar un tabla
+ *
+ * @author Matias Barrientos
+ */
 public final class FilterView extends Fragment implements FilterCellDelegate {
 
     @FXML

@@ -18,6 +18,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import util.Alert;
 
+/**
+ * Vista detalle de un proyecto
+ *
+ * @author Matias Barrientos
+ */
 public final class DetalleProyectoView extends View {
 
     private DetalleProyectoController controller;

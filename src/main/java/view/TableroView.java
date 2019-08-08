@@ -8,6 +8,9 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
+/**
+ * Vista que contiene el menu de la app
+ */
 public final class TableroView extends Fragment {
 
     @FXML

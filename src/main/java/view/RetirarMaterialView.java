@@ -16,7 +16,7 @@ import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
 /**
- * Vista de Retirar material.
+ * Vista de para retirar material.
  *
  * @author Sebastian Fuenzalida.
  */

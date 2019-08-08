@@ -16,7 +16,7 @@ import model.Material;
 import util.Alert;
 
 /**
- * Clase vista del detalle de un material.
+ * Vista del detalle de un material.
  *
  * @author Sebastian Fuenzalida.
  */

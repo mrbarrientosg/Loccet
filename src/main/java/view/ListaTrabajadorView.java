@@ -22,6 +22,11 @@ import java.util.ListIterator;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Vista que despliega los trabajadores
+ *
+ * @author Matias Barrientos
+ */
 public final class ListaTrabajadorView extends View implements SaveTrabajadorDelegate {
 
     private ListaTrabajadorController controller;

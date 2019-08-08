@@ -12,6 +12,11 @@ import java.text.DecimalFormat;
 import java.util.Currency;
 import java.util.Locale;
 
+/**
+ * Vista para mostrar el costo total de la constructora
+ *
+ * @author Matias Zuñiga
+ */
 public final class CostoTotalView extends Fragment {
 
     @FXML

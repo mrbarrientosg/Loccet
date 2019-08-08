@@ -26,9 +26,9 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Clase que mostrara las vistas.
+ * Vista de invetario de materiales
  *
- * @author  Sebastian Fuenzalida.
+ * @author Sebastian Fuenzalida.
  */
 public final class InventarioMaterialView extends View implements EditMaterialDelegate {
 
