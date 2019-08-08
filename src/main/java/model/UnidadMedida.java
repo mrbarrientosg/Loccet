@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * Unidades de medidas que usa un material
+ */
 public enum UnidadMedida {
     MM("MM"),
     CM("CM"),

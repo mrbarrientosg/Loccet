@@ -14,6 +14,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 /**
+ * Clase que contiene los datos de un registro material
+ *
  * @author Sebastian Fuenzalida.
  */
 public class RegistroMaterial implements Cleanable {
@@ -55,6 +57,8 @@ public class RegistroMaterial implements Cleanable {
     public void setMaterial(Material material) {
         this.material = material;
     }
+
+    // MARK: - Cleanable
 
     @Override
     public void clean() {

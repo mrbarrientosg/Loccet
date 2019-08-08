@@ -6,6 +6,9 @@ import model.store.StoreProyecto;
 
 import java.util.*;
 
+/**
+ * Store para los proyectos
+ */
 public class MemoryStoreProyecto extends AbstractStore<Proyecto> implements StoreProyecto {
 
     private Map<String, Proyecto> mapProyecto;

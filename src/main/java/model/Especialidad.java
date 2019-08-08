@@ -2,6 +2,9 @@ package model;
 
 import java.math.BigDecimal;
 
+/**
+ * Clase que contiene los datos de una especialidad
+ */
 public class Especialidad {
 
     // MARK: - Atributos

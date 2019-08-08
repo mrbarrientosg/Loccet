@@ -4,6 +4,9 @@ import com.google.gson.annotations.Expose;
 import exceptions.EmptyFieldException;
 import util.StringUtils;
 
+/**
+ * Clase que contiene los datos de una localizacion
+ */
 public class Localizacion {
 
     // MARK: - Atributos
@@ -25,6 +28,8 @@ public class Localizacion {
 
     @Expose
     private String ciudad;
+
+    // MARK: - Constructores
 
     public Localizacion(String direccion, String codigoPostal, String pais, String estado, String ciudad) throws EmptyFieldException {
         setDireccion(direccion);

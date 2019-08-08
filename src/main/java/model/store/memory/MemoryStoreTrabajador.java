@@ -6,6 +6,9 @@ import model.store.StoreTrabajador;
 
 import java.util.*;
 
+/**
+ * Store para los trabajadores
+ */
 public class MemoryStoreTrabajador extends AbstractStore<Trabajador> implements StoreTrabajador {
 
     private Map<String, Trabajador> mapTrabajadores;

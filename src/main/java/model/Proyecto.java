@@ -18,7 +18,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-
+/**
+ * Clase que contiene los datos de un proyecto
+ */
 public class Proyecto implements Costeable, Cleanable {
 
     // MARK: - Atributos
@@ -56,7 +58,7 @@ public class Proyecto implements Costeable, Cleanable {
     @Expose(serialize = false)
     private InventarioMaterial inventarioMaterial;
 
-    // MARK: - Constructor
+    // MARK: - Constructores
 
     public Proyecto() {
         id = generarId();
@@ -282,6 +284,8 @@ public class Proyecto implements Costeable, Cleanable {
                 p.nombreCliente.equals(nombreCliente);
 
     }
+
+    // MARK: - Cleanable
 
     @Override
     public void clean() {

@@ -7,13 +7,16 @@ import model.store.memory.MemoryStoreProyecto;
 import model.store.memory.MemoryStoreTrabajador;
 import model.store.StoreProyecto;
 import model.store.StoreTrabajador;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Clase que contiene los datos y metodos
+ * para la constructora.
+ */
 public class Constructora implements Costeable {
 
     // MARK: - Atributos
@@ -86,6 +89,28 @@ public class Constructora implements Costeable {
         return proyectos;
     }
 
+    public Iterable<Proyecto> getProyectos(String rut) {
+        Trabajador trabajador = storeTrabajador.findByRut(rut);
+
+        if (trabajador == null)
+            return Collections.emptyList();
+
+        return trabajador.getProyectos();
+    }
+
+    public Iterable<Proyecto> getProyectos() {
+        return storeProyecto.findAll();
+    }
+
+    public Integer getIdInventario(String idProyecto) {
+        Proyecto p = storeProyecto.findById(idProyecto);
+
+        if (p == null)
+            return null;
+
+        return p.getIdInventario();
+    }
+
     // MARK: - Metodos Trabajador
 
     public Trabajador obtenerTrabajador(String rut) {
@@ -114,8 +139,6 @@ public class Constructora implements Costeable {
      *
      * @param idProyecto id del proyecto
      * @param trabajador Trabajador a guardar
-     * @return false si no se pudo agregar y true lo contrario
-     * @author Matias Barrientos
      */
     public void agregarTrabajador(String idProyecto, Trabajador trabajador) {
         Proyecto proyecto = storeProyecto.findById(idProyecto);
@@ -168,6 +191,21 @@ public class Constructora implements Costeable {
         return trabajadors;
     }
 
+    public Iterable<Trabajador> getTrabajadores() {
+        return storeTrabajador.findAll();
+    }
+
+    public Iterable<Trabajador> getTrabajadores(String idProyecto) {
+        Proyecto proyecto = storeProyecto.findById(idProyecto);
+
+        if (proyecto == null)
+            return Collections.emptyList();
+
+        return proyecto.getTrabajadores();
+    }
+
+
+    // MARK: - Metodos Horario
 
     public void agregarHorario(String rut, String idProyecto, Horario horario) {
         Trabajador trabajador = storeTrabajador.findByRut(rut);
@@ -186,6 +224,18 @@ public class Constructora implements Costeable {
 
         trabajador.eliminarHorario(idHorario);
     }
+
+    public Iterable<Horario> getHorarios(String rut) {
+        Trabajador trabajador = storeTrabajador.findByRut(rut);
+
+        if (trabajador == null)
+            return Collections.emptyList();
+
+        return trabajador.obtenerListaHorario();
+    }
+
+
+    // MARK: - Metodos Material
 
     public Iterable<Material> buscarMaterial(String idProyecto, MemorySpecification<Material> specification) {
         Proyecto p = storeProyecto.findById(idProyecto);
@@ -223,29 +273,6 @@ public class Constructora implements Costeable {
         return p.eliminarMaterial(idMaterial);
     }
 
-    public Integer getIdInventario(String idProyecto) {
-        Proyecto p = storeProyecto.findById(idProyecto);
-
-        if (p == null)
-            return null;
-
-        return p.getIdInventario();
-    }
-
-    public void agregarRegistroMaterial(String idProyecto, String idMaterial, RegistroMaterial rm) {
-        Proyecto proyecto = storeProyecto.findById(idProyecto);
-
-        if (proyecto == null)
-            return;
-
-        Material m = proyecto.obtenerMaterial(idMaterial);
-
-        if (m == null)
-            return;
-
-        m.agregarRegistro(rm);
-    }
-
     public void actualizarCantidadMaterial(String idProyecto, String idMaterial, double cantidad) throws NegativeQuantityException {
         Proyecto proyecto = storeProyecto.findById(idProyecto);
 
@@ -260,53 +287,20 @@ public class Constructora implements Costeable {
         m.setCantidad(m.getCantidad() + cantidad);
     }
 
-    // MARK: - Getter
+    // MARK: - Metodos Registro Material
 
-    public String getRut() {
-        return rut;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getDns() {
-        return dns;
-    }
-
-    public Iterable<Trabajador> getTrabajadores() {
-        return storeTrabajador.findAll();
-    }
-
-    public Iterable<Trabajador> getTrabajadores(String idProyecto) {
+    public void agregarRegistroMaterial(String idProyecto, String idMaterial, RegistroMaterial rm) {
         Proyecto proyecto = storeProyecto.findById(idProyecto);
 
         if (proyecto == null)
-            return Collections.emptyList();
+            return;
 
-        return proyecto.getTrabajadores();
-    }
+        Material m = proyecto.obtenerMaterial(idMaterial);
 
-    public Iterable<Horario> getHorarios(String rut) {
-        Trabajador trabajador = storeTrabajador.findByRut(rut);
+        if (m == null)
+            return;
 
-        if (trabajador == null)
-            return Collections.emptyList();
-
-        return trabajador.obtenerListaHorario();
-    }
-
-    public Iterable<Proyecto> getProyectos(String rut) {
-        Trabajador trabajador = storeTrabajador.findByRut(rut);
-
-        if (trabajador == null)
-            return Collections.emptyList();
-
-        return trabajador.getProyectos();
-    }
-
-    public Iterable<Proyecto> getProyectos() {
-        return storeProyecto.findAll();
+        m.agregarRegistro(rm);
     }
 
     public Iterable<RegistroMaterial> getRegistrosMateriales(String idProyecto, String idMaterial) {
@@ -323,6 +317,8 @@ public class Constructora implements Costeable {
         return m.getRegistrosMateriales();
     }
 
+    // MARK: - Costeable
+
     @Override
     public BigDecimal calcularCosto() {
         Iterator<Proyecto> iterator = storeProyecto.findAll().iterator();
@@ -333,6 +329,20 @@ public class Constructora implements Costeable {
             costoAproximado = costoAproximado.add(iterator.next().calcularCosto());
 
         return costoAproximado;
+    }
+
+    // MARK: - Getter
+
+    public String getRut() {
+        return rut;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getDns() {
+        return dns;
     }
 }
 

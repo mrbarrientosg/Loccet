@@ -1,5 +1,8 @@
 package exceptions;
 
+/**
+ * Excepcion cuando una cantidad es negativa
+ */
 public final class NegativeQuantityException extends Exception {
 
     public NegativeQuantityException() {

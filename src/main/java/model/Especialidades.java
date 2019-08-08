@@ -12,9 +12,13 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
+/**
+ * Clase que contiene todas las especialidades
+ */
 public class Especialidades {
 
     // MARK: - Atributos
+
     private static Especialidades instance;
 
     private final Map<Integer, Especialidad> especialidades;

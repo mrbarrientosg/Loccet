@@ -11,6 +11,9 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+/**
+ * Clase que contiene los datos y metodos de un Horario
+ */
 public class Horario implements Cleanable {
 
     // MARK: - Atributos

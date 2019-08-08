@@ -6,6 +6,9 @@ import model.store.StoreFase;
 
 import java.util.*;
 
+/**
+ * Store para las fases
+ */
 public class MemoryStoreFase extends AbstractStore<Fase> implements StoreFase {
 
     private Map<Integer, Fase> faseMap;

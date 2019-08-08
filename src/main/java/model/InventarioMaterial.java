@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Clase Inventario
+ * Clase Inventario que maneja los materiales
  *
  * @author Sebastian Fuenzalida
  */
@@ -74,6 +74,14 @@ public class InventarioMaterial implements Costeable, Cleanable {
         return costoTotal;
     }
 
+    @Override
+    public void clean() {
+        storeMaterial.clean();
+        storeMaterial = null;
+    }
+
+    // MARK: - Getter y Setter
+
     public Integer getId() {
         return id;
     }
@@ -82,9 +90,4 @@ public class InventarioMaterial implements Costeable, Cleanable {
         this.id = id;
     }
 
-    @Override
-    public void clean() {
-        storeMaterial.clean();
-        storeMaterial = null;
-    }
 }

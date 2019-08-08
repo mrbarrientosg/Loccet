@@ -2,6 +2,9 @@ package model;
 
 import java.math.BigDecimal;
 
+/**
+ * Clase que contiene los datos de un trabajador tiempo completo
+ */
 public class TrabajadorTiempoCompleto extends Trabajador {
 
     public TrabajadorTiempoCompleto() { }

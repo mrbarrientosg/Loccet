@@ -6,6 +6,9 @@ import model.store.StoreHorario;
 
 import java.util.*;
 
+/**
+ * Store para los horarios
+ */
 public class MemoryStoreHorario extends AbstractStore<Horario> implements StoreHorario {
 
     private Map<Integer, Horario> horarioMap;

@@ -1,5 +1,8 @@
 package exceptions;
 
+/**
+ * Excepcion cuando un rut es invalido
+ */
 public final class InvalidRutException extends Exception {
 
     public InvalidRutException() {

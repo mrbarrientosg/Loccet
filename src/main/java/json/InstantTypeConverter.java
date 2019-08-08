@@ -1,10 +1,13 @@
 package json;
 
 import com.google.gson.*;
-
 import java.lang.reflect.Type;
 import java.time.Instant;
 
+/**
+ * Clase que serializa y deserializa un tipo de dato Instant
+ * en formato json.
+ */
 public final class InstantTypeConverter implements JsonSerializer<Instant>, JsonDeserializer<Instant> {
     @Override
     public JsonElement serialize(Instant src, Type srcType, JsonSerializationContext context) {

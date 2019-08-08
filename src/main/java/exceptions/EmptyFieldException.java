@@ -1,5 +1,8 @@
 package exceptions;
 
+/**
+ * Excepcion para un campo vacio y este es requerido
+ */
 public final class EmptyFieldException extends Exception {
 
     private String fieldName;

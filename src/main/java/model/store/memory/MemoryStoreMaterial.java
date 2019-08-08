@@ -5,6 +5,9 @@ import model.store.AbstractStore;
 import model.store.StoreMaterial;
 import java.util.*;
 
+/**
+ * Store para los materiales
+ */
 public class MemoryStoreMaterial extends AbstractStore<Material> implements StoreMaterial {
 
     private Map<String, Material> materialMap;

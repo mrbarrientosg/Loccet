@@ -13,8 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * Clase modelo usada para el objeto material;
+ * Clase que contiene los datos de un material
  *
  * @author Sebastian Fuenzalida
  *
@@ -94,7 +93,6 @@ public class Material implements Costeable, Cleanable {
      *
      * @author Sebastian Fuenzalida , Matias Zuñiga.
      */
-
     private final String generarId(){
         String result = java.util.UUID.randomUUID().toString();
         result = result.substring(0,6);
@@ -180,6 +178,8 @@ public class Material implements Costeable, Cleanable {
                 m.uds.equals(uds) &&
                 m.precio.equals(precio);
     }
+
+    // MARK: - Costeable y Cleanable
 
     @Override
     public BigDecimal calcularCosto() {

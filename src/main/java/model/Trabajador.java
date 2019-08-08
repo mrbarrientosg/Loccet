@@ -17,6 +17,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Contiene los datos comunes de un trabajador
+ */
 public abstract class Trabajador implements Cleanable {
 
     // MARK: - Atributos
@@ -51,7 +54,7 @@ public abstract class Trabajador implements Cleanable {
     @Expose(serialize = false)
     private StoreHorario storeHorario;
 
-    // MARK: - Constructor
+    // MARK: - Constructores
 
     public Trabajador() {
         storeHorario = new MemoryStoreHorario();
@@ -109,6 +112,8 @@ public abstract class Trabajador implements Cleanable {
     public Iterable<Horario> obtenerListaHorario() {
         return storeHorario.findAll();
     }
+
+    // MARK: - Cleanable
 
     @Override
     public void clean() {
@@ -283,6 +288,8 @@ public abstract class Trabajador implements Cleanable {
             return t;
         }
     }
+
+    // MARK: - Metodos Privados
 
     private boolean validarRut(String rut) {
         boolean validacion = false;

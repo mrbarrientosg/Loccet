@@ -1,10 +1,13 @@
 package model.store;
 
-import model.Cleanable;
-
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase abstracta base para un store que guarda
+ * datos.
+ * @param <Model> El tipo de dato que se quiere guardar en el store
+ */
 public abstract class AbstractStore<Model> implements Store<Model> {
 
     private List<Model> items;
