@@ -169,6 +169,8 @@ public final class CrearTrabajadorView extends View {
 
         telephoneField.setText("");
         emailField.setText("");
+
+        hoursTextField.setText("");
     }
 
     public void display(SaveTrabajadorDelegate delegate) {
