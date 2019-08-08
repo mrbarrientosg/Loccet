@@ -3,6 +3,12 @@ package cell;
 import model.RegistroMaterial;
 import util.DateUtils;
 
+/**
+ * Clase que ayuda a desplegar un registro material
+ * de forma mas facil para la vista
+ *
+ * @author Sebastian Fuenzalida
+ */
 public final class RegistroMaterialCell {
 
     private String fecha;

@@ -24,6 +24,13 @@ import java.util.logging.Level;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+/**
+ * Controlador de la vista RRHHView
+ *
+ * @see view.RRHHView
+ *
+ * @author Matias Barrientos
+ */
 public final class RRHHController extends Controller {
 
     private RRHHView view;

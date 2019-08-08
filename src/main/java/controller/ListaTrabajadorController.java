@@ -17,6 +17,13 @@ import view.ListaTrabajadorView;
 import java.time.Instant;
 import java.util.logging.Level;
 
+/**
+ * Controlar de la vista ListaTrabajador
+ *
+ * @see view.ListaTrabajadorView
+ *
+ * @author Matias Barrientos
+ */
 public final class ListaTrabajadorController extends Controller implements SearchEmployeeDelegate {
 
     private ListaTrabajadorView view;

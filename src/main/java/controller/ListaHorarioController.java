@@ -20,6 +20,13 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.logging.Level;
 
+/**
+ * Controlador de la vista ListaHorario
+ *
+ * @see view.ListaHorarioView
+ *
+ * @author Matias Barrientos
+ */
 public final class ListaHorarioController extends Controller {
 
     private ListaHorarioView view;

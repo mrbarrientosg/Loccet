@@ -3,7 +3,7 @@ package base;
 import java.net.URL;
 
 /**
- * Clase que simplifica la obtencion de recursos
+ * Clase que simplifica la obtencion de los recursos de una clase
  */
 public final class ResourceUtil {
 

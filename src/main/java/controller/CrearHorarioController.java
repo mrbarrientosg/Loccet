@@ -23,6 +23,10 @@ import java.util.logging.Level;
 
 /**
  * Controlador de la vista CrearHorarioView
+ *
+ * @see view.CrearHorarioView
+ *
+ * @author Matias Barrientos
  */
 public final class CrearHorarioController extends Controller {
 

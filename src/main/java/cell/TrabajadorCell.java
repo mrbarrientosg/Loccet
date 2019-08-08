@@ -5,6 +5,12 @@ import model.TrabajadorPartTime;
 import model.TrabajadorTiempoCompleto;
 import util.StringUtils;
 
+/**
+ * Clase que ayuda a desplegar un trabajador
+ * de forma mas facil para la vista
+ *
+ * @author Matias Barrientos
+ */
 public final class TrabajadorCell {
 
     private String rut;

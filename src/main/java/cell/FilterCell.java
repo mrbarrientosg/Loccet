@@ -1,4 +1,5 @@
 package cell;
+
 import delegate.FilterCellDelegate;
 import impl.org.controlsfx.tableview2.filter.parser.number.NumberParser;
 import impl.org.controlsfx.tableview2.filter.parser.string.StringParser;
@@ -13,6 +14,12 @@ import org.controlsfx.control.tableview2.filter.parser.Parser;
 import java.util.List;
 import java.util.function.Predicate;
 
+/**
+ * Clase que contiene los componentes para poder filtrar
+ * las tablas
+ *
+ * @author Matias Barrientos
+ */
 public final class FilterCell {
     private ComboBox<Pair<String, Class<?>>> columnName;
 
@@ -25,8 +32,6 @@ public final class FilterCell {
     private FilterCellDelegate delegate;
 
     private Parser parser;
-
-    private int row;
 
     private Node[] childrens;
 

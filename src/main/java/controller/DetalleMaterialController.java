@@ -23,13 +23,14 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.logging.Level;
 
-
 /**
+ * Controlador para vista DetalleMaterial
+ *
+ * @see view.DetalleMaterialView
+ *
  * @author Sebastian Fuenzalida
  */
 public final class DetalleMaterialController extends Controller {
-
-    //Se declaran las variables
 
     private DetalleMaterialView view;
 

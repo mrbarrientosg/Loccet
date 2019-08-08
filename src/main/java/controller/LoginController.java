@@ -20,6 +20,13 @@ import java.time.Instant;
 import java.time.LocalTime;
 import java.util.Objects;
 
+/**
+ * Controlar de la vista LoginView
+ *
+ * @see view.LoginView
+ *
+ * @author Matias Barrientos
+ */
 public final class LoginController extends Controller {
 
     private LoginView view;

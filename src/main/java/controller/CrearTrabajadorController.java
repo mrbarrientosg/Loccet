@@ -21,7 +21,9 @@ import java.time.LocalDate;
 import java.util.logging.Level;
 
 /**
- * Controlador para la vista Trabajador
+ * Controlador para la vista CrearTrabajadorView
+ *
+ * @see view.CrearTrabajadorView
  *
  * @author Matias Barrientos
  */

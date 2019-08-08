@@ -22,15 +22,19 @@ import java.util.logging.Level;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+/**
+ * Controlar de la vista ProyectoView
+ *
+ * @see view.ProyectoView
+ *
+ * @author Matias Zuñiga
+ * @author Sebastian Fuenzalida
+ */
 public final class ProyectoController extends Controller {
 
     private Constructora model = Constructora.getInstance();
 
     private ProyectoView view;
-
-    public void setView(ProyectoView view) {
-        this.view = view;
-    }
 
     public ObservableList<ProyectoCell> searchProyecto(String text) {
         ObservableList<ProyectoCell> cells = FXCollections.observableArrayList();
@@ -40,10 +44,6 @@ public final class ProyectoController extends Controller {
                 .forEach(cells::add);
 
         return cells;
-    }
-
-    public Proyecto buscarProyecto(String id) {
-        return model.obtenerProyecto(id);
     }
 
     public void deleteProyect(String id){
@@ -59,6 +59,10 @@ public final class ProyectoController extends Controller {
                 .subscribe(System.out::println, throwable -> {
                     LOGGER.log(Level.SEVERE, "", throwable);
                 });
+    }
+
+    public void setView(ProyectoView view) {
+        this.view = view;
     }
 
 }

@@ -18,6 +18,14 @@ import view.DetalleProyectoView;
 import java.time.LocalDate;
 import java.util.logging.Level;
 
+/**
+ * Controlador para la vista DetalleProyecto
+ *
+ * @see view.DetalleProyectoView
+ *
+ * @author Matias Barrientos
+ * @author Matias Zuñiga
+ */
 public final class DetalleProyectoController extends Controller {
 
     private Constructora model;
@@ -64,6 +72,13 @@ public final class DetalleProyectoController extends Controller {
         model = Constructora.getInstance();
     }
 
+    /**
+     * Guarda los datos de la vista en el proyecto
+     *
+     * @throws EmptyFieldException Si deja algun campo vacio
+     *
+     * @author Matias Zuñiga
+     */
     public void actualizar() throws EmptyFieldException {
         actualProyecto.setNombre(name.get());
         actualProyecto.getLocalizacion().setDireccion(address.get());
@@ -73,6 +88,11 @@ public final class DetalleProyectoController extends Controller {
         actualProyecto.setNombreCliente(client.get());
     }
 
+    /**
+     * Carga los datos del proyecto en la vista
+     *
+     * @author Matias Barrientos
+     */
     private void loadData() {
         name.setValue(actualProyecto.getNombre());
         address.setValue(actualProyecto.getLocalizacion().getDireccion());
@@ -84,6 +104,11 @@ public final class DetalleProyectoController extends Controller {
         endDate.setValue(actualProyecto.getFechaTermino());
     }
 
+    /**
+     * Guarda los datos del proyecto en la base de datos
+     *
+     * @author Matias Barrientos
+     */
     public void save() {
         if (oldProyecto.equals(actualProyecto))
             return;

@@ -4,8 +4,8 @@ import javafx.stage.Stage;
 import java.util.WeakHashMap;
 
 /**
- * Clase que guarda la referencia de las vistas principales,
- * las vistas como las alertas u otro tipo no van a ir aqui.
+ * Clase que guarda las referencias de las vistas principales,
+ * las vistas como las alertas u otro tipo no se van a guardar la referencia.
  *
  * El proposito de esta clase es mantener las referencias y
  * no tener que crear las vistas cada vez que se muestra por
@@ -20,7 +20,7 @@ public final class Injectable {
     private static Stage primaryStage;
 
     /**
-     * Busca si existe una clase en el hashmap.
+     * Busca si existe una clase en el mapa.
      * @param type Clase que se quiere buscar
      * @param <T> Valor generic que valida que la clase extienda de Component
      * @return Retorna la clase encontrada
@@ -30,7 +30,7 @@ public final class Injectable {
     }
 
     /**
-     * Busca si existe una clase en el hashmap.
+     * Busca si existe una clase en el mapa.
      * @param type Clase que se quiere buscar
      * @param path Ruta por si requiere abrir un archivo .fxml
      * @param <T> Valor generic que valida que la clase extienda de Component
@@ -46,7 +46,8 @@ public final class Injectable {
     }
 
     /**
-     * Obtiene una clase del hashmap y si no existe la crea guardando su instancia.
+     * Obtiene una clase del mapa y si no existe la crea guardando su instancia,
+     * si esta extiende de View.
      * @param type Clase que se quiere buscar
      * @param path Ruta por si requiere abrir un archivo .fxml
      * @param <T> Valor generic que valida que la clase extienda de Component

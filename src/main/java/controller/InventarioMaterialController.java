@@ -27,6 +27,8 @@ import java.util.stream.StreamSupport;
 /**
  * Clase manejadora de las funciones de la vista inventario.
  *
+ * @see view.InventarioMaterialView
+ *
  * @author Sebastian Fuenzalida.
  */
 public final class InventarioMaterialController extends Controller {
@@ -66,8 +68,9 @@ public final class InventarioMaterialController extends Controller {
     public Material getMaterial(String id){
         return model.obtenerMaterial(idProyecto, id);
     }
+
     /**
-     * Agrega un nuevo material al modelo
+     * Crea un nuevo material al modelo
      * @param material nuevo material a agregar
      */
     public void nuevoMaterial(Material material, RegistroMaterial rm) {
@@ -126,9 +129,9 @@ public final class InventarioMaterialController extends Controller {
 
     /**
      * Guarda el archivo en la carpeta que seleccion el usuario
-     * @param extension extension que esta usando
+     * @param extension extension que va a guardar (.pdf, .xlxs)
      * @param dest archivo de destino para guardar
-     * @throws IOException
+     * @throws IOException El archivo no se puedo crear o guardar
      */
     public void guardarArchivoInventario(String extension, File dest, ObservableList<MaterialCell> list) throws IOException, DocumentException {
         Proyecto p = model.obtenerProyecto(idProyecto);

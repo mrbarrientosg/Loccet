@@ -22,6 +22,13 @@ import view.ListaTrabajadorView;
 import java.time.LocalDate;
 import java.util.logging.Level;
 
+/**
+ * Controlador de la vista DetalleTrabajador
+ *
+ * @see view.DetalleTrabajadorView
+ *
+ * @author Matias Barrientos
+ */
 public final class DetalleTrabajadorController extends Controller {
 
     private DetalleTrabajadorView view;

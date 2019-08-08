@@ -22,8 +22,11 @@ import java.time.LocalDate;
 import java.util.logging.Level;
 
 /**
+ * Se encarga de mostrar la información ingresada por el usuario en la vista CrearProyectoView
+ *
+ * @see view.CrearProyectoView
+ *
  * @author Matias Zuñiga
- * Se encarga de mostrar la información ingresada por el usuario en la vista AgregarProyecto
  */
 
 public final class CrearProyectoController extends Controller {
@@ -67,6 +70,10 @@ public final class CrearProyectoController extends Controller {
     }
 
     public void saveProyecto() throws EmptyFieldException, DateRangeException {
+        if (fechaTermino.get() != null && fechaInicio.get().isAfter(fechaTermino.get())) {
+            throw new DateRangeException("La fecha de inicio del proyecto no puede ser mayor que la de termino.");
+        }
+
         Proyecto proyecto = new Proyecto();
 
         proyecto.setNombre(name.get());
@@ -76,10 +83,6 @@ public final class CrearProyectoController extends Controller {
         Localizacion localizacion = new Localizacion(address.get(), country.get(), state.get(), city.get());
 
         proyecto.setLocalizacion(localizacion);
-
-        if (fechaInicio.get().isAfter(fechaTermino.get())) {
-            throw new DateRangeException("La fecha de inicio del proyecto no puede ser mayor que la de termino.");
-        }
 
         proyecto.setFechaInicio(fechaInicio.get());
         proyecto.setFechaTermino(fechaTermino.get());

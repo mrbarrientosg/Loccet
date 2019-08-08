@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
 import util.NodeUtils;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -26,7 +25,7 @@ import java.util.logging.Level;
 
 /**
  * Subclase de Component, en donde contiene las acciones para poder cargar los fxml,
- * ademas contiene las transiciones de las vistas.
+ * ademas contiene la navegacion entre las vistas.
  *
  * @author Matias Barrientos
  */
@@ -123,15 +122,27 @@ public abstract class UIComponent extends Component {
         isInitialized = true;
     }
 
+    /**
+     * Funcion para inicializar los datos de las vistas, como
+     * tambien los estilos
+     */
     public abstract void viewDidLoad();
 
+    /**
+     * Funcion que es llamada cada vez que la vista es mostrada o
+     * es agregada a algun Node
+     */
     public void viewDidShow() {};
 
-    public void viewDidClose() { };
+    /**
+     * Funcion que es llamada cada vez que se cierra la vista o
+     * es eliminada de algun Node
+     */
+    public void viewDidClose() {};
 
     /**
      * Carga el .fxml de la vista
-     * @param <T> Generico para especificar lo que retorna
+     * @param <T> Generico para especificar el Node
      * @return retorna el root del .fxml
      */
     public <T extends Node> T loadFXML() {
@@ -141,7 +152,7 @@ public abstract class UIComponent extends Component {
     /**
      * Carga el .fxml de la vista
      * @param ruta Ruta del archivo .fxml
-     * @param <T> Generico para especificar lo que retorna
+     * @param <T> Generico para especificar el Node
      * @return retorna el root del .fxml
      */
     public <T extends Node> T loadFXML(String ruta) {
@@ -166,7 +177,7 @@ public abstract class UIComponent extends Component {
             root = fxmlLoader.load();
             return (T) root;
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Error cargar fxml", e);
+            LOGGER.log(Level.SEVERE, "Error al cargar el fxml", e);
         }
 
         return null;

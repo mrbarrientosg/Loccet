@@ -17,6 +17,14 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+/**
+ * Controlador de la vista ReporteView
+ *
+ * @see view.ReporteView
+ *
+ * @author Matias Zuñiga
+ * @author Sebastian Fuenzalida
+ */
 public final class ReporteController extends Controller {
 
     private ReporteView view;

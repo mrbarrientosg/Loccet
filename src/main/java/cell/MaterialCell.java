@@ -2,6 +2,12 @@ package cell;
 
 import model.Material;
 
+/**
+ * Clase que ayuda a desplegar un material de
+ * forma mas facil para la vista
+ *
+ * @author Sebastian Fuenzalida
+ */
 public final class MaterialCell {
 
     private String id;

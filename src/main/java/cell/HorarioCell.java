@@ -3,6 +3,12 @@ package cell;
 import util.Dias;
 import model.Horario;
 
+/**
+ * Clase que ayuda a la vista desplegar un
+ * horario de forma mas facil
+ *
+ * @author Matias Barrientos
+ */
 public final class HorarioCell {
 
     private Integer id;

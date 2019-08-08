@@ -13,6 +13,13 @@ import model.Trabajador;
 import delegate.SearchEmployeeDelegate;
 import view.BuscarTrabajadorView;
 
+/**
+ * Controlador de la vista BuscarTrabajadorView.
+ *
+ * @see view.BuscarTrabajadorView
+ *
+ * @author Matias Barrientos
+ */
 public final class BuscarTrabajadorController {
 
     private Constructora model;

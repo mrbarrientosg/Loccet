@@ -3,6 +3,12 @@ package cell;
 import model.Proyecto;
 import util.DateUtils;
 
+/**
+ * Clase que ayuda a desplegar un proyecto de forma
+ * mas facil para la vista
+ *
+ * @author Matias Zuñiga
+ */
 public final class ProyectoCell {
 
     // MARK: - Variables
