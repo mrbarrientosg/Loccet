@@ -107,7 +107,7 @@ public final class DetalleTrabajadorController extends Controller {
             ((TrabajadorPartTime) actualTrabajador).setCantidadHoraTrabajada(Integer.parseInt(horas.get()));
 
         if (delegate != null)
-            delegate.didSaveTrabajador(actualTrabajador);
+            delegate.didSaveTrabajador();
     }
 
     private void loadData() {

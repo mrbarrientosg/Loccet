@@ -30,6 +30,7 @@ import util.Alert;
 import util.AsyncTask;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 /**
@@ -227,35 +228,13 @@ public final class RRHHView extends View implements SaveTrabajadorDelegate, Filt
         Injectable.find(DetalleTrabajadorView.class).display(cell.getRut(), this);
     }
 
-    public void didDeleteTrabajador(String rut) {
-        tableTrabajadores.getItems().removeIf(value -> value.getRut().equals(rut));
-        tableTrabajadores.refresh();
+    public void didDeleteTrabajador() {
+        refreshTable();
     }
 
     @Override
-    public void didSaveTrabajador(Trabajador trabajador) {
-        AsyncTask.supplyAsync(() -> {
-            ListIterator<TrabajadorCell> iterator = tableTrabajadores.getItems().listIterator();
-
-            while (iterator.hasNext()) {
-                TrabajadorCell cell = iterator.next();
-                if (cell.getRut().equals(trabajador.getRut())) {
-                    Platform.runLater(() -> {
-                        iterator.set(new TrabajadorCell(trabajador));
-                    });
-                    return true;
-                }
-            }
-            return false;
-        }).thenAccept(replace -> {
-            ProyectoCell cell = proyectList.getSelectionModel().getSelectedItem();
-
-            if (!replace && cell.getNombre().equals("Todos"))
-                tableTrabajadores.getItems().add(new TrabajadorCell(trabajador));
-
-            searchField.setText("");
-        });
-
+    public void didSaveTrabajador() {
+        refreshTable();
     }
 
     @Override
@@ -279,5 +258,17 @@ public final class RRHHView extends View implements SaveTrabajadorDelegate, Filt
         });
 
         return map;
+    }
+
+    private void refreshTable() {
+        Consumer<ObservableList<TrabajadorCell>> call = (items) -> {
+            tableTrabajadores.setItems(items);
+            tableTrabajadores.filter();
+        };
+
+        if (proyectList.getValue().getId() == null)
+            controller.fetchTrabajadores("Todos", call);
+        else
+            controller.fetchTrabajadores(proyectList.getValue().getId(), call);
     }
 }
