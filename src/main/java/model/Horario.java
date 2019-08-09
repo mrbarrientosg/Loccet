@@ -1,33 +1,46 @@
 package model;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+
+import java.lang.reflect.Type;
 import java.time.LocalTime;
-import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
-public class Horario {
+/**
+ * Clase que contiene los datos y metodos de un Horario
+ */
+public class Horario implements Cleanable {
 
-    private String id;
+    // MARK: - Atributos
+
+    private Integer id;
 
     private Integer dia;
 
-    private String idProyecto;
+    private Proyecto proyecto;
 
-    private String nombreProyecto;
+    private Trabajador trabajador;
 
-    private LocalTime fechaInicio;
+    private LocalTime horaInicio;
 
-    private LocalTime fechaTermino;
+    private LocalTime horaFin;
 
-    private Horario(Builder builder) {
-        id = UUID.randomUUID().toString();
-        this.dia = builder.dia;
-        this.idProyecto = builder.idProyecto;
-        this.nombreProyecto = builder.nombreProyecto;
-        this.fechaInicio = builder.fechaInicio;
-        this.fechaTermino = builder.fechaTermino;
+    // MARK: - Constructor
+
+    public Horario(Integer dia, LocalTime horaInicio, LocalTime horaFin) {
+        this.dia = dia;
+        this.horaInicio = horaInicio;
+        this.horaFin = horaFin;
     }
 
-    public String getId() {
+    // MARK: - Getter
+
+    public Integer getId() {
         return id;
     }
 
@@ -35,73 +48,55 @@ public class Horario {
         return dia;
     }
 
-    public String getIdProyecto() {
-        return idProyecto;
+    public Proyecto getProyecto() {
+        return proyecto;
     }
 
-    public LocalTime getFechaInicio() {
-        return fechaInicio;
+    public Trabajador getTrabajador() {
+        return trabajador;
     }
 
-    public void setFechaInicio(LocalTime fechaInicio) {
-        this.fechaInicio = fechaInicio;
+    public LocalTime getHoraInicio() {
+        return horaInicio;
     }
 
-    public LocalTime getFechaTermino() {
-        return fechaTermino;
+    public LocalTime getHoraFin() {
+        return horaFin;
     }
 
-    public void setFechaTermino(LocalTime fechaTermino) {
-        this.fechaTermino = fechaTermino;
+    // MARK: - Setter
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getNombreProyecto() {
-        return nombreProyecto;
+    public void setProyecto(Proyecto proyecto) {
+        this.proyecto = proyecto;
+    }
+
+    public void setTrabajador(Trabajador trabajador) {
+        this.trabajador = trabajador;
     }
 
     @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append(dia.toString());
-        builder.append(" - ");
-        builder.append(nombreProyecto);
-        builder.append(" - ");
-        builder.append(fechaInicio.toString());
-        builder.append(" - ");
-        builder.append(fechaTermino.toString());
-        return builder.toString();
+    public void clean() {
+        proyecto = null;
+        trabajador = null;
     }
 
-    public static class Builder {
+    public static class HorarioSerializer implements JsonSerializer<Horario> {
 
-        private final Integer dia;
+        @Override
+        public JsonElement serialize(Horario horario, Type type, JsonSerializationContext jsonSerializationContext) {
+            JsonObject json = new JsonObject();
 
-        private final String idProyecto;
+            json.addProperty("hora_inicio", horario.getHoraInicio().toString());
+            json.addProperty("hora_fin", horario.getHoraFin().toString());
+            json.addProperty("rut_trabajador", horario.getTrabajador().getRut());
+            json.addProperty("id_proyecto", horario.getProyecto().getId());
+            json.addProperty("dia", horario.getDia());
 
-        private final String nombreProyecto;
-
-        private LocalTime fechaInicio;
-
-        private LocalTime fechaTermino;
-
-        public Builder(Integer dia, String idProyecto, String nombreProyecto) {
-            this.dia = dia;
-            this.idProyecto = idProyecto;
-            this.nombreProyecto = nombreProyecto;
-        }
-
-        public Builder fechaInicio(LocalTime fechaInicio) {
-            this.fechaInicio = fechaInicio;
-            return this;
-        }
-
-        public Builder fechaTermino(LocalTime fechaTermino) {
-            this.fechaTermino = fechaTermino;
-            return this;
-        }
-
-        public Horario build() {
-            return new Horario(this);
+            return json;
         }
     }
 

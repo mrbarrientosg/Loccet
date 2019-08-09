@@ -2,52 +2,54 @@ package controller;
 
 import base.Controller;
 import cell.HorarioCell;
+import cell.ProyectoCell;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.Constructora;
 import model.Horario;
 import model.Trabajador;
-import state.AddHorarioDelegate;
+import network.endpoint.HorarioAPI;
+import network.service.NetService;
+import util.AsyncTask;
 import view.ListaHorarioView;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
+import java.util.logging.Level;
 
-public final class ListaHorarioController extends Controller implements AddHorarioDelegate {
+/**
+ * Controlador de la vista ListaHorario
+ *
+ * @see view.ListaHorarioView
+ *
+ * @author Matias Barrientos
+ */
+public final class ListaHorarioController extends Controller {
 
     private ListaHorarioView view;
 
-    private Trabajador trabajador;
+    private Constructora model;
 
-    private ObservableList<HorarioCell> horarioList;
+    private String rutTrabajador;
 
-    private boolean add;
-
-    public ListaHorarioController(ListaHorarioView view, Trabajador trabajador) {
-        this.view = view;
-        this.trabajador = trabajador;
+    public ListaHorarioController() {
+        model = Constructora.getInstance();
     }
 
     /**
      * Carga la informacion desde el modelo
      */
-    private void loadData() {
-        if (horarioList != null) return;
+    public void fetchHorarios(Consumer<ObservableList<HorarioCell>> callBack) {
+        AsyncTask.supplyAsync(() -> {
+            ObservableList<HorarioCell> list = FXCollections.observableArrayList();
 
-        List<Horario> horarios = trabajador.obtenerListaHorario();
+            model.getHorarios(rutTrabajador).forEach(horario -> list.add(new HorarioCell(horario)));
 
-        horarioList = FXCollections.observableList(horarios.stream().map(HorarioCell::new).collect(Collectors.toList()));
-    }
-
-    /**
-     * Si la lista esta asociada a la vista de agregar Horario
-     * @param horario Horario agregado desde la otra vista
-     */
-    @Override
-    public void didAddHorario(Horario horario) {
-        if (horarioList == null)
-            loadData();
-        else
-            horarioList.add(new HorarioCell(horario));
+            return list;
+        }).thenAccept(callBack);
     }
 
     /**
@@ -56,24 +58,31 @@ public final class ListaHorarioController extends Controller implements AddHorar
      */
     public void eliminarHorario(HorarioCell cell) {
         if (cell == null) return;
-        trabajador.eliminarHorario(cell.getId());
-        horarioList.remove(cell);
+
+        model.eliminarHorario(rutTrabajador, cell.getId());
+
+        view.didDeleteHorario(cell);
+
+        NetService service = NetService.getInstance();
+
+        JsonObject json = new JsonObject();
+        json.addProperty("id_horario", cell.getId());
+
+        service.request(HorarioAPI.REMOVE, json)
+                .subscribe(System.out::println, throwable -> {
+                    LOGGER.log(Level.SEVERE, "", throwable);
+                });
     }
 
-    public ObservableList<HorarioCell> getHorarioList() {
-        if (horarioList == null) loadData();
-        return horarioList;
+    public void setView(ListaHorarioView view) {
+        this.view = view;
     }
 
-    public String getNombreTrabajador() {
-        return trabajador.getNombre();
+    public void setRutTrabajador(String rutTrabajador) {
+        this.rutTrabajador = rutTrabajador;
     }
 
-    public void setAdd(boolean add) {
-        this.add = add;
-        if (add)
-            view.hideComponents();
-        else
-            view.showComponents();
+    public String getRutTrabajador() {
+        return rutTrabajador;
     }
 }

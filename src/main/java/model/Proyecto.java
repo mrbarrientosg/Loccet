@@ -1,174 +1,84 @@
 package model;
 
+import com.google.gson.*;
+import com.google.gson.annotations.Expose;
+import exceptions.EmptyFieldException;
+import json.LocalDateTypeConverter;
+import model.store.*;
+import model.store.memory.MemoryStoreAsistencia;
+import model.store.memory.MemoryStoreFase;
+import model.store.memory.MemoryStoreTrabajador;
+import specification.MemorySpecification;
 import util.StringUtils;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.time.Duration;
+import java.lang.reflect.Type;
+import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
-public class Proyecto {
+/**
+ * Clase que contiene los datos de un proyecto
+ */
+public class Proyecto implements Costeable, Cleanable {
 
-    // MARK: - Variables
+    // MARK: - Atributos
+
+    @Expose
     private String id;
 
-    private String nombreProyecto;
+    @Expose
+    private String nombre;
 
-    private String jefeProyecto;
+    @Expose
+    private Localizacion localizacion;
 
-    private String mailCliente;
-
-    private String cliente;
-
-    private String telefonoCliente;
-
-    private String direccion;
-
-    private String pais;
-
-    private String ciudad;
-
-    private String estado;
-
+    @Expose
     private LocalDate fechaInicio;
 
+    @Expose
     private LocalDate fechaTermino;
 
-    private double estimacion;
+    @Expose
+    private BigDecimal costoEstimado;
 
-    private List<Trabajador> listaTrabajadores;
+    @Expose
+    private String nombreCliente;
 
-    private Map<String, Trabajador> mapTrabajadores;
+    @Expose(serialize = false)
+    private StoreTrabajador storeTrabajador;
 
+    @Expose(serialize = false)
+    private Store<Asistencia> asistenciaStore;
+
+    @Expose(serialize = false)
+    private StoreFase storeFase;
+
+    @Expose(serialize = false)
     private InventarioMaterial inventarioMaterial;
 
-    // TODO: Implementar equipo y maquinarias.
+    // MARK: - Constructores
 
-
-    // MARK: - Constructor
-
-    private Proyecto(Builder builder){
-        this.id = builder.id;
-        this.nombreProyecto = builder.nombreProyecto;
-        this.jefeProyecto = builder.jefeProyecto;
-        this.estimacion = builder.estimacion;
-        this.cliente = builder.cliente;
-        this.telefonoCliente = builder.telefonoCliente;
-        this.mailCliente = builder.mailCliente;
-        this.direccion = builder.direccion;
-        this.pais = builder.pais;
-        this.estado = builder.estado;
-        this.ciudad = builder.ciudad;
-        this.fechaInicio = builder.fechaInicio;
-        this.fechaTermino = builder.fechaTermino;
-
-        listaTrabajadores = new ArrayList<>();
-        mapTrabajadores = new HashMap<>();
-
+    public Proyecto() {
+        id = generarId();
+        asistenciaStore = new MemoryStoreAsistencia();
+        storeTrabajador = new MemoryStoreTrabajador();
+        storeFase = new MemoryStoreFase();
         inventarioMaterial = new InventarioMaterial();
     }
 
-
-    // MARK: - Getter
-
-    public LocalDate getFechaInicio() {
-        return fechaInicio;
+    public Proyecto(Proyecto other) {
+        this.id = other.id;
+        this.nombre = other.nombre;
+        this.localizacion = new Localizacion(other.localizacion);
+        this.fechaInicio = other.fechaInicio;
+        this.fechaTermino = other.fechaTermino;
+        this.costoEstimado = other.costoEstimado;
+        this.nombreCliente = other.nombreCliente;
     }
 
-    public LocalDate getFechaTermino() {
-        return fechaTermino;
-    }
-
-    public String getNombreProyecto() {
-        return nombreProyecto;
-    }
-
-    public String getJefeProyecto() {
-        return jefeProyecto;
-    }
-
-    public String getMailCliente() {
-        return mailCliente;
-    }
-
-    public String getTelefonoCliente() {
-        return telefonoCliente;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public String getPais() {
-        return pais;
-    }
-
-    public String getCiudad() {
-        return ciudad;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public double getEstimacion() {
-        return estimacion;
-    }
-
-
-    public InventarioMaterial getInventarioMaterial() {
-        return inventarioMaterial;
-    }
-
-    // MARK: - Metodos
-
-    /**
-     * Agrega un nuevo trabajador al proyecto
-     * @param trabajador trabajador a guardar
-     * @return true si pudo agregarlo, en caso contrario false
-     *
-     * @author Matias Zuñiga
-     */
-    public boolean agregarTrabajador(Trabajador trabajador){
-        if (mapTrabajadores.containsKey(trabajador.getRut())) return false;
-        trabajador.asociarProyecto(id);
-        mapTrabajadores.put(trabajador.getRut(), trabajador);
-        listaTrabajadores.add(trabajador);
-        return true;
-    }
-
-
-    public Trabajador actualizarTrabajador(Trabajador nuevoTrabajador) {
-        if (!mapTrabajadores.containsKey(nuevoTrabajador.getRut())) return null;
-        int idx = listaTrabajadores.indexOf(mapTrabajadores.get(nuevoTrabajador.getRut()));
-        listaTrabajadores.set(idx, nuevoTrabajador);
-        return mapTrabajadores.put(nuevoTrabajador.getRut(), nuevoTrabajador);
-    }
-
-
-//    /**
-//     * Busca todos los trabajadores que coincidan con la busqueda
-//     * @param busqueda Texto de Busqueda
-//     * @return Lista de Trabajadores encontrados
-//     *
-//     * @author Matias Barrientos
-//     */
-//    public List<Trabajador> buscarTrabajador(String busqueda) {
-//        ArrayList<Trabajador> encontrados = new ArrayList<>();
-//
-//        for (Trabajador trabajador: listaTrabajadores) {
-//            if (StringUtils.containsIgnoreCase(trabajador.getNombre(), busqueda) ||
-//                    StringUtils.containsIgnoreCase(trabajador.getRut(), busqueda))
-//                encontrados.add(trabajador);
-//        }
-//
-//        return encontrados;
-//    }
+    // MARK: - Metodos Trabajador
 
     /**
      * Obtiene al trabajador el cual coincida con el rut.
@@ -178,8 +88,24 @@ public class Proyecto {
      * @author Matias Barrientos
      */
     public Trabajador obtenerTrabajador(String rut) {
-        return mapTrabajadores.get(rut);
+        return storeTrabajador.findByRut(rut);
     }
+
+    /**
+     * Agrega un nuevo trabajador al proyecto
+     * @param trabajador trabajador a guardar
+     * @return true si pudo agregarlo, en caso contrario false
+     *
+     * @author Matias Zuñiga
+     */
+    public void agregarTrabajador(Trabajador trabajador) {
+        if (storeTrabajador.contains(trabajador))
+            return;
+
+        trabajador.asociarProyecto(this);
+        storeTrabajador.save(trabajador);
+    }
+
 
     /**
      * Elimina al trabajador que coincida con el rut.
@@ -189,98 +115,249 @@ public class Proyecto {
      * @author Matias Barrientos
      */
     public Trabajador eliminarTrabajador(String rut) {
-        if (!mapTrabajadores.containsKey(rut)) return null;
-        listaTrabajadores.remove(mapTrabajadores.get(rut));
-        return mapTrabajadores.remove(rut);
+        return storeTrabajador.delete(rut);
     }
 
-    public void estimacionGasto() {
-        double total = inventarioMaterial.gastoTotal();
+    public Iterable<Trabajador> buscarTrabajador(MemorySpecification<Trabajador> specification) {
+        final List<Trabajador> trabajadors = new ArrayList<>();
 
-        NumberFormat formatter = new DecimalFormat("#0.00$");
+        for (Trabajador trabajador: storeTrabajador.findAll()) {
+            if (specification.test(trabajador))
+                trabajadors.add(trabajador);
+        }
 
-        System.out.println("Gasto inventario (estimación): " + formatter.format(total));
-
-        Duration diff = Duration.between(fechaInicio.atStartOfDay(), fechaTermino.atStartOfDay());
-        long cant = diff.toDays();
-
-        double gastoTrabajadores = listaTrabajadores.stream()
-                .map(Trabajador::getEspecialidad)
-                .map(Especialidad::sueldoTotal)
-                .map(aDouble -> aDouble * cant)
-                .reduce(0.0, (left, right) -> left + right);
-
-        System.out.println("Gasto trabajadores (estimación): " + formatter.format(gastoTrabajadores));
-
-        total += gastoTrabajadores;
-
-        System.out.println("Gasto total de la estimación: " + formatter.format(total));
-
-        System.out.println("Gasto propuesto menos estimación: " + formatter.format(estimacion - total));
+        return trabajadors;
     }
 
-    public static class Builder {
-        private String id;
-        private String nombreProyecto;
-        private String jefeProyecto;
-        private String cliente;
-        private String mailCliente;
-        private String telefonoCliente;
-        private String direccion;
-        private String pais;
-        private String ciudad;
-        private String estado;
-        private LocalDate fechaInicio;
-        private LocalDate fechaTermino;
-        private String fechaTerminoReal;
-        private double estimacion;
-        private double costoReal;
+    public Iterable<Trabajador> getTrabajadores() {
+        return storeTrabajador.findAll();
+    }
 
-        public Builder(String nombreProyecto, String jefeProyecto, Double estimacion, String cliente){
-            this.id = generarId();
-            this.nombreProyecto = nombreProyecto;
-            this.jefeProyecto = jefeProyecto;
-            this.estimacion = estimacion;
-            this.cliente = cliente;
+    // MARK: - Metodos Inventario
+
+    public void agregarMaterial(Material material) {
+        inventarioMaterial.agregarMaterial(material);
+    }
+
+    public Material eliminarMaterial(String idMaterial) {
+        return inventarioMaterial.eliminarMaterial(idMaterial);
+    }
+
+    public Material obtenerMaterial(String idMaterial) {
+        return inventarioMaterial.obtenerMaterial(idMaterial);
+    }
+
+    public Iterable<Material> buscarMaterial(MemorySpecification<Material> specification) {
+        return inventarioMaterial.buscarMaterial(specification);
+    }
+
+    // MARK: - Metodos Asistencia
+
+    public void agregarAsistencia(String rutTrabajador, Asistencia asistencia) {
+        asistencia.setProyecto(this);
+        asistencia.setTrabajador(storeTrabajador.findByRut(rutTrabajador));
+        asistenciaStore.save(asistencia);
+    }
+
+    // MARK: - Metodos Fase
+
+    public void agregarFase(Fase fase) {
+        fase.setProyecto(this);
+        storeFase.save(fase);
+    }
+
+    // MARK: - Metodos Tarea
+
+    public void agregarTarea(int idFase, Tarea tarea) {
+        storeFase.findById(idFase).agregarTarea(tarea);
+    }
+
+
+    // MARK : - Metodos Registro Material
+
+    public void agregarRegistroMaterial(String idMaterial, RegistroMaterial registroMaterial) {
+        inventarioMaterial.agregarRegistroMaterial(idMaterial, registroMaterial);
+    }
+
+    // MARK: - Interfaz Costeable
+
+    @Override
+    public BigDecimal calcularCosto(){
+        Iterator<Trabajador> iterator = storeTrabajador.findAll().iterator();
+
+        BigDecimal costoAproximado = new BigDecimal(0);
+
+        while (iterator.hasNext())
+            costoAproximado = costoAproximado.add(iterator.next().calcularSueldo());
+
+        return costoAproximado.add(inventarioMaterial.calcularCosto());
+    }
+
+    // MARK: - Getter
+
+    public String getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public Localizacion getLocalizacion() {
+        return localizacion;
+    }
+
+    public LocalDate getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public LocalDate getFechaTermino() {
+        return fechaTermino;
+    }
+
+    public BigDecimal getCostoEstimado() {
+        return costoEstimado;
+    }
+
+    public String getNombreCliente() {
+        return nombreCliente;
+    }
+
+    public Integer getIdInventario() {
+        return inventarioMaterial.getId();
+    }
+
+    // MARK: - Setter
+
+    private void setId(String id) throws EmptyFieldException {
+        if (StringUtils.isEmpty(id))
+            throw new EmptyFieldException("ID");
+
+        this.id = id;
+    }
+
+    public void setNombre(String nombre) throws EmptyFieldException {
+        if (StringUtils.isEmpty(nombre))
+            throw new EmptyFieldException("Nombre");
+
+        this.nombre = nombre;
+    }
+
+    public void setLocalizacion(Localizacion localizacion) {
+        this.localizacion = localizacion;
+    }
+
+    public void setFechaInicio(LocalDate fechaInicio) throws EmptyFieldException {
+        if (fechaInicio == null)
+            throw new EmptyFieldException("Fecha inicio");
+
+        this.fechaInicio = fechaInicio;
+    }
+
+    public void setFechaTermino(LocalDate fechaTermino) {
+        this.fechaTermino = fechaTermino;
+    }
+
+    public void setCostoEstimado(BigDecimal costoEstimado) {
+        this.costoEstimado = costoEstimado;
+    }
+
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
+    }
+
+    public void setIdInventario(Integer id) {
+        inventarioMaterial.setId(id);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+
+        if (!(obj instanceof Proyecto)) return false;
+
+        Proyecto p = (Proyecto) obj;
+
+        return p.id.equals(id) &&
+                p.nombre.equals(nombre) &&
+                p.localizacion.equals(localizacion) &&
+                p.nombreCliente.equals(nombreCliente);
+
+    }
+
+    // MARK: - Cleanable
+
+    @Override
+    public void clean() {
+        storeTrabajador.findAll().forEach(trabajador -> trabajador.eliminarProyecto(id));
+        storeTrabajador.clean();
+        storeFase.clean();
+        asistenciaStore.clean();
+
+        storeFase = null;
+        storeTrabajador = null;
+        asistenciaStore = null;
+        localizacion = null;
+    }
+
+    // MARK: - JSON
+
+    public static class ProyetoDeserializer implements JsonDeserializer<Proyecto> {
+
+        @Override
+        public Proyecto deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+            Proyecto p = new Proyecto();
+            JsonObject json = jsonElement.getAsJsonObject();
+
+            Gson gson = new GsonBuilder()
+                    .registerTypeAdapter(LocalDate.class, new LocalDateTypeConverter())
+                    .create();
+
+            try {
+                p.setId(json.get("id").getAsString());
+                p.setNombre(json.get("nombre").getAsString());
+                p.setCostoEstimado(json.get("costo_estimado").getAsBigDecimal());
+                p.setNombreCliente(json.get("nombre_cliente").getAsString());
+
+                p.setFechaInicio(gson.fromJson(json.get("fecha_inicio"), LocalDate.class));
+                p.setFechaTermino(gson.fromJson(json.get("fecha_termino"), LocalDate.class));
+
+                p.setLocalizacion(gson.fromJson(json.get("localizacion").getAsString(), Localizacion.class));
+
+                p.inventarioMaterial.setId(json.get("id_inventario").getAsInt());
+            } catch (EmptyFieldException e) {
+                // TODO: Ver que se hace en este caso
+                e.printStackTrace();
+            }
+
+
+            return p;
         }
+    }
 
-        public Builder datosCliente(String mailCliente, String telefonoCliente) {
-            this.mailCliente = mailCliente;
-            this.telefonoCliente = telefonoCliente;
-            return this;
+    public static class ProyectoSerializer implements JsonSerializer<Proyecto> {
+
+        @Override
+        public JsonElement serialize(Proyecto proyecto, Type type, JsonSerializationContext jsonSerializationContext) {
+            JsonObject json = new JsonObject();
+
+            Gson gson = new GsonBuilder()
+                    .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                    .create();
+
+            json.addProperty("id", proyecto.getId());
+            json.addProperty("nombre", proyecto.getNombre());
+            json.addProperty("nombre_cliente", proyecto.getNombreCliente());
+
+            json.add("localizacion", gson.toJsonTree(proyecto.getLocalizacion()));
+
+            return json;
         }
-
-        public Builder datosUbicacion(String direccion, String pais, String ciudad, String estado) {
-            this.direccion = direccion;
-            this.pais = pais;
-            this.ciudad = ciudad;
-            this.estado = estado;
-            return this;
-        }
-
-        public Builder fechaProyecto(LocalDate fechaInicio, LocalDate fechaTermino) {
-            this.fechaInicio = fechaInicio;
-            this.fechaTermino = fechaTermino;
-            return this;
-        }
-
-        public Proyecto build(){
-            return new Proyecto(this);
-        }
-
-        /**
-         * @return un string generando un Id unico para el proyecto.
-         * @author Matías Zúñiga
-         */
-        private final String generarId() {
-            String result = java.util.UUID.randomUUID().toString();
-            //result = result.replaceAll("-", "");
-            //result = result.replaceAll("[A-Za-z]","");
-            //result = result.substring(0, 32);
-            return result;
-        }
-
-
+    }
+    private final String generarId(){
+        String result = java.util.UUID.randomUUID().toString();
+        result = result.substring(0,20);
+        return result;
     }
 
 

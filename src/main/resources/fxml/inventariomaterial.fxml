@@ -1,49 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="810.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox spacing="10.0" styleClass="bg-white" stylesheets="@../App.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox alignment="CENTER_LEFT" spacing="20.0">
+      <VBox spacing="8.0">
+         <VBox.margin>
+            <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
+         </VBox.margin>
          <children>
-            <TextField fx:id="searchText" promptText="Buscar material" HBox.hgrow="ALWAYS" />
-            <Button fx:id="nuevoMaterialBT" mnemonicParsing="false" onAction="#nuevoMaterial" text="Nuevo Material" />
-            <Button fx:id="modificarMaterialBT" mnemonicParsing="false" onAction="#modificarMaterial" text="Modificar Material" />
-            <Button fx:id="retirarBT" mnemonicParsing="false" onAction="#retirarMaterial" text="Retirar" />
-            <Button fx:id="agregarBT" mnemonicParsing="false" onAction="#agregarMaterial" text="Agregar" />
-            <Button fx:id="eliminarBT" mnemonicParsing="false" onAction="#eliminar" text="Eliminar" />
-            <Separator visible="false" HBox.hgrow="ALWAYS" />
-            <Button fx:id="salirBT" mnemonicParsing="false" onAction="#salir" text="Salir" />
+            <HBox alignment="CENTER" spacing="10.0">
+               <children>
+                  <Label styleClass="title1" text="Inventario" />
+                  <ButtonBar HBox.hgrow="ALWAYS">
+                    <buttons>
+                        <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0">
+                           <children>
+                              <AnchorPane styleClass="button-shadow-white">
+                                 <StackPane.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </StackPane.margin>
+                                 <padding>
+                                    <Insets bottom="5.0" />
+                                 </padding>
+                              </AnchorPane>
+                              <Button fx:id="nuevoMaterialBT" mnemonicParsing="false" onAction="#nuevoMaterial" styleClass="button-fill-blue" text="Nuevo material" />
+                           </children>
+                        </StackPane>
+                        <Button fx:id="editarBT" disable="true" mnemonicParsing="false" onAction="#detalleMaterial" prefWidth="96.0" styleClass="button-label-blue" text="Ver detalle">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </Button>
+                        <Button fx:id="eliminarBT" disable="true" mnemonicParsing="false" onAction="#eliminar" prefWidth="96.0" styleClass="button-label-red" text="Eliminar ">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </Button>
+                    </buttons>
+                  </ButtonBar>
+               </children>
+            </HBox>
+            <TextField fx:id="searchText" maxWidth="1.7976931348623157E308" promptText="Buscar material">
+               <styleClass>
+                  <String fx:value="textfield" />
+                  <String fx:value="textfield-gray" />
+               </styleClass>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </TextField>
          </children>
-      </HBox>
+      </VBox>
       <TableView fx:id="tablaInventario" VBox.vgrow="ALWAYS">
         <columns>
-            <TableColumn fx:id="fechaIngresoCL" editable="false" minWidth="-1.0" prefWidth="85.0" text="Fecha ingreso" />
           <TableColumn fx:id="idMaterialCL" editable="false" minWidth="-1.0" prefWidth="57.0" text="ID" />
             <TableColumn fx:id="nombreMaterialCL" editable="false" minWidth="-1.0" prefWidth="65.0" text="Nombre" />
           <TableColumn fx:id="descripcionCL" editable="false" minWidth="-1.0" prefWidth="201.0" text="Descripcion" />
             <TableColumn fx:id="cantidadCL" editable="false" minWidth="-1.0" prefWidth="59.0" text="Cantidad" />
             <TableColumn fx:id="udsCL" editable="false" minWidth="-1.0" prefWidth="77.0" text="UDS" />
-            <TableColumn fx:id="retiroCL" editable="false" minWidth="-1.0" prefWidth="62.0" text="Retiro" />
-            <TableColumn fx:id="fechaRetiroCL" editable="false" minWidth="-1.0" prefWidth="85.0" text="Fecha retiro" />
             <TableColumn fx:id="precioCL" editable="false" minWidth="-1.0" prefWidth="100.0" text="Precio" />
         </columns>
+         <VBox.margin>
+            <Insets left="16.0" right="16.0" />
+         </VBox.margin>
+         <styleClass>
+            <String fx:value="table" />
+            <String fx:value="bg-gray" />
+         </styleClass>
       </TableView>
-      <ButtonBar prefHeight="40.0" prefWidth="200.0">
+      <ButtonBar>
         <buttons>
-          <Button mnemonicParsing="false" onAction="#exportarInventario" text="Exportar" />
+            <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0">
+               <children>
+                  <AnchorPane styleClass="button-shadow-white">
+                     <StackPane.margin>
+                        <Insets left="5.0" right="5.0" top="10.0" />
+                     </StackPane.margin>
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                  </AnchorPane>
+                <Button mnemonicParsing="false" onAction="#exportarInventario" styleClass="button-fill-blue" text="Exportar Inventario" />
+               </children>
+            </StackPane>
         </buttons>
+         <VBox.margin>
+            <Insets bottom="16.0" left="16.0" right="16.0" />
+         </VBox.margin>
       </ButtonBar>
    </children>
-   <padding>
-      <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-   </padding>
 </VBox>

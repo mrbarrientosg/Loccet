@@ -1,0 +1,26 @@
+.bg-transparent {
+  -fx-background-color: transparent;
+}
+
+.bg-white {
+  -fx-background-color: white;
+}
+
+.bg-light-gray {
+  -fx-background-color: $ghost-white;
+}
+
+.bg-gray {
+  -fx-background-color: $gray;
+}
+
+.corner-pane {
+  -fx-background-radius: 3px;
+}
+
+/*@mixin backgroundgray{
+  #{'.backgroundgray'}{
+    -fx-text-fill: black;
+    -fx-prompt-text-fill: darken(lightGray, 30%);
+  }
+}*/

@@ -1,13 +1,18 @@
 package view;
 
 import base.Fragment;
-import controller.InventarioMaterialController;
+import base.Injectable;
+import controller.DetalleMaterialController;
+import exceptions.NegativeQuantityException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.paint.Color;
+import javafx.stage.StageStyle;
+import util.Alert;
 
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
@@ -20,9 +25,7 @@ import java.util.regex.Pattern;
 
 public final class AgregarMaterialView extends Fragment {
 
-    private InventarioMaterialController controller;
-
-    private String idMaterial;
+    private DetalleMaterialController controller;
 
     @FXML
     private Button agregarBT;
@@ -35,17 +38,16 @@ public final class AgregarMaterialView extends Fragment {
 
     @Override
     public void viewDidLoad() {
-        Pattern pattern = Pattern.compile("\\d*|\\d+\\.\\d*");
-
-        TextFormatter formatter =  new TextFormatter<UnaryOperator>(change -> {
-            return pattern.matcher(change.getControlNewText()).matches() ? change : null;
-        });
-
-        agregarTF.setTextFormatter(formatter);
+        controller = Injectable.find(DetalleMaterialController.class);
     }
 
-    public void setIdMaterial(String idMaterial){
-        this.idMaterial = idMaterial;
+    @Override
+    public void viewDidShow(){
+        Pattern pattern = Pattern.compile("\\d*|\\d+\\.\\d*");
+
+        TextFormatter formatter =  new TextFormatter<UnaryOperator>(change -> pattern.matcher(change.getControlNewText()).matches() ? change : null);
+
+        agregarTF.setTextFormatter(formatter);
     }
 
     /**
@@ -55,24 +57,31 @@ public final class AgregarMaterialView extends Fragment {
     @FXML
     public void cantidadItem(ActionEvent event){
         if(!agregarTF.getText().isEmpty()) {
-            controller.agregarMaterial(idMaterial, Double.parseDouble(agregarTF.getText()));
+            try {
+                controller.agregarMaterial(Double.parseDouble(agregarTF.getText()));
+            } catch (NegativeQuantityException e) {
+                Alert.error()
+                        .withDescription(e.getMessage())
+                        .withButton(ButtonType.OK)
+                        .build().show();
+            }
             close();
-        }else{
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Ingreso de datos invalido");
-            alert.setContentText("Por favor ingresar un numero");
-            alert.showAndWait();
+        } else {
+            Alert.error()
+                    .withHeader("Por favor ingresar un numero")
+                    .withButton(ButtonType.OK)
+                    .build().show();
         }
     }
 
     @FXML
-    public void cancelar(ActionEvent event){
+    public void salir(ActionEvent event) {
         close();
     }
 
-    public void setController(InventarioMaterialController controller) {
-        this.controller = controller;
+    public void display() {
+        modal().withOwner(null).withStyle(StageStyle.TRANSPARENT)
+                .show().getScene().setFill(Color.TRANSPARENT);
     }
 
 }

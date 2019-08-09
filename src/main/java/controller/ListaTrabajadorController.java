@@ -1,107 +1,96 @@
 package controller;
 
 import base.Controller;
-import cell.MaterialCell;
 import cell.TrabajadorCell;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import com.google.gson.JsonObject;
+import io.reactivex.Observable;
+import io.reactivex.Single;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import model.Constructora;
 import model.Trabajador;
-import router.ListaTrabajadorRouter;
-import router.TrabajadorRouter;
-import state.EditTrabajadorDelegate;
+import delegate.SearchEmployeeDelegate;
+import network.endpoint.TrabajadorAPI;
+import network.service.NetService;
+import util.DateUtils;
 import view.ListaTrabajadorView;
-import view.TrabajadorView;
+import java.time.Instant;
+import java.util.logging.Level;
 
-import java.util.ListIterator;
-import java.util.stream.Collectors;
+/**
+ * Controlar de la vista ListaTrabajador
+ *
+ * @see view.ListaTrabajadorView
+ *
+ * @author Matias Barrientos
+ */
+public final class ListaTrabajadorController extends Controller implements SearchEmployeeDelegate {
 
-public final class ListaTrabajadorController extends Controller implements EditTrabajadorDelegate {
+    private ListaTrabajadorView view;
 
-    private final ListaTrabajadorView view;
+    private Constructora model;
 
-    private final Constructora model;
+    private NetService service;
 
-    private final ListaTrabajadorRouter router;
+    private String idProyecto;
 
-    private ObjectProperty<TrabajadorCell> selectedTrabajador = new SimpleObjectProperty<>();
-
-    private ObservableList<TrabajadorCell> trabajadorCells;
-
-    private FilteredList<TrabajadorCell> filteredMateriales;
-
-    public ListaTrabajadorController(ListaTrabajadorView view, Constructora model, ListaTrabajadorRouter router) {
-        this.view = view;
-        this.model = model;
-        this.router = router;
-        loadData();
+    public ListaTrabajadorController() {
+        model = Constructora.getInstance();
+        service = NetService.getInstance();
     }
 
-    /**
-     * Carga la informacion del modelo en la lista
-     */
-    public void loadData() {
-        trabajadorCells = FXCollections.observableList(model.getConjuntoTrabajadores().stream().map(TrabajadorCell::new).collect(Collectors.toList()));
-        filteredMateriales = new FilteredList<>(trabajadorCells, e -> true);
+    public Single<ObservableList<TrabajadorCell>> searchEmployee(String text) {
+        return Observable.fromIterable(model.getTrabajadores(idProyecto))
+                .filter(trabajador -> trabajador.getRut().contains(text))
+                .map(TrabajadorCell::new)
+                .toList()
+                .map(FXCollections::observableList);
     }
 
-    /**
-     * @return Lista ordenada para la vista
-     */
-    public SortedList<TrabajadorCell> sortedList() {
-        return new SortedList<>(filteredMateriales);
-    }
-
-    /**
-     * Muestra la vista para poder editar un Trabajador
-     * @return retorna la vista para poder mostrarla
-     */
-    public TrabajadorView mostrarEditar() {
-        if (selectedTrabajadorProperty().get() == null) return null;
-        Trabajador t = model.obtenerTrabajador(selectedTrabajador.get().getRut());
-        if (t == null)  {
-            loadData();
-            view.refreshTable();
-            return null;
-        }
-        return TrabajadorRouter.create(model, t, this);
-    }
-
-    /**
-     * Funcion que se llama cuando se edita un trabajador
-     * @param old Trabajador antiguo
-     * @param newT Nuevo Trabajador
-     */
     @Override
-    public void didEdit(Trabajador old, Trabajador newT) {
-        ListIterator<TrabajadorCell> iterator = trabajadorCells.listIterator();
+    public void selectedEmployee(Trabajador value) {
+        if (model.obtenerTrabajador(value.getRut(), idProyecto) != null) return;
 
-        while (iterator.hasNext()) {
-            if (iterator.next().getRut().equals(old.getRut())) {
-                iterator.set(new TrabajadorCell(newT));
-                break;
-            }
-        }
+        model.agregarTrabajador(idProyecto, value);
+
+        view.addEmployee(new TrabajadorCell(value));
+
+        JsonObject json = new JsonObject();
+
+        json.addProperty("fecha_incio_trabajador", DateUtils.formatDate("yyyy-MM-dd HH:mm:ss", Instant.now()));
+        json.addProperty("rut_trabajador", value.getRut());
+        json.addProperty("id_proyecto", idProyecto);
+
+        service.request(TrabajadorAPI.ADD_TO_PROJECT, json)
+                .subscribe(System.out::println, throwable -> {
+                    LOGGER.log(Level.SEVERE, "", throwable);
+                });
+
     }
 
-    /**
-     * Filtra la busqueda de la vista
-     * @param query String que contiene la busqueda de la vista
-     */
-    public void didSearch(String query) {
-        filteredMateriales.setPredicate(materialCell ->
-                materialCell.getNombre().toLowerCase().contains(query.toLowerCase()) ||
-                        materialCell.getRut().toLowerCase().contains(query.toLowerCase()) ||
-                        materialCell.getApellido().toLowerCase().contains(query.toLowerCase())
-        );
+    public void eliminarTrabajador(String rut) {
+        model.eliminarTrabajador(idProyecto, rut);
+
+        NetService service = NetService.getInstance();
+
+        JsonObject json = new JsonObject();
+
+        json.addProperty("rut_trabajador", rut);
+        json.addProperty("id_proyecto", idProyecto);
+
+        System.out.println(json);
+
+        service.request(TrabajadorAPI.REMOVE_FROM_PROJECT, json)
+                .subscribe(System.out::println, throwable -> {
+                    LOGGER.log(Level.SEVERE, "", throwable);
+                });
     }
 
-    public ObjectProperty<TrabajadorCell> selectedTrabajadorProperty() {
-        return selectedTrabajador;
+    public void setIdProyecto(String idProyecto) {
+        this.idProyecto = idProyecto;
     }
 
+    public void setView(ListaTrabajadorView view) {
+        this.view = view;
+    }
 }

@@ -5,8 +5,7 @@ import javafx.stage.Stage;
 import java.util.logging.Logger;
 
 /**
- * Clase base que contiene lo necesario para un controlador y padre de la clase
- * UIComponent
+ * Clase base que contiene lo necesario para un controlador y padre de la clases UIComponent
  *
  * @author Matias Barrientos
  */

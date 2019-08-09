@@ -1,0 +1,145 @@
+@mixin circle-button($radius) {
+  -fx-background-radius: $radius;
+  -fx-min-width: $radius;
+  -fx-max-width: $radius;
+  -fx-min-height: $radius;
+  -fx-max-height: $radius;
+  -fx-background-insets: 0px;
+  -fx-padding: 0px;
+}
+
+@mixin circle-color($map) {
+  @each $key, $value in $map {
+    &-#{$key} {
+      -fx-background-color: map_get($value, base);
+
+      &:pressed {
+        -fx-background-color: map_get($value, selected);
+      }
+    }
+  }
+}
+
+@mixin circle-buttons($size: 13px, $color: null) {
+  #{'.circle-button'} {
+    $colors: (
+            "red": (base: $red, selected: $dark-red),
+            "green": (base: $green, selected: $dark-green),
+            "yellow": (base: $yellow, selected: $dark-yellow)
+    );
+    @include circle-color(if($color == null, $colors, $color));
+    @include circle-button($size);
+  }
+}
+
+@mixin default_fill_button($bg_color, $bg_color_hover, $text_color: white, $radius: 3) {
+  @include default_button_font;
+
+  -fx-text-fill: $text_color;
+  -fx-background-color: $bg_color;
+  -fx-background-radius: $radius;
+
+  &:hover {
+    -fx-background-color: $bg_color_hover;
+  }
+
+  &:pressed {
+    -fx-background-color: $bg_color;
+  }
+}
+
+@mixin default_label_button($text_color, $text_color_hover, $bg_color: transparent, $light_font: false, $radius: 0) {
+  -fx-background-color: $bg_color;
+  -fx-background-radius: $radius;
+  -fx-text-fill: $text_color;
+
+  @if ($light_font) {
+    @include light_button_font;
+  } @else {
+    @include default_button_font;
+  }
+
+  &:hover {
+    -fx-text-fill: $text_color_hover;
+  }
+
+  &:pressed {
+    -fx-text-fill: $text_color;
+  }
+}
+
+@mixin default_border_button($text_color, $border_color, $bg_color: white, $bg_color_hover: darken(white, 5%), $border_width: 0.8, $radius: 3) {
+  @include default_button_font;
+
+  -fx-text-fill: $text_color;
+
+  -fx-background-color: $bg_color;
+  -fx-background-radius: $radius;
+
+  -fx-border-radius: $radius;
+  -fx-border-color: $border_color;
+  -fx-border-width: $border_width;
+
+  &:hover {
+    -fx-background-color: $bg_color_hover;
+  }
+
+  &:pressed {
+    -fx-background-color: $bg_color;
+  }
+}
+
+// Label Button
+
+.button-label-gray {
+  @include default_label_button($text_color: #ACACAC, $text_color_hover: #D1D1D1);
+}
+
+.button-label-black {
+  @include default_label_button($text_color: #595959, $text_color_hover: #ACACAC);
+}
+
+.button-label-light-black {
+  @include default_label_button($text_color: #595959, $text_color_hover: #ACACAC, $light_font: true);
+}
+
+.button-label-blue {
+  @include default_label_button($text_color: $dark-blue, $text_color_hover: darken($dark-blue, 10%))
+}
+
+.button-label-red {
+  @include default_label_button($text_color: red, $text_color_hover: darken(red, 10%))
+}
+
+// Fill Button
+
+.button-fill-green {
+  @include default_fill_button($bg_color: $green-button, $bg_color_hover: $light-green-button);
+}
+
+.button-fill-blue {
+  @include default_fill_button($bg_color: $dark-blue, $bg_color_hover: lighten($dark-blue, 8%));
+}
+
+.button-fill-red {
+  @include default_fill_button($bg_color: red, $bg_color_hover: lighten(red, 8%));
+}
+
+.button-fill-white {
+  @include default_fill_button($text_color: black, $bg_color: white, $bg_color_hover: darken(white, 10%));
+}
+
+.button-fill-gray {
+  @include default_fill_button($text_color: black, $bg_color: $gray, $bg_color_hover: darken($gray, 10%));
+}
+
+// Border Button
+
+.button-border-blue {
+  @include default_border_button($text_color: $dark-blue, $border_color: $dark-blue);
+}
+
+.button-border-red {
+  @include default_border_button($text_color: red, $border_color: red);
+}
+

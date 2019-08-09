@@ -1,205 +1,155 @@
 package model;
 
+import com.google.gson.*;
+import com.google.gson.annotations.Expose;
+import exceptions.EmptyFieldException;
+import exceptions.InvalidRutException;
+import json.LocalDateTypeConverter;
+import model.store.memory.MemoryStoreHorario;
+import model.store.memory.MemoryStoreProyecto;
+import model.store.StoreHorario;
+import model.store.StoreProyecto;
+import util.StringUtils;
+import java.lang.reflect.Type;
+import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
-public class Trabajador {
+/**
+ * Contiene los datos comunes de un trabajador
+ */
+public abstract class Trabajador implements Cleanable {
 
+    // MARK: - Atributos
+
+    @Expose
     private String rut;
 
+    @Expose
     private String nombre;
 
+    @Expose
     private String apellido;
 
+    @Expose
     private LocalDate fechaNacimiento;
 
+    @Expose(serialize = false)
     private Especialidad especialidad;
 
+    @Expose
     private Localizacion localizacion;
 
+    @Expose
     private String telefono;
 
+    @Expose
     private String correoElectronico;
 
-    private Map<String, ArrayList<Horario>> mapProyectohorario;
+    @Expose(serialize = false)
+    private StoreProyecto storeProyecto;
 
-    /**
-     * Guarda el id de todos los proyecto al cual esta asociado el trabajador
-     */
-    private Map<String, String> mapProyectos;
+    @Expose(serialize = false)
+    private StoreHorario storeHorario;
 
-    private Map<Integer, ArrayList<Horario>> mapDiaHorario;
+    // MARK: - Constructores
 
-    private Trabajador(Builder builder) {
-        this.rut = builder.rut;
-        this.nombre = builder.nombre;
-        this.apellido = builder.apellido;
-        this.fechaNacimiento = builder.fechaNacimiento;
-        this.especialidad = builder.especialidad;
-        this.localizacion = builder.localizacion;
-        this.telefono = builder.telefono;
-        this.correoElectronico = builder.correoElectronico;
-
-        mapProyectohorario = new HashMap<>();
-        mapProyectos = new HashMap<>();
-        mapDiaHorario = new HashMap<>();
+    public Trabajador() {
+        storeHorario = new MemoryStoreHorario();
+        storeProyecto = new MemoryStoreProyecto();
     }
 
-    public boolean asociarProyecto(String idProyecto) {
-        if (mapProyectos.containsKey(idProyecto)) return false;
-        return mapProyectos.put(idProyecto, idProyecto) == null;
+    public Trabajador(Trabajador other) {
+        this.rut = other.rut;
+        this.nombre = other.nombre;
+        this.apellido = other.apellido;
+        this.fechaNacimiento = other.fechaNacimiento;
+        this.localizacion = new Localizacion(other.localizacion);
+        this.especialidad = new Especialidad(other.especialidad);
+        this.telefono = other.telefono;
+        this.correoElectronico = other.correoElectronico;
     }
 
-    public void agregarHorario(Horario horario) {
-        if (!mapDiaHorario.containsKey(horario.getDia()))
-            mapDiaHorario.put(horario.getDia(), new ArrayList<>());
+    // MARK: - Metodos Proyecto
 
-        mapDiaHorario.get(horario.getDia()).add(horario);
-
-        if (!mapProyectohorario.containsKey(horario.getIdProyecto()))
-            mapProyectohorario.put(horario.getIdProyecto(), new ArrayList<>());
-
-        mapProyectohorario.get(horario.getIdProyecto()).add(horario);
+    public void asociarProyecto(Proyecto proyecto) {
+        storeProyecto.save(proyecto);
     }
 
-    public Horario eliminarHorario(String id) {
-        Horario h = null;
+    // MARK: - Metodos Horario
 
-        for (ArrayList<Horario> horarios: mapProyectohorario.values()) {
-            h = eliminarHorario(horarios, id);
-            if (h == null) {
-                return null;
-            }
-        }
+    public void agregarHorario(String idProyecto, Horario horario) {
+        Proyecto proyecto = storeProyecto.findById(idProyecto);
 
-        mapDiaHorario.get(h.getDia()).remove(h);
+        if (proyecto == null)
+            return;
 
-        return h;
+        horario.setProyecto(proyecto);
+        horario.setTrabajador(this);
+
+        storeHorario.save(horario);
     }
 
-    private Horario eliminarHorario(ArrayList<Horario> horarios, String id) {
-        for (Horario horario: horarios) {
-            if (horario.getId().equals(id)) {
-                horarios.remove(horario);
-                return horario;
-            }
-        }
-
-        return null;
+    public void eliminarHorario(Integer id) {
+        storeHorario.delete(id);
     }
 
-    public List<Horario> obtenerListaHorario(String idProyecto) {
-        if (!mapProyectohorario.containsKey(idProyecto)) return null;
-        return Collections.unmodifiableList(mapProyectohorario.get(idProyecto));
+    public void eliminarProyecto(String idProyecto) {
+        storeProyecto.delete(idProyecto);
+
+        List<Horario> list = new ArrayList<>();
+
+        storeHorario.findAll().forEach(horario -> {
+            if (horario.getProyecto().getId().equals(idProyecto))
+                list.add(horario);
+        });
+
+        list.forEach(storeHorario::delete);
     }
 
-    public List<Horario> obtenerListaHorario() {
-        List<Horario> aux = new ArrayList<>();
-        mapDiaHorario.values().forEach(aux::addAll);
-        return Collections.unmodifiableList(aux);
+    public Iterable<Horario> obtenerListaHorario() {
+        return storeHorario.findAll();
     }
 
-    public static class Builder {
+    // MARK: - Cleanable
 
-        private String rut;
+    @Override
+    public void clean() {
+        storeProyecto.findAll().forEach(proyecto -> proyecto.eliminarTrabajador(rut));
+        storeHorario.findAll().forEach(Horario::clean);
 
-        private String nombre;
+        storeHorario.clean();
+        storeProyecto.clean();
 
-        private String apellido;
+        storeHorario = null;
+        storeProyecto = null;
 
-        private Especialidad especialidad;
-
-        private LocalDate fechaNacimiento;
-
-        private Localizacion localizacion;
-
-        private String telefono;
-
-        private String correoElectronico;
-
-        public Builder rut(String rut) {
-            this.rut = rut;
-            return this;
-        }
-
-        public Builder nombre(String nombre) {
-            this.nombre = nombre;
-            return this;
-        }
-
-        public Builder apellido(String apellido) {
-            this.apellido = apellido;
-            return this;
-        }
-
-        public Builder especialidad(Especialidad especialidad) {
-            this.especialidad = especialidad;
-            return this;
-        }
-
-        public Builder fechaNacimiento(LocalDate fechaNacimiento) {
-            this.fechaNacimiento = fechaNacimiento;
-            return this;
-        }
-
-        public Builder localizacion(Localizacion localizacion) {
-            this.localizacion = localizacion;
-            return this;
-        }
-
-        public Builder telefono(String telefono) {
-            this.telefono = telefono;
-            return this;
-        }
-
-        public Builder correoElectronico(String correoElectronico) {
-            this.correoElectronico = correoElectronico;
-            return this;
-        }
-
-        public Trabajador build() {
-            return new Trabajador(this);
-        }
+        localizacion = null;
+        especialidad = null;
     }
+
+    // MARK: - Getter
 
     public String getRut() {
         return rut;
-    }
-
-    public void setRut(String rut) {
-        this.rut = rut;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public String getApellido() {
         return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public Especialidad getEspecialidad() {
-        return especialidad;
-    }
-
-    public void setEspecialidad(Especialidad especialidad) {
-        this.especialidad = especialidad;
     }
 
     public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(LocalDate fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
+    public Especialidad getEspecialidad() {
+        return especialidad;
     }
 
     public Localizacion getLocalizacion() {
@@ -210,16 +160,156 @@ public class Trabajador {
         return telefono;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
     public String getCorreoElectronico() {
         return correoElectronico;
     }
 
+    public Iterable<Proyecto> getProyectos() {
+        return storeProyecto.findAll();
+    }
+    // MARK: - Setter
+
+    public void setRut(String rut) throws EmptyFieldException, InvalidRutException {
+        if (StringUtils.isEmpty(rut))
+            throw new EmptyFieldException("Rut");
+
+        if (!validarRut(rut))
+            throw new InvalidRutException();
+
+        this.rut = rut;
+    }
+
+    public void setNombre(String nombre) throws EmptyFieldException {
+        if (StringUtils.isEmpty(nombre))
+            throw new EmptyFieldException("Nombre");
+
+        this.nombre = nombre;
+    }
+
+    public void setApellido(String apellido) throws EmptyFieldException {
+        if (StringUtils.isEmpty(apellido))
+            throw new EmptyFieldException("Apellido");
+
+        this.apellido = apellido;
+    }
+
+    public void setFechaNacimiento(LocalDate fechaNacimiento) throws EmptyFieldException {
+        if (fechaNacimiento == null)
+            throw new EmptyFieldException("Fecha de nacimiento");
+
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public void setEspecialidad(Especialidad especialidad) throws EmptyFieldException {
+        if (especialidad == null)
+            throw new EmptyFieldException("Especialidad");
+        
+        this.especialidad = especialidad;
+    }
+
+    public void setLocalizacion(Localizacion localizacion) {
+        this.localizacion = localizacion;
+    }
+
+    public void setTelefono(String telefono) throws EmptyFieldException {
+        if (StringUtils.isEmpty(telefono))
+            throw new EmptyFieldException("Telefono");
+
+        this.telefono = telefono;
+    }
+
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+
+        if (!(obj instanceof Trabajador)) return false;
+
+        Trabajador p = (Trabajador) obj;
+
+        return p.rut.equals(rut) &&
+                p.nombre.equals(nombre) &&
+                p.apellido.equals(apellido) &&
+                p.localizacion.equals(localizacion) &&
+                p.fechaNacimiento.isEqual(fechaNacimiento) &&
+                p.especialidad.equals(especialidad) &&
+                (p.correoElectronico == null || p.correoElectronico.equals(correoElectronico)) &&
+                p.telefono.equals(telefono);
+    }
+
+    // MARK: - JSON
+
+    public abstract BigDecimal calcularSueldo();
+
+    public static class TrabajadorDeserializer implements JsonDeserializer<Trabajador> {
+
+        @Override
+        public Trabajador deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+            Trabajador t;
+
+            JsonObject json = jsonElement.getAsJsonObject();
+
+            if (json.get("tiempo_completo").getAsInt() == 1) {
+                t = new TrabajadorTiempoCompleto();
+            } else {
+                t = new TrabajadorPartTime(json.get("cantidad_hora_trabajada").getAsInt());
+            }
+
+            Gson gson = new GsonBuilder()
+                    .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                    .registerTypeAdapter(LocalDate.class, new LocalDateTypeConverter())
+                    .create();
+
+            try {
+                t.setRut(json.get("rut").getAsString());
+                t.setNombre(json.get("nombre").getAsString());
+                t.setApellido(json.get("apellido").getAsString());
+
+                Especialidad especialidad = Especialidades.getInstance().obtener(json.get("id_especialidad").getAsInt());
+
+                t.setEspecialidad(especialidad);
+                t.setLocalizacion(gson.fromJson(json.get("localizacion").getAsString(), Localizacion.class));
+
+                t.setTelefono(json.get("telefono").getAsString());
+
+                if (json.get("correo_electronico") != null && !json.get("correo_electronico").isJsonNull()){
+                    t.setCorreoElectronico(json.get("correo_electronico").getAsString());
+                }
+
+                t.setFechaNacimiento(gson.fromJson(json.get("fecha_nacimiento"), LocalDate.class));
+            } catch (EmptyFieldException | InvalidRutException ex) {
+                // TODO: Ver que se hace en este caso.
+                ex.printStackTrace();
+            }
+
+            return t;
+        }
+    }
+
+    // MARK: - Metodos Privados
+
+    private boolean validarRut(String rut) {
+        boolean validacion = false;
+
+        rut =  rut.toUpperCase();
+        rut = rut.replace(".", "");
+        rut = rut.replace("-", "");
+        int rutAux = Integer.parseInt(rut.substring(0, rut.length() - 1));
+
+        char dv = rut.charAt(rut.length() - 1);
+
+        int m = 0, s = 1;
+        for (; rutAux != 0; rutAux /= 10) {
+            s = (s + rutAux % 10 * (9 - m++ % 6)) % 11;
+        }
+        if (dv == (char) (s != 0 ? s + 47 : 75)) {
+            validacion = true;
+        }
+
+        return validacion;
     }
 
 }

@@ -1,0 +1,104 @@
+// =============================================================================
+// String Replace
+// =============================================================================
+
+@function str-replace($string, $search, $replace: "") {
+  $index: str-index($string, $search);
+
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+
+  @return $string;
+}
+
+// =============================================================================
+// Font Face
+// =============================================================================
+
+@mixin font-face($name, $path, $weight: null, $style: null, $exts: eot woff2 woff ttf svg) {
+  $src: null;
+
+  $extmods: (
+          eot: "?",
+          svg: "#" + str-replace($name, " ", "_")
+  );
+
+  $formats: (
+          otf: "opentype",
+          ttf: "truetype"
+  );
+
+  @each $ext in $exts {
+    $extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
+    $format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
+    $src: append($src, url(quote($path + "." + $extmod)) format(quote($format)), comma);
+  }
+
+  @font-face {
+    font-family: quote($name);
+    font-style: $style;
+    font-weight: $weight;
+    src: $src;
+  }
+}
+
+@include font-face("Heebo", "../fonts/Heebo-Regular", $exts: ttf);
+@include font-face("Heebo Medium", "../fonts/Heebo-Medium", $exts: ttf);
+@include font-face("Heebo Light", "../fonts/Heebo-Light", $exts: ttf);
+@include font-face("Heebo Black", "../fonts/Heebo-Black", $exts: ttf);
+
+@mixin default_button_font {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+}
+
+@mixin light_button_font {
+  -fx-font-family: "Heebo Light";
+  -fx-font-size: 14px;
+}
+
+.large-title {
+  -fx-font-family: "Heebo Black";
+  -fx-font-size: 34px;
+}
+
+.title1 {
+  -fx-font-family: "Heebo Black";
+  -fx-font-size: 24px;
+}
+
+.title2 {
+  -fx-font-family: "Heebo Black";
+  -fx-font-size: 20px;
+}
+
+.title3 {
+  -fx-font-family: "Heebo Black";
+  -fx-font-size: 16px;
+}
+
+.paragraph {
+  -fx-font-family: "Heebo";
+  -fx-font-size: 14px;
+}
+
+.paragraph-light {
+  -fx-font-family: "Heebo Light";
+  -fx-font-size: 14px;
+}
+
+.paragraph-medium {
+  -fx-font-family: "Heebo Medium";
+  -fx-font-size: 14px;
+}
+
+.textfield {
+  -fx-font-family: "Heebo Light";
+  -fx-font-size: 13px;
+}
+
+.footnote {
+  -fx-font-family: "Heebo Light";
+  -fx-font-size: 12px;
+}

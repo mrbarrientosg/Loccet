@@ -1,33 +1,35 @@
 package cell;
 
-import model.Dias;
+import util.Dias;
 import model.Horario;
 
-import java.time.LocalTime;
-
+/**
+ * Clase que ayuda a la vista desplegar un
+ * horario de forma mas facil
+ *
+ * @author Matias Barrientos
+ */
 public final class HorarioCell {
 
-    private String id;
+    private Integer id;
 
     private Integer dia;
 
     private String nombreProyecto;
 
-    private LocalTime fechaInicio;
+    private String horaInicio;
 
-    private LocalTime fechaTermino;
+    private String horaFin;
 
     public HorarioCell(Horario h) {
         id = h.getId();
         dia = h.getDia();
-        nombreProyecto = h.getNombreProyecto();
-        fechaInicio = h.getFechaInicio();
-        fechaTermino = h.getFechaTermino();
+        nombreProyecto = h.getProyecto().getNombre();
+        horaInicio = h.getHoraInicio().toString();
+        horaFin = h.getHoraFin().toString();
     }
 
-    public final String getId() {
-        return id;
-    }
+    public final Integer getId() { return id; }
 
     public final Integer getDia() {
         return dia;
@@ -41,11 +43,12 @@ public final class HorarioCell {
         return nombreProyecto;
     }
 
-    public final LocalTime getFechaInicio() {
-        return fechaInicio;
+    public final String getHoraInicio() {
+        return horaInicio;
     }
 
-    public final LocalTime getFechaTermino() {
-        return fechaTermino;
+    public final String getHoraFin() {
+        return horaFin;
     }
+
 }

@@ -44,15 +44,12 @@ public class ExportInventarioXLSX implements ExportFileStrategy {
         CellStyle cellStyle = workbook.createCellStyle();
         cellStyle.setDataFormat(createHelper.createDataFormat().getFormat("dd/mm/yyyy"));
 
-        createHeaderCell(headerRow,"Fecha Ingreso", 0);
-        createHeaderCell(headerRow,"ID", 1);
-        createHeaderCell(headerRow,"Nombre", 2);
-        createHeaderCell(headerRow,"Descripción", 3);
-        createHeaderCell(headerRow,"Cantidad", 4);
-        createHeaderCell(headerRow,"UDS", 5);
-        createHeaderCell(headerRow,"Retiro", 6);
-        createHeaderCell(headerRow,"Fecha Retiro", 7);
-        createHeaderCell(headerRow,"Precio", 8);
+        createHeaderCell(headerRow,"ID", 0);
+        createHeaderCell(headerRow,"Nombre", 1);
+        createHeaderCell(headerRow,"Descripción", 2);
+        createHeaderCell(headerRow,"Cantidad", 3);
+        createHeaderCell(headerRow,"UDS", 4);
+        createHeaderCell(headerRow,"Precio", 5);
 
         int rowNum = 1;
 
@@ -60,22 +57,16 @@ public class ExportInventarioXLSX implements ExportFileStrategy {
             Row row = sheet.createRow(rowNum++);
             Cell cell;
             cell = row.createCell(0);
-            cell.setCellStyle(cellStyle);
-            cell.setCellValue(materialCell.getFechaIngreso());
-            row.createCell(1).setCellValue(materialCell.getId());
-            row.createCell(2).setCellValue(materialCell.getNombre());
-            row.createCell(3).setCellValue(materialCell.getDescripcion());
-            row.createCell(4).setCellValue(materialCell.getCantidad());
-            row.createCell(5).setCellValue(materialCell.getUds());
-            row.createCell(6).setCellValue(materialCell.getRetiro());
-            cell = row.createCell(7);
-            cell.setCellStyle(cellStyle);
-            cell.setCellValue(materialCell.getFechaRetiro());
-            row.createCell(8).setCellValue(materialCell.getPrecio());
+            row.createCell(0).setCellValue(materialCell.getId());
+            row.createCell(1).setCellValue(materialCell.getNombre());
+            row.createCell(2).setCellValue(materialCell.getDescripcion());
+            row.createCell(3).setCellValue(materialCell.getCantidad());
+            row.createCell(4).setCellValue(materialCell.getUds());
+            row.createCell(5).setCellValue(materialCell.getPrecio());
         }
 
         // Resize all columns to fit the content size
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 6; i++) {
             sheet.autoSizeColumn(i);
         }
 
@@ -89,18 +80,15 @@ public class ExportInventarioXLSX implements ExportFileStrategy {
     }
 
     @Override
-    public File export() {
-        // Write the output to a file
+    public File export() throws IOException {
         File file = null;
+
         FileOutputStream fileOut = null;
-        try {
-            file = File.createTempFile("Inventario_" + nombreProyecto , ".xlsx");
-            fileOut = new FileOutputStream(file);
-            workbook.write(fileOut);
-            fileOut.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        file = File.createTempFile("Inventario_" + nombreProyecto , ".xlsx");
+        fileOut = new FileOutputStream(file);
+        workbook.write(fileOut);
+        fileOut.close();
 
         return file;
     }

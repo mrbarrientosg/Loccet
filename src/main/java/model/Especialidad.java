@@ -1,47 +1,59 @@
 package model;
 
+import java.math.BigDecimal;
+
+/**
+ * Clase que contiene los datos de una especialidad
+ */
 public class Especialidad {
 
-    private final String nombre;
+    // MARK: - Atributos
 
-    private final Double cantidadDeHoras;
+    private Integer id;
 
-    private final Double sueldoPorHora;
+    private String nombre;
 
-    public Especialidad(String nombre, Double horasPorTrabajar, Double sueldoPorHora) {
+    private BigDecimal pagoPorHora;
+
+    // MARK: - Constructor
+
+    public Especialidad(String nombre, BigDecimal pagoPorHora) {
         this.nombre = nombre;
-        this.cantidadDeHoras = horasPorTrabajar;
-        this.sueldoPorHora = sueldoPorHora;
+        this.pagoPorHora = pagoPorHora;
     }
 
-    public Double calcularPago(Double horasTrabajadas) {
-        // TODO: Implementar metodo
-        return 0.0;
+    public Especialidad(Especialidad other) {
+        this.nombre = other.nombre;
+        this.pagoPorHora = other.pagoPorHora;
     }
 
-    public Double calcularPago(Double horasTrabajadas, Double viatico) {
-        // TODO: Implementar metodo
-        return 0.0;
-    }
-
-    public Double calcularPago(Double horasTrabajadas, Double viatico, Double bono) {
-        // TODO: Implementar metodo
-        return 0.0;
-    }
+    // MARK: - Getter
 
     public String getNombre() {
         return nombre;
     }
 
-    public Double getCantidadDeHoras() {
-        return cantidadDeHoras;
+    public BigDecimal getPagoPorHora() {
+        return pagoPorHora;
     }
 
-    public Double getSueldoPorHora() {
-        return sueldoPorHora;
+    public Integer getId() {
+        return id;
     }
 
-    public double sueldoTotal() {
-        return cantidadDeHoras * sueldoPorHora;
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+
+        if (!(obj instanceof Especialidad)) return false;
+
+        Especialidad e = (Especialidad) obj;
+
+        return e.nombre.equals(nombre) && e.pagoPorHora.equals(pagoPorHora);
+    }
+
+    @Override
+    public String toString() {
+        return nombre;
     }
 }

@@ -1,0 +1,23 @@
+$dark-blue: #0084ff;
+$light-blue: #00c6ff;
+
+$red: #ff3b30;
+$dark-red: #c40a00;
+
+$yellow: #ffcc00;
+$dark-yellow: #bf9900;
+
+$green: #4cd964;
+$dark-green: #23a93a;
+
+$green-button: #4AC959;
+$light-green-button: #21d761;
+
+$gray: #F0F0F0;
+$gray-shadow: rgba(0,0,0,0.35);
+
+$ghost-white: #F9F9F9;
+
+@mixin blue-gradient($side: to top right) {
+  -fx-background-color: $dark-blue, linear-gradient($side, reflect, $dark-blue, $light-blue);
+}

@@ -1,5 +1,6 @@
 package base;
 
+import javafx.animation.FadeTransition;
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -14,7 +15,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
-
+import util.NodeUtils;
 import java.io.IOException;
 import java.net.URL;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -24,7 +25,7 @@ import java.util.logging.Level;
 
 /**
  * Subclase de Component, en donde contiene las acciones para poder cargar los fxml,
- * ademas contiene las transiciones de las vistas.
+ * ademas contiene la navegacion entre las vistas.
  *
  * @author Matias Barrientos
  */
@@ -86,47 +87,62 @@ public abstract class UIComponent extends Component {
     public final void init() {
         if (isInitialized) return;
 
+        viewDidLoad();
+
         root.parentProperty().addListener((observable, oldParent, newParent) -> {
-            // Si la vista esta en un modalStage no se hace nada porque ya se llamo la funcion viewDidLoad
-            if (modalStage != null) return;
 
-            // La vista se ha eliminado de un parent (root) entonces se llama la funcion viewDidClose
-            if (newParent == null && oldParent != null && isDocked) callOnUndock();
+            if (modalStage == null) {
+                // La vista se ha eliminado de un parent (root) entonces se llama la funcion viewDidClose
+                if (newParent == null && oldParent != null && isDocked) callOnUndock();
 
-            // La vista a cambiado de padre (root), entonces se llama a la funcion viewDidLoad
-            if (newParent != null && newParent != oldParent && !isDocked) callOnDock();
+                // La vista a cambiado de padre (root), entonces se llama a la funcion viewDidLoad
+                if (newParent != null && newParent != oldParent && !isDocked) callOnDock();
+            }
         });
 
         root.sceneProperty().addListener((observable, oldParent, newParent) -> {
-            // Si la vista esta en un modalStage no se hace nada porque ya se llamo la funcion viewDidLoad
-            if (modalStage != null || root.getParent() != null) return;
+            if (modalStage == null && root.getParent() == null) {
+                // La vista se ha cerrado de una Scene entonces se llama la funcion viewDidClose
+                if (newParent == null && oldParent != null && isDocked) callOnUndock();
 
-            // La vista se ha cerrado de una Scene entonces se llama la funcion viewDidClose
-            if (newParent == null && oldParent != null && isDocked) callOnUndock();
-
-            // La vista a cambiado de Scene, entonces se llama a la funcion viewDidLoad
-            if (newParent != null && newParent != oldParent && !isDocked) {
-                onChangeOnce(newParent.windowProperty(), window -> {
-                    onChange(window.showingProperty(), it -> {
-                        if (!it && isDocked) callOnUndock();
-                        if (it && !isDocked) callOnDock();
+                // La vista a cambiado de Scene, entonces se llama a la funcion viewDidLoad
+                if (newParent != null && newParent != oldParent && !isDocked) {
+                    onChangeOnce(newParent.windowProperty(), window -> {
+                        onChange(window.showingProperty(), it -> {
+                            if (!it && isDocked) callOnUndock();
+                            if (it && !isDocked) callOnDock();
+                        });
                     });
-                });
 
-                callOnDock();
+                    callOnDock();
+                }
             }
         });
 
         isInitialized = true;
     }
 
-    public void viewDidLoad() { };
+    /**
+     * Funcion para inicializar los datos de las vistas, como
+     * tambien los estilos
+     */
+    public abstract void viewDidLoad();
 
-    public void viewDidClose() { };
+    /**
+     * Funcion que es llamada cada vez que la vista es mostrada o
+     * es agregada a algun Node
+     */
+    public void viewDidShow() {};
+
+    /**
+     * Funcion que es llamada cada vez que se cierra la vista o
+     * es eliminada de algun Node
+     */
+    public void viewDidClose() {};
 
     /**
      * Carga el .fxml de la vista
-     * @param <T> Generico para especificar lo que retorna
+     * @param <T> Generico para especificar el Node
      * @return retorna el root del .fxml
      */
     public <T extends Node> T loadFXML() {
@@ -136,7 +152,7 @@ public abstract class UIComponent extends Component {
     /**
      * Carga el .fxml de la vista
      * @param ruta Ruta del archivo .fxml
-     * @param <T> Generico para especificar lo que retorna
+     * @param <T> Generico para especificar el Node
      * @return retorna el root del .fxml
      */
     public <T extends Node> T loadFXML(String ruta) {
@@ -161,7 +177,7 @@ public abstract class UIComponent extends Component {
             root = fxmlLoader.load();
             return (T) root;
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Error cargar fxml", e);
+            LOGGER.log(Level.SEVERE, "Error al cargar el fxml", e);
         }
 
         return null;
@@ -213,6 +229,11 @@ public abstract class UIComponent extends Component {
             return this;
         }
 
+        public ShowBuilder withOwner(Window owner) {
+            this.owner = owner;
+            return this;
+        }
+
         public ShowBuilder withBlock(boolean block) {
             this.block = block;
             return this;
@@ -237,9 +258,7 @@ public abstract class UIComponent extends Component {
                 modalStage.setOnShown(event -> {
                     modalStage.setX(getCurrentWindow().getX() + (getCurrentWindow().getWidth() / 2) - (getCurrentWindow().getWidth() / 2));
                     modalStage.setY(getCurrentWindow().getY() + (getCurrentWindow().getWidth() / 2) - (getCurrentWindow().getWidth() / 2));
-                });
 
-                modalStage.setOnShowing(event -> {
                     callOnDock();
                 });
 
@@ -295,13 +314,28 @@ public abstract class UIComponent extends Component {
                 .withBlock(false);
     }
 
+    public <T extends UIComponent> void replaceWith(Class<T> component, Boolean sizeToScene, Boolean centerOnScreen) {
+        UIComponent cp = Injectable.find(component);
+        replaceWith(cp, sizeToScene, centerOnScreen);
+    }
+
+    public <T extends UIComponent> void replaceWith(Class<T> component, Boolean sizeToScene, Boolean centerOnScreen, Runnable onTrasition) {
+        UIComponent cp = Injectable.find(component);
+        NodeUtils.replaceWith(getRoot(), cp.getRoot(), sizeToScene, centerOnScreen, onTrasition);
+    }
+
+    public <T extends UIComponent> void replaceWith(T component, Boolean sizeToScene, Boolean centerOnScreen) {
+        NodeUtils.replaceWith(getRoot(), component.getRoot(), sizeToScene, centerOnScreen, null);
+    }
+
+
     /**
      * Funcion auxiliar para la funcion init()
      */
     private void callOnDock() {
         if (!isInitialized) init();
         isDocked = true;
-        viewDidLoad();
+        viewDidShow();
     }
 
     /**

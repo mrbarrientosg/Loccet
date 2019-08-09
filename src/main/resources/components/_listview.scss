@@ -1,0 +1,20 @@
+.listViewGrey {
+  -fx-text-fill: black;
+  -fx-background-color: $gray;
+  -fx-background-radius: 3;
+}
+
+.listViewGrey .list-cell {
+  -fx-text-fill: black;
+  -fx-background-color: $gray;
+  -fx-border-width: 0 0 1 0;
+  -fx-border-color: #F7F7F7;
+}
+
+.listViewGrey .list-cell:selected {
+  -fx-background-color: $ghost-white;
+}
+
+.listViewGrey .scroll-bar {
+  -fx-background-color: transparent;
+}

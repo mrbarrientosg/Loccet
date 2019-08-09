@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import org.controlsfx.control.tableview2.FilteredTableView?>
+
+<VBox prefHeight="720.0" prefWidth="800.0" stylesheets="@../App.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ScrollPane fitToWidth="true" styleClass="light-gray-scroll">
+         <content>
+            <VBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" styleClass="bg-light-gray">
+               <children>
+                  <VBox spacing="12.0">
+                     <VBox.margin>
+                        <Insets left="16.0" right="16.0" top="16.0" />
+                     </VBox.margin>
+                     <children>
+                        <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="35.0" spacing="16.0">
+                           <children>
+                              <Label styleClass="title1" text="Trabajadores" />
+                              <Separator visible="false" HBox.hgrow="ALWAYS" />
+                              <StackPane>
+                                 <children>
+                                    <AnchorPane styleClass="button-shadow-white">
+                                       <StackPane.margin>
+                                          <Insets bottom="3.0" left="5.0" right="5.0" top="10.0" />
+                                       </StackPane.margin>
+                                    </AnchorPane>
+                                    <ComboBox fx:id="proyectList" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="150.0" promptText="Proyecto">
+                                       <styleClass>
+                                          <String fx:value="button-fill-white" />
+                                          <String fx:value="combo-box" />
+                                          <String fx:value="white-scroll" />
+                                       </styleClass>
+                                    </ComboBox>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </StackPane>
+                              <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <children>
+                                    <AnchorPane styleClass="button-shadow-white">
+                                       <StackPane.margin>
+                                          <Insets bottom="2.0" left="5.0" right="5.0" top="10.0" />
+                                       </StackPane.margin>
+                                       <padding>
+                                          <Insets bottom="5.0" />
+                                       </padding>
+                                    </AnchorPane>
+                                    <Button fx:id="createTrabajador" mnemonicParsing="false" prefHeight="35.0" styleClass="button-fill-blue" text="Crear trabajador" textFill="WHITE" />
+                                 </children>
+                              </StackPane>
+                              <Button fx:id="detailTrabajador" disable="true" mnemonicParsing="false" prefHeight="35.0" styleClass="button-label-blue" text="Ver detalle" textFill="WHITE" />
+                              <Button fx:id="deleteTrabajador" disable="true" mnemonicParsing="false" prefHeight="35.0" styleClass="button-label-red" text="Eliminar" textFill="WHITE" />
+                              <Button fx:id="filterButton" mnemonicParsing="false" prefHeight="35.0" styleClass="button-label-black" text="Filtrar" textFill="WHITE" />
+                           </children>
+                        </HBox>
+                        <TextField fx:id="searchField" maxHeight="1.7976931348623157E308" promptText="Buscar trabajador">
+                           <styleClass>
+                              <String fx:value="textfield-gray" />
+                              <String fx:value="textfield" />
+                           </styleClass>
+                        </TextField>
+                     </children>
+                  </VBox>
+                  <FilteredTableView fx:id="tableTrabajadores" columnFixingEnabled="false" rowFixingEnabled="false" southHeaderBlended="false" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                     </VBox.margin>
+                     <styleClass>
+                        <String fx:value="gray-scroll" />
+                        <String fx:value="light-table" />
+                        <String fx:value="table" />
+                     </styleClass>
+                  </FilteredTableView>
+                  <VBox alignment="CENTER" spacing="10.0">
+                     <VBox.margin>
+                        <Insets left="16.0" right="16.0" top="8.0" />
+                     </VBox.margin>
+                  </VBox>
+               </children>
+            </VBox>
+         </content>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </ScrollPane>
+   </children>
+</VBox>

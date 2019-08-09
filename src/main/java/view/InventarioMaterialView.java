@@ -1,29 +1,36 @@
 package view;
 
-import base.Fragment;
 import base.Injectable;
 import base.View;
 import cell.MaterialCell;
+import com.itextpdf.text.DocumentException;
 import controller.InventarioMaterialController;
-import javafx.collections.transformation.SortedList;
+import delegate.EditMaterialDelegate;
+import io.reactivex.Observable;
+import io.reactivex.rxjavafx.observables.JavaFxObservable;
+import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
+import io.reactivex.schedulers.Schedulers;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableView;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import javafx.stage.FileChooser;
+import model.Material;
+import util.Alert;
+import util.AsyncTask;
+import java.io.File;
+import java.io.IOException;
+import java.util.ListIterator;
 import java.util.Optional;
-
+import java.util.concurrent.TimeUnit;
 
 /**
- * Clase que mostrara las vistas.
+ * Vista de invetario de materiales
  *
- * @author  Sebastian Fuenzalida.
+ * @author Sebastian Fuenzalida.
  */
-public final class InventarioMaterialView extends Fragment {
+public final class InventarioMaterialView extends View implements EditMaterialDelegate {
 
     private InventarioMaterialController controller;
 
@@ -32,56 +39,76 @@ public final class InventarioMaterialView extends Fragment {
 
     //Botones.
     @FXML
-    private Button modificarMaterialBT;
+    private Button editarBT;
+
     @FXML
-    private Button retirarBT;
-    @FXML
-    private Button eleminarBT;
-    @FXML
-    private Button agregarBT;
+    private Button eliminarBT;
+
     @FXML
     private Button nuevoMaterialBT;
-    @FXML
-    private Button salirBT;
 
 
     //Tabla inventario.
     @FXML
     private TableView<MaterialCell> tablaInventario;
+
     @FXML
     private TableColumn<MaterialCell,String> idMaterialCL;
+
     @FXML
     private TableColumn<MaterialCell,String> descripcionCL;
+
     @FXML
     private TableColumn<MaterialCell,Double> cantidadCL;
-    @FXML
-    private TableColumn<MaterialCell, Date> fechaIngresoCL;
-    @FXML
-    private TableColumn<MaterialCell, Date> fechaRetiroCL;
+
     @FXML
     private TableColumn<MaterialCell,String> udsCL;
+
     @FXML
     private TableColumn<MaterialCell, String> nombreMaterialCL;
-    @FXML
-    private TableColumn<MaterialCell,Double> retiroCL;
+
     @FXML
     private TableColumn<MaterialCell,Double> precioCL;
 
     @Override
     public void viewDidLoad() {
-        inicializarTablaMateriales();
-        searchText.setOnKeyReleased(event -> {
-            searchText.textProperty().addListener((observable, oldValue, newValue) -> {
-                controller.didSearch(newValue);
-            });
-            refreshTable();
+         controller = Injectable.find(InventarioMaterialController.class);
+         controller.setView(this);
+
+        tablaInventario.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                editarBT.setDisable(false);
+                eliminarBT.setDisable(false);
+            }else{
+                editarBT.setDisable(true);
+                eliminarBT.setDisable(true);
+            }
         });
 
+        udsCL.setCellValueFactory(new PropertyValueFactory<>("uds"));
+        nombreMaterialCL.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        idMaterialCL.setCellValueFactory(new PropertyValueFactory<>("id"));
+        cantidadCL.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+        descripcionCL.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
+        precioCL.setCellValueFactory(new PropertyValueFactory<>("precio"));
    }
 
     @Override
-    public void viewDidClose() {
+    public void viewDidShow() {
+        Observable<String> textInputs = JavaFxObservable.valuesOf(searchText.textProperty());
 
+        textInputs
+                .debounce(300, TimeUnit.MILLISECONDS)
+                .distinctUntilChanged()
+                .map(controller::searchMaterials)
+                .subscribeOn(Schedulers.io())
+                .observeOn(JavaFxScheduler.platform())
+                .subscribe(tablaInventario::setItems);
+    }
+
+    @Override
+    public void viewDidClose() {
+        tablaInventario.getItems().clear();
     }
 
     /**
@@ -89,14 +116,21 @@ public final class InventarioMaterialView extends Fragment {
      *
      * @author Sebastian Fuenzalida.
      *
-     * @param event
+     * @param event presionar el boton nuevo material
      */
     @FXML
     public void nuevoMaterial(ActionEvent event){
-        NuevoMaterialView view = Injectable.find(NuevoMaterialView.class);
-        view.setController(controller);
-        view.modal().withBlock(true).show();
-        refreshTable();
+        Injectable.find(CrearMaterialView.class).display();
+    }
+
+    public void didAddMaterial(MaterialCell cell) {
+        tablaInventario.getItems().add(cell);
+        searchText.setText("");
+    }
+
+
+    public void removeMaterial(MaterialCell cell) {
+        tablaInventario.getItems().removeIf((materialCell) -> materialCell.getId().equals(cell.getId()));
     }
 
     /**
@@ -104,87 +138,31 @@ public final class InventarioMaterialView extends Fragment {
      *
      * @author Sebastian Fuenzalida.
      *
-     * @return
+     * @return un material en caso de haber sido seleccionado.
      */
-    public MaterialCell seleccion(){
+    private MaterialCell seleccion(){
         int seleccion = tablaInventario.getSelectionModel().getSelectedIndex();
-        if(seleccion>=0){
-            MaterialCell material = tablaInventario.getItems().get(seleccion);
-            return material;
+        if(seleccion >= 0){
+            return tablaInventario.getItems().get(seleccion);
         }
         return null;
     }
 
-    /**
-     * Funcion que mostrara la vista modificar material.
-     *
-     * @author Sebastian Fuenzalida.
-     *
-     * @param event
-     */
-    @FXML
-    public void modificarMaterial(ActionEvent event){
-        MaterialCell material = seleccion();
-        if(material!=null) {
-            ModificarMaterialView view = Injectable.find(ModificarMaterialView.class);
-            view.setIdMaterial(material.getId());
-            view.setController(controller);
-            view.modal().withBlock(true).show();
-            refreshTable();
-        }
-        else{
-            controller.showWarning("Seleccionar material", "Por favor seleccione material a eliminar").showAndWait();;
-        }
-
-    }
-
-    /**
-     * Funcion que mostrara la vista agregar material.
-     *
-     * @author Sebastian Fuenzalida.
-     *
-     * @param event
-     */
-    @FXML
-    public void agregarMaterial(ActionEvent event){
-        MaterialCell material = seleccion();
-        if(material!=null) {
-            AgregarMaterialView view = Injectable.find(AgregarMaterialView.class);
-            view.setIdMaterial(material.getId());
-            view.setController(controller);
-            view.modal().withBlock(true).show();
-            tablaInventario.refresh();
-        }
-        else{
-            controller.showWarning("Seleccionar material", "Por favor seleccione material a eliminar").showAndWait();;
-        }
-    }
-
-    /**
-     * Funcion que mostrara la vista retirar material.
-     *
-     * @author Sebastian Fuenzalida.
-     *
-     * @param event
-     */
-    @FXML
-    public void retirarMaterial(ActionEvent event){
-        MaterialCell material = seleccion();
-        if(material!=null) {
-            RetirarMaterialView view = Injectable.find(RetirarMaterialView.class);
-            view.setMaterial(material);
-            view.setController(controller);
-            view.modal().withBlock(true).show();
-            tablaInventario.refresh();
-        }
-        else{
-            controller.showWarning("Seleccionar material", "Por favor seleccione material a eliminar").showAndWait();;
-        }
-    }
 
     @FXML
-    public void salir(ActionEvent event){
-        ((BorderPane) getRoot().getParent()).getChildren().remove(getRoot());
+    public void detalleMaterial(ActionEvent event){
+        MaterialCell materialCell = seleccion();
+        if (materialCell != null) {
+            Material material = controller.getMaterial(materialCell.getId());
+            Injectable.find(DetalleMaterialView.class).display(controller.getIdProyecto(), material, this);
+        }
+        else {
+            Alert.warning()
+                    .withTitle("Seleccionar material")
+                    .withDescription("Por favor seleccione material a eliminar")
+                    .withButton(ButtonType.OK)
+                    .build().show();
+        }
     }
 
     /**
@@ -192,96 +170,70 @@ public final class InventarioMaterialView extends Fragment {
      *
      * @author Sebastian Fuenzalida.
      *
-     * @param event
+     * @param event presiona el boton eliminar
      */
     @FXML
     public void eliminar(ActionEvent event){
         MaterialCell material = seleccion();
-        if (material != null){
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Alerta");
-            alert.setHeaderText("Esta accion borrara el material");
-            alert.setContentText("¿Esta seguro de que desea continuar?");
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK){
-                controller.eliminarMaterial(material.getId());
-                tablaInventario.refresh();
-            }
 
-        }
-        else{
-            controller.showWarning("Seleccionar material", "Por favor seleccione material a eliminar").showAndWait();;
+        Optional<ButtonType> result = Alert.confirmation()
+                .withTitle("Eliminar Material")
+                .withDescription("¿Esta seguro de que desea continuar?")
+                .withButton(ButtonType.OK, ButtonType.CANCEL)
+                .build().showAndWait();
+
+        if (result.get() == ButtonType.OK){
+            controller.eliminarMaterial(material.getId());
         }
     }
 
     @FXML
     private void exportarInventario(ActionEvent event) {
-        controller.exportarInventario();
+        FileChooser fileChooser = new FileChooser();
+
+        //Set extension filter for text files
+        FileChooser.ExtensionFilter pdfFilter = new FileChooser.ExtensionFilter("PDF files (*.pdf)", "*.pdf");
+        FileChooser.ExtensionFilter xlsxFilter = new FileChooser.ExtensionFilter("Excel files (*.xlsx)", "*.xlsx");
+
+        fileChooser.getExtensionFilters().addAll(pdfFilter, xlsxFilter);
+
+        //Show save file dialog
+        File dest = fileChooser.showSaveDialog(getPrimaryStage());
+
+        if (dest != null) {
+            try {
+                controller.guardarArchivoInventario(fileChooser.selectedExtensionFilterProperty().get().getExtensions().get(0),
+                        dest, tablaInventario.getItems());
+            } catch (IOException | DocumentException ex) {
+                Alert.error()
+                        .withDescription("El inventario no pudo ser exportado")
+                        .withButton(ButtonType.OK)
+                        .build().show();
+            }
+        }
     }
 
+    @Override
+    public void didEditMaterial(Material material) {
+        AsyncTask.supplyAsync(() -> {
+            ListIterator<MaterialCell> iterator = tablaInventario.getItems().listIterator();
 
-    /**
-     * Funcion privada que inicializa la tabla de materiales.
-     *
-     * @author Sebastian Fuenzalida.
-     */
-    private void inicializarTablaMateriales() {
-        retiroCL.setCellValueFactory(new PropertyValueFactory<>("retiro"));
-        udsCL.setCellValueFactory(new PropertyValueFactory<>("uds"));
-        fechaRetiroCL.setCellValueFactory(new PropertyValueFactory<>("fechaRetiro"));
-        fechaRetiroCL.setCellFactory(column -> {
-            TableCell<MaterialCell, Date> cell = new TableCell<MaterialCell, Date>() {
-                private SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-
-                @Override
-                protected void updateItem(Date item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if(empty) {
-                        setText(null);
-                    }
-                    else {
-                        if (item != null) setText(format.format(item));
-                        else setText(null);
-                    }
+            while (iterator.hasNext()) {
+                MaterialCell cell = iterator.next();
+                if (cell.getId().equals(material.getId())) {
+                    Platform.runLater(() -> {
+                        iterator.set(new MaterialCell(material));
+                    });
+                    return true;
                 }
-            };
-
-            return cell;
+            }
+            return false;
         });
-        fechaIngresoCL.setCellValueFactory(new PropertyValueFactory<>("fechaIngreso"));
-        fechaIngresoCL.setCellFactory(column -> {
-            TableCell<MaterialCell, Date> cell = new TableCell<MaterialCell, Date>() {
-                private SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-
-                @Override
-                protected void updateItem(Date item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if(empty) {
-                        setText(null);
-                    }
-                    else {
-                        setText(format.format(item));
-                    }
-                }
-            };
-
-            return cell;
-        });
-        nombreMaterialCL.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        idMaterialCL.setCellValueFactory(new PropertyValueFactory<>("id"));
-        cantidadCL.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
-        descripcionCL.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
-        precioCL.setCellValueFactory(new PropertyValueFactory<>("precio"));
-        refreshTable();
     }
 
-    private void refreshTable() {
-        SortedList sortedList = controller.sortedList();
-        tablaInventario.setItems(sortedList);
-        sortedList.comparatorProperty().bind(tablaInventario.comparatorProperty());
-    }
-
-    public void setController(InventarioMaterialController controller) {
-        this.controller = controller;
+    public InventarioMaterialView display(String idProyecto) {
+        controller.setIdProyecto(idProyecto);
+        return this;
     }
 }
+

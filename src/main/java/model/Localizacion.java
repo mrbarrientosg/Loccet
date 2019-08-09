@@ -1,104 +1,141 @@
 package model;
 
+import com.google.gson.annotations.Expose;
+import exceptions.EmptyFieldException;
+import util.StringUtils;
+
+/**
+ * Clase que contiene los datos de una localizacion
+ */
 public class Localizacion {
 
+    // MARK: - Atributos
+
+    @Expose
+    private Integer id;
+
+    @Expose
     private String direccion;
 
+    @Expose
     private String codigoPostal;
 
+    @Expose
     private String pais;
 
+    @Expose
     private String estado;
 
+    @Expose
     private String ciudad;
 
-    private Localizacion(Builder builder) {
-        this.direccion = builder.direccion;
-        this.codigoPostal = builder.codigoPostal;
-        this.pais = builder.pais;
-        this.estado = builder.estado;
-        this.ciudad = builder.ciudad;
+    // MARK: - Constructores
+
+    public Localizacion(String direccion, String codigoPostal, String pais, String estado, String ciudad) throws EmptyFieldException {
+        setDireccion(direccion);
+        setPais(pais);
+        setEstado(estado);
+        setCiudad(ciudad);
+        this.codigoPostal = codigoPostal;
+    }
+
+    public Localizacion(String direccion, String pais, String estado, String ciudad) throws EmptyFieldException {
+        this(direccion, null, pais, estado, ciudad);
+    }
+
+    public Localizacion(Localizacion other) {
+        this.id = other.id;
+        this.direccion = other.direccion;
+        this.codigoPostal = other.codigoPostal;
+        this.pais = other.pais;
+        this.estado = other.estado;
+        this.ciudad = other.ciudad;
+    }
+
+    // MARK: - Getter
+
+    public Integer getId() {
+        return id;
     }
 
     public String getDireccion() {
         return direccion;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
     public String getCodigoPostal() {
         return codigoPostal;
-    }
-
-    public void setCodigoPostal(String codigoPostal) {
-        this.codigoPostal = codigoPostal;
     }
 
     public String getPais() {
         return pais;
     }
 
-    public void setPais(String pais) {
-        this.pais = pais;
-    }
-
     public String getEstado() {
         return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
     }
 
     public String getCiudad() {
         return ciudad;
     }
 
-    public void setCiudad(String ciudad) {
+    // MARK: - Setter
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setDireccion(String direccion) throws EmptyFieldException {
+        if (StringUtils.isEmpty(direccion))
+            throw new EmptyFieldException("Dirrección");
+
+        this.direccion = direccion;
+    }
+
+    public void setCodigoPostal(String codigoPostal) {
+        this.codigoPostal = codigoPostal;
+    }
+
+    public void setPais(String pais) throws EmptyFieldException {
+        if (StringUtils.isEmpty(pais))
+            throw new EmptyFieldException("Pais");
+
+        this.pais = pais;
+    }
+
+    public void setEstado(String estado) throws EmptyFieldException {
+        if (StringUtils.isEmpty(estado))
+            throw new EmptyFieldException("Estado");
+
+        this.estado = estado;
+    }
+
+    public void setCiudad(String ciudad) throws EmptyFieldException {
+        if (StringUtils.isEmpty(ciudad))
+            throw new EmptyFieldException("Ciudad");
+
         this.ciudad = ciudad;
     }
 
-    public static class Builder {
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
 
-        private String direccion;
+        if (!(obj instanceof Localizacion)) return false;
 
-        private String codigoPostal;
+        Localizacion l = (Localizacion) obj;
 
-        private String pais;
+        Boolean postal;
 
-        private String estado;
+        if (l.codigoPostal != null && codigoPostal != null)
+            postal = l.codigoPostal.equals(codigoPostal);
+        else if (l.codigoPostal == null && codigoPostal == null)
+            postal = true;
+        else
+            postal = false;
 
-        private String ciudad;
-
-        public Builder direccion(String direccion) {
-            this.direccion = direccion;
-            return this;
-        }
-
-        public Builder codigoPostal(String codigoPostal) {
-            this.codigoPostal = codigoPostal;
-            return this;
-        }
-
-        public Builder pais(String pais) {
-            this.pais = pais;
-            return this;
-        }
-
-        public Builder estado(String estado) {
-            this.estado = estado;
-            return this;
-        }
-
-        public Builder ciudad(String ciudad) {
-            this.ciudad = ciudad;
-            return this;
-        }
-
-        public Localizacion build() {
-            return new Localizacion(this);
-        }
+        return l.direccion.equals(direccion) &&
+                postal && l.pais.equals(pais) &&
+                l.estado.equals(estado) &&
+                l.ciudad.equals(ciudad);
     }
 }

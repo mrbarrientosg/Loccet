@@ -2,8 +2,12 @@ package cell;
 
 import model.Material;
 
-import java.util.Date;
-
+/**
+ * Clase que ayuda a desplegar un material de
+ * forma mas facil para la vista
+ *
+ * @author Sebastian Fuenzalida
+ */
 public final class MaterialCell {
 
     private String id;
@@ -12,28 +16,19 @@ public final class MaterialCell {
 
     private String descripcion;
 
-    private double cantidad;
-
-    private double retiro;
-
-    private Date fechaRetiro;
-
-    private Date fechaIngreso;
+    private String cantidad;
 
     private String uds;
 
-    private double precio;
+    private String precio;
 
     public MaterialCell(Material m) {
         id = m.getId();
         nombre = m.getNombre();
         descripcion = m.getDescripcion();
-        cantidad = m.getCantidad();
-        retiro = m.getRetiro();
-        fechaRetiro = m.getFechaRetiro();
-        fechaIngreso = m.getFechaIngreso();
+        cantidad = String.valueOf(m.getCantidad());
         uds = m.getUds();
-        precio = m.getPrecio();
+        precio = m.getPrecio().toString();
     }
 
     public String getId() {
@@ -48,27 +43,15 @@ public final class MaterialCell {
         return descripcion;
     }
 
-    public double getCantidad() {
+    public String getCantidad() {
         return cantidad;
-    }
-
-    public double getRetiro() {
-        return retiro;
-    }
-
-    public Date getFechaRetiro() {
-        return fechaRetiro;
-    }
-
-    public Date getFechaIngreso() {
-        return fechaIngreso;
     }
 
     public String getUds() {
         return uds;
     }
 
-    public double getPrecio() {
+    public String getPrecio() {
         return precio;
     }
 }

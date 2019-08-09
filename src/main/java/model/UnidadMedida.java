@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * Unidades de medidas que usa un material
+ */
 public enum UnidadMedida {
     MM("MM"),
     CM("CM"),
@@ -13,13 +16,14 @@ public enum UnidadMedida {
     GR("GR"),
     UN("UN");
 
-    private final String name;
+    private final String value;
 
-    UnidadMedida(final String name) {
-        this.name = name;
+    UnidadMedida(final String value) {
+        this.value = value;
     }
 
-    public String getName() {
-        return name;
+    public String getValue() {
+        return value;
     }
+
 }

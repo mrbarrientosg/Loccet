@@ -1,10 +1,16 @@
 package cell;
 
 import model.Trabajador;
+import model.TrabajadorPartTime;
+import model.TrabajadorTiempoCompleto;
+import util.StringUtils;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-
+/**
+ * Clase que ayuda a desplegar un trabajador
+ * de forma mas facil para la vista
+ *
+ * @author Matias Barrientos
+ */
 public final class TrabajadorCell {
 
     private String rut;
@@ -13,26 +19,25 @@ public final class TrabajadorCell {
 
     private String apellido;
 
-    private String fechaNacimiento;
-
     private String nombreEspecialidad;
-
-    private Double cantidadDeHoras;
-
-    private Double sueldoPorHora;
 
     private String telefono;
 
     private String correoElectronico;
 
+    private String tipoTrabajador;
+
+    private Integer horasPorDia;
+
     public TrabajadorCell(Trabajador t) {
         this.rut = t.getRut();
         this.nombre = t.getNombre();
         this.apellido = t.getApellido();
-        this.fechaNacimiento = t.getFechaNacimiento().toString();
         this.nombreEspecialidad = t.getEspecialidad().getNombre();
-        this.cantidadDeHoras = t.getEspecialidad().getCantidadDeHoras();
-        this.sueldoPorHora = t.getEspecialidad().getSueldoPorHora();
+        this.telefono = t.getTelefono();
+        this.correoElectronico = StringUtils.isEmpty(t.getCorreoElectronico()) ? "-" : t.getCorreoElectronico();
+        this.tipoTrabajador = (t instanceof TrabajadorTiempoCompleto) ? "Tiempo Completo" : "Part Time";
+        this.horasPorDia = (t instanceof TrabajadorTiempoCompleto) ? 8 : ((TrabajadorPartTime) t).getCantidadHoraTrabajada();
     }
 
     public String getRut() {
@@ -47,20 +52,8 @@ public final class TrabajadorCell {
         return apellido;
     }
 
-    public String getFechaNacimiento() {
-        return fechaNacimiento;
-    }
-
     public String getNombreEspecialidad() {
         return nombreEspecialidad;
-    }
-
-    public Double getCantidadDeHoras() {
-        return cantidadDeHoras;
-    }
-
-    public Double getSueldoPorHora() {
-        return sueldoPorHora;
     }
 
     public String getTelefono() {
@@ -69,5 +62,13 @@ public final class TrabajadorCell {
 
     public String getCorreoElectronico() {
         return correoElectronico;
+    }
+
+    public String getTipoTrabajador() {
+        return tipoTrabajador;
+    }
+
+    public Integer getHorasPorDia() {
+        return horasPorDia;
     }
 }

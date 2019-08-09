@@ -1,114 +1,93 @@
 package model;
 
-import java.util.*;
+import specification.MemorySpecification;
+import model.store.memory.MemoryStoreMaterial;
+import model.store.StoreMaterial;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
- * Clase Inventario
+ * Clase Inventario que maneja los materiales
  *
  * @author Sebastian Fuenzalida
  */
-public class InventarioMaterial {
+public class InventarioMaterial implements Costeable, Cleanable {
 
-    private ArrayList<Material> listaInventarios;
+    // MARK: - Atributos
 
-    private HashMap<String, Material> mapInventarios;
+    private StoreMaterial storeMaterial;
+
+    private Integer id;
+
+    // MARK: - Constructor
 
     public InventarioMaterial() {
-        listaInventarios = new ArrayList<>();
-        mapInventarios = new HashMap<>();
+        storeMaterial = new MemoryStoreMaterial();
+    };
+
+    // MARK: - Metodos Material
+
+    public void agregarMaterial(Material material) {
+        if (storeMaterial.contains(material))
+            return;
+
+        storeMaterial.save(material);
     }
 
-    public List<Material> obtenerMateriales() {
-        return Collections.unmodifiableList(listaInventarios);
+    public Material obtenerMaterial(String id){
+       return storeMaterial.findById(id);
     }
 
-    public void nuevoItem(Material item){
-        Material itemInventario= mapInventarios.get(item.getId());
-        if (itemInventario == null){
-            mapInventarios.put(item.getId(),item);
-            listaInventarios.add(item);
+    public Material eliminarMaterial(String id) {
+        return storeMaterial.delete(id);
+    }
+
+    // MARK: - Metodos Registro Material
+
+    public void agregarRegistroMaterial(String idMaterial, RegistroMaterial registroMaterial) {
+        storeMaterial.findById(idMaterial).agregarRegistro(registroMaterial);
+    }
+
+    public Iterable<Material> buscarMaterial(MemorySpecification<Material> specification) {
+        final List<Material> materials = new ArrayList<>();
+
+        for (Material material: storeMaterial.findAll()) {
+            if (specification.test(material))
+                materials.add(material);
         }
 
+        return materials;
     }
 
-    /**
-     *
-     * Funcion que suma la cantidad de material ingresada por
-     * el usuario al material correspondiente.
-     *
-     * @author Sebastian Fuenzalida.
-     *
-     * @param idMaterial
-     * @param cantidad
-     */
-    public Material agregarMaterial(String idMaterial,double cantidad){
-        Material material = mapInventarios.get(idMaterial);
-        material.setCantidad(material.getCantidad()+cantidad);
-        material.setFechaIngreso(new Date());
-        return material;
+    @Override
+    public BigDecimal calcularCosto() {
+        Iterator<Material> iterator = storeMaterial.findAll().iterator();
+
+        BigDecimal costoTotal = new BigDecimal(0);
+
+        while (iterator.hasNext())
+            costoTotal = costoTotal.add(iterator.next().calcularCosto());
+
+        return costoTotal;
     }
 
-    /**
-     * Funcion que resta la cantidad de material ingresada por
-     * el usuario al material correspondiente.
-     *
-     * @author Sebastian Fuenzalida.
-     *
-     * @param idMaterial
-     * @param cantidad
-     */
-    public Material retirarMaterial(String idMaterial,double cantidad){
-        Material material = mapInventarios.get(idMaterial);
-        material.setCantidad(material.getCantidad()-cantidad);
-        material.setFechaRetiro(new Date());
-        material.setRetiro(cantidad);
-        return material;
+    @Override
+    public void clean() {
+        storeMaterial.clean();
+        storeMaterial = null;
     }
 
-    /**
-     * Funcion que modifica el nombre del material correspondiente.
-     *
-     * @author Sebastian Fuenzalida.
-     *
-     * @param idMaterial
-     * @param nombre
-     */
-    public Material modificarNombre(String idMaterial,String nombre){
-        Material material = mapInventarios.get(idMaterial);
-        material.setNombre(nombre);
-        return material;
+    // MARK: - Getter y Setter
+
+    public Integer getId() {
+        return id;
     }
 
-    /**
-     * Funcion que modifica la descripcion del material correspondiente.
-     *
-     * @author Sebastian Fuenzalida.
-     *
-     * @param idMaterial
-     * @param descripcion
-     */
-    public Material modificarDescripcion(String idMaterial,String descripcion){
-        Material material = mapInventarios.get(idMaterial);
-        material.setDescripcion(descripcion);
-        return material;
-    }
-
-    /**
-     * Funcion que elimina el material correspondiente.
-     *
-     * @author Sebastian Fuenzalida.
-     *
-     * @param idMaterial
-     */
-    public Material eliminarItem(String idMaterial){
-        Material material = mapInventarios.remove(idMaterial);
-        listaInventarios.remove(material);
-        return material;
-    }
-
-
-    public double gastoTotal() {
-        return listaInventarios.stream().map(Material::precioTotal).reduce(0.0, (left, right) -> left + right);
+    public void setId(Integer id) {
+        this.id = id;
     }
 
 }

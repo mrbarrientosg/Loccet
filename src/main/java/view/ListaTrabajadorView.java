@@ -1,28 +1,41 @@
 package view;
 
-import base.Fragment;
+import base.Injectable;
 import base.View;
 import cell.TrabajadorCell;
 import controller.ListaTrabajadorController;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import delegate.SaveTrabajadorDelegate;
+import io.reactivex.Observable;
+import io.reactivex.rxjavafx.observables.JavaFxObservable;
+import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
+import io.reactivex.schedulers.Schedulers;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
+import model.Trabajador;
+import util.Alert;
+import util.AsyncTask;
+import java.util.ListIterator;
+import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
-public final class ListaTrabajadorView extends Fragment {
-
-    private HomeView master;
+/**
+ * Vista que despliega los trabajadores
+ *
+ * @author Matias Barrientos
+ */
+public final class ListaTrabajadorView extends View implements SaveTrabajadorDelegate {
 
     private ListaTrabajadorController controller;
+
+    @FXML
+    private Button deleteButton;
+
+    @FXML
+    private Button detailButton;
 
     @FXML
     private TextField searchTextField;
@@ -40,104 +53,112 @@ public final class ListaTrabajadorView extends Fragment {
     private TableColumn<TrabajadorCell, String> lastNameColumn;
 
     @FXML
-    private TableColumn<TrabajadorCell, String> fechaNaciemientoColumn;
-
-    @FXML
     private TableColumn<TrabajadorCell, String> specialityColumn;
 
     @FXML
-    private TableColumn<TrabajadorCell, String> horasTrabajoColumn;
+    private TableColumn<TrabajadorCell, String> typeColumn;
 
     @FXML
-    private TableColumn<TrabajadorCell, String> sueldoHoraColumn;
-
-    @FXML
-    private TableColumn<TrabajadorCell, String> proyectColumn;
-
-    @FXML
-    private TableColumn<TrabajadorCell, String> telefonoColumn;
-
-    @FXML
-    private TableColumn<TrabajadorCell, String> emailColumn;
+    private TableColumn<TrabajadorCell, String> horasColumn;
 
     @Override
     public void viewDidLoad() {
+        controller = Injectable.find(ListaTrabajadorController.class);
+        controller.setView(this);
 
         rutColumn.setCellValueFactory(new PropertyValueFactory<>("rut"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("apellido"));
-        fechaNaciemientoColumn.setCellValueFactory(new PropertyValueFactory<>("fechaNacimiento"));
         specialityColumn.setCellValueFactory(new PropertyValueFactory<>("nombreEspecialidad"));
-        horasTrabajoColumn.setCellValueFactory(new PropertyValueFactory<>("cantidadDeHoras"));
-        sueldoHoraColumn.setCellValueFactory(new PropertyValueFactory<>("sueldoPorHora"));
-        //proyectColumn.setCellValueFactory(new PropertyValueFactory<>("sueldoPorHora"));
-        telefonoColumn.setCellValueFactory(new PropertyValueFactory<>("telefono"));
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("correoElectronico"));
+        typeColumn.setCellValueFactory(new PropertyValueFactory<>("tipoTrabajador"));
+        horasColumn.setCellValueFactory(new PropertyValueFactory<>("horasPorDia"));
 
-        searchTextField.setOnKeyReleased(event -> {
-            searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-                controller.didSearch(newValue);
-            });
-            refreshTable();
+        tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                deleteButton.setDisable(false);
+                detailButton.setDisable(false);
+            } else {
+                deleteButton.setDisable(true);
+                detailButton.setDisable(true);
+            }
         });
 
-        refreshTable();
+    }
 
-        controller.selectedTrabajadorProperty().bind(tableView.getSelectionModel().selectedItemProperty());
+    @Override
+    public void viewDidShow() {
+        Observable<String> textInputs = JavaFxObservable.valuesOf(searchTextField.textProperty());
+
+        textInputs
+                .debounce(300, TimeUnit.MILLISECONDS)
+                .distinctUntilChanged()
+                .flatMap(value -> controller.searchEmployee(value)
+                        .onErrorReturnItem(FXCollections.emptyObservableList())
+                        .toObservable())
+                .subscribeOn(Schedulers.io())
+                .observeOn(JavaFxScheduler.platform())
+                .subscribe(tableView::setItems);
     }
 
     @Override
     public void viewDidClose() {
-        controller.selectedTrabajadorProperty().unbind();
+        tableView.getItems().clear();
     }
 
     @FXML
-    private void editTrabajador(ActionEvent event) {
-        TrabajadorView editView = controller.mostrarEditar();
-
-        if (editView == null) return;
-
-        getRoot().setRight(editView.getRoot());
-        getCurrentStage().sizeToScene();
-        getCurrentStage().centerOnScreen();
+    private void addEmployeeAction(ActionEvent event) {
+        Injectable.find(BuscarTrabajadorView.class).display(controller);
     }
 
     @FXML
-    private void salir() {
-        getRoot().setRight(null);
-        master.removeNode(getRoot());
+    private void verDetalleTrabajador(ActionEvent event) {
+        TrabajadorCell cell = tableView.getSelectionModel().getSelectedItem();
+        Injectable.find(DetalleTrabajadorView.class).display(cell.getRut(), this);
     }
 
     @FXML
-    void actualizarTabla(ActionEvent event) {
-        controller.loadData();
-        refreshTable();
+    private void deleteAction(ActionEvent event) {
+        TrabajadorCell cell = tableView.getSelectionModel().getSelectedItem();
+
+        Optional<ButtonType> result = Alert.confirmation()
+                .withTitle("Eliminar Trabajador")
+                .withDescription("¿Desea continuar?")
+                .withButton(ButtonType.OK, ButtonType.CANCEL)
+                .build().showAndWait();
+
+        if (result.get() == ButtonType.OK){
+            controller.eliminarTrabajador(cell.getRut());
+            tableView.getItems().remove(cell);
+        }
+
     }
 
-//    public void refresh() {
-//        tableView.refresh();
-//        getRoot().setRight(null);
-//        getCurrentStage().sizeToScene();
-//        getCurrentStage().centerOnScreen();
-//    }
+    public void addEmployee(TrabajadorCell cell) {
+        tableView.getItems().add(cell);
+        searchTextField.setText("");
+    }
 
     @Override
-    public BorderPane getRoot() {
-        return (BorderPane) root;
+    public void didSaveTrabajador(Trabajador trabajador) {
+        AsyncTask.supplyAsync(() -> {
+            ListIterator<TrabajadorCell> iterator = tableView.getItems().listIterator();
+
+            while (iterator.hasNext()) {
+                TrabajadorCell cell = iterator.next();
+                if (cell.getRut().equals(trabajador.getRut())) {
+                    Platform.runLater(() -> {
+                        iterator.set(new TrabajadorCell(trabajador));
+                    });
+                    return true;
+                }
+            }
+            return false;
+        });
     }
 
-    public void setController(ListaTrabajadorController controller) {
-        this.controller = controller;
-    }
-
-    public void setMaster(HomeView master) {
-        this.master = master;
-    }
-
-    public void refreshTable() {
-        SortedList sortedList = controller.sortedList();
-        tableView.setItems(sortedList);
-        sortedList.comparatorProperty().bind(tableView.comparatorProperty());
+    public ListaTrabajadorView display(String id) {
+        controller.setIdProyecto(id);
+        return this;
     }
 
 }

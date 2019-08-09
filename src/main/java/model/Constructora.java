@@ -1,57 +1,137 @@
 package model;
-import util.StringUtils;
-import java.util.*;
-import java.util.ArrayList;
-import java.util.HashMap;
 
-public class Constructora {
+import com.google.gson.JsonObject;
+import exceptions.NegativeQuantityException;
+import specification.MemorySpecification;
+import model.store.memory.MemoryStoreProyecto;
+import model.store.memory.MemoryStoreTrabajador;
+import model.store.StoreProyecto;
+import model.store.StoreTrabajador;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
+/**
+ * Clase que contiene los datos y metodos
+ * para la constructora.
+ */
+public class Constructora implements Costeable {
+
+    // MARK: - Atributos
 
     private String rut;
 
     private String nombre;
 
-    private List<Proyecto> listaProyecto;
+    private String dns;
 
-    private Map<String, Proyecto> mapProyecto;
+    private StoreProyecto storeProyecto;
 
-    private Map<String, Trabajador> conjuntoTrabajadores;
+    private StoreTrabajador storeTrabajador;
 
-    public Constructora(String rut, String nombre) {
-        this.rut = rut;
-        this.nombre = nombre;
-        listaProyecto = new ArrayList<>();
-        mapProyecto = new HashMap<>();
-        conjuntoTrabajadores = new HashMap<>();
-    }
-    //MARK - Metodos
+    private static Constructora instance;
 
-    public boolean agregarProyecto(Proyecto proyecto) {
-        if (listaProyecto.contains(proyecto) || mapProyecto.containsKey(proyecto.getId()))
-            return false;
+    // MARK: - Constructores
 
-        listaProyecto.add(proyecto);
-        mapProyecto.put(proyecto.getId(), proyecto);
-
-        return true;
+    private Constructora() {
+        storeProyecto = new MemoryStoreProyecto();
+        storeTrabajador = new MemoryStoreTrabajador();
     }
 
-    public Proyecto eliminarProyecto(String id) {
-        if (!mapProyecto.containsKey(id)) return null;
-        listaProyecto.remove(mapProyecto.get(id));
-        return mapProyecto.remove(id);
+    public static synchronized Constructora getInstance() {
+        if (instance == null)
+            instance = new Constructora();
+        return instance;
     }
 
-    public Trabajador actualizarTrabajador(Trabajador nuevoTrabajador) {
-        for (Proyecto proyecto : listaProyecto) {
-            proyecto.actualizarTrabajador(nuevoTrabajador);
+    public void init(JsonObject json) {
+        rut = json.get("rut").getAsString();
+        nombre = json.get("nombre").getAsString();
+        dns = json.get("dns").getAsString();
+    }
+
+    // MARK: - Metodos Proyecto
+
+    public Proyecto obtenerProyecto(String idProyecto) {
+        return storeProyecto.findById(idProyecto);
+    }
+
+    public void agregarProyecto(Proyecto proyecto) {
+        if (storeProyecto.contains(proyecto))
+            return;
+
+        storeProyecto.save(proyecto);
+    }
+
+    public Proyecto eliminarProyecto(String idProyecto) {
+        Proyecto proyecto = storeProyecto.findById(idProyecto);
+
+        if (proyecto == null)
+            return null;
+
+        storeProyecto.delete(proyecto);
+
+        proyecto.clean();
+
+        return proyecto;
+    }
+
+    public Iterable<Proyecto> buscarProyecto(MemorySpecification<Proyecto> specification) {
+        final List<Proyecto> proyectos = new ArrayList<>();
+
+        for (Proyecto proyecto: storeProyecto.findAll()) {
+            if (specification.test(proyecto))
+                proyectos.add(proyecto);
         }
-        return conjuntoTrabajadores.put(nuevoTrabajador.getRut(), nuevoTrabajador);
+
+        return proyectos;
     }
 
-    public boolean agregarTrabajador(Trabajador trabajador) {
-        if (conjuntoTrabajadores.containsKey(trabajador.getRut())) return false;
-        conjuntoTrabajadores.put(trabajador.getRut(), trabajador);
-        return true;
+    public Iterable<Proyecto> getProyectos(String rut) {
+        Trabajador trabajador = storeTrabajador.findByRut(rut);
+
+        if (trabajador == null)
+            return Collections.emptyList();
+
+        return trabajador.getProyectos();
+    }
+
+    public Iterable<Proyecto> getProyectos() {
+        return storeProyecto.findAll();
+    }
+
+    public Integer getIdInventario(String idProyecto) {
+        Proyecto p = storeProyecto.findById(idProyecto);
+
+        if (p == null)
+            return null;
+
+        return p.getIdInventario();
+    }
+
+    // MARK: - Metodos Trabajador
+
+    public Trabajador obtenerTrabajador(String rut) {
+        return storeTrabajador.findByRut(rut);
+    }
+
+    public Trabajador obtenerTrabajador(String rut, String idProyecto) {
+        Proyecto proyecto = storeProyecto.findById(idProyecto);
+
+        if (proyecto == null)
+            return null;
+
+        return proyecto.obtenerTrabajador(rut);
+    }
+
+
+    public void agregarTrabajador(Trabajador trabajador) {
+        if (storeTrabajador.contains(trabajador))
+            return;
+
+        storeTrabajador.save(trabajador);
     }
 
     /**
@@ -59,98 +139,199 @@ public class Constructora {
      *
      * @param idProyecto id del proyecto
      * @param trabajador Trabajador a guardar
-     * @return false si no se pudo agregar y true lo contrario
-     * @author Matias Barrientos
      */
-    public boolean agregarTrabajador(String idProyecto, Trabajador trabajador) {
-        if (!mapProyecto.containsKey(idProyecto)) return false;
-        mapProyecto.get(idProyecto).agregarTrabajador(trabajador);
-        conjuntoTrabajadores.put(trabajador.getRut(), trabajador);
-        return true;
-    }
+    public void agregarTrabajador(String idProyecto, Trabajador trabajador) {
+        Proyecto proyecto = storeProyecto.findById(idProyecto);
 
-//    /**
-//     * Buscar los trabajadores especificos en un proyecto
-//     *
-//     * @param idProyecto id del proyecto
-//     * @param busqueda   consulta de busqueda
-//     * @return Lista de trabajadores encontrados
-//     * @author Matias Barrientos
-//     */
-//    public List<Trabajador> buscarTrabajador(String idProyecto, String busqueda) {
-//        if (!mapProyecto.containsKey(idProyecto)) return Collections.EMPTY_LIST;
-//        Proyecto aux = mapProyecto.get(idProyecto);
-//        return aux.buscarTrabajador(busqueda.toLowerCase());
-//    }
+        if (proyecto == null) return;
 
-    /**
-     * Busca a todos los trabajadores en todas las obras
-     *
-     * @param busqueda Forma de como se quiere buscar
-     * @return Lista de trabajadores encontrados
-     * @author Matias Barrientos
-     */
-    public List<Trabajador> buscarTrabajador(String busqueda) {
-        ArrayList<Trabajador> encontrados = new ArrayList<>();
-
-        for (Object ob : conjuntoTrabajadores.values()) {
-            Trabajador trabajador = (Trabajador) ob;
-
-            if (StringUtils.containsIgnoreCase(trabajador.getNombre(), busqueda) ||
-                    StringUtils.containsIgnoreCase(trabajador.getRut(), busqueda))
-                encontrados.add(trabajador);
+        if (storeTrabajador.contains(trabajador)) {
+            proyecto.agregarTrabajador(storeTrabajador.findByRut(trabajador.getRut()));
+        } else {
+            proyecto.agregarTrabajador(trabajador);
         }
 
-        return encontrados;
-    }
-
-    public Trabajador obtenerTrabajador(String rut) {
-        return conjuntoTrabajadores.get(rut);
+        agregarTrabajador(trabajador);
     }
 
     public Trabajador eliminarTrabajador(String rut) {
-        if (!conjuntoTrabajadores.containsKey(rut)) return null;
+        Trabajador trabajador = storeTrabajador.delete(rut);
 
-        for (Proyecto proyecto : listaProyecto) {
-            proyecto.eliminarTrabajador(rut);
+        if (trabajador == null)
+            return null;
+
+        trabajador.clean();
+
+        return trabajador;
+    }
+
+    public Trabajador eliminarTrabajador(String idProyecto, String rut) {
+        Proyecto p = storeProyecto.findById(idProyecto);
+
+        if (p == null) return null;
+
+        Trabajador trabajador = p.eliminarTrabajador(rut);
+
+        if (trabajador == null)
+            return null;
+
+        trabajador.eliminarProyecto(idProyecto);
+
+        return p.eliminarTrabajador(rut);
+    }
+
+    public Iterable<Trabajador> buscarTrabajador(MemorySpecification<Trabajador> specification) {
+        final List<Trabajador> trabajadors = new ArrayList<>();
+
+        for (Trabajador trabajador: storeTrabajador.findAll()) {
+            if (specification.test(trabajador))
+                trabajadors.add(trabajador);
         }
 
-        return conjuntoTrabajadores.remove(rut);
+        return trabajadors;
     }
 
-    /*public Trabajador eliminarTrabajador(String idProyecto, String RUT) {
-        if(mapProyecto.get(idProyecto) == null) return null;
-        return mapProyecto.get(idProyecto).eliminarTrabajador(RUT);
-    }*/
-
-    public Proyecto buscarProyecto(String idProyecto) {
-        return mapProyecto.get(idProyecto);
+    public Iterable<Trabajador> getTrabajadores() {
+        return storeTrabajador.findAll();
     }
 
-    public void estimacionGasto(String idProyecto) {
-        if (!mapProyecto.containsKey(idProyecto)) return;
-        mapProyecto.get(idProyecto).estimacionGasto();
-    }
-    /**
-     * Revisa si existe un proyecto basandose en el nombre
-     *
-     * @param proyecto el cual va a ser ingresado a constructora
-     * @return boolean dependiendo de si el proyecto fue ingresado con anterioridad
-     * @author Matias Zúñiga
-     */
-    public boolean existeProyecto(Proyecto proyecto){
-        List<Proyecto> lista = getListaProyecto();
-        for(int i = 0; i< lista.size(); i++){
-            if(!lista.isEmpty()){
-                if(proyecto.getNombreProyecto().toUpperCase().equals(lista.get(i).getNombreProyecto().toUpperCase())){
-                    return true;
-                }
-            }
-        }
-        return false;
+    public Iterable<Trabajador> getTrabajadores(String idProyecto) {
+        Proyecto proyecto = storeProyecto.findById(idProyecto);
+
+        if (proyecto == null)
+            return Collections.emptyList();
+
+        return proyecto.getTrabajadores();
     }
 
-    //Getter
+
+    // MARK: - Metodos Horario
+
+    public void agregarHorario(String rut, String idProyecto, Horario horario) {
+        Trabajador trabajador = storeTrabajador.findByRut(rut);
+
+        if (trabajador == null)
+            return;
+
+        trabajador.agregarHorario(idProyecto, horario);
+    }
+
+    public void eliminarHorario(String rut, Integer idHorario) {
+        Trabajador trabajador = storeTrabajador.findByRut(rut);
+
+        if (trabajador == null)
+            return;
+
+        trabajador.eliminarHorario(idHorario);
+    }
+
+    public Iterable<Horario> getHorarios(String rut) {
+        Trabajador trabajador = storeTrabajador.findByRut(rut);
+
+        if (trabajador == null)
+            return Collections.emptyList();
+
+        return trabajador.obtenerListaHorario();
+    }
+
+
+    // MARK: - Metodos Material
+
+    public Iterable<Material> buscarMaterial(String idProyecto, MemorySpecification<Material> specification) {
+        Proyecto p = storeProyecto.findById(idProyecto);
+
+        if (p == null)
+            return Collections.emptyList();
+
+        return p.buscarMaterial(specification);
+    }
+
+    public Material obtenerMaterial(String idProyecto, String idMaterial) {
+        Proyecto p = storeProyecto.findById(idProyecto);
+
+        if (p == null)
+            return null;
+
+        return p.obtenerMaterial(idMaterial);
+    }
+
+    public void agregarMaterial(String idProyecto, Material material) {
+        Proyecto p = storeProyecto.findById(idProyecto);
+
+        if (p == null)
+            return;
+
+        p.agregarMaterial(material);
+    }
+
+    public Material eliminarMaterial(String idProyecto, String idMaterial) {
+        Proyecto p = storeProyecto.findById(idProyecto);
+
+        if (p == null)
+            return null;
+
+        return p.eliminarMaterial(idMaterial);
+    }
+
+    public void actualizarCantidadMaterial(String idProyecto, String idMaterial, double cantidad) throws NegativeQuantityException {
+        Proyecto proyecto = storeProyecto.findById(idProyecto);
+
+        if (proyecto == null)
+            return;
+
+        Material m = proyecto.obtenerMaterial(idMaterial);
+
+        if (m == null)
+            return;
+
+        m.setCantidad(m.getCantidad() + cantidad);
+    }
+
+    // MARK: - Metodos Registro Material
+
+    public void agregarRegistroMaterial(String idProyecto, String idMaterial, RegistroMaterial rm) {
+        Proyecto proyecto = storeProyecto.findById(idProyecto);
+
+        if (proyecto == null)
+            return;
+
+        Material m = proyecto.obtenerMaterial(idMaterial);
+
+        if (m == null)
+            return;
+
+        m.agregarRegistro(rm);
+    }
+
+    public Iterable<RegistroMaterial> getRegistrosMateriales(String idProyecto, String idMaterial) {
+        Proyecto proyecto = storeProyecto.findById(idProyecto);
+
+        if (proyecto == null)
+            return Collections.emptyList();
+
+        Material m = proyecto.obtenerMaterial(idMaterial);
+
+        if (m == null)
+            return Collections.emptyList();
+
+        return m.getRegistrosMateriales();
+    }
+
+    // MARK: - Costeable
+
+    @Override
+    public BigDecimal calcularCosto() {
+        Iterator<Proyecto> iterator = storeProyecto.findAll().iterator();
+
+        BigDecimal costoAproximado = new BigDecimal(0);
+
+        while (iterator.hasNext())
+            costoAproximado = costoAproximado.add(iterator.next().calcularCosto());
+
+        return costoAproximado;
+    }
+
+    // MARK: - Getter
 
     public String getRut() {
         return rut;
@@ -160,14 +341,8 @@ public class Constructora {
         return nombre;
     }
 
-    public List<Trabajador> getConjuntoTrabajadores() {
-        return Collections.unmodifiableList(new ArrayList<>(conjuntoTrabajadores.values()));
+    public String getDns() {
+        return dns;
     }
-
-    public List<Proyecto> getListaProyecto() {
-        return Collections.unmodifiableList(listaProyecto);
-    }
-
-
 }
 
