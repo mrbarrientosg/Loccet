@@ -73,7 +73,7 @@ public class RegistroMaterial implements Cleanable {
 
             json.addProperty("id_material", registroMaterial.material.getId());
             json.addProperty("cantidad", registroMaterial.cantidad);
-            json.addProperty("fecha", DateUtils.formatDate(registroMaterial.fecha));
+            json.addProperty("fecha", DateUtils.formatDate("yyyy-MM-dd HH:mm:ss", registroMaterial.fecha));
             json.addProperty("retirado", registroMaterial.retirado);
 
             return json;

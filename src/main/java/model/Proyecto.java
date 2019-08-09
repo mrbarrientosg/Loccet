@@ -9,6 +9,7 @@ import model.store.memory.MemoryStoreAsistencia;
 import model.store.memory.MemoryStoreFase;
 import model.store.memory.MemoryStoreTrabajador;
 import specification.MemorySpecification;
+import util.DateUtils;
 import util.StringUtils;
 
 import java.lang.reflect.Type;
@@ -281,8 +282,8 @@ public class Proyecto implements Costeable, Cleanable {
         return p.id.equals(id) &&
                 p.nombre.equals(nombre) &&
                 p.localizacion.equals(localizacion) &&
-                p.nombreCliente.equals(nombreCliente);
-
+                p.nombreCliente.equals(nombreCliente) &&
+                (p.fechaTermino == null || p.fechaTermino.equals(fechaTermino));
     }
 
     // MARK: - Cleanable
@@ -348,6 +349,7 @@ public class Proyecto implements Costeable, Cleanable {
             json.addProperty("id", proyecto.getId());
             json.addProperty("nombre", proyecto.getNombre());
             json.addProperty("nombre_cliente", proyecto.getNombreCliente());
+            json.addProperty("fecha_termino", DateUtils.formatDate("yyyy-MM-dd", proyecto.getFechaTermino()));
 
             json.add("localizacion", gson.toJsonTree(proyecto.getLocalizacion()));
 

@@ -5,6 +5,7 @@ import cell.TrabajadorCell;
 import com.google.gson.JsonObject;
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Constructora;
@@ -12,9 +13,11 @@ import model.Trabajador;
 import delegate.SearchEmployeeDelegate;
 import network.endpoint.TrabajadorAPI;
 import network.service.NetService;
+import util.AsyncTask;
 import util.DateUtils;
 import view.ListaTrabajadorView;
 import java.time.Instant;
+import java.util.function.Consumer;
 import java.util.logging.Level;
 
 /**
@@ -38,6 +41,17 @@ public final class ListaTrabajadorController extends Controller implements Searc
         model = Constructora.getInstance();
         service = NetService.getInstance();
     }
+
+    public void fetchTrabajadores(Consumer<ObservableList<TrabajadorCell>> callBack) {
+        AsyncTask.supplyAsync(() -> {
+            ObservableList<TrabajadorCell> cells = FXCollections.observableArrayList(e -> new javafx.beans.Observable[]{ new SimpleStringProperty(e.getRut())});
+
+            model.getTrabajadores(idProyecto).forEach(trabajador -> cells.add(new TrabajadorCell(trabajador)));
+
+            return cells;
+        }).thenAccept(callBack);
+    }
+
 
     public Single<ObservableList<TrabajadorCell>> searchEmployee(String text) {
         return Observable.fromIterable(model.getTrabajadores(idProyecto))

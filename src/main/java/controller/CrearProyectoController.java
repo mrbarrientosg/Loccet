@@ -70,7 +70,7 @@ public final class CrearProyectoController extends Controller {
     }
 
     public void saveProyecto() throws EmptyFieldException, DateRangeException {
-        if (fechaTermino.get() != null && fechaInicio.get().isAfter(fechaTermino.get())) {
+        if (fechaTermino.get() != null && fechaInicio.get().isBefore(fechaTermino.get())) {
             throw new DateRangeException("La fecha de inicio del proyecto no puede ser mayor que la de termino.");
         }
 
