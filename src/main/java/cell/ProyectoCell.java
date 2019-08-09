@@ -31,7 +31,7 @@ public final class ProyectoCell {
         id = m.getId();
         nombre = m.getNombre();
         fechaInicio = DateUtils.formatDate(m.getFechaInicio());
-        fechaTermino = m.getFechaTermino() == null ? "-" : DateUtils.formatDate(m.getFechaInicio());
+        fechaTermino = m.getFechaTermino() == null ? "-" : DateUtils.formatDate(m.getFechaTermino());
         cliente = m.getNombreCliente();
         estimacion = m.getCostoEstimado().toString();
     }
