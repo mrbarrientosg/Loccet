@@ -4,6 +4,7 @@ import base.Controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import delegate.SaveProyectoDelegate;
+import exceptions.DateRangeException;
 import exceptions.EmptyFieldException;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -79,13 +80,18 @@ public final class DetalleProyectoController extends Controller {
      *
      * @author Matias Zuñiga
      */
-    public void actualizar() throws EmptyFieldException {
+    public void actualizar() throws EmptyFieldException, DateRangeException {
+        if (endDate.get() != null && endDate.get().isBefore(actualProyecto.getFechaInicio())) {
+            throw new DateRangeException("La fecha de inicio del proyecto no puede ser mayor que la de termino.");
+        }
+
         actualProyecto.setNombre(name.get());
         actualProyecto.getLocalizacion().setDireccion(address.get());
         actualProyecto.getLocalizacion().setPais(country.get());
         actualProyecto.getLocalizacion().setEstado(state.get());
         actualProyecto.getLocalizacion().setCiudad(city.get());
         actualProyecto.setNombreCliente(client.get());
+        actualProyecto.setFechaTermino(endDate.get());
     }
 
     /**

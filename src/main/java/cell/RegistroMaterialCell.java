@@ -20,7 +20,7 @@ public final class RegistroMaterialCell {
     public RegistroMaterialCell(RegistroMaterial value) {
         this.fecha = DateUtils.formatDate(value.getFecha());
         this.cantidad = String.valueOf(value.getCantidad());
-        this.retirado = value.getRetirado() ? "Agregado" : "Retirado";
+        this.retirado = value.getRetirado() ? "Retirado" : "Agregado";
     }
 
     public String getFecha() {

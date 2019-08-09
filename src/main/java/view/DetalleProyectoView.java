@@ -4,6 +4,7 @@ import base.Injectable;
 import base.View;
 import controller.DetalleProyectoController;
 import delegate.SaveProyectoDelegate;
+import exceptions.DateRangeException;
 import exceptions.EmptyFieldException;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -86,7 +87,7 @@ public final class DetalleProyectoView extends View {
         clientField.disableProperty().bind(disable);
 
         //startDateField.disableProperty().bindBidirectional(disable);
-        //endDateField.disableProperty().bindBidirectional(disable);
+        endDateField.disableProperty().bindBidirectional(disable);
 
         editButton.setOnAction(this::editAction);
         exitButton.setOnAction(event -> close());
@@ -122,7 +123,7 @@ public final class DetalleProyectoView extends View {
         cityField.textProperty().bindBidirectional(controller.cityProperty());
         clientField.textProperty().bindBidirectional(controller.clientProperty());
         startDateField.valueProperty().bind(controller.startDateProperty());
-        endDateField.valueProperty().bind(controller.endDateProperty());
+        endDateField.valueProperty().bindBidirectional(controller.endDateProperty());
     }
 
     private void editAction(ActionEvent event) {
@@ -133,7 +134,7 @@ public final class DetalleProyectoView extends View {
                 editButton.setText("Editar");
                 isEditing = false;
                 disable.setValue(true);
-            } catch (EmptyFieldException e) {
+            } catch (EmptyFieldException | DateRangeException e) {
                 Alert.error()
                         .withDescription(e.getMessage())
                         .withButton(ButtonType.OK)

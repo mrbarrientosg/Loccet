@@ -115,7 +115,7 @@ public final class CrearTrabajadorController extends Controller {
         model.agregarTrabajador(trabajador);
 
         if (delegate != null)
-            delegate.didSaveTrabajador(trabajador);
+            delegate.didSaveTrabajador();
 
         NetService service = NetService.getInstance();
 

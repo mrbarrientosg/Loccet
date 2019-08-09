@@ -16,12 +16,8 @@ import network.service.NetService;
 import specification.TrabajadorByQuerySpecification;
 import util.AsyncTask;
 import view.RRHHView;
-
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.logging.Level;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 /**
@@ -38,6 +34,19 @@ public final class RRHHController extends Controller {
     private Constructora model = Constructora.getInstance();
 
     private NetService service = NetService.getInstance();
+
+    public void fetchTrabajadores(String idProyecto, Consumer<ObservableList<TrabajadorCell>> callBack) {
+        AsyncTask.supplyAsync(() -> {
+            ObservableList<TrabajadorCell> cells = FXCollections.observableArrayList(e -> new Observable[]{ new SimpleStringProperty(e.getRut())});
+
+            if (idProyecto.equals("Todos"))
+                model.getTrabajadores().forEach(trabajador -> cells.add(new TrabajadorCell(trabajador)));
+            else
+                model.getTrabajadores(idProyecto).forEach(trabajador -> cells.add(new TrabajadorCell(trabajador)));
+
+            return cells;
+        }).thenAccept(callBack);
+    }
 
     public ObservableList<TrabajadorCell> searchEmployee(String text) {
         ObservableList<TrabajadorCell> cells = FXCollections.observableArrayList(e -> new Observable[]{ new SimpleStringProperty(e.getRut())});
@@ -73,7 +82,7 @@ public final class RRHHController extends Controller {
 
         if (t == null) return;
 
-        view.didDeleteTrabajador(t.getRut());
+        view.didDeleteTrabajador();
 
         JsonObject json = new JsonObject();
 

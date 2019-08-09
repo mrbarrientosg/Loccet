@@ -139,21 +139,8 @@ public final class ListaTrabajadorView extends View implements SaveTrabajadorDel
     }
 
     @Override
-    public void didSaveTrabajador(Trabajador trabajador) {
-        AsyncTask.supplyAsync(() -> {
-            ListIterator<TrabajadorCell> iterator = tableView.getItems().listIterator();
-
-            while (iterator.hasNext()) {
-                TrabajadorCell cell = iterator.next();
-                if (cell.getRut().equals(trabajador.getRut())) {
-                    Platform.runLater(() -> {
-                        iterator.set(new TrabajadorCell(trabajador));
-                    });
-                    return true;
-                }
-            }
-            return false;
-        });
+    public void didSaveTrabajador() {
+        controller.fetchTrabajadores(tableView::setItems);
     }
 
     public ListaTrabajadorView display(String id) {
