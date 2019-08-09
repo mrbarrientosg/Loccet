@@ -24,8 +24,8 @@ public final class TrabajadoresPFetchHandler extends FetchHandler {
 
                     for (JsonElement jsonElement: jsonArray) {
                         JsonObject json = jsonElement.getAsJsonObject();
-                        Trabajador t = deserializer.fromJson(json, Trabajador.class);
-                        Constructora.getInstance().agregarTrabajador(json.get("id_proyecto").getAsString(), t);
+                        Trabajador t = Constructora.getInstance().obtenerTrabajador(json.get("rut").getAsString());
+                        Constructora.getInstance().agregarTrabajador(json.get("id").getAsString(), t);
                     }
                     handleNext(parameters, deserializer, result);
                 }, throwable -> {
