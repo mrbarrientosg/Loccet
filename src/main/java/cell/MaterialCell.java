@@ -2,6 +2,10 @@ package cell;
 
 import model.Material;
 
+import java.text.DecimalFormat;
+import java.util.Currency;
+import java.util.Locale;
+
 /**
  * Clase que ayuda a desplegar un material de
  * forma mas facil para la vista
@@ -23,12 +27,16 @@ public final class MaterialCell {
     private String precio;
 
     public MaterialCell(Material m) {
+        DecimalFormat df = new DecimalFormat();
+        df.setMaximumFractionDigits(0);
+        df.setCurrency(Currency.getInstance(Locale.getDefault()));
+
         id = m.getId();
         nombre = m.getNombre();
         descripcion = m.getDescripcion();
         cantidad = String.valueOf(m.getCantidad());
         uds = m.getUds();
-        precio = m.getPrecio().toString();
+        precio = "$" + df.format(m.getPrecio());
     }
 
     public String getId() {
